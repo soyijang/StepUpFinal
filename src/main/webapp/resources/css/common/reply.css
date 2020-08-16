@@ -1,0 +1,7 @@
+@charset "UTF-8";
+#reply {
+            width: 608px;
+            height: 32px;
+            border-radius: 3px;
+            border: 1px solid #D5D5D5;
+        }
