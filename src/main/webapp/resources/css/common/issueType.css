@@ -1,0 +1,61 @@
+@charset "UTF-8";
+#subtaskicon {
+            width: 20px;
+            height: 20px;
+            background-color: #4CAEE8;
+            background-image: url('../icon/common/copy.png');
+            background-size: 13px 13px;
+            background-repeat: no-repeat;
+            background-position: center;
+            border-radius: 3px;
+        }
+        #taskicon {
+            width: 20px;
+            height: 20px;
+            background-color: #4CAEE8;
+            background-image: url('../icon/common/empty.png');
+            background-size: 13px 13px;
+            background-repeat: no-repeat;
+            background-position: center;
+            border-radius: 3px;
+        }
+        #epicicon {
+            width: 20px;
+            height: 20px;
+            background-color: #904EE2;
+            background-image: url('../icon/common/thunder.png');
+            background-size: 13px 13px;
+            background-repeat: no-repeat;
+            background-position: center;
+            border-radius: 3px;
+        }
+        #choreicon {
+            width: 20px;
+            height: 20px;
+            background-color: #9DA8B5;
+            background-image: url('../icon/common/round.png');
+            background-size: 13px 13px;
+            background-repeat: no-repeat;
+            background-position: center;
+            border-radius: 3px;
+        }
+        #bugicon {
+            width: 20px;
+            height: 20px;
+            background-color: #E54A3A;
+            background-image: url('../icon/common/fillround.png');
+            background-size: 10px 10px;
+            background-repeat: no-repeat;
+            background-position: center;
+            border-radius: 3px;
+        }
+        #storyicon {
+            width: 20px;
+            height: 20px;
+            background-color: #64BA3E;
+            background-image: url('../icon/common/bookmark.png');
+            background-size: 15px 15px;
+            background-repeat: no-repeat;
+            background-position: center;
+            border-radius: 3px;
+        }
