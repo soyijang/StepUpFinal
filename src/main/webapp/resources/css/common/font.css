@@ -1,1 +1,82 @@
 @charset "UTF-8";
+@import url(http://fonts.googleapis.com/earlyaccess/notosanskr.css);
+@import url(https://fonts.googleapis.com/earlyaccess/Montserrat.css);
+
+/* noto sans kr */
+@font-face {
+   font-family: 'NotoKrL';
+   font-style: normal;
+   font-weight: 100;
+   src: local('Noto Sans Light'), local('NotoSans-Light'), url(/fonts/NotoSans-Light.eot);
+   src: url(/fonts/NotoSans-Light.eot?#iefix) format('embedded-opentype'),
+   url(/fonts/NotoSans-Light.woff2) format('woff2'),
+   url(/fonts/NotoSans-Light.woff) format('woff');
+}
+@font-face {
+   font-family: 'NotoKrR';
+   font-style: normal;
+   font-weight: 300;
+   src: local('Noto Sans Regular'), local('NotoSans-Regular'), url(/fonts/NotoSans-Regular.eot);
+   src: url(/fonts/NotoSans-Regular.eot?#iefix) format('embedded-opentype'),
+   url(/fonts/NotoSans-Regular.woff2) format('woff2'),
+   url(/fonts/NotoSans-Regular.woff) format('woff');
+}
+@font-face {
+   font-family: 'NotoKrM';
+   font-style: normal;
+   font-weight: 500;
+   src: local('Noto Sans Medium'), local('NotoSans-Medium'), url(/fonts/NotoSans-Medium.eot);
+   src: url(/fonts/NotoSans-Medium.eot?#iefix) format('embedded-opentype'),
+   url(/fonts/NotoSans-Medium.woff2) format('woff2'),
+   url(/fonts/NotoSans-Medium.woff) format('woff');
+}
+@font-face {
+   font-family: 'NotoKrB';
+   font-style: normal;
+   font-weight: 700;
+   src: local('Noto Sans Bold'), local('NotoSans-Bold'), url(/fonts/NotoSans-Bold.eot);
+   src: url(/fonts/NotoSans-Bold.eot?#iefix) format('embedded-opentype'),
+   url(/fonts/NotoSans-Bold.woff2) format('woff2'),
+   url(/fonts/NotoSans-Bold.woff) format('woff');
+}
+
+/*Montserrat */
+@font-face {
+   font-family: 'MonserratL';
+   font-style: normal;
+   font-weight: 100;
+   src: local('Monserrat Light'), local('Monserrat-Light'), url(/fonts/Monserrat-Light.eot);
+   src: url(/fonts/Monserrat-Light.eot?#iefix) format('embedded-opentype'),
+   url(/fonts/Monserrat-Light.woff2) format('woff2'),
+   url(/fonts/Monserrat-Light.woff) format('woff');
+}
+@font-face {
+   font-family: 'MonserratR';
+   font-style: normal;
+   font-weight: 300;
+   src: local('Monserrat Regular'), local('Monserrat-Regular'), url(/fonts/Monserrat-Regular.eot);
+   src: url(/fonts/Monserrat-Regular.eot?#iefix) format('embedded-opentype'),
+   url(/fonts/Monserrat-Regular.woff2) format('woff2'),
+   url(/fonts/Monserrat-Regular.woff) format('woff');
+}
+@font-face {
+   font-family: 'MonserratM';
+   font-style: normal;
+   font-weight: 500;
+   src: local('Monserrat Medium'), local('Monserrat-Medium'), url(/fonts/Monserrat-Medium.eot);
+   src: url(/fonts/Monserrat-Medium.eot?#iefix) format('embedded-opentype'),
+   url(/fonts/Monserrat-Medium.woff2) format('woff2'),
+   url(/fonts/Monserrat-Medium.woff) format('woff');
+}
+@font-face {
+   font-family: 'MonserratB';
+   font-style: normal;
+   font-weight: 700;
+   src: local('Monserrat Bold'), local('Monserrat-Bold'), url(/fonts/Monserrat-Bold.eot);
+   src: url(/fonts/Monserrat-Bold.eot?#iefix) format('embedded-opentype'),
+   url(/fonts/Monserrat-Bold.woff2) format('woff2'),
+   url(/fonts/Monserrat-Bold.woff) format('woff');
+}
+
+
+
