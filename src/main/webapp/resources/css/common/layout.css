@@ -75,10 +75,10 @@ body{
 
 /* section 안쪽 오른쪽*/
 #content{
-   padding: 50px;
+    padding: 50px;
     width: 88vw;
     height: 843px;
-    background-color: blue;
+    background-color: white;
     box-sizing: border-box;
     float:left;
 }
