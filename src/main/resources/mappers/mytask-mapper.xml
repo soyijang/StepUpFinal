@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="MyTask">
+
+	<resultMap type="com.stepup.agile.userMyTasks.model.vo.MyTask" id="myTaskResultSet">
+		<id property="myTasksCode" column="MYTASKS_CODE"/>	
+		<result property="contents" column="MYTASKS_CONTENTS"/>
+		<result property="startDate" column="MYTASKS_START_DATE"/>
+		<result property="startTime" column="MYTASKS_START_TIME"/>
+		<result property="endDate" column="MYTASKS_END_DATE"/>
+		<result property="endTime" column="MYTASKS_END_TIME"/>
+		<result property="enrollDate" column="MYTASKS_ENROLL_DATE"/>
+		<result property="enrollTime" column="MYTASKS_ENROLL_TIME"/>
+		<result property="userProjectCode" column="USER_PROJECT_CODE"/>
+		<result property="myTasksShareYN" column="MYTASKS_SHARE_YN"/>
+	</resultMap>
+
+	<select id="selectMyTask" resultMap="myTaskResultSet" parameterType="MyTask">
+		SELECT *
+		  FROM MYTASK_LIST
+		 WHERE USER_PROJECT_CODE = #{userProjectCode}
+	</select>
+	
+</mapper>
