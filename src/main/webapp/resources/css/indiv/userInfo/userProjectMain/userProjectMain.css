@@ -1,9 +1,21 @@
 @charset "UTF-8";
 #main-cont{
-	padding: 50px;
     width: 99vw;
     height: 843px;
     background-color: white;
     box-sizing: border-box;
     background-color: yellow;
+}
+#main-cont-area{
+	background-color: brown;
+	width: 70%;
+	height: 100%;
+	display: inline-block;
+	float: left;
+}
+#calendar-area{
+	background-color: orange;
+	width:20%;
+	height:100%;
+	display: inline-block;
 }
