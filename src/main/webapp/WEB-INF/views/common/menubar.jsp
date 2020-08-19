@@ -10,7 +10,6 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
-    <div id="wrapper">
         <!-- nav바 영역 -->
         <div id="navbar">navbar</div>
         <!-- nav바 하단 영역 -->
@@ -30,6 +29,7 @@
                 </table>
             </div>
         </div>
-    </div>
+
+
 </body>
-</html>                               
+</html>                           

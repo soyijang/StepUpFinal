@@ -3,11 +3,13 @@ body{
     /* 현재 창 높이의 100% */
     height: 100vh;
     overflow-x: hidden;
+    display: inline-block;
 }
+
 
 /* 전체 wrapper */
 #wrapper{
-    display: table;
+    display: inline-block;
     margin-left: auto;
     margin-right: auto;
     height: 100vh;
@@ -21,11 +23,11 @@ body{
     background-color: #2B2B49;   
 }
 
-/* 네브바 아래 전체 section(본문영역) 레이아웃 */
+/* 네브바 아래 전체 section(본문영역) 레이아웃
 #section{
     height: 843px;
 
-}
+} */
 
 /* section(본문영역) 안쪽 왼쪽 메뉴바*/
 #menubar{
@@ -73,14 +75,12 @@ body{
 
 /* section 안쪽 오른쪽*/
 #content{
-    margin-left: 15vw;
-    margin-top: 60px;
+   padding: 50px;
     width: 88vw;
     height: 843px;
-    background-color: blue;
-    float: left;
+    background-color: f9f9f9;
     box-sizing: border-box;
-    padding: 30px 40px; 
+    float:left;
 }
 
 /* content 안쪽 상단 contentTitle(제목 영역)*/
@@ -106,14 +106,17 @@ body{
     font-family: Noto Sans KR;
     font-style: normal;
     font-weight: 300;
-    font-size: 17px;
+    font-size: 26px;
     line-height: 17px;
     align-items: center;
     letter-spacing: 0.1px;
     color: #000000;
+    display: inline-block;
+    margin-top: 20px;
 }
 
 /* content 안쪽 하단 내용영역*/
-#contentBox{
-    height:700px;
+ #contentBox{ 
+
+    margin-top: 20px;
 }
