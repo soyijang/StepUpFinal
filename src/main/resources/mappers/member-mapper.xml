@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Member">
+
+	<resultMap type="com.stepup.agile.userInfo.model.vo.Member" id="memberResultSet">
+		<id property="userCode" column="USER_CODE"/>
+		<result property="userEmail" column="USER_EMAIL"/>
+		<result property="userPwd" column="USER_PWD"/>
+		<result property="userName" column="USER_NAME"/>
+		<result property="userPhone" column="USER_PHONE"/>
+		<result property="userCompName" column="USER_COMP_NAME"/>
+		<result property="userCompDept" column="USER_COMP_DEPT"/>
+		<result property="userCompJob" column="USER_COMP_JOB"/>
+		<result property="userEnrollDate" column="USER_ENROLL_DATE"/>
+		<result property="userStatus" column="USER_STATUS"/>
+		<result property="userManagerYn" column="USER_MANAGER_YN"/>
+		<result property="userEnrollTime" column="USER_ENROLL_TIME"/>
+	</resultMap>
+	
+	<insert id="insertMember" parameterType="Member">
+		INSERT INTO USER_INFO
+		VALUES (#{userEmail}, #{userPwd}, #{userName}, SEQ_USER.NEXTVAL, 
+				DEFAULT, DEFAULT, DEFAULT, DEFAULT, 
+				TO_CHAR(SYSDATE + 9/24, 'YYYY-MM-DD'), DEFAULT, DEFAULT,
+				TO_CHAR(SYSDATE + 9/24, 'hh24:mi:ss'))
+	</insert>
+	
+	<select id="selectLoginUser" resultMap="memberResultSet" parameterType="Member">
+		SELECT *
+		FROM USER_INFO
+		WHERE USER_EMAIL = #{userEmail}
+		AND USER_STATUS = 'N'
+	</select>
+	
+	<select id="loginCheck" resultMap="memberResultSet" parameterType="Member">
+		SELECT *
+		  FROM USER_INFO
+		 WHERE USER_EMAIL = #{userEmail}
+		   AND USER_PWD = #{userPwd}
+		   AND USER_STATUS = 'N'
+	</select>
+	
+	<select id="selectPwd" resultType="java.lang.String" parameterType="java.lang.String">
+		SELECT USER_PWD
+		FROM USER_INFO
+		WHERE USER_EMAIL = #{userEmail}
+		AND USER_STATUS = 'N'
+	</select>
+	
+</mapper>
