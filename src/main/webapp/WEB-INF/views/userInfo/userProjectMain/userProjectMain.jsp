@@ -24,6 +24,7 @@
                 </div>
                 <div id="calendar-area">
                 	
+                	
                 </div>
              </div>
 </body>
