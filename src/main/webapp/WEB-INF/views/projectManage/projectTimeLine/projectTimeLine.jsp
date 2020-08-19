@@ -17,11 +17,33 @@
                     <div id="menuTitle">로드맵</div>
                     <div id="shareArea">
 	                    <div id="userArea">사용자추가하는 공간</div>
-	                    <div id="share"><button id="shareBtn"><img id="sharedIcon"alt="공유아이콘" src="${pageContext.request.contextPath}/resources/icon/common/icon_shareicon.png"><span id="sharetitle">공유</span></button></div>
+	                    <div id="share">
+	                    	<button id="shareBtn">
+	                    		<img id="sharedIcon"alt="공유아이콘" src="${pageContext.request.contextPath}/resources/icon/common/icon_shareicon.png">공유
+	                    	</button>
+	                    </div>
                     </div>
                     <div id="line"></div>
                 </div>
-                <div id="contentBox2">contentBox</div>
+                <div id="contentBox2">
+                	<div id="epic-area">
+                		
+                		<div id="epic-title">
+                			에픽
+                		</div>
+                		<div id="epic-title-cont">
+                		
+                		</div>
+                	</div>
+                	<div id="epic-con-area">
+                		<div id="epic-con-title">
+                		
+                		</div>
+                		<div id="epic-con-cont">
+                		
+                		</div>
+                	</div>
+                </div>
              </div>
 </body>
 </html>

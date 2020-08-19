@@ -20,7 +20,7 @@
 }
 #shareBtn{
 	width: 90px;
-	font-size: 16px;
+	font-size: 13px;
 	text-align: center;
 	background-color: white;
 	border: 3px solid #ffffff;
@@ -47,20 +47,19 @@
 	border-radius: 3px;
 }
 #epic-area{
-	width: 20%;
+	width: 14%;
 	height: 700px;
 	display: inline-block;
 	float: left;
 }
 #epic-con-area{
-	width: 77%;
+	width: 86%;
 	height: 700px;
-	background-color: yellow; 
 	display: inline-block;
 }
 #epic-title{
 	width: 100%;
-	height: 45px;
+	height: 20px;
 	border-bottom: 1px solid #DFDFDF;
 	border-right: 1px solid #DFDFDF;
 	text-align: center;
@@ -75,3 +74,12 @@
 	font-size: 17px;
 	text-align: center;
 } */
+#epic-con-title{
+	width: 100%;
+	height: 20px;
+	border-bottom: 1px solid #DFDFDF;
+}
+#epic-con-cont{
+	width: 100%;
+	height: 650px;
+}
