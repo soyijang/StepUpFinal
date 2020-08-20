@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="Rss">
+
+
+	<!-- RSS_LIST 테이블 -->
+	<resultMap type="com.stepup.agile.userMyTasks.model.vo.Rss" id="rssResultSet">
+		<id property="rssCode" column="RSS_CODE"/>
+		<result property="userProjectCode" column="USER_PROJECT_CODE"/>
+		<result property="rssYn" column="RSS_YN"/>
+	</resultMap>
+
+	<!-- RSS_HISTORY 테이블 -->
+	<resultMap type="com.stepup.agile.userMyTasks.model.vo.RssHistory" id="rssHistoryResultSet">
+		<id property="rssHistoryCode" column="RSS_HISTORY_CODE"/>
+		<result property="rssModifyDate" column="RSS_MODIFY_DATE"/>
+		<result property="rssModifyTime" column="RSS_MODIFY_TIME"/>
+		<result property="rssModifyType" column="RSS_MODIFY_TYPE"/>
+		<result property="rssModifyNickname" column="RSS_MODIFY_NICKNAME"/>
+		<result property="rssCode" column="RSS_CODE"/>
+		<result property="rssModifyKeyword" column="RSS_MODIFY_KEYWORD"/>
+		<result property="rssModifyUrl" column="RSS_MODIFY_URL"/>
+		<result property="rssModifySite" column="RSS_MODIFY_SITE"/>
+	</resultMap>
+
+</mapper>

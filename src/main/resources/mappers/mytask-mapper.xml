@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="MyTask">
+
+<!-- MyTasks_List 테이블 -->
+	<resultMap type="com.stepup.agile.userMyTasks.model.vo.MyTask" id="myTaskResultSet">
+		<id property="myTasksCode" column="MYTASKS_CODE"/>	
+		<result property="myTaskscontents" column="MYTASKS_CONTENTS"/>
+		<result property="myTasksstartDate" column="MYTASKS_START_DATE"/>
+		<result property="myTasksstartTime" column="MYTASKS_START_TIME"/>
+		<result property="myTasksendDate" column="MYTASKS_END_DATE"/>
+		<result property="myTasksendTime" column="MYTASKS_END_TIME"/>
+		<result property="myTasksenrollDate" column="MYTASKS_ENROLL_DATE"/>
+		<result property="myTasksenrollTime" column="MYTASKS_ENROLL_TIME"/>
+		<result property="userProjectCode" column="USER_PROJECT_CODE"/>
+		<result property="myTasksShareYN" column="MYTASKS_SHARE_YN"/>
+	</resultMap>
+
+<!-- MyTasks_Share_List 테이블 -->
+	<resultMap type="com.stepup.agile.userMyTasks.model.vo.MyTaskShare" id="myTaskShareResultSet">
+		<id property="mytasksShareCode" column="MYTASKS_SHARE_CODE"/>	
+		<result property="mytasksShareType" column="MYTASKS_SHARE_TYPE"/>
+		<result property="mytasksShareDate" column="MYTASKS_SHARE_DATE"/>
+		<result property="myTasksShareTime" column="MYTASKS_SHARE_TIME"/>
+		<result property="myTasksCode" column="MYTASKS_CODE"/>
+	</resultMap>
+
+
+
+	<select id="selectMyTask" resultMap="myTaskResultSet" parameterType="MyTask">
+		SELECT *
+		  FROM MYTASK_LIST
+		 WHERE USER_PROJECT_CODE = #{userProjectCode}
+	</select>
+	
+</mapper>
