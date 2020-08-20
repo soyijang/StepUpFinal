@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Sprint">
+
+<!-- SPRINT_HISTORY 테이블-->	
+	<resultMap type="com.stepup.agile.projectBacklog.model.vo.SprintHistory" id="sprintHistoryResultSet">
+		<id property="sprintHistCode" column="SPRINT_HIST_CODE"/>
+		<result property="sprintHistUpdateDate" column="SPRINT_HIST_UPDATE_DATE"/>
+		<result property="sprintName" column="SPRINT_NAME"/>
+		<result property="sprintType" column="SPRINT_TYPE"/>
+		<result property="sprintExpectPeriod" column="SPRINT_EXPECT_PERIOD"/>
+		<result property="sprintCode" column="SPRINT_CODE"/>
+		<result property="sprintHistUpdateTime" column="SPRINT_HIST_UPDATE_TIME"/>
+		<result property="sprintIntro" column="SPRINT_INTRO"/>
+		<result property="sprintStatus" column="SPRINT_STATUS"/>
+	</resultMap>
+	
+	
+<!-- SPRINT LIST 테이블 -->
+	<resultMap type="com.stepup.agile.projectBacklog.model.vo.Sprint" id="sprintResultSet">
+		<id property="sprintCode" column="SPRINT_CODE"/>
+		<result property="sprintCreateDate" column="SPRINT_CREATE_DATE"/>
+		<result property="sprintProjectCode" column="USER_PROJECT_CODE"/>
+		<result property="sprintCreateTime" column="SPRINT_CREATE_TIME"/>
+	</resultMap>
+
+
+
+
+
+
+
+
+
+	
+</mapper>
