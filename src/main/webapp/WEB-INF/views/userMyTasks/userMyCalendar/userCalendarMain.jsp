@@ -8,8 +8,36 @@
 <style type="text/css">
 	.calendar{
 		width: 75%;
+		margin-top: 15px;
 	}
 
+	.cal-schedule{
+		font-size: small;
+	}
+	
+	.cal_top{
+		width: 75%;
+		text-align: left;
+		font-size: xx-large;
+	}
+	
+	.all_cal-func{
+		width: 75%;
+	}
+	
+	.cal-func{
+		margin: 5px;
+		height: 40px;
+		width: 140px;
+		background-color: black;
+		color: white;
+		float: right;
+		text-align: center;
+		line-height: 40px;
+		font-size: small;
+		border-radius: 10px;
+	}
+	
 </style>
 </head>
 <body>
@@ -23,18 +51,16 @@
         </div>
         <div id="contentBox">
 			<div id="calendar">				
-				<div class="cal_top">
-					<a href="#" id="movePrevMonth"><span id="prevMonth" class="cal_tit">&lt;</span></a>
-					<span id="cal_top_year"></span>
-					<span id="cal_top_month"></span>
-					<a href="#" id="moveNextMonth"><span id="nextMonth" class="cal_tit">&gt;</span></a>
-				</div>
-			
-				 <div class="cal-func">
-					<div class="date-type">
-						<span class="type-r"><div></div><em>개인일정</em></span>
-						<span class="type-e"><div></div><em>프로젝트일정</em></span>
+				 <div class="all_cal-func">
+					<div class="cal_top">
+						<a href="#" id="movePrevMonth"><span id="prevMonth" class="cal_tit">&lt;</span></a>
+						<span id="cal_top_year"></span>
+						<span id="cal_top_month"></span>
+						<a href="#" id="moveNextMonth"><span id="nextMonth" class="cal_tit">&gt;</span></a>
 					</div>
+					<div class="cal-func">공유되지않은 일정</div>
+					<div class="cal-func">공유된 일정</div>
+					<div class="cal-func">전체 개인 일정</div>
 				</div>	
 			
 				<div id="cal_tab" class="cal"></div>				   		
@@ -56,6 +82,7 @@
 	        drawCalendar();
 	        initDate();
 	        drawDays();
+	        drawSche();
 	        $("#movePrevMonth").on("click", function(){movePrevMonth();});
 	        $("#moveNextMonth").on("click", function(){moveNextMonth();});
 	        
@@ -65,14 +92,14 @@
 	    function drawCalendar() {
 	    	
 	        var setTableHTML = "";
-	        setTableHTML+='<table class="calendar">';
+	        setTableHTML+='<table class="calendar" style="table-layout: fixed">';
 	        setTableHTML+='<tr id="cal-tr"><th style="color: red;">일</th><th>월</th><th>화</th><th>수</th><th>목</th><th>금</th><th style="color:blue;">토</th></tr>';
 	        for(var i=0;i<6;i++){
 	            setTableHTML+='<tr height="100">';
 	            for(var j=0;j<7;j++){
-	                setTableHTML+='<td style="text-overflow:ellipsis;overflow:hidden;white-space:nowrap">';
-	                setTableHTML+='    <div class="cal-day"></div>';
-	                setTableHTML+='    <div class="cal-schedule"></div>';
+	                setTableHTML+='<td style="text-overflow:ellipsis;overflow:hidden;white-space:nowrap;width:10%">';
+	                setTableHTML+='    <div class="cal-day" style="width:10%; "></div>';
+	                setTableHTML+='    <div class="cal-schedule" style="width:10%"></div>';
 	                setTableHTML+='</td>';
 	            }
 	            setTableHTML+='</tr>';
@@ -110,6 +137,15 @@
 	            $tdDay.eq(i).css("color","blue");
 	        }
 	    }
+	    
+	    //스케줄표시
+	    function drawSche() {
+	    	
+	    	$tdSche.eq(today.getDate()+firstDay.getDay()-1).text("🤴🏻오늘 뷰 다 끝날수있나?");
+	    	$tdSche.eq(today.getDate()+firstDay.getDay()).text("🎃금요일인데 아직 뷰 못끝냈겠찌?");
+	    	$tdSche.eq(today.getDate()).css("color", "black");
+	    	
+		}
 	
 	    //calendar 월 이동
 	    function movePrevMonth() {
@@ -125,7 +161,6 @@
 	        getNewInfo();
 	    
 	    }
-	
 	
 	    function moveNextMonth() {
 	       
@@ -147,17 +182,18 @@
 	    	
 	        for(var i=0;i<42;i++) {
 	            $tdDay.eq(i).text("");
+	            $tdSche.eq(i).text("");
 	        }
 	        dayCount=0;
 	        firstDay = new Date(year,month-1,1);
 	        lastDay = new Date(year,month,0);
 	        drawDays();
-	        
+	        drawSche();
 	    }
 	
 	</script>
 	
-	<script>
+<!-- 	<script>
 	
 		$(document).ready(function() {
 			
@@ -203,7 +239,7 @@
 		function goYearMonth() {
 			location.href = "?yyyy=" + $("#yyyy").val() + "&mmmm=" + $("#mmmm").val();
 		}
-	</script>
+	</script> -->
 
 </body>
 </html>
