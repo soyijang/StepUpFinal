@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Task">
+	
+	<!-- TASK_CATEGORY 테이블 -->
+	<resultMap type="com.stepup.agile.projectTask.model.vo.TaskCategory" id="TaskCategoryResultSet">
+	<id property="taskCategoryCode" column="TASK_CATEGORY_CODE"/>
+	<result property="taskCategoryName" column="TASK_CATEGORY_NAME"/>
+	</resultMap>
+	
+	<!-- TASK_LIST 테이블 -->
+	<resultMap type="com.stepup.agile.projectTask.model.vo.TaskList" id="TaskListResultSet">
+	<id property="taskCode" column="TASK_CODE"/>
+	<result property="taskCreateDate" column="TASK_CREATE_DATE"/>
+	<result property="taskLevel" column="TASK_LEVEL"/>
+	<result property="sprintCode" column="SPRINT_CODE"/>
+	<result property="taskCreateTime" column="TASK_CREATE_TIME"/>
+	<result property="taskMaster" column="TASK_MASTER"/>
+	<result property="taskUser" column="TASK_USER"/>
+	</resultMap>
+	
+	<!-- TASK_HISTORY 테이블 -->
+	<resultMap type="com.stepup.agile.projectTask.model.vo.TaskHistory" id="TaskHistoryResultSet">
+	<id property="taskHistUpdateDate" column="TASK_HIST_UPDATE_DATE"/>
+	<result property="taskHistUpdateTime" column="TASK_HIST_UPDATE_TIME"/>
+	<result property="taskCode" column="TASK_CODE"/>
+	<result property="taskHistCode" column="TASK_HIST_CODE"/>
+	<result property="masterCode" column="MASTER_CODE"/>
+	<result property="userCode" column="USER_CODE"/>
+	<result property="taskHistValue" column="TASK_HIST_VALUE"/>
+	<result property="taskCategoryCode" column="TASK_CATEGORY_CODE"/>
+	</resultMap>
+	
+</mapper>
