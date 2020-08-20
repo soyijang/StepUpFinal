@@ -1,5 +1,6 @@
 package com.stepup.agile.projectTask.model.vo;
 
+
 public class Bookmark implements java.io.Serializable {
 	private int bookmarkCode;
 	private int userCode;

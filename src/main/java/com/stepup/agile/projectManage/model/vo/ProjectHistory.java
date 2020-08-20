@@ -1,5 +1,6 @@
 package com.stepup.agile.projectManage.model.vo;
 
+
 public class ProjectHistory implements java.io.Serializable{
 	private int projectHistCode;
 	private String projectHistDate;

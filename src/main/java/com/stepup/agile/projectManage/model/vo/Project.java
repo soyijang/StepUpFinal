@@ -1,5 +1,6 @@
 package com.stepup.agile.projectManage.model.vo;
 
+
 public class Project implements java.io.Serializable{
 	private int projectCode;
 	private String projectName;
