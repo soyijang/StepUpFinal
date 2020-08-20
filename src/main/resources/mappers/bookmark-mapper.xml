@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="Bookmark">
+
+	<!-- BOOKMARK_LIST 테이블 -->
+	<resultMap type="com.stepup.agile.projectManage.model.vo.Project" id="projectResultSet">
+		<id property="bookmarkCode" column="BOOKMARK_CODE"/>
+		<result property="userCode" column="USER_CODE"/>
+		<result property="taskCode" column="TASK_CODE"/>
+		<result property="bookmarkDate" column="BOOKMARK_DATE"/>
+		<result property="bookmarkTime" column="BOOKMARK_TIME"/>
+	</resultMap>
+
+</mapper>
