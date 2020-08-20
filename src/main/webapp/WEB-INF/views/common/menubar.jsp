@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <title>Document</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="../../../resources/css/common/layout.css">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/common/layout.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>

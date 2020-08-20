@@ -38,7 +38,7 @@
 		<result property="userTeamTime" column="USER_TEAM_TIME"/>
 	</resultMap>
 	
-	<resultMap type="com.stepup.agile.userInfo.model.vo.TeAM" id="TeamResultSet">
+	<resultMap type="com.stepup.agile.userInfo.model.vo.Team" id="TeamResultSet">
 		<id property="teamCode" column="TEAM_CODE"/>
 		<result property="teamName" column="TEAM_NAME"/>
 	</resultMap>
