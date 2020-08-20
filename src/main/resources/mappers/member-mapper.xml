@@ -19,6 +19,30 @@
 		<result property="userEnrollTime" column="USER_ENROLL_TIME"/>
 	</resultMap>
 	
+	<resultMap type="com.stepup.agile.userInfo.model.vo.UserProjectList" id="UserProjectListResultSet">
+		<id property="projectCode" column="PROJECT_CODE"/>
+		<result property="userProjectUpdateDate" column="USER_PROJECT_UPDATE_DATE"/>
+		<result property="userProjectUpdateTime" column="USER_PROJECT_UPDATE_TIME"/>
+		<result property="userProjectStatus" column="USER_PROJECT_STATUS"/>
+		<result property="userProjectCode" column="USER_PROJECT_CODE"/>
+		<result property="userTeamCode" column="USER_TEAM_CODE"/>
+		<result property="userProjectAuthority" column="USER_PROJECT_AUTHORITY"/>
+	</resultMap>
+	
+	<resultMap type="com.stepup.agile.userInfo.model.vo.UserTeamList" id="UserTeamListResultSet">
+		<id property="teamCode" column="TEAM_CODE"/>
+		<result property="userTeamDate" column="USER_TEAM_DATE"/>
+		<result property="userTeamYn" column="USER_TEAM_YN"/>
+		<result property="userCode" column="USER_CODE"/>
+		<result property="userTeamCode" column="USER_TEAM_CODE"/>
+		<result property="userTeamTime" column="USER_TEAM_TIME"/>
+	</resultMap>
+	
+	<resultMap type="com.stepup.agile.userInfo.model.vo.Team" id="TeamResultSet">
+		<id property="teamCode" column="TEAM_CODE"/>
+		<result property="teamName" column="TEAM_NAME"/>
+	</resultMap>
+	
 	<insert id="insertMember" parameterType="Member">
 		INSERT INTO USER_INFO
 		VALUES (#{userEmail}, #{userPwd}, #{userName}, SEQ_USER.NEXTVAL, 
