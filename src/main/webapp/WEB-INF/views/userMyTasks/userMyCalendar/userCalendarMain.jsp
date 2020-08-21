@@ -7,53 +7,9 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/common/nav.js"></script>
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/indiv/calendar.css">
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/indiv/calendar.js"></script>
 
-<style type="text/css">
-	.calendar{
-		width: 75%;
-		margin-top: 15px;
-	}
-
-	#cal-tr > th{
-		text-align: left;
-	
-	}
-	.cal-schedule{
-		font-size: small;
-	}
-	
-	.cal_top{
-		width: 75%;
-		text-align: left;
-		font-size: xx-large;
-	}
-	
-	.all_cal-func{
-		width: 75%;
-	}
-	
-	.cal-func{
-		margin: 5px;
-		height: 40px;
-		width: 140px;
-		background-color: black;
-		color: white;
-		float: right;
-		text-align: center;
-		line-height: 40px;
-		font-size: small;
-		border-radius: 10px;
-	}
-	
-	#prevMonth > img , #nextMonth > img {
-		width: 30px;
-		height: 30px;
-		vertical-align: middle;
-	}
-	
-	
-</style>
 </head>
 <body>
     <%@ include file="../../common/menubar.jsp" %>
@@ -63,149 +19,80 @@
             <div id="projectTitle2">프로젝트 / 앤티앤스프레즐맛있네요</div>
             <div id="menuTitle">개인일정관리</div>
         </div>
+        
+        <!-- 캘린더영역 -->
         <div id="contentBox">
-			<div id="calendar">				
+			
+			<div id="calendar">			
+				
+				<!-- 캘린더상단영역 -->
 				 <div class="all_cal-func">
 					<div class="cal_top">
-						<a href="#" id="movePrevMonth"><span id="prevMonth" class="cal_tit"><img src="${contextPath}/resources/icon/common/icon_left_chevron.png"></span></a>
+						<a href="#" id="movePrevMonth"><span id="prevMonth" class="cal_tit"><img src="/agile/resources/icon/common/icon_left_chevron.png"></span></a>
 						<span id="cal_top_year"></span>.
 						<span id="cal_top_month"></span>
-						<a href="#" id="moveNextMonth"><span id="nextMonth" class="cal_tit"><img src="${contextPath}/resources/icon/common/icon_right_chevron.png"></span></a>
+						<a href="#" id="moveNextMonth"><span id="nextMonth" class="cal_tit"><img src="/agile/resources/icon/common/icon_right_chevron.png"></span></a>
+						<div id="calendarbtn">
+							<div class="cal-func">공유되지않은 일정</div>
+							<div class="cal-func">공유된 일정</div>
+							<div class="cal-func">전체 개인 일정</div>
+						</div>
 					</div>
-					<div class="cal-func">공유되지않은 일정</div>
-					<div class="cal-func">공유된 일정</div>
-					<div class="cal-func">전체 개인 일정</div>
 				</div>	
-			
-				<div id="cal_tab" class="cal"></div>				   		
-			</div>
-		</div>
-    </div>
 
-	<script type="text/javascript">
-	    var today = null;
-	    var year = null;
-	    var month = null;
-	    var firstDay = null;
-	    var lastDay = null;
-	    var $tdDay = null;
-	    var $tdSche = null;
-	
-	    $(document).ready(function() {
-	    	
-	        drawCalendar();
-	        initDate();
-	        drawDays();
-	        drawSche();
-	        $("#movePrevMonth").on("click", function(){movePrevMonth();});
-	        $("#moveNextMonth").on("click", function(){moveNextMonth();});
-	        
-	    });
-	
-	    //calendar 그리기
-	    function drawCalendar() {
-	    	
-	        var setTableHTML = "";
-	        setTableHTML+='<table class="calendar" style="table-layout: fixed">';
-	        setTableHTML+='<tr id="cal-tr"><th style="color: red;">Sun</th><th>Mon</th><th>Tue</th><th>Wed</th><th>Thu</th><th>Fri</th><th style="color:blue;">Sat</th></tr>';
-	        for(var i=0;i<6;i++){
-	            setTableHTML+='<tr height="100">';
-	            for(var j=0;j<7;j++){
-	                setTableHTML+='<td style="text-overflow:ellipsis;overflow:hidden;white-space:nowrap;width:10%">';
-	                setTableHTML+='    <div class="cal-day" style="width:10%; "></div>';
-	                setTableHTML+='    <div class="cal-schedule" style="width:10%"></div>';
-	                setTableHTML+='</td>';
-	            }
-	            setTableHTML+='</tr>';
-	        }
-	        setTableHTML+='</table>';
-	        $("#cal_tab").html(setTableHTML);
-	        
-	    }
-	
-	    //날짜 초기화
-	    function initDate() {
-	    	
-	        $tdDay = $("td div.cal-day")
-	        $tdSche = $("td div.cal-schedule")
-	        dayCount = 0;
-	        today = new Date();
-	        year = today.getFullYear();
-	        month = today.getMonth()+1;
-	        firstDay = new Date(year,month-1,1);
-	        lastDay = new Date(year,month,0);
-	        
-	    }
-	
-	    //calendar 날짜표시
-	    function drawDays() {
-	        $("#cal_top_year").text(year);
-	        $("#cal_top_month").text(month);
-	        for(var i=firstDay.getDay();i<firstDay.getDay()+lastDay.getDate();i++){
-	            $tdDay.eq(i).text(++dayCount);
-	        }
-	        for(var i=0;i<42;i+=7) {
-	            $tdDay.eq(i).css("color","red");
-	        }
-	        for(var i=6;i<42;i+=7) {
-	            $tdDay.eq(i).css("color","blue");
-	        }
-	    }
-	    
-	    //스케줄표시
-	    function drawSche() {
-	    	
-	    	$tdSche.eq(today.getDate()+firstDay.getDay()-1).text("🤴🏻오늘 js 다 끝날수있나?");
-	    	$tdSche.eq(today.getDate()+firstDay.getDay()).text("🎃금요일인데 아직 못끝내겠찌?");
-	    	$tdSche.eq(today.getDate()).css("color", "black");
-	    	
-		}
-	
-	    //calendar 월 이동
-	    function movePrevMonth() {
-	       
-	    	month--;
-	        if(month<=0) {
-	            month=12;
-	            year--;
-	        }
-	        if(month<10) {
-	            month=String("0"+month);
-	        }
-	        getNewInfo();
-	    
-	    }
-	
-	    function moveNextMonth() {
-	       
-	    	month++;
-	        if(month>12) {
-	            month=1;
-	            year++;
-	        }
-	
-	        if(month<10) {
-	            month=String("0"+month);
-	        }
-	
-	        getNewInfo();
-	
-	    }
-	
-	    function getNewInfo() {
-	    	
-	        for(var i=0;i<42;i++) {
-	            $tdDay.eq(i).text("");
-	            $tdSche.eq(i).text("");
-	        }
-	        dayCount=0;
-	        firstDay = new Date(year,month-1,1);
-	        lastDay = new Date(year,month,0);
-	        drawDays();
-	        drawSche();
-	    }
-	
-	</script>
+				<!-- 캘린더영역 -->
+				<div id="cal_tab" class="cal"></div>				   		
+				
+				
+				<!-- 우측영역 -->
+				<div class="checkList">
+					<div id="toDoList">
+
+						<div class="checkListToday">
+							<div id="todayDay">2020년 08월 13일</div>
+							<div id="todayDate">목요일</div><br>
+							<p>할일 50654개 남음</p><hr>
+						</div>
+
+						<table class="checkListTodayTable">
+							<tbody>
+								<tr>
+									<td class="toDoCheckBox"><input id="check1" type="checkbox"></td>
+									<td class="toDoToday"><label for="check1"> 오늘안에 캘린더라도 하자 소이야ㅎㅎ</label></td>
+								</tr>
+								<tr>
+									<td class="toDoCheckBox"><input type="checkbox"></td>
+									<td class="toDoToday">오늘안하면 내일해야되잖아?</td>
+								</tr>
+
+							</tbody>
+						</table>
+						
+						<img id="plusMyTask" onclick="" src="/agile/resources/icon/common/icon_circle_plus_red.png">
+						
+					</div>
+					
+					<div id="sharedList">
+
+						<div class="checkListToday">
+							<div id="todayDay">공유된 오늘의 일정</div>
+							<p>진행 한 일</p><hr>
+							<p>진행 할 일</p><hr>
+							<p>변경/취소/미달성 된 일</p><hr>
+							
+						</div>
+
+
+					</div>
+					
+				</div>
+			
+			</div>
+				
+			</div>
+		
+		
+    </div>
 	
 <!-- 	<script>
 	
