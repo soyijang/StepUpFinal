@@ -14,7 +14,7 @@
 	
 	.cal_top{
 		text-align: left;
-		font-size: xx-large;
+		font-size: x-large;
 	}
 	
 	.all_cal-func{
@@ -32,13 +32,20 @@
 		height: 30px;
 		width: 130px;
 		vertical-align: middle;
-		background-color: black;
-		color: white;
 		float: right;
 		text-align: center;
 		line-height: 30px;
 		font-size: small;
 		border-radius: 10px;
+		color: #DD0351;
+		background: #f9f9f9;
+		transition: all ease 0.3s 0s;
+	}
+
+	.cal-func:hover{
+		font-weight: bold;
+		background: #DD0351;
+		color: #f9f9f9;
 	}
 	
 	#prevMonth > img , #nextMonth > img {
@@ -50,19 +57,23 @@
 	/* 우측 체크리스트 */
 	.checkList{
 		float: right;
-		
+		margin-right: 40px;
 	}
 
 	#toDoList{
-		width: 100%;
+		width: 250px;
 		height: 329px;
 		background-color: #FAFAFA;
 		border-radius: 20px;
+		text-overflow:ellipsis;
+		overflow:hidden;
+		white-space:nowrap;
+		
 	}
 	
 	#sharedList{
 		margin-top: 10px;
-		width: 244px;
+		width: 250px;
 		height: 329px;
 		background-color: #FAFAFA;
 		border-radius: 20px;
@@ -70,7 +81,7 @@
 
 	#todayDay{
 		font-style: normal;
-		font-weight: bold;
+		font-weight: bolder;
 		font-size: 18px;
 		line-height: 21px;
 		
@@ -84,7 +95,52 @@
 	}
 
 	.checkListToday {
-		text-align: center;
+		padding-top : 30px;
+		padding-left: 20px;
+		width: 200px;
+		overflow:hidden;
+		text-align: left;
+		
 	}
 
-	
+	.checkListToday > p {
+		font-size: 12px;
+		line-height: 14px;	
+		color: #DD0351;
+		font-weight: bold;
+	}
+
+	.checkListTodayTable {
+		padding-left: 20px;
+		padding-right: 20px;
+		width: 250px;
+		table-layout: fixed;
+	}
+
+
+	.toDoCheckBox{
+		width: 20px;
+
+	}
+
+	.toDoToday {
+		font-size: 13px;
+		width: 190px;
+		text-overflow:ellipsis; 
+		overflow:hidden; 
+		white-space:nowrap;
+
+	}
+
+	#plusMyTask{
+		width: 40px;
+		height: 40px;
+		margin-left: auto;
+		position: relative;
+		top: 90px;
+		left: 100px;
+		border: 0;
+		outline: 0;
+		background: transparent;
+		cursor: pointer;
+	}

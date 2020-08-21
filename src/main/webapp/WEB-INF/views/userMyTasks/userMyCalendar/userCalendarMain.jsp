@@ -50,18 +50,39 @@
 
 						<div class="checkListToday">
 							<div id="todayDay">2020년 08월 13일</div>
-							<div id="todayDate">목요일</div>
+							<div id="todayDate">목요일</div><br>
+							<p>할일 50654개 남음</p><hr>
 						</div>
-						<table>
 
-							
+						<table class="checkListTodayTable">
+							<tbody>
+								<tr>
+									<td class="toDoCheckBox"><input id="check1" type="checkbox"></td>
+									<td class="toDoToday"><label for="check1"> 오늘안에 캘린더라도 하자 소이야ㅎㅎ</label></td>
+								</tr>
+								<tr>
+									<td class="toDoCheckBox"><input type="checkbox"></td>
+									<td class="toDoToday">오늘안하면 내일해야되잖아?</td>
+								</tr>
+
+							</tbody>
 						</table>
+						
+						<img id="plusMyTask" onclick="" src="/agile/resources/icon/common/icon_circle_plus_red.png">
 						
 					</div>
 					
 					<div id="sharedList">
-						ddd
-						
+
+						<div class="checkListToday">
+							<div id="todayDay">공유된 오늘의 일정</div>
+							<p>진행 한 일</p><hr>
+							<p>진행 할 일</p><hr>
+							<p>변경/취소/미달성 된 일</p><hr>
+							
+						</div>
+
+
 					</div>
 					
 				</div>

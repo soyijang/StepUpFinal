@@ -8,6 +8,7 @@
 			var menubarWithBtn = document.getElementById('menubarWithBtn'); 
 			var content = document.getElementById('content'); 
 			
+			
 			/* 숨기기  */
 			if(num==0){
 				menubarWithBtn.style.left = '-190px'

@@ -22,9 +22,9 @@
 	    	
 	        var setTableHTML = "";
 	        setTableHTML+='<table class="calendar" style="table-layout: fixed">';
-	        setTableHTML+='<tr id="cal-tr"><th style="color: red;">Sun</th><th>Mon</th><th>Tue</th><th>Wed</th><th>Thu</th><th>Fri</th><th style="color:blue;">Sat</th></tr>';
+	        setTableHTML+='<tr id="cal-tr"><th style="color: #a30000;">Sun</th><th>Mon</th><th>Tue</th><th>Wed</th><th>Thu</th><th>Fri</th><th style="color:#1e019e;">Sat</th></tr>';
 	        for(var i=0;i<6;i++){
-	            setTableHTML+='<tr height="100">';
+	            setTableHTML+='<tr id="cal-daytr" height="100">';
 	            for(var j=0;j<7;j++){
 	                setTableHTML+='<td style="text-overflow:ellipsis;overflow:hidden;white-space:nowrap;width:10%">';
 	                setTableHTML+='    <div class="cal-day" style="width:10%; "></div>';
@@ -60,10 +60,10 @@
 	            $tdDay.eq(i).text(++dayCount);
 	        }
 	        for(var i=0;i<42;i+=7) {
-	            $tdDay.eq(i).css("color","red");
+	            $tdDay.eq(i).css("color","#a30000");
 	        }
 	        for(var i=6;i<42;i+=7) {
-	            $tdDay.eq(i).css("color","blue");
+	            $tdDay.eq(i).css("color","#1e019e");
 	        }
 	    }
 	    
