@@ -13,11 +13,11 @@
 		background-color:pink;
 		z-index:-1;
 	}
-	#profile {
+	#mainProfile {
 		width:100px;
 		height:100px;
 		border-radius:75px;
-		margin-left:330px;
+		margin-left:100px;
 		margin-top:-40px;
 		background-color:gray;
 	}
@@ -29,12 +29,12 @@
 		z-index:1;
 	}
 	#name {
-		margin-left: 333px;
+		margin-left: 100px;
 		margin-top:20px;
 		font-size:30px;
 	}
 	.personalInfo {
-		margin-left:300px;
+		margin-left:100px;
 		margin-top:20px;
 	}
 	#manage {
@@ -74,7 +74,7 @@
 		border-radius:5px;
 	}
 	#team {
-		margin-left:800px;
+		margin-left:550px;
 		margin-top:-500px;
 		font-size:20px;
 	}
@@ -103,7 +103,7 @@
 		border-radius:5px;
 	}
 	#project {
-		margin-left: 800px;
+		margin-left: 550px;
 		margin-top: 20px;
 		font-size:20px;
 	}
@@ -143,8 +143,9 @@
 </head>
 <body>
 	<%@ include file="../common/menubar.jsp" %>
+	<div id="content" style="padding:0px; padding-top:-20px">
 	<div id="backimg"></div>
-	<div id="profile"><img src="/agile/resources/icon/common/icon_user.png" id="profilePhoto"></div>
+	<div id="mainProfile"><img src="/agile/resources/icon/common/icon_user.png" id="profilePhoto"></div>
 	<div id="name"><label><c:out value="${ sessionScope.loginUser.userName }"/></label></div>
 	<div>
 		<div class="personalInfo">
@@ -185,7 +186,7 @@
 				</tr>
 			</table>
 		</div>
-		<div id="team">팀원
+		<!-- <div id="team">팀원
 			<div class="teamList">
 				<div id="teamBack">
 					<div id="teamProfile">
@@ -195,6 +196,13 @@
 					</div>
 				</div>
 			</div>
+		</div> -->
+		<div id="team">팀원
+			<table class="teamList">
+				<tr>
+					<th id="teamBack"></th>
+				</tr>
+			</table>
 		</div>
 		
 		<div id="project">작업위치
@@ -206,5 +214,6 @@
 			</div>
 		</div>
 	</div>
+</div>
 </body>
 </html>
