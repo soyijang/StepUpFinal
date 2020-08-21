@@ -1,0 +1,90 @@
+	.calendar{
+		width: 75%;
+		margin-top: 15px;
+		float: left;
+	}
+
+	#cal-tr > th{
+		text-align: left;
+	
+	}
+	.cal-schedule{
+		font-size: small;
+	}
+	
+	.cal_top{
+		text-align: left;
+		font-size: xx-large;
+	}
+	
+	.all_cal-func{
+		width: 75%;
+	}
+	
+	#calendarbtn{
+		float: right;
+		margin-left: 20px;
+		width: 500px;
+	}
+
+	.cal-func{
+		margin: 5px;
+		height: 30px;
+		width: 130px;
+		vertical-align: middle;
+		background-color: black;
+		color: white;
+		float: right;
+		text-align: center;
+		line-height: 30px;
+		font-size: small;
+		border-radius: 10px;
+	}
+	
+	#prevMonth > img , #nextMonth > img {
+		width: 30px;
+		height: 30px;
+		vertical-align: middle;
+	}
+	
+	/* 우측 체크리스트 */
+	.checkList{
+		float: right;
+		
+	}
+
+	#toDoList{
+		width: 100%;
+		height: 329px;
+		background-color: #FAFAFA;
+		border-radius: 20px;
+	}
+	
+	#sharedList{
+		margin-top: 10px;
+		width: 244px;
+		height: 329px;
+		background-color: #FAFAFA;
+		border-radius: 20px;
+	}
+
+	#todayDay{
+		font-style: normal;
+		font-weight: bold;
+		font-size: 18px;
+		line-height: 21px;
+		
+	}
+
+	#tadayDate{
+		font-style: normal;
+		font-weight: normal;
+		font-size: 12px;
+		line-height: 14px;
+	}
+
+	.checkListToday {
+		text-align: center;
+	}
+
+	

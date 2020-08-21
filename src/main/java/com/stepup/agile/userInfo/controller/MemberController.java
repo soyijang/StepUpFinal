@@ -61,5 +61,10 @@ public class MemberController {
 			return "common/errorPage";
 		}
 	}
+	
+	@RequestMapping("backlogin.me")
+	public String showloginPage() {
+		return "userInfo/login";
+	}
 
 }

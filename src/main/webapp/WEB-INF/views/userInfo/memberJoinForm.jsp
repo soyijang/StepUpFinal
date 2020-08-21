@@ -6,125 +6,112 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
-        body {
+         body {
             background-color: #E5E5E5;
         }
         #logo {
-            position: absolute;
             width: 200px;
             height: 50px;
-            top: 40px;
-            left: 650px;
+            margin-left: 600px;
+            margin-top: 30px;
         }
         .login {
-            position: absolute;
             width: 506px;
             height: 611px;
-            left: 499px;
-            top: 130px;
             background-color: white;
             box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
             border-radius: 5px;  
             z-index: 1;   
+            margin: auto auto;
+            margin-top: 30px;
+            vertical-align: middle;
         }
         #title {
             width: 376px;
             height: 48px;
-            margin-top: 40px;
-            margin-left: 170px;
+            padding-top: 40px;
+            padding-left: 150px;
         }
         #man {
-            position: relative;
             width: 300px;
             height: 300px;
-            top: 470px;
-            left: 900px;
+            margin-left: 900px;
+            margin-top: -260px;
             z-index: 2;
         }
         #woman {
-            position: relative;
             width: 300px;
             height: 300px;
-            top: 140px;
             z-index: 2;
+            margin-left: -50px;
+            margin-top: -320px;
         }
         #wrapper {
-            border: 1px solid;
             width: 1440px;
             height: 900px;
+            margin: auto auto;
         }
         #email {
-            position: absolute;
-            top: 100px;
-            left: 50px;
             width: 400px;
             height: 45px;
-        }
-        #password {
-            position: absolute;
-            top: 240px;
-            left: 50px;
-            width: 400px;
-            height: 45px;
+            margin: 10px 50px;
         }
         #name {
-            position: absolute;
-            top: 170px;
-            left: 50px;
             width: 400px;
             height: 45px;
+            margin: 10px 50px;
         }
-        #policy {
-            position: absolute;
-            top: 310px;
-            left: 60px;
+        #password {
             width: 400px;
             height: 45px;
+            margin: 10px 50px;
         }
         #continue {
-            position: absolute;
-            top: 380px;
-            left: 50px;
             width: 405px;
             height: 45px;
             background-color: #DD0351;
             border: 0;
             outline: 0;
+            margin: 10px 50px;
         }
         hr {
-            position: absolute;
             width: 450px;
-            top: 530px;
-            left: 30px;
+            margin-top: 100px;
         }
         .account {
-            position: absolute;
-            top: 500px;
+            margin: 15px 170px;
+            width: 150px;
         }
+        
+        #policy {
+            width: 400px;
+            height: 45px;
+            margin: 10px 50px;
+        }
+        
         #sign {
             left: 110px;
             top:560px;
+            width: 300px;
+            margin: 25px 100px;
         }
+        
         #bottomlogo {
-            position: absolute;
             width: 200px;
             height: 50px;
-            top: 780px;
-            left: 650px;
+            margin: 30px 600px;
         }
         #bottomlabel {
-            position: absolute;
             width: 300px;
             height: 50px;
-            top: 840px;
-            left: 620px;
+            margin: -30px 570px;
         }
     </style>
 </head>
 <body>
 	<form action="insert.me" method="post">
 	<div id="wrapper">
-    <div><img src="line.png" id="logo"></div>
+    <div><img src="${ contextPath }/resources/images/logo/logo_trans.png" id="logo"></div>
     <div class="login">
         <div id="title"><label>Sign up for your account</label></div>
         <input type="text" placeholder="Enter your email" id="email" name="userEmail">
@@ -133,11 +120,11 @@
         <div id="policy"><label>By signing up, I accept the Stepup Cloud Terms of Service and acknowledge the Privacy Policy.</label></div>
         <input type="submit" value="Continue" id="continue"></button>
         <hr>
-        <div class="account" id="sign"><label>Already have an Stepup account? Login</label></div>    
+        <div class="account" id="sign"><label>Already have an Stepup account?</label><a href="backlogin.me">Login</a></div>    
     </div>
-    <div id="man"><img src="man.png"></div>
-    <div id="woman"><img src="woman.png"></div>
-    <div><img src="line.png" id="bottomlogo"></div>
+    <div id="man"><img src="${ contextPath }/resources/images/files/login_man.png"></div>
+    				<div id="woman"><img src="${ contextPath }/resources/images/files/login_woman.png"></div>
+    				<div><img src="${ contextPath }/resources/images/logo/logo_trans.png" id="bottomlogo"></div>
     <div id="bottomlabel"><label>with one account, can meet everyone</label></div>
     </div>
     </form>
