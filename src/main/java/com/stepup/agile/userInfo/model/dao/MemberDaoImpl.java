@@ -23,7 +23,7 @@ public class MemberDaoImpl implements MemberDao {
 
 	@Override
 	public Member selectMember(SqlSessionTemplate sqlSession, Member m) {
-
+		
 		return sqlSession.selectOne("Member.selectLoginUser", m);
 	}
 	

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -64,7 +65,6 @@
 	}
 	.info {
 		padding-right:130px;
-		color :#E9E9E9;
 	}
 	.teamList{
 		width: 600px;
@@ -134,49 +134,54 @@
 		margin-left:80px;
 		margin-top:-30px;
 	}
+	input{
+        border: 0;
+        outline: 0;
+        widtth:50px;
+    }
 </style>
 </head>
 <body>
 	<%@ include file="../common/menubar.jsp" %>
 	<div id="backimg"></div>
 	<div id="profile"><img src="/agile/resources/icon/common/icon_user.png" id="profilePhoto"></div>
-	<div id="name"><label>김정수<%-- <c:out test="${ sessionScope.userName }"> --%></label></div>
+	<div id="name"><label><c:out value="${ sessionScope.loginUser.userName }"/></label></div>
 	<div>
 		<div class="personalInfo">
 		<div id="manage">계정 및 개인정보 관리</div>
 			<table id="manageTable">
 				<tr>
-					<td>정보</td>
+					<td colspan="2">정보</td>
 				</tr>
 				<tr>
 					<td><img src="/agile/resources/icon/common/icon_briefcase.png" class="iconImage"></td>
-					<td class="info">직업</td>
+					<td class="info"><input type="text" placeholder="직업" class="infoInput"></td>
 				</tr>
 				<tr>
 					<td><img src="/agile/resources/icon/common/icon_business.png" class="iconImage"></td>
-					<td class="info">부서</td>
+					<td class="info"><input type="text" placeholder="부서" class="infoInput"></td>
 				</tr>
 				<tr>
 					<td><img src="/agile/resources/icon/common/icon_smile.png" class="iconImage"></td>
-					<td class="info">조직</td>
+					<td class="info"><input type="text" placeholder="조직" class="infoInput"></td>
 				</tr>
 				<tr>
 					<td><img src="/agile/resources/icon/common/icon_main_pin.png" class="iconImage"></td>
-					<td class="info">회사명</td>
+					<td class="info"><input type="text" placeholder="회사명" class="infoInput"></td>
 				</tr>
 				<tr>
-					<td class="list">연락처</td>
+					<td class="list" colspan="2">연락처</td>
 				</tr>
 				<tr>
 					<td><img src="/agile/resources/icon/common/icon_mail.png" class="iconImage"></td>
-					<td class="info">이메일</td>
+					<td class="info"><c:out value="${ sessionScope.loginUser.userEmail }"/></td>
 				</tr>
 				<tr>
-					<td class="list">팀</td>
+					<td class="list" colspan="2">팀</td>
 				</tr>
 				<tr>
 					<td><img src="/agile/resources/icon/common/icon_users.png" class="iconImage"></td>
-					<td class="info">팀명</td>
+					<td class="info"><input type="text" placeholder="팀명" class="infoInput"></td>
 				</tr>
 			</table>
 		</div>

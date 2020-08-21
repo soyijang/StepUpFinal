@@ -29,8 +29,6 @@ public class MemberController {
 			
 			model.addAttribute("loginUser", loginUser);
 			
-			System.out.println(m);
-			
 			return "redirect:index.jsp";		
 		} catch (LoginFailedException e) {
 			model.addAttribute("msg", e.getMessage());
@@ -66,5 +64,5 @@ public class MemberController {
 	public String showloginPage() {
 		return "userInfo/login";
 	}
-
+	
 }
