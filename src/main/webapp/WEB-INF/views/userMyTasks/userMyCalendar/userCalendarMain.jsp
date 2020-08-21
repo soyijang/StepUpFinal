@@ -65,10 +65,10 @@
 			<div id="calendar">				
 				 <div class="all_cal-func">
 					<div class="cal_top">
-						<a href="#" id="movePrevMonth"><span id="prevMonth" class="cal_tit"><img src="${contextPath}/resources/icon/common/icon_left_chevron.png"></span></a>
+						<a href="#" id="movePrevMonth"><span id="prevMonth" class="cal_tit"><img src="/resources/icon/common/icon_left_chevron.png"></span></a>
 						<span id="cal_top_year"></span>.
 						<span id="cal_top_month"></span>
-						<a href="#" id="moveNextMonth"><span id="nextMonth" class="cal_tit"><img src="${contextPath}/resources/icon/common/icon_right_chevron.png"></span></a>
+						<a href="#" id="moveNextMonth"><span id="nextMonth" class="cal_tit"><img src="/resources/icon/common/icon_right_chevron.png"></span></a>
 					</div>
 					<div class="cal-func">공유되지않은 일정</div>
 					<div class="cal-func">공유된 일정</div>
