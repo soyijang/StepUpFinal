@@ -253,3 +253,29 @@ span.center{
 #com-ch-to{
 	margin-left: 76px;
 }
+
+#pr{
+	margin-left: 10px;
+	width: 90%;
+	height: 40%;
+	border: 1px solid #E8E8E8;
+}
+#tb_wrap{
+	position:relative;
+    width:100%;
+    margin:10px 2px;
+    height:100%;
+}
+#pro-cont::-webkit-scrollbar, #task-cont::-webkit-scrollbar, #alm-cont::-webkit-scrollbar {
+	width: 5px;
+	padding-top: 10px;
+}
+#pro-cont::-webkit-scrollbar-thumb, #task-cont::-webkit-scrollbar-thumb, #alm-cont::-webkit-scrollbar-thumb {
+	background-color: #D9D9D9;
+	border-radius: 3px;
+}
+#pro-cont, #task-cont, #alm-cont{
+    max-height:250px;
+    overflow-y:scroll;
+}
+

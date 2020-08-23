@@ -38,28 +38,86 @@
                          <div id="pro-cont-title">
                             <p id="project">Project</p>
                          </div>
+                         <div id="tb_wrap">
                          <div id="pro-cont">
-                            
+                         	<table class="tb" style=" width:100%";>
+                         		<tbody>
+	                             <tr>
+	                            	<td rowspan="2" style="border-left: 1px solid #E8E8E8; border-top: 1px solid #E8E8E8;"><img src="/agile/resources/images/profile/dayoon_202008152056.png"></td>
+	                            	<td rowspan="2" style="border-top: 1px solid #E8E8E8;">IT WORKS!</td>
+	                            	<td style="border-top: 1px solid #E8E8E8;"> 내 해결된 이슈</td>
+	                            	<td style="border-top: 1px solid #E8E8E8; border-right:1px solid #E8E8E8;">3</td>
+	                            </tr>
+	                            <tr>
+	                            	<td>미 해결된 이슈</td>
+	                            	<td style="border-right:1px solid #E8E8E8;">2</td>
+	                            </tr>
+	                            <tr>
+	                            	<td colspan="3" style="border-bottom: 1px solid #E8E8E8; border-top: 1px solid #E8E8E8; border-left: 1px solid #E8E8E8;">status</td>
+	                            	<td style="text-align:right; border-bottom: 1px solid #E8E8E8; border-top:1px solid #E8E8E8; border-right: 1px solid #E8E8E8;">진행중</td>
+	                            </tr>
+	                            </tbody>
+                            </table>
+                         </div>
                          </div>
                       </div>
                       <div id="alm-cont-area">
                          <div id="alm-cont-title">
                             <p id="alarm">Alarm</p>
                          </div>
-                         <div id="alm-cont">
-                         
-                         </div>
+                         <div id="tb_wrap">
+	                         <div id="alm-cont">
+	                         	<table class="alm-tb" style="cellpadding:30px; width:100%;">
+	                         		<tr>
+	                         			<th colspan="2" style="font-weight:100; text-align: left;">2020년 8월</th>
+	                         			
+	                         		</tr>
+	                         		<tr>
+	                         			<th colspan="2"></th>
+	                         		</tr>
+	                         		<tr>
+	                         			<th colspan="2"></th>
+	                         		</tr>
+	                         		<tr>
+	                         			<th colspan="2"></th>
+	                         		</tr>
+	                         		<tr>
+	                         			<th colspan="2"></th>
+	                         		</tr>
+	                         		<tr>
+	                         			<td style="border-bottom:1px solid #E8E8E8; font-weight:300; width:20%; text-align: center;">심다윤</td>
+	                         			<td style="border-bottom:1px solid #E8E8E8; font-weight:300;">얼른 하고싶다..</td>
+	                         		</tr>
+	                         	</table>
+	                         </div>
+	                     </div>
                       </div>
                    </div>
+                   <!-- 테스크와 차트 영역 시작 -->
                    <div id="task-cht-area">
+                   		<!-- 테스크 영역 시작 -->
                       <div id="task-cont-area">
                          <div id="task-cont-title">
-                            <p id="task">Task</p>
+                            <p id="task">My tasks</p>
                          </div>
-                         <div id="task-cont">
-                         
+                         <div id="tb_wrap">
+                         	<div id="task-cont">
+                         		<table class="task-tb" width="100%">
+                         			<tr style="height:50px;">
+                         				<td style="border-top:1px solid #E8E8E8; border-left:1px solid #E8E8E8; border-bottom:1px solid #E8E8E8;">메신저 기능 기획</td>
+                         				<td style="text-align:right; border-top:1px solid #E8E8E8; border-right:1px solid #E8E8E8; border-bottom:1px solid #E8E8E8;"><img src="/agile/resources/icon/common/icon_clock.png" width="15px;" height="15px;">&nbsp;&nbsp;10 AUG</td>
+                         			</tr>
+                         			<tr>
+                         				<td style="border-left:1px solid #E8E8E8; border-bottom:1px solid #E8E8E8;">Status</td>
+                         				<td style="text-align:right; border-bottom:1px solid #E8E8E8; border-right:1px solid #E8E8E8;">진행중</td>
+                         			</tr>
+                         			
+                         		</table>
+                         	</div>
                          </div>
-                      </div>
+                       </div>
+                       <!-- 테스크 영역 끝 -->
+                    	<!-- 차트 영역 시작 -->
                       <div id="cht-cont-area">
                          <div id="cht-cont-title">
                             <p id="chart">Chart</p>
@@ -78,16 +136,19 @@
                             
                          </div>
                       </div>
-                   </div>
+                      <!-- 차트 영역 끝 -->
+                      </div>
+                      <!-- 테스크와 차트 영역 끝 -->
                 </div>
+                <!-- 캘린더 영역 시작 -->
                 <div id="calendar-area">
                    <div id="cal-area"> 
                       <div id="cal-cont">
                         
                       </div>
                    </div>
-             </div>
-          </div>
+             	</div>
+             	<!-- 캘린더 영역 끝 -->
 </body>
 </body>
 <script>
@@ -195,17 +256,18 @@
 		var setTableHTML = "";
 		var num = String(today);
 		
-	    setTableHTML+='<table>';
+	    setTableHTML+='<table width="100%;">';
 	    setTableHTML+='<thead>';
-	    setTableHTML+='<tr><th class="th-title" style="font-size: 27px;">Calendar&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'
-	    +'<img src="/agile/resources/icon/common/icon_gear.png" width="20px;" height="20px;""></th>';
-	    setTableHTML+='<tr><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + day + ", " + mon + '</td></tr>';
+	    setTableHTML+='<tr><th class="th-title" style="font-size: 27px;">Calendar&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>';
+	    setTableHTML+='<th><img src="/agile/resources/icon/common/icon_gear.png" width="20px;" height="20px;""></th>';
+	    setTableHTML+='<tr><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + day + ", " + mon + '</td>';
+	    setTableHTML+='<td></td></tr>';
 	    setTableHTML+='</thead>';
 	    setTableHTML+='<tbody style="padding: 20px;">';
 	    
 	    for(var i=0;i<7;i++){
 	        setTableHTML+='<tr style="font-size: 12px;">';
-	        setTableHTML+='<td style="height:100px;">';
+	        setTableHTML+='<td width="10"  height="100">';
 	        setTableHTML+='';
 	        setTableHTML+='<br>';
 		     	
@@ -230,12 +292,12 @@
 		     		today = 0;
 		     	}
 		        
-	        setTableHTML+= num;
-		    setTableHTML+= '<br>'     
+	        setTableHTML+= num;   
 		     
 	        
 	     	
 	        setTableHTML+= "</td>";
+	        setTableHTML+= "<td width='200' height='100'><div class='cal-schedule' style='width:10%'></div></td>";
 	        setTableHTML+='</tr>';
 	        
 	    }
@@ -244,7 +306,20 @@
 	    
 	    $("#cal-cont").html(setTableHTML);
 	}
-
+	
+	var $tdSche = null;
+	
+	//스케줄표시
+    function drawSche() {
+    	$tdSche = $("td div.cal-schedule");
+		
+		
+    	$tdSche.eq(3).text("🤴🏻오늘 뷰 다 끝날수있나?");
+    	$tdSche.eq(today.getDate()+firstDay.getDay()).text("🎃금요일인데 아직 뷰 못끝냈겠찌?");
+    	$tdSche.eq(today.getDate()).css("color", "black");
+    	
+	}
+	
 	
 	//차트
 	$(window).ready(function(){
