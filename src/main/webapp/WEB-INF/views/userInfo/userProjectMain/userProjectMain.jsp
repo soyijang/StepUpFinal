@@ -9,95 +9,89 @@
 </head>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/indiv/userInfo/userProjectMain/userProjectMain.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/common/nav.js"></script>
 <body>
-	<%@ include file="../../common/menubar.jsp" %>
-            <div id="main-cont">
+	<body>
+   <%@ include file="../../common/menubar.jsp" %>
+            <div id="content">
                 <div id="main-cont-area">
-                	<div id="status-area">
-                		<div id="not-task">
-                			<div id="n-tk" class="status">2 </div>
-                			<p id="n-tk-ti" class="ing">미진행</p>
-                		</div>
-                		<div id="task-ing">
-                			<div id="tk-ing" class="status">8 </div>
-                			<p id="tk-ing-ti" class="ing">진행중</p>
-                		</div>
-                		<div id="com-task">
-                			<div id="co-tk" class="status">1 </div>
-                			<p id="co-tk-ti" class="ing">진행완료</p>
-                		</div>
-                		<div id="tot-task">
-                			<div id="to-tk" class="status">11 </div>
-                			<p id="ti-tk-ti" class="ing">전체 업무</p>
-                		</div>
-                	</div>
-                	<div id="pj-alm-area">
-                		<div id="pro-cont-area">
-                			<div id="pro-cont-title">
-                				<p id="project">Project</p>
-                			</div>
-                			<div id="pro-cont">
-                				
-                			</div>
-                		</div>
-                		<div id="alm-cont-area">
-                			<div id="alm-cont-title">
-                				<p id="alarm">Alarm</p>
-                			</div>
-                			<div id="alm-cont">
-                			
-                			</div>
-                		</div>
-                	</div>
-                	<div id="task-cht-area">
-                		<div id="task-cont-area">
-                			<div id="task-cont-title">
-                				<p id="task">Task</p>
-                			</div>
-                			<div id="task-cont">
-                			
-                			</div>
-                		</div>
-                		<div id="cht-cont-area">
-                			<div id="cht-cont-title">
-                				<p id="chart">Chart</p>
-                			</div>
-                			<div id="cht-cont">
-                			
-                			</div>
-                		</div>
-                	</div>
+                   <div id="status-area">
+                      <div id="not-task">
+                         <div id="n-tk" class="status">2 </div>
+                         <p id="n-tk-ti" class="ing">미진행</p>
+                      </div>
+                      <div id="task-ing">
+                         <div id="tk-ing" class="status">8 </div>
+                         <p id="tk-ing-ti" class="ing">진행중</p>
+                      </div>
+                      <div id="com-task">
+                         <div id="co-tk" class="status">1 </div>
+                         <p id="co-tk-ti" class="ing">진행완료</p>
+                      </div>
+                      <div id="tot-task">
+                         <div id="to-tk" class="status">11 </div>
+                         <p id="ti-tk-ti" class="ing">전체 업무</p>
+                      </div>
+                   </div>
+                   <div id="pj-alm-area">
+                      <div id="pro-cont-area">
+                         <div id="pro-cont-title">
+                            <p id="project">Project</p>
+                         </div>
+                         <div id="pro-cont">
+                            
+                         </div>
+                      </div>
+                      <div id="alm-cont-area">
+                         <div id="alm-cont-title">
+                            <p id="alarm">Alarm</p>
+                         </div>
+                         <div id="alm-cont">
+                         
+                         </div>
+                      </div>
+                   </div>
+                   <div id="task-cht-area">
+                      <div id="task-cont-area">
+                         <div id="task-cont-title">
+                            <p id="task">Task</p>
+                         </div>
+                         <div id="task-cont">
+                         
+                         </div>
+                      </div>
+                      <div id="cht-cont-area">
+                         <div id="cht-cont-title">
+                            <p id="chart">Chart</p>
+                         </div>
+                         <div id="cht-cont">
+                            <div id="cht">
+                               <div class="pie-chart1"><span class="center"><p id="to-ch">11</p><p id="to-ch-ti">전체업무</p></span></div>
+                                <div id="cht-st" style="width:50%">
+	                               <div id="no-ch" class="cht-tt"><img src="/agile/resources/images/indiv/main/userInfo/userProjectMain/img_over_task.png" width="10px;" height="10px;"> 미진행</div><span id="no-ch-to">2</span><br>
+		                           <div id="ing-ch" class="cht-tt"><img src="/agile/resources/images/indiv/main/userInfo/userProjectMain/img_ing_task.png" width="10px;" height="10px;"> 진행중 </div><span id="ing-ch-to">8</span><br>
+		                           <div id="com-ch" class="cht-tt"><img src="/agile/resources/images/indiv/main/userInfo/userProjectMain/img_com_task.png" width="10px;" height="10px;"> 완료</div><span id="com-ch-to">1</span>
+	                           </div>
+                            </div>
+                           
+	                           
+                            
+                         </div>
+                      </div>
+                   </div>
                 </div>
                 <div id="calendar-area">
-                	<div id="cal-cont">
-                		<!-- <div id="mon" class=""></div>
-                		<div id="tue" class=""></div>
-                		<div id="wed" class=""></div>
-                		<div id="thu" class=""></div>
-                		<div id="fri" class=""></div>
-                		<div id="sat" class=""></div>
-                		<div id="sun" class=""></div> -->
-                	</div>
-                	<!-- <div id="cal-cont">
-                		<div id="mon" class=""></div>
-                		<div id="tue" class=""></div>
-                		<div id="wed" class=""></div>
-                		<div id="thu" class=""></div>
-                		<div id="fri" class=""></div>
-                		<div id="sat" class=""></div>
-                		<div id="sun" class=""></div>
-                		<div id="mon2" class=""></div>
-                		<div id="tue2" class=""></div>
-                		<div id="wed2" class=""></div>
-                		<div id="thu2" class=""></div>
-                		<div id="fri2" class=""></div>
-                		<div id="sat2" class=""></div>
-                		<div id="sun2" class=""></div>
-                	</div> -->
-                </div>
+                   <div id="cal-area"> 
+                      <div id="cal-cont">
+                        
+                      </div>
+                   </div>
              </div>
+          </div>
+</body>
 </body>
 <script>
+	<!-- 캘린더 -->
 	/**
 	 *  yyyyMMdd 포맷으로 반환
 	 */
@@ -199,20 +193,21 @@
 	
 	function drawCalendar(today, mon, day){
 		var setTableHTML = "";
-	    setTableHTML+='<table style="width:100%;">';
-	    setTableHTML+='<thead">';
-	    setTableHTML+='<tr><th class="th-title" style="font-size: 27px;">Calendar&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'
+		var num = String(today);
+		
+	    setTableHTML+='<table>';
+	    setTableHTML+='<thead>';
+	    setTableHTML+='<tr><th class="th-title" style="font-size: 27px;">Calendar&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'
 	    +'<img src="/agile/resources/icon/common/icon_gear.png" width="20px;" height="20px;""></th>';
 	    setTableHTML+='<tr><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + day + ", " + mon + '</td></tr>';
+	    setTableHTML+='</thead>';
 	    setTableHTML+='<tbody style="padding: 20px;">';
 	    
 	    for(var i=0;i<7;i++){
-	        setTableHTML+='<tr style="border: 1px solid #F6F6F6; font-size: 12px;">';
-	        setTableHTML+='<td style="height:30px;">';
+	        setTableHTML+='<tr style="font-size: 12px;">';
+	        setTableHTML+='<td style="height:100px;">';
 	        setTableHTML+='';
 	        setTableHTML+='<br>';
-	        
-		        var num = String(today);
 		     	
 		        if(today == 0) {
 		        	num = 'Sun';
@@ -235,8 +230,9 @@
 		     		today = 0;
 		     	}
 		        
-		        
 	        setTableHTML+= num;
+		    setTableHTML+= '<br>'     
+		     
 	        
 	     	
 	        setTableHTML+= "</td>";
@@ -244,10 +240,49 @@
 	        
 	    }
 	    setTableHTML+='</tbody>';
-	    setTableHTML+='</thead>';
 	    setTableHTML+='</table>';
 	    
 	    $("#cal-cont").html(setTableHTML);
+	}
+
+	
+	//차트
+	$(window).ready(function(){
+    var i=1;
+    var func1 = setInterval(function(){
+        if(i<26){
+            color1(i);
+            i++;
+        } else if(i<70){
+            color2(i);
+            i++;
+        } else if(i<101){
+            color3(i);
+            i++;
+        } else {
+            clearInterval(func1);
+        }
+		},10);
+	});
+
+
+	function color1(i){
+	    $(".pie-chart1").css({
+	        "background":"conic-gradient(#63B2E3 0% "+i+"%, #ffffff "+i+"% 100%)"
+	        });
+	    
+	}
+	function color2(i){
+	    $(".pie-chart1").css({
+	        "background":"conic-gradient(#63B2E3 0% 25%, #F04758 25% "+i+"%, #ffffff "+i+"% 100%)"
+	        });
+	     
+	}
+	function color3(i){
+	    $(".pie-chart1").css({
+	        "background":"conic-gradient(#63B2E3 0% 25%, #F04758 25% 70%, #81DBCA 70% "+i+"%, #ffffff "+i+"% 100%)"
+	        });
+	     
 	}
 
 </script>
