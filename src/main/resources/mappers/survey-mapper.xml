@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Survey">
+
+	<!-- SURVEY_CHOICE_LIST 테이블 -->
+	<resultMap type="com.stepup.agile.projectFeedback.model.vo.SurveyChoiceList" id="surveyChoiceListResultSet">
+		<id property="surveyQuesCode" column="SURVEY_QUES_CODE"/>
+		<result property="surveyChoiceNum" column="SURVEY_CHOICE_NUM"/>
+		<result property="surveyChoiceContent" column="SURVEY_CHOICE_CONTENT"/>
+	</resultMap>
+	
+	<!-- SURVEY_JOIN_LIST 테이블-->
+	<resultMap type="com.stepup.agile.projectFeedback.model.vo.SurveyJoinList" id="surveyJoinListResultSet">
+		<id property="surveyJoinCode" column="SURVEY_JOIN_CODE"/>
+		<result property="surveyJoinEmail" column="SURVEY_JOIN_EMAIL"/>
+		<result property="surveyJoinReply" column="SURVEY_JOIN_REPLY"/>
+		<result property="userCode" column="USER_CODE"/>
+		<result property="surveyReplyDate" column="SURVEY_REPLY_DATE"/>
+		<result property="surveyReplyTime" column="SURVEY_REPLY_TIME"/>
+		<result property="surveyCode" column="SURVEY_CODE"/>
+	</resultMap>
+	
+	<!-- SURVEY_LIST 테이블 -->
+	<resultMap type="com.stepup.agile.projectFeedback.model.vo.Survey" id="SurveyListResultSet">
+		<id property="surveyCode" column="SURVEY_CODE"/>
+		<result property="sprintCode" column="SPRINT_CODE"/>
+		<result property="surveyCreateDate" column="SURVEY_CREATE_DATE"/>
+		<result property="surveyCreateTime" column="SURVEY_CREATE_TIME"/>
+		<result property="surveyName" column="SURVEY_NAME"/>
+		<result property="surveyIntro" column="SURVEY_INTRO"/>
+		<result property="surveyStatus" column="SURVEY_STATUS"/>
+		<result property="surveyStartDate" column="SURVEY_START_DATE"/>
+		<result property="surveyEndDate" column="SURVEY_END_DATE"/>
+	</resultMap>
+	
+	<!-- SURVEY_QUES_LIST 테이블-->
+	<resultMap type="com.stepup.agile.projectFeedback.model.vo.SurveyQuesList" id="surveyQuesListResultSet">
+		<id property="surveyQuesCode" column="SURVEY_QUES_CODE"/>
+		<result property="surveyQuesType" column="SURVEY_QUES_TYPE"/>
+		<result property="surveyQuesName" column="SURVEY_QUES_NAME"/>
+		<result property="surveyQuesMust" column="SURVEY_QUES_MUST"/>
+		<result property="surveyQuesMulti" column="SURVEY_QUES_MULTI"/>
+	</resultMap>
+
+
+</mapper>
+
+
+
+

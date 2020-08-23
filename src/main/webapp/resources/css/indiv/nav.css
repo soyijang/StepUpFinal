@@ -1,1 +1,151 @@
-@charset "UTF-8";
+	.navContent{
+    		height : 60px;
+    		vertical-align: middle; 
+    		margin-left: 15px;
+    	}
+    	
+    	#logoArea{
+    		width: 200px;
+    		text-align: left;
+    	}
+    	
+    	#logoArea > a > img{
+    		width: 140px;
+    		height: 35px;
+    	}
+    	
+    	.navContent > tbody > tr > th.navIcon {
+    		width: 150px;
+    		font-family: MonserratR;
+    		color: white;
+    	}
+    	
+    	.navRightIcon{
+    		text-align:center;
+    		width: 65px;
+    	}
+    	
+    	.navRightIcon > div > img{
+    		vertical-align:middle;
+    	}
+    	
+    	.navRightIcon > div{
+    		margin-left:20px;
+    		padding:5px;
+    		height:30px;
+    		vertical-align:middle;
+    		border-radius:10px;
+    		position: relative;
+    	}
+    	
+    	.navRightIcon > div:hover {
+    		transition: all ease 0.5s 0s;
+    		background-color: gray;
+    	}
+    	
+    	
+    	.navRightText{
+    	    top: 14px;
+    		right: 10px;
+		    font-size: 12px;
+		    color: white;
+		    font-weight: bold;
+		    position: absolute;
+		}
+		
+		.navRightIcon > img {
+			vertical-align: middle;
+		}
+		
+		#profile{
+			background-color:white;
+			padding:8px;
+			width: 20px;
+			height: 20px;
+			border-radius: 50px;
+		}
+		
+		.profileArea{
+			width: 100px;
+		
+		}
+    	
+    	.navIcon > a {
+    		vertical-align : middle;
+    		text-decoration: none;
+    		font-weight:normal;
+    		color:white;
+    		font-family: Montserrat;
+    	}
+    	
+    	.navIcon > a:hover {
+    		color: #DD0351;
+    		font-weight: bold;
+    		transition: all ease 0.5s 0s;
+    	}
+    	
+    	.navIcon > a > img {
+    		vertical-align : middle;
+    		margin: 5px;
+    	}
+    	
+    	.navContent > tbody > tr > th > input {
+    		width: 280px;
+    		height: 15px;
+    		border-radius : 10px;
+    		padding: 10px;
+    		background-color: rgba(255, 255, 255, 0.37);
+    		color: white;
+    		font-weight: normal;
+    	}
+    	
+    	.navContent > tbody > tr > th > input:focus {
+    		transition: all ease 1s 0s;
+    		background-color: #DD0351;
+    		font-weight: normal;
+    	}
+    	
+    	/* placeholder색변경  */
+    	.navContent > tbody > tr > th > input::placeholder {color: white;}
+    	.navContent > tbody > tr > th > input:-ms-input-placeholder {color: white;} 
+    	.navContent > tbody > tr > th > input::-webkit-input-placeholder {color:white;}
+    	
+    	input{
+    		border: 0;
+    		outline: 0;
+    	}
+    	
+    	#searchArea {
+    		width: 500px;
+    		text-align: right;	
+    	}
+	
+		
+    	/* ----------------메뉴바리스트------------------- */
+    	.menuIcon > img {
+    		height: 25px;
+    		width: 25px;
+    		margin-left: 15px;
+    	}
+    
+    	#menubarList > tbody :hover{
+    		transition: all ease 0.5s 0s;
+    		background-color: #E8E8E8;
+    	}
+    	
+    	#menubarHide{
+    	    position: relative;
+		    top: 300px;
+		    left: -25px;
+		    border: 0;
+    		outline: 0;
+    		background: transparent;
+    		cursor: pointer;
+		}
+		
+		#menubarWithBtn{
+			margin : 0;
+			padding : 0;
+    		transition: all ease 0.5s 0s;
+			position: relative;
+		}
