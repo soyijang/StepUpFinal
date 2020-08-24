@@ -10,6 +10,8 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/common/nav.js"></script>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/indiv/projectTask/bug/bug.css">
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/common/dropdown.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/common/issueType.css">
+
 </head>
 <body>
  <%@ include file="../../common/menubar.jsp" %>
@@ -52,21 +54,52 @@
         </div>
         <div id="contentBox">
 			<div id="bug-list-area">
+				<div id="tb_wrap">
 				<div id="bug-list">
-					<table class="bg-tb" style="width:90%; border-radius: 4px; cellpadding:20px;">
-						<tr>
-							<td colspan="2" style="border-top: 1px solid #E8E8E8; border-left: 1px solid #E8E8E8; border-right:1px solid #E8E8E8; height:40px; text-align:left; ">버그 이슈 제목</td>
-						</tr>
-						<tr>
-							<td style="border-left:1px solid #E8E8E8; border-bottom:1px solid #E8E8E8; width:150px;height:40px; text-align:center;">BUG-01</td>
-							<td style="border-bottom:1px solid #E8E8E8; border-right:1px solid #E8E8E8; height:40px; text-align:center;">심</td>
-						</tr>
+					<p id="bug-title">Tasks</p>
+					<table class="bg-tb" style="width:95%; background-color: white; margin:auto;">
+						<tbody style="background-color: white;">
+							<tr>
+								<td class="tb-bd" colspan="2" style="height:45px; text-align:left; ">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;버그 이슈 제목</td>
+							</tr>
+							<tr>
+								<td class="tb-st" style="width:150px; height:40px; text-align:center;"><div id="bugicon">B</div>&nbsp;BUG-01</td>
+								<td class="tb-st" style="height:40px; text-align:center;"><img src="/agile/resources/images/profile/dayoon_202008152056.png"></td>
+							</tr>
+							<tr>
+								<td class="tb-sd" style="height:5px;" colspan="2"></td>
+							</tr>
+						</tbody>
 					</table>
+				</div>
 				</div>
 			</div>
 			<div id="bug-detail-area">
 				<div id="bug-detail">
-				
+					<div id="bg-num">
+						<div id="bugicon" style="margin-left: 30px; margin-top:25px;"></div>&nbsp;&nbsp;BUG-01
+					</div>
+					<div id="bg-detail-title">
+						<table width="100%">
+							<tr>
+								<td>버그 이슈 제목</td>
+								<td style="text-align:right;"><img src="/agile/resources/images/profile/dayoon_202008152056.png"></td>
+								<td><img src="/agile/resources/icon/common/icon_more%20horizontalicon.png" width="20px;" height="20px;"></td>
+							</tr>
+							<tr>
+								<td><button>첨부</button><button>연결</button></td>
+								<td colspan="2"></td>
+							</tr>
+						</table>
+					</div>
+					<div id="bg-detail">
+						<div id="detail-ex">설명</div>
+						<div id="detail-cont">아 거기서 오류나고 여기서 오류났어요</div>
+					</div>
+					<div id="bg-reply">
+						<div id="re-pro"><img src="/agile/resources/images/profile/dayoon_202008152056.png"></div>
+						<div id="bg-re-cont"><input type="text" width="100px;" height="70px;"></div>
+					</div>
 				</div>
 			</div>
 		</div>
