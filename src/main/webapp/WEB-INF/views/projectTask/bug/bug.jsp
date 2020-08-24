@@ -23,7 +23,7 @@
             	<div id="user-search">
             		<div class="dropdown">
 				        <div class="select">
-				              <span id="employeeStatus">담당자</span>
+				              <span id="user-list">담당자</span>
 				          <i class="fa fa-chevron-left"></i>
 				        </div>
 				        <!-- <input type="hidden" name="employee" id="employeeTcode"> -->
