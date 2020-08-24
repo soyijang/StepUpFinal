@@ -61,7 +61,7 @@
       z-index: 9
   }
   .dropdown .dropdown-menu li {
-      padding: 10px;
+      padding: 5px;
       transition: all .2s ease-in-out;
       cursor: pointer
   } 
