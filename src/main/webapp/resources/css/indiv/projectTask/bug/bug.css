@@ -6,6 +6,7 @@
 #contentBox{
 	width:100%;
 	height:100%;
+	display: inline-block;
 }
 #search-area{
 	width:100%;
@@ -14,17 +15,15 @@
 }
 #bug-list-area{
 	margin-top: 50px;
-	width: 27%;
-	height: 85%;
-	background-color: yellow;
+	width: 30%;
+	height: 100%;
 	display: inline-block;
 	float: left;
 }
 #bug-detail-area{
 	margin-top: 50px;
-	width: 73%;
-	height: 85%;
-	background-color: green;
+	width: 70%;
+	height: 100%;
 	display: inline-block;
 }
 #bug-search{
@@ -36,9 +35,31 @@
 	display: inline-block;
 	width: 120px;
 	margin-top: 2px;
+	
 }
 #sta-search{
 	display: inline-block;
 	width: 120px;
 	margin-top: 2px;
+	margin-left: 10px;
 }
+#bug-list{
+	width: 95%;
+	height: 100%;
+	/* width: 350px;
+	height:655px; */
+	border:1px solid #E8E8E8;
+	background-color: #FAFAFA;
+}
+#bug-detail{
+	width: 100%;
+	height: 100%;
+	/* width: 850px;
+	height:655px; */
+	border:1px solid #E8E8E8;
+	background-color: #FAFAFA;
+}
+.bg-tb{
+	border-radius: 10px;
+}
+#bug

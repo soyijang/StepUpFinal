@@ -52,12 +52,22 @@
         </div>
         <div id="contentBox">
 			<div id="bug-list-area">
-				<div>
-				
+				<div id="bug-list">
+					<table class="bg-tb" style="width:90%; border-radius: 4px; cellpadding:20px;">
+						<tr>
+							<td colspan="2" style="border-top: 1px solid #E8E8E8; border-left: 1px solid #E8E8E8; border-right:1px solid #E8E8E8; height:40px; text-align:left; ">버그 이슈 제목</td>
+						</tr>
+						<tr>
+							<td style="border-left:1px solid #E8E8E8; border-bottom:1px solid #E8E8E8; width:150px;height:40px; text-align:center;">BUG-01</td>
+							<td style="border-bottom:1px solid #E8E8E8; border-right:1px solid #E8E8E8; height:40px; text-align:center;">심</td>
+						</tr>
+					</table>
 				</div>
 			</div>
 			<div id="bug-detail-area">
+				<div id="bug-detail">
 				
+				</div>
 			</div>
 		</div>
     </div>
