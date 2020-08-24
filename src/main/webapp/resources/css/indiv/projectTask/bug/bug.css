@@ -3,18 +3,43 @@
 	wdith:1440px;
 	height:900px;
 }
-#content-box{
+#contentBox{
 	width:100%;
 	height:100%;
-	background-color: yellow;
+}
+#search-area{
+	width:100%;
+	height:70%;
+	margin-top: 20px;
 }
 #bug-list-area{
-	width: 40%;
-	height: 100%;
+	margin-top: 50px;
+	width: 27%;
+	height: 85%;
 	background-color: yellow;
+	display: inline-block;
+	float: left;
 }
 #bug-detail-area{
-	width: 60%;
-	height: 100%;
+	margin-top: 50px;
+	width: 73%;
+	height: 85%;
 	background-color: green;
+	display: inline-block;
 }
+#bug-search{
+	display: inline-block;
+	width: 100px;
+	margin-left: 8px;
+}
+#user-search{
+	display: inline-block;
+	width: 120px;
+	margin-top: 2px;
+}
+#sta-search{
+	display: inline-block;
+	width: 120px;
+	margin-top: 2px;
+}
+#
