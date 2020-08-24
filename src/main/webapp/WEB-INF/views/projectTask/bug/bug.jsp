@@ -18,7 +18,12 @@
             <div id="menuTitle">이슈 게시판</div>
         </div>
         <div id="contentBox">
-		
+			<div id="">
+			
+			</div>
+			<div id="">
+			
+			</div>
 		</div>
     </div>
 </body>
