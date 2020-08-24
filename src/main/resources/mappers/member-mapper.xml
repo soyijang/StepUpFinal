@@ -20,25 +20,25 @@
 	</resultMap>
 	
 	<resultMap type="com.stepup.agile.userInfo.model.vo.UserProjectList" id="UserProjectListResultSet">
-		<id property="projectCode" column="PROJECT_CODE"/>
+		<id property="userProjectCode" column="USER_TEAM_CODE"/>
 		<result property="userProjectUpdateDate" column="USER_PROJECT_UPDATE_DATE"/>
 		<result property="userProjectUpdateTime" column="USER_PROJECT_UPDATE_TIME"/>
 		<result property="userProjectStatus" column="USER_PROJECT_STATUS"/>
-		<result property="userProjectCode" column="USER_PROJECT_CODE"/>
-		<result property="userTeamCode" column="USER_TEAM_CODE"/>
+		<result property="projectCode" column="USER_PROJECT_CODE"/>
+		<result property="userTeamCode" column="PROJECT_CODE"/>
 		<result property="userProjectAuthority" column="USER_PROJECT_AUTHORITY"/>
 	</resultMap>
 	
 	<resultMap type="com.stepup.agile.userInfo.model.vo.UserTeamList" id="UserTeamListResultSet">
-		<id property="teamCode" column="TEAM_CODE"/>
+		<id property="userTeamCode" column="USER_TEAM_CODE"/>
 		<result property="userTeamDate" column="USER_TEAM_DATE"/>
 		<result property="userTeamYn" column="USER_TEAM_YN"/>
 		<result property="userCode" column="USER_CODE"/>
-		<result property="userTeamCode" column="USER_TEAM_CODE"/>
+		<result property="teamCode" column="TEAM_CODE"/>
 		<result property="userTeamTime" column="USER_TEAM_TIME"/>
 	</resultMap>
 	
-	<resultMap type="com.stepup.agile.userInfo.model.vo.TeAM" id="TeamResultSet">
+	<resultMap type="com.stepup.agile.userInfo.model.vo.Team" id="TeamResultSet">
 		<id property="teamCode" column="TEAM_CODE"/>
 		<result property="teamName" column="TEAM_NAME"/>
 	</resultMap>
@@ -72,5 +72,11 @@
 		WHERE USER_EMAIL = #{userEmail}
 		AND USER_STATUS = 'N'
 	</select>
+	
+	<update id="insertMemberJob" parameterType="map">
+		UPDATE USER_INFO
+		   SET USER_COMP_JOB = #{userJob}
+		 WHERE USER_EMAIL = #{userEmail} 
+	</update>
 	
 </mapper>
