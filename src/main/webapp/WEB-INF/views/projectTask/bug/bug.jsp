@@ -9,6 +9,7 @@
 <title>Insert title here</title>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/common/nav.js"></script>
 </head>
+<link rel="stylesheet" type="text/css" href="/agile/resources/css/indiv/projectask/bug/bug.css">
 <body>
  <%@ include file="../../common/menubar.jsp" %>
     <div id="content">
@@ -18,11 +19,11 @@
             <div id="menuTitle">이슈 게시판</div>
         </div>
         <div id="contentBox">
-			<div id="">
-			
+			<div id="bug-list-area">
+				
 			</div>
-			<div id="">
-			
+			<div id="bug-detail-area">
+				
 			</div>
 		</div>
     </div>
