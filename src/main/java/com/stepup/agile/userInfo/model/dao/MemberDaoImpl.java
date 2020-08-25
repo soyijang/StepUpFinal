@@ -1,5 +1,6 @@
 package com.stepup.agile.userInfo.model.dao;
 
+import java.util.List;
 import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -48,6 +49,12 @@ public class MemberDaoImpl implements MemberDao {
 	public int insertJob(SqlSessionTemplate sqlSession, Map<String, Object> member) {
 
 		return sqlSession.update("Member.insertJob", member);
+	}
+
+	@Override
+	public List<Map<String, Object>> selectUserProject(SqlSessionTemplate sqlSession) {
+		
+		return sqlSession.selectList("Member.selectUserProject");
 	}
 
 }

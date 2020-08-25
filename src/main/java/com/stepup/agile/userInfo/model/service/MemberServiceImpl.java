@@ -1,5 +1,6 @@
 package com.stepup.agile.userInfo.model.service;
 
+import java.util.List;
 import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -53,5 +54,14 @@ public class MemberServiceImpl implements MemberService{
 		
 		return md.insertJob(sqlSession, member);
 	}
+
+	@Override
+	public List<Map<String, Object>> selectUserProject() {
+		
+		
+		return md.selectUserProject(sqlSession);
+	}
+
+	
 
 }

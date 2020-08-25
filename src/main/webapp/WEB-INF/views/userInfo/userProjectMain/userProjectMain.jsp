@@ -42,9 +42,10 @@
                          <div id="pro-cont">
                          	<table class="tb" style=" width:100%";>
                          		<tbody>
+                         		<c:forEach test="projectList" items="${ projectList }">
 	                             <tr>
 	                            	<td rowspan="2" style="border-left: 1px solid #E8E8E8; border-top: 1px solid #E8E8E8;"><img src="/agile/resources/images/profile/dayoon_202008152056.png"></td>
-	                            	<td rowspan="2" style="border-top: 1px solid #E8E8E8;">IT WORKS!</td>
+	                            	<td rowspan="2" style="border-top: 1px solid #E8E8E8;">${ projectList.projectName }</td>
 	                            	<td style="border-top: 1px solid #E8E8E8;"> 내 해결된 이슈</td>
 	                            	<td style="border-top: 1px solid #E8E8E8; border-right:1px solid #E8E8E8;">3</td>
 	                            </tr>
@@ -56,6 +57,7 @@
 	                            	<td colspan="3" style="border-bottom: 1px solid #E8E8E8; border-top: 1px solid #E8E8E8; border-left: 1px solid #E8E8E8;">status</td>
 	                            	<td style="text-align:right; border-bottom: 1px solid #E8E8E8; border-top:1px solid #E8E8E8; border-right: 1px solid #E8E8E8;">진행중</td>
 	                            </tr>
+	                            </c:forEach>
 	                            </tbody>
                             </table>
                          </div>

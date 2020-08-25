@@ -31,7 +31,7 @@ public class MemberController {
 			
 			System.out.println(m);
 			
-			return "common/menubar";		
+			return "userInfo/userProjectMain/userProjectMain";		
 		} catch (LoginFailedException e) {
 			model.addAttribute("msg", e.getMessage());
 
