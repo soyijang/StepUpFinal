@@ -20,6 +20,6 @@ public interface MemberDao {
 
 	int insertJob(SqlSessionTemplate sqlSession, Map<String, Object> member);
 
-	List<Map<String, Object>> selectUserProject(SqlSessionTemplate sqlSession);
+	List<String> selectUserProject(SqlSessionTemplate sqlSession);
 
 }

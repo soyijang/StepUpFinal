@@ -6,10 +6,12 @@
 
 	<typeAliases>
 		<typeAlias type="com.stepup.agile.userInfo.model.vo.Member" alias="Member"/>
+		<typeAlias type="com.stepup.agile.projectManage.model.vo.Project" alias="Project"/>
 	</typeAliases>
 	
 	<mappers>
 		<mapper resource="mappers/member-mapper.xml"/>
+		<mapper resource="mappers/project-mapper.xml"/>
 	</mappers>
 	
 	

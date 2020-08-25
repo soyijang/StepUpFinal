@@ -56,7 +56,7 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Override
-	public List<Map<String, Object>> selectUserProject() {
+	public List<String> selectUserProject() {
 		
 		
 		return md.selectUserProject(sqlSession);

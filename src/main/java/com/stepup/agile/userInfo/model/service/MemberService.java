@@ -14,7 +14,7 @@ public interface MemberService {
 
 	int insertJob(Map<String, Object> member);
 
-	List<Map<String, Object>> selectUserProject();
+	List<String> selectUserProject();
 
 
 }

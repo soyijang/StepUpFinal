@@ -3,7 +3,6 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-
 <mapper namespace="Project">
 
 	<!-- Project_List 테이블 -->
@@ -28,7 +27,20 @@
 		<result property="projectEndTime" column="PROJECT_END_TIME"/>
 	</resultMap>
 
-	<select id="selectUserProject" resultType="UserProjectListResultSet" parameterType="list">
+	<resultMap id="selectUserPJRset" type="com.stepup.agile.projectManage.model.vo.Project">
+		<id property="projectCode" column="PROJECT_CODE"/>
+		<result property="projectName" column="PROJECT_NAME"/>
+		<result property="createDate" column="PROJECT_CREATE_DATE"/>
+		<result property="createTime" column="PROJECT_CREATE_TIME"/>
+    <collection property="member" resultMap="memberResultSet"/>
+    <collection property="userTeamList" resultMap="UserTeamListResultSet"/>
+    <collection property="userProjectList" resultMap="UserProjectListResultSet"/>
+		
+	</resultMap>
+	
+	
+	
+	<select id="selectUserProject" resultMap="selectUserPJRset" parameterType="java.util.List">
 		SELECT PROJECT_NAME
 		  FROM USER_INFO I,
 		       USER_TEAM_LIST T,

@@ -52,7 +52,7 @@ public class MemberDaoImpl implements MemberDao {
 	}
 
 	@Override
-	public List<Map<String, Object>> selectUserProject(SqlSessionTemplate sqlSession) {
+	public List<String> selectUserProject(SqlSessionTemplate sqlSession) {
 		return sqlSession.selectList("Project.selectUserProject");
 	}
 
