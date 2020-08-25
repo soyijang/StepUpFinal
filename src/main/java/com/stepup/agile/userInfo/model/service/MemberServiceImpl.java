@@ -1,5 +1,7 @@
 package com.stepup.agile.userInfo.model.service;
 
+import java.util.Map;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -30,9 +32,11 @@ public class MemberServiceImpl implements MemberService{
 		if(!passwordEncoder.matches(m.getUserPwd(), encPassword)) {
 			System.out.println(m.getUserPwd());
 			System.out.println(encPassword);
+			System.out.println(m);
 			throw new LoginFailedException("로그인 실패!");
 		} else {
 			loginUser = md.selectMember(sqlSession, m);
+			System.out.println(loginUser);
 		}
 		
 		return loginUser;
@@ -42,6 +46,12 @@ public class MemberServiceImpl implements MemberService{
 	public int insertMember(Member m) {
 		
 		return md.insertMember(sqlSession, m);
+	}
+
+	@Override
+	public int insertJob(Map<String, Object> member) {
+		
+		return md.insertJob(sqlSession, member);
 	}
 
 }

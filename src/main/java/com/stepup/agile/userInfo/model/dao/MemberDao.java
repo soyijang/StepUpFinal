@@ -1,5 +1,7 @@
 package com.stepup.agile.userInfo.model.dao;
 
+import java.util.Map;
+
 import org.mybatis.spring.SqlSessionTemplate;
 
 import com.stepup.agile.userInfo.model.exception.LoginFailedException;
@@ -14,5 +16,7 @@ public interface MemberDao {
 	int insertMember(SqlSessionTemplate sqlSession, Member m);
 
 	Member selectMember(SqlSessionTemplate sqlSession, Member m);
+
+	int insertJob(SqlSessionTemplate sqlSession, Map<String, Object> member);
 
 }
