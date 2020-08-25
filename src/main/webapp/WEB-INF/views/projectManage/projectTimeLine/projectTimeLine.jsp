@@ -8,6 +8,7 @@
 <title>Insert title here</title>
 </head>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/indiv/projectManage/projectTimeLine/projectTimeLine.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/common/button.css">
 
 <body>
 	<%@ include file="../../common/menubar.jsp" %>
@@ -16,21 +17,30 @@
                 <div id="contentTitle">
                     <div id="projectTitle2">프로젝트 / 이름땡땡땡!!</div>
                     <div id="menuTitle">로드맵</div>
-                    <div id="shareArea">
-	                    <div id="userArea">사용자추가하는 공간</div>
-	                    <div id="share">
+                    <div id="share">
 	                    	<button id="shareBtn">
 	                    		<img id="sharedIcon"alt="공유아이콘" src="/agile/resources/icon/common/icon_shareicon.png">공유
 	                    	</button>
+	                </div>
+                    <div id="shareArea">
+	                    <div id="userArea"><img src="/agile/resources/images/profile/dayoon_202008152056.png"><img src="/agile/resources/images/profile/soyi_202008132015.png"></div>
+	                    <div id="btn-share-area">
+		                    <div id="today-btn"><button id="rectangle3">Today</button></div>
+		                    <div id="week-dropdown"><button id="rectangle3">Today</button></div>
+		                    <div id="unsch"><button id="rectangle3" width="90px;">Unscheduled</button></div>
 	                    </div>
                     </div>
                     <div id="line"></div>
                 </div>
+                <!-- 프로젝트 제목 및 메뉴 이름 영역 끝 -->
+                <!-- 에픽 영역 시작 -->
                 <div id="contentBox2">
+                
+                	<!-- 에픽 타이틀 영역 시작 -->
                 	<div id="epic-area">
                 		
                 		<div id="epic-title">
-                			에픽
+                			<div id="epic">에픽</div>
                 		</div>
                 		<div id="epic-title-cont">
                 			<div id="ep-ti">
@@ -49,15 +59,23 @@
                 			</table> -->
                 		</div>
                 	</div>
+                	<!-- 에픽 타이틀 영역 끝 -->
+                	<!-- 에픽 달력 영역 시작 -->
+                	<div id="epic-wrap">
                 	<div id="epic-con-area">
                 		<div id="epic-con-title">
-                		
+                			<!-- <div id="epic-mon">8월</div>
+                			<div id="epic-dd">화 수</div>
+                			<div id="epic-day">25 26</div> -->
                 		</div>
                 		<div id="epic-con-cont">
                 		
                 		</div>
                 	</div>
+                	</div>
+                	<!-- 에픽 달력 영역 끝 -->
                 </div>
+                <!-- 에픽 영역 끝 -->
              </div>
 </body>
 <script>
@@ -111,7 +129,125 @@
 	
 	    
 	}
-	
+	var today = null;
+    var year = null;
+    var month = null;
+    var firstDay = null;
+    var lastDay = null;
+    var $tdDay = null;
+    var $tdSche = null;
+
+    window.onload = function(){
+    	
+        drawCalendar();
+        initDate();
+        drawDays();
+        drawSche();
+        $("#movePrevMonth").on("click", function(){movePrevMonth();});
+        $("#moveNextMonth").on("click", function(){moveNextMonth();});
+        
+    };
+
+    //calendar 그리기
+    function drawCalendar() {
+    	
+        var setTableHTML = "";
+        setTableHTML+='<table class="calendar" style="table-layout: fixed">';
+        //setTableHTML+='<tr id="cal-tr">8월<th>일</th><th>월</th><th>화</th><th>수</th><th>목</th><th>금</th><th>토</th></tr>';
+            setTableHTML+='<tr id="cal-daytr">';
+        for(var i=0;i<6;i++){
+            for(var j=0;j<32;j++){
+                setTableHTML+='<td style="width:10%">';
+                setTableHTML+='    <div class="cal-day" style="width:10%; display:inline-block;"></div>';
+                setTableHTML+='    <div class="cal-schedule" style="width:10% display:inline-block;"></div>';
+                setTableHTML+='</td>';
+            setTableHTML+='</tr>';
+            }
+        }
+        setTableHTML+='</table>';
+        $("#epic-con-title").html(setTableHTML);
+        
+    }
+
+    //날짜 초기화
+    function initDate() {
+    	
+        $tdDay = $("td div.cal-day")
+        $tdSche = $("td div.cal-schedule")
+        dayCount = 0;
+        today = new Date();
+        year = today.getFullYear();
+        month = today.getMonth()+1;
+        firstDay = new Date(year,month-1,1);
+        lastDay = new Date(year,month,0);
+        
+    }
+
+    //calendar 날짜표시
+    function drawDays() {
+        $("#cal_top_year").text(year);
+        $("#cal_top_month").text(month);
+        for(var i=firstDay.getDay();i<firstDay.getDay()+lastDay.getDate();i++){
+            $tdDay.eq(i).text(++dayCount);
+        }
+        for(var i=0;i<42;i+=7) {
+            $tdDay.eq(i).css("color","#a30000");
+        }
+        for(var i=6;i<42;i+=7) {
+            $tdDay.eq(i).css("color","#1e019e");
+        }
+    }
+    
+    //스케줄표시
+    function drawSche() {
+    	
+    	$tdSche.eq(today.getDate()).css("color", "black");
+    	
+	}
+
+    //calendar 월 이동
+    function movePrevMonth() {
+       
+    	month--;
+        if(month<=0) {
+            month=12;
+            year--;
+        }
+        if(month<10) {
+            month=String("0"+month);
+        }
+        getNewInfo();
+    
+    }
+
+    function moveNextMonth() {
+       
+    	month++;
+        if(month>12) {
+            month=1;
+            year++;
+        }
+
+        if(month<10) {
+            month=String("0"+month);
+        }
+
+        getNewInfo();
+
+    }
+
+    function getNewInfo() {
+    	
+        for(var i=0;i<42;i++) {
+            $tdDay.eq(i).text("");
+            $tdSche.eq(i).text("");
+        }
+        dayCount=0;
+        firstDay = new Date(year,month-1,1);
+        lastDay = new Date(year,month,0);
+        drawDays();
+        drawSche();
+    }
 	
 </script>
 </html>

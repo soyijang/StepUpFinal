@@ -4,17 +4,19 @@
 	height:900px;
 }
 #line{
+	margin-top: 3px;
 	width: 100%;
 	height: 1px;
 	background-color: #DFDFDF;
 }
 #shareArea{
 	width: 100%;
-	height: 30px;
+	height: 40px;
+	display: inline-block;
 }
 #userArea{
 	width: 200px;
-	height: 30px;
+	height: 40px;
 	display: inline-block;
 }
 #share{
@@ -46,9 +48,10 @@
 }
 #contentBox2{
 	width: 100%;
-	height: 700px;
-	margin-top: 55px;
-	border-radius: 3px;
+	height: 690px;
+	margin-top:50px;
+	border-radius: 5px;
+	border: 1px solid #E8E8E8;
 }
 #epic-area{
 	width: 14%;
@@ -56,14 +59,29 @@
 	display: inline-block;
 	float: left;
 }
+#epic-wrap{
+	position:relative;
+    width:100%;
+    height:100%;
+}
 #epic-con-area{
-	width: 86%;
-	height: 700px;
+	width:86%;
+	max-height:690px;
 	display: inline-block;
+	overflow-x:scroll;
+	overflow-y:hidden; 
+}
+#epic-con-area::-webkit-scrollbar{
+	width: 3px;
+	padding-top: 10px;
+}
+#epic-con-area::-webkit-scrollbar-thumb{
+	background-color: #D9D9D9;
+	border-radius: 5px;
 }
 #epic-title{
 	width: 100%;
-	height: 20px;
+	height: 63px;
 	border-bottom: 1px solid #DFDFDF;
 	border-right: 1px solid #DFDFDF;
 	text-align: center;
@@ -71,7 +89,7 @@
 }
 #epic-title-cont{
 	width: 100%;
-	height: 650px;
+	height: 625px;
 	border-right: 1px solid #DFDFDF;
 }
 /* #epic{
@@ -80,7 +98,7 @@
 } */
 #epic-con-title{
 	width: 100%;
-	height: 20px;
+	height: 63px;
 	border-bottom: 1px solid #DFDFDF;
 }
 #epic-con-cont{
@@ -111,4 +129,53 @@
 	height: 25px;
 	border: 1px solid #E8E8E8;
 	border-radius: 3px;
+}
+#epic{
+	display: inline-block;
+	width:100%;
+	margin-top: 20px;
+}
+#epic-mon{
+	display: inline-block;
+	width:100%;
+	margin-left: 5px;
+	font-size: 12px;
+}
+#epic-dd{
+	display: inline-block;
+	width:100%;
+	margin-left: 5px;
+	font-size: 13px;
+}
+#epic-day{
+	display: inline-block;
+	width:100%;
+	margin-left: 5px;
+	font-size: 13px;
+}
+#today-btn{
+	width: 80px;
+	height: 30px;
+	display: inline-block;
+	float: left;
+}
+#week-dropdown{
+	margin-left:4px;
+	width: 80px;
+	height: 30px;
+	display: inline-block;
+	float: left;
+}
+#unsch{
+	width: 80px;
+	height: 30px;
+	display: inline-block;
+	margin-left:4px;
+}
+#btn-share-area{
+	margin-left: 750px;
+	width: 300px;
+	height: 30px;
+	display: inline-block;
+	float: right;
 }
