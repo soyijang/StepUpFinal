@@ -1,16 +1,24 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/common/nav.js"></script>
+
 <style type="text/css">
 	.calendar{
 		width: 75%;
 		margin-top: 15px;
 	}
 
+	#cal-tr > th{
+		text-align: left;
+	
+	}
 	.cal-schedule{
 		font-size: small;
 	}
@@ -38,25 +46,31 @@
 		border-radius: 10px;
 	}
 	
+	#prevMonth > img , #nextMonth > img {
+		width: 30px;
+		height: 30px;
+		vertical-align: middle;
+	}
+	
+	
 </style>
 </head>
 <body>
-
     <%@ include file="../../common/menubar.jsp" %>
     <div id="content">
         <!-- 상단 프로젝트 제목 및 메뉴 이름 영역 -->
         <div id="contentTitle">
-            <div id="projectTitle2">프로젝트 / 이름땡땡땡!!</div>
-            <div id="menuTitle">예시 개인일정관리</div>
+            <div id="projectTitle2">프로젝트 / 앤티앤스프레즐맛있네요</div>
+            <div id="menuTitle">개인일정관리</div>
         </div>
         <div id="contentBox">
 			<div id="calendar">				
 				 <div class="all_cal-func">
 					<div class="cal_top">
-						<a href="#" id="movePrevMonth"><span id="prevMonth" class="cal_tit">&lt;</span></a>
-						<span id="cal_top_year"></span>
+						<a href="#" id="movePrevMonth"><span id="prevMonth" class="cal_tit"><img src="${contextPath}/resources/icon/common/icon_left_chevron.png"></span></a>
+						<span id="cal_top_year"></span>.
 						<span id="cal_top_month"></span>
-						<a href="#" id="moveNextMonth"><span id="nextMonth" class="cal_tit">&gt;</span></a>
+						<a href="#" id="moveNextMonth"><span id="nextMonth" class="cal_tit"><img src="${contextPath}/resources/icon/common/icon_right_chevron.png"></span></a>
 					</div>
 					<div class="cal-func">공유되지않은 일정</div>
 					<div class="cal-func">공유된 일정</div>
@@ -93,7 +107,7 @@
 	    	
 	        var setTableHTML = "";
 	        setTableHTML+='<table class="calendar" style="table-layout: fixed">';
-	        setTableHTML+='<tr id="cal-tr"><th style="color: red;">일</th><th>월</th><th>화</th><th>수</th><th>목</th><th>금</th><th style="color:blue;">토</th></tr>';
+	        setTableHTML+='<tr id="cal-tr"><th style="color: red;">Sun</th><th>Mon</th><th>Tue</th><th>Wed</th><th>Thu</th><th>Fri</th><th style="color:blue;">Sat</th></tr>';
 	        for(var i=0;i<6;i++){
 	            setTableHTML+='<tr height="100">';
 	            for(var j=0;j<7;j++){
@@ -141,8 +155,8 @@
 	    //스케줄표시
 	    function drawSche() {
 	    	
-	    	$tdSche.eq(today.getDate()+firstDay.getDay()-1).text("🤴🏻오늘 뷰 다 끝날수있나?");
-	    	$tdSche.eq(today.getDate()+firstDay.getDay()).text("🎃금요일인데 아직 뷰 못끝냈겠찌?");
+	    	$tdSche.eq(today.getDate()+firstDay.getDay()-1).text("🤴🏻오늘 js 다 끝날수있나?");
+	    	$tdSche.eq(today.getDate()+firstDay.getDay()).text("🎃금요일인데 아직 못끝내겠찌?");
 	    	$tdSche.eq(today.getDate()).css("color", "black");
 	    	
 		}
