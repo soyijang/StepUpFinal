@@ -125,10 +125,10 @@
     					<div class="login">
         				<div id="title"><label>Log in to your account</label></div>
         				<input type="text" placeholder="Enter your email" id="email" name="userEmail">
-        				<input type="password" placeholder="Enter your password" id="password" name="userPwd">
+        				<input type="text" placeholder="Enter your password" id="password" name="userPwd">
         				<input type="submit" value="Continue" id="continue"></button>
         				<hr>
-        				<div class="account" id="findId"><a href="findAccount.me">Can't log in?</a></div>
+        				<div class="account" id="findId">Can't log in?</div>
         				<div id="sign"><a href="memberJoinForm.me">Sign up for account</a></div>
         				<div id="circle1"></div><div id="privacy"><label>Privacy Policy</label></div>
         				<div id="circle2"></div><div id="notice"><label>User Notice</label></div>        

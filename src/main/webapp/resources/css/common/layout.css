@@ -30,7 +30,7 @@ body{
 
 /* section(본문영역) 안쪽 왼쪽 메뉴바*/
 #menubar{
-    width: 14vw;
+    width: 15vw;
     height: 843px;
     background-color: #F9F9F9;
     float: left;
@@ -75,12 +75,10 @@ body{
     padding-left: 10px; 
 }
 
-
 /* section 안쪽 오른쪽*/
 #content{
     padding: 20px;
-    padding-top: 0;
-    width: 86vw;
+    width: 85vw;
     height: 843px;
     background-color: f9f9f9;
     box-sizing: border-box;
