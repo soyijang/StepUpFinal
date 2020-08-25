@@ -9,5 +9,4 @@ public interface BacklogService {
 
 	List<Sprint> selectSprint(Member m);
 	
-	
 }
