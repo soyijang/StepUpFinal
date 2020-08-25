@@ -40,8 +40,8 @@
 	
 	
 	
-	<select id="selectUserProject" resultMap="selectUserPJRset" parameterType="java.util.List">
-		SELECT PROJECT_NAME
+	<select id="projectResultSet" resultMap="selectUserPJRset" resultType="map">
+	<!-- 	SELECT PROJECT_NAME
 		  FROM USER_INFO I,
 		       USER_TEAM_LIST T,
 		       USER_PROJECT_LIST P,
@@ -50,7 +50,10 @@
 		   AND T.USER_TEAM_CODE = P.USER_TEAM_CODE
 		   AND P.USER_PROJECT_CODE = S.USER_PROJECT_CODE
 		   AND P.PROJECT_CODE = PL.PROJECT_CODE
-		   AND USER_EMAIL = #{userEmail}
+		   AND USER_EMAIL = #{userEmail} -->
+		   
+		   SELECT PROJECT_NAME
+		     FROM PROJECT_LIST
 	</select>
 
 </mapper>
