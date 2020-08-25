@@ -23,15 +23,14 @@ body{
     background-color: #2B2B49;   
 }
 
-/* 네브바 아래 전체 section(본문영역) 레이아웃
-#section{
-    height: 843px;
-
+/* 네브바 아래 전체 section(본문영역) 레이아웃 */
+/* #section{
+    width: 18.1%;
 } */
 
 /* section(본문영역) 안쪽 왼쪽 메뉴바*/
 #menubar{
-    width: 15vw;
+    width: 14vw;
     height: 843px;
     background-color: #F9F9F9;
     float: left;
@@ -76,11 +75,12 @@ body{
     padding-left: 10px; 
 }
 
+
 /* section 안쪽 오른쪽*/
 #content{
-    padding: 50px;
-    padding-top : 20px;
-    width: 85vw;
+    padding: 20px;
+    padding-top: 0;
+    width: 86vw;
     height: 843px;
     background-color: f9f9f9;
     box-sizing: border-box;

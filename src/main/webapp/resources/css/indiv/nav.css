@@ -119,7 +119,8 @@
     		width: 500px;
     		text-align: right;	
     	}
-    
+	
+		
     	/* ----------------메뉴바리스트------------------- */
     	.menuIcon > img {
     		height: 25px;
@@ -143,6 +144,8 @@
 		}
 		
 		#menubarWithBtn{
+			margin : 0;
+			padding : 0;
     		transition: all ease 0.5s 0s;
 			position: relative;
 		}
