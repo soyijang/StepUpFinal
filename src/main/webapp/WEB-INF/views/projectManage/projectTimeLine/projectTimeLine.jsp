@@ -9,6 +9,11 @@
 </head>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/indiv/projectManage/projectTimeLine/projectTimeLine.css">
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/common/button.css">
+<link rel="stylesheet" src="/path/to/jquery.timeline.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<link href="https://cdn.jsdelivr.net/gh/ka215/jquery.timeline@master/dist/jquery.timeline.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/gh/ka215/jquery.timeline@master/dist/jquery.timeline.min.js"></script>
+<script src="/agile/resources/js/indiv/projectManage/projectTimeLine/projectTimeLine.js"></script>
 
 <body>
 	<%@ include file="../../common/menubar.jsp" %>
@@ -139,6 +144,7 @@
 
     window.onload = function(){
     	
+    	
         drawCalendar();
         initDate();
         drawDays();
@@ -249,5 +255,6 @@
         drawSche();
     }
 	
+    
 </script>
 </html>
