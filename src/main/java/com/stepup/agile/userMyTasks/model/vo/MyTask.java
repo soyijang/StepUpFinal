@@ -3,30 +3,31 @@ package com.stepup.agile.userMyTasks.model.vo;
 public class MyTask implements java.io.Serializable{
 	
 	private int myTasksCode;
-	private String contents;
-	private String startDate;
-	private String startTime;
-	private String endDate;
-	private String endTime;
-	private String enrollDate;
-	private String enrollTime;
+	private String myTaskscontents;
+	private String myTasksstartDate;
+	private String myTasksstartTime;
+	private String myTasksendDate;
+	private String myTasksendTime;
+	private String myTasksenrollDate;
+	private String myTasksenrollTime;
 	private int userProjectCode;
 	private String myTasksShareYN;
 	public MyTask() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public MyTask(int myTasksCode, String contents, String startDate, String startTime, String endDate,
-			String endTime, String enrollDate, String enrollTime, int userProjectCode, String myTasksShareYN) {
+	public MyTask(int myTasksCode, String myTaskscontents, String myTasksstartDate, String myTasksstartTime,
+			String myTasksendDate, String myTasksendTime, String myTasksenrollDate, String myTasksenrollTime,
+			int userProjectCode, String myTasksShareYN) {
 		super();
 		this.myTasksCode = myTasksCode;
-		this.contents = contents;
-		this.startDate = startDate;
-		this.startTime = startTime;
-		this.endDate = endDate;
-		this.endTime = endTime;
-		this.enrollDate = enrollDate;
-		this.enrollTime = enrollTime;
+		this.myTaskscontents = myTaskscontents;
+		this.myTasksstartDate = myTasksstartDate;
+		this.myTasksstartTime = myTasksstartTime;
+		this.myTasksendDate = myTasksendDate;
+		this.myTasksendTime = myTasksendTime;
+		this.myTasksenrollDate = myTasksenrollDate;
+		this.myTasksenrollTime = myTasksenrollTime;
 		this.userProjectCode = userProjectCode;
 		this.myTasksShareYN = myTasksShareYN;
 	}
@@ -36,47 +37,47 @@ public class MyTask implements java.io.Serializable{
 	public void setMyTasksCode(int myTasksCode) {
 		this.myTasksCode = myTasksCode;
 	}
-	public String getContents() {
-		return contents;
+	public String getMyTaskscontents() {
+		return myTaskscontents;
 	}
-	public void setContents(String contents) {
-		this.contents = contents;
+	public void setMyTaskscontents(String myTaskscontents) {
+		this.myTaskscontents = myTaskscontents;
 	}
-	public String getStartDate() {
-		return startDate;
+	public String getMyTasksstartDate() {
+		return myTasksstartDate;
 	}
-	public void setStartDate(String startDate) {
-		this.startDate = startDate;
+	public void setMyTasksstartDate(String myTasksstartDate) {
+		this.myTasksstartDate = myTasksstartDate;
 	}
-	public String getStartTime() {
-		return startTime;
+	public String getMyTasksstartTime() {
+		return myTasksstartTime;
 	}
-	public void setStartTime(String startTime) {
-		this.startTime = startTime;
+	public void setMyTasksstartTime(String myTasksstartTime) {
+		this.myTasksstartTime = myTasksstartTime;
 	}
-	public String getEndDate() {
-		return endDate;
+	public String getMyTasksendDate() {
+		return myTasksendDate;
 	}
-	public void setEndDate(String endDate) {
-		this.endDate = endDate;
+	public void setMyTasksendDate(String myTasksendDate) {
+		this.myTasksendDate = myTasksendDate;
 	}
-	public String getEndTime() {
-		return endTime;
+	public String getMyTasksendTime() {
+		return myTasksendTime;
 	}
-	public void setEndTime(String endTime) {
-		this.endTime = endTime;
+	public void setMyTasksendTime(String myTasksendTime) {
+		this.myTasksendTime = myTasksendTime;
 	}
-	public String getEnrollDate() {
-		return enrollDate;
+	public String getMyTasksenrollDate() {
+		return myTasksenrollDate;
 	}
-	public void setEnrollDate(String enrollDate) {
-		this.enrollDate = enrollDate;
+	public void setMyTasksenrollDate(String myTasksenrollDate) {
+		this.myTasksenrollDate = myTasksenrollDate;
 	}
-	public String getEnrollTime() {
-		return enrollTime;
+	public String getMyTasksenrollTime() {
+		return myTasksenrollTime;
 	}
-	public void setEnrollTime(String enrollTime) {
-		this.enrollTime = enrollTime;
+	public void setMyTasksenrollTime(String myTasksenrollTime) {
+		this.myTasksenrollTime = myTasksenrollTime;
 	}
 	public int getUserProjectCode() {
 		return userProjectCode;
@@ -92,12 +93,12 @@ public class MyTask implements java.io.Serializable{
 	}
 	@Override
 	public String toString() {
-		return "MyTasksVo [myTasksCode=" + myTasksCode + ", contents=" + contents + ", startDate=" + startDate
-				+ ", startTime=" + startTime + ", endDate=" + endDate + ", endTime=" + endTime + ", enrollDate="
-				+ enrollDate + ", enrollTime=" + enrollTime + ", userProjectCode=" + userProjectCode
+		return "MyTask [myTasksCode=" + myTasksCode + ", myTaskscontents=" + myTaskscontents + ", myTasksstartDate="
+				+ myTasksstartDate + ", myTasksstartTime=" + myTasksstartTime + ", myTasksendDate=" + myTasksendDate
+				+ ", myTasksendTime=" + myTasksendTime + ", myTasksenrollDate=" + myTasksenrollDate
+				+ ", myTasksenrollTime=" + myTasksenrollTime + ", userProjectCode=" + userProjectCode
 				+ ", myTasksShareYN=" + myTasksShareYN + "]";
 	}
-	
 	
 	
 }

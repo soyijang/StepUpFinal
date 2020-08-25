@@ -31,7 +31,7 @@ public class MemberController {
 			
 			System.out.println(m);
 			
-			return "redirect:index.jsp";		
+			return "common/menubar";		
 		} catch (LoginFailedException e) {
 			model.addAttribute("msg", e.getMessage());
 
@@ -60,6 +60,11 @@ public class MemberController {
 			model.addAttribute("msg", "회원 가입 실패!");
 			return "common/errorPage";
 		}
+	}
+	
+	@RequestMapping("backlogin.me")
+	public String showloginPage() {
+		return "userInfo/login";
 	}
 
 }
