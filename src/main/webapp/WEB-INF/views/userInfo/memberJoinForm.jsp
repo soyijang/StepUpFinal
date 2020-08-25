@@ -116,7 +116,7 @@
         <div id="title"><label>Sign up for your account</label></div>
         <input type="text" placeholder="Enter your email" id="email" name="userEmail">
         <input type="text" placeholder="Enter your name" id="name" name="userName">
-        <input type="text" placeholder="Enter your password" id="password" name="userPwd">
+        <input type="password" placeholder="Enter your password" id="password" name="userPwd">
         <div id="policy"><label>By signing up, I accept the Stepup Cloud Terms of Service and acknowledge the Privacy Policy.</label></div>
         <input type="submit" value="Continue" id="continue"></button>
         <hr>
