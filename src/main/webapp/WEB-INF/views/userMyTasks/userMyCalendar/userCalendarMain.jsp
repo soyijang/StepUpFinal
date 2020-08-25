@@ -1,163 +1,100 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<style type="text/css">
-	.calendar{
-		width: 75%;
-	}
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/indiv/calendar.css">
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/indiv/calendar.js"></script>
 
-</style>
 </head>
 <body>
-
     <%@ include file="../../common/menubar.jsp" %>
     <div id="content">
         <!-- 상단 프로젝트 제목 및 메뉴 이름 영역 -->
         <div id="contentTitle">
-            <div id="projectTitle2">프로젝트 / 이름땡땡땡!!</div>
-            <div id="menuTitle">예시 개인일정관리</div>
+            <div id="projectTitle2">프로젝트 / 앤티앤스프레즐맛있네요</div>
+            <div id="menuTitle">개인일정관리</div>
         </div>
+        
+        <!-- 캘린더영역 -->
         <div id="contentBox">
-			<div id="calendar">				
-				<div class="cal_top">
-					<a href="#" id="movePrevMonth"><span id="prevMonth" class="cal_tit">&lt;</span></a>
-					<span id="cal_top_year"></span>
-					<span id="cal_top_month"></span>
-					<a href="#" id="moveNextMonth"><span id="nextMonth" class="cal_tit">&gt;</span></a>
-				</div>
 			
-				 <div class="cal-func">
-					<div class="date-type">
-						<span class="type-r"><div></div><em>개인일정</em></span>
-						<span class="type-e"><div></div><em>프로젝트일정</em></span>
+			<div id="calendar">			
+				
+				<!-- 캘린더상단영역 -->
+				 <div class="all_cal-func">
+					<div class="cal_top">
+						<a href="#" id="movePrevMonth"><span id="prevMonth" class="cal_tit"><img src="/agile/resources/icon/common/icon_left_chevron.png"></span></a>
+						<span id="cal_top_year"></span>.
+						<span id="cal_top_month"></span>
+						<a href="#" id="moveNextMonth"><span id="nextMonth" class="cal_tit"><img src="/agile/resources/icon/common/icon_right_chevron.png"></span></a>
+						<div id="calendarbtn">
+							<div class="cal-func">공유되지않은 일정</div>
+							<div class="cal-func">공유된 일정</div>
+							<div class="cal-func">전체 개인 일정</div>
+						</div>
 					</div>
 				</div>	
-			
-				<div id="cal_tab" class="cal"></div>				   		
-			</div>
-		</div>
-    </div>
 
-	<script type="text/javascript">
-	    var today = null;
-	    var year = null;
-	    var month = null;
-	    var firstDay = null;
-	    var lastDay = null;
-	    var $tdDay = null;
-	    var $tdSche = null;
+				<!-- 캘린더영역 -->
+				<div id="cal_tab" class="cal"></div>				   		
+				
+				
+				<!-- 우측영역 -->
+				<div class="checkList">
+					<div id="toDoList">
+
+						<div class="checkListToday">
+							<div id="todayDay">2020년 08월 13일</div>
+							<div id="todayDate">목요일</div><br>
+							<p>할일 50654개 남음</p><hr>
+						</div>
+
+						<table class="checkListTodayTable">
+							<tbody>
+								<tr>
+									<td class="toDoCheckBox"><input id="check1" type="checkbox"></td>
+									<td class="toDoToday"><label for="check1"> 오늘안에 캘린더라도 하자 소이야ㅎㅎ</label></td>
+								</tr>
+								<tr>
+									<td class="toDoCheckBox"><input type="checkbox"></td>
+									<td class="toDoToday">오늘안하면 내일해야되잖아?</td>
+								</tr>
+
+							</tbody>
+						</table>
+						
+						<img id="plusMyTask" onclick="" src="/agile/resources/icon/common/icon_circle_plus_red.png">
+						
+					</div>
+					
+					<div id="sharedList">
+
+						<div class="checkListToday">
+							<div id="todayDay">공유된 오늘의 일정</div>
+							<p>진행 한 일</p><hr>
+							<p>진행 할 일</p><hr>
+							<p>변경/취소/미달성 된 일</p><hr>
+							
+						</div>
+
+
+					</div>
+					
+				</div>
+			
+			</div>
+				
+			</div>
+		
+		
+    </div>
 	
-	    $(document).ready(function() {
-	    	
-	        drawCalendar();
-	        initDate();
-	        drawDays();
-	        $("#movePrevMonth").on("click", function(){movePrevMonth();});
-	        $("#moveNextMonth").on("click", function(){moveNextMonth();});
-	        
-	    });
-	
-	    //calendar 그리기
-	    function drawCalendar() {
-	    	
-	        var setTableHTML = "";
-	        setTableHTML+='<table class="calendar">';
-	        setTableHTML+='<tr id="cal-tr"><th style="color: red;">일</th><th>월</th><th>화</th><th>수</th><th>목</th><th>금</th><th style="color:blue;">토</th></tr>';
-	        for(var i=0;i<6;i++){
-	            setTableHTML+='<tr height="100">';
-	            for(var j=0;j<7;j++){
-	                setTableHTML+='<td style="text-overflow:ellipsis;overflow:hidden;white-space:nowrap">';
-	                setTableHTML+='    <div class="cal-day"></div>';
-	                setTableHTML+='    <div class="cal-schedule"></div>';
-	                setTableHTML+='</td>';
-	            }
-	            setTableHTML+='</tr>';
-	        }
-	        setTableHTML+='</table>';
-	        $("#cal_tab").html(setTableHTML);
-	        
-	    }
-	
-	    //날짜 초기화
-	    function initDate() {
-	    	
-	        $tdDay = $("td div.cal-day")
-	        $tdSche = $("td div.cal-schedule")
-	        dayCount = 0;
-	        today = new Date();
-	        year = today.getFullYear();
-	        month = today.getMonth()+1;
-	        firstDay = new Date(year,month-1,1);
-	        lastDay = new Date(year,month,0);
-	        
-	    }
-	
-	    //calendar 날짜표시
-	    function drawDays() {
-	        $("#cal_top_year").text(year);
-	        $("#cal_top_month").text(month);
-	        for(var i=firstDay.getDay();i<firstDay.getDay()+lastDay.getDate();i++){
-	            $tdDay.eq(i).text(++dayCount);
-	        }
-	        for(var i=0;i<42;i+=7) {
-	            $tdDay.eq(i).css("color","red");
-	        }
-	        for(var i=6;i<42;i+=7) {
-	            $tdDay.eq(i).css("color","blue");
-	        }
-	    }
-	
-	    //calendar 월 이동
-	    function movePrevMonth() {
-	       
-	    	month--;
-	        if(month<=0) {
-	            month=12;
-	            year--;
-	        }
-	        if(month<10) {
-	            month=String("0"+month);
-	        }
-	        getNewInfo();
-	    
-	    }
-	
-	
-	    function moveNextMonth() {
-	       
-	    	month++;
-	        if(month>12) {
-	            month=1;
-	            year++;
-	        }
-	
-	        if(month<10) {
-	            month=String("0"+month);
-	        }
-	
-	        getNewInfo();
-	
-	    }
-	
-	    function getNewInfo() {
-	    	
-	        for(var i=0;i<42;i++) {
-	            $tdDay.eq(i).text("");
-	        }
-	        dayCount=0;
-	        firstDay = new Date(year,month-1,1);
-	        lastDay = new Date(year,month,0);
-	        drawDays();
-	        
-	    }
-	
-	</script>
-	
-	<script>
+<!-- 	<script>
 	
 		$(document).ready(function() {
 			
@@ -203,7 +140,7 @@
 		function goYearMonth() {
 			location.href = "?yyyy=" + $("#yyyy").val() + "&mmmm=" + $("#mmmm").val();
 		}
-	</script>
+	</script> -->
 
 </body>
 </html>

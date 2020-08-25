@@ -1,14 +1,10 @@
 package com.stepup.agile.userInfo.controller;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.stepup.agile.userInfo.model.exception.LoginFailedException;
@@ -33,12 +29,16 @@ public class MemberController {
 			
 			model.addAttribute("loginUser", loginUser);
 			
-			return "userInfo/myInfo";		
+			System.out.println(m);
+			
+			return "common/menubar";		
 		} catch (LoginFailedException e) {
 			model.addAttribute("msg", e.getMessage());
 
 			return "common/errorPage";
 		}
+		
+		
 		
 	}
 	
@@ -66,30 +66,5 @@ public class MemberController {
 	public String showloginPage() {
 		return "userInfo/login";
 	}
-	
-	@RequestMapping("findAccount.me")
-	public String showFindAccount() {
-		return "userInfo/myInfo";
-	}
-	
-	@RequestMapping("insertJob.me")
-	public String insertJob(@RequestParam("job") String job, @RequestParam("email") String email) {
-		
-		
-		/*
-		 * int result = ms.insertJob(userJob);
-		 * 
-		 * if(result > 0) { return userJob; } else { model.addAttribute("msg",
-		 * "회원 가입 실패!"); return "common/errorPage"; }
-		 */
-		
-		Map<String, Object> member = new HashMap<String, Object>();
-		
-		member.put("email", email);
-		member.put("job", job);
-		
-		int result = ms.insertJob(member);
-		
-		return "result";
-	}
+
 }
