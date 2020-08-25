@@ -1,0 +1,114 @@
+@charset "UTF-8";
+#content{
+	width:1440px;
+	height:900px;
+}
+#line{
+	width: 100%;
+	height: 1px;
+	background-color: #DFDFDF;
+}
+#shareArea{
+	width: 100%;
+	height: 30px;
+}
+#userArea{
+	width: 200px;
+	height: 30px;
+	display: inline-block;
+}
+#share{
+	width:200px;
+	height:30px;
+	float: right;
+}
+#shareBtn{
+	width: 90px;
+	font-size: 13px;
+	text-align: center;
+	background-color: white;
+	border: 3px solid #ffffff;
+	height: 30px;
+	border-radius: 3px;
+}
+#shareBtn:hover{
+	background-color: #ececec;
+	border: 3px solid #ececec;
+}
+#sharetitle{
+	margin-left: 10px;
+	margin-bottom: 20px;
+}
+#sharedIcon{
+	margin-top:2px;
+	width: 20px;
+	height: 18px;
+}
+#contentBox2{
+	width: 100%;
+	height: 700px;
+	margin-top: 55px;
+	border-radius: 3px;
+}
+#epic-area{
+	width: 14%;
+	height: 700px;
+	display: inline-block;
+	float: left;
+}
+#epic-con-area{
+	width: 86%;
+	height: 700px;
+	display: inline-block;
+}
+#epic-title{
+	width: 100%;
+	height: 20px;
+	border-bottom: 1px solid #DFDFDF;
+	border-right: 1px solid #DFDFDF;
+	text-align: center;
+	font-size: 17px;
+}
+#epic-title-cont{
+	width: 100%;
+	height: 650px;
+	border-right: 1px solid #DFDFDF;
+}
+/* #epic{
+	font-size: 17px;
+	text-align: center;
+} */
+#epic-con-title{
+	width: 100%;
+	height: 20px;
+	border-bottom: 1px solid #DFDFDF;
+}
+#epic-con-cont{
+	width: 100%;
+	height: 650px;
+}
+
+#ep-ti{
+	padding: 20px;
+	height: 90px;
+}
+#epic-add-btn{
+	padding: 20px;
+	height: 90px;
+}
+#ep-ad-btn{
+	font-size:15px;
+	border:0;
+	background-color: white;
+	width: 100%;
+}
+#ep-ad-btn:hover{
+	border:0;
+	background-color: white;
+}
+#ep-ti-tx{
+	width: 100%;
+	height: 25px;
+	border: 1px solid #E8E8E8;
+	border-radius: 3px;
+}
