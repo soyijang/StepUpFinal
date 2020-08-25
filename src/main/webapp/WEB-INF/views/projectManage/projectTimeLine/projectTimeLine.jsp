@@ -93,13 +93,23 @@
 	function createEpic(){
 		var epdiv = $("#ep-ti");
 		
-		var div = document.createElement('div');
+		var ti = document.getElementById('ep-ti-tx').value;
+		console.log(ti);
+		/* var div = document.createElement('div');
 
 	    div.innerHTML = document.getElementById('ep-ti-tx').value;
 
-	    document.getElementById('epic-title-cont').appendChild(div);
-
-		
+	    document.getElementById('epic-title-cont').appendChild(div); */
+	    $('#epic-add-btn').remove();
+	    $('#ep-ad-btn').remove();
+	    $('#ep-ti-tx').remove();
+	    
+	    $('#epic-title-cont').append('<div id="ep-ti">' + ti + '</div>');
+	    $('#ep-ti').append('<div id="epic-add-btn">');
+	    $('#epic-add-btn').append('<button id="ep-ad-btn">');
+	    $('#epic-add-btn').append('<input type="text" id="ep-ti-tx" style="display:none;" onkeyup="enterkey();">');
+	
+	    
 	}
 	
 	
