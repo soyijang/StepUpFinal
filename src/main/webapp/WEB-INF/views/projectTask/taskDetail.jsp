@@ -6,7 +6,9 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+<script src="lang.summernote-ko-KR.js"></script>
 <style>
 	.modalTable{
 		width: 400px;
@@ -42,7 +44,7 @@
 	  }
 	.modaltitle {
 		margin-left:15px;
-		padding-top:30px;
+		padding-top:20px;
 		margin-bottom:10px;
 		width:400px;
 		margin-right:0px;
@@ -106,8 +108,8 @@
 	}
 	.profile {
 		background:#C4C4C4;
-        height: 40px;
-        width: 40px;
+        height: 30px;
+        width: 30px;
         border-radius: 50%;
         border: 0;
         font-size: 8px;
@@ -115,11 +117,11 @@
         text-align: center;
         float:left;
         margin-right:10px;
-        margin-top:5px;
+        margin-top:9px;
 	}
 	#reply {
 		margin-top:10px;
-		height:30px;
+		height:20px;
 		width:300px;
 	}
 	#bookmark {
@@ -214,6 +216,28 @@
     #summernote {
     	display:none;
     }
+    .label {
+    	font-size:13px;
+    }
+    #activity {
+    	padding-top:15px;
+    }
+    .intBtn {
+    	background:white;
+        height: 25px;
+        width: 60px;
+        border-radius: 10px;
+        border: 1px solid #DD0351;
+        font-size: 13px;
+        color:#DD0351;
+        text-align: center;
+        float:right;
+        margin-left:10px;
+    }
+    #titleName {
+    	border:none;
+    	outline:none;
+    }
 </style>
 </head>
 <body>
@@ -230,7 +254,7 @@
       	<div><img src="/agile/resources/icon/common/icon_more horizontalicon.png" id="additional"></div>
       	<div><img src="/agile/resources/icon/common/icon_shareicon.png" id="share"></div>
       	<div><label id="count">1번</label><img src="/agile/resources/icon/common/icon_bookmarkicon.png" id="bookmark"></div>
-        <p align="left" class ="modaltitle" style="font-size:25px;">회원가입기능</p>
+        <p align="left" class ="modaltitle"><input type="text" placeholder="제목을 입력하세요" style="font-size:20px;" id="titleName" onkeyup="enterkey();"></p>
         <table align="center" class="modalTable">
             <tr>
             	<td>
@@ -239,16 +263,20 @@
             	</td>
             </tr>
             <tr>
-            	<td id="intro">설명</td>
+            	<td id="intro" class="label">설명</td>
             </tr>
             <tr>
-            	<td><div id="summernote">Hello Summernote</div></td>
+            	<td><textarea id="summernote" name="content" rows="10" cols="100"><c:out value="${content}" /></textarea></td>
             </tr>
             <tr>
-            	<td>활동</td>
+            	<td><button class="intBtn">Cancel</button>
+            	<button class="intBtn">Save</button></td>
             </tr>
             <tr>
-            	<td colspan="4">표시 : 
+            	<td id="activity" class="label">활동</td>
+            </tr>
+            <tr>
+            	<td colspan="4" class="label">표시 : 
             	<button class="activity"><label>댓글</label></button>
             	<button class="activity"><label>기록</label></button>
             	<button class="activity"><label>작업로그</label></button>
@@ -352,10 +380,46 @@
 	  }
 	};
 	
-	$(document).ready(function() {
-        $('.summernote').summernote();
-	});
-
+	//input type text에서 엔터치면 실행되는 함수
+	function enterkey() {
+		if(window.event.keyCode == 13){
+			createTask();
+		}
+	}
+	function createTask(){
+		var taskTitle = $("titleName").val();
+		
+		console.log(tskTitle);
+		
+		$.ajax({
+			url:"createTask.pj",
+			type:"post",
+			data:{taskTitle: taskTitle},
+			success:function(data) {
+				console.log(data.TaskCategory.taskTitle);
+			},
+			error:function() {
+				console.log("에러!");
+			}
+		});
+		
+		return false;
+	}
+	
+	$('#summernote').summernote({
+		lang: 'ko-KR',
+        placeholder: '안녕하세요 스탭업! 입니다',
+        tabsize: 3,
+        height: 140,
+        toolbar: [
+          ['style', ['style']],
+          ['font', ['bold', 'underline']],
+          ['color', ['color']],
+          ['para', ['paragraph']],
+          ['insert', ['link', 'picture']],
+          ['view', [ 'codeview']]
+        ]
+      });
 </script>
 </body>
 </html>
