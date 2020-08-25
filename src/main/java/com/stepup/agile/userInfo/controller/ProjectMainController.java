@@ -15,7 +15,7 @@ import com.stepup.agile.userInfo.model.service.MemberService;
 
 @SessionAttributes("loginUser")
 @Controller
-public class ProjectMain {
+public class ProjectMainController {
 	@Autowired
 	private MemberService ms;
 	

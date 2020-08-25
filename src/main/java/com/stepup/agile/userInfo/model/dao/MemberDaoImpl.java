@@ -53,8 +53,7 @@ public class MemberDaoImpl implements MemberDao {
 
 	@Override
 	public List<Map<String, Object>> selectUserProject(SqlSessionTemplate sqlSession) {
-		
-		return sqlSession.selectList("Member.selectUserProject");
+		return sqlSession.selectList("Project.selectUserProject");
 	}
 
 }

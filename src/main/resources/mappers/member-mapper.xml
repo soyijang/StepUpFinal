@@ -42,12 +42,7 @@
 		<id property="teamCode" column="TEAM_CODE"/>
 		<result property="teamName" column="TEAM_NAME"/>
 	</resultMap>
-	
-<!-- 	<resultMap type="HashMap" id="userProject">
-		<id property="projectName" column="PROJECT_NAME"/>
-	</resultMap>
-	 -->
-	
+
 	<insert id="insertMember" parameterType="Member">
 		INSERT INTO USER_INFO
 		VALUES (#{userEmail}, #{userPwd}, #{userName}, SEQ_USER.NEXTVAL, 
@@ -84,7 +79,7 @@
 		 WHERE USER_EMAIL = #{userEmail} 
 	</update>
 	
-	<select id="selectUserProject" resultType="UserProjectListResultSet" parameterType="list">
+<!-- 	<select id="selectUserProject" resultType="UserProjectListResultSet" parameterType="list">
 		SELECT PROJECT_NAME
 		  FROM USER_INFO I,
 		       USER_TEAM_LIST T,
@@ -95,5 +90,5 @@
 		   AND P.USER_PROJECT_CODE = S.USER_PROJECT_CODE
 		   AND P.PROJECT_CODE = PL.PROJECT_CODE
 		   AND USER_EMAIL = #{userEmail}
-	</select>
+	</select> -->
 </mapper>
