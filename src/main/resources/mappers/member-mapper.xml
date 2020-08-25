@@ -73,4 +73,10 @@
 		AND USER_STATUS = 'N'
 	</select>
 	
+	<update id="insertMemberJob" parameterType="map">
+		UPDATE USER_INFO
+		   SET USER_COMP_JOB = #{userJob}
+		 WHERE USER_EMAIL = #{userEmail} 
+	</update>
+	
 </mapper>
