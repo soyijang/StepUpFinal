@@ -84,6 +84,10 @@
              </div>
 </body>
 <script>
+	$(function () {
+	    $("#myTimeline").Timeline()
+	})
+
 	//input type text에서 엔터치면 실행되는 함수
 	function enterkey() {
 		if(window.event.keyCode == 13){
