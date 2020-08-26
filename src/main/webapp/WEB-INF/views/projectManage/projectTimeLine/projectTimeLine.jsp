@@ -73,7 +73,7 @@
                 			</div>
                 			<div id="epic-add-btn">
                 				<button id="ep-ad-btn">
-                					에픽 만들기
+                					<img src="/agile/resources/icon/common/icon_circle_plus.png">
                 				</button>
                 				<input type="text" id="ep-ti-tx" style="display:none;" onkeyup="enterkey();">
                 			</div>
