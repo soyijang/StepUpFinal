@@ -11,8 +11,18 @@
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/common/button.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="/agile/resources/js/indiv/projectManage/projectTimeLine/projectTimeLine.js"></script>
-<script src="frappe-gantt.min.js"></script>
-<link rel="stylesheet" href="frappe-gantt.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/indiv/projectManage/projectTimeLine/frappe-gantt.css" />
+<script src="${pageContext.request.contextPath}/resources/css/indiv/projectManage/projectTimeLine/frappe-gantt.js"></script>
+<style>
+.container {
+	width: 80%;
+	margin: 0 auto;
+}
+/* custom class */
+.gantt .bar-milestone .bar {
+	fill: tomato;
+}
+	</style>
 <body>
 	<%@ include file="../../common/menubar.jsp" %>
             <div id="content">
@@ -29,7 +39,19 @@
 	                    <div id="userArea"><img src="/agile/resources/images/profile/dayoon_202008152056.png"><img src="/agile/resources/images/profile/soyi_202008132015.png"></div>
 	                    <div id="btn-share-area">
 		                    <div id="today-btn"><button id="rectangle3">Today</button></div>
-		                    <div id="week-dropdown"><button id="rectangle3">Today</button></div>
+			                    <div id="week-dropdown">
+			                    	<div class="dropdown">
+								        <div class="select">
+								              <span id="user-list">담당자</span>
+								          <i class="fa fa-chevron-left"></i>
+								        </div>
+								        <ul class="dropdown-menu">
+								          <li id="work">주간</li>
+								          <li id="rest">월간</li>
+								          <li id="travel">분기</li>
+								        </ul>
+							      </div>
+					     	 </div>	
 		                    <div id="unsch"><button id="rectangle3" width="90px;">Unscheduled</button></div>
 	                    </div>
                     </div>
@@ -66,15 +88,13 @@
                 	<!-- 에픽 달력 영역 시작 -->
                 	<div id="epic-wrap">
                 	<div id="epic-con-area">
-                		<div id="epic-con-title">
-                		<svg id="gantt"></svg>
-                			<!-- <div id="epic-mon">8월</div>
-                			<div id="epic-dd">화 수</div>
-                			<div id="epic-day">25 26</div> -->
+                	<div class="gantt-target"></div>
+                		<!-- <div id="epic-con-title">
+                			
                 		</div>
                 		<div id="epic-con-cont">
-                		
-                		</div>
+                			
+                		</div> -->
                 	</div>
                 	</div>
                 	<!-- 에픽 달력 영역 끝 -->
@@ -84,31 +104,44 @@
 </body>
 <script>
 	var tasks = [
-	  {
-	    id: 'Task 1',
-	    name: 'Redesign website',
-	    start: '2016-12-28',
-	    end: '2016-12-31',
-	    progress: 20,
-	    dependencies: 'Task 2, Task 3',
-	    custom_class: 'bar-milestone' // optional
-	  }
+		
+		{
+			start: '2020-08-26',
+			end: '2020-08-31',
+			name: '타임라인 테스트',
+			id: "Task 0",
+			progress: 40
+		},
+		
 	]
-	
-	var gantt = new Gantt("#gantt", tasks, {
-	    header_height: 50,
-	    column_width: 30,
-	    step: 24,
-	    view_modes: ['Quarter Day', 'Half Day', 'Day', 'Week', 'Month'],
-	    bar_height: 20,
-	    bar_corner_radius: 3,
-	    arrow_curve: 5,
-	    padding: 18,
-	    view_mode: 'Day',   
-	    date_format: 'YYYY-MM-DD',
-	    custom_popup_html: null
+	var gantt_chart = new Gantt(".gantt-target", tasks, {
+		on_click: function (task) {
+			console.log(task);
+		},
+		on_date_change: function(task, start, end) {
+			console.log(task, start, end);
+		},
+		on_progress_change: function(task, progress) {
+			console.log(task, progress);
+		},
+		on_view_change: function(mode) {
+			console.log(mode);
+		},
+		view_mode: 'Day',
+		language: 'ko'
 	});
-
+	console.log(gantt_chart);
+	
+	var YEAR = 'year';
+	var MONTH = 'month';
+	var DAY = 'day';
+	var HOUR = 'hour';
+	var MINUTE = 'minute';
+	var SECOND = 'second';
+	var MILLISECOND = 'millisecond';
+	
+	
+	
 	//input type text에서 엔터치면 실행되는 함수
 	function enterkey() {
 		if(window.event.keyCode == 13){
@@ -159,127 +192,28 @@
 	
 	    
 	}
-	var today = null;
-    var year = null;
-    var month = null;
-    var firstDay = null;
-    var lastDay = null;
-    var $tdDay = null;
-    var $tdSche = null;
 
-    window.onload = function(){
-    	
-    	
-        drawCalendar();
-        initDate();
-        drawDays();
-        drawSche();
-        $("#movePrevMonth").on("click", function(){movePrevMonth();});
-        $("#moveNextMonth").on("click", function(){moveNextMonth();});
-        
-    };
-
-    //calendar 그리기
-    function drawCalendar() {
-    	
-        var setTableHTML = "";
-        setTableHTML+='<table class="calendar" style="table-layout: fixed">';
-        //setTableHTML+='<tr id="cal-tr">8월<th>일</th><th>월</th><th>화</th><th>수</th><th>목</th><th>금</th><th>토</th></tr>';
-            setTableHTML+='<tr id="cal-daytr">';
-        for(var i=0;i<6;i++){
-            for(var j=0;j<32;j++){
-                setTableHTML+='<td style="width:10%">';
-                setTableHTML+='    <div class="cal-day" style="width:10%; display:inline-block;"></div>';
-                setTableHTML+='    <div class="cal-schedule" style="width:10% display:inline-block;"></div>';
-                setTableHTML+='</td>';
-            setTableHTML+='</tr>';
-            }
-        }
-        setTableHTML+='</table>';
-        $("#epic-con-title").html(setTableHTML);
-        
-    }
-
-    //날짜 초기화
-    function initDate() {
-    	
-        $tdDay = $("td div.cal-day")
-        $tdSche = $("td div.cal-schedule")
-        dayCount = 0;
-        today = new Date();
-        year = today.getFullYear();
-        month = today.getMonth()+1;
-        firstDay = new Date(year,month-1,1);
-        lastDay = new Date(year,month,0);
-        
-    }
-
-    //calendar 날짜표시
-    function drawDays() {
-        $("#cal_top_year").text(year);
-        $("#cal_top_month").text(month);
-        for(var i=firstDay.getDay();i<firstDay.getDay()+lastDay.getDate();i++){
-            $tdDay.eq(i).text(++dayCount);
-        }
-        for(var i=0;i<42;i+=7) {
-            $tdDay.eq(i).css("color","#a30000");
-        }
-        for(var i=6;i<42;i+=7) {
-            $tdDay.eq(i).css("color","#1e019e");
-        }
-    }
-    
-    //스케줄표시
-    function drawSche() {
-    	
-    	$tdSche.eq(today.getDate()).css("color", "black");
-    	
-	}
-
-    //calendar 월 이동
-    function movePrevMonth() {
-       
-    	month--;
-        if(month<=0) {
-            month=12;
-            year--;
-        }
-        if(month<10) {
-            month=String("0"+month);
-        }
-        getNewInfo();
-    
-    }
-
-    function moveNextMonth() {
-       
-    	month++;
-        if(month>12) {
-            month=1;
-            year++;
-        }
-
-        if(month<10) {
-            month=String("0"+month);
-        }
-
-        getNewInfo();
-
-    }
-
-    function getNewInfo() {
-    	
-        for(var i=0;i<42;i++) {
-            $tdDay.eq(i).text("");
-            $tdSche.eq(i).text("");
-        }
-        dayCount=0;
-        firstDay = new Date(year,month-1,1);
-        lastDay = new Date(year,month,0);
-        drawDays();
-        drawSche();
-    }
+    //드롭다운
+   $('.dropdown').click(function() {
+	$(this).attr('tabindex', 1).focus();
+	$(this).toggleClass('active');
+	$(this).find('.dropdown-menu').slideToggle(300);
+	});
 	
-    
+	$('.dropdown').focusout(function() {
+		$(this).removeClass('active');
+		$(this).find('.dropdown-menu').slideUp(300);
+	});
+	
+	$('.dropdown .dropdown-menu li').click(
+		function() {
+			$(this).parents('.dropdown').find('span').text($(this).text());
+			$(this).parents('.dropdown').find('input').attr('value',$(this).attr('id'));
+	});
+	
+	$('.dropdown-menu li').click(function() {
+			var input = '<strong>' + $(this).parents('.dropdown').find('input').val() + '</strong>', msg = '<span class="msg">Hidden input value: ';
+			$('.msg').html(msg + input + '</span>');
+	});
 </script>
 </html>
