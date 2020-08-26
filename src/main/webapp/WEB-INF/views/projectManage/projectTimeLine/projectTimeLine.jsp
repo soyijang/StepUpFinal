@@ -9,12 +9,10 @@
 </head>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/indiv/projectManage/projectTimeLine/projectTimeLine.css">
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/common/button.css">
-<link rel="stylesheet" src="/path/to/jquery.timeline.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<link href="https://cdn.jsdelivr.net/gh/ka215/jquery.timeline@master/dist/jquery.timeline.min.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/gh/ka215/jquery.timeline@master/dist/jquery.timeline.min.js"></script>
 <script src="/agile/resources/js/indiv/projectManage/projectTimeLine/projectTimeLine.js"></script>
-
+<script src="frappe-gantt.min.js"></script>
+<link rel="stylesheet" href="frappe-gantt.css">
 <body>
 	<%@ include file="../../common/menubar.jsp" %>
             <div id="content">
@@ -69,6 +67,7 @@
                 	<div id="epic-wrap">
                 	<div id="epic-con-area">
                 		<div id="epic-con-title">
+                		<svg id="gantt"></svg>
                 			<!-- <div id="epic-mon">8월</div>
                 			<div id="epic-dd">화 수</div>
                 			<div id="epic-day">25 26</div> -->
@@ -84,9 +83,31 @@
              </div>
 </body>
 <script>
-	$(function () {
-	    $("#myTimeline").Timeline()
-	})
+	var tasks = [
+	  {
+	    id: 'Task 1',
+	    name: 'Redesign website',
+	    start: '2016-12-28',
+	    end: '2016-12-31',
+	    progress: 20,
+	    dependencies: 'Task 2, Task 3',
+	    custom_class: 'bar-milestone' // optional
+	  }
+	]
+	
+	var gantt = new Gantt("#gantt", tasks, {
+	    header_height: 50,
+	    column_width: 30,
+	    step: 24,
+	    view_modes: ['Quarter Day', 'Half Day', 'Day', 'Week', 'Month'],
+	    bar_height: 20,
+	    bar_corner_radius: 3,
+	    arrow_curve: 5,
+	    padding: 18,
+	    view_mode: 'Day',   
+	    date_format: 'YYYY-MM-DD',
+	    custom_popup_html: null
+	});
 
 	//input type text에서 엔터치면 실행되는 함수
 	function enterkey() {
