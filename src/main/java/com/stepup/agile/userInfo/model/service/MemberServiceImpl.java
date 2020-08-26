@@ -54,4 +54,5 @@ public class MemberServiceImpl implements MemberService{
 		return md.insertJob(sqlSession, member);
 	}
 
+
 }

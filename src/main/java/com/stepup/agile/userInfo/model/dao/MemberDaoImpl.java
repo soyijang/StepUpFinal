@@ -50,4 +50,5 @@ public class MemberDaoImpl implements MemberDao {
 		return sqlSession.update("Member.insertJob", member);
 	}
 
+
 }

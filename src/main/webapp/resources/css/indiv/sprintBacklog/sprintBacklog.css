@@ -1,0 +1,244 @@
+
+	#ListState{
+		margin-top: 20px;
+	}
+	
+	#topArea{
+		height: 60px;
+	}
+	
+	    #searchSprint > input {
+	    	float:left;
+    		width: 256px;
+    		height: 15px;
+    		border-radius : 10px;
+    		margin-top : 25px;
+    		height: 35px;
+    		background-color: lightgray;
+    		color: white;
+    		font-weight: normal;
+    		padding-left: 10px;
+    	}
+    	
+	    #searchSprint > input:focus {
+    		transition: all ease 1s 0s;
+    		background-color: #DD0351;
+    		font-weight: normal;
+    	}
+    	
+    	/* placeholder색변경  */
+    	 #searchSprint > input::placeholder {color: white;}
+    	 #searchSprint > input:-ms-input-placeholder {color: white;} 
+    	 #searchSprint > input::-webkit-input-placeholder {color:white;}
+    	
+    	#searchSprint {
+    		width: 500px;
+    		text-align: right;	
+    	}
+    	
+/* 왼쪽 리스트 */
+    	#sprintList {
+			width: 250px;
+			height: 500px;
+			margin-top: 10px;
+			padding:10px;
+			border: 2px lightgray solid;
+			border-radius: 10px;
+			text-align: center;
+			overflow: scroll;
+		}
+	
+		#sprintList > table {
+			margin-top: 5px;
+			width : 100%;
+			table-layout: fixed;
+			vertical-align: top;
+			overflow: scroll;
+		}
+		
+		#sprintList > table > tbody > tr > td {
+			text-overflow:ellipsis; 
+			overflow:hidden; 
+			white-space:nowrap;
+		}
+		
+    	
+    	.sprintImg{
+    		margin-top:5px;
+    		width: 50px;
+    		vertical-align: top;
+    	}
+    	
+		.sprintName{
+			text-align : left;
+			width: 180px;
+		}
+		
+		.progressLine{
+			height: 50px;
+			vertical-align: top;
+			width: 80%;
+			text-align: left;
+		}
+		
+		.progressPercent{
+			width : 20%;
+			height: 50px;
+			vertical-align: top;
+		}
+		
+		.SprintButtonArea{
+			width: 270px;
+			margin-top: 10px;
+			background:#DD0351;
+            height: 40px;
+            border-radius: 10px;
+            border: 0;
+            font-size: 14px;
+            color: white;
+            text-align: center;    
+		}
+		
+		#sprint {
+			width:280px;
+			margin-right: 15px;
+			display: inline-block;
+		}
+		
+		/*--------------------------------------*/
+		
+		#taskListArea{
+			width : 75%;
+			height : 630px;
+			float: right;
+			display: inline-block;
+		}
+		
+		
+		#bottomArea{
+			width: 100%;
+			height: 700px;
+			display: inline-block;
+		}
+		
+		#sprintInfo{
+			display: inline-block;
+			background-color: lightgray;
+			width: 100%;
+			height: 50px;
+			border-radius: 5px;
+			
+		}
+		
+		#sprintCode{
+			display: inline-block;
+			width: 60px;
+			height: 30px;
+			background-color: gray;
+			border-radius: 5px;
+			text-align: center;
+			margin: 10px;
+			float: left;
+		}
+		
+		#sprintInfomation{
+			display: inline-block;
+			margin-top: 3px;
+		}
+		
+		#sprintCounting{
+			display: inline-block;
+			float: right;
+			padding: 10px;
+		}
+		
+		#sprintInfomation > table > tbody> tr>td{
+			font-size: small;
+		}
+		
+		#sprintTaskList > table{
+			margin-top : 20px;
+			width: 100%;
+			height : 100%;
+			font-size: small;
+			border: 1px solid lightgray;
+			text-align: center;
+			border-spacing: 12px;
+		}
+		
+		#sprintTaskList > table > thead {
+			font-weight: bold;
+		}
+		
+		.TaskName{
+			text-align: left;
+		}
+		
+		.TaskStatus1{
+			border-radius: 5px;
+			background-color: #DD0351;
+			padding: 5px;
+			color : white;
+			
+		}
+		
+		.TaskStatus2{
+			border-radius: 5px;
+			background-color: #25282B;
+			color : white;
+			padding: 5px;
+		}
+		
+		.realTime{
+			color: #DD0351;
+			font-weight: bold;
+		}
+		
+		.pointAverage{
+			border-radius: 50px;
+			background-color: white;
+			color : black;
+			padding: 5px;
+			font-weight: bold;
+			margin-left: 10px;
+		}
+		
+		.tasknonFinish {
+			border-radius: 100px;
+			background-color:  #C4C4C4;
+			padding: 5px;
+			font-weight: bold;
+		}
+		.taskFinish {
+			border-radius: 100px;
+			background-color:  #DD0351;
+			padding: 5px;
+			font-weight: bold;
+			color:white;
+		}
+		.taskIng {
+			border-radius: 100px;
+			background-color:  #25282B;
+			padding: 5px;
+			font-weight: bold;
+			color:white;
+		}
+		
+		.more{
+			background:#C4C4C4;
+            height: 30px;
+            width: 30px;
+            border-radius: 5px;
+            border: 0;
+            font-size: 13px;
+            font-weight : bolder;
+            color: black;
+            text-align: center;
+            vertical-align: middle;  
+		}
+		
+		#sprintIntro{
+			font-size: small;
+			margin: 10px;
+			float: left;
+		}

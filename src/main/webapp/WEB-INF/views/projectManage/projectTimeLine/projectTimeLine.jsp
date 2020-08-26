@@ -28,7 +28,7 @@
             <div id="content">
                 <!-- 상단 프로젝트 제목 및 메뉴 이름 영역 -->
                 <div id="contentTitle">
-                    <div id="projectTitle2">프로젝트 / 이름땡땡땡!!</div>
+                    <div id="projectTitle2">프로젝트 / <c:forEach var="i" items="${ pjList }"><c:out value="${ i.projectName }"/></c:forEach></div>
                     <div id="menuTitle">로드맵</div>
                     <div id="share">
 	                    	<button id="shareBtn">
@@ -69,11 +69,17 @@
                 		</div>
                 		<div id="epic-title-cont">
                 			<div id="ep-ti">
-               					여기에 에픽 제목
+               					<table>
+               						<tbody>
+               							<tr>
+               								<td></td>
+               							</tr>
+               						</tbody>
+               					</table>
                 			</div>
                 			<div id="epic-add-btn">
                 				<button id="ep-ad-btn">
-                					<img src="/agile/resources/icon/common/icon_circle_plus.png">
+                					<img src="/agile/resources/icon/common/icon_circle_plus.png" width="15px;" height="15px;">
                 				</button>
                 				<input type="text" id="ep-ti-tx" style="display:none;" onkeyup="enterkey();">
                 			</div>

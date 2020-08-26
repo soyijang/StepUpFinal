@@ -19,4 +19,5 @@ public interface MemberDao {
 
 	int insertJob(SqlSessionTemplate sqlSession, Map<String, Object> member);
 
+
 }

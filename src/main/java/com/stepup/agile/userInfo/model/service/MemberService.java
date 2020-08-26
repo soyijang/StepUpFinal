@@ -13,4 +13,5 @@ public interface MemberService {
 
 	int insertJob(Map<String, Object> member);
 
+
 }
