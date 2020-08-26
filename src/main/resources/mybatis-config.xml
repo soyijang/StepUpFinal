@@ -7,6 +7,8 @@
 	<typeAliases>
 		<typeAlias type="com.stepup.agile.userInfo.model.vo.Member" alias="Member"/>
 		<typeAlias type="com.stepup.agile.projectManage.model.vo.Project" alias="Project"/>
+		<typeAlias type="com.stepup.agile.userInfo.model.vo.UserTeamList" alias="UserTeamList"/>
+		<typeAlias type="com.stepup.agile.userInfo.model.vo.UserProjectList" alias="UserProjectList"/>
 	</typeAliases>
 	
 	<mappers>

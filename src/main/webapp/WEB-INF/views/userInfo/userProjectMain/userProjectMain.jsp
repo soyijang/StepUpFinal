@@ -36,26 +36,26 @@
                    <div id="pj-alm-area">
                       <div id="pro-cont-area">
                          <div id="pro-cont-title">
-                            <p id="project">Project</p>
+                            <p id="project" onclick="userProjectMain();">Project</p>
                          </div>
                          <div id="tb_wrap">
                          <div id="pro-cont">
                          	<table class="tb" style=" width:100%";>
                          		<tbody>
-                         		<c:forEach var="projectList" items="${ projectList.projectName }">
+                         		<c:forEach var="i" items="${ pjList }">
 	                             <tr>
-	                            	<td rowspan="2" style="border-left: 1px solid #E8E8E8; border-top: 1px solid #E8E8E8;"><img src="/agile/resources/images/profile/dayoon_202008152056.png"></td>
-	                            	<td rowspan="2" style="border-top: 1px solid #E8E8E8;">${ sessionScope.projectList.projectName }</td>
-	                            	<td style="border-top: 1px solid #E8E8E8;"> 내 해결된 이슈</td>
-	                            	<td style="border-top: 1px solid #E8E8E8; border-right:1px solid #E8E8E8;">3</td>
+	                            	<td rowspan="2" style="border-left: 1px solid #E8E8E8; border-top: 1px solid #E8E8E8; width:50px;"><img src="/agile/resources/images/profile/dayoon_202008152056.png"></td>
+	                            	<td rowspan="2" style="border-top: 1px solid #E8E8E8; width:130px;">${ pjList.get(0).projectName }</td>
+	                            	<td style="border-top: 1px solid #E8E8E8; width:110px;"> 내 해결된 이슈</td>
+	                            	<td style="border-top: 1px solid #E8E8E8; border-right:1px solid #E8E8E8; width:30px;">3</td>
 	                            </tr>
 	                            <tr>
-	                            	<td>미 해결된 이슈</td>
-	                            	<td style="border-right:1px solid #E8E8E8;">2</td>
+	                            	<td style="width:110px;">미 해결된 이슈</td>
+	                            	<td style="border-right:1px solid #E8E8E8; width:30px;">2</td>
 	                            </tr>
 	                            <tr>
 	                            	<td colspan="3" style="border-bottom: 1px solid #E8E8E8; border-top: 1px solid #E8E8E8; border-left: 1px solid #E8E8E8;">status</td>
-	                            	<td style="text-align:right; border-bottom: 1px solid #E8E8E8; border-top:1px solid #E8E8E8; border-right: 1px solid #E8E8E8;">진행중</td>
+	                            	<td style="text-align:right; border-bottom: 1px solid #E8E8E8; border-top:1px solid #E8E8E8; border-right: 1px solid #E8E8E8; width:50px;">진행중</td>
 	                            </tr>
 	                            </c:forEach>
 	                            </tbody>
@@ -362,6 +362,8 @@
 	        });
 	     
 	}
-
+	function userProjectMain(){
+		location.href="selectUserProject.me";
+	}
 </script>
 </html>

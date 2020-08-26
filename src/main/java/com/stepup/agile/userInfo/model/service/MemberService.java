@@ -1,8 +1,10 @@
 package com.stepup.agile.userInfo.model.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import com.stepup.agile.projectManage.model.vo.Project;
 import com.stepup.agile.userInfo.model.exception.LoginFailedException;
 import com.stepup.agile.userInfo.model.vo.Member;
 
@@ -14,7 +16,7 @@ public interface MemberService {
 
 	int insertJob(Map<String, Object> member);
 
-	List<String> selectUserProject();
+	String selectUserProject(Member m);
 
 
 }

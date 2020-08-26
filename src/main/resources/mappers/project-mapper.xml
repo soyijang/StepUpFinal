@@ -27,6 +27,40 @@
 		<result property="projectEndTime" column="PROJECT_END_TIME"/>
 	</resultMap>
 
+	<resultMap type="com.stepup.agile.userInfo.model.vo.Member" id="memberResultSet">
+		<id property="userCode" column="USER_CODE"/>
+		<result property="userEmail" column="USER_EMAIL"/>
+		<result property="userPwd" column="USER_PWD"/>
+		<result property="userName" column="USER_NAME"/>
+		<result property="userPhone" column="USER_PHONE"/>
+		<result property="userCompName" column="USER_COMP_NAME"/>
+		<result property="userCompDept" column="USER_COMP_DEPT"/>
+		<result property="userCompJob" column="USER_COMP_JOB"/>
+		<result property="userEnrollDate" column="USER_ENROLL_DATE"/>
+		<result property="userStatus" column="USER_STATUS"/>
+		<result property="userManagerYn" column="USER_MANAGER_YN"/>
+		<result property="userEnrollTime" column="USER_ENROLL_TIME"/>
+	</resultMap>
+	
+	<resultMap type="com.stepup.agile.userInfo.model.vo.UserProjectList" id="UserProjectListResultSet">
+		<id property="userProjectCode" column="USER_TEAM_CODE"/>
+		<result property="userProjectUpdateDate" column="USER_PROJECT_UPDATE_DATE"/>
+		<result property="userProjectUpdateTime" column="USER_PROJECT_UPDATE_TIME"/>
+		<result property="userProjectStatus" column="USER_PROJECT_STATUS"/>
+		<result property="projectCode" column="USER_PROJECT_CODE"/>
+		<result property="userTeamCode" column="PROJECT_CODE"/>
+		<result property="userProjectAuthority" column="USER_PROJECT_AUTHORITY"/>
+	</resultMap>
+	
+	<resultMap type="com.stepup.agile.userInfo.model.vo.UserTeamList" id="UserTeamListResultSet">
+		<id property="userTeamCode" column="USER_TEAM_CODE"/>
+		<result property="userTeamDate" column="USER_TEAM_DATE"/>
+		<result property="userTeamYn" column="USER_TEAM_YN"/>
+		<result property="userCode" column="USER_CODE"/>
+		<result property="teamCode" column="TEAM_CODE"/>
+		<result property="userTeamTime" column="USER_TEAM_TIME"/>
+	</resultMap>
+
 	<resultMap id="selectUserPJRset" type="com.stepup.agile.projectManage.model.vo.Project">
 		<id property="projectCode" column="PROJECT_CODE"/>
 		<result property="projectName" column="PROJECT_NAME"/>
@@ -40,20 +74,18 @@
 	
 	
 	
-	<select id="projectResultSet" resultMap="selectUserPJRset" resultType="map">
-	<!-- 	SELECT PROJECT_NAME
+	<select id="selectUserProject" resultMap="selectUserPJRset" parameterType="Project">
+	 	SELECT PL.PROJECT_NAME
 		  FROM USER_INFO I,
 		       USER_TEAM_LIST T,
 		       USER_PROJECT_LIST P,
 		       PROJECT_LIST PL
 		 WHERE I.USER_CODE = T.USER_CODE
 		   AND T.USER_TEAM_CODE = P.USER_TEAM_CODE
-		   AND P.USER_PROJECT_CODE = S.USER_PROJECT_CODE
-		   AND P.PROJECT_CODE = PL.PROJECT_CODE
-		   AND USER_EMAIL = #{userEmail} -->
-		   
-		   SELECT PROJECT_NAME
-		     FROM PROJECT_LIST
+		   AND P.USER_PROJECT_CODE = PL.PROJECT_CODE
+		   AND I.USER_CODE = (SELECT USER_CODE 
+                              FROM USER_INFO
+                             WHERE USER_EMAIL LIKE #{userEmail, jdbcType=VARCHAR})
 	</select>
 
 </mapper>

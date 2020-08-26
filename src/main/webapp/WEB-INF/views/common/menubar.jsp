@@ -22,7 +22,7 @@
         	<table class="navContent">
         		<tbody>
         		<tr>
-        			<th id="logoArea"><a href=""><img alt="스탭업 홈으로 가기" src="/agile/resources/images/logo/logo_stepup_nav.png" onclick="userProjectMain();"></a></th>
+        			<th id="logoArea"><a href=""><img alt="스탭업 홈으로 가기" src="/agile/resources/images/logo/logo_stepup_nav.png"></a></th>
         			<th class="navIcon"><a href="">Project<img src="/agile/resources/icon/common/icon_down_chevron_nav.png"></a></th>
         			<th class="navIcon"><a href="">My Tasks<img src="/agile/resources/icon/common/icon_down_chevron_nav.png"></a></th>
         			<th class="navIcon"><a href="">Team<img src="/agile/resources/icon/common/icon_down_chevron_nav.png"></a></th>
@@ -77,9 +77,4 @@
         </div>
 
 </body>
-<script>
-	function userProjectMain(){
-		location.href="selectUserProject.me";
-	}
-</script>
 </html>                           
