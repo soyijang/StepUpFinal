@@ -16,11 +16,11 @@
     <!-- Trigger/Open The Modal -->
 
     <!-- The Modal -->
-    <div id="taskmyModal" class="taskmodal">
+    <div id="taskDetailModal"  class="taskmodal">
       <!-- Modal content -->
       <div class="taskmodal-content">
-         <div class="projectList" id="project"><div id="storyicon"></div>IT WORKS!</div><div class="projectList">/</div>
-         <div class="projectList" id="story"><div id="taskicon"></div>TEST01-1</div>
+         <div class="projectList" id="project"><div id="storyicon"></div><p id="projectNameReceive"></p></div><div class="projectList">/</div>
+         <div class="projectList" id="story"><div id="taskicon"></div>TEST<p id="sprintCodeReceive"></p></div>
          <div id="cancel"><img src="/agile/resources/icon/common/icon_x.png" class="taskclose"></div>
          <div><img src="/agile/resources/icon/common/icon_more horizontalicon.png" id="additional"></div>
          <div><img src="/agile/resources/icon/common/icon_shareicon.png" id="share"></div>
@@ -125,7 +125,7 @@
     
     <!-- 테스크추가 모달창 -->
    <form action="createTask.pj" method="post">
-      <div id="createTaskModal" class="modal">
+      <div id="taskModalYn" class="modal">
          <div class="modal-content">
             <p align="left" class="modaltitle">🎉 새로운 테스크 생성</p>
             <table align="center" class="modalTable">
@@ -140,11 +140,12 @@
                </tbody>
             </table>
             <div class="modalButtonArea" id="newTask">
-               <button onclick="createTask.pj" class="taskMake" id="rectangle6" type="submit">저장</button>
+               <button class="taskMake" id="rectangle6" type="submit">저장</button>
                <div class="taskCancel" id="rectangle7">취소</div>
+               <input type="hidden" name="sprintCode" id="sprintCode" value="">
             </div>
-            <input style="display: none" name="sprintCode"
-               value="${ sprintList.get(0).project.projectName }">
+        
+
          </div>
       </div>
    </form>
@@ -152,9 +153,23 @@
    
 
 <script>
+	$('.sprinttbody').click(function () {
+	    
+	    /* 언니이건 스프린트코드 */
+	    var receiveCode = $('#sendSprintCode').val();
+	    
+	    /* 이건 프로젝트네임 */
+	    var receiveProjectName = $('#projectName').html();
+	    
+	    /* task좌측 상단에 넣는거 */
+	    $('#projectNameReceive').html(receiveProjectName);
+	    $('#sprintCodeReceive').html(receiveCode+'번 스프린트');
+	    $('#sprintCode').val(receiveCode);
+	    
+	 })
+
    //Get the modal
    var taskmodal = document.getElementById("taskmyModal");
-   
    //Get the button that opens the modal
 /*    var btn = document.getElementById("apply"); */
    
@@ -168,13 +183,14 @@
        $(taskmodal).css('display','block');
    } 
     */
+    
    //When the user clicks on <span> (x), close the modal
    taskspan.onclick = function() {
-       $(taskmodal).css('display','none');
+       $(taskDetailModal).css('display','none');
    }
    
    taskspan2.onclick = function() {
-       $(createTaskModal).css('display','none');
+       $(taskModalYn).css('display','none');
    }
    
    //When the user clicks anywhere outside of the modal, close it
@@ -184,31 +200,16 @@
      }
    };
    
-   //input type text에서 엔터치면 실행되는 함수
-   function enterkey() {
-      if(window.event.keyCode == 13){
-         createTask();
-      }
-   }
-   function createTask(){
-      var taskTitle = $("titleName").val();
-      
-      console.log(taskTitle);
-      
-      $.ajax({
-         url:"updateTitle.pj",
-         type:"post",
-         data:{taskTitle: taskTitle},
-         success:function(data) {
-            console.log(data.TaskCategory.taskTitle);
-         },
-         error:function() {
-            console.log("에러!");
-         }
-      });
-      
-      return false;
-   }
+	   /*$('.taskMake').click(function () {
+	   $(taskmodalYn).css('display','none');
+	   $(taskDetailModal).fadeIn(300); 
+	   $(taskDetailModal).css('display','block');
+	 })*/
+	 $(taskmodalYn).on('hidden.bs.modal', function(){
+		 $(taskDetailModal).fadeIn(300); 
+	     $(taskDetailModal).css('display','block');
+	 });
+   
    
    $('#summernote').summernote({
       lang: 'ko-KR',

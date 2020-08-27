@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.stepup.agile.projectTask.model.dao.TaskDao;
+import com.stepup.agile.projectTask.model.vo.TaskHistory;
 import com.stepup.agile.projectTask.model.vo.TaskList;
 import com.stepup.agile.userInfo.model.vo.Member;
 
@@ -20,15 +21,15 @@ public class TaskServiceImpl implements TaskService {
 	public TaskDao td;
 	
 	@Override
-	public int createTask(Member m) {
-		System.out.println("service : " + m);
-		return td.createTask(sqlSession, m);
+	public int createTask(Member m, TaskList t) {
+		
+		return td.createTask(sqlSession, t, m);
 	}
 
 	@Override
-	public int updateTitle(Member m) {
+	public int updateTitle(TaskHistory th) {
 		
-		return td.updateTitle(sqlSession, m);
+		return td.updateTitle(sqlSession, th);
 	}
 
 	

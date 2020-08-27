@@ -19,6 +19,7 @@
 	<result property="taskCreateTime" column="TASK_CREATE_TIME"/>
 	<result property="taskMaster" column="TASK_MASTER"/>
 	<result property="taskUser" column="TASK_USER"/>
+	<collection property="sprint" resultMap="sprintResultSet"/>
 	</resultMap>
 	
 	<!-- TASK_HISTORY 테이블 -->
@@ -34,10 +35,8 @@
 	</resultMap>
 	
 	<insert id="createTask" parameterType="com.stepup.agile.projectTask.model.vo.TaskList">
-		INSERT INTO TASK_LIST
-		VALUES (SEQ_TASK, TO_CHAR(SYSDATE + 9/24, 'YYYY-MM-DD'), '상위테스크', TO_CHAR(SYSDATE + 9/24, 'hh24:mi:ss'), DEFAULT, #{userName})
-		WHERE USER_EMAIL = #{userEmail}
-   		AND SPRINT_CODE = #{sprintCode}
+		INSERT INTO TASK_LIST(TASK_CODE, TASK_CREATE_DATE, TASK_LEVEL, SPRINT_CODE, TASK_CREATE_TIME, TASK_MASTER, TASK_USER)
+		VALUES (SEQ_TASK.NEXTVAL, TO_CHAR(SYSDATE + 9/24, 'YYYY-MM-DD'), '상위', #{sprintCode}, TO_CHAR(SYSDATE + 9/24, 'hh24:mi:ss'), DEFAULT, #{taskUser, jdbcType=VARCHAR})
 	</insert>
 	
 	<update id="updateTaskTitle" parameterType="com.stepup.agile.projectTask.model.vo.TaskHistory">

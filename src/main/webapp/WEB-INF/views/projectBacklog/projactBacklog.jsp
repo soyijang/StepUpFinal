@@ -55,7 +55,7 @@
                   <c:forEach var="i" begin="0" end="${fn:length(sprintList)-1}">
                      <tbody class="sprinttbody"
                         id="tbody${sprintList.get(i).sprint.sprintCode}"
-                        onclick="tbodyClick(${sprintList.get(i).sprint.sprintCode})">
+                        onclick="tbodyClick(${sprintList.get(i).sprint.sprintCode},'${ sprintList.get(i).sprintName }')">
                         <tr>
                            <td class="progressPercent" rowspan="2">00%</td>
                            <td class="sprintName" colspan="2"><c:out
@@ -64,6 +64,7 @@
                         <tr>
                            <td class="progressLine" colspan="2"><c:out
                                  value="${ sprintList.get(i).member.userName }" /></td>
+                           <td><input type="hidden" name="sendSprintCode" id="sendSprintCode" value="${sprintList.get(i).sprint.sprintCode}"></td>
                         </tr>
                      </tbody>
                   </c:forEach>
@@ -72,7 +73,6 @@
             <button class="SprintButtonArea" id="sprintapply">새 스프린트 생성</button>
 
             <!-- 클릭확인용 -->
-            <input type="hidden" name="sendSprintCode" id="sendSprintCode" value="">
          </div>
 
          <!-- ---------------------오른쪽------------------------- -->
@@ -100,16 +100,8 @@
                      </tr>
                   </thead>
 
-                  <tbody>
-                     <tr>
-                        <td class="TaskName">우측상단 개인정보설정</td>
-                        <td class="realTime">183m</td>
-                        <td>160m</td>
-                        <td>4pts</td>
-                        <td><span class="TaskStatus1">완료</span></td>
-                        <td>심슨</td>
-                        <td><button class="more">...</button></td>
-                     </tr>
+                  <tbody id="addTaskList">
+                  
                   </tbody>
                </table>
             </div>
@@ -148,14 +140,18 @@
       <div id="updateSprint" class="modal">
          <div class="modal-content updatecontent">
             <p align="left" class="modaltitle">🎁 스프린트 수정하기</p>
-            <table align="center" class="modalTable">
+            <table align="center" class="SprintUpdateModalTable">
                <tbody>
                   <tr>
-                     <td><b>[<c:out value="${ sprintList.get(0).project.projectName }" />]
-                     </b>(프로젝트)에 새로운 스프린트를 추가하시겠습니까?</td>
+                     <td>스프린트명 : </td>
+                     <td><b id="updateSprintName"></b></td>
                   </tr>
                   <tr>
-                     <td>※초기 스프린트명은 스프린트 코드로 자동지정됩니다.</td>
+                     <td>스프린트코드 : </td>
+                     <td><b id="updateSprintCode"></b></td>
+                  </tr>
+                  <tr>
+                     
                   </tr>
                </tbody>
             </table>
@@ -172,7 +168,9 @@
    <script type="text/javascript">
       var newSprintModal = document.getElementById("newSprintModal");
       var updateSprint = document.getElementById("updateSprint");
-      
+       var taskmodal = document.getElementById("taskmyModal");
+       
+       
       var btn = document.getElementById("sprintapply");
       var btn2 = document.getElementsByClassName("updatebtn")[0];
       
@@ -198,19 +196,19 @@
       }
       
       window.onclick = function(event) {
-          if (event.target == newSprintModal) {
-             newSprintModal.style.display = "none";
-          }else if (event.target == updateSprint) {
-             updateSprint.style.display = "none";
-          }else if (event.target == createTaskModal) {
-        	  createTaskModal.style.display = "none";
-          }
-        };
+        if (event.target == newSprintModal) {
+           newSprintModal.style.display = "none";
+        }else if (event.target == updateSprint) {
+           updateSprint.style.display = "none";
+        }else if (event.target == taskmodal) {
+              taskmodal.style.display = "none";
+        }
+      };
       
       
       $('.taskapply').click(function(){
-         $(createTaskModal).fadeIn(300); 
-         $(createTaskModal).css('display','block');
+         $(taskModalYn).fadeIn(300); 
+         $(taskModalYn).css('display','block');
       });
 
    </script>
@@ -218,12 +216,23 @@
 
    <script type="text/javascript">   
    
-   function tbodyClick(i) {
+   function tbodyClick(i, name) {
       
+      /* 선택된 스프린트 코드 및 정보 알려주고 ajax에 넘겨주기 */
       var sprintCode = i;
       console.log(sprintCode +"번 스프린트");
       $('#sendSprintCode').val(sprintCode);
+      $('#updateSprintCode').html(sprintCode);
+      $('#sprintCode').val(sprintCode);
+         
+      /* 선택된 스프린트이름 편집모달에 알려주기 */
+      var sprintName = name;
+      console.log(sprintName);
+      $('#updateSprintName').html(sprintName);
+      
+      
       var addPostPart = $('#addPostPart');
+      var addPostPart2 = $('#addTaskList');
       
       $.ajax({
          type: "post",
@@ -242,6 +251,7 @@
                   "m<td></tr></tbody></table></div><div id='sprintCounting'><table><tbody><tr><td><span class='pointAverage'>3.4pts</span></td><td>미완료</td><td><span class='tasknonFinish'>0</span></td><td>완료</td><td><span class='taskFinish'>1</span></td><td>진행중</td><td><span class='taskIng'>1</span></td><td>총 2개</td></tr></tbody></table></div>"+
                   "</div><div id='sprintIntro'>스프린트 설명 : " + data.sprint.sprint.sprintIntro + "</div>"
                );
+
             }
          },
          error : function() {
@@ -255,9 +265,13 @@
          }
          
       });
-      
    
    }
-   
+   /* 
+   addPostPart2.children().remove();
+   addPostPart2.prepend(
+      "<tr><td class='TaskName'>" + data.sprint.task.taskHistory.taskHistValue + "</td><td class='realTime'>" + 183m + "</td><td>160m</td><td>" + 
+      4pts + "</td><td><span class='" + TaskStatus1 + "'>" + 완료 + "</span></td><td>" + 심슨 + "</td><td><button class='more'>...</button></td></tr>"
+   ); */
 </script>
 </html>
