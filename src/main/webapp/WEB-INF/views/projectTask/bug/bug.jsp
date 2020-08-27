@@ -65,20 +65,41 @@
 				<div id="tb_wrap">
 				<div id="bug-list">
 					<p id="bug-title">Tasks</p>
-					<table class="bg-tb" style="width:95%; background-color: white; margin:auto;">
-						<tbody style="background-color: white;">
+					
+					<div class="bug-list-detail">
+						<div id="bug-ti-list">
+							DB task 제약조건 오류
+						</div>
+						<div id="bug-con-list">
+							<div id="bugicon" class="bug-con-list-area"></div><div class="bug-con-list-area" id="bug-code-list1">&nbsp;&nbsp;BUG-01</div><div id="user-pro-lit" class="bug-con-list-area"><img src="/agile/resources/images/profile/dayoon_202008152056.png"></div>
+						</div>
+					</div>
+					
+					<!-- <table class="bg-tb" style="width:95%; background-color: white; margin:auto;">
+						<tbody style="background-color: white;" id="bugCodeTB">
 							<tr>
 								<td class="tb-bd" colspan="2" style="height:45px; text-align:left; ">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;버그 이슈 제목</td>
 							</tr>
 							<tr>
-								<td class="tb-st" style="width:150px; height:40px; text-align:center;"><div id="bugicon">B</div>&nbsp;BUG-01</td>
+								<td class="tb-st" style="width:150px; height:40px; text-align:center;"><div id="bugicon">B</div>&nbsp;<div class="bug-code" style="display:inline-block;">BUG-01</div></td>
+								<td class="tb-st" style="height:40px; text-align:center;"><img src="/agile/resources/images/profile/dayoon_202008152056.png"></td>
+							</tr>
+							<tr>
+								<td class="tb-sd" style="height:5px;" colspan="2"></td>
+							</tr>
+							
+							<tr>
+								<td class="tb-bd" colspan="2" style="height:45px; text-align:left; ">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;버그 이슈 제목</td>
+							</tr>
+							<tr>
+								<td class="tb-st" style="width:150px; height:40px; text-align:center;"><div id="bugicon">B</div>&nbsp;<div class="bug-code" style="display:inline-block;">BUG-02</div></td>
 								<td class="tb-st" style="height:40px; text-align:center;"><img src="/agile/resources/images/profile/dayoon_202008152056.png"></td>
 							</tr>
 							<tr>
 								<td class="tb-sd" style="height:5px;" colspan="2"></td>
 							</tr>
 						</tbody>
-					</table>
+					</table> -->
 				</div>
 				</div>
 			</div>
@@ -88,7 +109,8 @@
 						<div id="bugicon" style="margin-left: 30px; margin-top:25px;"></div>&nbsp;&nbsp;BUG-01
 					</div>
 					<div id="bg-detail-title">
-						<table width="100%">
+						<table width="100%" id="bg-tb-title">
+						<tbody id="bg-tbody">
 							<tr>
 								<td>버그 이슈 제목</td>
 								<td style="text-align:right;"><img src="/agile/resources/images/profile/dayoon_202008152056.png"></td>
@@ -112,6 +134,7 @@
 								<td><button id="rectangle5"><img src="/agile/resources/icon/common/icon_clip.png" width="15px;" height="15px;">첨부</button><button id="rectangle5"><img src="/agile/resources/icon/common/icon_link.png"  width="15px;" height="15px;">연결</button></td>
 								<td colspan="2"></td>
 							</tr>
+							</tbody>
 						</table>
 					</div>
 					<div id="bg-detail">
@@ -192,7 +215,18 @@
 		$(this).hide();
 	});
 	
-	
+	//버그리스트 누르면 상세보기에 뜨게
+	$(".bug-list-detail").click(function(){
+		console.log("성공");
+		var bugcode = $(".bug-code").text();
+			console.log(bugcode);
+		
+			
+			
+		var div = "";
+		div += '<div id="bugicon" style="margin-left: 30px; margin-top:25px;">&nbsp;&nbsp;</div>' + bugcode;
+		$("#bg-num").html(div);
+	});
 	
 	
 	</script>

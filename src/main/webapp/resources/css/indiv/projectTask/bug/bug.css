@@ -232,3 +232,40 @@
 	border: 1px solid #E8E8E8;
 	border-radius: 6px;  
   }
+  
+  .bug-list-detail{
+  padding-top: 15px;
+  padding-left: 30px;
+  padding-right: 30px;
+  padding-bottom: 15px;
+   background-color: white;
+    margin-left: 6px;
+  	display: inline-block;
+  	width:350px;
+  	height:100px;
+  	border: 1px solid #E8E8E8;
+  	border-radius: 6px;
+  }
+  #bug-ti-list{
+  	width:90%;
+  	height:50%;
+  }
+  #bug-con-list{
+  	float: left;
+  	width:90%;
+  	height:40px;
+  }
+  .bug-con-list-area{
+  	display: inline-block;
+  }
+  #user-pro-lit{
+  	margin-bottom: 4px;
+  	float: right;
+  }
+  #bugicon{
+  	margin-top: 10px;
+  }
+  #bug-code-list{
+  	margin-bottom: 10px;
+  	padding-bottom: 2px;
+  }
