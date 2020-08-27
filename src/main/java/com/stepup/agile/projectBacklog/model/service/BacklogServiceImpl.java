@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.stepup.agile.projectBacklog.model.dao.BacklogDao;
 import com.stepup.agile.projectBacklog.model.vo.Sprint;
+import com.stepup.agile.projectBacklog.model.vo.SprintHistory;
 import com.stepup.agile.userInfo.model.vo.Member;
 
 @Service
@@ -17,12 +18,23 @@ public class BacklogServiceImpl implements BacklogService{
 	private SqlSessionTemplate sqlSession;
 	
 	@Autowired
-	private BacklogDao md;
+	private BacklogDao bd;
 	
 	@Override
 	public List<Sprint> selectSprint(Member m) {
 		
-		return md.selectSprint(sqlSession, m);
+		return bd.selectSprint(sqlSession, m);
+	}
+
+	@Override
+	public int insertSprint(int userProjectCode) {
+		return bd.insertSprint(sqlSession, userProjectCode);
+	}
+
+	@Override
+	public SprintHistory selectSprintOne(Member m, int sprintCode) {
+		// TODO Auto-generated method stub
+		return bd.selectSprintOne(sqlSession, m, sprintCode);
 	}
 
 }

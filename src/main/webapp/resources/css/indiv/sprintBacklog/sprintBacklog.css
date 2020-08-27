@@ -54,6 +54,7 @@
 			table-layout: fixed;
 			vertical-align: top;
 			overflow: scroll;
+			font-size: small;
 		}
 		
 		#sprintList > table > tbody > tr > td {
@@ -71,18 +72,18 @@
     	
 		.sprintName{
 			text-align : left;
-			width: 180px;
+			width: 70%;
 		}
 		
 		.progressLine{
 			height: 50px;
 			vertical-align: top;
-			width: 80%;
+			width: 70%;
 			text-align: left;
 		}
 		
 		.progressPercent{
-			width : 20%;
+			width : 30%;
 			height: 50px;
 			vertical-align: top;
 		}
@@ -97,6 +98,7 @@
             font-size: 14px;
             color: white;
             text-align: center;    
+            cursor: pointer;
 		}
 		
 		#sprint {
@@ -241,4 +243,31 @@
 			font-size: small;
 			margin: 10px;
 			float: left;
+		}
+		
+		.taskButtonArea{
+			float: right;
+			margin: 10px;
+			margin-right: 0px;
+		}
+		
+		#rectangle5:hover{
+			background:#DD0351;
+            height: 30px;
+            width: 80px;
+            border-radius: 1000mm;
+            border: 0;
+            font-size: 10px;
+            color: white;
+            text-align: center;     
+            cursor: pointer;
+		}
+		
+		.sprinttbody{
+			cursor: pointer;
+		}
+		
+		button{
+			outline: 0;
+			cursor: pointer;
 		}
