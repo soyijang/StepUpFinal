@@ -48,7 +48,7 @@ public class MemberController {
 	}
 	
 	@RequestMapping("insert.me")
-	public String inserMember(Model model, Member m) {
+	public String insertMember(Model model, Member m) {
 		
 		m.setUserPwd(passwordEncoder.encode(m.getUserPwd()));
 		

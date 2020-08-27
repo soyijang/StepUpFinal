@@ -10,13 +10,14 @@
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
 <script src="lang.summernote-ko-KR.js"></script>
 <style>
-	.modalTable{
+	.taskmodalTable{
 		width: 400px;
 		float:left;
 		margin-left: 15px;
 		float:left;
+		margin-top:-5px;
 	  }
-	.modal {
+	.taskmodal {
 	    display: none; /* Hidden by default */
 	    position: fixed; /* Stay in place */
 	    z-index: 2; /* Sit on top */
@@ -30,7 +31,7 @@
 	  }
 	  
 	  /* Modal Content/Box */
-	.modal-content {
+	.taskmodal-content {
 	    background-color: #fefefe;
 	    margin:10% auto; /* 15% from the top and centered */
 	    padding: 10px;
@@ -42,10 +43,9 @@
 	    height: 50%;
 	    padding-top:20px;
 	  }
-	.modaltitle {
+	.taskmodaltitle {
 		margin-left:15px;
 		padding-top:20px;
-		margin-bottom:10px;
 		width:400px;
 		margin-right:0px;
 	}
@@ -84,7 +84,7 @@
         text-align: center;
         float:left;
 	}
-	.modalTable button img {
+	.taskmodalTable button img {
 		width:20px;
 		height:20px;
 		margin:3px;
@@ -94,14 +94,14 @@
 		padding-top:10px;
 	}
 	.activity {
-		 background:#DD0351;
+		 border: 1px solid #DD0351;
+         color:#DD0351;
          height: 20px;
          width: 55px;
          border-radius: 10px;
-         border: 0;
          font-size: 8px;
-         color: white;
          text-align: center;
+         background:white;
 	}
 	#attachment {
 		margin-right:10px;
@@ -150,8 +150,8 @@
 	#detail {
 		float:left;
 		width:300px;
-		margin-top:-70px;
-		margin-left:50px;
+		margin-top:-430px;
+		margin-left:460px;
 		font-size:11px;
 	}
 	.worker{
@@ -241,21 +241,21 @@
 </style>
 </head>
 <body>
-	<button onclick="" class="searchBtn" id="apply">모달창</button>
+	<!-- <button onclick="" class="searchBtn" id="apply">모달창</button> -->
     <!-- Trigger/Open The Modal -->
 
     <!-- The Modal -->
-    <div id="myModal" class="modal">
+    <div id="taskmyModal" class="taskmodal">
       <!-- Modal content -->
-      <div class="modal-content">
+      <div class="taskmodal-content">
       	<div class="projectList" id="project"><div id="storyicon"></div>IT WORKS!</div><div class="projectList">/</div>
       	<div class="projectList" id="story"><div id="taskicon"></div>TEST01-1</div>
       	<div id="cancel"><img src="/agile/resources/icon/common/icon_x.png" class="close"></div>
       	<div><img src="/agile/resources/icon/common/icon_more horizontalicon.png" id="additional"></div>
       	<div><img src="/agile/resources/icon/common/icon_shareicon.png" id="share"></div>
       	<div><label id="count">1번</label><img src="/agile/resources/icon/common/icon_bookmarkicon.png" id="bookmark"></div>
-        <p align="left" class ="modaltitle"><input type="text" placeholder="제목을 입력하세요" style="font-size:20px;" id="titleName" onkeyup="enterkey();"></p>
-        <table align="center" class="modalTable">
+        <p align="left" class ="taskmodaltitle"><input type="text" placeholder="제목을 입력하세요" style="font-size:20px;" id="titleName" onkeyup="enterkey();"></p>
+        <table align="center" class="taskmodalTable">
             <tr>
             	<td>
             	<button id="attachment"><img src = "/agile/resources/icon/common/icon_clip.png"><label class="subBtn">첨부</label></button>
@@ -354,7 +354,7 @@
 
 <script>
 	//Get the modal
-	var modal = document.getElementById("myModal");
+	var taskmodal = document.getElementById("taskmyModal");
 	
 	//Get the button that opens the modal
 	var btn = document.getElementById("apply");
@@ -364,19 +364,19 @@
 	
 	//When the user clicks on the button, open the modal
 	btn.onclick = function() {
-	    $(modal).fadeIn(300); 
-	    $(modal).css('display','block');
-	}
+	    $(taskmodal).fadeIn(300); 
+	    $(taskmodal).css('display','block');
+	} 
 	
 	//When the user clicks on <span> (x), close the modal
 	span.onclick = function() {
-	    $(modal).css('display','none');
+	    $(taskmodal).css('display','none');
 	}
 	
 	//When the user clicks anywhere outside of the modal, close it
 	window.onclick = function(event) {
 	  if (event.target == modal) {
-	    modal.style.display = "none";
+		  taskmodal.style.display = "none";
 	  }
 	};
 	
@@ -389,10 +389,10 @@
 	function createTask(){
 		var taskTitle = $("titleName").val();
 		
-		console.log(tskTitle);
+		console.log(taskTitle);
 		
 		$.ajax({
-			url:"createTask.pj",
+			url:"updateTitle.pj",
 			type:"post",
 			data:{taskTitle: taskTitle},
 			success:function(data) {
@@ -420,6 +420,8 @@
           ['view', [ 'codeview']]
         ]
       });
+	
+	$(".modal-content").load("/taskDetail");
 </script>
 </body>
 </html>

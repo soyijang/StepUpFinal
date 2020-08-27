@@ -33,4 +33,17 @@
 	<result property="taskCategoryCode" column="TASK_CATEGORY_CODE"/>
 	</resultMap>
 	
+	<insert id="createTask" parameterType="com.stepup.agile.projectTask.model.vo.TaskList">
+		INSERT INTO TASK_LIST
+		VALUES (SEQ_TASK, TO_CHAR(SYSDATE + 9/24, 'YYYY-MM-DD'), '상위테스크', TO_CHAR(SYSDATE + 9/24, 'hh24:mi:ss'), DEFAULT, DEFAULT)
+		WHERE USER_EMAIL = #{userEmail}
+   		AND SPRINT_CODE = #{sprintCode}
+	</insert>
+	
+	<update id="updateTaskTitle" parameterType="com.stepup.agile.projectTask.model.vo.TaskHistory">
+		UPDATE INTO TASK_HISTORY(TASK_HIST_UPDATE_DATE, TASK_HIST_UPDATE_TIME, TASK_HIST_CODE, MASTER_CODE, USER_CODE, TASK_HIST_VALUE, TASK_CATEGORY_CODE)
+		VALUES (TO_CHAR(SYSDATE + 9/24, 'YYYY-MM-DD'), TO_CHAR(SYSDATE + 9/24, 'hh24:mi:ss'), SEQ_TASK_HIST, DEFAULT, DEFAULT, DEFAULT, DEFAULT)
+	</update>
+	
+	
 </mapper>

@@ -1,5 +1,10 @@
 package com.stepup.agile.projectBacklog.model.vo;
 
+import com.stepup.agile.projectManage.model.vo.Project;
+import com.stepup.agile.userInfo.model.vo.Member;
+import com.stepup.agile.userInfo.model.vo.UserProjectList;
+import com.stepup.agile.userInfo.model.vo.UserTeamList;
+
 public class SprintHistory implements java.io.Serializable{
 
 	private String sprintHistUpdateDate;
@@ -12,13 +17,21 @@ public class SprintHistory implements java.io.Serializable{
 	private String sprintIntro;
 	private String sprintStatus;
 	
+	private UserProjectList userProjectList;
+	private UserTeamList userTeamList;
+	private Member member;
+	private Sprint sprint;
+	private Project project;
+	
+	
 	public SprintHistory() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 	
 	public SprintHistory(String sprintHistUpdateDate, String sprintName, String sprintType, String sprintExpectPeriod,
-			int sprintHistCode, int sprintCode, String sprintHistUpdateTime, String sprintIntro, String sprintStatus) {
+			int sprintHistCode, int sprintCode, String sprintHistUpdateTime, String sprintIntro, String sprintStatus,
+			UserProjectList userProjectList, UserTeamList userTeamList, Member member, Sprint sprint, Project project) {
 		super();
 		this.sprintHistUpdateDate = sprintHistUpdateDate;
 		this.sprintName = sprintName;
@@ -29,7 +42,16 @@ public class SprintHistory implements java.io.Serializable{
 		this.sprintHistUpdateTime = sprintHistUpdateTime;
 		this.sprintIntro = sprintIntro;
 		this.sprintStatus = sprintStatus;
+		this.userProjectList = userProjectList;
+		this.userTeamList = userTeamList;
+		this.member = member;
+		this.sprint = sprint;
+		this.project = project;
 	}
+
+
+
+
 
 
 
@@ -87,13 +109,77 @@ public class SprintHistory implements java.io.Serializable{
 	public void setSprintStatus(String sprintStatus) {
 		this.sprintStatus = sprintStatus;
 	}
+
+	
+
+	public UserProjectList getUserProjectList() {
+		return userProjectList;
+	}
+
+
+
+	public void setUserProjectList(UserProjectList userProjectList) {
+		this.userProjectList = userProjectList;
+	}
+
+
+
+	public UserTeamList getUserTeamList() {
+		return userTeamList;
+	}
+
+
+
+	public void setUserTeamList(UserTeamList userTeamList) {
+		this.userTeamList = userTeamList;
+	}
+
+
+
+	public Member getMember() {
+		return member;
+	}
+
+
+
+	public void setMember(Member member) {
+		this.member = member;
+	}
+
+
+
+	public Sprint getSprint() {
+		return sprint;
+	}
+
+
+
+	public void setSprint(Sprint sprint) {
+		this.sprint = sprint;
+	}
+
+	
+
+	public Project getProject() {
+		return project;
+	}
+
+	public void setProject(Project project) {
+		this.project = project;
+	}
+
 	@Override
 	public String toString() {
-		return "Sprint [sprintHistUpdateDate=" + sprintHistUpdateDate + ", sprintName=" + sprintName + ", sprintType="
-				+ sprintType + ", sprintExpectPeriod=" + sprintExpectPeriod + ", sprintHistCode=" + sprintHistCode
-				+ ", sprintCode=" + sprintCode + ", sprintHistUpdateTime=" + sprintHistUpdateTime + ", sprintIntro="
-				+ sprintIntro + ", sprintStatus=" + sprintStatus + "]";
+		return "SprintHistory [sprintHistUpdateDate=" + sprintHistUpdateDate + ", sprintName=" + sprintName
+				+ ", sprintType=" + sprintType + ", sprintExpectPeriod=" + sprintExpectPeriod + ", sprintHistCode="
+				+ sprintHistCode + ", sprintCode=" + sprintCode + ", sprintHistUpdateTime=" + sprintHistUpdateTime
+				+ ", sprintIntro=" + sprintIntro + ", sprintStatus=" + sprintStatus + ", userProjectList="
+				+ userProjectList + ", userTeamList=" + userTeamList + ", member=" + member + ", sprint=" + sprint
+				+ ", project=" + project + "]";
 	}
+
+	
+	
 	
 	
 	
