@@ -35,7 +35,7 @@
 	
 	<insert id="createTask" parameterType="com.stepup.agile.projectTask.model.vo.TaskList">
 		INSERT INTO TASK_LIST
-		VALUES (SEQ_TASK, TO_CHAR(SYSDATE + 9/24, 'YYYY-MM-DD'), '상위테스크', TO_CHAR(SYSDATE + 9/24, 'hh24:mi:ss'), DEFAULT, DEFAULT)
+		VALUES (SEQ_TASK, TO_CHAR(SYSDATE + 9/24, 'YYYY-MM-DD'), '상위테스크', TO_CHAR(SYSDATE + 9/24, 'hh24:mi:ss'), DEFAULT, #{userName})
 		WHERE USER_EMAIL = #{userEmail}
    		AND SPRINT_CODE = #{sprintCode}
 	</insert>
