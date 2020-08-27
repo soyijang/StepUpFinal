@@ -69,13 +69,7 @@
                 		</div>
                 		<div id="epic-title-cont">
                 			<div id="ep-ti">
-               					<table>
-               						<tbody>
-               							<tr>
-               								<td></td>
-               							</tr>
-               						</tbody>
-               					</table>
+               					여기에 스프린트 제목
                 			</div>
                 			<div id="epic-add-btn">
                 				<button id="ep-ad-btn">
