@@ -23,7 +23,7 @@ public class TaskServiceImpl implements TaskService {
 	@Override
 	public int createTask(Member m, TaskList t) {
 		
-		return td.createTask(sqlSession, t, m);
+		return td.createTask(sqlSession, m, t);
 	}
 
 	@Override

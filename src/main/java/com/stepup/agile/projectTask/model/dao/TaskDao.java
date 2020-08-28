@@ -10,7 +10,7 @@ import com.stepup.agile.userInfo.model.vo.Member;
 
 public interface TaskDao {
 
-	int createTask(SqlSessionTemplate sqlSession, TaskList t, Member m);
+	int createTask(SqlSessionTemplate sqlSession, Member m, TaskList t);
 
 	int updateTitle(SqlSessionTemplate sqlSession, TaskHistory th);
 

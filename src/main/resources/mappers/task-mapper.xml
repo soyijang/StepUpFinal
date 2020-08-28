@@ -35,9 +35,18 @@
 	</resultMap>
 	
 	<insert id="createTask" parameterType="com.stepup.agile.projectTask.model.vo.TaskList">
+		<selectKey keyProperty="taskCode" resultType="int" order="BEFORE">
+			SELECT SEQ_TASK.NEXTVAL FROM DUAL
+		</selectKey>
 		INSERT INTO TASK_LIST(TASK_CODE, TASK_CREATE_DATE, TASK_LEVEL, SPRINT_CODE, TASK_CREATE_TIME, TASK_MASTER, TASK_USER)
-		VALUES (SEQ_TASK.NEXTVAL, TO_CHAR(SYSDATE + 9/24, 'YYYY-MM-DD'), '상위', #{sprintCode}, TO_CHAR(SYSDATE + 9/24, 'hh24:mi:ss'), DEFAULT, #{taskUser, jdbcType=VARCHAR})
+		VALUES (#{taskCode}, TO_CHAR(SYSDATE + 9/24, 'YYYY-MM-DD'), '상위', #{sprintCode}, TO_CHAR(SYSDATE + 9/24, 'hh24:mi:ss'), DEFAULT, #{taskUser, jdbcType=VARCHAR})
 	</insert>
+	
+	<select id="selectList" parameterType="com.stepup.agile.projectTask.model.vo.TaskList">
+		SELECT *
+		  FROM TASK_LIST
+		 WHERE TASK_CODE = #{taskCode} 
+	</select>
 	
 	<update id="updateTaskTitle" parameterType="com.stepup.agile.projectTask.model.vo.TaskHistory">
 		UPDATE INTO TASK_HISTORY(TASK_HIST_UPDATE_DATE, TASK_HIST_UPDATE_TIME, TASK_HIST_CODE, MASTER_CODE, USER_CODE, TASK_HIST_VALUE, TASK_CATEGORY_CODE)

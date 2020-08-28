@@ -168,8 +168,7 @@
    <script type="text/javascript">
       var newSprintModal = document.getElementById("newSprintModal");
       var updateSprint = document.getElementById("updateSprint");
-       var taskmodal = document.getElementById("taskmyModal");
-       
+      
        
       var btn = document.getElementById("sprintapply");
       var btn2 = document.getElementsByClassName("updatebtn")[0];
@@ -200,16 +199,30 @@
            newSprintModal.style.display = "none";
         }else if (event.target == updateSprint) {
            updateSprint.style.display = "none";
-        }else if (event.target == taskmodal) {
-              taskmodal.style.display = "none";
+        }else if (event.target == taskModalYn) {
+        	taskModalYn.style.display = "none";
         }
       };
       
+      /* task Detail 모달관련 설정 */
+      var taskModalYn = document.getElementById("taskModalYn");
+      var taskDetailModal = document.getElementById("taskDetailModal");
+      var taskspan = document.getElementsByClassName("taskclose")[0];
+      var taskspan2 = document.getElementsByClassName("taskCancel")[0];
       
-      $('.taskapply').click(function(){
+      taskspan.onclick = function() {
+          $(taskDetailModal).css('display','none');
+      }
+      taskspan2.onclick = function() {
+          $(taskModalYn).css('display','none');
+      } 
+      
+       $('.taskapply').click(function(){
          $(taskModalYn).fadeIn(300); 
          $(taskModalYn).css('display','block');
-      });
+      }); 
+       
+      var taskCode = $('#taskCode').val();
 
    </script>
 
