@@ -4,7 +4,6 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="Sprint">
 
-<!-- SPRINT_HISTORY 테이블-->	
 	<resultMap type="com.stepup.agile.projectBacklog.model.vo.SprintHistory" id="sprintHistoryResultSet">
 		<id property="sprintHistCode" column="SPRINT_HIST_CODE"/>
 		<result property="sprintHistUpdateDate" column="SPRINT_HIST_UPDATE_DATE"/>
@@ -17,7 +16,6 @@
 		<result property="sprintStatus" column="SPRINT_STATUS"/>
 	</resultMap>
 	
-<!-- SPRINT LIST 테이블 -->
 	<resultMap type="com.stepup.agile.projectBacklog.model.vo.Sprint" id="sprintResultSet">
 		<id property="sprintCode" column="SPRINT_CODE"/>
 		<result property="sprintCreateDate" column="SPRINT_CREATE_DATE"/>
@@ -26,7 +24,6 @@
 	</resultMap>
 	
 	
-<!-- Project멤버매칭 테이블 -->
 	<resultMap type="com.stepup.agile.userInfo.model.vo.UserProjectList" id="UserProjectListResultSet">
 		<id property="userProjectCode" column="USER_PROJECT_CODE"/>
 		<result property="projectCode" column="PROJECT_CODE"/>
@@ -37,7 +34,6 @@
 		<result property="userProjectAuthority" column="USER_PROJECT_AUTHORITY"/>
 	</resultMap>
 	
-	<!-- 팀소속이력관리 -->
 	<resultMap type="com.stepup.agile.userInfo.model.vo.UserTeamList" id="UserTeamListResultSet">
 		<id property="userTeamCode" column="USER_TEAM_CODE"/>
 		<result property="teamCode" column="TEAM_CODE"/>
@@ -47,7 +43,6 @@
 		<result property="userTeamTime" column="USER_TEAM_TIME"/>
 	</resultMap>
 	
-	<!-- 사용자정보  -->
 	<resultMap type="com.stepup.agile.userInfo.model.vo.Member" id="memberResultSet">
 		<id property="userCode" column="USER_CODE"/>
 		<result property="userEmail" column="USER_EMAIL"/>
@@ -63,7 +58,6 @@
 		<result property="userEnrollTime" column="USER_ENROLL_TIME"/>
 	</resultMap>	
 	
-<!-- ---------------------------------------쿼리--------------------------------------------- -->
 	<select id="selectSprint" resultMap="sprintResultSet" parameterType="Sprint">
 		SELECT *
 		  FROM SPRINT_LIST
@@ -72,10 +66,4 @@
 	</select>
 	
 
-
-
-
-
-
-	
 </mapper>

@@ -13,12 +13,12 @@ public class Project implements java.io.Serializable{
 	private Member member;
 	private UserTeamList userTeamList;
 	private UserProjectList userProjectList;
+	private ProjectHistory projectHistory;
 	
 	public Project() {}
 	
-
 	public Project(int projectCode, String projectName, String createDate, String createTime, Member member,
-			UserTeamList userTeamList, UserProjectList userProjectList) {
+			UserTeamList userTeamList, UserProjectList userProjectList, ProjectHistory projectHistory) {
 		super();
 		this.projectCode = projectCode;
 		this.projectName = projectName;
@@ -27,9 +27,10 @@ public class Project implements java.io.Serializable{
 		this.member = member;
 		this.userTeamList = userTeamList;
 		this.userProjectList = userProjectList;
+		this.projectHistory = projectHistory;
 	}
 
-	
+
 	public Member getMember() {
 		return member;
 	}
@@ -93,11 +94,19 @@ public class Project implements java.io.Serializable{
 	}
 
 
+	public ProjectHistory getProjectHistory() {
+		return projectHistory;
+	}
+
+	public void setProjectHistory(ProjectHistory projectHistory) {
+		this.projectHistory = projectHistory;
+	}
+
 	@Override
 	public String toString() {
 		return "Project [projectCode=" + projectCode + ", projectName=" + projectName + ", createDate=" + createDate
 				+ ", createTime=" + createTime + ", member=" + member + ", userTeamList=" + userTeamList
-				+ ", userProjectList=" + userProjectList + "]";
+				+ ", userProjectList=" + userProjectList + ", projectHistory=" + projectHistory + "]";
 	}
 
 	

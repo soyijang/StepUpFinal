@@ -5,7 +5,6 @@
 
 <mapper namespace="Project">
 
-	<!-- Project_List 테이블 -->
 	<resultMap type="com.stepup.agile.projectManage.model.vo.Project" id="projectResultSet">
 		<id property="projectCode" column="PROJECT_CODE"/>
 		<result property="projectName" column="PROJECT_NAME"/>
@@ -13,7 +12,6 @@
 		<result property="createTime" column="PROJECT_CREATE_TIME"/>
 	</resultMap>
 
-	<!-- Project_HISTORY 테이블 -->
 	<resultMap type="com.stepup.agile.projectManage.model.vo.ProjectHistory" id="projectHistoryResultSet">
 		<id property="projectHistCode" column="PROJECT_HIST_CODE"/>
 		<result property="projectHistDate" column="PROJECT_HIST_DATE"/>

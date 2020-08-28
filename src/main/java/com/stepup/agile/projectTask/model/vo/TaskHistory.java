@@ -1,5 +1,10 @@
 package com.stepup.agile.projectTask.model.vo;
 
+import com.stepup.agile.projectBacklog.model.vo.Sprint;
+import com.stepup.agile.userInfo.model.vo.Member;
+import com.stepup.agile.userInfo.model.vo.UserProjectList;
+import com.stepup.agile.userInfo.model.vo.UserTeamList;
+
 public class TaskHistory implements java.io.Serializable{
 	private String taskHistUpdateDate;
 	private String taskHistUpdateTime;
@@ -10,10 +15,17 @@ public class TaskHistory implements java.io.Serializable{
 	private String taskHistValue;
 	private String taskCategoryCode;
 	
+	private Member member;
+	private UserTeamList userTeamList;
+	private UserProjectList userProjectList;
+	private TaskList taskList;
+	private Sprint sprint;
+	
 	public TaskHistory() {}
 
 	public TaskHistory(String taskHistUpdateDate, String taskHistUpdateTime, int taskCode, int taskHistCode,
-			int masterCode, int userCode, String taskHistValue, String taskCategoryCode) {
+			int masterCode, int userCode, String taskHistValue, String taskCategoryCode, Member member,
+			UserTeamList userTeamList, UserProjectList userProjectList, TaskList taskList, Sprint sprint) {
 		super();
 		this.taskHistUpdateDate = taskHistUpdateDate;
 		this.taskHistUpdateTime = taskHistUpdateTime;
@@ -23,8 +35,14 @@ public class TaskHistory implements java.io.Serializable{
 		this.userCode = userCode;
 		this.taskHistValue = taskHistValue;
 		this.taskCategoryCode = taskCategoryCode;
+		this.member = member;
+		this.userTeamList = userTeamList;
+		this.userProjectList = userProjectList;
+		this.taskList = taskList;
+		this.sprint = sprint;
 	}
 
+	
 	public String getTaskHistUpdateDate() {
 		return taskHistUpdateDate;
 	}
@@ -89,14 +107,62 @@ public class TaskHistory implements java.io.Serializable{
 		this.taskCategoryCode = taskCategoryCode;
 	}
 
+	
+	public Member getMember() {
+		return member;
+	}
+
+
+	public void setMember(Member member) {
+		this.member = member;
+	}
+
+
+	public UserTeamList getUserTeamList() {
+		return userTeamList;
+	}
+
+
+	public void setUserTeamList(UserTeamList userTeamList) {
+		this.userTeamList = userTeamList;
+	}
+
+
+	public UserProjectList getUserProjectList() {
+		return userProjectList;
+	}
+
+
+	public void setUserProjectList(UserProjectList userProjectList) {
+		this.userProjectList = userProjectList;
+	}
+
+
+	public TaskList getTaskList() {
+		return taskList;
+	}
+
+
+	public void setTaskList(TaskList taskList) {
+		this.taskList = taskList;
+	}
+
+
+	public Sprint getSprint() {
+		return sprint;
+	}
+
+	public void setSprint(Sprint sprint) {
+		this.sprint = sprint;
+	}
+
 	@Override
 	public String toString() {
 		return "TaskHistory [taskHistUpdateDate=" + taskHistUpdateDate + ", taskHistUpdateTime=" + taskHistUpdateTime
 				+ ", taskCode=" + taskCode + ", taskHistCode=" + taskHistCode + ", masterCode=" + masterCode
 				+ ", userCode=" + userCode + ", taskHistValue=" + taskHistValue + ", taskCategoryCode="
-				+ taskCategoryCode + "]";
+				+ taskCategoryCode + ", member=" + member + ", userTeamList=" + userTeamList + ", userProjectList="
+				+ userProjectList + ", taskList=" + taskList + ", sprint=" + sprint + "]";
 	}
-	
-	
-	
+
 }
