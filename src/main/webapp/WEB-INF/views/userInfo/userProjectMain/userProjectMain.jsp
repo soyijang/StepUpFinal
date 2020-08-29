@@ -16,26 +16,24 @@
    <%@ include file="../../common/menubar.jsp" %>
             <div id="content">
                 <div id="main-cont-area">
-                    <c:forEach var="tlist" items="${ taskList }" varStatus="vs">
                    <div id="status-area">
                       <div id="not-task">
-                         <div id="n-tk" class="status">${ tlist.taskHistValue }</div>
+                         <div id="n-tk" class="status">${ nonTaskCnt }</div>
                          <p id="n-tk-ti" class="ing">미진행</p>
                       </div>
                       <div id="task-ing">
-                         <div id="tk-ing" class="status">${ tlist.taskHistValue }</div>
+                         <div id="tk-ing" class="status">${ ingTaskCnt }</div>
                          <p id="tk-ing-ti" class="ing">진행중</p>
                       </div>
                       <div id="com-task">
-                         <div id="co-tk" class="status">${ tlist.taskHistValue } </div>
+                         <div id="co-tk" class="status">${ comTaskCnt } </div>
                          <p id="co-tk-ti" class="ing">진행완료</p>
                       </div>
                       <div id="tot-task">
-                         <div id="to-tk" class="status">${ vs.count } </div>
+                         <div id="to-tk" class="status">${ nonTaskCnt+ingTaskCnt+comTaskCnt } </div>
                          <p id="ti-tk-ti" class="ing">전체 업무</p>
                       </div>
                    </div>
-                      </c:forEach>
                    <div id="pj-alm-area">
                       <div id="pro-cont-area">
                          <div id="pro-cont-title">
@@ -52,11 +50,11 @@
 	                             <tr>
 	                            	<td rowspan="2" style=" width:50px;"><img src="/agile/resources/images/profile/dayoon_202008152056.png"></td>
 	                            	<td rowspan="2" style=" width:170px;"><div name="projectName">${ i.projectName }</div></td>
-	                            	<td style=" width:110px;">진행중 이슈</td>
-	                            	<td style=" width:30px;">3</td>
+	                            	<td style=" width:110px; background-color:#FEF4E5; border-radius:7px;">진행중 이슈</td>
+	                            	<td style=" width:30px; ">3</td>
 	                            </tr>
 	                            <tr>
-	                            	<td style="width:110px;">미해결 이슈</td>
+	                            	<td style="width:110px; background-color:#FFDFDF; border-radius:7px;">미해결 이슈</td>
 	                            	<td style=" width:30px;">2</td>
 	                            </tr>
 	                            <tr>
@@ -144,22 +142,14 @@
                             <p id="chart">Chart</p>
                          </div>
                          <div id="cht-cont">
-                         <c:forEach var="tlist" items="${ taskList }">
                             <div id="cht">
-                               <div class="pie-chart1"><span class="center"><p id="to-ch">${ vs.count }</p><p id="to-ch-ti">전체업무</p></span></div>
+                               <div class="pie-chart1"><span class="center"><p id="to-ch">${ nonTaskCnt + ingTaskCnt + comTaskCnt }</p><p id="to-ch-ti">전체업무</p></span></div>
                                 <div id="cht-st" style="width:50%">
-                                <c:if test="${ tlist.taskHistValue eq '미진행'}">
-	                               <div id="no-ch" class="cht-tt"><img src="/agile/resources/images/indiv/main/userInfo/userProjectMain/img_over_task.png" width="10px;" height="10px;"> 미진행</div><span id="no-ch-to">${ tlist.taskHistValue }</span><br>
-		                        </c:if>
-		                        <c:if test="${ tlist.taskHistValue eq '진행중'}">   
-		                           <div id="ing-ch" class="cht-tt"><img src="/agile/resources/images/indiv/main/userInfo/userProjectMain/img_ing_task.png" width="10px;" height="10px;"> 진행중 </div><span id="ing-ch-to">${ tlist.taskHistValue }</span><br>
-		                        </c:if>
-		                        <c:if test="${ tlist.taskHistValue eq '완료'}">   
-		                           <div id="com-ch" class="cht-tt"><img src="/agile/resources/images/indiv/main/userInfo/userProjectMain/img_com_task.png" width="10px;" height="10px;"> 완료</div><span id="com-ch-to">${ tlist.taskHistValue }</span>
-		                        </c:if>   
+	                               <div id="no-ch" class="cht-tt"><img src="/agile/resources/images/indiv/main/userInfo/userProjectMain/img_over_task.png" width="10px;" height="10px;"> 미진행</div><span id="no-ch-to">${ nonTaskCnt }</span><br>
+		                           <div id="ing-ch" class="cht-tt"><img src="/agile/resources/images/indiv/main/userInfo/userProjectMain/img_ing_task.png" width="10px;" height="10px;"> 진행중 </div><span id="ing-ch-to">${ ingTaskCnt }</span><br>
+		                           <div id="com-ch" class="cht-tt"><img src="/agile/resources/images/indiv/main/userInfo/userProjectMain/img_com_task.png" width="10px;" height="10px;"> 완료</div><span id="com-ch-to">${ comTaskCnt }</span>
 	                           </div>
                             </div>
-                         </c:forEach>
                          </div>
                       </div>
                       <!-- 차트 영역 끝 -->
@@ -180,6 +170,33 @@
 </body>
 <script>
 	<!-- 캘린더 -->
+	//이번주 일주일 구하기
+	var currentDay = new Date();  
+	var theYear = currentDay.getFullYear();
+	var theMonth = currentDay.getMonth();
+	var theDate  = currentDay.getDate();
+	var theDayOfWeek = currentDay.getDay();
+	 
+	var thisWeek = [];
+	 
+	for(var i=0; i<7; i++) {
+	  var resultDay = new Date(theYear, theMonth, theDate + (i - theDayOfWeek));
+	  var yyyy = resultDay.getFullYear();
+	  var mm = Number(resultDay.getMonth()) + 1;
+	  var dd = resultDay.getDate();
+	 
+	  mm = String(mm).length === 1 ? '0' + mm : mm;
+	  dd = String(dd).length === 1 ? '0' + dd : dd;
+	 
+	  //thisWeek[i] = yyyy + '-' + mm + '-' + dd;
+	  thisWeek[i] = dd;
+	}
+	 
+	console.log(thisWeek);
+	
+	
+	
+	
 	/**
 	 *  yyyyMMdd 포맷으로 반환
 	 */
@@ -224,17 +241,9 @@
 		} else if(today == '6'){
 			today = '토';
 		} */
-		
-		console.log(today);
-		
-		for(i=day; i<8; i++){
-			
-		}
-		
-		
+
 		var mon;
 		mon = date.substring(6, 4);
-		console.log(mon);
 		
 		if(mon == '01'){
 			mon = 'Jan';
@@ -285,8 +294,8 @@
 		
 	    setTableHTML+='<table width="100%;">';
 	    setTableHTML+='<thead>';
-	    setTableHTML+='<tr><th class="th-title" style="font-size: 27px;">Calendar&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>';
-	    setTableHTML+='<th><img src="/agile/resources/icon/common/icon_gear.png" width="20px;" height="20px;""></th>';
+	    setTableHTML+='<tr><th class="th-title" style="font-size: 27px;">Calendar</th>';
+	    setTableHTML+='<th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="/agile/resources/icon/common/icon_gear.png" width="20px;" height="20px;""></th>';
 	    setTableHTML+='<tr><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + day + ", " + mon + '</td>';
 	    setTableHTML+='<td></td></tr>';
 	    setTableHTML+='</thead>';
@@ -294,8 +303,8 @@
 	    
 	    for(var i=0;i<7;i++){
 	        setTableHTML+='<tr style="font-size: 12px;">';
-	        setTableHTML+='<td width="10"  height="100">';
-	        setTableHTML+='';
+	        setTableHTML+='<td width="10px" height="100px">';
+	        setTableHTML+= thisWeek[i];
 	        setTableHTML+='<br>';
 		     	
 		        if(today == 0) {
@@ -324,7 +333,7 @@
 	        
 	     	
 	        setTableHTML+= "</td>";
-	        setTableHTML+= "<td width='200' height='100'><div class='cal-schedule' style='width:10%'></div></td>";
+	        setTableHTML+= "<td class='cal-schedule' style='width:200px height:100px'>여기에 일정인데,,테스크가 너무많으면 클날듯..</td>";
 	        setTableHTML+='</tr>';
 	        
 	    }
@@ -334,31 +343,15 @@
 	    $("#cal-cont").html(setTableHTML);
 	}
 	
-	var $tdSche = null;
-	
-	//스케줄표시
-    function drawSche() {
-    	$tdSche = $("td div.cal-schedule");
-		
-		
-    	$tdSche.eq(3).text("🤴🏻오늘 뷰 다 끝날수있나?");
-    	$tdSche.eq(today.getDate()+firstDay.getDay()).text("🎃금요일인데 아직 뷰 못끝냈겠찌?");
-    	$tdSche.eq(today.getDate()).css("color", "black");
-    	
-	}
 	
 	
 	//차트
 	$(window).ready(function(){
     var i=1;
     var non=$("#no-ch-to").text();
-    console.log(non);
     var ing=$("#ing-ch-to").text();
-    console.log(ing);
     var com=$("#com-ch-to").text();
-    console.log(com);
     var tot=$("#to-ch").text();
-    console.log(tot);
     
     var non2 = non/tot*100;
     var ing2 = ing/tot*100;
@@ -366,12 +359,6 @@
     
     
     
-    console.log(Math.ceil(non2));
-    console.log(Math.ceil(ing2));
-    console.log(Math.ceil(com2));
-  /*   (Math.ceil(ing2)) = ing/tot*100;
-    (Math.ceil(non2)) = non/tot*100;
-    (Math.ceil(com2)) = tot/tot*100; */
     
     var func1 = setInterval(function(){
         if(i<Math.ceil(non2)){

@@ -37,18 +37,18 @@ public class ProjectMainController {
 	public String selectUserProject(@ModelAttribute("loginUser") Member m, Model model, Project p) {
 	
 		List<Project> pjName = ps.selectUserProject(m);
-		List<String> taskPjNonTaskList = new ArrayList<String>();
-		Map<String, Object> map = new HashMap<String, Object>();
+//		List<String> taskPjNonTaskList = new ArrayList<String>();
+//		Map<String, Object> map = new HashMap<String, Object>();
 		
-		for(int i = 0; i < pjName.size(); i++) {
-			System.out.println("프로젝트 이름 : " + pjName.get(i).getProjectName());
-			map.put("userCode", m.getUserCode());
-			map.put("projectName", pjName.get(i).getProjectName());
-			
-			
-			taskPjNonTaskList.add(ts.selectPjNonTask(map));
-			System.out.println(taskPjNonTaskList.get(i));
-		}
+//		for(int i = 0; i < pjName.size(); i++) {
+//			System.out.println("프로젝트 이름 : " + pjName.get(i).getProjectName());
+//			map.put("userCode", m.getUserCode());
+//			map.put("projectName", pjName.get(i).getProjectName());
+//			
+//			
+//			taskPjNonTaskList.add(ts.selectPjNonTask(map));
+//			System.out.println(taskPjNonTaskList.get(i));
+//		}
 		
 		
 		List<TaskHistory> taskList = ts.selectUserTask(m);

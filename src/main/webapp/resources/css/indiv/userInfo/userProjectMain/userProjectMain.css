@@ -307,3 +307,9 @@ span.center{
     text-align: center;
     color: #B7BBDE;
 }
+.cal-schedule{
+	border-radius: 10px;
+	width:200px;
+	font-size: 15px;
+	background-color: #FFF2F2;
+}
