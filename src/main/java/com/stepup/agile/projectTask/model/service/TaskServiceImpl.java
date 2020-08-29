@@ -1,5 +1,6 @@
 package com.stepup.agile.projectTask.model.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -7,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.stepup.agile.projectTask.model.dao.TaskDao;
+import com.stepup.agile.projectTask.model.vo.TaskHistory;
 import com.stepup.agile.projectTask.model.vo.TaskList;
 import com.stepup.agile.userInfo.model.vo.Member;
 
@@ -36,6 +38,17 @@ public class TaskServiceImpl implements TaskService {
 		return td.selectBugTask(sqlSession, m);
 	}
 
-	
+
+	@Override
+	public List<TaskList> selectBugCont(HashMap<String, Object> map) {
+		return td.selectBugCont(sqlSession, map);
+	}
+
+	@Override
+	public int insertCloneBug(HashMap<String, Object> map) {
+		return td.insertCloneBug(sqlSession, map);
+	}
+
+
 
 }

@@ -3,10 +3,8 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-
 <mapper namespace="Project">
 
-	<!-- Project_List 테이블 -->
 	<resultMap type="com.stepup.agile.projectManage.model.vo.Project" id="projectResultSet">
 		<id property="projectCode" column="PROJECT_CODE"/>
 		<result property="projectName" column="PROJECT_NAME"/>
@@ -14,7 +12,6 @@
 		<result property="createTime" column="PROJECT_CREATE_TIME"/>
 	</resultMap>
 
-	<!-- Project_HISTORY 테이블 -->
 	<resultMap type="com.stepup.agile.projectManage.model.vo.ProjectHistory" id="projectHistoryResultSet">
 		<id property="projectHistCode" column="PROJECT_HIST_CODE"/>
 		<result property="projectHistDate" column="PROJECT_HIST_DATE"/>
@@ -27,5 +24,66 @@
 		<result property="projectStartTime" column="PROJECT_START_TIME"/>
 		<result property="projectEndTime" column="PROJECT_END_TIME"/>
 	</resultMap>
+
+	<resultMap type="com.stepup.agile.userInfo.model.vo.Member" id="memberResultSet">
+		<id property="userCode" column="USER_CODE"/>
+		<result property="userEmail" column="USER_EMAIL"/>
+		<result property="userPwd" column="USER_PWD"/>
+		<result property="userName" column="USER_NAME"/>
+		<result property="userPhone" column="USER_PHONE"/>
+		<result property="userCompName" column="USER_COMP_NAME"/>
+		<result property="userCompDept" column="USER_COMP_DEPT"/>
+		<result property="userCompJob" column="USER_COMP_JOB"/>
+		<result property="userEnrollDate" column="USER_ENROLL_DATE"/>
+		<result property="userStatus" column="USER_STATUS"/>
+		<result property="userManagerYn" column="USER_MANAGER_YN"/>
+		<result property="userEnrollTime" column="USER_ENROLL_TIME"/>
+	</resultMap>
+	
+	<resultMap type="com.stepup.agile.userInfo.model.vo.UserProjectList" id="UserProjectListResultSet">
+		<id property="userProjectCode" column="USER_TEAM_CODE"/>
+		<result property="userProjectUpdateDate" column="USER_PROJECT_UPDATE_DATE"/>
+		<result property="userProjectUpdateTime" column="USER_PROJECT_UPDATE_TIME"/>
+		<result property="userProjectStatus" column="USER_PROJECT_STATUS"/>
+		<result property="projectCode" column="USER_PROJECT_CODE"/>
+		<result property="userTeamCode" column="PROJECT_CODE"/>
+		<result property="userProjectAuthority" column="USER_PROJECT_AUTHORITY"/>
+	</resultMap>
+	
+	<resultMap type="com.stepup.agile.userInfo.model.vo.UserTeamList" id="UserTeamListResultSet">
+		<id property="userTeamCode" column="USER_TEAM_CODE"/>
+		<result property="userTeamDate" column="USER_TEAM_DATE"/>
+		<result property="userTeamYn" column="USER_TEAM_YN"/>
+		<result property="userCode" column="USER_CODE"/>
+		<result property="teamCode" column="TEAM_CODE"/>
+		<result property="userTeamTime" column="USER_TEAM_TIME"/>
+	</resultMap>
+
+	<resultMap id="selectUserPJRset" type="com.stepup.agile.projectManage.model.vo.Project">
+		<id property="projectCode" column="PROJECT_CODE"/>
+		<result property="projectName" column="PROJECT_NAME"/>
+		<result property="createDate" column="PROJECT_CREATE_DATE"/>
+		<result property="createTime" column="PROJECT_CREATE_TIME"/>
+    <collection property="member" resultMap="memberResultSet"/>
+    <collection property="userTeamList" resultMap="UserTeamListResultSet"/>
+    <collection property="userProjectList" resultMap="UserProjectListResultSet"/>
+		
+	</resultMap>
+	
+	
+	
+	<select id="selectUserProject" resultMap="selectUserPJRset" parameterType="Project">
+	 	SELECT PL.PROJECT_NAME
+		  FROM USER_INFO I,
+		       USER_TEAM_LIST T,
+		       USER_PROJECT_LIST P,
+		       PROJECT_LIST PL
+		 WHERE I.USER_CODE = T.USER_CODE
+		   AND T.USER_TEAM_CODE = P.USER_TEAM_CODE
+		   AND P.USER_PROJECT_CODE = PL.PROJECT_CODE
+		   AND I.USER_CODE = (SELECT USER_CODE 
+                              FROM USER_INFO
+                             WHERE USER_EMAIL LIKE #{userEmail, jdbcType=VARCHAR})
+	</select>
 
 </mapper>

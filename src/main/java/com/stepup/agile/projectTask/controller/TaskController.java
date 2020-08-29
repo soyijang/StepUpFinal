@@ -6,12 +6,13 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.stepup.agile.projectTask.model.service.TaskService;
+import com.stepup.agile.projectTask.model.vo.TaskHistory;
 import com.stepup.agile.projectTask.model.vo.TaskList;
 import com.stepup.agile.userInfo.model.vo.Member;
 
@@ -54,7 +55,42 @@ public class TaskController {
 	   
 	   List<TaskList> bglist = ts.selectBugTask(m);
 	   
+	   model.addAttribute("bgList", bglist);
+	  
 	   return "projectTask/bug/bug";
+	   
+   }
+   
+   @RequestMapping("selectBugCont.tk")
+   public ModelAndView selectBugCont(ModelAndView mv, @ModelAttribute("loginUser") Member m, String tCode){
+	   
+	   int taskCode = Integer.parseInt(tCode);
+	   HashMap<String, Object> map = new HashMap<String, Object>();
+	   map.put("taskCode", taskCode);
+	   map.put("userCode", m.getUserCode());
+	   
+	   List<TaskList> bgContList = ts.selectBugCont(map);
+	   
+	   mv.addObject("bgContList", bgContList);
+	   mv.setViewName("jsonView");
+	   return mv;
+   }
+   
+   @RequestMapping("insertCloneBug.tk")
+   public ModelAndView insertCloneBug(ModelAndView mv, @ModelAttribute("loginUser") Member m, String tCode){
+	   int taskCode = Integer.parseInt(tCode);
+	   
+	   HashMap<String, Object> map = new HashMap<String, Object>();
+	   map.put("taskCode", taskCode);
+	   map.put("userCode", m.getUserCode());
+	   
+	   int result = ts.insertCloneBug(map);
+	   
+	   if(result > 0) {
+		   return mv;
+	   } else {
+		   return mv;
+	   }
 	   
    }
    

@@ -23,7 +23,7 @@
 </head>
 <body>
  <%@ include file="../../common/menubar.jsp" %>
-    <div id="content">
+    <div id="content" class="click-area">
         <!-- 상단 프로젝트 제목 및 메뉴 이름 영역 -->
         <div id="contentTitle">
             <div id="projectTitle2">프로젝트 / 너무졸려요</div>
@@ -65,15 +65,14 @@
 				<div id="tb_wrap">
 				<div id="bug-list">
 					<p id="bug-title">Tasks</p>
-					
+					<c:forEach var="i" items="${ bgList }" varStatus="status">
 					<div class="bug-list-detail">
-						<div id="bug-ti-list">
-							DB task 제약조건 오류
-						</div>
+						<div id="bug-ti-list" class="bug-ti-list">${ i.taskHistValue }</div>
 						<div id="bug-con-list">
-							<div id="bugicon" class="bug-con-list-area"></div><div class="bug-con-list-area" id="bug-code-list1">&nbsp;&nbsp;BUG-01</div><div id="user-pro-lit" class="bug-con-list-area"><img src="/agile/resources/images/profile/dayoon_202008152056.png"></div>
+							<div id="bugicon" class="bug-con-list-area"></div><div class="bug-con-list-area" id="bug-code-list1">&nbsp;&nbsp;BUG - ${ i.taskCode }</div><div id="user-pro-lit" class="bug-con-list-area"><img src="/agile/resources/images/profile/dayoon_202008152056.png"></div>
 						</div>
 					</div>
+					</c:forEach>
 					
 					<!-- <table class="bg-tb" style="width:95%; background-color: white; margin:auto;">
 						<tbody style="background-color: white;" id="bugCodeTB">
@@ -112,7 +111,7 @@
 						<table width="100%" id="bg-tb-title">
 						<tbody id="bg-tbody">
 							<tr>
-								<td>버그 이슈 제목</td>
+								<td id="bgtitle-td"><div id="bug-issue-title">버그 제목</div></td>
 								<td style="text-align:right;"><img src="/agile/resources/images/profile/dayoon_202008152056.png"></td>
 								<td>
 									<div class="dropdown2-area">
@@ -123,15 +122,15 @@
 								        </div>
 								        <!-- <input type="hidden" name="employee" id="employeeTcode"> -->
 								        <ul class="dropdown-menu2">
-								          <li id="non-bug">복제</li>
-								          <li id="ing-bug">삭제</li>
+								          <li id="clone-bug">복제</li>
+								          <li id="delete-bug">삭제</li>
 								        </ul>
 								      </div>
 								      </div>
 								</td>
 							</tr>
 							<tr>
-								<td><button id="rectangle5"><img src="/agile/resources/icon/common/icon_clip.png" width="15px;" height="15px;">첨부</button><button id="rectangle5"><img src="/agile/resources/icon/common/icon_link.png"  width="15px;" height="15px;">연결</button></td>
+								<td><div id="add-link-area"><button id="rectangle"><img src="/agile/resources/icon/common/icon_clip.png" width="15px;" height="15px;">첨부</button>&nbsp;<button id="rectangle"><img src="/agile/resources/icon/common/icon_link.png"  width="15px;" height="15px;">연결</button></div></td>
 								<td colspan="2"></td>
 							</tr>
 							</tbody>
@@ -139,9 +138,9 @@
 					</div>
 					<div id="bg-detail">
 						<div id="detail-ex">설명</div>
-						<div id="detail-cont">아 거기서 오류나고 여기서 오류났어요</div>
+						<div id="detail-cont"></div>
 					</div>
-					<div id="bg-reply">
+					<div id="bg-reply" class="bg-reply">
 						<div id="re-pro"><img src="/agile/resources/images/profile/dayoon_202008152056.png"></div>
 						<div id="bg-re-cont">
 						<!-- <div class="container mt-4 mb-4">
@@ -154,16 +153,22 @@
 						    </div>
 						  </div>
 						</div> -->
+						<div class="re-ed-area">
 					<input id="reply-input" type="text">
-					 <div id="editor-box" style="display:none;"><div id="editor"></div></div>
+					 <div id="editor-box" class="editor-box"style="display:none;"><div id="editor"></div></div>
+						</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
+      <div class="wrap-loading display-none">
+         <div><img src="/agile/resources/icon/common/icon_loading.gif"/></div>
+   </div>    
     </div>
 </body>
 <script>
+	//담당자, 상태 드롭다운
 	$('.dropdown').click(function() {
 		$(this).attr('tabindex', 1).focus();
 		$(this).toggleClass('active');
@@ -209,26 +214,134 @@
 			$('.msg').html(msg + input + '</span>');
 	});
 	
+	
 	//댓글 input 박스 누르면 에디터 활성화
 	$("#reply-input").click(function(){
 		$("#editor-box").show();
 		$(this).hide();
+		return false;
 	});
 	
-	//버그리스트 누르면 상세보기에 뜨게
+	/* $(document).on('click', function(e){
+		if(e.target.className == "editor-box"){
+			return false;
+		}
+		$("#editor-box").hide();
+		$("#reply-input").show();
+			
+	}); */
+	
+	/* window.onclick = function(e){
+		if(e.target == ".bug-list-detail") {
+			var index = document.getElementById("buglist" + 0);
+			console.log("제발");
+			console.log(index);
+		}
+	}; */
+
+	
+	//에디터 영역 제외한 곳 누르면 에디터 없어지게
+	/* window.onclick = function(e){
+		if(e.target == "") {
+			return false;
+			$("#editor-box").hide();
+			$("#reply-input").show();
+			console.log("제발");
+		}
+	}; */
+	
+	//버그 리스트 중 하나 누르면 테스크 제목 가져오기
+	var a;
+	var bugtitle;
+	var bugcode;
+	var bcode;
+	$(document).on("click",".bug-list-detail",function(){
+			a = $(this).text();
+			
+			var str = a.replace(/(\s*)/g, "");
+			
+			var start = str.indexOf(":");
+			var end = str.indexOf("B", start+1);
+			
+			bugcode = str.substring(end);
+			bugtitle = str.substring(start+1, end);
+			
+		});
+
+	
+	//버그리스트 누르면 상세 영역에 버그제목하고 코드가져오기
 	$(".bug-list-detail").click(function(){
-		console.log("성공");
-		var bugcode = $(".bug-code").text();
-			console.log(bugcode);
 		
-			
-			
 		var div = "";
-		div += '<div id="bugicon" style="margin-left: 30px; margin-top:25px;">&nbsp;&nbsp;</div>' + bugcode;
+		div += '<div id="bugicon" style="margin-left: 30px; margin-top:25px;">&nbsp;&nbsp;</div> ' + bugcode;
 		$("#bg-num").html(div);
+		
+		var div2 = "";
+		div2 += '<div id="bug-issue-title">' + bugtitle + '</div>';
+		$("#bgtitle-td").html(div2);
+		
+		bcode = bugcode.substring(4, 7);
+		
+		var values = [];
+		
+		$.ajax({
+			url:"selectBugCont.tk",
+			type:"post",
+			data:{"tCode" : bcode},
+			dataType : "json",
+			success: function(data){
+				var bugCont;
+				
+				values = data.bgContList;
+				
+				console.log(data.bgContList);
+				 var bgList = $.each(values, function(index, value){
+					 if(value.taskCategoryCode == "H"){
+						bugCont = value.taskHistValue;
+					}
+					 
+				}); 
+				 
+				 var div3 = "";
+				 div3 += bugCont + '</div>';
+					$("#detail-cont").html(div3);
+				 
+		 
+				return data;
+			}, error: function(data){
+			},
+			 beforeSend : function(){
+                $('.wrap-loading').removeClass('display-none');
+            },
+             complete : function(){
+                   $('.wrap-loading').addClass('display-none');
+            }
+		});
+		
 	});
 	
+	//복제 클릭 이벤트
+	$(document).on("click","#clone-bug",function(){
+		$.ajax({
+			url:"insertCloneBug.tk",
+			type:"post",
+			data:{"tCode" : bcode},
+			dataType : "json",
+			success: function(data){
+				console.log("성공");
+			},
+			error: function(data){
+				console.log("실패");
+			}
+		});
+	});
 	
+	//삭제 클릭 이벤트
+	$(document).on("click","#delete-bug",function(){
+		var deleteBtn;
+		deleteBtn = $(this).text();
+		console.log(deleteBtn);
+	});
 	</script>
 	
 	<script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
