@@ -16,26 +16,26 @@
    <%@ include file="../../common/menubar.jsp" %>
             <div id="content">
                 <div id="main-cont-area">
+                    <c:forEach var="tlist" items="${ taskList }" varStatus="vs">
                    <div id="status-area">
-                   <c:forEach var="list" items="${ taskIngList }" varStatus="status">
                       <div id="not-task">
-                         <div id="n-tk" class="status">${ taskNonList[status.index].taskHistValue }</div>
+                         <div id="n-tk" class="status">${ tlist.taskHistValue }</div>
                          <p id="n-tk-ti" class="ing">미진행</p>
                       </div>
                       <div id="task-ing">
-                         <div id="tk-ing" class="status">${ list.taskHistValue }</div>
+                         <div id="tk-ing" class="status">${ tlist.taskHistValue }</div>
                          <p id="tk-ing-ti" class="ing">진행중</p>
                       </div>
                       <div id="com-task">
-                         <div id="co-tk" class="status">${ taskComList[status.index].taskHistValue } </div>
+                         <div id="co-tk" class="status">${ tlist.taskHistValue } </div>
                          <p id="co-tk-ti" class="ing">진행완료</p>
                       </div>
                       <div id="tot-task">
-                         <div id="to-tk" class="status">${ taskSumList[status.index].taskHistValue } </div>
+                         <div id="to-tk" class="status">${ vs.count } </div>
                          <p id="ti-tk-ti" class="ing">전체 업무</p>
                       </div>
-                      </c:forEach>
                    </div>
+                      </c:forEach>
                    <div id="pj-alm-area">
                       <div id="pro-cont-area">
                          <div id="pro-cont-title">
@@ -111,28 +111,29 @@
                          </div>
                          <div id="tb_wrap">
                          	<div id="task-cont">
-                         		<c:forEach var="taskTitleList" items="${ taskTitleList }" varStatus="status">
-                         		<div id="task-list">
+                   		<c:forEach var="taskTitle" items="${ taskTitle }" varStatus="status">
+                   			<div id="task-list">
                          		<table class="task-tb" width="100%">
                          			<tr style="height:30px;">
-                         				<td style="width:800px;">${ taskTitleList.taskHistValue }</td>
-                         				<td style="width:240px;"><img src="/agile/resources/icon/common/icon_clock.png" width="15px;" height="15px;">&nbsp;&nbsp;${ taskDateList[status.index].taskHistValue }</td>
+                         				<td style="width:800px;">${ taskTitle }</td>
+                         				<td style="width:240px;"><img src="/agile/resources/icon/common/icon_clock.png" width="15px;" height="15px;">&nbsp;&nbsp;${ taskDate[status.index] }</td>
                          			</tr>
                          			<tr>
+                      
                          				<td style="width:800px;">Status</td>
-                         				<c:if test="${ taskStatusList[status.index].taskHistValue eq '진행중'}">
+                         				<c:if test="${ taskStatus[status.index] eq '진행중' }">
                          				<td style="width:240px;"><img src="/agile/resources/images/indiv/main/userInfo/userProjectMain/img_status_ing.png" width="70px;" height="20px;"></td>
                          				</c:if>
-                         				<c:if test="${ taskStatusList[status.index].taskHistValue eq '완료'}">
+                         				<c:if test="${ taskStatus[status.index] eq '완료' }">
                          				<td style="width:240px;"><img src="/agile/resources/images/indiv/main/userInfo/userProjectMain/img_status_com.png" width="70px;" height="20px;"></td>
                          				</c:if>
-                         				<c:if test="${ taskStatusList[status.index].taskHistValue eq '미진행'}">
+                         				<c:if test="${ taskStatus[status.index] eq '미진행' }">
                          				<td style="width:240px;"><img src="/agile/resources/images/indiv/main/userInfo/userProjectMain/img_status_non.png" width="70px;" height="20px;"></td>
                          				</c:if>
                          			</tr>
                          		</table>
                          		</div>
-                         		</c:forEach>
+                         </c:forEach>
                          	</div>
                          </div>
                        </div>
@@ -143,19 +144,22 @@
                             <p id="chart">Chart</p>
                          </div>
                          <div id="cht-cont">
+                         <c:forEach var="tlist" items="${ taskList }">
                             <div id="cht">
-                                <c:forEach var="list" items="${ taskIngList }" varStatus="status">
-                               <div class="pie-chart1"><span class="center"><p id="to-ch">${ taskSumList[status.index].taskHistValue }</p><p id="to-ch-ti">전체업무</p></span></div>
+                               <div class="pie-chart1"><span class="center"><p id="to-ch">${ vs.count }</p><p id="to-ch-ti">전체업무</p></span></div>
                                 <div id="cht-st" style="width:50%">
-	                               <div id="no-ch" class="cht-tt"><img src="/agile/resources/images/indiv/main/userInfo/userProjectMain/img_over_task.png" width="10px;" height="10px;"> 미진행</div><span id="no-ch-to">${ taskNonList[status.index].taskHistValue }</span><br>
-		                           <div id="ing-ch" class="cht-tt"><img src="/agile/resources/images/indiv/main/userInfo/userProjectMain/img_ing_task.png" width="10px;" height="10px;"> 진행중 </div><span id="ing-ch-to">${ list.taskHistValue }</span><br>
-		                           <div id="com-ch" class="cht-tt"><img src="/agile/resources/images/indiv/main/userInfo/userProjectMain/img_com_task.png" width="10px;" height="10px;"> 완료</div><span id="com-ch-to">${ taskComList[status.index].taskHistValue }</span>
+                                <c:if test="${ tlist.taskHistValue eq '미진행'}">
+	                               <div id="no-ch" class="cht-tt"><img src="/agile/resources/images/indiv/main/userInfo/userProjectMain/img_over_task.png" width="10px;" height="10px;"> 미진행</div><span id="no-ch-to">${ tlist.taskHistValue }</span><br>
+		                        </c:if>
+		                        <c:if test="${ tlist.taskHistValue eq '진행중'}">   
+		                           <div id="ing-ch" class="cht-tt"><img src="/agile/resources/images/indiv/main/userInfo/userProjectMain/img_ing_task.png" width="10px;" height="10px;"> 진행중 </div><span id="ing-ch-to">${ tlist.taskHistValue }</span><br>
+		                        </c:if>
+		                        <c:if test="${ tlist.taskHistValue eq '완료'}">   
+		                           <div id="com-ch" class="cht-tt"><img src="/agile/resources/images/indiv/main/userInfo/userProjectMain/img_com_task.png" width="10px;" height="10px;"> 완료</div><span id="com-ch-to">${ tlist.taskHistValue }</span>
+		                        </c:if>   
 	                           </div>
-	                           </c:forEach>
                             </div>
-                           
-	                           
-                            
+                         </c:forEach>
                          </div>
                       </div>
                       <!-- 차트 영역 끝 -->

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.stepup.agile.projectManage.model.vo.Project;
 import com.stepup.agile.projectTask.model.dao.TaskDao;
+import com.stepup.agile.projectTask.model.vo.TaskHistory;
 import com.stepup.agile.projectTask.model.vo.TaskList;
 import com.stepup.agile.userInfo.model.vo.Member;
 
@@ -31,12 +32,11 @@ public class TaskServiceImpl implements TaskService {
 
 	@Override
 	public int updateTitle(Member m) {
-		
 		return td.updateTitle(sqlSession, m);
 	}
 
 	@Override
-	public List<TaskList> selectUserTask(Member m) {
+	public List<TaskHistory> selectUserTask(Member m) {
 		return td.selectUserTask(sqlSession, m);
 	}
 
@@ -71,7 +71,7 @@ public class TaskServiceImpl implements TaskService {
 	}
 
 	@Override
-	public TaskList selectPjNonTask(Map<String, Object> map) {
+	public String selectPjNonTask(Map<String, Object> map) {
 		return td.selectPjNonTask(sqlSession, map);
 	}
 

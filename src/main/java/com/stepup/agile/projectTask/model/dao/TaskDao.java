@@ -8,6 +8,7 @@ import java.util.Map;
 import org.mybatis.spring.SqlSessionTemplate;
 
 import com.stepup.agile.projectManage.model.vo.Project;
+import com.stepup.agile.projectTask.model.vo.TaskHistory;
 import com.stepup.agile.projectTask.model.vo.TaskList;
 import com.stepup.agile.userInfo.model.vo.Member;
 
@@ -17,7 +18,7 @@ public interface TaskDao {
 
 	int updateTitle(SqlSessionTemplate sqlSession, Member m);
 
-	List<TaskList> selectUserTask(SqlSessionTemplate sqlSession, Member m);
+	List<TaskHistory> selectUserTask(SqlSessionTemplate sqlSession, Member m);
 
 	List<TaskList> selectUserTaskStatus(SqlSessionTemplate sqlSession, Member m);
 
@@ -31,7 +32,7 @@ public interface TaskDao {
 
 	List<TaskList> selectTaskDate(SqlSessionTemplate sqlSession, Member m);
 
-	TaskList selectPjNonTask(SqlSessionTemplate sqlSession, Map<String, Object> map);
+	String selectPjNonTask(SqlSessionTemplate sqlSession, Map<String, Object> map);
 
 
 
