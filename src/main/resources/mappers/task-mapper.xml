@@ -161,7 +161,23 @@
 		  ORDER BY TK.TASK_CODE
 	</select>
 	
-	<insert id="insertCloneBug" parameterType="com.stepup.agile.projectTask.model.vo.TaskList>
-		
+	<insert id="insertCloneBug" parameterType="com.stepup.agile.projectTask.model.vo.TaskList">
+		<selectKey keyProperty="taskCode" resultType="int" order="AFTER">
+	         SELECT SEQ_TASK.NEXTVAL FROM DUAL
+	      </selectKey>
+		INSERT INTO TASK_LIST
+		VALUES(SEQ_TASK.NEXTVAL, TO_CHAR(SYSDATE + 9/24, 'YYYY-MM-DD'),'상위', 4, TO_CHAR(SYSDATE + 9/24, 'hh24:mi:ss'), NULL, #{userCode, jdbcType=VARCHAR})
 	</insert>
+	
+	<insert id="insertCloneBug2" parameterType="com.stepup.agile.projectTask.model.vo.TaskHistory">
+		INSERT ALL 
+		INTO TASK_HISTORY (TASK_HIST_UPDATE_DATE, TASK_HIST_UPDATE_TIME, TASK_CODE, TASK_HIST_CODE, MASTER_CODE, USER_CODE, TASK_HIST_VALUE, TASK_CATEGORY_CODE)
+		VALUES(TO_CHAR(SYSDATE + 9/24, 'YYYY-MM-DD'), TO_CHAR(SYSDATE + 9/24, 'hh24:mi:ss'), #{taskCode}, SEQ_TASK_HIST.NEXTVAL, NULL, #{userCode}, #{bugYN}, 'G')
+		INTO TASK_HISTORY (TASK_HIST_UPDATE_DATE, TASK_HIST_UPDATE_TIME, TASK_CODE, TASK_HIST_CODE, MASTER_CODE, USER_CODE, TASK_HIST_VALUE, TASK_CATEGORY_CODE)
+		VALUES(TO_CHAR(SYSDATE + 9/24, 'YYYY-MM-DD'), TO_CHAR(SYSDATE + 9/24, 'hh24:mi:ss'), #{taskCode}, SEQ_TASK_HIST.NEXTVAL, NULL, #{userCode}, '#{bugCont}', 'H')
+		INTO TASK_HISTORY (TASK_HIST_UPDATE_DATE, TASK_HIST_UPDATE_TIME, TASK_CODE, TASK_HIST_CODE, MASTER_CODE, USER_CODE, TASK_HIST_VALUE, TASK_CATEGORY_CODE)
+		VALUES(TO_CHAR(SYSDATE + 9/24, 'YYYY-MM-DD'), TO_CHAR(SYSDATE + 9/24, 'hh24:mi:ss'), #{taskCode}, SEQ_TASK_HIST.NEXTVAL, NULL, #{userCode}, '#{bugtitle}', 'J')
+		SELECT 1 FROM DUAL
+	</insert>
+	
 </mapper>

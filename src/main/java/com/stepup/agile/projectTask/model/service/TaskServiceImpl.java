@@ -49,6 +49,13 @@ public class TaskServiceImpl implements TaskService {
 		return td.insertCloneBug(sqlSession, map);
 	}
 
+	@Override
+	public int insertCloneBug2(HashMap<String, Object> map) {
+		return td.insertCloneBug2(sqlSession, map);
+	}
+
+	
+
 
 
 }

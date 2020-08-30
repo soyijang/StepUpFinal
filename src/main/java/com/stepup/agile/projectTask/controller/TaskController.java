@@ -1,5 +1,6 @@
 package com.stepup.agile.projectTask.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -77,18 +78,30 @@ public class TaskController {
    }
    
    @RequestMapping("insertCloneBug.tk")
-   public ModelAndView insertCloneBug(ModelAndView mv, @ModelAttribute("loginUser") Member m, String tCode){
+   public ModelAndView insertCloneBug(ModelAndView mv, @ModelAttribute("loginUser") Member m, String tCode, String bugtitle, String bugYN, String bugCont){
 	   int taskCode = Integer.parseInt(tCode);
 	   
 	   HashMap<String, Object> map = new HashMap<String, Object>();
 	   map.put("taskCode", taskCode);
 	   map.put("userCode", m.getUserCode());
+	   map.put("bugtitle", bugtitle);
+	   map.put("bugYN", bugYN);
+	   map.put("bugCont", bugCont);
+	   
+	   System.out.println(map.keySet());
 	   
 	   int result = ts.insertCloneBug(map);
+	   List<TaskList> bgContList = new ArrayList<TaskList>();
 	   
 	   if(result > 0) {
+		   //bgContList = ts.selectBugCont(map);
+		   int insertClone = ts.insertCloneBug2(map);
+		   
+		   mv.addObject("bgContList", bgContList);
+		   mv.setViewName("jsonView");
 		   return mv;
 	   } else {
+		   System.out.println("그냥도 안된거");
 		   return mv;
 	   }
 	   

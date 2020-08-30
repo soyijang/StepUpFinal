@@ -41,6 +41,13 @@ public class TaskDaoImpl implements TaskDao {
 		return sqlSession.insert("Task.insertCloneBug", map);
 	}
 
+	@Override
+	public int insertCloneBug2(SqlSessionTemplate sqlSession, HashMap<String, Object> map) {
+		return sqlSession.insert("Task.insertCloneBug2", map);
+	}
+
+	
+
 	
 
 	

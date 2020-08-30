@@ -255,6 +255,9 @@
 	var bugtitle;
 	var bugcode;
 	var bcode;
+	var bugYN;
+	var bugCont;
+	
 	$(document).on("click",".bug-list-detail",function(){
 			a = $(this).text();
 			
@@ -290,7 +293,7 @@
 			data:{"tCode" : bcode},
 			dataType : "json",
 			success: function(data){
-				var bugCont;
+				
 				
 				values = data.bgContList;
 				
@@ -298,6 +301,10 @@
 				 var bgList = $.each(values, function(index, value){
 					 if(value.taskCategoryCode == "H"){
 						bugCont = value.taskHistValue;
+					} else if(value.taskCategoryCode == "J"){
+						bugTitle = value.taskHistValue;
+					} else if(value.taskCategoryCode == "G"){
+						bugYN = value.taskHistValue;
 					}
 					 
 				}); 
@@ -325,14 +332,21 @@
 		$.ajax({
 			url:"insertCloneBug.tk",
 			type:"post",
-			data:{"tCode" : bcode},
+			data:{"tCode" : bcode, "bugtitle": bugtitle, "bugYN" : bugYN, "bugCont":bugCont},
 			dataType : "json",
 			success: function(data){
-				console.log("성공");
+				console.log(data.bgContList);
+				console.log("성공하면 새로고침 해주면 되는데...");
 			},
 			error: function(data){
 				console.log("실패");
-			}
+			},
+			 beforeSend : function(){
+	            $('.wrap-loading').removeClass('display-none');
+	        },
+	          complete : function(){
+	            $('.wrap-loading').addClass('display-none');
+	        }
 		});
 	});
 	
