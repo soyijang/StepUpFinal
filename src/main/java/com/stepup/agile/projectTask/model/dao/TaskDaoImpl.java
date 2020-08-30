@@ -30,45 +30,17 @@ public class TaskDaoImpl implements TaskDao {
 
 	@Override
 	public List<TaskHistory> selectUserTask(SqlSessionTemplate sqlSession, Member m) {
+		System.out.println(m.getUserCode());
 		return sqlSession.selectList("Task.selectUserTaskTitle", m);
-	}
-
-	@Override
-	public List<TaskList> selectUserTaskStatus(SqlSessionTemplate sqlSession, Member m) {
-		return sqlSession.selectList("Task.selectUserTaskStatus", m);
-	}
-
-	@Override
-	public List<TaskList> selectIngTask(SqlSessionTemplate sqlSession, Member m) {
-		return sqlSession.selectList("Task.selectIngTask", m);
-	}
-
-	@Override
-	public List<TaskList> selectNonTask(SqlSessionTemplate sqlSession, Member m) {
-		return sqlSession.selectList("Task.selectNonTask", m);
-	}
-
-	@Override
-	public List<TaskList> selectComTask(SqlSessionTemplate sqlSession, Member m) {
-		return sqlSession.selectList("Task.selectComTask", m);
-	}
-
-	@Override
-	public List<TaskList> selectSumTask(SqlSessionTemplate sqlSession, Member m) {
-		return sqlSession.selectList("Task.selectSumTask", m);
-	}
-
-	@Override
-	public List<TaskList> selectTaskDate(SqlSessionTemplate sqlSession, Member m) {
-		return sqlSession.selectList("Task.selectTaskDate", m);
 	}
 
 	@Override
 	public String selectPjNonTask(SqlSessionTemplate sqlSession, Map<String, Object> map) {
 		if(sqlSession.selectOne("Task.selectPjNonTask", map) == null) {
 			return "0";
-		} 
-		return sqlSession.selectOne("Task.selectPjNonTask", map);
+		} else {
+			return sqlSession.selectOne("Task.selectPjNonTask", map);
+		}
 	}
 
 

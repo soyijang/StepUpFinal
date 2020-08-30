@@ -18,18 +18,6 @@ public interface TaskService {
 
 	List<TaskHistory> selectUserTask(Member m);
 
-	List<TaskList> selectUserTaskStatus(Member m);
-
-	List<TaskList> selectIngTask(Member m);
-
-	List<TaskList> selectNonTask(Member m);
-
-	List<TaskList> selectComTask(Member m);
-
-	List<TaskList> selectSumTask(Member m);
-
-	List<TaskList> selectTaskDate(Member m);
-
 	String selectPjNonTask(Map<String, Object> map);
 
 

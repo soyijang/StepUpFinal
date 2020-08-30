@@ -91,10 +91,7 @@ public class ProjectMainController {
 	model.addAttribute("ingTaskCnt", ingTaskCnt);
 	model.addAttribute("comTaskCnt", comTaskCnt);
 	
-
 	
-	
-	//return "";
 	return "userInfo/userProjectMain/userProjectMain";
 			
 	}

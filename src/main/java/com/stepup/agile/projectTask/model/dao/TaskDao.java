@@ -20,18 +20,6 @@ public interface TaskDao {
 
 	List<TaskHistory> selectUserTask(SqlSessionTemplate sqlSession, Member m);
 
-	List<TaskList> selectUserTaskStatus(SqlSessionTemplate sqlSession, Member m);
-
-	List<TaskList> selectIngTask(SqlSessionTemplate sqlSession, Member m);
-
-	List<TaskList> selectNonTask(SqlSessionTemplate sqlSession, Member m);
-
-	List<TaskList> selectComTask(SqlSessionTemplate sqlSession, Member m);
-
-	List<TaskList> selectSumTask(SqlSessionTemplate sqlSession, Member m);
-
-	List<TaskList> selectTaskDate(SqlSessionTemplate sqlSession, Member m);
-
 	String selectPjNonTask(SqlSessionTemplate sqlSession, Map<String, Object> map);
 
 

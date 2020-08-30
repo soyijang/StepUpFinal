@@ -114,7 +114,12 @@
                          		<table class="task-tb" width="100%">
                          			<tr style="height:30px;">
                          				<td style="width:800px;">${ taskTitle }</td>
+                         				<c:if test="${ !empty taskDate[status.index] }">
                          				<td style="width:240px;"><img src="/agile/resources/icon/common/icon_clock.png" width="15px;" height="15px;">&nbsp;&nbsp;${ taskDate[status.index] }</td>
+                         				</c:if>
+                         				<c:if test="${ empty taskDate[status.index] }">
+                         				<td style="width:240px;"><img src="/agile/resources/icon/common/icon_clock.png" width="15px;" height="15px;">&nbsp;&nbsp;예상시간 없음</td>
+                         				</c:if>
                          			</tr>
                          			<tr>
                       
@@ -127,6 +132,9 @@
                          				</c:if>
                          				<c:if test="${ taskStatus[status.index] eq '미진행' }">
                          				<td style="width:240px;"><img src="/agile/resources/images/indiv/main/userInfo/userProjectMain/img_status_non.png" width="70px;" height="20px;"></td>
+                         				</c:if>
+                         				<c:if test="${ empty taskStatus[status.index] }">
+                         				<td style="width:240px;"><img src="/agile/resources/images/indiv/main/userInfo/userProjectMain/img_status_nonexist.png" width="75px;" height="20px;"></td>
                          				</c:if>
                          			</tr>
                          		</table>
@@ -333,7 +341,7 @@
 	        
 	     	
 	        setTableHTML+= "</td>";
-	        setTableHTML+= "<td class='cal-schedule' style='width:200px height:100px'>여기에 일정인데,,테스크가 너무많으면 클날듯..</td>";
+	        setTableHTML+= "<td class='cal-schedule' style='width:200px height:100px'>흐으음...</td>";
 	        setTableHTML+='</tr>';
 	        
 	    }

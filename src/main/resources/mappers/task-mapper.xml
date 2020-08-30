@@ -114,133 +114,11 @@
 				   AND P.USER_PROJECT_CODE = S.USER_PROJECT_CODE
 				   AND S.SPRINT_CODE = TK.SPRINT_CODE
 				   AND TK.TASK_CODE = TS.TASK_CODE
-				   AND I.USER_CODE = 14
+				   AND I.USER_CODE = #{userCode}
 		  GROUP BY TK.TASK_CODE, TS.TASK_CATEGORY_CODE
+		    HAVING TS.TASK_CATEGORY_CODE IS NOT NULL
 		  ORDER BY TK.TASK_CODE
 
-	</select>
-	
-	<select id="selectUserTaskStatus" parameterType="com.stepup.agile.projectTask.model.vo.TaskHistory" resultMap="selectUserTaskRSet">
-		SELECT TK.TASK_CODE
-             , MAX(TS.TASK_HIST_VALUE) KEEP (DENSE_RANK LAST ORDER BY TS.TASK_HIST_UPDATE_DATE, TS.TASK_HIST_UPDATE_TIME) AS TASK_HIST_VALUE
-		  FROM USER_INFO I,
-		       USER_TEAM_LIST T,
-		       USER_PROJECT_LIST P,
-		       SPRINT_LIST S,
-		       TASK_LIST TK,
-		       TASK_HISTORY TS
-		 WHERE I.USER_CODE = T.USER_CODE
-		   AND T.USER_TEAM_CODE = P.USER_TEAM_CODE
-		   AND P.USER_PROJECT_CODE = S.USER_PROJECT_CODE
-		   AND S.SPRINT_CODE = TK.SPRINT_CODE
-		   AND TK.TASK_CODE = TS.TASK_CODE
-		   AND I.USER_CODE = #{userCode}
-		   AND TS.TASK_CATEGORY_CODE = 'I' GROUP BY TK.TASK_CODE
-	</select>
-	
-	<select id="selectIngTask" parameterType="com.stepup.agile.projectTask.model.vo.TaskHistory" resultMap="selectUserTaskRSet">
-		SELECT COUNT(TASK_HIST_VALUE) AS TASK_HIST_VALUE
-		  FROM (SELECT TK.TASK_CODE
-				      , MAX(TS.TASK_HIST_VALUE) KEEP (DENSE_RANK LAST ORDER BY TS.TASK_HIST_UPDATE_DATE, TS.TASK_HIST_UPDATE_TIME) AS TASK_HIST_VALUE
-				   FROM USER_INFO I,
-						       USER_TEAM_LIST T,
-						       USER_PROJECT_LIST P,
-						       SPRINT_LIST S,
-						       TASK_LIST TK,
-						       TASK_HISTORY TS
-				  WHERE I.USER_CODE = T.USER_CODE
-						   AND T.USER_TEAM_CODE = P.USER_TEAM_CODE
-						   AND P.USER_PROJECT_CODE = S.USER_PROJECT_CODE
-						   AND S.SPRINT_CODE = TK.SPRINT_CODE
-						   AND TK.TASK_CODE = TS.TASK_CODE
-						   AND I.USER_CODE = 14
-				           AND TS.TASK_CATEGORY_CODE = 'I'
-				  GROUP BY TK.TASK_CODE, TS.TASK_CATEGORY_CODE
-				  ORDER BY TK.TASK_CODE)
-		  WHERE TASK_HIST_VALUE LIKE '%진행중%'
-	</select>
-	
-	<select id="selectNonTask" parameterType="com.stepup.agile.projectTask.model.vo.TaskHistory" resultMap="selectUserTaskRSet">
-		 SELECT COUNT(TASK_HIST_VALUE) AS TASK_HIST_VALUE
-		   FROM (SELECT TK.TASK_CODE
-				      , MAX(TS.TASK_HIST_VALUE) KEEP (DENSE_RANK LAST ORDER BY TS.TASK_HIST_UPDATE_DATE, TS.TASK_HIST_UPDATE_TIME) AS TASK_HIST_VALUE
-				   FROM USER_INFO I,
-						       USER_TEAM_LIST T,
-						       USER_PROJECT_LIST P,
-						       SPRINT_LIST S,
-						       TASK_LIST TK,
-						       TASK_HISTORY TS
-				  WHERE I.USER_CODE = T.USER_CODE
-						   AND T.USER_TEAM_CODE = P.USER_TEAM_CODE
-						   AND P.USER_PROJECT_CODE = S.USER_PROJECT_CODE
-						   AND S.SPRINT_CODE = TK.SPRINT_CODE
-						   AND TK.TASK_CODE = TS.TASK_CODE
-						   AND I.USER_CODE = 14
-				           AND TS.TASK_CATEGORY_CODE = 'I'
-				  GROUP BY TK.TASK_CODE, TS.TASK_CATEGORY_CODE
-				  ORDER BY TK.TASK_CODE)
-		  WHERE TASK_HIST_VALUE LIKE '%미진행%'
-	</select>
-	
-	<select id="selectComTask" parameterType="com.stepup.agile.projectTask.model.vo.TaskHistory" resultMap="selectUserTaskRSet">
-		SELECT COUNT(TASK_HIST_VALUE) AS TASK_HIST_VALUE
-		  FROM (SELECT TK.TASK_CODE
-				      , MAX(TS.TASK_HIST_VALUE) KEEP (DENSE_RANK LAST ORDER BY TS.TASK_HIST_UPDATE_DATE, TS.TASK_HIST_UPDATE_TIME) AS TASK_HIST_VALUE
-				   FROM USER_INFO I,
-						       USER_TEAM_LIST T,
-						       USER_PROJECT_LIST P,
-						       SPRINT_LIST S,
-						       TASK_LIST TK,
-						       TASK_HISTORY TS
-				  WHERE I.USER_CODE = T.USER_CODE
-						   AND T.USER_TEAM_CODE = P.USER_TEAM_CODE
-						   AND P.USER_PROJECT_CODE = S.USER_PROJECT_CODE
-						   AND S.SPRINT_CODE = TK.SPRINT_CODE
-						   AND TK.TASK_CODE = TS.TASK_CODE
-						   AND I.USER_CODE = 14
-				           AND TS.TASK_CATEGORY_CODE = 'I'
-				  GROUP BY TK.TASK_CODE, TS.TASK_CATEGORY_CODE
-				  ORDER BY TK.TASK_CODE)
-		  WHERE TASK_HIST_VALUE LIKE '%완료%'
-	</select>
-	
-	<select id="selectSumTask" parameterType="com.stepup.agile.projectTask.model.vo.TaskHistory" resultMap="selectUserTaskRSet">
-		SELECT COUNT(TK.TASK_CODE) AS TASK_HIST_VALUE
-             , COUNT(MAX(TK.TASK_CODE) KEEP (DENSE_RANK LAST ORDER BY TS.TASK_HIST_UPDATE_DATE, TS.TASK_HIST_UPDATE_TIME))
-		  FROM USER_INFO I,
-		       USER_TEAM_LIST T,
-		       USER_PROJECT_LIST P,
-		       SPRINT_LIST S,
-		       TASK_LIST TK,
-		       TASK_HISTORY TS
-		 WHERE I.USER_CODE = T.USER_CODE
-		   AND T.USER_TEAM_CODE = P.USER_TEAM_CODE
-		   AND P.USER_PROJECT_CODE = S.USER_PROJECT_CODE
-		   AND S.SPRINT_CODE = TK.SPRINT_CODE
-		   AND TK.TASK_CODE = TS.TASK_CODE
-		   AND I.USER_CODE = ${userCode}
-		   AND TS.TASK_CATEGORY_CODE = 'I' 
-      GROUP BY TK.TASK_CODE
-	</select>
-	
-	<select id="selectTaskDate" parameterType="com.stepup.agile.projectTask.model.vo.TaskHistory" resultMap="selectUserTaskRSet">
-		SELECT TASK_HIST_VALUE
-		  FROM USER_INFO I,
-		       USER_TEAM_LIST T,
-		       USER_PROJECT_LIST P,
-		       SPRINT_LIST S,
-		       TASK_LIST TK,
-		       TASK_HISTORY TS
-		 WHERE I.USER_CODE = T.USER_CODE
-		   AND T.USER_TEAM_CODE = P.USER_TEAM_CODE
-		   AND P.USER_PROJECT_CODE = S.USER_PROJECT_CODE
-		   AND S.SPRINT_CODE = TK.SPRINT_CODE
-		   AND TK.TASK_CODE = TS.TASK_CODE
-		   AND I.USER_CODE = 14
-		   AND TS.TASK_CATEGORY_CODE = 'A'
-      ORDER BY TK.TASK_CODE DESC,
-                  TS.TASK_HIST_UPDATE_TIME DESC,
-                  TS.TASK_HIST_UPDATE_DATE DESC
 	</select>
 	
 	<select id="selectPjNonTask" parameterType="com.stepup.agile.projectTask.model.vo.TaskHistory" resultMap="selectUserTaskRSet">
@@ -260,13 +138,13 @@
                            AND P.PROJECT_CODE = PS.PROJECT_CODE
                            AND S.SPRINT_CODE = TK.SPRINT_CODE
                            AND TK.TASK_CODE = TS.TASK_CODE
-                           AND I.USER_CODE = 14
+                           AND I.USER_CODE = #{userCode}
                            AND P.PROJECT_CODE = (SELECT PROJECT_CODE
                                                    FROM PROJECT_LIST
-                                                  WHERE PROJECT_NAME LIKE '%군옥수수%')
+                                                  WHERE PROJECT_NAME = #{projectName})
                            AND TS.TASK_CATEGORY_CODE = 'I'
                   GROUP BY TK.TASK_CODE, TS.TASK_CATEGORY_CODE)
-          WHERE TASK_HIST_VALUE LIKE '%진행중%'
+          WHERE TASK_HIST_VALUE LIKE '%미진행%'
 	</select>
 
 </mapper>

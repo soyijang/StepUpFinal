@@ -41,36 +41,6 @@ public class TaskServiceImpl implements TaskService {
 	}
 
 	@Override
-	public List<TaskList> selectUserTaskStatus(Member m) {
-		return td.selectUserTaskStatus(sqlSession, m);
-	}
-
-	@Override
-	public List<TaskList> selectIngTask(Member m) {
-		return td.selectIngTask(sqlSession, m);
-	}
-
-	@Override
-	public List<TaskList> selectNonTask(Member m) {
-		return td.selectNonTask(sqlSession, m);
-	}
-
-	@Override
-	public List<TaskList> selectComTask(Member m) {
-		return td.selectComTask(sqlSession, m);
-	}
-
-	@Override
-	public List<TaskList> selectSumTask(Member m) {
-		return td.selectSumTask(sqlSession, m);
-	}
-
-	@Override
-	public List<TaskList> selectTaskDate(Member m) {
-		return td.selectTaskDate(sqlSession, m);
-	}
-
-	@Override
 	public String selectPjNonTask(Map<String, Object> map) {
 		return td.selectPjNonTask(sqlSession, map);
 	}
