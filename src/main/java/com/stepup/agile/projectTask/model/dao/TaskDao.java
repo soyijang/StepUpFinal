@@ -21,7 +21,9 @@ public interface TaskDao {
 
 	int insertCloneBug(SqlSessionTemplate sqlSession, HashMap<String, Object> map);
 
-	int insertCloneBug2(SqlSessionTemplate sqlSession, HashMap<String, Object> map);
+	int insertCloneBug2(SqlSessionTemplate sqlSession, HashMap<String, Object> map2);
+
+	int deleteCloneBug(SqlSessionTemplate sqlSession, HashMap<String, Object> map);
 
 
 }

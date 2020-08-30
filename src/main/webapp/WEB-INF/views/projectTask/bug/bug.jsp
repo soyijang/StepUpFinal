@@ -105,13 +105,13 @@
 			<div id="bug-detail-area">
 				<div id="bug-detail">
 					<div id="bg-num">
-						<div id="bugicon" style="margin-left: 30px; margin-top:25px;"></div>&nbsp;&nbsp;BUG-01
+						<div id="bugicon" style="margin-left: 30px; margin-top:25px;"></div>&nbsp;&nbsp;BUG
 					</div>
 					<div id="bg-detail-title">
 						<table width="100%" id="bg-tb-title">
 						<tbody id="bg-tbody">
 							<tr>
-								<td id="bgtitle-td"><div id="bug-issue-title">버그 제목</div></td>
+								<td id="bgtitle-td"><div id="bug-issue-title">제목</div></td>
 								<td style="text-align:right;"><img src="/agile/resources/images/profile/dayoon_202008152056.png"></td>
 								<td>
 									<div class="dropdown2-area">
@@ -257,6 +257,7 @@
 	var bcode;
 	var bugYN;
 	var bugCont;
+	var sprintCode;
 	
 	$(document).on("click",".bug-list-detail",function(){
 			a = $(this).text();
@@ -296,7 +297,7 @@
 				
 				
 				values = data.bgContList;
-				
+				var sCode = [];
 				console.log(data.bgContList);
 				 var bgList = $.each(values, function(index, value){
 					 if(value.taskCategoryCode == "H"){
@@ -305,15 +306,17 @@
 						bugTitle = value.taskHistValue;
 					} else if(value.taskCategoryCode == "G"){
 						bugYN = value.taskHistValue;
-					}
-					 
-				}); 
+					} 
+					  sCode = value.sprint;
+					}); 
 				 
+				 	sprintCode = sCode.sprintCode;
+					console.log(sprintCode);
+					
 				 var div3 = "";
 				 div3 += bugCont + '</div>';
 					$("#detail-cont").html(div3);
 				 
-		 
 				return data;
 			}, error: function(data){
 			},
@@ -332,11 +335,11 @@
 		$.ajax({
 			url:"insertCloneBug.tk",
 			type:"post",
-			data:{"tCode" : bcode, "bugtitle": bugtitle, "bugYN" : bugYN, "bugCont":bugCont},
+			data:{"tCode" : bcode, "bugtitle": bugtitle, "sprintCode":sprintCode, "bugCont":bugCont},
 			dataType : "json",
 			success: function(data){
-				console.log(data.bgContList);
-				console.log("성공하면 새로고침 해주면 되는데...");
+				location.href="selectBugTask.tk";
+				//location.reload(true);
 			},
 			error: function(data){
 				console.log("실패");
@@ -352,9 +355,25 @@
 	
 	//삭제 클릭 이벤트
 	$(document).on("click","#delete-bug",function(){
-		var deleteBtn;
-		deleteBtn = $(this).text();
-		console.log(deleteBtn);
+		$.ajax({
+			url:"deleteCloneBug.tk",
+			type:"post",
+			data:{"tCode" : bcode},
+			dataType : "json",
+			success: function(data){
+				location.href="selectBugTask.tk";
+				//location.reload(true);
+			},
+			error: function(data){
+				console.log("실패");
+			},
+			 beforeSend : function(){
+	            $('.wrap-loading').removeClass('display-none');
+	        },
+	          complete : function(){
+	            $('.wrap-loading').addClass('display-none');
+	        }
+		});
 	});
 	</script>
 	

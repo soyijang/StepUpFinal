@@ -9,11 +9,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.stepup.agile.projectTask.model.service.TaskService;
-import com.stepup.agile.projectTask.model.vo.TaskHistory;
 import com.stepup.agile.projectTask.model.vo.TaskList;
 import com.stepup.agile.userInfo.model.vo.Member;
 
@@ -78,30 +78,51 @@ public class TaskController {
    }
    
    @RequestMapping("insertCloneBug.tk")
-   public ModelAndView insertCloneBug(ModelAndView mv, @ModelAttribute("loginUser") Member m, String tCode, String bugtitle, String bugYN, String bugCont){
-	   int taskCode = Integer.parseInt(tCode);
+   @ResponseBody
+   public ModelAndView insertCloneBug(ModelAndView mv, @ModelAttribute("loginUser") Member m, int tCode, String bugtitle, String bugCont, int sprintCode){
 	   
 	   HashMap<String, Object> map = new HashMap<String, Object>();
-	   map.put("taskCode", taskCode);
+	   map.put("taskCode", tCode);
 	   map.put("userCode", m.getUserCode());
-	   map.put("bugtitle", bugtitle);
-	   map.put("bugYN", bugYN);
-	   map.put("bugCont", bugCont);
+	   map.put("sprintCode", sprintCode);
 	   
-	   System.out.println(map.keySet());
+	   int NewTaskCode = ts.insertCloneBug(map);
 	   
-	   int result = ts.insertCloneBug(map);
-	   List<TaskList> bgContList = new ArrayList<TaskList>();
+	   HashMap<String, Object> map2 = new HashMap<String, Object>();
+	   map2.put("userCode", Integer.valueOf(m.getUserCode()));
+	   map2.put("bugtitle", bugtitle);
+	   map2.put("bugCont", bugCont);
+	   map2.put("taskCode", NewTaskCode);
 	   
-	   if(result > 0) {
-		   //bgContList = ts.selectBugCont(map);
-		   int insertClone = ts.insertCloneBug2(map);
+	   
+	   System.out.println("map : " + map.get("userCode"));
+	   System.out.println("map2 : " + map2.get("userCode"));
+	   System.out.println("map2 taskCode : " + map2.get("taskCode"));
+	   
+	   
+       int insertClone = ts.insertCloneBug2(map2);
+       if(insertClone > 0) {
+    	   
+    	   mv.setViewName("jsonView");
+    	   return mv;
+       } else {
+    	   return mv;
+       }
 		   
-		   mv.addObject("bgContList", bgContList);
+	   
+   }
+   @RequestMapping("deleteCloneBug.tk")
+   public ModelAndView DeleteCloneBug(ModelAndView mv, @ModelAttribute("loginUser") Member m, int tCode) {
+	   HashMap<String, Object> map = new HashMap<String, Object>();
+	   map.put("taskCode", tCode);
+	   
+	   int deleteClone = ts.deleteCloneBug(map);
+	   
+	   if(deleteClone > 0) {
 		   mv.setViewName("jsonView");
 		   return mv;
 	   } else {
-		   System.out.println("그냥도 안된거");
+		   System.out.println("에러..");
 		   return mv;
 	   }
 	   

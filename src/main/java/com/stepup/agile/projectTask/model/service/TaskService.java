@@ -19,7 +19,9 @@ public interface TaskService {
 
 	int insertCloneBug(HashMap<String, Object> map);
 
-	int insertCloneBug2(HashMap<String, Object> map);
+	int insertCloneBug2(HashMap<String, Object> map2);
+
+	int deleteCloneBug(HashMap<String, Object> map);
 
 	
 

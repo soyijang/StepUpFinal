@@ -1,11 +1,15 @@
 package com.stepup.agile.projectTask.model.service;
 
+import java.lang.annotation.Target;
 import java.util.HashMap;
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.stepup.agile.projectTask.model.dao.TaskDao;
 import com.stepup.agile.projectTask.model.vo.TaskHistory;
@@ -50,11 +54,18 @@ public class TaskServiceImpl implements TaskService {
 	}
 
 	@Override
-	public int insertCloneBug2(HashMap<String, Object> map) {
-		return td.insertCloneBug2(sqlSession, map);
+	@Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.SERIALIZABLE, rollbackFor = {Exception.class})
+	public int insertCloneBug2(HashMap<String, Object> map2) {
+	
+		return td.insertCloneBug2(sqlSession, map2);
 	}
 
-	
+	@Override
+	public int deleteCloneBug(HashMap<String, Object> map) {
+		return td.deleteCloneBug(sqlSession, map);
+	}
+
+
 
 
 

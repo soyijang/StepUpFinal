@@ -38,12 +38,41 @@ public class TaskDaoImpl implements TaskDao {
 
 	@Override
 	public int insertCloneBug(SqlSessionTemplate sqlSession, HashMap<String, Object> map) {
-		return sqlSession.insert("Task.insertCloneBug", map);
+		sqlSession.insert("Task.insertCloneBug", map);
+		
+		int taskCode = (int) map.get("taskCode") - 1;
+		
+		return taskCode;
 	}
 
 	@Override
-	public int insertCloneBug2(SqlSessionTemplate sqlSession, HashMap<String, Object> map) {
-		return sqlSession.insert("Task.insertCloneBug2", map);
+	public int insertCloneBug2(SqlSessionTemplate sqlSession, HashMap<String, Object> map2) {
+		int result = 0;
+		int result1 = sqlSession.insert("Task.insertCloneBug2", map2);
+		int result2 = sqlSession.insert("Task.insertCloneBug3", map2);
+		int result3 = sqlSession.insert("Task.insertCloneBug4", map2);
+		
+		if(result1 > 0) {
+			
+			sqlSession.insert("Task.insertCloneBug3", map2);
+			
+			if(result2 > 0) {
+				
+				sqlSession.insert("Task.insertCloneBug4", map2);
+				
+				if(result3 > 0) {
+					
+					result = 3;
+				}
+			}
+		}
+		return result;
+		
+	}
+
+	@Override
+	public int deleteCloneBug(SqlSessionTemplate sqlSession, HashMap<String, Object> map) {
+		return sqlSession.delete("Task.deleteCloneBug", map);
 	}
 
 	
