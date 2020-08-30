@@ -42,7 +42,7 @@
                          <div id="tb_wrap">
                          <div id="pro-cont">
                          
-                         <c:forEach var="i" items="${ pjList }">
+                         <c:forEach var="i" items="${ pjList }" varStatus="status">
                          <div id="pro-list">
                          	<table class="tb" style=" width:100%";>
                          		<tbody>
@@ -51,15 +51,20 @@
 	                            	<td rowspan="2" style=" width:50px;"><img src="/agile/resources/images/profile/dayoon_202008152056.png"></td>
 	                            	<td rowspan="2" style=" width:170px;"><div name="projectName">${ i.projectName }</div></td>
 	                            	<td style=" width:110px; background-color:#FEF4E5; border-radius:7px;">진행중 이슈</td>
-	                            	<td style=" width:30px; ">3</td>
+	                            	<td style=" width:30px; ">${ pjList2[status.index].taskCnt }</td>
 	                            </tr>
 	                            <tr>
 	                            	<td style="width:110px; background-color:#FFDFDF; border-radius:7px;">미해결 이슈</td>
-	                            	<td style=" width:30px;">2</td>
+	                            	<td style=" width:30px;">${ i.taskCnt }</td>
 	                            </tr>
 	                            <tr>
 	                            	<td colspan="3" style="">status</td>
+	                            	<c:if test="${ 0 ne i.taskCnt }">
 	                            	<td style="text-align:right; width:50px;"><img src="/agile/resources/images/indiv/main/userInfo/userProjectMain/img_status_ing.png" width="70px;" height="20px;"></td>
+	                            	</c:if>
+	                            	<c:if test="${ 0 eq i.taskCnt and 0 eq pjList2[status.index].taskCnt }">
+	                            	<td style="text-align:right; width:50px;"><img src="/agile/resources/images/indiv/main/userInfo/userProjectMain/img_status_non.png" width="70px;" height="20px;"></td>
+	                            	</c:if>
 	                            </tr>
 	                            </tbody>
                             </table>

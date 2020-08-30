@@ -10,5 +10,7 @@ import com.stepup.agile.userInfo.model.vo.Member;
 public interface ProjectDao {
 
 	List<Project> selectUserProject(SqlSessionTemplate sqlSession, Member m);
+
+	List<Project> selectUserProject2(SqlSessionTemplate sqlSession, Member m);
 	
 }

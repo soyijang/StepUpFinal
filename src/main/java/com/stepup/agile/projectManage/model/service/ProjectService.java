@@ -9,5 +9,7 @@ public interface ProjectService {
 
 	List<Project> selectUserProject(Member m);
 
+	List<Project> selectUserProject2(Member m);
+
 	
 }

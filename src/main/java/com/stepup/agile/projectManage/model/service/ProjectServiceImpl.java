@@ -25,5 +25,10 @@ public class ProjectServiceImpl implements ProjectService{
 		return pd.selectUserProject(sqlSession, m);
 	}
 
+	@Override
+	public List<Project> selectUserProject2(Member m) {
+		return pd.selectUserProject2(sqlSession, m);
+	}
+
 	
 }

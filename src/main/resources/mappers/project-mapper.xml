@@ -64,6 +64,7 @@
 		<result property="projectName" column="PROJECT_NAME"/>
 		<result property="createDate" column="PROJECT_CREATE_DATE"/>
 		<result property="createTime" column="PROJECT_CREATE_TIME"/>
+		<result property="taskCnt" column="TASKCNT"/>
     <collection property="member" resultMap="memberResultSet"/>
     <collection property="userTeamList" resultMap="UserTeamListResultSet"/>
     <collection property="userProjectList" resultMap="UserProjectListResultSet"/>
@@ -73,17 +74,78 @@
 	
 	
 	<select id="selectUserProject" resultMap="selectUserPJRset" parameterType="Project">
-	 	SELECT PL.PROJECT_NAME
-		  FROM USER_INFO I,
-		       USER_TEAM_LIST T,
-		       USER_PROJECT_LIST P,
-		       PROJECT_LIST PL
-		 WHERE I.USER_CODE = T.USER_CODE
-		   AND T.USER_TEAM_CODE = P.USER_TEAM_CODE
-		   AND P.USER_PROJECT_CODE = PL.PROJECT_CODE
-		   AND I.USER_CODE = (SELECT USER_CODE 
-                              FROM USER_INFO
-                             WHERE USER_EMAIL LIKE #{userEmail, jdbcType=VARCHAR})
+	 	SELECT *
+	    FROM (SELECT PL.PROJECT_NAME
+			  FROM USER_INFO I,
+			       USER_TEAM_LIST T,
+			       USER_PROJECT_LIST P,
+			       PROJECT_LIST PL
+			 WHERE I.USER_CODE = T.USER_CODE
+			   AND T.USER_TEAM_CODE = P.USER_TEAM_CODE
+			   AND P.USER_PROJECT_CODE = PL.PROJECT_CODE
+			   AND I.USER_CODE = (SELECT USER_CODE 
+	                                FROM USER_INFO
+	                               WHERE USER_EMAIL = #{useremail})) A
+	    LEFT JOIN (SELECT COUNT(TASK_HIST_VALUE) AS TASKCNT, PROJECT_NAME
+	          FROM (SELECT TK.TASK_CODE, PS.PROJECT_NAME
+	                     , MAX(TS.TASK_HIST_VALUE) KEEP (DENSE_RANK LAST ORDER BY TS.TASK_HIST_UPDATE_DATE, TS.TASK_HIST_UPDATE_TIME) AS TASK_HIST_VALUE
+	                  FROM USER_INFO I,
+	                       USER_TEAM_LIST T,
+	                       USER_PROJECT_LIST P,
+	                       SPRINT_LIST S,
+	                       TASK_LIST TK,
+	                       TASK_HISTORY TS,
+	                       PROJECT_LIST PS
+	                 WHERE I.USER_CODE = T.USER_CODE
+	                   AND T.USER_TEAM_CODE = P.USER_TEAM_CODE
+	                   AND P.USER_PROJECT_CODE = S.USER_PROJECT_CODE
+	                   AND P.PROJECT_CODE = PS.PROJECT_CODE
+	                   AND S.SPRINT_CODE = TK.SPRINT_CODE
+	                   AND TK.TASK_CODE = TS.TASK_CODE
+	                   AND I.USER_CODE = 14
+	                   AND TS.TASK_CATEGORY_CODE = 'I'
+	              GROUP BY TK.TASK_CODE, TS.TASK_CATEGORY_CODE, PS.PROJECT_NAME)
+	          WHERE TASK_HIST_VALUE LIKE '%미진행%'
+	          GROUP BY PROJECT_NAME) B                         
+	    ON (A.PROJECT_NAME = B.PROJECT_NAME)
 	</select>
+	
+	<select id="selectUserProject2" resultMap="selectUserPJRset" parameterType="Project">
+	 	SELECT *
+	    FROM (SELECT PL.PROJECT_NAME
+			  FROM USER_INFO I,
+			       USER_TEAM_LIST T,
+			       USER_PROJECT_LIST P,
+			       PROJECT_LIST PL
+			 WHERE I.USER_CODE = T.USER_CODE
+			   AND T.USER_TEAM_CODE = P.USER_TEAM_CODE
+			   AND P.USER_PROJECT_CODE = PL.PROJECT_CODE
+			   AND I.USER_CODE = (SELECT USER_CODE 
+	                                FROM USER_INFO
+	                               WHERE USER_EMAIL = #{useremail})) A
+	    LEFT JOIN (SELECT COUNT(TASK_HIST_VALUE) AS TASKCNT, PROJECT_NAME
+	          FROM (SELECT TK.TASK_CODE, PS.PROJECT_NAME
+	                     , MAX(TS.TASK_HIST_VALUE) KEEP (DENSE_RANK LAST ORDER BY TS.TASK_HIST_UPDATE_DATE, TS.TASK_HIST_UPDATE_TIME) AS TASK_HIST_VALUE
+	                  FROM USER_INFO I,
+	                       USER_TEAM_LIST T,
+	                       USER_PROJECT_LIST P,
+	                       SPRINT_LIST S,
+	                       TASK_LIST TK,
+	                       TASK_HISTORY TS,
+	                       PROJECT_LIST PS
+	                 WHERE I.USER_CODE = T.USER_CODE
+	                   AND T.USER_TEAM_CODE = P.USER_TEAM_CODE
+	                   AND P.USER_PROJECT_CODE = S.USER_PROJECT_CODE
+	                   AND P.PROJECT_CODE = PS.PROJECT_CODE
+	                   AND S.SPRINT_CODE = TK.SPRINT_CODE
+	                   AND TK.TASK_CODE = TS.TASK_CODE
+	                   AND I.USER_CODE = 14
+	                   AND TS.TASK_CATEGORY_CODE = 'I'
+	              GROUP BY TK.TASK_CODE, TS.TASK_CATEGORY_CODE, PS.PROJECT_NAME)
+	          WHERE TASK_HIST_VALUE LIKE '%진행중%'
+	          GROUP BY PROJECT_NAME) B                         
+	    ON (A.PROJECT_NAME = B.PROJECT_NAME)
+	</select>
+	
 
 </mapper>
