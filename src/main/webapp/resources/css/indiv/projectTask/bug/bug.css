@@ -325,3 +325,15 @@
     color: #C4C4C4;
     text-align: center;
 }
+#reply-add-btn{
+	background:#DD0351;
+	border: 0;
+	outline: 0;
+	color: white;
+}
+#reply-cancel-btn{
+	background-color: rgba(221, 3, 81, 0.14);
+	color: #DD0351;
+	outline: 0;
+	border: 0;
+}

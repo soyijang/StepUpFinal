@@ -128,8 +128,13 @@
 						  </div>
 						</div> -->
 						<div class="re-ed-area">
-					<input id="reply-input" type="text">
-					 <div id="editor-box" class="editor-box"style="display:none;"><textarea id="editor" width="100" height="30"></textarea></div>
+					<input id="reply-input" type="text" placeholder="댓글 추가..">
+					 <div id="editor-box" class="editor-box"style="display:none;">
+					 
+					 <textarea id="editor" style="width:100; height:40"></textarea>
+					 	<button id="reply-add-btn">SAVE</button>
+					 	<button id="reply-cancel-btn">CANCEL</button>
+					 </div>
 						</div>
 						</div>
 					</div>
@@ -352,8 +357,6 @@
 	
 	
 	
-	//댓글 입력
-	
 	</script>
 	
 	
@@ -375,6 +378,17 @@
          console.error( error );
      } ); 
 	 
+	  //댓글입력
+	 $(document).on("click","#reply-add-btn",function(){
+		var reply = CKEDITOR.instances.editor.getData();
+		console.log(CKEDITOR.instances.editor.getData());
+		 
+	 });
+	  
+	  
+	  
+	  
+	  
 	 
 	/* $(document).ready(function() {
 		  $('#summernote').summernote();
