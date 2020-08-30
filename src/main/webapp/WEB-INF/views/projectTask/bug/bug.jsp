@@ -73,32 +73,6 @@
 						</div>
 					</div>
 					</c:forEach>
-					
-					<!-- <table class="bg-tb" style="width:95%; background-color: white; margin:auto;">
-						<tbody style="background-color: white;" id="bugCodeTB">
-							<tr>
-								<td class="tb-bd" colspan="2" style="height:45px; text-align:left; ">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;버그 이슈 제목</td>
-							</tr>
-							<tr>
-								<td class="tb-st" style="width:150px; height:40px; text-align:center;"><div id="bugicon">B</div>&nbsp;<div class="bug-code" style="display:inline-block;">BUG-01</div></td>
-								<td class="tb-st" style="height:40px; text-align:center;"><img src="/agile/resources/images/profile/dayoon_202008152056.png"></td>
-							</tr>
-							<tr>
-								<td class="tb-sd" style="height:5px;" colspan="2"></td>
-							</tr>
-							
-							<tr>
-								<td class="tb-bd" colspan="2" style="height:45px; text-align:left; ">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;버그 이슈 제목</td>
-							</tr>
-							<tr>
-								<td class="tb-st" style="width:150px; height:40px; text-align:center;"><div id="bugicon">B</div>&nbsp;<div class="bug-code" style="display:inline-block;">BUG-02</div></td>
-								<td class="tb-st" style="height:40px; text-align:center;"><img src="/agile/resources/images/profile/dayoon_202008152056.png"></td>
-							</tr>
-							<tr>
-								<td class="tb-sd" style="height:5px;" colspan="2"></td>
-							</tr>
-						</tbody>
-					</table> -->
 				</div>
 				</div>
 			</div>
@@ -155,7 +129,7 @@
 						</div> -->
 						<div class="re-ed-area">
 					<input id="reply-input" type="text">
-					 <div id="editor-box" class="editor-box"style="display:none;"><div id="editor"></div></div>
+					 <div id="editor-box" class="editor-box"style="display:none;"><textarea id="editor" width="100" height="30"></textarea></div>
 						</div>
 						</div>
 					</div>
@@ -375,16 +349,25 @@
 	        }
 		});
 	});
+	
+	
+	
+	//댓글 입력
+	
 	</script>
 	
-	<script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+	
+	
+	
+	
+	<!-- <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
 
 	<script>
 	  tinymce.init({
 	    selector: 'textarea#editor',
 	    menubar: false
 	  });
-	</script>
+	</script> -->
 	<script>
 	  ClassicEditor
      .create( document.querySelector( '#editor' ) )
