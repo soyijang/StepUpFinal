@@ -68,9 +68,11 @@
                 			<div id="epic">에픽</div>
                 		</div>
                 		<div id="epic-title-cont">
-                			<div id="ep-ti">
-               					여기에 스프린트 제목
-                			</div>
+                			<c:forEach var="j" items="${ EpicList }" >
+	                			<div id="ep-ti">
+	               					
+	                			</div>	
+                			</c:forEach>
                 			<div id="epic-add-btn">
                 				<button id="ep-ad-btn">
                 					<img src="/agile/resources/icon/common/icon_circle_plus.png" width="15px;" height="15px;">
@@ -111,6 +113,14 @@
 			name: '타임라인 테스트',
 			id: "Task 0",
 			progress: 40
+		},
+		
+		{
+			start: '2020-08-31',
+			end: '2020-09-04',
+			name: '버그 이슈',
+			id: "Task 1",
+			progress: 100
 		},
 		
 	]
