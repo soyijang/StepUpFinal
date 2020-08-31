@@ -23,11 +23,20 @@ public class TaskDaoImpl implements TaskDao {
 		
 		return taskCode;
 	}
-	
+
 	@Override
-	public int updateTitle(SqlSessionTemplate sqlSession, TaskHistory th) {
+	public int updateTitle(SqlSessionTemplate sqlSession, Member m, TaskHistory th) {
+		th.setUserCode(m.getUserCode());
+		return sqlSession.insert("Task.updateTaskTitle", th);
+	}
+
+	@Override
+	public String selectTitle(SqlSessionTemplate sqlSession, int taskHistCode, TaskHistory th) {
 		
-		return sqlSession.update("Task.updateTaskTitle", th);
+		
+		System.out.println(th);
+		System.out.println(taskHistCode);
+		return sqlSession.selectOne("Task.selectTaskTitle", th);
 	}
 
 }

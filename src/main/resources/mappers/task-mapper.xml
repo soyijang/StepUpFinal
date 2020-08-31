@@ -24,15 +24,16 @@
 	
 	<!-- TASK_HISTORY 테이블 -->
 	<resultMap type="com.stepup.agile.projectTask.model.vo.TaskHistory" id="TaskHistoryResultSet">
-	<id property="taskHistUpdateDate" column="TASK_HIST_UPDATE_DATE"/>
+	<id property="taskHistCode" column="TASK_HIST_CODE"/>
+	<result property="taskHistUpdateDate" column="TASK_HIST_UPDATE_Date"/>
 	<result property="taskHistUpdateTime" column="TASK_HIST_UPDATE_TIME"/>
 	<result property="taskCode" column="TASK_CODE"/>
-	<result property="taskHistCode" column="TASK_HIST_CODE"/>
 	<result property="masterCode" column="MASTER_CODE"/>
 	<result property="userCode" column="USER_CODE"/>
 	<result property="taskHistValue" column="TASK_HIST_VALUE"/>
 	<result property="taskCategoryCode" column="TASK_CATEGORY_CODE"/>
 	</resultMap>
+	
 	
 	<insert id="createTask" parameterType="com.stepup.agile.projectTask.model.vo.TaskList">
 		<selectKey keyProperty="taskCode" resultType="int" order="BEFORE">
@@ -42,16 +43,25 @@
 		VALUES (#{taskCode}, TO_CHAR(SYSDATE + 9/24, 'YYYY-MM-DD'), '상위', #{sprintCode}, TO_CHAR(SYSDATE + 9/24, 'hh24:mi:ss'), DEFAULT, #{taskUser, jdbcType=VARCHAR})
 	</insert>
 	
-	<select id="selectList" parameterType="com.stepup.agile.projectTask.model.vo.TaskList">
+	<!-- <select id="selectList" parameterType="com.stepup.agile.projectTask.model.vo.TaskList">
 		SELECT *
 		  FROM TASK_LIST
 		 WHERE TASK_CODE = #{taskCode} 
-	</select>
+	</select> -->
 	
-	<update id="updateTaskTitle" parameterType="com.stepup.agile.projectTask.model.vo.TaskHistory">
-		UPDATE INTO TASK_HISTORY(TASK_HIST_UPDATE_DATE, TASK_HIST_UPDATE_TIME, TASK_HIST_CODE, MASTER_CODE, USER_CODE, TASK_HIST_VALUE, TASK_CATEGORY_CODE)
-		VALUES (TO_CHAR(SYSDATE + 9/24, 'YYYY-MM-DD'), TO_CHAR(SYSDATE + 9/24, 'hh24:mi:ss'), SEQ_TASK_HIST, DEFAULT, DEFAULT, DEFAULT, DEFAULT)
-	</update>
+	<insert id="updateTaskTitle" parameterType="com.stepup.agile.projectTask.model.vo.TaskHistory">
+		<selectKey keyProperty="taskHistCode" resultType="int" order="BEFORE">
+			SELECT SEQ_TASK_HIST.NEXTVAL FROM DUAL
+		</selectKey>
+		INSERT INTO TASK_HISTORY(TASK_HIST_UPDATE_DATE, TASK_HIST_UPDATE_TIME,TASK_CODE, TASK_HIST_CODE, MASTER_CODE, USER_CODE, TASK_HIST_VALUE, TASK_CATEGORY_CODE)
+		VALUES (TO_CHAR(SYSDATE + 9/24, 'YYYY-MM-DD'), TO_CHAR(SYSDATE + 9/24, 'hh24:mi:ss'), #{taskCode}, #{taskHistCode}, #{masterCode}, #{userCode}, #{taskHistValue, jdbcType=VARCHAR}, #{taskCategoryCode, jdbcType=VARCHAR})
+	</insert>
+	
+	<select id="selectTaskTitle" parameterType="com.stepup.agile.projectTask.model.vo.TaskHistory" resultType="java.lang.String">
+		SELECT TASK_HIST_VALUE
+		FROM TASK_HISTORY
+		WHERE TASK_HIST_CODE = #{taskHistCode}
+	</select>
 	
 	
 </mapper>

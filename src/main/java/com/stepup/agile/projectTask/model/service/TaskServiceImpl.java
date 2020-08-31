@@ -27,11 +27,16 @@ public class TaskServiceImpl implements TaskService {
 	}
 
 	@Override
-	public int updateTitle(TaskHistory th) {
-		
-		return td.updateTitle(sqlSession, th);
+	public int updateTitle(Member m, TaskHistory th) {
+
+		return td.updateTitle(sqlSession, m, th);
 	}
 
+	@Override
+	public String selectTitle(int taskHistCode, TaskHistory th) {
+		
+		return td.selectTitle(sqlSession, taskHistCode, th);
+	}
 	
 
 }

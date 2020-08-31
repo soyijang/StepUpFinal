@@ -46,7 +46,6 @@
             color: white;
             text-align: center;
        }
-       
 </style>
 </head>
 <body>
@@ -57,14 +56,18 @@
     <div id="taskDetailModal"  class="taskmodal">
       <!-- Modal content -->
       <div class="taskmodal-content">
-      	 <input type="hidden" name="taskCode" id="taskCode" value="">
+      	 <input type="text" name="taskCode" id="taskCode" value="">
          <div class="projectList" id="project"><div id="storyicon"></div><p id="projectNameReceive"></p></div><div class="projectList">/</div>
-         <div class="projectList" id="story"><div id="taskicon"></div>TEST<p id="sprintCodeReceive" value=""></p></div>
+         <div class="projectList" id="story"><div id="taskicon"></div>TEST<!-- <p id="sprintCodeReceive" value=""></p> --></div>
          <div id="cancel"><img src="/agile/resources/icon/common/icon_x.png" class="taskclose"></div>
          <div><img src="/agile/resources/icon/common/icon_more horizontalicon.png" id="additional"></div>
          <div><img src="/agile/resources/icon/common/icon_shareicon.png" id="share"></div>
          <div><label id="count">1번</label><img src="/agile/resources/icon/common/icon_bookmarkicon.png" id="bookmark"></div>
-        <p align="left" class ="taskmodaltitle"><input type="text" placeholder="제목을 입력하세요" style="font-size:20px;" id="titleName" onkeyup="enterkey();"></p>
+        <form name="title">
+        <p align="left" class ="taskmodaltitle"><input type="text" placeholder="제목을 입력하세요" style="font-size:20px;" id="titleName" onkeyup="enterkey();" id="taskTitle" value=""></p>
+        <input type="hidden" id="taskCategoryCode" value="J">
+        <input type="hidden" name="taskCode" id="taskCode" value="">
+        </form>
         <table align="center" class="taskmodalTable" class="modal-dialog">
             <tr>
                <td>
@@ -75,12 +78,15 @@
             <tr>
                <td id="intro" class="label">설명</td>
             </tr>
-            <tr>
-               <td><textarea id="summernote" name="content" rows="10" cols="100"><c:out value="${content}" /></textarea></td>
+            <tr id="description">
+               <td class="active"><a href="#summernote" aria-controls="home" role="tab" data-toggle="click">설명을 입력하세요</a></li></td>
             </tr>
-            <tr>
-               <td><button class="intBtn">Cancel</button>
-               <button class="intBtn">Save</button></td>
+            <tr id="htmlBox">
+               <td><textarea id="summernote" name="content" rows="10" cols="100" style="display:none;" ><c:out value="${content}" /></textarea></td>
+            </tr>
+            <tr id="htmlBtn">
+               <td><button class="intBtn" style="display:none" >Cancel</button>
+               <button class="intBtn" style="display:none" >Save</button></td>
             </tr>
             <tr>
                <td id="activity" class="label">활동</td>
@@ -112,10 +118,10 @@
                  <input type="text" placeholder="할당해제 됨" id="bogo" class="worker"></td>
              </tr>
              <tr>
-                <td class="rTitle">스트린트</td>
+                <td class="rTitle">스트린트 </td>
              </tr>
              <tr>
-                <td><input type="text" placeholder="미지정" class="dinput" onkeyup="enterkey();"></td>
+                <td><c:out value="${ sprintList.get(i).sprintName }" /></td>
              </tr>
              <tr>
                 <td class="rTitle">레이블</td>
@@ -127,7 +133,7 @@
                 <td class="rTitle">Story Points</td>
              </tr>
              <tr>
-                <td><input type="text" placeholder="없음" class="dinput" onkeyup="enterkey();"></td>
+                <td><input type="number" name="amount" min="1" max="100" value="1" step="1" placeholder="없음" class="dinput" onkeyup="enterkey();"></td>
              </tr>
              <tr>
                 <td class="rTitle">최초예상</td>
@@ -208,7 +214,7 @@
 	    /* $('#sprintCodeReceive').html(receiveCode+'번 스프린트'); */
 	    $('#sprintCode').val(receiveCode);
 	    				
-		$('#taskCode').val(data.TaskHistory.taskCode);
+		/* $('#taskCode').val(data.TaskHistory.taskCode); */
 		console.log('#taskCode');
 	    
 	 })
@@ -266,6 +272,7 @@
         ]
       });
 	 
+   	var taskCode;
     //TASK_LIST 생성 후 TASK 모달로 연결
 	 function createTask() {
 			var sprintCode = $('#sendSprintCode').val();
@@ -276,9 +283,11 @@
 				url:"createTask.pj",
 				type:"post",
 				data:{'sprintCode': sprintCode},
+				async: false,
 				success:function(data) {
 					console.log("성공!");
-					console.log(data.taskList);
+					console.log(data);
+					$('#taskCode').val(data);
 					$('#taskModalYn').css('display','none');
 					$('#taskDetailModal').fadeIn(); 
 					$('#taskDetailModal').css('display','block');
@@ -293,37 +302,56 @@
                     $('.wrap-loading').addClass('display-none');
                  }
 			});
-			
-			return false;
+			return taskCode;
 		}
     
 	//input type text에서 엔터치면 실행되는 함수
 	function enterkey() {
 		if(window.event.keyCode == 13){
-				updateTask();
+				updateTitle();
 		}
 	}
     
     //TASK_HISTORY에 정보 입력
-     function updateTask(){
+    //1. 제목 변경
+     function updateTitle(){
     	var taskCode = $('#taskCode').val();
-    	
+    	var taskHistValue = $('#titleName').val();
+    	var taskCategoryCode = $('#taskCategoryCode').val();
     	console.log(taskCode);
+    	console.log(titleName);
+    	console.log(taskCategoryCode);
+    	
+    	var title = [];
+    	title.push($('#taskCode').val());
+    	title.push($('#titleName').val());
+    	title.push($('#taskCategoryCode').val());
     	
     	$.ajax({
-    		url:"updateTask.pj",
+    		url:url,
     		type:"post",
-    		data:{taskCode : taskCode},
+    		url:"updateTitle.pj",
+    		data:{taskCode : taskCode,
+    			 titleName : titleName,
+    			 taskCategoryCode : taskCategoryCode
+    		},
+    		dataType:"json",
     		success: function(data){
-    			console.log(data.mem)
+    			$('#taskTitle').val(data);
     		},
     		error:function(){
     			console.log("에러!");
-    		}
+    		},
+    		beforeSend : function(){
+                $('.wrap-loading').removeClass('display-none');
+            },
+            complete : function(){
+                $('.wrap-loading').addClass('display-none');
+             }
     	});
     	
     	return false;
-    } 
+    }
 </script>
 </body>
 </html>

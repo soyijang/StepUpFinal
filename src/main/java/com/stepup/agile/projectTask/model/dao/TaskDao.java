@@ -12,6 +12,8 @@ public interface TaskDao {
 
 	int createTask(SqlSessionTemplate sqlSession, Member m, TaskList t);
 
-	int updateTitle(SqlSessionTemplate sqlSession, TaskHistory th);
+	int updateTitle(SqlSessionTemplate sqlSession, Member m, TaskHistory th);
+
+	String selectTitle(SqlSessionTemplate sqlSession, int taskHistCode, TaskHistory th);
 
 }

@@ -10,7 +10,9 @@ public interface TaskService {
 	
 	int createTask(Member m, TaskList t);
 
-	int updateTitle(TaskHistory th);
+	int updateTitle(Member m, TaskHistory th);
+
+	String selectTitle(int taskHistCode, TaskHistory th);
 
 	
 
