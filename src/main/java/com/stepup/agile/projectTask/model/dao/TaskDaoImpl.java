@@ -30,14 +30,13 @@ public class TaskDaoImpl implements TaskDao {
 
 	@Override
 	public int updateTitle(SqlSessionTemplate sqlSession, Member m, TaskHistory th) {
-		th.setUserCode(m.getUserCode());
+		
 		return sqlSession.insert("Task.updateTaskTitle", th);
 	}
 
 	@Override
 	public String selectTitle(SqlSessionTemplate sqlSession, int taskHistCode, TaskHistory th) {
-		
-		
+
 		System.out.println(th);
 		System.out.println(taskHistCode);
 		return sqlSession.selectOne("Task.selectTaskTitle", th);

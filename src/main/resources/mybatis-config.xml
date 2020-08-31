@@ -13,7 +13,7 @@
 	    <typeAlias type="com.stepup.agile.projectManage.model.vo.ProjectHistory" alias="ProjectHistory"/>
 	    <typeAlias type="com.stepup.agile.projectTask.model.vo.ReplyList" alias="Reply"/>
         <typeAlias type="com.stepup.agile.projectTask.model.vo.ReplyHistory" alias="ReplyHistory"/>
-        
+        <typeAlias type="com.stepup.agile.projectTask.model.vo.TaskHistory" alias="TaskHistory"/>
 	</typeAliases>
 	
 	<mappers>

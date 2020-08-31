@@ -1,5 +1,8 @@
 package com.stepup.agile.projectTask.controller;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -45,19 +48,25 @@ public class TaskController {
 	
 	@RequestMapping("updateTitle.pj")
 	@ResponseBody
-	public String updateTitle(Model model, Member m, TaskHistory th, @RequestParam(value="title[]", required=false) List<String> title) {
+	/*public String updateTitle(Model model, Member m, TaskHistory th, @RequestParam(value="allData[]", required=false) List<String> title) {*/ 
+	public String updateTitle(Model model, @ModelAttribute("loginUser") Member m, TaskHistory th, 
+			                   @RequestParam(value="taskCode", required=false) int taskCode, 
+			                   @RequestParam(value="taskHistValue", required=false) String taskHistValue, 
+			                   @RequestParam(value="taskCategoryCode", required=false) String taskCategoryCode ) {	
+				
+		th.setTaskCode(taskCode); 
+		th.setTaskHistValue(taskHistValue);
+		th.setTaskCategoryCode(taskCategoryCode);
+		th.setUserCode(m.getUserCode());
+		/*
+		 * th.setTaskCode(Integer.parseInt(title.get(0)));
+		 * th.setTaskHistValue(title.get(1)); th.setTaskCategoryCode(title.get(2));
+		 */
 		
-		th.setTaskHistValue(title.get(1));
-		th.setTaskCategoryCode(title.get(2));
+		System.out.println("th란"+th);
+		int taskHistCode = ts.updateTitle(m,th);
 		
-		
-		int taskHistCode = ts.updateTitle(m, th);
-		System.out.println(title.get(0));
-		System.out.println(title.get(1));
-		System.out.println(title.get(2));
-		System.out.println(title.get(3));
-		
-		return "redirect:showSprintDetail.st";
+		return taskHistValue;
 	}
 	
 	/*

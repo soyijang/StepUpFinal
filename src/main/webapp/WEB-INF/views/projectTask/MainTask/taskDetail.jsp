@@ -54,7 +54,7 @@
 <body>
    <!-- <button onclick="" class="searchBtn" id="apply">모달창</button> -->
     <!-- Trigger/Open The Modal -->
-	<form action="updateTitle.pj" method="post">
+	<!-- <form action="updateTitle.pj" method="post"> -->
     <!-- The Modal -->
     <div id="taskDetailModal"  class="taskmodal">
       <!-- Modal content -->
@@ -66,11 +66,9 @@
          <div><img src="/agile/resources/icon/common/icon_more horizontalicon.png" id="additional"></div>
          <div><img src="/agile/resources/icon/common/icon_shareicon.png" id="share"></div>
          <div><label id="count">1번</label><img src="/agile/resources/icon/common/icon_bookmarkicon.png" id="bookmark"></div>
-        <form name="title">
-        <p align="left" class ="taskmodaltitle"><input type="text" placeholder="제목을 입력하세요" style="font-size:20px;" id="titleName" onkeyup="enterkey();" id="taskTitle" value=""></p>
-        <input type="hidden" id="taskCategoryCode" value="J">
+        <p align="left" class ="taskmodaltitle"><input type="text" placeholder="제목을 입력하세요" style="font-size:20px;" id="titleName" onkeyup="enterkey();" name="taskTitle" value=""></p>
+        <input type="hidden" name="taskCategoryCode" id="taskCategoryCode" value="J">
         <input type="hidden" name="taskCode" id="taskCode" value="">
-        </form>
         <table align="center" class="taskmodalTable" class="modal-dialog">
             <tr>
                <td>
@@ -170,7 +168,7 @@
         </div>
     
     </div>
-    </form>
+  <!--   </form> -->
     <!-- 테스크추가 모달창 -->
 <!--    <form action="createTask.pj" method="post"> -->
       <div id="taskModalYn" class="modal">
@@ -322,25 +320,25 @@
     	var taskHistValue = $('#titleName').val();
     	var taskCategoryCode = $('#taskCategoryCode').val();
     	console.log(taskCode);
-    	console.log(titleName);
+    	console.log(taskHistValue);
     	console.log(taskCategoryCode);
     	
-    	var title = [];
+    	/* var title = [];
     	title.push($('#taskCode').val());
     	title.push($('#titleName').val());
     	title.push($('#taskCategoryCode').val());
     	
+    	var allData = { "taskCode": taskCode, "titleName": taskHistValue, "taskCategoryCode": taskCategoryCode };
+    	console.log(allData);*/ 
     	$.ajax({
-    		url:url,
     		type:"post",
     		url:"updateTitle.pj",
-    		data:{taskCode : taskCode,
-    			 titleName : titleName,
-    			 taskCategoryCode : taskCategoryCode
+    		data: {"taskCode" : taskCode,
+    			   "taskHistValue" : taskHistValue,
+    			   "taskCategoryCode" : taskCategoryCode
     		},
-    		dataType:"json",
     		success: function(data){
-    			$('#taskTitle').val(data);
+    			$('#titleName').val(data);
     		},
     		error:function(){
     			console.log("에러!");
