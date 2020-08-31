@@ -403,19 +403,19 @@
 
 	function color1(i){
 	    $(".pie-chart1").css({
-	        "background":"conic-gradient(#F04758 0% "+i+"%, #ffffff "+i+"% 100%)"
+	        "background":"conic-gradient(#C4C4C4 0% "+i+"%, #ffffff "+i+"% 100%)"
 	        });
 	    
 	}
 	function color2(i){
 	    $(".pie-chart1").css({
-	        "background":"conic-gradient(#F04758 0% 25%, #81DBCA 25% "+i+"%, #ffffff "+i+"% 100%)"
+	        "background":"conic-gradient(#C4C4C4 0% 25%, #DD0351 25% "+i+"%, #ffffff "+i+"% 100%)"
 	        });
 	     
 	}
 	function color3(i){
 	    $(".pie-chart1").css({
-	        "background":"conic-gradient(#F04758 0% 25%, #81DBCA 25% 70%, #63B2E3 70% "+i+"%, #ffffff "+i+"% 100%)"
+	        "background":"conic-gradient(#C4C4C4 0% 25%, #DD0351 25% 70%, #2B2B49 70% "+i+"%, #ffffff "+i+"% 100%)"
 	        });
 	     
 	}
