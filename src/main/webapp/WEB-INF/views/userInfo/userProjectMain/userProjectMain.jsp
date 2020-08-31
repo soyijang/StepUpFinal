@@ -373,7 +373,14 @@
     
     
     
+    
     var func1 = setInterval(function(){
+    	var s;
+    	var m;
+    	var l = Math.max(non2, ing2, com2);
+    	
+    	if(Math.min(non2, ing2, com2))
+    	
         if(i<Math.ceil(non2)){
             color1(i);
             i++;
@@ -387,6 +394,11 @@
             clearInterval(func1);
         }
 		},10);
+    
+    console.log(Math.ceil(non2));
+    console.log(Math.ceil(ing2));
+    console.log(Math.ceil(com2));
+    console.log(tot);
 	});
 
 	function color1(i){
