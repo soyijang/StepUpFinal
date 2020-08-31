@@ -42,7 +42,9 @@
 		<id property="teamCode" column="TEAM_CODE"/>
 		<result property="teamName" column="TEAM_NAME"/>
 	</resultMap>
-	
+
+
+
 	<insert id="insertMember" parameterType="Member">
 		INSERT INTO USER_INFO
 		VALUES (#{userEmail}, #{userPwd}, #{userName}, SEQ_USER.NEXTVAL, 
@@ -79,4 +81,6 @@
 		 WHERE USER_EMAIL = #{userEmail} 
 	</update>
 	
+
+
 </mapper>

@@ -1,10 +1,15 @@
 package com.stepup.agile.userInfo.model.dao;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
+
+import javax.servlet.http.HttpSession;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.stepup.agile.projectManage.model.vo.Project;
 import com.stepup.agile.userInfo.model.exception.LoginFailedException;
 import com.stepup.agile.userInfo.model.vo.Member;
 
@@ -48,6 +53,12 @@ public class MemberDaoImpl implements MemberDao {
 	public int insertJob(SqlSessionTemplate sqlSession, Map<String, Object> member) {
 
 		return sqlSession.update("Member.insertJob", member);
+	}
+
+	@Override
+	public String selectUserProject(SqlSessionTemplate sqlSession, Member m) {
+		
+		return sqlSession.selectOne("Member.selectUserProject");
 	}
 
 }

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,19 +18,19 @@
                 <div id="main-cont-area">
                    <div id="status-area">
                       <div id="not-task">
-                         <div id="n-tk" class="status">2 </div>
+                         <div id="n-tk" class="status">${ nonTaskCnt }</div>
                          <p id="n-tk-ti" class="ing">미진행</p>
                       </div>
                       <div id="task-ing">
-                         <div id="tk-ing" class="status">8 </div>
+                         <div id="tk-ing" class="status">${ ingTaskCnt }</div>
                          <p id="tk-ing-ti" class="ing">진행중</p>
                       </div>
                       <div id="com-task">
-                         <div id="co-tk" class="status">1 </div>
+                         <div id="co-tk" class="status">${ comTaskCnt } </div>
                          <p id="co-tk-ti" class="ing">진행완료</p>
                       </div>
                       <div id="tot-task">
-                         <div id="to-tk" class="status">11 </div>
+                         <div id="to-tk" class="status">${ nonTaskCnt+ingTaskCnt+comTaskCnt } </div>
                          <p id="ti-tk-ti" class="ing">전체 업무</p>
                       </div>
                    </div>
@@ -40,24 +41,35 @@
                          </div>
                          <div id="tb_wrap">
                          <div id="pro-cont">
+                         
+                         <c:forEach var="i" items="${ pjList }" varStatus="status">
+                         <div id="pro-list">
                          	<table class="tb" style=" width:100%";>
                          		<tbody>
+                         		
 	                             <tr>
-	                            	<td rowspan="2" style="border-left: 1px solid #E8E8E8; border-top: 1px solid #E8E8E8;"><img src="/agile/resources/images/profile/dayoon_202008152056.png"></td>
-	                            	<td rowspan="2" style="border-top: 1px solid #E8E8E8;">IT WORKS!</td>
-	                            	<td style="border-top: 1px solid #E8E8E8;"> 내 해결된 이슈</td>
-	                            	<td style="border-top: 1px solid #E8E8E8; border-right:1px solid #E8E8E8;">3</td>
+	                            	<td rowspan="2" style=" width:50px;"><img src="/agile/resources/images/profile/dayoon_202008152056.png"></td>
+	                            	<td rowspan="2" style=" width:170px;"><div name="projectName">${ i.projectName }</div></td>
+	                            	<td style=" width:110px; background-color:#FEF4E5; border-radius:7px;">진행중 이슈</td>
+	                            	<td style=" width:30px; ">${ pjList2[status.index].taskCnt }</td>
 	                            </tr>
 	                            <tr>
-	                            	<td>미 해결된 이슈</td>
-	                            	<td style="border-right:1px solid #E8E8E8;">2</td>
+	                            	<td style="width:110px; background-color:#FFDFDF; border-radius:7px;">미해결 이슈</td>
+	                            	<td style=" width:30px;">${ i.taskCnt }</td>
 	                            </tr>
 	                            <tr>
-	                            	<td colspan="3" style="border-bottom: 1px solid #E8E8E8; border-top: 1px solid #E8E8E8; border-left: 1px solid #E8E8E8;">status</td>
-	                            	<td style="text-align:right; border-bottom: 1px solid #E8E8E8; border-top:1px solid #E8E8E8; border-right: 1px solid #E8E8E8;">진행중</td>
+	                            	<td colspan="3" style="">status</td>
+	                            	<c:if test="${ 0 ne i.taskCnt }">
+	                            	<td style="text-align:right; width:50px;"><img src="/agile/resources/images/indiv/main/userInfo/userProjectMain/img_status_ing.png" width="70px;" height="20px;"></td>
+	                            	</c:if>
+	                            	<c:if test="${ 0 eq i.taskCnt and 0 eq pjList2[status.index].taskCnt }">
+	                            	<td style="text-align:right; width:50px;"><img src="/agile/resources/images/indiv/main/userInfo/userProjectMain/img_status_non.png" width="70px;" height="20px;"></td>
+	                            	</c:if>
 	                            </tr>
 	                            </tbody>
                             </table>
+                            </div>
+	                            </c:forEach>
                          </div>
                          </div>
                       </div>
@@ -102,17 +114,37 @@
                          </div>
                          <div id="tb_wrap">
                          	<div id="task-cont">
+                   		<c:forEach var="taskTitle" items="${ taskTitle }" varStatus="status">
+                   			<div id="task-list">
                          		<table class="task-tb" width="100%">
-                         			<tr style="height:50px;">
-                         				<td style="border-top:1px solid #E8E8E8; border-left:1px solid #E8E8E8; border-bottom:1px solid #E8E8E8;">메신저 기능 기획</td>
-                         				<td style="text-align:right; border-top:1px solid #E8E8E8; border-right:1px solid #E8E8E8; border-bottom:1px solid #E8E8E8;"><img src="/agile/resources/icon/common/icon_clock.png" width="15px;" height="15px;">&nbsp;&nbsp;10 AUG</td>
+                         			<tr style="height:30px;">
+                         				<td style="width:800px;">${ taskTitle }</td>
+                         				<c:if test="${ !empty taskDate[status.index] }">
+                         				<td style="width:240px;"><img src="/agile/resources/icon/common/icon_clock.png" width="15px;" height="15px;">&nbsp;&nbsp;${ taskDate[status.index] }</td>
+                         				</c:if>
+                         				<c:if test="${ empty taskDate[status.index] }">
+                         				<td style="width:240px;"><img src="/agile/resources/icon/common/icon_clock.png" width="15px;" height="15px;">&nbsp;&nbsp;예상시간 없음</td>
+                         				</c:if>
                          			</tr>
                          			<tr>
-                         				<td style="border-left:1px solid #E8E8E8; border-bottom:1px solid #E8E8E8;">Status</td>
-                         				<td style="text-align:right; border-bottom:1px solid #E8E8E8; border-right:1px solid #E8E8E8;">진행중</td>
+                      
+                         				<td style="width:800px;">Status</td>
+                         				<c:if test="${ taskStatus[status.index] eq '진행중' }">
+                         				<td style="width:240px;"><img src="/agile/resources/images/indiv/main/userInfo/userProjectMain/img_status_ing.png" width="70px;" height="20px;"></td>
+                         				</c:if>
+                         				<c:if test="${ taskStatus[status.index] eq '완료' }">
+                         				<td style="width:240px;"><img src="/agile/resources/images/indiv/main/userInfo/userProjectMain/img_status_com.png" width="70px;" height="20px;"></td>
+                         				</c:if>
+                         				<c:if test="${ taskStatus[status.index] eq '미진행' }">
+                         				<td style="width:240px;"><img src="/agile/resources/images/indiv/main/userInfo/userProjectMain/img_status_non.png" width="70px;" height="20px;"></td>
+                         				</c:if>
+                         				<c:if test="${ empty taskStatus[status.index] }">
+                         				<td style="width:240px;"><img src="/agile/resources/images/indiv/main/userInfo/userProjectMain/img_status_nonexist.png" width="75px;" height="20px;"></td>
+                         				</c:if>
                          			</tr>
-                         			
                          		</table>
+                         		</div>
+                         </c:forEach>
                          	</div>
                          </div>
                        </div>
@@ -124,16 +156,13 @@
                          </div>
                          <div id="cht-cont">
                             <div id="cht">
-                               <div class="pie-chart1"><span class="center"><p id="to-ch">11</p><p id="to-ch-ti">전체업무</p></span></div>
+                               <div class="pie-chart1"><span class="center"><p id="to-ch">${ nonTaskCnt + ingTaskCnt + comTaskCnt }</p><p id="to-ch-ti">전체업무</p></span></div>
                                 <div id="cht-st" style="width:50%">
-	                               <div id="no-ch" class="cht-tt"><img src="/agile/resources/images/indiv/main/userInfo/userProjectMain/img_over_task.png" width="10px;" height="10px;"> 미진행</div><span id="no-ch-to">2</span><br>
-		                           <div id="ing-ch" class="cht-tt"><img src="/agile/resources/images/indiv/main/userInfo/userProjectMain/img_ing_task.png" width="10px;" height="10px;"> 진행중 </div><span id="ing-ch-to">8</span><br>
-		                           <div id="com-ch" class="cht-tt"><img src="/agile/resources/images/indiv/main/userInfo/userProjectMain/img_com_task.png" width="10px;" height="10px;"> 완료</div><span id="com-ch-to">1</span>
+	                               <div id="no-ch" class="cht-tt"><img src="/agile/resources/images/indiv/main/userInfo/userProjectMain/img_over_task.png" width="10px;" height="10px;"> 미진행</div><span id="no-ch-to">${ nonTaskCnt }</span><br>
+		                           <div id="ing-ch" class="cht-tt"><img src="/agile/resources/images/indiv/main/userInfo/userProjectMain/img_ing_task.png" width="10px;" height="10px;"> 진행중 </div><span id="ing-ch-to">${ ingTaskCnt }</span><br>
+		                           <div id="com-ch" class="cht-tt"><img src="/agile/resources/images/indiv/main/userInfo/userProjectMain/img_com_task.png" width="10px;" height="10px;"> 완료</div><span id="com-ch-to">${ comTaskCnt }</span>
 	                           </div>
                             </div>
-                           
-	                           
-                            
                          </div>
                       </div>
                       <!-- 차트 영역 끝 -->
@@ -154,6 +183,33 @@
 </body>
 <script>
 	<!-- 캘린더 -->
+	//이번주 일주일 구하기
+	var currentDay = new Date();  
+	var theYear = currentDay.getFullYear();
+	var theMonth = currentDay.getMonth();
+	var theDate  = currentDay.getDate();
+	var theDayOfWeek = currentDay.getDay();
+	 
+	var thisWeek = [];
+	 
+	for(var i=0; i<7; i++) {
+	  var resultDay = new Date(theYear, theMonth, theDate + (i - theDayOfWeek));
+	  var yyyy = resultDay.getFullYear();
+	  var mm = Number(resultDay.getMonth()) + 1;
+	  var dd = resultDay.getDate();
+	 
+	  mm = String(mm).length === 1 ? '0' + mm : mm;
+	  dd = String(dd).length === 1 ? '0' + dd : dd;
+	 
+	  //thisWeek[i] = yyyy + '-' + mm + '-' + dd;
+	  thisWeek[i] = dd;
+	}
+	 
+	console.log(thisWeek);
+	
+	
+	
+	
 	/**
 	 *  yyyyMMdd 포맷으로 반환
 	 */
@@ -198,17 +254,9 @@
 		} else if(today == '6'){
 			today = '토';
 		} */
-		
-		console.log(today);
-		
-		for(i=day; i<8; i++){
-			
-		}
-		
-		
+
 		var mon;
 		mon = date.substring(6, 4);
-		console.log(mon);
 		
 		if(mon == '01'){
 			mon = 'Jan';
@@ -259,8 +307,8 @@
 		
 	    setTableHTML+='<table width="100%;">';
 	    setTableHTML+='<thead>';
-	    setTableHTML+='<tr><th class="th-title" style="font-size: 27px;">Calendar&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>';
-	    setTableHTML+='<th><img src="/agile/resources/icon/common/icon_gear.png" width="20px;" height="20px;""></th>';
+	    setTableHTML+='<tr><th class="th-title" style="font-size: 27px;">Calendar</th>';
+	    setTableHTML+='<th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="/agile/resources/icon/common/icon_gear.png" width="20px;" height="20px;""></th>';
 	    setTableHTML+='<tr><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + day + ", " + mon + '</td>';
 	    setTableHTML+='<td></td></tr>';
 	    setTableHTML+='</thead>';
@@ -268,8 +316,8 @@
 	    
 	    for(var i=0;i<7;i++){
 	        setTableHTML+='<tr style="font-size: 12px;">';
-	        setTableHTML+='<td width="10"  height="100">';
-	        setTableHTML+='';
+	        setTableHTML+='<td width="10px" height="100px">';
+	        setTableHTML+= thisWeek[i];
 	        setTableHTML+='<br>';
 		     	
 		        if(today == 0) {
@@ -298,7 +346,7 @@
 	        
 	     	
 	        setTableHTML+= "</td>";
-	        setTableHTML+= "<td width='200' height='100'><div class='cal-schedule' style='width:10%'></div></td>";
+	        setTableHTML+= "<td class='cal-schedule' style='width:200px height:100px'>흐으음...</td>";
 	        setTableHTML+='</tr>';
 	        
 	    }
@@ -308,58 +356,68 @@
 	    $("#cal-cont").html(setTableHTML);
 	}
 	
-	var $tdSche = null;
-	
-	//스케줄표시
-    function drawSche() {
-    	$tdSche = $("td div.cal-schedule");
-		
-		
-    	$tdSche.eq(3).text("🤴🏻오늘 뷰 다 끝날수있나?");
-    	$tdSche.eq(today.getDate()+firstDay.getDay()).text("🎃금요일인데 아직 뷰 못끝냈겠찌?");
-    	$tdSche.eq(today.getDate()).css("color", "black");
-    	
-	}
 	
 	
 	//차트
 	$(window).ready(function(){
     var i=1;
+    var non=$("#no-ch-to").text();
+    var ing=$("#ing-ch-to").text();
+    var com=$("#com-ch-to").text();
+    var tot=$("#to-ch").text();
+    
+    var non2 = non/tot*100;
+    var ing2 = ing/tot*100;
+    var com2 = com/tot*100;
+    
+    
+    
+    
+    
     var func1 = setInterval(function(){
-        if(i<26){
+    	var s;
+    	var m;
+    	var l = Math.max(non2, ing2, com2);
+    	
+    	if(Math.min(non2, ing2, com2))
+    	
+        if(i<Math.ceil(non2)){
             color1(i);
             i++;
-        } else if(i<70){
+        } else if(i<Math.ceil(non2) + Math.ceil(ing2)){
             color2(i);
             i++;
-        } else if(i<101){
+        } else if(i<Math.ceil(non2) + Math.ceil(ing2) + Math.ceil(com2)){
             color3(i);
             i++;
         } else {
             clearInterval(func1);
         }
 		},10);
+    
+    console.log(Math.ceil(non2));
+    console.log(Math.ceil(ing2));
+    console.log(Math.ceil(com2));
+    console.log(tot);
 	});
-
 
 	function color1(i){
 	    $(".pie-chart1").css({
-	        "background":"conic-gradient(#63B2E3 0% "+i+"%, #ffffff "+i+"% 100%)"
+	        "background":"conic-gradient(#F04758 0% "+i+"%, #ffffff "+i+"% 100%)"
 	        });
 	    
 	}
 	function color2(i){
 	    $(".pie-chart1").css({
-	        "background":"conic-gradient(#63B2E3 0% 25%, #F04758 25% "+i+"%, #ffffff "+i+"% 100%)"
+	        "background":"conic-gradient(#F04758 0% 25%, #81DBCA 25% "+i+"%, #ffffff "+i+"% 100%)"
 	        });
 	     
 	}
 	function color3(i){
 	    $(".pie-chart1").css({
-	        "background":"conic-gradient(#63B2E3 0% 25%, #F04758 25% 70%, #81DBCA 70% "+i+"%, #ffffff "+i+"% 100%)"
+	        "background":"conic-gradient(#F04758 0% 25%, #81DBCA 25% 70%, #63B2E3 70% "+i+"%, #ffffff "+i+"% 100%)"
 	        });
 	     
 	}
-
 </script>
 </html>

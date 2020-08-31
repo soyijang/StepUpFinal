@@ -95,11 +95,7 @@
 		
 		var ti = document.getElementById('ep-ti-tx').value;
 		console.log(ti);
-		/* var div = document.createElement('div');
-
-	    div.innerHTML = document.getElementById('ep-ti-tx').value;
-
-	    document.getElementById('epic-title-cont').appendChild(div); */
+	
 	    $('#epic-add-btn').remove();
 	    $('#ep-ad-btn').remove();
 	    $('#ep-ti-tx').remove();
