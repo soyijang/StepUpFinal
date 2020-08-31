@@ -6,12 +6,23 @@
 
 	<typeAliases>
 		<typeAlias type="com.stepup.agile.userInfo.model.vo.Member" alias="Member"/>
-		<typeAlias type="com.stepup.agile.projectManage.model.vo.Project" alias="Project"/>
+		<typeAlias type="com.stepup.agile.projectBacklog.model.vo.Sprint" alias="Sprint"/>
+		<typeAlias type="com.stepup.agile.projectBacklog.model.vo.SprintHistory" alias="SprintHistory"/>
+		<typeAlias type="com.stepup.agile.userMyTasks.model.vo.MyTask" alias="Mytask"/>
+	    <typeAlias type="com.stepup.agile.projectManage.model.vo.Project" alias="Project"/>
+	    <typeAlias type="com.stepup.agile.projectManage.model.vo.ProjectHistory" alias="ProjectHistory"/>
+	    <typeAlias type="com.stepup.agile.projectTask.model.vo.ReplyList" alias="Reply"/>
+        <typeAlias type="com.stepup.agile.projectTask.model.vo.ReplyHistory" alias="ReplyHistory"/>
+        <typeAlias type="com.stepup.agile.projectTask.model.vo.TaskHistory" alias="TaskHistory"/>
+        
 	</typeAliases>
 	
 	<mappers>
 		<mapper resource="mappers/member-mapper.xml"/>
+		<mapper resource="mappers/sprint-mapper.xml"/>
+		<mapper resource="mappers/mytask-mapper.xml"/>
 		<mapper resource="mappers/project-mapper.xml"/>
+		<mapper resource="mappers/task-mapper.xml"/>
 	</mappers>
 
 </configuration>
