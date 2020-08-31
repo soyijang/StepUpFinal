@@ -24,4 +24,10 @@ public interface TaskDao {
 
 
 
+	List<TaskHistory> selectUserTask(SqlSessionTemplate sqlSession, Member m);
+
+	String selectPjNonTask(SqlSessionTemplate sqlSession, Map<String, Object> map);
+
+
+
 }

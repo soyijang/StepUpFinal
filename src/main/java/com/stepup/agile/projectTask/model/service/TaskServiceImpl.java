@@ -25,14 +25,21 @@ public class TaskServiceImpl implements TaskService {
 	public TaskDao td;
 	
 	@Override
-	public int createTask(Member m) {
-		System.out.println("service : " + m);
-		return td.createTask(sqlSession, m);
+	public int createTask(Member m, TaskList t) {
+		
+		return td.createTask(sqlSession, m, t);
 	}
 
 	@Override
-	public int updateTitle(Member m) {
-		return td.updateTitle(sqlSession, m);
+	public int updateTitle(Member m, TaskHistory th) {
+
+		return td.updateTitle(sqlSession, m, th);
+	}
+
+	@Override
+	public String selectTitle(int taskHistCode, TaskHistory th) {
+		
+		return td.selectTitle(sqlSession, taskHistCode, th);
 	}
 
 	@Override

@@ -23,6 +23,13 @@ public interface TaskService {
 
 
 
+	List<TaskHistory> selectUserTask(Member m);
+
+	String selectPjNonTask(Map<String, Object> map);
+
+
+
+
 	
 
 }
