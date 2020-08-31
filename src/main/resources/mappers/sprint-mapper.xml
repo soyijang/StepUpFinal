@@ -4,18 +4,41 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="Sprint">
 
-	<resultMap type="com.stepup.agile.projectBacklog.model.vo.SprintHistory" id="sprintHistoryResultSet">
-		<id property="sprintHistCode" column="SPRINT_HIST_CODE"/>
-		<result property="sprintHistUpdateDate" column="SPRINT_HIST_UPDATE_DATE"/>
-		<result property="sprintName" column="SPRINT_NAME"/>
-		<result property="sprintType" column="SPRINT_TYPE"/>
-		<result property="sprintExpectPeriod" column="SPRINT_EXPECT_PERIOD"/>
-		<result property="sprintCode" column="SPRINT_CODE"/>
-		<result property="sprintHistUpdateTime" column="SPRINT_HIST_UPDATE_TIME"/>
-		<result property="sprintIntro" column="SPRINT_INTRO"/>
-		<result property="sprintStatus" column="SPRINT_STATUS"/>
+	
+	<!-- TASK_CATEGORY 테이블 -->
+	<resultMap type="com.stepup.agile.projectTask.model.vo.TaskCategory" id="TaskCategoryResultSet">
+	<id property="taskCategoryCode" column="TASK_CATEGORY_CODE"/>
+	<result property="taskCategoryName" column="TASK_CATEGORY_NAME"/>
 	</resultMap>
 	
+	<!-- TASK_LIST 테이블 -->
+	<resultMap type="com.stepup.agile.projectTask.model.vo.TaskList" id="TaskListResultSet">
+	<id property="taskCode" column="TASK_CODE"/>
+	<result property="taskCreateDate" column="TASK_CREATE_DATE"/>
+	<result property="taskLevel" column="TASK_LEVEL"/>
+	<result property="sprintCode" column="SPRINT_CODE"/>
+	<result property="taskCreateTime" column="TASK_CREATE_TIME"/>
+	<result property="taskMaster" column="TASK_MASTER"/>
+	<result property="taskUser" column="TASK_USER"/>
+	</resultMap>
+	
+	<!-- TASK_HISTORY 테이블 -->
+	<resultMap type="com.stepup.agile.projectTask.model.vo.TaskHistory" id="TaskHistoryResultSet">
+		<id property="taskHistCode" column="TASK_HIST_CODE"/>
+		<result property="taskHistUpdateDate" column="TASK_HIST_UPDATE_DATE"/>
+		<result property="taskHistUpdateTime" column="TASK_HIST_UPDATE_TIME"/>
+		<result property="taskCode" column="TASK_CODE"/>
+		<result property="masterCode" column="MASTER_CODE"/>
+		<result property="userCode" column="USER_CODE"/>
+		<result property="taskHistValue" column="TASK_HIST_VALUE"/>
+		<result property="taskCategoryCode" column="TASK_CATEGORY_CODE"/>
+		<collection property="taskList" resultMap="TaskListResultSet"/>
+		<collection property="taskCategory" resultMap="TaskCategoryResultSet"/>		
+		<collection property="sprint" resultMap="sprintResultSet"/>
+		<collection property="sprintHistory" resultMap="sprintHistoryResultSet"/>
+	</resultMap>
+	
+<!-- SPRINT LIST 테이블 -->
 	<resultMap type="com.stepup.agile.projectBacklog.model.vo.Sprint" id="sprintResultSet">
 		<id property="sprintCode" column="SPRINT_CODE"/>
 		<result property="sprintCreateDate" column="SPRINT_CREATE_DATE"/>
@@ -23,7 +46,9 @@
 		<result property="sprintCreateTime" column="SPRINT_CREATE_TIME"/>
 	</resultMap>
 	
+
 	
+<!-- Project멤버매칭 테이블 -->
 	<resultMap type="com.stepup.agile.userInfo.model.vo.UserProjectList" id="UserProjectListResultSet">
 		<id property="userProjectCode" column="USER_PROJECT_CODE"/>
 		<result property="projectCode" column="PROJECT_CODE"/>
@@ -34,6 +59,7 @@
 		<result property="userProjectAuthority" column="USER_PROJECT_AUTHORITY"/>
 	</resultMap>
 	
+	<!-- 팀소속이력관리 -->
 	<resultMap type="com.stepup.agile.userInfo.model.vo.UserTeamList" id="UserTeamListResultSet">
 		<id property="userTeamCode" column="USER_TEAM_CODE"/>
 		<result property="teamCode" column="TEAM_CODE"/>
@@ -43,6 +69,7 @@
 		<result property="userTeamTime" column="USER_TEAM_TIME"/>
 	</resultMap>
 	
+	<!-- 사용자정보  -->
 	<resultMap type="com.stepup.agile.userInfo.model.vo.Member" id="memberResultSet">
 		<id property="userCode" column="USER_CODE"/>
 		<result property="userEmail" column="USER_EMAIL"/>
@@ -57,13 +84,194 @@
 		<result property="userManagerYn" column="USER_MANAGER_YN"/>
 		<result property="userEnrollTime" column="USER_ENROLL_TIME"/>
 	</resultMap>	
+
+<!-- Project_List 테이블 -->
+	<resultMap type="com.stepup.agile.projectManage.model.vo.Project" id="projectResultSet">
+		<id property="projectCode" column="PROJECT_CODE"/>
+		<result property="projectName" column="PROJECT_NAME"/>
+		<result property="createDate" column="PROJECT_CREATE_DATE"/>
+		<result property="createTime" column="PROJECT_CREATE_TIME"/>
+	</resultMap>
 	
-	<select id="selectSprint" resultMap="sprintResultSet" parameterType="Sprint">
-		SELECT *
-		  FROM SPRINT_LIST
-		 WHERE USER_PROJECT_CODE = {#}
-		 
+	
+<!-- SPRINT_HISTORY 테이블-->	
+	<resultMap type="com.stepup.agile.projectBacklog.model.vo.SprintHistory" id="sprintHistoryResultSet">
+		<id property="sprintHistCode" column="SPRINT_HIST_CODE"/>
+		<result property="sprintHistUpdateDate" column="SPRINT_HIST_UPDATE_DATE"/>
+		<result property="sprintName" column="SPRINT_NAME"/>
+		<result property="sprintType" column="SPRINT_TYPE"/>
+		<result property="sprintExpectPeriod" column="SPRINT_EXPECT_PERIOD"/>
+		<result property="sprintCode" column="SPRINT_CODE"/>
+		<result property="sprintHistUpdateTime" column="SPRINT_HIST_UPDATE_TIME"/>
+		<result property="sprintIntro" column="SPRINT_INTRO"/>
+		<result property="sprintStatus" column="SPRINT_STATUS"/>
+		<result property="sprintTaskCount" column="SPRINT_TASK_COUNT"/>
+		<result property="sprintTypeYn" column="SPRINT_TYPE_YN"/>
+		<collection property="sprint" resultMap="sprintResultSet"/>
+		<collection property="userProjectList" resultMap="UserProjectListResultSet"/>
+		<collection property="userTeamList" resultMap="UserTeamListResultSet"/>
+		<collection property="member" resultMap="memberResultSet"/>
+		<collection property="project" resultMap="projectResultSet"/>
+	</resultMap>
+	
+	<!-- SPRINT LIST 테이블 -->
+	<resultMap type="com.stepup.agile.projectBacklog.model.vo.Sprint" id="sprintTaskResultSet">
+		<id property="sprintCode" column="SPRINT_CODE"/>
+		<result property="sprintCreateDate" column="SPRINT_CREATE_DATE"/>
+		<result property="sprintProjectCode" column="USER_PROJECT_CODE"/>
+		<result property="sprintCreateTime" column="SPRINT_CREATE_TIME"/>
+		<collection property="taskList" resultMap="TaskListResultSet"/>
+		<collection property="taskHistory" resultMap="TaskHistoryResultSet"/>		
+		<collection property="taskCategory" resultMap="TaskCategoryResultSet"/>		
+	</resultMap>
+	
+	
+	
+	<select id="selectSprint" resultMap="sprintHistoryResultSet" parameterType="Sprint">
+<!-- 		SELECT  *
+		  FROM USER_INFO I,
+		       USER_TEAM_LIST T ,
+		       USER_PROJECT_LIST P,
+		       SPRINT_LIST S ,
+		       SPRINT_HISTORY H,
+		       PROJECT_LIST J
+		  WHERE I.USER_CODE = T.USER_CODE
+		    AND T.USER_TEAM_CODE = P.USER_TEAM_CODE
+		    AND P.USER_PROJECT_CODE =  S.USER_PROJECT_CODE
+		    AND S.SPRINT_CODE = H.SPRINT_CODE
+		    AND P.PROJECT_CODE = J.PROJECT_CODE
+		    AND I.USER_EMAIL = 
+		  ORDER BY S.SPRINT_CODE
+ -->		  
+<!-- 		  SELECT H.SPRINT_CODE
+		    , J.PROJECT_NAME
+		    , P.USER_PROJECT_CODE
+            , MAX(H.SPRINT_NAME) KEEP (DENSE_RANK LAST ORDER BY H.SPRINT_HIST_UPDATE_DATE, H.SPRINT_HIST_UPDATE_TIME) AS SPRINT_NAME
+		  FROM SPRINT_HISTORY H,
+               USER_INFO I,
+		       USER_TEAM_LIST T ,
+		       USER_PROJECT_LIST P,
+		       SPRINT_LIST S ,
+		       PROJECT_LIST J
+		  WHERE I.USER_CODE = T.USER_CODE
+		    AND T.USER_TEAM_CODE = P.USER_TEAM_CODE
+		    AND P.USER_PROJECT_CODE =  S.USER_PROJECT_CODE
+		    AND S.SPRINT_CODE = H.SPRINT_CODE
+		    AND P.PROJECT_CODE = J.PROJECT_CODE
+		    AND I.USER_EMAIL = #{userEmail, jdbcType=VARCHAR}
+            AND H.SPRINT_STATUS = 'N'
+		  GROUP BY H.SPRINT_CODE , J.PROJECT_NAME, P.USER_PROJECT_CODE
+          ORDER BY H.SPRINT_CODE -->
+          
+         SELECT *    
+    FROM(SELECT H.SPRINT_CODE
+		    , J.PROJECT_NAME
+		    , P.USER_PROJECT_CODE
+            , MAX(H.SPRINT_NAME) KEEP (DENSE_RANK LAST ORDER BY H.SPRINT_HIST_UPDATE_DATE, H.SPRINT_HIST_UPDATE_TIME) AS SPRINT_NAME
+            , MAX(H.SPRINT_TYPE) KEEP (DENSE_RANK LAST ORDER BY H.SPRINT_HIST_UPDATE_DATE, H.SPRINT_HIST_UPDATE_TIME) AS SPRINT_TYPE
+		  FROM SPRINT_HISTORY H,
+               USER_INFO I,
+		       USER_TEAM_LIST T ,
+		       USER_PROJECT_LIST P,
+		       SPRINT_LIST S ,
+		       PROJECT_LIST J
+		  WHERE I.USER_CODE = T.USER_CODE
+		    AND T.USER_TEAM_CODE = P.USER_TEAM_CODE
+		    AND P.USER_PROJECT_CODE =  S.USER_PROJECT_CODE
+		    AND S.SPRINT_CODE = H.SPRINT_CODE
+		    AND P.PROJECT_CODE = J.PROJECT_CODE
+		    AND I.USER_EMAIL = #{userEmail, jdbcType=VARCHAR}
+            AND H.SPRINT_STATUS = 'N'
+		  GROUP BY H.SPRINT_CODE , J.PROJECT_NAME, P.USER_PROJECT_CODE
+          ORDER BY H.SPRINT_CODE)A
+          LEFT JOIN ( 
+               SELECT ROUND(COUNT(DECODE(TASK_HIST_VALUE, '완료', 1))/COUNT(*)*100 , 0) AS SPRINT_TASK_COUNT
+                     ,SPRINT_CODE
+                 FROM (
+                  SELECT L.TASK_CODE,L.SPRINT_CODE
+                      , MAX(H.TASK_HIST_VALUE) KEEP (DENSE_RANK LAST ORDER BY H.TASK_HIST_UPDATE_DATE, H.TASK_HIST_UPDATE_TIME) AS TASK_HIST_VALUE
+                      , H.TASK_CATEGORY_CODE 
+                      , H.USER_CODE
+                      , H.MASTER_CODE
+                   FROM TASK_HISTORY H
+                   JOIN TASK_LIST L ON (H.TASK_CODE = L.TASK_CODE)
+                  GROUP BY L.TASK_CODE, H.TASK_CATEGORY_CODE, H.USER_CODE, H.MASTER_CODE, L.SPRINT_CODE)
+              WHERE TASK_CATEGORY_CODE='I' group by SPRINT_CODE) B
+        ON (A.SPRINT_CODE = B.SPRINT_CODE)
+        ORDER BY DECODE(SPRINT_TYPE, '02', 1, '01', 2, '03', 3),1
+	</select>
+
+	<insert id="insertSprint" parameterType="Sprint">
+		INSERT INTO SPRINT_LIST 
+		VALUES(SEQ_SPRINT.NEXTVAL, TO_CHAR(SYSDATE + 9/24, 'YYYY-MM-DD'), #{userProjectCode, jdbcType=INTEGER}, TO_CHAR(SYSDATE + 9/24, 'hh24:mi:ss'))
+	</insert>
+	
+	<select id="selectSprintOne" resultMap="sprintHistoryResultSet" parameterType="Sprint">
+		  SELECT *         
+   		 FROM (SELECT  I.USER_EMAIL USER_EMAIL, I.USER_PWD USER_PWD, I.USER_NAME USER_NAME, I.USER_CODE USER_CODE, I.USER_PHONE USER_PHONE, I.USER_COMP_NAME USER_COMP_NAME, I.USER_COMP_DEPT USER_COMP_DEPT, I.USER_COMP_JOB USER_COMP_JOB, I.USER_ENROLL_DATE USER_ENROLL_DATE, I.USER_STATUS USER_STATUS, I.USER_MANAGER_YN USER_MANAGER_YN, I.USER_ENROLL_TIME USER_ENROLL_TIME, T.USER_TEAM_DATE USER_TEAM_DATE, T.USER_TEAM_YN USER_TEAM_YN, T.USER_CODE USER_CODE_0, T.TEAM_CODE TEAM_CODE, T.USER_TEAM_CODE USER_TEAM_CODE, T.USER_TEAM_TIME USER_TEAM_TIME, P.PROJECT_CODE PROJECT_CODE, P.USER_PROJECT_UPDATE_DATE USER_PROJECT_UPDATE_DATE, P.USER_PROJECT_UPDATE_TIME USER_PROJECT_UPDATE_TIME, P.USER_PROJECT_STATUS USER_PROJECT_STATUS, P.USER_PROJECT_CODE USER_PROJECT_CODE, P.USER_TEAM_CODE USER_TEAM_CODE_1, P.USER_PROJECT_AUTHORITY USER_PROJECT_AUTHORITY, S.SPRINT_CODE SPRINT_CODE, S.SPRINT_CREATE_DATE SPRINT_CREATE_DATE, S.USER_PROJECT_CODE USER_PROJECT_CODE_2, S.SPRINT_CREATE_TIME SPRINT_CREATE_TIME, H.SPRINT_HIST_UPDATE_DATE SPRINT_HIST_UPDATE_DATE, H.SPRINT_NAME SPRINT_NAME, H.SPRINT_TYPE SPRINT_TYPE, H.SPRINT_EXPECT_PERIOD SPRINT_EXPECT_PERIOD, H.SPRINT_HIST_CODE SPRINT_HIST_CODE, H.SPRINT_CODE SPRINT_CODE_3, H.SPRINT_HIST_UPDATE_TIME SPRINT_HIST_UPDATE_TIME, H.SPRINT_INTRO SPRINT_INTRO, H.SPRINT_STATUS SPRINT_STATUS, J.PROJECT_CODE PROJECT_CODE_4, J.PROJECT_NAME PROJECT_NAME, J.PROJECT_CREATE_DATE PROJECT_CREATE_DATE, J.PROJECT_CREATE_TIME PROJECT_CREATE_TIME
+				  FROM USER_INFO I,
+				       USER_TEAM_LIST T ,
+				       USER_PROJECT_LIST P,
+				       SPRINT_LIST S ,
+				       SPRINT_HISTORY H,
+				       PROJECT_LIST J
+				  WHERE I.USER_CODE = T.USER_CODE
+				    AND T.USER_TEAM_CODE = P.USER_TEAM_CODE
+				    AND P.USER_PROJECT_CODE =  S.USER_PROJECT_CODE
+				    AND S.SPRINT_CODE = H.SPRINT_CODE
+				    AND P.PROJECT_CODE = J.PROJECT_CODE
+				    AND S.SPRINT_CODE = #{sprintCode, jdbcType=NUMERIC}		   
+				   ORDER BY H.SPRINT_HIST_UPDATE_DATE DESC, H.SPRINT_HIST_UPDATE_TIME DESC)
+          WHERE ROWNUM = 1
 	</select>
 	
-
+	<select id="selectSprintTask" resultMap="TaskHistoryResultSet" parameterType="TaskHistory">
+	     SELECT L.TASK_CODE
+		      , MAX(H.TASK_HIST_VALUE) KEEP (DENSE_RANK LAST ORDER BY H.TASK_HIST_UPDATE_DATE, H.TASK_HIST_UPDATE_TIME) AS TASK_HIST_VALUE
+		      , H.TASK_CATEGORY_CODE 
+		      , H.USER_CODE
+      		  , H.MASTER_CODE
+		   FROM TASK_HISTORY H
+		   JOIN TASK_LIST L ON (H.TASK_CODE = L.TASK_CODE)
+		  WHERE L.SPRINT_CODE = #{sprintCode, jdbcType=NUMERIC}
+		  GROUP BY L.TASK_CODE, H.TASK_CATEGORY_CODE, H.USER_CODE, H.MASTER_CODE
+	</select>
+	
+	<insert id="updateSprint" parameterType="Sprint">
+		 INSERT INTO SPRINT_HISTORY 
+		 VALUES(TO_CHAR(SYSDATE + 9/24, 'YYYY-MM-DD'),#{sprintName, jdbcType=VARCHAR},DEFAULT,#{sprintExpectPeriod, jdbcType=VARCHAR},SEQ_SPRINT_HIST.NEXTVAL,
+		 #{sprintCode, jdbcType=NUMERIC} ,TO_CHAR(SYSDATE + 9/24, 'hh24:mi:ss'),#{sprintIntro, jdbcType=VARCHAR}, DEFAULT)
+	</insert>
+	
+	<insert id="updateFinish" parameterType="Sprint">
+		 INSERT INTO SPRINT_HISTORY 
+		 VALUES(TO_CHAR(SYSDATE + 9/24, 'YYYY-MM-DD'),#{sprintName, jdbcType=VARCHAR},'03',#{sprintExpectPeriod, jdbcType=VARCHAR},SEQ_SPRINT_HIST.NEXTVAL,
+		 #{sprintCode, jdbcType=NUMERIC} ,TO_CHAR(SYSDATE + 9/24, 'hh24:mi:ss'),#{sprintIntro, jdbcType=VARCHAR}, DEFAULT)
+	</insert>
+	
+	<insert id="updateStart" parameterType="Sprint">
+		 INSERT INTO SPRINT_HISTORY 
+		 VALUES(TO_CHAR(SYSDATE + 9/24, 'YYYY-MM-DD'),#{sprintName, jdbcType=VARCHAR},'02',#{sprintExpectPeriod, jdbcType=VARCHAR},SEQ_SPRINT_HIST.NEXTVAL,
+		 #{sprintCode, jdbcType=NUMERIC} ,TO_CHAR(SYSDATE + 9/24, 'hh24:mi:ss'),#{sprintIntro, jdbcType=VARCHAR}, DEFAULT)
+	</insert>
+	
+	<select id="selectSprintType" resultMap="sprintHistoryResultSet" parameterType="Sprint">
+		SELECT SPRINT_TYPE_YN
+        FROM(SELECT MAX(H.SPRINT_TYPE) KEEP (DENSE_RANK LAST ORDER BY H.SPRINT_HIST_UPDATE_DATE, H.SPRINT_HIST_UPDATE_TIME) AS SPRINT_TYPE_YN
+		  FROM SPRINT_HISTORY H,
+               USER_INFO I,
+		       USER_TEAM_LIST T ,
+		       USER_PROJECT_LIST P,
+		       SPRINT_LIST S ,
+		       PROJECT_LIST J
+		  WHERE I.USER_CODE = T.USER_CODE
+		    AND T.USER_TEAM_CODE = P.USER_TEAM_CODE
+		    AND P.USER_PROJECT_CODE =  S.USER_PROJECT_CODE
+		    AND S.SPRINT_CODE = H.SPRINT_CODE
+		    AND P.PROJECT_CODE = J.PROJECT_CODE
+            AND H.SPRINT_STATUS = 'N'
+            AND P.USER_PROJECT_CODE = #{userProjectCode, jdbcType=INTEGER}
+		  GROUP BY H.SPRINT_CODE)
+	</select>
+	
 </mapper>

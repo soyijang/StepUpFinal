@@ -36,8 +36,7 @@
 	width: 100%;
 	height: 60px;
 	vertical-align: middle;
-	line-height: 80px;
-	padding-left: 15%;
+	line-height: 60px;
 	box-sizing: border-box;	
 	font-family: Noto Sans KR;
 	font-style: normal;
@@ -191,6 +190,9 @@
     float: right;
     margin-right: 13px;
     margin-top: -17px;
+}
+#contentBox2-btn:hover{
+	cursor: pointer;	
 }
 /* 프로젝트 추가 버튼 아이콘 */
 .icon_file_plus{
@@ -382,6 +384,13 @@
 	color: #959595;
 	
 }
+/* 마우스 올렸을 때 효과 */
+.deleteBtn:hover{
+	cursor: pointer;
+	background:gray;
+	color:white;
+}
+
 /* delete버튼 안쪽 점 icon */
 #icon_more horizontalicon{
 	height: 3px;
@@ -432,12 +441,58 @@
 	widtd: 9%;	
 }
 
-/*모달창 관련 css*/
-.modalTable{
-	width: 1000px;
+/*모달창 관련 css --------------------------------------------------*/
+
+/* 필수 입력 표시 빨간색 별 */
+.red-star{
+	color: red;
+	font-size: 13px;
+	display: inline;
+	margin-left: 5px;
+}
+
+/* 프로젝트 생성 관련 모달창 ------------------------------------------ */
+.modalTable0{
+	width: 504px;
 	margin-top: 40px;
-  }
-.modal {
+	border-collapse: collapse;
+}
+.modalTable0 tr{
+	margin-bottom: 35px;
+}
+.modalTable0 tr:nth-child(2n+1){
+	height: 50px;
+	width: 504px;
+	padding: 0;
+	box-sizing: border-box;
+}
+.modalTable0 tr:nth-child(2n){
+	height: 50px;
+	width: 100%;
+	padding: 0;
+	box-sizing: border-box;
+}
+.modalTable0 tr:nth-child(2n+1) td{
+	height: 50px;
+	width: 252px;
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+.modalTable0 tr:nth-child(2){
+	height: 50px;
+	width: 504px;
+	padding: 0;
+	box-sizing: border-box;
+}
+.modalTable0 tr:nth-child(2) td{
+	height: 50px;
+	width: 100%;
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+.modal0 {
     display: none; /* Hidden by default */
     position: fixed; /* Stay in place */
     z-index: 2; /* Sit on top */
@@ -451,13 +506,173 @@
   }
   
   /* Modal Content/Box */
-.modal-content {
+.modal-content0 {
     background-color: #fefefe;
-    margin: 15% auto; /* 15% from the top and centered */
+    margin: 10% auto; /* 15% from the top and centered */
     padding: 10px;
     border: 1px solid #c4c4c4;
-    width: 35%; /* Could be more or less, depending on screen size */
+    /* 모달창 크기 */
+    width: 576px;
+    height: 620px;
     z-index:1;
     border-radius: 10px;
     box-shadow: 0 0 4px #cccccc;
   }
+/* 저장, 닫기 버튼  */
+.modal0-ok, .modal0-close{
+	/* 모달 버튼 css */
+	margin-top: 13px;
+	margin-left: 10px;
+	margin-right: 10px;
+	/* 여기서 부터 공통 css */
+	border: 0;
+	font-size: 8px;
+	text-align: center; 
+}
+.modalTable0 tr:nth-child(2) input{
+     width: 100%;;
+     height: 28px;
+     border: 1px solid #D5D5D5;
+     border-radius: 5px;
+     background-image: url('searchicon.png');
+     background-size: 18px 18px;
+     background-repeat: no-repeat;
+     background-position: 95% center;
+     padding: 0;
+     box-sizing: border-box;
+} 
+
+.modalTable0 tr:nth-child(4) input, .modalTable0 tr:nth-child(6) input{
+     width: 90%;;
+     height: 28px;
+     border: 1px solid #D5D5D5;
+     border-radius: 5px;
+     background-image: url('searchicon.png');
+     background-size: 18px 18px;
+     background-repeat: no-repeat;
+     background-position: 95% center;
+} 
+.modalTable0 tr:nth-child(8) input{
+     width: 100%;;
+     height: 100px;
+     border: 1px solid #D5D5D5;
+     border-radius: 5px;
+     background-image: url('searchicon.png');
+     background-size: 18px 18px;
+     background-repeat: no-repeat;
+     background-position: 95% center;	
+}
+  
+#search{
+     width: 117px;
+     height: 28px;
+     border: 1px solid #D5D5D5;
+     border-radius: 5px;
+     background-image: url('searchicon.png');
+     background-size: 18px 18px;
+     background-repeat: no-repeat;
+     background-position: 95% center;
+}  
+.modaltitle0{
+	margin-left: 40px;
+}
+/* 동그란 버튼 css */
+ .circle1 {
+     background:#C4C4C4;
+     height: 30px;
+     width: 30px;
+     border-radius: 50%;
+     border: 0;
+     font-size: 8px;
+     color: white;
+     text-align: center;      
+ }
+ .circle2 {
+     background:#DD0351;
+     height: 30px;
+     width: 30px;
+     border-radius: 50%;
+     border: 0;
+     font-size: 8px;
+     color: white;
+     text-align: center;
+ }
+ .circle3 {
+     background:#2B2B49;
+     height: 30px;
+     width: 30px;
+     border-radius: 50%;
+     border: 0;
+     font-size: 8px;
+     color: white;
+     text-align: center;
+ }
+
+
+/*-----------------------------------------------------------------*/
+
+/* 프로젝트 삭제 관련 모달창 ------------------------------------------ */
+.modalTable1{
+	width: 500px;
+	text-align: center;
+  }
+.modalTable1 td{
+	width: 100%;
+	height: 40px;
+}  
+
+.modal1 {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 2; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  }
+  
+  /* Modal Content/Box */
+.modal-content1 {
+    background-color: #fefefe;
+    margin: 25% auto; /* 15% from the top and centered */
+    padding: 10px;
+    border: 1px solid #c4c4c4;
+    width: 35%; /* Could be more or less, depending on screen size */
+    height: 13%;
+    z-index:1;
+    border-radius: 10px;
+    box-shadow: 0 0 4px #cccccc;
+  }
+.modal1-ok, .modal1-close{
+	margin-top: 13px;
+	margin-left: 10px;
+	margin-right: 10px;
+}
+
+/*-----------------------------------------------------------------*/
+
+
+/* 버튼 css */
+.rectangle6 {
+    background:#DD0351;
+    height: 30px;
+    width: 80px;
+    border-radius: 10px;
+    border: 0;
+    font-size: 8px;
+    color: white;
+    text-align: center;     
+}
+.rectangle7 {
+    background:white;
+    height: 30px;
+    width: 80px;
+    border-radius: 10px;
+    border: 1px solid #DD0351;
+    font-size: 8px;
+    color:#DD0351;
+    text-align: center;     
+}
