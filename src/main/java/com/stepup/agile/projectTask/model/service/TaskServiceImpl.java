@@ -1,11 +1,15 @@
 package com.stepup.agile.projectTask.model.service;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.stepup.agile.projectManage.model.vo.Project;
 import com.stepup.agile.projectTask.model.dao.TaskDao;
 import com.stepup.agile.projectTask.model.vo.TaskHistory;
 import com.stepup.agile.projectTask.model.vo.TaskList;
@@ -21,22 +25,28 @@ public class TaskServiceImpl implements TaskService {
 	public TaskDao td;
 	
 	@Override
-	public int createTask(Member m, TaskList t) {
-		
-		return td.createTask(sqlSession, m, t);
+	public int createTask(Member m) {
+		System.out.println("service : " + m);
+		return td.createTask(sqlSession, m);
 	}
 
 	@Override
-	public int updateTitle(Member m, TaskHistory th) {
-
-		return td.updateTitle(sqlSession, m, th);
+	public int updateTitle(Member m) {
+		return td.updateTitle(sqlSession, m);
 	}
 
 	@Override
-	public String selectTitle(int taskHistCode, TaskHistory th) {
-		
-		return td.selectTitle(sqlSession, taskHistCode, th);
+	public List<TaskHistory> selectUserTask(Member m) {
+		return td.selectUserTask(sqlSession, m);
 	}
+
+	@Override
+	public String selectPjNonTask(Map<String, Object> map) {
+		return td.selectPjNonTask(sqlSession, map);
+	}
+
+	
+
 	
 
 }

@@ -1,6 +1,8 @@
 package com.stepup.agile.projectTask.model.vo;
 
-import com.stepup.agile.projectBacklog.model.vo.Sprint;
+import com.stepup.agile.projectManage.model.vo.Project;
+import com.stepup.agile.projectManage.model.vo.ProjectHistory;
+import com.stepup.agile.userInfo.model.vo.Member;
 
 public class TaskList implements java.io.Serializable{
 	private int taskCode;
@@ -11,10 +13,14 @@ public class TaskList implements java.io.Serializable{
 	private int taskMaster;
 	private int taskUser;
 	
+	private Member member;
+	private Project project;
+	private ProjectHistory projectHistory;
+	
 	public TaskList() {}
 
 	public TaskList(int taskCode, String taskCreateDate, String taskLevel, int sprintCode, String taskCreateTime,
-			int taskMaster, int taskUser) {
+			int taskMaster, int taskUser, Member member, Project project, ProjectHistory projectHistory) {
 		super();
 		this.taskCode = taskCode;
 		this.taskCreateDate = taskCreateDate;
@@ -23,6 +29,9 @@ public class TaskList implements java.io.Serializable{
 		this.taskCreateTime = taskCreateTime;
 		this.taskMaster = taskMaster;
 		this.taskUser = taskUser;
+		this.member = member;
+		this.project = project;
+		this.projectHistory = projectHistory;
 	}
 
 	public int getTaskCode() {
@@ -81,10 +90,40 @@ public class TaskList implements java.io.Serializable{
 		this.taskUser = taskUser;
 	}
 
+	
+	public Project getProject() {
+		return project;
+	}
+
+	public void setProject(Project project) {
+		this.project = project;
+	}
+
+	public ProjectHistory getProjectHistory() {
+		return projectHistory;
+	}
+
+	public void setProjectHistory(ProjectHistory projectHistory) {
+		this.projectHistory = projectHistory;
+	}
+
+	
+	public Member getMember() {
+		return member;
+	}
+
+	public void setMember(Member member) {
+		this.member = member;
+	}
+
 	@Override
 	public String toString() {
 		return "TaskList [taskCode=" + taskCode + ", taskCreateDate=" + taskCreateDate + ", taskLevel=" + taskLevel
 				+ ", sprintCode=" + sprintCode + ", taskCreateTime=" + taskCreateTime + ", taskMaster=" + taskMaster
-				+ ", taskUser=" + taskUser + "]";
+				+ ", taskUser=" + taskUser + ", member=" + member + ", project=" + project + ", projectHistory="
+				+ projectHistory + "]";
 	}
+
+	
+	
 }
