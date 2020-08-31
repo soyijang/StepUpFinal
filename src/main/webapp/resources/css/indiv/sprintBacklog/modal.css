@@ -18,11 +18,8 @@
   
   /* Modal Content/Box */
 .modal-content {
-	position: fixed; /* Stay in place */
-	top: 4%;
-	left : 30%;
     background-color: #fefefe;
-    margin: 15% auto; /* 15% from the top and centered */
+    margin: 10% auto; /* 15% from the top and centered */
     padding: 10px;
     border: 1px solid #c4c4c4;
     width: 40%; /* Could be more or less, depending on screen size */
@@ -32,7 +29,7 @@
   }
   
   .updatecontent{
-  	height: 50%;
+  	height: 65%;
   }
   
  .modaltitle{
@@ -62,6 +59,24 @@
  	line-height: 30px;
  }
  
+ .updateFinishClose {
+ 	text-align: center;
+ 	display: inline-block;
+ 	vertical-align: middle;
+ 	line-height: 30px;
+ }
+ .updateStartClose {
+ 	text-align: center;
+ 	display: inline-block;
+ 	vertical-align: middle;
+ 	line-height: 30px;
+ }
+ 
  button{
     outline: 0;
  }
+ 
+ .SprintUpdateModalTable{
+ 	width: 90%;
+ }
+ 

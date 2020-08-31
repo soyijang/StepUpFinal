@@ -1,4 +1,9 @@
 
+ body{
+ 	font-family: Noto Sans KR;
+ }
+
+
 	#ListState{
 		margin-top: 20px;
 	}
@@ -86,6 +91,8 @@
 			width : 30%;
 			height: 50px;
 			vertical-align: top;
+			font-size: large;
+    		font-weight: bold;
 		}
 		
 		.SprintButtonArea{
@@ -110,9 +117,10 @@
 		/*--------------------------------------*/
 		
 		#taskListArea{
-			width : 75%;
+			width : 73%;
 			height : 630px;
 			float: right;
+			margin-right : 10px;
 			display: inline-block;
 		}
 		
@@ -123,39 +131,77 @@
 			display: inline-block;
 		}
 		
-		#sprintInfo{
+		#sprintInfoNon{
 			display: inline-block;
-			background-color: lightgray;
+			background-color: #ebebeb;
 			width: 100%;
-			height: 50px;
+			height: 58px;
 			border-radius: 5px;
 			
 		}
 		
-		#sprintCode{
+		#sprintInfoNon > div > table > tbody > tr > td{
+			font-weight: bold;	
+		}
+		
+		#sprintCodeNon{
 			display: inline-block;
 			width: 60px;
 			height: 30px;
 			background-color: gray;
 			border-radius: 5px;
 			text-align: center;
-			margin: 10px;
+			margin: 15px;
+			float: left;
+		}
+		
+		#sprintCodeStarted{
+			display: inline-block;
+			width: 60px;
+			height: 30px;
+		/* 	background-color: #25282B; */
+			color: white;
+			border-radius: 5px;
+			font-weight : bold;
+			text-align: center;
+			margin: 15px;
+			float: left;
+				 background-image:
+	   -webkit-linear-gradient(top, 
+	                           rgba(255, 255, 255, .25), 
+	                           rgba(0, 0, 0, .25)),
+	   -webkit-linear-gradient(left, #09c, #DD0351);
+		}
+		
+		#sprintCodeFinished{
+			display: inline-block;
+			width: 60px;
+			height: 30px;
+			color: white;
+			background-color: #DD0351;
+			border-radius: 5px;
+			text-align: center;
+			margin: 15px;
 			float: left;
 		}
 		
 		#sprintInfomation{
 			display: inline-block;
-			margin-top: 3px;
+			margin-top: 8px;
 		}
 		
 		#sprintCounting{
 			display: inline-block;
 			float: right;
-			padding: 10px;
+			padding: 15px;
+		}
+		
+		#sprintCounting > table > tbody>tr>td{
+			font-size: 15px;
 		}
 		
 		#sprintInfomation > table > tbody> tr>td{
-			font-size: small;
+			font-size: 13px;
 		}
 		
 		#sprintTaskList > table{
@@ -166,17 +212,18 @@
 			border: 1px solid lightgray;
 			text-align: center;
 			border-spacing: 12px;
+			
 		}
 		
 		#sprintTaskList > table > thead {
 			font-weight: bold;
 		}
 		
-		.TaskName{
+		.taskName{
 			text-align: left;
 		}
 		
-		.TaskStatus1{
+		.taskStatus1{
 			border-radius: 5px;
 			background-color: #DD0351;
 			padding: 5px;
@@ -184,9 +231,16 @@
 			
 		}
 		
-		.TaskStatus2{
+		.taskStatus2{
 			border-radius: 5px;
 			background-color: #25282B;
+			color : white;
+			padding: 5px;
+		}
+		
+		.taskStatus3{
+			border-radius: 5px;
+			background-color: gray;
 			color : white;
 			padding: 5px;
 		}
@@ -227,9 +281,9 @@
 		}
 		
 		.more{
-			background:#C4C4C4;
+			background:#ebebeb;
             height: 30px;
-            width: 30px;
+            width: 10px;
             border-radius: 5px;
             border: 0;
             font-size: 13px;
@@ -271,3 +325,109 @@
 			outline: 0;
 			cursor: pointer;
 		}
+		
+		.wrap-loading{ /*화면 전체를 어둡게*/
+		    position: fixed;
+		    left:0;
+		    right:0;
+		    top:0;
+		    bottom:0;
+		    background: rgba(0,0,0,0.2); /*not in ie */
+		    filter: progid:DXImageTransform.Microsoft.Gradient(startColorstr='#20000000', endColorstr='#20000000');    /* ie */
+		}
+		
+		.wrap-loading div{ /*로딩 이미지*/
+		    position: fixed;
+		    top:50%;
+		    left:50%;
+		    margin-left: -21px;
+		    margin-top: -21px;
+		}
+		
+		.wrap-loading div > img {
+			width: 20%;
+			height: 20%;
+		}
+		
+		.display-none{ /*감추기*/
+		    display:none;
+	    }
+	    
+	    #updateSprintName{
+	    	
+	    	border-bottom: 1px solid black;
+	    }
+	    
+	    .updateInput{
+	    	float:left;
+    		width: 270px;
+    		border-radius : 5px;
+    		height: 35px;
+    		background-color: lightgray;
+    		color: black;
+    		font-weight: normal;
+    		padding-left: 10px;
+	    }
+	    
+	     .updateInput:focus {
+    		transition: all ease 0.3s 0s;
+    		background-color: #DD0351;
+    		color: white;
+    		font-weight: normal;
+    	}
+    	
+    	
+	.updateSprintIntro{
+		 	height: 150px;	
+	}
+	
+	.SprintUpdateModalTable > tbody > tr {
+		height: 50px;
+		font-size: small;
+	}
+	
+	
+	.sprintBtnF{
+	float: right;
+	margin-left: 5px;
+	}
+	
+	.sprintBtnS{
+	float: right;
+	margin-left: 5px;
+	}
+	
+	progress[value] {
+		width: 160px;
+	  height: 20px;
+	    -webkit-appearance: none;
+   appearance: none;
+	  
+	  
+	}
+	
+	progress[value]::-webkit-progress-value {
+ 	 background-image:
+	/*    -webkit-linear-gradient(-45deg, 
+	                           transparent 33%, rgba(0, 0, 0, .1) 33%, 
+	                           rgba(0,0, 0, .1) 66%, transparent 66%), */
+	   -webkit-linear-gradient(top, 
+	                           rgba(255, 255, 255, .25), 
+	                           rgba(0, 0, 0, .25)),
+	   -webkit-linear-gradient(left, #09c, #DD0351);
+    border-radius: 3px; 
+    background-color : #f9f9f9;
+    background-size: 35px 20px, 100% 100%, 100% 100%;
+	animation: animate-stripes 5s linear infinite;
+}
+	.progress-bar {
+  background-color: whiteSmoke;
+  border-radius: 2px;
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.25) inset;
+
+  width: 250px;
+  height: 20px;
+  
+  position: relative;
+  display: block;
+}
