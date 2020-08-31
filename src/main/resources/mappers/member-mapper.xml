@@ -20,12 +20,12 @@
 	</resultMap>
 	
 	<resultMap type="com.stepup.agile.userInfo.model.vo.UserProjectList" id="UserProjectListResultSet">
-		<id property="userProjectCode" column="USER_TEAM_CODE"/>
+		<id property="userProjectCode" column="USER_PROJECT_CODE"/>
 		<result property="userProjectUpdateDate" column="USER_PROJECT_UPDATE_DATE"/>
 		<result property="userProjectUpdateTime" column="USER_PROJECT_UPDATE_TIME"/>
 		<result property="userProjectStatus" column="USER_PROJECT_STATUS"/>
-		<result property="projectCode" column="USER_PROJECT_CODE"/>
-		<result property="userTeamCode" column="PROJECT_CODE"/>
+		<result property="projectCode" column="PROJECT_CODE"/>
+		<result property="userTeamCode" column="USER_TEAM_CODE"/>
 		<result property="userProjectAuthority" column="USER_PROJECT_AUTHORITY"/>
 	</resultMap>
 	
