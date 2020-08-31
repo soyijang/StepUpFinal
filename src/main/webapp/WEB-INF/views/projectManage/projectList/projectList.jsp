@@ -94,7 +94,7 @@
 								<tr>
 									<td>
 										<div class="project-name">
-											<c:out value="${item.projectName}"/>
+											${item.projectName}
 										</div>
 									</td>
 									<td>

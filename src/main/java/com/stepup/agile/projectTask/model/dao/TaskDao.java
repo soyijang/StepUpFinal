@@ -25,5 +25,4 @@ public interface TaskDao {
 	String selectPjNonTask(SqlSessionTemplate sqlSession, Map<String, Object> map);
 
 
-
 }
