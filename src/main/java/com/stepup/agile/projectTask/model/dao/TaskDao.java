@@ -14,14 +14,15 @@ import com.stepup.agile.userInfo.model.vo.Member;
 
 public interface TaskDao {
 
-	int createTask(SqlSessionTemplate sqlSession, Member m);
+	int createTask(SqlSessionTemplate sqlSession, Member m, TaskList t);
 
-	int updateTitle(SqlSessionTemplate sqlSession, Member m);
+	int updateTitle(SqlSessionTemplate sqlSession, Member m, TaskHistory th);
+
+	String selectTitle(SqlSessionTemplate sqlSession, int taskHistCode, TaskHistory th);
 
 	List<TaskHistory> selectUserTask(SqlSessionTemplate sqlSession, Member m);
 
 	String selectPjNonTask(SqlSessionTemplate sqlSession, Map<String, Object> map);
-
 
 
 }

@@ -24,10 +24,12 @@ public class ProjectController {
 	//프로젝트 메인페이지로 포워딩 (해당 멤버의 project list 조회 후 view 이동) 
 	@RequestMapping("showProjectMain.pj")
 	public String selectProject(Model model,  @ModelAttribute("loginUser") Member m) {
-		//System.out.println("controller" + m);
+		System.out.println("controller" + m.getUserEmail());
 		List<Project> projectList;
 		//프로젝트 리스트 (프로젝트 코드 정보 담김)
+		System.out.println("컨트롤");
 		projectList = ps.selectProjectList(m);
+		System.out.println(projectList.size());
 		//System.out.println("controller " + projectList);
 		
 		/*

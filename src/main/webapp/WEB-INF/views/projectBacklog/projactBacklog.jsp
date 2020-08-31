@@ -478,6 +478,26 @@
 	}
 </script>
 	<script type="text/javascript">
+	
+		/* task Detail 모달관련 설정 */
+	    var taskModalYn = document.getElementById("taskModalYn");
+	    var taskDetailModal = document.getElementById("taskDetailModal");
+	    var taskspan = document.getElementsByClassName("taskclose")[0];
+	    var taskspan2 = document.getElementsByClassName("taskCancel")[0];
+	    
+	    taskspan.onclick = function() {
+	        $(taskDetailModal).css('display','none');
+	    }
+	    taskspan2.onclick = function() {
+	        $(taskModalYn).css('display','none');
+	    } 
+	    
+	     $('.taskapply').click(function(){
+	       $(taskModalYn).fadeIn(300); 
+	       $(taskModalYn).css('display','block');
+	    }); 
+	     
+	    var taskCode = $('#taskCode').val();
 		
 		/* 좌측목록 */
 	  	var sprintListFin = document.getElementsByClassName("sprintListFin")[0];

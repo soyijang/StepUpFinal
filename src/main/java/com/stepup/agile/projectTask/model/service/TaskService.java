@@ -12,17 +12,15 @@ import com.stepup.agile.userInfo.model.vo.Member;
 
 public interface TaskService {
 	
-	int createTask(Member m);
+	int createTask(Member m, TaskList t);
 
-	int updateTitle(Member m);
+	int updateTitle(Member m, TaskHistory th);
+
+	String selectTitle(int taskHistCode, TaskHistory th);
 
 	List<TaskHistory> selectUserTask(Member m);
 
 	String selectPjNonTask(Map<String, Object> map);
 
-
-
-
-	
 
 }

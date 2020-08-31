@@ -17,15 +17,30 @@ import com.stepup.agile.userInfo.model.vo.Member;
 public class TaskDaoImpl implements TaskDao {
 
 	@Override
-	public int createTask(SqlSessionTemplate sqlSession, Member m) {
-		System.out.println("dao : " + sqlSession.insert("Task.createTask", m));
-		return sqlSession.insert("Task.createTask", m);
-	}
-	
-	@Override
-	public int updateTitle(SqlSessionTemplate sqlSession, Member m) {
+	public int createTask(SqlSessionTemplate sqlSession, Member m, TaskList t) {
+		t.setTaskUser(m.getUserCode());
 		
-		return sqlSession.update("Task.updateTaskTitle", m);
+		/* int taskCode = sqlSession.insert("Task.createTask", t); */
+		sqlSession.insert("Task.createTask", t);
+		
+		int taskCode = t.getTaskCode();
+		
+		return taskCode;
+	}
+
+	@Override
+	public int updateTitle(SqlSessionTemplate sqlSession, Member m, TaskHistory th) {
+		th.setUserCode(m.getUserCode());
+		return sqlSession.insert("Task.updateTaskTitle", th);
+	}
+
+	@Override
+	public String selectTitle(SqlSessionTemplate sqlSession, int taskHistCode, TaskHistory th) {
+		
+		
+		System.out.println(th);
+		System.out.println(taskHistCode);
+		return sqlSession.selectOne("Task.selectTaskTitle", th);
 	}
 
 	@Override
