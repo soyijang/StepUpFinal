@@ -1,5 +1,7 @@
 package com.stepup.agile.projectTask.model.vo;
 
+import com.stepup.agile.projectBacklog.model.vo.Sprint;
+
 public class TaskList implements java.io.Serializable{
 	private int taskCode;
 	private String taskCreateDate;
@@ -85,6 +87,4 @@ public class TaskList implements java.io.Serializable{
 				+ ", sprintCode=" + sprintCode + ", taskCreateTime=" + taskCreateTime + ", taskMaster=" + taskMaster
 				+ ", taskUser=" + taskUser + "]";
 	}
-	
-	
 }

@@ -4,18 +4,6 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="Sprint">
 
-<!-- SPRINT_HISTORY 테이블-->	
-	<resultMap type="com.stepup.agile.projectBacklog.model.vo.SprintHistory" id="sprintHistoryResultSet">
-		<id property="sprintHistCode" column="SPRINT_HIST_CODE"/>
-		<result property="sprintHistUpdateDate" column="SPRINT_HIST_UPDATE_DATE"/>
-		<result property="sprintName" column="SPRINT_NAME"/>
-		<result property="sprintType" column="SPRINT_TYPE"/>
-		<result property="sprintExpectPeriod" column="SPRINT_EXPECT_PERIOD"/>
-		<result property="sprintCode" column="SPRINT_CODE"/>
-		<result property="sprintHistUpdateTime" column="SPRINT_HIST_UPDATE_TIME"/>
-		<result property="sprintIntro" column="SPRINT_INTRO"/>
-		<result property="sprintStatus" column="SPRINT_STATUS"/>
-	</resultMap>
 	
 <!-- SPRINT LIST 테이블 -->
 	<resultMap type="com.stepup.agile.projectBacklog.model.vo.Sprint" id="sprintResultSet">
@@ -62,13 +50,48 @@
 		<result property="userManagerYn" column="USER_MANAGER_YN"/>
 		<result property="userEnrollTime" column="USER_ENROLL_TIME"/>
 	</resultMap>	
+
+<!-- Project_List 테이블 -->
+	<resultMap type="com.stepup.agile.projectManage.model.vo.Project" id="projectResultSet">
+		<id property="projectCode" column="PROJECT_CODE"/>
+		<result property="projectName" column="PROJECT_NAME"/>
+		<result property="createDate" column="PROJECT_CREATE_DATE"/>
+		<result property="createTime" column="PROJECT_CREATE_TIME"/>
+	</resultMap>
 	
-<!-- ---------------------------------------쿼리--------------------------------------------- -->
-	<select id="selectSprint" resultMap="sprintResultSet" parameterType="Sprint">
-		SELECT *
-		  FROM SPRINT_LIST
-		 WHERE USER_PROJECT_CODE = {#}
-		 
+	
+<!-- SPRINT_HISTORY 테이블-->	
+	<resultMap type="com.stepup.agile.projectBacklog.model.vo.SprintHistory" id="sprintHistoryResultSet">
+		<id property="sprintHistCode" column="SPRINT_HIST_CODE"/>
+		<result property="sprintHistUpdateDate" column="SPRINT_HIST_UPDATE_DATE"/>
+		<result property="sprintName" column="SPRINT_NAME"/>
+		<result property="sprintType" column="SPRINT_TYPE"/>
+		<result property="sprintExpectPeriod" column="SPRINT_EXPECT_PERIOD"/>
+		<result property="sprintCode" column="SPRINT_CODE"/>
+		<result property="sprintHistUpdateTime" column="SPRINT_HIST_UPDATE_TIME"/>
+		<result property="sprintIntro" column="SPRINT_INTRO"/>
+		<result property="sprintStatus" column="SPRINT_STATUS"/>
+		<collection property="sprint" resultMap="sprintResultSet"/>
+		<collection property="userProjectList" resultMap="UserProjectListResultSet"/>
+		<collection property="userTeamList" resultMap="UserTeamListResultSet"/>
+		<collection property="member" resultMap="memberResultSet"/>
+		<collection property="project" resultMap="projectResultSet"/>
+	</resultMap>
+	
+	<select id="selectSprint" resultMap="sprintHistoryResultSet" parameterType="Sprint">
+		SELECT  *
+		  FROM USER_INFO I,
+		       USER_TEAM_LIST T ,
+		       USER_PROJECT_LIST P,
+		       SPRINT_LIST S ,
+		       SPRINT_HISTORY H,
+		       PROJECT_LIST J
+		  WHERE I.USER_CODE = T.USER_CODE
+		    AND T.USER_TEAM_CODE = P.USER_TEAM_CODE
+		    AND P.USER_PROJECT_CODE =  S.USER_PROJECT_CODE
+		    AND S.SPRINT_CODE = H.SPRINT_CODE
+		    AND P.PROJECT_CODE = J.PROJECT_CODE
+		    AND I.USER_EMAIL = #{userEmail, jdbcType=VARCHAR}
 	</select>
 	
 
