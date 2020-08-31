@@ -9,6 +9,9 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/common/nav.js"></script>
 
 <style>
+	body {
+	  font-family : 'Noto Sans KR';
+	}
 	#backimg {
 		width:100%;
 		height: 200px;

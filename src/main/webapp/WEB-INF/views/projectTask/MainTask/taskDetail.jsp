@@ -10,6 +10,9 @@
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/indiv/projectTask/mainTask/taskDetail.css">
 <style>
+	body {
+		font-family : 'Noto Sans KR';
+	}
 	 .wrap-loading{ /*화면 전체를 어둡게*/
           position: fixed;
           left:0;
