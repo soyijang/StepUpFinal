@@ -215,13 +215,13 @@
 
 
 #n-tk{
-	color:#F04758;
+	color:#C4C4C4;
 }
 #tk-ing{
-	color:#00BF9C;
+	color:#DD0351;
 }
 #co-tk{
-	color:#008CE3;
+	color:#2B2B49;
 }
 #to-tk{
 	color: black;
@@ -263,6 +263,7 @@ span.center{
 #cht-st{
 	display: inline-block;
 	height:80%;
+	width:40%;
 }
 .cht-tt{
 	margin-bottom: 40px;
@@ -270,7 +271,7 @@ span.center{
 }
 #no-ch, #ing-ch, #com-ch{
 	display: inline-block;
-	margin-left: 60px;
+	margin-left: 30px;
 }
 #no-ch-to, #ing-ch-to{
 	margin-left: 60px;

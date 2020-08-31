@@ -50,20 +50,20 @@
 	                             <tr>
 	                            	<td rowspan="2" style=" width:50px;"><img src="/agile/resources/images/profile/dayoon_202008152056.png"></td>
 	                            	<td rowspan="2" style=" width:170px;"><div name="projectName">${ i.projectName }</div></td>
-	                            	<td style=" width:110px; background-color:#FEF4E5; border-radius:7px;">진행중 이슈</td>
+	                            	<td style=" width:140px; background-color:#2B2B49; border-radius:7px; color:white;">진행중 테스크</td>
 	                            	<td style=" width:30px; ">${ pjList2[status.index].taskCnt }</td>
 	                            </tr>
 	                            <tr>
-	                            	<td style="width:110px; background-color:#FFDFDF; border-radius:7px;">미해결 이슈</td>
+	                            	<td style="width:140px; background-color:#C4C4C4; border-radius:7px;">미진행 테스크</td>
 	                            	<td style=" width:30px;">${ i.taskCnt }</td>
 	                            </tr>
 	                            <tr>
-	                            	<td colspan="3" style="">status</td>
+	                            	<td colspan="3" style="">Status</td>
 	                            	<c:if test="${ 0 ne i.taskCnt }">
-	                            	<td style="text-align:right; width:50px;"><img src="/agile/resources/images/indiv/main/userInfo/userProjectMain/img_status_ing.png" width="70px;" height="20px;"></td>
+	                            	<td style="text-align:right; width:30px;"><img src="/agile/resources/images/indiv/main/userInfo/userProjectMain/img_status_ing2.png" width="70px;" height="20px;"></td>
 	                            	</c:if>
 	                            	<c:if test="${ 0 eq i.taskCnt and 0 eq pjList2[status.index].taskCnt }">
-	                            	<td style="text-align:right; width:50px;"><img src="/agile/resources/images/indiv/main/userInfo/userProjectMain/img_status_non.png" width="70px;" height="20px;"></td>
+	                            	<td style="text-align:right; width:30px;"><img src="/agile/resources/images/indiv/main/userInfo/userProjectMain/img_status_non2.png" width="70px;" height="20px;"></td>
 	                            	</c:if>
 	                            </tr>
 	                            </tbody>
@@ -130,13 +130,13 @@
                       
                          				<td style="width:800px;">Status</td>
                          				<c:if test="${ taskStatus[status.index] eq '진행중' }">
-                         				<td style="width:240px;"><img src="/agile/resources/images/indiv/main/userInfo/userProjectMain/img_status_ing.png" width="70px;" height="20px;"></td>
+                         				<td style="width:240px;"><img src="/agile/resources/images/indiv/main/userInfo/userProjectMain/img_status_ing2.png" width="70px;" height="20px;"></td>
                          				</c:if>
                          				<c:if test="${ taskStatus[status.index] eq '완료' }">
-                         				<td style="width:240px;"><img src="/agile/resources/images/indiv/main/userInfo/userProjectMain/img_status_com.png" width="70px;" height="20px;"></td>
+                         				<td style="width:240px;"><img src="/agile/resources/images/indiv/main/userInfo/userProjectMain/img_status_com2.png" width="70px;" height="20px;"></td>
                          				</c:if>
                          				<c:if test="${ taskStatus[status.index] eq '미진행' }">
-                         				<td style="width:240px;"><img src="/agile/resources/images/indiv/main/userInfo/userProjectMain/img_status_non.png" width="70px;" height="20px;"></td>
+                         				<td style="width:240px;"><img src="/agile/resources/images/indiv/main/userInfo/userProjectMain/img_status_non2.png" width="70px;" height="20px;"></td>
                          				</c:if>
                          				<c:if test="${ empty taskStatus[status.index] }">
                          				<td style="width:240px;"><img src="/agile/resources/images/indiv/main/userInfo/userProjectMain/img_status_nonexist.png" width="75px;" height="20px;"></td>
@@ -157,7 +157,7 @@
                          <div id="cht-cont">
                             <div id="cht">
                                <div class="pie-chart1"><span class="center"><p id="to-ch">${ nonTaskCnt + ingTaskCnt + comTaskCnt }</p><p id="to-ch-ti">전체업무</p></span></div>
-                                <div id="cht-st" style="width:50%">
+                                <div id="cht-st">
 	                               <div id="no-ch" class="cht-tt"><img src="/agile/resources/images/indiv/main/userInfo/userProjectMain/img_over_task.png" width="10px;" height="10px;"> 미진행</div><span id="no-ch-to">${ nonTaskCnt }</span><br>
 		                           <div id="ing-ch" class="cht-tt"><img src="/agile/resources/images/indiv/main/userInfo/userProjectMain/img_ing_task.png" width="10px;" height="10px;"> 진행중 </div><span id="ing-ch-to">${ ingTaskCnt }</span><br>
 		                           <div id="com-ch" class="cht-tt"><img src="/agile/resources/images/indiv/main/userInfo/userProjectMain/img_com_task.png" width="10px;" height="10px;"> 완료</div><span id="com-ch-to">${ comTaskCnt }</span>
@@ -366,28 +366,29 @@
     var com=$("#com-ch-to").text();
     var tot=$("#to-ch").text();
     
-    var non2 = non/tot*100;
-    var ing2 = ing/tot*100;
-    var com2 = com/tot*100;
-    
-    
-    
+    var num1 = non/tot*100;
+    var num2 = ing/tot*100;
+    var num3 = com/tot*100;
     
     
     var func1 = setInterval(function(){
-    	var s;
-    	var m;
-    	var l = Math.max(non2, ing2, com2);
+    	var max = 0;
+    	var mid = 0;
+    	var min = 0;
     	
-    	if(Math.min(non2, ing2, com2))
+    	  max = (num1>num2)&&(num1>num3)?num1:(num3>num2?num3:num2);
+          //num1이 num2보다 큰지 비교,num1이 num3보다 큰지 비교 둘 다 참이면 num1이 가장크다. 
+          min = (num2>num1)&&(num3>num1)?num1:(num2>num3?num3:num2);
+          //num2이 num1보다 큰지 비교,num3이 num1보다 큰지 비교해서 num1이 제일 작으면 저장 아니면 뒤의 수식 수행
+          mid = (num1>num2)?((num1>num3)?((num2>num3)?num2:num3):num1):((num2>num3)?((num1>num3)?num1:num3):num2);
     	
-        if(i<Math.ceil(non2)){
+        if(i<min){
             color1(i);
             i++;
-        } else if(i<Math.ceil(non2) + Math.ceil(ing2)){
+        } else if(i<mid){
             color2(i);
             i++;
-        } else if(i<Math.ceil(non2) + Math.ceil(ing2) + Math.ceil(com2)){
+        } else if(i<max){
             color3(i);
             i++;
         } else {
