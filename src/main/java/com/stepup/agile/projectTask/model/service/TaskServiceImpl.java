@@ -38,7 +38,7 @@ public class TaskServiceImpl implements TaskService {
 	}
 
 	@Override
-	public List<TaskList> selectBugTask(Member m) {
+	public List<TaskHistory> selectBugTask(Member m) {
 		return td.selectBugTask(sqlSession, m);
 	}
 
@@ -65,7 +65,10 @@ public class TaskServiceImpl implements TaskService {
 		return td.deleteCloneBug(sqlSession, map);
 	}
 
-
+	@Override
+	public List<TaskHistory> searchBug(HashMap<String, Object> map) {
+		return td.searchBug(sqlSession, map);
+	}
 
 
 

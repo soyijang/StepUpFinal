@@ -16,10 +16,10 @@
 <script type="module" src="${pageContext.request.contextPath}/resources/js/indiv/projectTask/bug/ckeditor.js"></script>
 
 <!-- 테ㅡ트 -->
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script> -->
 </head>
 <body>
  <%@ include file="../../common/menubar.jsp" %>
@@ -28,15 +28,16 @@
         <div id="contentTitle">
             <div id="projectTitle2">프로젝트 / 너무졸려요</div>
             <div id="menuTitle">이슈 게시판</div>
-            <div id="search-area">
-            	<div id="bug-search"><input type="text" size="10" style="height:25px; border: 1px solid #E8E8E8; border-radius:8px;"></div>
-            	<div id="user-search">
+        </div>
+        <div id="contentBox">
+			<div id="bug-list-area">
+			<div id="bug-search"><input type="text" id="searchBug" onkeyup="searchBug();"size="10"></div>
+			<div id="user-search">
             		<div class="dropdown">
 				        <div class="select">
 				              <span id="user-list">담당자</span>
 				          <i class="fa fa-chevron-left"></i>
 				        </div>
-				        <!-- <input type="hidden" name="employee" id="employeeTcode"> -->
 				        <ul class="dropdown-menu">
 				          <li id="work">심</li>
 				          <li id="rest">다</li>
@@ -44,33 +45,18 @@
 				        </ul>
 				      </div>
             	</div>
-            	<div id="sta-search">
-            		<div class="dropdown">
-				        <div class="select">
-				              <span id="employeeStatus">상태</span>
-				          <i class="fa fa-chevron-left"></i>
-				        </div>
-				        <!-- <input type="hidden" name="employee" id="employeeTcode"> -->
-				        <ul class="dropdown-menu">
-				          <li id="non-bug">미진행</li>
-				          <li id="ing-bug">진행중</li>
-				          <li id="com-bug">완료</li>
-				        </ul>
-				      </div>
-            	</div>
-            </div>
-        </div>
-        <div id="contentBox">
-			<div id="bug-list-area">
 				<div id="tb_wrap">
 				<div id="bug-list">
 					<p id="bug-title">Tasks</p>
 					<c:forEach var="i" items="${ bgList }" varStatus="status">
+					<div id="bug-list-wrap">
 					<div class="bug-list-detail">
 						<div id="bug-ti-list" class="bug-ti-list">${ i.taskHistValue }</div>
+						<input type="hidden" value="${ i.sprint.sprintCode }" id="sprint-code">
 						<div id="bug-con-list">
 							<div id="bugicon" class="bug-con-list-area"></div><div class="bug-con-list-area" id="bug-code-list1">&nbsp;&nbsp;BUG - ${ i.taskCode }</div><div id="user-pro-lit" class="bug-con-list-area"><img src="/agile/resources/images/profile/dayoon_202008152056.png"></div>
 						</div>
+					</div>
 					</div>
 					</c:forEach>
 				</div>
@@ -94,7 +80,6 @@
 								              <button class="clone-delete-btn"><img src="/agile/resources/icon/common/icon_more%20horizontalicon.png" width="20px;" height="20px;"></button>
 								          <i class="fa fa-chevron-left"></i>
 								        </div>
-								        <!-- <input type="hidden" name="employee" id="employeeTcode"> -->
 								        <ul class="dropdown-menu2">
 								          <li id="clone-bug">복제</li>
 								          <li id="delete-bug">삭제</li>
@@ -104,7 +89,7 @@
 								</td>
 							</tr>
 							<tr>
-								<td><div id="add-link-area"><button id="rectangle"><img src="/agile/resources/icon/common/icon_clip.png" width="15px;" height="15px;">첨부</button>&nbsp;<button id="rectangle"><img src="/agile/resources/icon/common/icon_link.png"  width="15px;" height="15px;">연결</button></div></td>
+								<td><div id="add-link-area"><div id="bug-status"></div></div></td>
 								<td colspan="2"></td>
 							</tr>
 							</tbody>
@@ -147,7 +132,7 @@
     </div>
 </body>
 <script>
-	//담당자, 상태 드롭다운
+	//담당자 드롭다운
 	$('.dropdown').click(function() {
 		$(this).attr('tabindex', 1).focus();
 		$(this).toggleClass('active');
@@ -235,6 +220,7 @@
 	var bugcode;
 	var bcode;
 	var bugYN;
+	var bugStatus;
 	var bugCont;
 	var sprintCode;
 	
@@ -253,10 +239,9 @@
 
 	
 	//버그리스트 누르면 상세 영역에 버그제목하고 코드가져오기
-	$(".bug-list-detail").click(function(){
-		
+	$(document).on("click", ".bug-list-detail", function(){
 		var div = "";
-		div += '<div id="bugicon" style="margin-left: 30px; margin-top:25px;">&nbsp;&nbsp;</div> ' + bugcode;
+		div += '<div id="epicicon" style="margin-left:30px; margin-top:25px; display:inline-block;"></div> SPRINT-' + sprintCode + ' /' + '<div id="bugicon" style="margin-left: 10px; margin-top:25px;">&nbsp;&nbsp;</div> ' + bugcode;
 		$("#bg-num").html(div);
 		
 		var div2 = "";
@@ -285,16 +270,29 @@
 						bugTitle = value.taskHistValue;
 					} else if(value.taskCategoryCode == "G"){
 						bugYN = value.taskHistValue;
-					} 
+					} else if(value.taskCategoryCode == "I"){
+						bugStatus = value.taskHistValue;
+					}
 					  sCode = value.sprint;
 					}); 
-				 
+				 	console.log("버그 진행 : " + bugStatus);
+				 	
 				 	sprintCode = sCode.sprintCode;
 					console.log(sprintCode);
 					
 				 var div3 = "";
 				 div3 += bugCont + '</div>';
 					$("#detail-cont").html(div3);
+					
+				var div4 = "";
+				if(bugStatus == "완료"){
+					div4 += '<img src="/agile/resources/images/indiv/main/projectTask/bug/img_bug_com_status.png" width="70px;" height="20px;"></div>';
+				} else if(bugStatus == "미진행"){
+					div4 += '<img src="/agile/resources/images/indiv/main/projectTask/bug/img_bug_non_status.png" width="70px;" height="20px;"></div>';
+				} else if(bugStatus == "진행중"){
+					div4 += '<img src="/agile/resources/images/indiv/main/projectTask/bug/img_bug_ing_status.png" width="70px;" height="20px;"></div>';
+				}
+				$("#bug-status").html(div4);	
 				 
 				return data;
 			}, error: function(data){
@@ -308,6 +306,7 @@
 		});
 		
 	});
+
 	
 	//복제 클릭 이벤트
 	$(document).on("click","#clone-bug",function(){
@@ -354,7 +353,88 @@
 	        }
 		});
 	});
+
 	
+	//검색 이벤트
+	 function searchBug(){
+		if(window.event.keyCode == 13){
+			console.log("제발");
+			var searchBug = $("#searchBug").val();
+			console.log(searchBug);
+			$.ajax({
+				url:"searchBug.tk",
+				type:"post",
+				data:{"taskHistValue" : searchBug},
+				dataType : "json",
+				success: function(data){
+					//검색어에 내용있을 때 결과
+					var searchArr = data.searchBugList2;
+					console.log(data.searchBugList2);
+					
+					var searchBugTitle =[];
+					var searchBugContent;
+					var searchCnt = 0;
+					
+					var searchTaskCode = [];
+					var searchTitle = $.each(searchArr, function(index, value){
+							searchBugTitle += value.taskHistValue;
+							searchCnt++;
+							if(searchCnt != index){
+								searchBugTitle += ",";
+							}
+							
+							searchTaskCode += value.taskCode;
+							if(searchCnt != index){
+								searchTaskCode += ",";
+							}
+						
+					});
+					
+					
+					//아무것도 입력안하고 검색했을 때
+					var searchArr2 = data.searchBugList1;
+					
+					var searchTitle = $.each(searchArr2, function(index, value){
+							searchBugTitle += value.taskHistValue;
+							searchCnt++;
+							if(searchCnt != index){
+								searchBugTitle += ",";
+							}
+							
+							searchTaskCode += value.taskCode;
+							if(searchCnt != index){
+								searchTaskCode += ",";
+							}
+					});
+					
+					
+					var titleArr = searchBugTitle.split(",");
+					var tCodeArr = searchTaskCode.split(",");
+					
+					
+					$(".bug-list-detail").remove();
+					 for(var i = 0; i < searchCnt; i++){
+						 $("#bug-list-wrap").append('<div class="bug-list-detail">'
+						+ '<div id="bug-ti-list" class="bug-ti-list">' + titleArr[i] + '</div><input type="hidden" value="' + sprintCode + '"id="sprint-code"><div id="bug-con-list">'	 
+						+ '<div id="bugicon" class="bug-con-list-area"></div><div class="bug-con-list-area" id="bug-code-list1">&nbsp;&nbsp;BUG - ' + tCodeArr[i]
+						+  '</div><div id="user-pro-lit" class="bug-con-list-area"><img src="/agile/resources/images/profile/dayoon_202008152056.png"></div></div></div>' 
+						 );
+					} 
+						
+						
+				},
+				error: function(data){
+					console.log("실패");
+				},
+				 beforeSend : function(){
+		            $('.wrap-loading').removeClass('display-none');
+		        },
+		          complete : function(){
+		            $('.wrap-loading').addClass('display-none');
+		        }
+			});
+		}
+	} 
 	
 	
 	</script>

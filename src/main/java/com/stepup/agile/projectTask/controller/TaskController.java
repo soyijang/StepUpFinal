@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.stepup.agile.projectTask.model.service.TaskService;
+import com.stepup.agile.projectTask.model.vo.TaskHistory;
 import com.stepup.agile.projectTask.model.vo.TaskList;
 import com.stepup.agile.userInfo.model.vo.Member;
 
@@ -54,7 +55,7 @@ public class TaskController {
    @RequestMapping("selectBugTask.tk")
    public String selectBugTask(Model model, @ModelAttribute("loginUser") Member m) {
 	   
-	   List<TaskList> bglist = ts.selectBugTask(m);
+	   List<TaskHistory> bglist = ts.selectBugTask(m);
 	   
 	   model.addAttribute("bgList", bglist);
 	  
@@ -85,6 +86,9 @@ public class TaskController {
 	   map.put("taskCode", tCode);
 	   map.put("userCode", m.getUserCode());
 	   map.put("sprintCode", sprintCode);
+	   
+	   System.out.println(map.get("userCode"));
+	   System.out.println(map.get("sprintCode"));
 	   
 	   int NewTaskCode = ts.insertCloneBug(map);
 	   
@@ -123,6 +127,30 @@ public class TaskController {
 		   return mv;
 	   } else {
 		   System.out.println("에러..");
+		   return mv;
+	   }
+	   
+   }
+   @RequestMapping("searchBug.tk")
+   public ModelAndView searchBug(ModelAndView mv, @ModelAttribute("loginUser") Member m, String taskHistValue) {
+	   HashMap<String, Object> map = new HashMap<String, Object>();
+	   map.put("taskCont", taskHistValue);
+	   map.put("userCode", m.getUserCode());
+	   List<TaskHistory> searchBugList1 = new ArrayList<TaskHistory>();
+	   List<TaskHistory> searchBugList2 = new ArrayList<TaskHistory>();
+	   
+	   if(taskHistValue.equals("")) {
+		   searchBugList1 = ts.selectBugTask(m);
+		   mv.addObject("searchBugList1", searchBugList1);
+		   mv.setViewName("jsonView");
+		   
+		   return mv;
+	   } else {
+		   searchBugList2 = ts.searchBug(map);
+		   
+		   mv.addObject("searchBugList2", searchBugList2);
+		   mv.setViewName("jsonView");
+		   
 		   return mv;
 	   }
 	   

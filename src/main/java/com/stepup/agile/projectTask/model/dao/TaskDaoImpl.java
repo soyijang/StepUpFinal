@@ -26,7 +26,7 @@ public class TaskDaoImpl implements TaskDao {
 	}
 
 	@Override
-	public List<TaskList> selectBugTask(SqlSessionTemplate sqlSession, Member m) {
+	public List<TaskHistory> selectBugTask(SqlSessionTemplate sqlSession, Member m) {
 		
 		return sqlSession.selectList("Task.selectBugTask", m);
 	}
@@ -75,11 +75,10 @@ public class TaskDaoImpl implements TaskDao {
 		return sqlSession.delete("Task.deleteCloneBug", map);
 	}
 
-	
-
-	
-
-	
+	@Override
+	public List<TaskHistory> searchBug(SqlSessionTemplate sqlSession, HashMap<String, Object> map) {
+		return sqlSession.selectList("Task.searchBug", map);
+	}
 
 
 }

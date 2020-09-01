@@ -15,7 +15,7 @@ public interface TaskDao {
 
 	int updateTitle(SqlSessionTemplate sqlSession, Member m);
 
-	List<TaskList> selectBugTask(SqlSessionTemplate sqlSession, Member m);
+	List<TaskHistory> selectBugTask(SqlSessionTemplate sqlSession, Member m);
 
 	List<TaskList> selectBugCont(SqlSessionTemplate sqlSession, HashMap<String, Object> map);
 
@@ -24,6 +24,9 @@ public interface TaskDao {
 	int insertCloneBug2(SqlSessionTemplate sqlSession, HashMap<String, Object> map2);
 
 	int deleteCloneBug(SqlSessionTemplate sqlSession, HashMap<String, Object> map);
+
+	List<TaskHistory> searchBug(SqlSessionTemplate sqlSession, HashMap<String, Object> map);
+
 
 
 }

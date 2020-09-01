@@ -13,7 +13,7 @@ public interface TaskService {
 
 	int updateTitle(Member m);
 
-	List<TaskList> selectBugTask(Member m);
+	List<TaskHistory> selectBugTask(Member m);
 
 	List<TaskList> selectBugCont(HashMap<String, Object> map);
 
@@ -23,6 +23,7 @@ public interface TaskService {
 
 	int deleteCloneBug(HashMap<String, Object> map);
 
+	List<TaskHistory> searchBug(HashMap<String, Object> map);
 	
 
 }
