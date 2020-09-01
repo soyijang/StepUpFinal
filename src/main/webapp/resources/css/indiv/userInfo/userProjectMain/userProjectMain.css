@@ -339,3 +339,7 @@ span.center{
 	font-size: 15px;
 	background-color: #FFF2F2;
 }
+#chartdiv {
+  width: 100%;
+  height: 400px;
+}

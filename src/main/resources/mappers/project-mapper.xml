@@ -94,13 +94,16 @@
 			  FROM USER_INFO I,
 			       USER_TEAM_LIST T,
 			       USER_PROJECT_LIST P,
-			       PROJECT_LIST PL
+			       PROJECT_LIST PL,
+			       PROJECT_HISTORY PH
 			 WHERE I.USER_CODE = T.USER_CODE
 			   AND T.USER_TEAM_CODE = P.USER_TEAM_CODE
 			   AND P.USER_PROJECT_CODE = PL.PROJECT_CODE
+			   AND P.PROJECT_CODE = PH.PROJECT_CODE
 			   AND I.USER_CODE = (SELECT USER_CODE 
 	                                FROM USER_INFO
-	                               WHERE USER_EMAIL = #{userEmail, jdbcType=VARCHAR})) A
+	                               WHERE USER_EMAIL = #{userEmail})
+	           AND TO_CHAR(SYSDATE, 'YYYY-MM-DD') <![CDATA[<=]]> PH.PROJECT_END_DATE AND TO_CHAR(SYSDATE, 'YYYY-MM-DD') <![CDATA[>=]]> PH.PROJECT_START_DATE) A
 	    LEFT JOIN (SELECT COUNT(TASK_HIST_VALUE) AS TASKCNT, PROJECT_NAME
 	          FROM (SELECT TK.TASK_CODE, PS.PROJECT_NAME
 	                     , MAX(TS.TASK_HIST_VALUE) KEEP (DENSE_RANK LAST ORDER BY TS.TASK_HIST_UPDATE_DATE, TS.TASK_HIST_UPDATE_TIME) AS TASK_HIST_VALUE
@@ -110,15 +113,18 @@
 	                       SPRINT_LIST S,
 	                       TASK_LIST TK,
 	                       TASK_HISTORY TS,
-	                       PROJECT_LIST PS
+	                       PROJECT_LIST PS,
+	                       PROJECT_HISTORY PH
 	                 WHERE I.USER_CODE = T.USER_CODE
 	                   AND T.USER_TEAM_CODE = P.USER_TEAM_CODE
 	                   AND P.USER_PROJECT_CODE = S.USER_PROJECT_CODE
 	                   AND P.PROJECT_CODE = PS.PROJECT_CODE
+	                   AND PS.PROJECT_CODE = PH.PROJECT_CODE
 	                   AND S.SPRINT_CODE = TK.SPRINT_CODE
 	                   AND TK.TASK_CODE = TS.TASK_CODE
-	                   AND I.USER_CODE = 14
+	                   AND I.USER_CODE = #{userCode}
 	                   AND TS.TASK_CATEGORY_CODE = 'I'
+	                   AND TO_CHAR(SYSDATE, 'YYYY-MM-DD') <![CDATA[<=]]> PH.PROJECT_END_DATE AND TO_CHAR(SYSDATE, 'YYYY-MM-DD') <![CDATA[>=]]> PH.PROJECT_START_DATE
 	              GROUP BY TK.TASK_CODE, TS.TASK_CATEGORY_CODE, PS.PROJECT_NAME)
 	          WHERE TASK_HIST_VALUE LIKE '%미진행%'
 	          GROUP BY PROJECT_NAME) B                         
@@ -131,13 +137,16 @@
 			  FROM USER_INFO I,
 			       USER_TEAM_LIST T,
 			       USER_PROJECT_LIST P,
-			       PROJECT_LIST PL
+			       PROJECT_LIST PL,
+			       PROJECT_HISTORY PH
 			 WHERE I.USER_CODE = T.USER_CODE
 			   AND T.USER_TEAM_CODE = P.USER_TEAM_CODE
 			   AND P.USER_PROJECT_CODE = PL.PROJECT_CODE
+			   AND P.PROJECT_CODE = PH.PROJECT_CODE
 			   AND I.USER_CODE = (SELECT USER_CODE 
 	                                FROM USER_INFO
-	                               WHERE USER_EMAIL = #{userEmail, jdbcType=VARCHAR})) A
+	                               WHERE USER_EMAIL LIKE #{userEmail})
+	           AND TO_CHAR(SYSDATE, 'YYYY-MM-DD') <![CDATA[<=]]> PH.PROJECT_END_DATE AND TO_CHAR(SYSDATE, 'YYYY-MM-DD') <![CDATA[>=]]> PH.PROJECT_START_DATE) A
 	    LEFT JOIN (SELECT COUNT(TASK_HIST_VALUE) AS TASKCNT, PROJECT_NAME
 	          FROM (SELECT TK.TASK_CODE, PS.PROJECT_NAME
 	                     , MAX(TS.TASK_HIST_VALUE) KEEP (DENSE_RANK LAST ORDER BY TS.TASK_HIST_UPDATE_DATE, TS.TASK_HIST_UPDATE_TIME) AS TASK_HIST_VALUE
@@ -147,15 +156,18 @@
 	                       SPRINT_LIST S,
 	                       TASK_LIST TK,
 	                       TASK_HISTORY TS,
-	                       PROJECT_LIST PS
+	                       PROJECT_LIST PS,
+	                       PROJECT_HISTORY PH
 	                 WHERE I.USER_CODE = T.USER_CODE
 	                   AND T.USER_TEAM_CODE = P.USER_TEAM_CODE
 	                   AND P.USER_PROJECT_CODE = S.USER_PROJECT_CODE
 	                   AND P.PROJECT_CODE = PS.PROJECT_CODE
+	                   AND PS.PROJECT_CODE = PH.PROJECT_CODE
 	                   AND S.SPRINT_CODE = TK.SPRINT_CODE
 	                   AND TK.TASK_CODE = TS.TASK_CODE
-	                   AND I.USER_CODE = 14
+	                   AND I.USER_CODE = #{userCode}
 	                   AND TS.TASK_CATEGORY_CODE = 'I'
+	                   AND TO_CHAR(SYSDATE, 'YYYY-MM-DD') <![CDATA[<=]]> PH.PROJECT_END_DATE AND TO_CHAR(SYSDATE, 'YYYY-MM-DD') <![CDATA[>=]]> PH.PROJECT_START_DATE
 	              GROUP BY TK.TASK_CODE, TS.TASK_CATEGORY_CODE, PS.PROJECT_NAME)
 	          WHERE TASK_HIST_VALUE LIKE '%진행중%'
 	          GROUP BY PROJECT_NAME) B                         
@@ -197,7 +209,7 @@
 		                              AND P.PROJECT_CODE = J.PROJECT_CODE
 		                              AND J.PROJECT_CODE = H.PROJECT_CODE 
 		                              AND H.PROJECT_STATUS = 'N'
-		                              AND I.USER_EMAIL = #{userEmail, jdbcType=VARCHAR})
+		                              AND I.USER_EMAIL LIKE #{userEmail})
 		    ORDER BY J.PROJECT_CODE
 	</select>
 	

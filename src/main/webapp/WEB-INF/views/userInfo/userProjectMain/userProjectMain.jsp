@@ -158,11 +158,14 @@
                             <div id="cht">
                                <div class="pie-chart1"><span class="center"><p id="to-ch">${ nonTaskCnt + ingTaskCnt + comTaskCnt }</p><p id="to-ch-ti">전체업무</p></span></div>
                                 <div id="cht-st">
-	                               <div id="no-ch" class="cht-tt"><img src="/agile/resources/images/indiv/main/userInfo/userProjectMain/img_over_task.png" width="10px;" height="10px;"> 미진행</div><span id="no-ch-to">${ nonTaskCnt }</span><br>
+	                               <div id="no-ch" class="cht-tt"><img src="/agile/resources/images/indiv/main/userInfo/userProjectMain/img_non_task.png" width="10px;" height="10px;"> 미진행</div><span id="no-ch-to">${ nonTaskCnt }</span><br>
 		                           <div id="ing-ch" class="cht-tt"><img src="/agile/resources/images/indiv/main/userInfo/userProjectMain/img_ing_task.png" width="10px;" height="10px;"> 진행중 </div><span id="ing-ch-to">${ ingTaskCnt }</span><br>
 		                           <div id="com-ch" class="cht-tt"><img src="/agile/resources/images/indiv/main/userInfo/userProjectMain/img_com_task.png" width="10px;" height="10px;"> 완료</div><span id="com-ch-to">${ comTaskCnt }</span>
 	                           </div>
                             </div>
+                           <!--  <script src="https://www.amcharts.com/lib/4/core.js"></script>
+							<script src="https://www.amcharts.com/lib/4/charts.js"></script>
+							<div id="chartdiv"></div> -->
                          </div>
                       </div>
                       <!-- 차트 영역 끝 -->
@@ -361,34 +364,42 @@
 	//차트
 	$(window).ready(function(){
     var i=1;
-    var non=$("#no-ch-to").text();
-    var ing=$("#ing-ch-to").text();
-    var com=$("#com-ch-to").text();
-    var tot=$("#to-ch").text();
+    var non=$("#n-tk").text();
+    var ing=$("#tk-ing").text();
+    var com=$("#co-tk").text();
+    var tot=$("#to-tk").text();
     
-    var num1 = non/tot*100;
-    var num2 = ing/tot*100;
-    var num3 = com/tot*100;
+    console.log(non);
+    console.log(ing);
+    console.log(com);
+    var num1 = Math.ceil(non/tot*100);
+    var num2 = Math.ceil(ing/tot*100);
+    var num3 = Math.ceil(com/tot*100);
     
+    var max = 0;
+	var mid = 0;
+	var min = 0;
+	
+	  max = (num1>num2)&&(num1>num3)?num1:(num3>num2?num3:num2);
+      //num1이 num2보다 큰지 비교,num1이 num3보다 큰지 비교 둘 다 참이면 num1이 가장크다. 
+      min = (num2>num1)&&(num3>num1)?num1:(num2>num3?num3:num2);
+      //num2이 num1보다 큰지 비교,num3이 num1보다 큰지 비교해서 num1이 제일 작으면 저장 아니면 뒤의 수식 수행
+      mid = (num1>num2)?((num1>num3)?((num2>num3)?num2:num3):num1):((num2>num3)?((num1>num3)?num1:num3):num2);
+	
+      console.log(max);
+      console.log(mid);
+      console.log(min);
     
     var func1 = setInterval(function(){
-    	var max = 0;
-    	var mid = 0;
-    	var min = 0;
     	
-    	  max = (num1>num2)&&(num1>num3)?num1:(num3>num2?num3:num2);
-          //num1이 num2보다 큰지 비교,num1이 num3보다 큰지 비교 둘 다 참이면 num1이 가장크다. 
-          min = (num2>num1)&&(num3>num1)?num1:(num2>num3?num3:num2);
-          //num2이 num1보다 큰지 비교,num3이 num1보다 큰지 비교해서 num1이 제일 작으면 저장 아니면 뒤의 수식 수행
-          mid = (num1>num2)?((num1>num3)?((num2>num3)?num2:num3):num1):((num2>num3)?((num1>num3)?num1:num3):num2);
-    	
-        if(i<min){
+          
+        if(i<10){
             color1(i);
             i++;
-        } else if(i<mid){
+        } else if(i<20){
             color2(i);
             i++;
-        } else if(i<max){
+        } else if(i<30){
             color3(i);
             i++;
         } else {
@@ -402,6 +413,7 @@
     console.log(tot);
 	});
 
+	
 	function color1(i){
 	    $(".pie-chart1").css({
 	        "background":"conic-gradient(#C4C4C4 0% "+i+"%, #ffffff "+i+"% 100%)"
@@ -420,5 +432,41 @@
 	        });
 	     
 	}
+	/* 
+	// Create chart instance
+	var chart = am4core.create("chartdiv", am4charts.PieChart);
+
+	// Add data
+	chart.data = [{
+	  "task": "미진행",
+	  "color" : am4core.color("#C4C4C4"),
+	  "value": non
+	}, {
+	  "task": "진행중",
+	  "color" : am4core.color("#C4C4C4"),
+	  "value": ing
+	}, {
+	  "task": "완료",
+	  "color" : am4core.color("#DD0351"),
+	  "value": com
+	}];
+
+	// Add and configure Series
+	var pieSeries = chart.series.push(new am4charts.PieSeries());
+	pieSeries.dataFields.value = "value";
+	pieSeries.dataFields.category = "task";
+	pieSeries.labels.template.disabled = true;
+	pieSeries.ticks.template.disabled = true;
+
+	chart.legend = new am4charts.Legend();
+	chart.legend.position = "right";
+
+	chart.innerRadius = am4core.percent(55);
+
+	var label = pieSeries.createChild(am4core.Label);
+	label.text = "${values.value.sum}";
+	label.horizontalCenter = "middle";
+	label.verticalCenter = "middle";
+	label.fontSize = 40; */
 </script>
 </html>

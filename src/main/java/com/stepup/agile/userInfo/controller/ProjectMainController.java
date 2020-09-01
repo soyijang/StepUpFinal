@@ -57,6 +57,8 @@ public class ProjectMainController {
 			}
 		}
 		
+		System.out.println(taskTitle);
+		
 		int nonTaskCnt=0;
 		int ingTaskCnt=0;
 		int comTaskCnt=0;
@@ -70,6 +72,9 @@ public class ProjectMainController {
 			}
 		}
 		
+	System.out.println(nonTaskCnt);
+	System.out.println(ingTaskCnt);
+	System.out.println(comTaskCnt);
 		
 	model.addAttribute("pjList", pjName);
 	model.addAttribute("pjList2", pjName2);
