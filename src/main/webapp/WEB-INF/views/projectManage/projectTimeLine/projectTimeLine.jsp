@@ -68,11 +68,9 @@
                 			<div id="epic">에픽</div>
                 		</div>
                 		<div id="epic-title-cont">
-                			<c:forEach var="j" items="${ EpicList }" >
 	                			<div id="ep-ti">
-	               					
+	               					스프린트 제목
 	                			</div>	
-                			</c:forEach>
                 			<div id="epic-add-btn">
                 				<button id="ep-ad-btn">
                 					<img src="/agile/resources/icon/common/icon_circle_plus.png" width="15px;" height="15px;">
@@ -105,6 +103,14 @@
              </div>
 </body>
 <script>
+	//간트차트 누르면 테스크 insert 되게
+	$(document).on('click', '.grid-row', function(){
+		var bar = '<rect x="1140" y="106" width="228" height="20" rx="3" ry="3" class="bar"></rect>';
+		$('.bar').append(bar);
+	
+	});
+
+
 	var tasks = [
 		
 		{
@@ -124,6 +130,7 @@
 		},
 		
 	]
+	
 	var gantt_chart = new Gantt(".gantt-target", tasks, {
 		on_click: function (task) {
 			console.log(task);
