@@ -77,7 +77,6 @@ public class TaskController {
 	 * String taskTitle = ts.selectTitle(taskHistCode, th);
 	 * System.out.println(taskTitle); return "redirect:showSprintDetail.st"; }
 	 */	
-	
 	@RequestMapping("selectBugTask.tk")
 	   public String selectBugTask(Model model, @ModelAttribute("loginUser") Member m) {
 		   
@@ -181,5 +180,4 @@ public class TaskController {
 		   }
 		   
 	   }
-	
 }

@@ -162,7 +162,7 @@
                   GROUP BY TK.TASK_CODE, TS.TASK_CATEGORY_CODE)
           WHERE TASK_HIST_VALUE LIKE '%미진행%'
 	</select>
-	
+
 	<select id="selectBugTask" resultMap="selectUserTaskRSet" parameterType="com.stepup.agile.projectTask.model.vo.TaskHistory">
 		 SELECT TK.TASK_CODE, S.SPRINT_CODE
 		      , MAX(TS.TASK_HIST_VALUE) KEEP (DENSE_RANK LAST ORDER BY TS.TASK_HIST_UPDATE_DATE, TS.TASK_HIST_UPDATE_TIME) AS TASK_HIST_VALUE

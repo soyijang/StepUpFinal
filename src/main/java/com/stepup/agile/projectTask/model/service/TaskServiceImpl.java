@@ -70,6 +70,7 @@ public class TaskServiceImpl implements TaskService {
 
 	@Override
 	public int insertCloneBug2(HashMap<String, Object> map2) {
+	
 		return td.insertCloneBug2(sqlSession, map2);
 	}
 
@@ -80,8 +81,8 @@ public class TaskServiceImpl implements TaskService {
 
 	@Override
 	public List<TaskHistory> searchBug(HashMap<String, Object> map) {
-		return td.searchBug(sqlSession, map);	
-	
+		return td.searchBug(sqlSession, map);
+
 	}
 
 }
