@@ -17,6 +17,7 @@
 	<result property="taskCreateTime" column="TASK_CREATE_TIME"/>
 	<result property="taskMaster" column="TASK_MASTER"/>
 	<result property="taskUser" column="TASK_USER"/>
+	<result property="headTaskCode" column="HEAD_TASK_CODE"/>
 	</resultMap>
 	
 	<resultMap type="com.stepup.agile.projectTask.model.vo.TaskHistory" id="TaskHistoryResultSet">
@@ -164,7 +165,7 @@
 	</select>
 
 	<select id="selectBugTask" resultMap="selectUserTaskRSet" parameterType="com.stepup.agile.projectTask.model.vo.TaskHistory">
-		 SELECT TK.TASK_CODE, S.SPRINT_CODE
+		 SELECT TK.TASK_CODE, S.SPRINT_CODE, TK.TASK_LEVEL
 		      , MAX(TS.TASK_HIST_VALUE) KEEP (DENSE_RANK LAST ORDER BY TS.TASK_HIST_UPDATE_DATE, TS.TASK_HIST_UPDATE_TIME) AS TASK_HIST_VALUE
 		   FROM USER_INFO I,
 				USER_TEAM_LIST T,
@@ -197,11 +198,11 @@
 		                   AND TS.TASK_CATEGORY_CODE = 'G'
 		          GROUP BY TK.TASK_CODE, TS.TASK_CATEGORY_CODE
 		          ORDER BY TK.TASK_CODE)
-		          WHERE TASK_HIST_VALUE = 'Y') GROUP BY TK.TASK_CODE, S.SPRINT_CODE
+		          WHERE TASK_HIST_VALUE = 'Y') GROUP BY TK.TASK_CODE, S.SPRINT_CODE, TK.TASK_LEVEL
 	</select>
 	
 	<select id="selectBugCont" resultMap="selectUserTaskRSet" parameterType="com.stepup.agile.projectTask.model.vo.TaskHistory">
-		 SELECT TK.TASK_CODE, TS.TASK_CATEGORY_CODE, S.SPRINT_CODE
+		 SELECT TK.TASK_CODE, TS.TASK_CATEGORY_CODE, S.SPRINT_CODE, TK.TASK_LEVEL, TK.TASK_MASTER, TK.HEAD_TASK_CODE
 		      , MAX(TS.TASK_HIST_VALUE) KEEP (DENSE_RANK LAST ORDER BY TS.TASK_HIST_UPDATE_DATE, TS.TASK_HIST_UPDATE_TIME) AS TASK_HIST_VALUE
 		   FROM USER_INFO I,
 				       USER_TEAM_LIST T,
@@ -216,7 +217,7 @@
 				   AND TK.TASK_CODE = TS.TASK_CODE
 				   AND I.USER_CODE = #{userCode}
 				   AND TK.TASK_CODE = #{taskCode}
-		  GROUP BY TK.TASK_CODE, TS.TASK_CATEGORY_CODE, S.SPRINT_CODE
+		  GROUP BY TK.TASK_CODE, TS.TASK_CATEGORY_CODE, S.SPRINT_CODE, TK.TASK_LEVEL, TK.TASK_MASTER, TK.HEAD_TASK_CODE
 		  ORDER BY TK.TASK_CODE
 	</select>
 	
@@ -224,8 +225,9 @@
 		<selectKey keyProperty="taskCode" resultType="int" order="AFTER">
 	         SELECT SEQ_TASK.NEXTVAL FROM DUAL
 	      </selectKey>
-		INSERT INTO TASK_LIST
-		VALUES(SEQ_TASK.NEXTVAL, TO_CHAR(SYSDATE + 9/24, 'YYYY-MM-DD'),'상위', #{sprintCode}, TO_CHAR(SYSDATE + 9/24, 'hh24:mi:ss'), NULL, #{userCode, jdbcType=VARCHAR}, NULL)
+	      
+		INSERT INTO TASK_LIST (TASK_CODE, TASK_CREATE_DATE, TASK_LEVEL, SPRINT_CODE, TASK_CREATE_TIME, TASK_MASTER, TASK_USER, HEAD_TASK_CODE)
+		VALUES(SEQ_TASK.NEXTVAL, TO_CHAR(SYSDATE + 9/24, 'YYYY-MM-DD'), #{taskLevel}, #{sprintCode}, TO_CHAR(SYSDATE + 9/24, 'hh24:mi:ss'), #{taskMaster}, #{userCode, jdbcType=VARCHAR}, #{headTaskCode, jdbcType=NUMERIC})
 	</insert>
 	
 	<insert id="insertCloneBug2" parameterType="com.stepup.agile.projectTask.model.vo.TaskHistory">

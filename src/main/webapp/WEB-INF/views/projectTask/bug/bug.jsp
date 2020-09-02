@@ -35,13 +35,13 @@
 			<div id="user-search">
             		<div class="dropdown">
 				        <div class="select">
-				              <span id="user-list">담당자</span>
+				              <span id="task-level-filter">테스크 레벨</span>
 				          <i class="fa fa-chevron-left"></i>
 				        </div>
 				        <ul class="dropdown-menu">
-				          <li id="work">심</li>
-				          <li id="rest">다</li>
-				          <li id="travel">윤</li>
+				          <li id="all">전체</li>
+				          <li id="tk-level">상위</li>
+				          <li id="tk-sublevel">서브</li>
 				        </ul>
 				      </div>
             	</div>
@@ -223,6 +223,10 @@
 	var bugStatus;
 	var bugCont;
 	var sprintCode;
+	var taskLevel;
+	var tLevel;
+	var taskMaster;
+	var headCode;
 	
 	$(document).on("click",".bug-list-detail",function(){
 			a = $(this).text();
@@ -240,7 +244,8 @@
 	
 	//버그리스트 누르면 상세 영역에 버그제목하고 코드가져오기
 	$(document).on("click", ".bug-list-detail", function(){
-		var div = "";
+		  
+        var div = "";
 		div += '<div id="epicicon" style="margin-left:30px; margin-top:25px; display:inline-block;"></div> SPRINT-' + sprintCode + ' /' + '<div id="bugicon" style="margin-left: 10px; margin-top:25px;">&nbsp;&nbsp;</div> ' + bugcode;
 		$("#bg-num").html(div);
 		
@@ -274,8 +279,16 @@
 						bugStatus = value.taskHistValue;
 					}
 					  sCode = value.sprint;
+					  taskLevel = value.taskList;
 					}); 
 				 	console.log("버그 진행 : " + bugStatus);
+				 	
+				 	tLevel = taskLevel.taskLevel;
+				 	taskMaster = taskLevel.taskMaster;
+				 	headCode = taskLevel.headTaskCode;
+				 	console.log("테스크레벨 : " + tLevel);
+				 	console.log("테스크마스터 : " + taskMaster);
+				 	console.log("헤드테스크코드 : " + headCode);
 				 	
 				 	sprintCode = sCode.sprintCode;
 					console.log(sprintCode);
@@ -303,6 +316,7 @@
              complete : function(){
                    $('.wrap-loading').addClass('display-none');
             }
+         
 		});
 		
 	});
@@ -313,7 +327,7 @@
 		$.ajax({
 			url:"insertCloneBug.tk",
 			type:"post",
-			data:{"tCode" : bcode, "bugtitle": bugtitle, "sprintCode":sprintCode, "bugCont":bugCont},
+			data:{"tCode" : bcode, "bugtitle": bugtitle, "sprintCode":sprintCode, "bugCont":bugCont, "taskLevel":tLevel, "taskMaster":taskMaster, "headTaskCode" :headCode},
 			dataType : "json",
 			success: function(data){
 				location.href="selectBugTask.tk";
@@ -436,7 +450,177 @@
 			});
 		}
 	} 
+	//필터링 전체 검색 이벤트
+	$(document).on('click', '#all', function(){
+		$.ajax({
+			url:"searchBug.tk",
+			type:"post",
+			data:{"taskHistValue" : searchBug},
+			dataType : "json",
+			success: function(data){
+				//아무것도 입력안하고 검색했을 때
+				var searchArr2 = data.searchBugList1;
+				var searchBugTitle =[];
+				var searchBugContent;
+				var searchCnt = 0;
+				var searchTaskCode = [];
+				
+				var searchTitle = $.each(searchArr2, function(index, value){
+						searchBugTitle += value.taskHistValue;
+						searchCnt++;
+						if(searchCnt != index){
+							searchBugTitle += ",";
+						}
+						
+						searchTaskCode += value.taskCode;
+						if(searchCnt != index){
+							searchTaskCode += ",";
+						}
+				});
+				
+				
+				var titleArr = searchBugTitle.split(",");
+				var tCodeArr = searchTaskCode.split(",");
+				
+				
+				$(".bug-list-detail").remove();
+				 for(var i = 0; i < searchCnt; i++){
+					 $("#bug-list-wrap").append('<div class="bug-list-detail">'
+					+ '<div id="bug-ti-list" class="bug-ti-list">' + titleArr[i] + '</div><input type="hidden" value="' + sprintCode + '"id="sprint-code"><div id="bug-con-list">'	 
+					+ '<div id="bugicon" class="bug-con-list-area"></div><div class="bug-con-list-area" id="bug-code-list1">&nbsp;&nbsp;BUG - ' + tCodeArr[i]
+					+  '</div><div id="user-pro-lit" class="bug-con-list-area"><img src="/agile/resources/images/profile/dayoon_202008152056.png"></div></div></div>' 
+					 );
+				} 
+					
+					
+			},
+			error: function(data){
+				console.log("실패");
+			},
+			 beforeSend : function(){
+	            $('.wrap-loading').removeClass('display-none');
+	        },
+	          complete : function(){
+	            $('.wrap-loading').addClass('display-none');
+	        }
+		});
+	});
 	
+	//필터링 상위 테스크 검색 이벤트
+	$(document).on('click', '#tk-level', function(){
+		$.ajax({
+			url:"searchBug.tk",
+			type:"post",
+			data:{"taskHistValue" : searchBug},
+			dataType : "json",
+			success: function(data){
+				//아무것도 입력안하고 검색했을 때
+				var searchArr2 = data.searchBugList1;
+				var searchBugTitle =[];
+				var searchBugContent;
+				var searchCnt = 0;
+				var searchTaskCode = [];
+				console.log(searchArr2);
+				
+				
+				var searchTitle = $.each(searchArr2, function(index, value){
+					if(value.taskList.taskLevel == "상위"){
+						searchBugTitle += value.taskHistValue;
+						searchCnt++;
+						if(searchCnt != index){
+							searchBugTitle += ",";
+						}
+						
+						searchTaskCode += value.taskCode;
+						if(searchCnt != index){
+							searchTaskCode += ",";
+						}
+					}
+				});
+				
+				
+				var titleArr = searchBugTitle.split(",");
+				var tCodeArr = searchTaskCode.split(",");
+				
+				
+				$(".bug-list-detail").remove();
+				 for(var i = 0; i < searchCnt; i++){
+					 $("#bug-list-wrap").append('<div class="bug-list-detail">'
+					+ '<div id="bug-ti-list" class="bug-ti-list">' + titleArr[i] + '</div><input type="hidden" value="' + sprintCode + '"id="sprint-code"><div id="bug-con-list">'	 
+					+ '<div id="bugicon" class="bug-con-list-area"></div><div class="bug-con-list-area" id="bug-code-list1">&nbsp;&nbsp;BUG - ' + tCodeArr[i]
+					+  '</div><div id="user-pro-lit" class="bug-con-list-area"><img src="/agile/resources/images/profile/dayoon_202008152056.png"></div></div></div>' 
+					 );
+				} 
+					
+			},
+			error: function(data){
+				console.log("실패");
+			},
+			 beforeSend : function(){
+	            $('.wrap-loading').removeClass('display-none');
+	        },
+	          complete : function(){
+	            $('.wrap-loading').addClass('display-none');
+	        }
+		});
+	});
+	
+	//필터링 서브 테스크 검색 이벤트
+	$(document).on('click', '#tk-sublevel', function(){
+		$.ajax({
+			url:"searchBug.tk",
+			type:"post",
+			data:{"taskHistValue" : searchBug},
+			dataType : "json",
+			success: function(data){
+				//아무것도 입력안하고 검색했을 때
+				var searchArr2 = data.searchBugList1;
+				var searchBugTitle =[];
+				var searchBugContent;
+				var searchCnt = 0;
+				var searchTaskCode = [];
+				
+				var searchTitle = $.each(searchArr2, function(index, value){
+					if(value.taskList.taskLevel == "서브"){
+						searchBugTitle += value.taskHistValue;
+						searchCnt++;
+						if(searchCnt != index){
+							searchBugTitle += ",";
+						}
+						
+						searchTaskCode += value.taskCode;
+						if(searchCnt != index){
+							searchTaskCode += ",";
+						}
+					}
+				});
+				
+				
+				var titleArr = searchBugTitle.split(",");
+				var tCodeArr = searchTaskCode.split(",");
+				
+				
+				$(".bug-list-detail").remove();
+				 for(var i = 0; i < searchCnt; i++){
+					 $("#bug-list-wrap").append('<div class="bug-list-detail">'
+					+ '<div id="bug-ti-list" class="bug-ti-list">' + titleArr[i] + '</div><input type="hidden" value="' + sprintCode + '"id="sprint-code"><div id="bug-con-list">'	 
+					+ '<div id="bugicon" class="bug-con-list-area"></div><div class="bug-con-list-area" id="bug-code-list1">&nbsp;&nbsp;BUG - ' + tCodeArr[i]
+					+  '</div><div id="user-pro-lit" class="bug-con-list-area"><img src="/agile/resources/images/profile/dayoon_202008152056.png"></div></div></div>' 
+					 );
+				} 
+					
+			},
+			error: function(data){
+				console.log("실패");
+			},
+			 beforeSend : function(){
+	            $('.wrap-loading').removeClass('display-none');
+	        },
+	          complete : function(){
+	            $('.wrap-loading').addClass('display-none');
+	        }
+		});
+	});
 	
 	</script>
 	

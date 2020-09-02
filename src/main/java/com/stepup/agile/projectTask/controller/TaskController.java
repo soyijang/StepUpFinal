@@ -105,13 +105,24 @@ public class TaskController {
 	   
 	   @RequestMapping("insertCloneBug.tk")
 	   @ResponseBody
-	   public ModelAndView insertCloneBug(ModelAndView mv, @ModelAttribute("loginUser") Member m, int tCode, String bugtitle, String bugCont, int sprintCode){
+	   public ModelAndView insertCloneBug(ModelAndView mv, @ModelAttribute("loginUser") Member m, int tCode, String bugtitle, String bugCont, int sprintCode, String taskLevel, int taskMaster, int headTaskCode){
 		   
 		   HashMap<String, Object> map = new HashMap<String, Object>();
 		   map.put("taskCode", tCode);
 		   map.put("userCode", m.getUserCode());
 		   map.put("sprintCode", sprintCode);
+		   map.put("taskLevel", taskLevel);
+		   map.put("taskMaster", taskMaster);
 		   
+		   if(taskLevel.equals("상위")) {
+			   map.put("headTaskCode", (null));
+		   } else if(taskLevel.equals("서브")) {
+			   map.put("headTaskCode", headTaskCode);
+		   }
+		   
+		   
+		   System.out.println("마스터" + map.get("taskMaster"));
+		   System.out.println("레벨" + map.get("taskLevel"));
 		   System.out.println(map.get("userCode"));
 		   System.out.println(map.get("sprintCode"));
 		   
