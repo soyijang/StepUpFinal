@@ -189,9 +189,7 @@
 	var currentDay = new Date();  
 	var theYear = currentDay.getFullYear();
 	var theMonth = Number(currentDay.getMonth() + 1);
-	theMonth = theMonth >= 10 ? theMonth : '0' + theMonth;
 	var theDate  = currentDay.getDate();
-	theDate = theDate >= 10 ? theDate : '0' + theDate;
 	var theDayOfWeek = currentDay.getDay();
 	
 	console.log("currentDay" + currentDay);
@@ -202,8 +200,7 @@
 	
 	var thisWeek = [];
 	for(var i=0; i<7; i++) {
-	  var resultDay = new Date();
-	  resultDay = new Date(theYear, theMonth, theDate + (i - theDayOfWeek));
+	  var resultDay = new Date(theYear, theMonth, theDate + i);
 	  var yyyy = resultDay.getFullYear();
 	  var mm = resultDay.getMonth();
 	  var dd = resultDay.getDate();
@@ -213,10 +210,10 @@
 	  console.log("mm : " + mm);
 	  console.log("dd" + dd);
 	  
-	  //mm = String(mm).length === 1 ? '0' + mm : mm;
+	  mm = String(mm).length === 1 ? '0' + mm : mm;
 	  dd = String(dd).length === 1 ? '0' + dd : dd;
 	 
-	  //console.log("연산자 mm : " + mm);
+	  console.log("연산자 mm : " + mm);
 	  console.log("연산자 mm : " + dd);
 	  
 	  thisWeek[i] = dd;
@@ -238,17 +235,10 @@
 	
 	
 	$(document).ready(function(){
-		var weekend = [];
-		for(var i = 0; i<7; i++){
+		
 		var date = new Date();
 		date = getFormatDate(date);
 		console.log("포맷팅된 날짜 : " + date);
-			day = String(day).length === 1 ? '0' + day : day;
-			
-			weekend[i] = day;
-			console.log(weekend);
-		}
-		
 		
 		var day;
 		day = date.substring(6, 8);
@@ -300,12 +290,12 @@
 		}
 		
 		
-		drawCalendar(today, mon, day, weekend);
+		drawCalendar(today, mon, day);
 		
 		
 	});
 	
-	function drawCalendar(today, mon, day, weekend){
+	function drawCalendar(today, mon, day){
 		
 		
 		var setTableHTML = "";
@@ -323,7 +313,7 @@
 	    for(var i=0;i<7;i++){
 	        setTableHTML+='<tr style="font-size: 12px;">';
 	        setTableHTML+='<td width="10px" height="100px">';
-	        setTableHTML+= weekend[i];
+	        setTableHTML+= thisWeek[i];
 	        setTableHTML+='<br>';
 		     	
 		        if(today == 0) {
@@ -365,19 +355,17 @@
 	
 	
 	//차트
-	$(window).ready(function(){
-    var i=1;
     var non=$("#n-tk").text();
     var ing=$("#tk-ing").text();
     var com=$("#co-tk").text();
     var tot=$("#to-tk").text();
+
+    var non2 = Math.round((non/tot)*100);
+    var ing2 = Math.round((ing/tot)*100);
+    var com2 = Math.round((com/tot)*100);
+	
+	$(window).ready(function(){
     
-    console.log(non);
-    console.log(ing);
-    console.log(com);
-    var num1 = Math.ceil(non/tot*100);
-    var num2 = Math.ceil(ing/tot*100);
-    var num3 = Math.ceil(com/tot*100);
     
   /*   var max = 0;
 	var mid = 0;
@@ -394,78 +382,32 @@
       console.log(min); */
     
     var func1 = setInterval(function(){
-    	
-          
-        if(i<10){
-            color1(i);
-            i++;
-        } else if(i<20){
-            color2(i);
-            i++;
-        } else if(i<30){
-            color3(i);
-            i++;
-        } else {
-            clearInterval(func1);
-        }
+	    	color1(non2);
+	 		color2(ing2);
+	 		color3(com2);
 		},10);
     
 	});
 
 	
-	function color1(i){
+	function color1(non2){
 	    $(".pie-chart1").css({
-	        "background":"conic-gradient(#C4C4C4 0% "+i+"%, #ffffff "+i+"% 100%)"
+	        "background":"conic-gradient(#C4C4C4 0% "+0+"%, #ffffff "+non2+"% 100%)"
 	        });
 	    
 	}
-	function color2(i){
+	function color2(ing2){
 	    $(".pie-chart1").css({
-	        "background":"conic-gradient(#C4C4C4 0% 25%, #DD0351 25% "+i+"%, #ffffff "+i+"% 100%)"
+	        "background":"conic-gradient(#C4C4C4 0% 25%, #DD0351 25% "+non2+"%, #ffffff "+ing2+"% 100%)"
 	        });
 	     
 	}
-	function color3(i){
+	function color3(com2){
 	    $(".pie-chart1").css({
-	        "background":"conic-gradient(#C4C4C4 0% 25%, #DD0351 25% 70%, #2B2B49 70% "+i+"%, #ffffff "+i+"% 100%)"
+	        "background":"conic-gradient(#C4C4C4 0% 25%, #DD0351 25% 70%, #2B2B49 70% "+non2+ing2+"%, #ffffff "+com2+"% 100%)"
 	        });
 	     
 	}
-	/* 
-	// Create chart instance
-	var chart = am4core.create("chartdiv", am4charts.PieChart);
-
-	// Add data
-	chart.data = [{
-	  "task": "미진행",
-	  "color" : am4core.color("#C4C4C4"),
-	  "value": non
-	}, {
-	  "task": "진행중",
-	  "color" : am4core.color("#C4C4C4"),
-	  "value": ing
-	}, {
-	  "task": "완료",
-	  "color" : am4core.color("#DD0351"),
-	  "value": com
-	}];
-
-	// Add and configure Series
-	var pieSeries = chart.series.push(new am4charts.PieSeries());
-	pieSeries.dataFields.value = "value";
-	pieSeries.dataFields.category = "task";
-	pieSeries.labels.template.disabled = true;
-	pieSeries.ticks.template.disabled = true;
-
-	chart.legend = new am4charts.Legend();
-	chart.legend.position = "right";
-
-	chart.innerRadius = am4core.percent(55);
-
-	var label = pieSeries.createChild(am4core.Label);
-	label.text = "${values.value.sum}";
-	label.horizontalCenter = "middle";
-	label.verticalCenter = "middle";
-	label.fontSize = 40; */
+	
 </script>
 </html>
