@@ -185,34 +185,6 @@
 </body>
 </body>
 <script>
-	<!-- 캘린더 -->
-	//이번주 일주일 구하기
-	var currentDay = new Date();  
-	var theYear = currentDay.getFullYear();
-	var theMonth = currentDay.getMonth();
-	var theDate  = currentDay.getDate();
-	var theDayOfWeek = currentDay.getDay();
-	 
-	var thisWeek = [];
-	 
-	for(var i=0; i<7; i++) {
-	  var resultDay = new Date(theYear, theMonth, theDate + (i - theDayOfWeek));
-	  var yyyy = resultDay.getFullYear();
-	  var mm = Number(resultDay.getMonth()) + 1;
-	  var dd = resultDay.getDate();
-	 
-	  mm = String(mm).length === 1 ? '0' + mm : mm;
-	  dd = String(dd).length === 1 ? '0' + dd : dd;
-	 
-	  //thisWeek[i] = yyyy + '-' + mm + '-' + dd;
-	  thisWeek[i] = dd;
-	}
-	 
-	console.log(thisWeek);
-	
-	
-	
-	
 	/**
 	 *  yyyyMMdd 포맷으로 반환
 	 */
@@ -241,22 +213,7 @@
 		var today;
 		today = date.substring(10, 8);
 		console.log("오늘 요일 : " + today);
-		
-		/* if(today == '0') {
-			today = '일';
-		} else if(today == '1'){
-			today = '월';
-		} else if(today == '2'){
-			today = '화';
-		} else if(today == '3'){
-			today = '수';
-		} else if(today == '4'){
-			today = '목';
-		} else if(today == '5'){
-			today = '금';
-		} else if(today == '6'){
-			today = '토';
-		} */
+	
 
 		var mon;
 		mon = date.substring(6, 4);
@@ -305,6 +262,45 @@
 	});
 	
 	function drawCalendar(today, mon, day){
+		/* 이번주 일주일 구하기 */
+		var currentDay = new Date();  
+		var theYear = currentDay.getFullYear();
+		var theMonth = Number(currentDay.getMonth() + 1);
+		theMonth = theMonth >= 10 ? theMonth : '0' + theMonth;
+		var theDate  = currentDay.getDate();
+		theDate = theDate >= 10 ? theDate : '0' + theDate;
+		var theDayOfWeek = currentDay.getDay();
+		
+		console.log("currentDay" + currentDay);
+		console.log("theYear " + theYear);
+		console.log("theMonth" + theMonth);
+		console.log("theDate" + theDate);
+		console.log("theDayOfWeek" + theDayOfWeek);
+		
+		var thisWeek = [];
+		for(var i=0; i<7; i++) {
+		  var resultDay = new Date();
+		  resultDay = new Date(theYear, theMonth, theDate + (i - theDayOfWeek));
+		  var yyyy = resultDay.getFullYear();
+		  var mm = resultDay.getMonth();
+		  var dd = resultDay.getDate();
+		 
+		  console.log("result day : " + resultDay);
+		  console.log("yyyy" + yyyy);
+		  console.log("mm : " + mm);
+		  console.log("dd" + dd);
+		  
+		  //mm = String(mm).length === 1 ? '0' + mm : mm;
+		  dd = String(dd).length === 1 ? '0' + dd : dd;
+		 
+		  //console.log("연산자 mm : " + mm);
+		  console.log("연산자 mm : " + dd);
+		  
+		  thisWeek[i] = dd;
+		  //thisWeek[i] = yyyy + '-' + mm + '-' + dd;
+		}
+		console.log("thisweek" + thisWeek);
+		
 		var setTableHTML = "";
 		var num = String(today);
 		
