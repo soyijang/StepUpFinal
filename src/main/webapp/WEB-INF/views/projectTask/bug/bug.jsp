@@ -371,7 +371,8 @@
 	
 	//검색 이벤트
 	 function searchBug(){
-		if(window.event.keyCode == 13){
+		//if(window.event.keyCode == 13){
+			
 			var searchBug = $("#searchBug").val();
 			console.log(searchBug);
 			
@@ -440,15 +441,16 @@
 				},
 				error: function(data){
 					console.log("실패");
-				},
+				}
+				/* ,
 				 beforeSend : function(){
 		            $('.wrap-loading').removeClass('display-none');
 		        },
 		          complete : function(){
 		            $('.wrap-loading').addClass('display-none');
-		        }
+		        } */
 			});
-		}
+		//}
 	} 
 	//필터링 전체 검색 이벤트
 	$(document).on('click', '#all', function(){
@@ -496,7 +498,8 @@
 			},
 			error: function(data){
 				console.log("실패");
-			},
+			}
+			,
 			 beforeSend : function(){
 	            $('.wrap-loading').removeClass('display-none');
 	        },
