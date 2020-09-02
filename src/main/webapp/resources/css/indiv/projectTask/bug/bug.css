@@ -24,10 +24,7 @@
 body{
 	font-family: Noto Sans KR;
 }
-#content{
-	wdith:1440px;
-	height:900px;
-}
+
 #contentBox{
 	width:100%;
 	height:100%;
