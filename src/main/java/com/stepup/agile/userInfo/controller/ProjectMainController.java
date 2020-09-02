@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import com.stepup.agile.projectManage.model.service.ProjectService;
 import com.stepup.agile.projectManage.model.vo.Project;
 import com.stepup.agile.projectTask.model.service.TaskService;
+import com.stepup.agile.projectTask.model.vo.TaskHistory;
 import com.stepup.agile.projectTask.model.vo.TaskList;
 import com.stepup.agile.userInfo.model.service.MemberService;
 import com.stepup.agile.userInfo.model.vo.Member;
@@ -36,39 +37,49 @@ public class ProjectMainController {
 	public String selectUserProject(@ModelAttribute("loginUser") Member m, Model model, Project p) {
 	
 		List<Project> pjName = ps.selectUserProject(m);
-		System.out.println("pjName" + pjName);
-		List<TaskList> taskPjNonTaskList = new ArrayList<TaskList>();
-		Map<String, Object> map = new HashMap<String, Object>();
+		List<Project> pjName2 = ps.selectUserProject2(m);
 		
-		String pName = "";
-		for(int i = 0; i < pjName.size(); i++) {
-			System.out.println("프로젝트 이름 : " + pjName.get(i).getProjectName());
-			map.put("userCode", m.getUserCode());
-			pName = pjName.get(i).getProjectName();
-			map.put("projectName", pName);
-			taskPjNonTaskList.add(ts.selectPjNonTask(map));
-			System.out.println(taskPjNonTaskList);
+		
+		
+		
+		List<TaskHistory> taskList = ts.selectUserTask(m);
+		List<String> taskTitle = new ArrayList<String>();
+		List<String> taskStatus = new ArrayList<String>();
+		List<String> taskDate = new ArrayList<String>();
+		
+		for(int i = 0; i < taskList.size(); i++) {
+			if(taskList.get(i).getTaskCategoryCode().equals("J")) {
+				taskTitle.add(taskList.get(i).getTaskHistValue());
+			}else if(taskList.get(i).getTaskCategoryCode().equals("I")) {
+				taskStatus.add(taskList.get(i).getTaskHistValue());
+			}else if(taskList.get(i).getTaskCategoryCode().equals("A")) {
+				taskDate.add(taskList.get(i).getTaskHistValue());
+			}
+		}
+		
+		int nonTaskCnt=0;
+		int ingTaskCnt=0;
+		int comTaskCnt=0;
+		for(int j = 0; j < taskStatus.size(); j++) {
+			if(taskStatus.get(j).equals("미진행")) {
+				nonTaskCnt++;
+			}else if(taskStatus.get(j).equals("진행중")){
+				ingTaskCnt++;
+			}else if(taskStatus.get(j).equals("완료")){
+				comTaskCnt++;
+			}
 		}
 		
 		
-		List<TaskList> taskTitleList = ts.selectUserTask(m);
-		List<TaskList> taskStatusList = ts.selectUserTaskStatus(m);
-		List<TaskList> taskIngList = ts.selectIngTask(m);
-		List<TaskList> taskNonList = ts.selectNonTask(m);
-		List<TaskList> taskComList = ts.selectComTask(m);
-		List<TaskList> taskSumList = ts.selectSumTask(m);
-		List<TaskList> taskDateList = ts.selectTaskDate(m);
-		//List<TaskList> taskPjIngTaskList = ts.selectPjIngTask(m);
-		
-		
 	model.addAttribute("pjList", pjName);
-	model.addAttribute("taskTitleList", taskTitleList);
-	model.addAttribute("taskStatusList", taskStatusList);
-	model.addAttribute("taskIngList", taskIngList);
-	model.addAttribute("taskNonList", taskNonList);
-	model.addAttribute("taskComList", taskComList);
-	model.addAttribute("taskSumList", taskSumList);
-	model.addAttribute("taskDateList", taskDateList);
+	model.addAttribute("pjList2", pjName2);
+	model.addAttribute("taskList", taskList);
+	model.addAttribute("taskTitle", taskTitle);
+	model.addAttribute("taskStatus", taskStatus);
+	model.addAttribute("taskDate", taskDate);
+	model.addAttribute("nonTaskCnt", nonTaskCnt);
+	model.addAttribute("ingTaskCnt", ingTaskCnt);
+	model.addAttribute("comTaskCnt", comTaskCnt);
 	
 	
 	return "userInfo/userProjectMain/userProjectMain";

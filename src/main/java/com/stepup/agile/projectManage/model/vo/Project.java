@@ -1,6 +1,7 @@
 package com.stepup.agile.projectManage.model.vo;
 
 import com.stepup.agile.userInfo.model.vo.Member;
+import com.stepup.agile.userInfo.model.vo.Team;
 import com.stepup.agile.userInfo.model.vo.UserProjectList;
 import com.stepup.agile.userInfo.model.vo.UserTeamList;
 
@@ -14,11 +15,14 @@ public class Project implements java.io.Serializable{
 	private UserTeamList userTeamList;
 	private UserProjectList userProjectList;
 	private ProjectHistory projectHistory;
+	private Team team;
+	private int taskCnt;
 	
 	public Project() {}
-	
+
 	public Project(int projectCode, String projectName, String createDate, String createTime, Member member,
-			UserTeamList userTeamList, UserProjectList userProjectList, ProjectHistory projectHistory) {
+			UserTeamList userTeamList, UserProjectList userProjectList, ProjectHistory projectHistory, Team team,
+			int taskCnt) {
 		super();
 		this.projectCode = projectCode;
 		this.projectName = projectName;
@@ -28,7 +32,11 @@ public class Project implements java.io.Serializable{
 		this.userTeamList = userTeamList;
 		this.userProjectList = userProjectList;
 		this.projectHistory = projectHistory;
+		this.team = team;
+		this.taskCnt = taskCnt;
 	}
+
+
 
 
 	public Member getMember() {
@@ -102,13 +110,30 @@ public class Project implements java.io.Serializable{
 		this.projectHistory = projectHistory;
 	}
 
+	
+	public int getTaskCnt() {
+		return taskCnt;
+	}
+
+
+	public void setTaskCnt(int taskCnt) {
+		this.taskCnt = taskCnt;
+	}
+
+	public Team getTeam() {
+		return team;
+	}
+
+	public void setTeam(Team team) {
+		this.team = team;
+	}
+
 	@Override
 	public String toString() {
 		return "Project [projectCode=" + projectCode + ", projectName=" + projectName + ", createDate=" + createDate
 				+ ", createTime=" + createTime + ", member=" + member + ", userTeamList=" + userTeamList
-				+ ", userProjectList=" + userProjectList + ", projectHistory=" + projectHistory + "]";
+				+ ", userProjectList=" + userProjectList + ", projectHistory=" + projectHistory + ", team=" + team
+				+ ", taskCnt=" + taskCnt + "]";
 	}
-
-	
 	
 }

@@ -1,5 +1,6 @@
 package com.stepup.agile.projectManage.model.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -25,5 +26,30 @@ public class ProjectServiceImpl implements ProjectService{
 		return pd.selectUserProject(sqlSession, m);
 	}
 
+	@Override
+	public List<Project> selectUserProject2(Member m) {
+		return pd.selectUserProject2(sqlSession, m);
+	}
+	///////////////////////////////////////////////////////////////////////////////////
+
+	//프로젝트 메인페이지로 포워딩 (해당 멤버의 project list 조회 후 view 이동) 
+	@Override
+	public List<Project> selectProjectList(Member m) {
+		return pd.selectProjectList(sqlSession, m);
+	}
+	
+	//프로젝트 생성
+	@Override
+	public int insertProject(Project p) {
+		return pd.insertProject(sqlSession, p);
+	}
+
+	//진행률 계산식
+	@Override
+	public HashMap<String, Integer> selectProjectProceedingRate(int[] projectCodeArr) {
+		return pd.selectProjectProceedingRate(sqlSession, projectCodeArr);
+	}
+	
+	
 	
 }

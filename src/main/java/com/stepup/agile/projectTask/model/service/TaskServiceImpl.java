@@ -1,16 +1,15 @@
 package com.stepup.agile.projectTask.model.service;
 
-import java.lang.annotation.Target;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Isolation;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 
+import com.stepup.agile.projectManage.model.vo.Project;
 import com.stepup.agile.projectTask.model.dao.TaskDao;
 import com.stepup.agile.projectTask.model.vo.TaskHistory;
 import com.stepup.agile.projectTask.model.vo.TaskList;
@@ -26,15 +25,31 @@ public class TaskServiceImpl implements TaskService {
 	public TaskDao td;
 	
 	@Override
-	public int createTask(Member m) {
-		System.out.println("service : " + m);
-		return td.createTask(sqlSession, m);
+	public int createTask(Member m, TaskList t) {
+		
+		return td.createTask(sqlSession, m, t);
 	}
 
 	@Override
-	public int updateTitle(Member m) {
+	public int updateTitle(Member m, TaskHistory th) {
+
+		return td.updateTitle(sqlSession, m, th);
+	}
+
+	@Override
+	public String selectTitle(int taskHistCode, TaskHistory th) {
 		
-		return td.updateTitle(sqlSession, m);
+		return td.selectTitle(sqlSession, taskHistCode, th);
+	}
+
+	@Override
+	public List<TaskHistory> selectUserTask(Member m) {
+		return td.selectUserTask(sqlSession, m);
+	}
+
+	@Override
+	public String selectPjNonTask(Map<String, Object> map) {
+		return td.selectPjNonTask(sqlSession, map);
 	}
 
 	@Override
@@ -54,9 +69,7 @@ public class TaskServiceImpl implements TaskService {
 	}
 
 	@Override
-	@Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.SERIALIZABLE, rollbackFor = {Exception.class})
 	public int insertCloneBug2(HashMap<String, Object> map2) {
-	
 		return td.insertCloneBug2(sqlSession, map2);
 	}
 
@@ -67,9 +80,8 @@ public class TaskServiceImpl implements TaskService {
 
 	@Override
 	public List<TaskHistory> searchBug(HashMap<String, Object> map) {
-		return td.searchBug(sqlSession, map);
+		return td.searchBug(sqlSession, map);	
+	
 	}
-
-
 
 }
