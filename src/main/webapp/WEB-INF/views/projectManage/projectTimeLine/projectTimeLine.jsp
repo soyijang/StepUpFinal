@@ -42,17 +42,17 @@
 			                    <div id="week-dropdown">
 			                    	<div class="dropdown">
 								        <div class="select">
-								              <span id="user-list">담당자</span>
+								              <span id="user-list">날짜</span>
 								          <i class="fa fa-chevron-left"></i>
 								        </div>
 								        <ul class="dropdown-menu">
-								          <li id="work">주간</li>
-								          <li id="rest">월간</li>
-								          <li id="travel">분기</li>
+								          <li id="week">주간</li>
+								          <li id="month">월간</li>
+								          <li id="half">분기</li>
 								        </ul>
 							      </div>
 					     	 </div>	
-		                    <div id="unsch"><button id="rectangle3" width="90px;">Unscheduled</button></div>
+		                    <div id="unsch"><button id="rectangle3" width="90px;" class="addTasks">Add-tasks</button></div>
 	                    </div>
                     </div>
                     <div id="line"></div>
@@ -67,28 +67,32 @@
                 		<div id="epic-title">
                 			<div id="epic">에픽</div>
                 		</div>
-                		<div id="epic-title-cont">
-	                			<div id="ep-ti">
-	               					스프린트 제목
-	                			</div>	
-                			<div id="epic-add-btn">
-                				<button id="ep-ad-btn">
-                					<img src="/agile/resources/icon/common/icon_circle_plus.png" width="15px;" height="15px;">
-                				</button>
-                				<input type="text" id="ep-ti-tx" style="display:none;" onkeyup="enterkey();">
-                			</div>
-                			<!-- <table style="width:100%;">
-                				<tr>
-                					<td style="border-bottom:1px solid #E8E8E8; text-align:center; height:90px;">제목이 생겨야해</td>
-                				</tr>
-                			</table> -->
+                		<div id="epic-title-wrap">
+	                		<div id="epic-title-cont">
+		                			<!-- <div id="ep-ti">
+		               					스프린트 제목
+		                			</div>	 -->
+	                			<!-- <div id="epic-add-btn">
+	                				<button id="ep-ad-btn">
+	                					<img src="/agile/resources/icon/common/icon_circle_plus.png" width="15px;" height="15px;">
+	                				</button>
+	                				<input type="text" id="ep-ti-tx" style="display:none;" onkeyup="enterkey();">
+	                			</div> -->
+	                			<!-- <table style="width:100%;">
+	                				<tr>
+	                					<td style="border-bottom:1px solid #E8E8E8; text-align:center; height:90px;">제목이 생겨야해</td>
+	                				</tr>
+	                			</table> -->
+	                		</div>
                 		</div>
                 	</div>
                 	<!-- 에픽 타이틀 영역 끝 -->
                 	<!-- 에픽 달력 영역 시작 -->
                 	<div id="epic-wrap">
                 	<div id="epic-con-area">
-                	<div class="gantt-target"></div>
+                	<div class="gantt-target">
+                	</div>
+                	
                 		<!-- <div id="epic-con-title">
                 			
                 		</div>
@@ -101,16 +105,11 @@
                 </div>
                 <!-- 에픽 영역 끝 -->
              </div>
+              <div class="wrap-loading display-none">
+         <div><img src="/agile/resources/icon/common/icon_loading.gif"/></div>
+   </div>    
 </body>
 <script>
-	//간트차트 누르면 테스크 insert 되게
-	$(document).on('click', '.grid-row', function(){
-		var bar = '<rect x="1140" y="106" width="228" height="20" rx="3" ry="3" class="bar"></rect>';
-		$('.bar').append(bar);
-	
-	});
-
-
 	var tasks = [
 		
 		{
@@ -118,6 +117,7 @@
 			end: '2020-08-31',
 			name: '타임라인 테스트',
 			id: "Task 0",
+			dependencies:"Task 1",
 			progress: 40
 		},
 		
@@ -144,9 +144,160 @@
 		on_view_change: function(mode) {
 			console.log(mode);
 		},
+		
 		view_mode: 'Day',
 		language: 'ko'
 	});
+	
+	
+	console.log(gantt_chart);
+	
+	var YEAR = 'year';
+	var MONTH = 'month';
+	var DAY = 'day';
+	var HOUR = 'hour';
+	var MINUTE = 'minute';
+	var SECOND = 'second';
+	var MILLISECOND = 'millisecond';
+
+	window.onload = function(){
+		
+	    drawGantt();
+	  
+	    
+	};
+	
+	function drawGantt(){
+		$.ajax({
+			url: "timelineTask.tk",
+			type:"post",
+			dataType: "json",
+			success: function(data){
+				
+				var values;
+				values = data.taskList;
+				
+				var sCode;
+				var sprintCode;
+				console.log(data.taskList);
+				
+				var Cont = [];
+				var Title = [];
+				var YN = [];
+				var Status =[];
+				var Cnt = 0;
+				
+				  var taskList = $.each(values, function(index, value){
+					  
+					  Cnt++;
+					  console.log(Cnt);
+					  if(value.taskCategoryCode == "H"){
+						Cont += value.taskHistValue;
+							 Cont += ",";
+					} else if(value.taskCategoryCode == "J"){
+						Title += value.taskHistValue;
+							 Title += ",";
+					} else if(value.taskCategoryCode == "G"){
+						YN += value.taskHistValue;
+							YN += ",";
+					} else if(value.taskCategoryCode == "I"){
+						Status = value.taskHistValue;
+							Status += ",";
+					}
+					  
+					 
+					 sCode = value.sprint;
+				 	 sprintCode = sCode.sprintCode;
+					console.log("sprintCode : " + sprintCode);
+					
+					
+					tasks = [
+						
+						{
+							start: '2020-09-02',
+							end: '2020-09-18',
+							name: Title,
+							id: "Task 0",
+							dependencies:"Task 1",
+							progress: 40
+						}
+				  ]
+					
+					});  
+					  console.log(Cont);
+					  console.log(Title);
+					  console.log(YN);
+					  console.log(Status);
+				  
+					  var values2;
+					  values2 = data.SprintList;
+					  var sprintTitle;
+					  var div = '';
+					  
+					  var SprintList = $.each(values2, function(index, value){  
+						  sprintTitle = value.sprintName;
+					 	  div = '<div id="ep-ti">' + sprintTitle + '</div>';
+						  
+						  $("#epic-title-cont").append(div);
+						  //sprintTitle += ",";
+					  });
+					  console.log("스프린트제목 : " + sprintTitle);
+					  
+				
+			},
+			error:function(){
+				console.log("실패");
+			},
+			beforeSend : function(){
+                $('.wrap-loading').removeClass('display-none');
+           	},
+           	complete : function(){
+                   $('.wrap-loading').addClass('display-none');
+           	}
+		});
+	}
+
+
+	var tasks = [
+		
+		{
+			start: '2020-08-26',
+			end: '2020-08-31',
+			name: '타임라인 테스트',
+			id: "Task 0",
+			dependencies:"Task 1",
+			progress: 40
+		},
+		
+		{
+			start: '2020-08-31',
+			end: '2020-09-04',
+			name: '버그 이슈',
+			id: "Task 1",
+			progress: 100
+		},
+		
+	]
+	
+	var gantt_chart = new Gantt(".gantt-target", tasks, {
+		on_click: function (task) {
+			console.log(task);
+		},
+		on_date_change: function(task, start, end) {
+			console.log(task, start, end);
+		},
+		on_progress_change: function(task, progress) {
+			console.log(task, progress);
+		},
+		on_view_change: function(mode) {
+			console.log(mode);
+		},
+		
+		view_mode: 'Day',
+		language: 'ko'
+	});
+	
+	
 	console.log(gantt_chart);
 	
 	var YEAR = 'year';

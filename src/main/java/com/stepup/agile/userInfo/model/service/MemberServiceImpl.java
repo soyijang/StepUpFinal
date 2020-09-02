@@ -1,5 +1,7 @@
 package com.stepup.agile.userInfo.model.service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -7,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.stepup.agile.projectManage.model.vo.Project;
 import com.stepup.agile.userInfo.model.dao.MemberDao;
 import com.stepup.agile.userInfo.model.exception.LoginFailedException;
 import com.stepup.agile.userInfo.model.vo.Member;
@@ -54,5 +57,13 @@ public class MemberServiceImpl implements MemberService{
 		return md.insertJob(sqlSession, member);
 	}
 
+	@Override
+	public String selectUserProject(Member m) {
+		
+		
+		return md.selectUserProject(sqlSession, m);
+	}
+
+	
 
 }

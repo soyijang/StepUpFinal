@@ -1,5 +1,8 @@
 package com.stepup.agile.userInfo.model.vo;
 
+import com.stepup.agile.projectManage.model.vo.Project;
+import com.stepup.agile.projectManage.model.vo.ProjectHistory;
+
 public class UserProjectList implements java.io.Serializable {
 	private int projectCode;
 	private String userProjectUpdateDate;
@@ -9,10 +12,16 @@ public class UserProjectList implements java.io.Serializable {
 	private int userTeamCode;
 	private String userProjectAuthority;
 	
+	private Project project;
+	private ProjectHistory projectHistory;
+	private Member member;
+	private UserTeamList userTeamList;
+	
 	public UserProjectList() {}
 
 	public UserProjectList(int projectCode, String userProjectUpdateDate, String userProjectUpdateTime,
-			String userProjectStatus, int userProjectCode, int userTeamCode, String userProjectAuthority) {
+			String userProjectStatus, int userProjectCode, int userTeamCode, String userProjectAuthority,
+			Project project, ProjectHistory projectHistory, Member member, UserTeamList userTeamList) {
 		super();
 		this.projectCode = projectCode;
 		this.userProjectUpdateDate = userProjectUpdateDate;
@@ -21,7 +30,13 @@ public class UserProjectList implements java.io.Serializable {
 		this.userProjectCode = userProjectCode;
 		this.userTeamCode = userTeamCode;
 		this.userProjectAuthority = userProjectAuthority;
+		this.project = project;
+		this.projectHistory = projectHistory;
+		this.member = member;
+		this.userTeamList = userTeamList;
 	}
+
+
 
 	public int getProjectCode() {
 		return projectCode;
@@ -79,11 +94,47 @@ public class UserProjectList implements java.io.Serializable {
 		this.userProjectAuthority = userProjectAuthority;
 	}
 
+	
+	
+	public Project getProject() {
+		return project;
+	}
+
+	public void setProject(Project project) {
+		this.project = project;
+	}
+
+	public ProjectHistory getProjectHistory() {
+		return projectHistory;
+	}
+
+	public void setProjectHistory(ProjectHistory projectHistory) {
+		this.projectHistory = projectHistory;
+	}
+
+	public Member getMember() {
+		return member;
+	}
+
+	public void setMember(Member member) {
+		this.member = member;
+	}
+
+	public UserTeamList getUserTeamList() {
+		return userTeamList;
+	}
+
+	public void setUserTeamList(UserTeamList userTeamList) {
+		this.userTeamList = userTeamList;
+	}
+
 	@Override
 	public String toString() {
 		return "UserProjectList [projectCode=" + projectCode + ", userProjectUpdateDate=" + userProjectUpdateDate
 				+ ", userProjectUpdateTime=" + userProjectUpdateTime + ", userProjectStatus=" + userProjectStatus
 				+ ", userProjectCode=" + userProjectCode + ", userTeamCode=" + userTeamCode + ", userProjectAuthority="
-				+ userProjectAuthority + "]";
+				+ userProjectAuthority + ", member=" + member + ", userTeamList=" + userTeamList + "]";
 	}
+
+	
 }
