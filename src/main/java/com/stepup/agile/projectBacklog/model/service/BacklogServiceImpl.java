@@ -62,4 +62,15 @@ public class BacklogServiceImpl implements BacklogService{
 		return bd.updateStart(sqlSession, sprintHistory);
 	}
 
+	@Override
+	public int updateTask(int taskCode) {
+		// TODO Auto-generated method stub
+		return bd.updateTask(sqlSession, taskCode);
+	}
+
+	@Override
+	public List<Sprint> searchSprint(Member m, String sprintName) {
+		return bd.searchSprint(sqlSession, m, sprintName);
+	}
+
 }

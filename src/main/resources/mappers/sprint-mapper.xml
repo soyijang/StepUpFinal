@@ -274,4 +274,72 @@
 		  GROUP BY H.SPRINT_CODE)
 	</select>
 	
+	<select id="selectTaskType" resultMap="TaskHistoryResultSet" parameterType="TaskHistory">
+		 SELECT L.TASK_CODE
+		      , MAX(H.TASK_HIST_VALUE) KEEP (DENSE_RANK LAST ORDER BY H.TASK_HIST_UPDATE_DATE, H.TASK_HIST_UPDATE_TIME) AS TASK_HIST_VALUE
+		      , H.TASK_CATEGORY_CODE
+		   FROM TASK_HISTORY H
+		   JOIN TASK_LIST L ON (H.TASK_CODE = L.TASK_CODE)
+		  WHERE L.SPRINT_CODE = #{sprintCode, jdbcType=NUMERIC}
+            AND TASK_CATEGORY_CODE = 'I'
+		  GROUP BY L.TASK_CODE, H.TASK_CATEGORY_CODE
+	</select>
+	
+	<insert id="updateTask" parameterType="TaskHistory">
+		 INSERT INTO TASK_HISTORY  
+		 VALUES(TO_CHAR(SYSDATE + 9/24, 'YYYY-MM-DD'), TO_CHAR(SYSDATE + 9/24, 'hh24:mi:ss'),
+		 #{taskCode, jdbcType=NUMERIC}, SEQ_TASK_HIST.NEXTVAL, 7, 14, '완료', 'I')
+	</insert>
+	
+	<select id="searchSprint" resultMap="sprintHistoryResultSet" parameterType="Sprint">
+		 SELECT *    
+    FROM(SELECT H.SPRINT_CODE
+		    , J.PROJECT_NAME
+		    , P.USER_PROJECT_CODE
+            , MAX(H.SPRINT_NAME) KEEP (DENSE_RANK LAST ORDER BY H.SPRINT_HIST_UPDATE_DATE, H.SPRINT_HIST_UPDATE_TIME) AS SPRINT_NAME
+            , MAX(H.SPRINT_TYPE) KEEP (DENSE_RANK LAST ORDER BY H.SPRINT_HIST_UPDATE_DATE, H.SPRINT_HIST_UPDATE_TIME) AS SPRINT_TYPE
+		  FROM SPRINT_HISTORY H,
+               USER_INFO I,
+		       USER_TEAM_LIST T ,
+		       USER_PROJECT_LIST P,
+		       SPRINT_LIST S ,
+		       PROJECT_LIST J
+		  WHERE I.USER_CODE = T.USER_CODE
+		    AND T.USER_TEAM_CODE = P.USER_TEAM_CODE
+		    AND P.USER_PROJECT_CODE =  S.USER_PROJECT_CODE
+		    AND S.SPRINT_CODE = H.SPRINT_CODE
+		    AND P.PROJECT_CODE = J.PROJECT_CODE
+		    AND I.USER_EMAIL = #{userEmail, jdbcType=VARCHAR}
+            AND H.SPRINT_STATUS = 'N'
+		  GROUP BY H.SPRINT_CODE , J.PROJECT_NAME, P.USER_PROJECT_CODE
+          ORDER BY H.SPRINT_CODE)A
+          LEFT JOIN ( 
+               SELECT ROUND(COUNT(DECODE(TASK_HIST_VALUE, '완료', 1))/COUNT(*)*100 , 0) AS SPRINT_TASK_COUNT
+                     ,SPRINT_CODE
+                 FROM (
+                  SELECT L.TASK_CODE,L.SPRINT_CODE
+                      , MAX(H.TASK_HIST_VALUE) KEEP (DENSE_RANK LAST ORDER BY H.TASK_HIST_UPDATE_DATE, H.TASK_HIST_UPDATE_TIME) AS TASK_HIST_VALUE
+                      , H.TASK_CATEGORY_CODE 
+                      , H.USER_CODE
+                      , H.MASTER_CODE
+                   FROM TASK_HISTORY H
+                   JOIN TASK_LIST L ON (H.TASK_CODE = L.TASK_CODE)
+                  GROUP BY L.TASK_CODE, H.TASK_CATEGORY_CODE, H.USER_CODE, H.MASTER_CODE, L.SPRINT_CODE)
+              WHERE TASK_CATEGORY_CODE='I' group by SPRINT_CODE) B
+        ON (A.SPRINT_CODE = B.SPRINT_CODE)
+        WHERE SPRINT_NAME LIKE #{sprintName, jdbcType=VARCHAR}
+        ORDER BY DECODE(SPRINT_TYPE, '02', 1, '01', 2, '03', 3),1
+	</select>
+	
 </mapper>
+
+
+
+
+
+
+
+
+
+
+

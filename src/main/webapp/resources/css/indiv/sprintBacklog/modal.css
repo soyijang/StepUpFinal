@@ -71,6 +71,12 @@
  	vertical-align: middle;
  	line-height: 30px;
  }
+ .finishTaskClose {
+ 	text-align: center;
+ 	display: inline-block;
+ 	vertical-align: middle;
+ 	line-height: 30px;
+ }
  
  button{
     outline: 0;
