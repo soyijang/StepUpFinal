@@ -1,0 +1,101 @@
+
+        #circle1 {
+            background:#C4C4C4;
+            height: 30px;
+            width: 30px;
+            border-radius: 50%;
+            border: 0;
+            font-size: 8px;
+            color: white;
+            text-align: center;      
+        }
+        #circle2 {
+            background:#DD0351;
+            height: 30px;
+            width: 30px;
+            border-radius: 50%;
+            border: 0;
+            font-size: 8px;
+            color: white;
+            text-align: center;
+        }
+        #circle3 {
+            background:#2B2B49;
+            height: 30px;
+            width: 30px;
+            border-radius: 50%;
+            border: 0;
+            font-size: 8px;
+            color: white;
+            text-align: center;
+        }
+        #rectangle1 {
+            background:#C4C4C4;
+            height: 30px;
+            width: 50px;
+            border-radius: 1000mm;
+            border: 0;
+            font-size: 8px;
+            color: white;
+            text-align: center;     
+        }
+        #rectangle2 {
+            background:#2B2B49;
+            height: 30px;
+            width: 80px;
+            border-radius: 10px;
+            border: 0;
+            font-size: 8px;
+            color: white;
+            text-align: center;     
+        }
+        #rectangle3 {
+            background:#C4C4C4;
+            height: 30px;
+            width: 80px;
+            border-radius: 10px;
+            border: 0;
+            font-size: 8px;
+            color: white;
+            text-align: center;     
+        }
+        #rectangle4 {
+            background:#DD0351;
+            height: 30px;
+            width: 80px;
+            border-radius: 1000mm;
+            border: 0;
+            font-size: 10px;
+            color: white;
+            text-align: center;     
+        }
+        #rectangle5 {
+            background: white;
+            border: 1px solid #C4C4C4;
+            height: 30px;
+            width: 80px;
+            border-radius: 1000mm;
+            font-size: 10px;
+            color: #C4C4C4;
+            text-align: center;     
+        }
+        .rectangle6 {
+            background:#DD0351;
+            height: 30px;
+            width: 80px;
+            border-radius: 10px;
+            border: 0;
+            font-size: 8px;
+            color: white;
+            text-align: center;     
+        }
+        #rectangle7 {
+            background:white;
+            height: 30px;
+            width: 80px;
+            border-radius: 10px;
+            border: 1px solid #DD0351;
+            font-size: 8px;
+            color:#DD0351;
+            text-align: center;     
+        }

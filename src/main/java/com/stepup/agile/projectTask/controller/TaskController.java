@@ -50,7 +50,6 @@ public class TaskController {
 		th.setTaskHistValue(title.get(1));
 		th.setTaskCategoryCode(title.get(2));
 		
-		
 		int taskHistCode = ts.updateTitle(m, th);
 		System.out.println(title.get(0));
 		System.out.println(title.get(1));
