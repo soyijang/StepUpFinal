@@ -358,15 +358,16 @@
 	//검색 이벤트
 	 function searchBug(){
 		if(window.event.keyCode == 13){
-			console.log("제발");
 			var searchBug = $("#searchBug").val();
 			console.log(searchBug);
+			
 			$.ajax({
 				url:"searchBug.tk",
 				type:"post",
 				data:{"taskHistValue" : searchBug},
 				dataType : "json",
 				success: function(data){
+					
 					//검색어에 내용있을 때 결과
 					var searchArr = data.searchBugList2;
 					console.log(data.searchBugList2);
