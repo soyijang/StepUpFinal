@@ -22,5 +22,15 @@ public interface TaskService {
 
 	String selectPjNonTask(Map<String, Object> map);
 
+	List<TaskHistory> selectBugTask(Member m);
 
+	List<TaskList> selectBugCont(HashMap<String, Object> map);
+
+	int insertCloneBug(HashMap<String, Object> map);
+
+	int insertCloneBug2(HashMap<String, Object> map2);
+
+	int deleteCloneBug(HashMap<String, Object> map);
+
+	List<TaskHistory> searchBug(HashMap<String, Object> map);
 }

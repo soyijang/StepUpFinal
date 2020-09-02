@@ -53,7 +53,36 @@ public class TaskServiceImpl implements TaskService {
 	}
 
 	
+	@Override
+	public List<TaskHistory> selectBugTask(Member m) {
+		return td.selectBugTask(sqlSession, m);
+	}
 
+
+	@Override
+	public List<TaskList> selectBugCont(HashMap<String, Object> map) {
+		return td.selectBugCont(sqlSession, map);
+	}
+
+	@Override
+	public int insertCloneBug(HashMap<String, Object> map) {
+		return td.insertCloneBug(sqlSession, map);
+	}
+
+	@Override
+	public int insertCloneBug2(HashMap<String, Object> map2) {
 	
+		return td.insertCloneBug2(sqlSession, map2);
+	}
+
+	@Override
+	public int deleteCloneBug(HashMap<String, Object> map) {
+		return td.deleteCloneBug(sqlSession, map);
+	}
+
+	@Override
+	public List<TaskHistory> searchBug(HashMap<String, Object> map) {
+		return td.searchBug(sqlSession, map);
+	}
 
 }

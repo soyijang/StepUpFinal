@@ -24,5 +24,15 @@ public interface TaskDao {
 
 	String selectPjNonTask(SqlSessionTemplate sqlSession, Map<String, Object> map);
 
+	List<TaskHistory> selectBugTask(SqlSessionTemplate sqlSession, Member m);
 
+	List<TaskList> selectBugCont(SqlSessionTemplate sqlSession, HashMap<String, Object> map);
+
+	int insertCloneBug(SqlSessionTemplate sqlSession, HashMap<String, Object> map);
+
+	int insertCloneBug2(SqlSessionTemplate sqlSession, HashMap<String, Object> map2);
+
+	int deleteCloneBug(SqlSessionTemplate sqlSession, HashMap<String, Object> map);
+
+	List<TaskHistory> searchBug(SqlSessionTemplate sqlSession, HashMap<String, Object> map);
 }
