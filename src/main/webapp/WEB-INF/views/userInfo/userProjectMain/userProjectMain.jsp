@@ -185,6 +185,44 @@
 </body>
 </body>
 <script>
+	/* 이번주 일주일 구하기 */
+	var currentDay = new Date();  
+	var theYear = currentDay.getFullYear();
+	var theMonth = Number(currentDay.getMonth() + 1);
+	theMonth = theMonth >= 10 ? theMonth : '0' + theMonth;
+	var theDate  = currentDay.getDate();
+	theDate = theDate >= 10 ? theDate : '0' + theDate;
+	var theDayOfWeek = currentDay.getDay();
+	
+	console.log("currentDay" + currentDay);
+	console.log("theYear " + theYear);
+	console.log("theMonth" + theMonth);
+	console.log("theDate" + theDate);
+	console.log("theDayOfWeek" + theDayOfWeek);
+	
+	var thisWeek = [];
+	for(var i=0; i<7; i++) {
+	  var resultDay = new Date();
+	  resultDay = new Date(theYear, theMonth, theDate + (i - theDayOfWeek));
+	  var yyyy = resultDay.getFullYear();
+	  var mm = resultDay.getMonth();
+	  var dd = resultDay.getDate();
+	 
+	  console.log("result day : " + resultDay);
+	  console.log("yyyy" + yyyy);
+	  console.log("mm : " + mm);
+	  console.log("dd" + dd);
+	  
+	  //mm = String(mm).length === 1 ? '0' + mm : mm;
+	  dd = String(dd).length === 1 ? '0' + dd : dd;
+	 
+	  //console.log("연산자 mm : " + mm);
+	  console.log("연산자 mm : " + dd);
+	  
+	  thisWeek[i] = dd;
+	  //thisWeek[i] = yyyy + '-' + mm + '-' + dd;
+	}
+	console.log("thisweek" + thisWeek);
 	/**
 	 *  yyyyMMdd 포맷으로 반환
 	 */
@@ -200,11 +238,17 @@
 	
 	
 	$(document).ready(function(){
+		var weekend = [];
+		for(var i = 0; i<7; i++){
 		var date = new Date();
-		console.log(date);
 		date = getFormatDate(date);
-		
 		console.log("포맷팅된 날짜 : " + date);
+			day = String(day).length === 1 ? '0' + day : day;
+			
+			weekend[i] = day;
+			console.log(weekend);
+		}
+		
 		
 		var day;
 		day = date.substring(6, 8);
@@ -213,7 +257,6 @@
 		var today;
 		today = date.substring(10, 8);
 		console.log("오늘 요일 : " + today);
-	
 
 		var mon;
 		mon = date.substring(6, 4);
@@ -256,50 +299,14 @@
 			console.log(mon);
 		}
 		
-		drawCalendar(today, mon, day);
+		
+		drawCalendar(today, mon, day, weekend);
 		
 		
 	});
 	
-	function drawCalendar(today, mon, day){
-		/* 이번주 일주일 구하기 */
-		var currentDay = new Date();  
-		var theYear = currentDay.getFullYear();
-		var theMonth = Number(currentDay.getMonth() + 1);
-		theMonth = theMonth >= 10 ? theMonth : '0' + theMonth;
-		var theDate  = currentDay.getDate();
-		theDate = theDate >= 10 ? theDate : '0' + theDate;
-		var theDayOfWeek = currentDay.getDay();
+	function drawCalendar(today, mon, day, weekend){
 		
-		console.log("currentDay" + currentDay);
-		console.log("theYear " + theYear);
-		console.log("theMonth" + theMonth);
-		console.log("theDate" + theDate);
-		console.log("theDayOfWeek" + theDayOfWeek);
-		
-		var thisWeek = [];
-		for(var i=0; i<7; i++) {
-		  var resultDay = new Date();
-		  resultDay = new Date(theYear, theMonth, theDate + (i - theDayOfWeek));
-		  var yyyy = resultDay.getFullYear();
-		  var mm = resultDay.getMonth();
-		  var dd = resultDay.getDate();
-		 
-		  console.log("result day : " + resultDay);
-		  console.log("yyyy" + yyyy);
-		  console.log("mm : " + mm);
-		  console.log("dd" + dd);
-		  
-		  //mm = String(mm).length === 1 ? '0' + mm : mm;
-		  dd = String(dd).length === 1 ? '0' + dd : dd;
-		 
-		  //console.log("연산자 mm : " + mm);
-		  console.log("연산자 mm : " + dd);
-		  
-		  thisWeek[i] = dd;
-		  //thisWeek[i] = yyyy + '-' + mm + '-' + dd;
-		}
-		console.log("thisweek" + thisWeek);
 		
 		var setTableHTML = "";
 		var num = String(today);
@@ -316,7 +323,7 @@
 	    for(var i=0;i<7;i++){
 	        setTableHTML+='<tr style="font-size: 12px;">';
 	        setTableHTML+='<td width="10px" height="100px">';
-	        setTableHTML+= thisWeek[i];
+	        setTableHTML+= weekend[i];
 	        setTableHTML+='<br>';
 		     	
 		        if(today == 0) {
@@ -372,7 +379,7 @@
     var num2 = Math.ceil(ing/tot*100);
     var num3 = Math.ceil(com/tot*100);
     
-    var max = 0;
+  /*   var max = 0;
 	var mid = 0;
 	var min = 0;
 	
@@ -384,7 +391,7 @@
 	
       console.log(max);
       console.log(mid);
-      console.log(min);
+      console.log(min); */
     
     var func1 = setInterval(function(){
     	
@@ -403,10 +410,6 @@
         }
 		},10);
     
-    console.log(Math.ceil(non2));
-    console.log(Math.ceil(ing2));
-    console.log(Math.ceil(com2));
-    console.log(tot);
 	});
 
 	
