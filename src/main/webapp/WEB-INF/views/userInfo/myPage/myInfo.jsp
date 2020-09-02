@@ -9,6 +9,9 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/common/nav.js"></script>
 
 <style>
+	body {
+	  font-family : 'Noto Sans KR';
+	}
 	#backimg {
 		width:100%;
 		height: 200px;
@@ -157,7 +160,7 @@
 </style>
 </head>
 <body>
-	<%@ include file="../common/menubar.jsp" %>
+	<%@ include file="../../common/menubar.jsp" %>
 	<div id="content" style="padding:0px; padding-top:-20px">
 	<div id="backimg"></div>
 	<div id="mainProfile"><img src="/agile/resources/icon/common/icon_user.png" id="profilePhoto"></div>
@@ -248,7 +251,7 @@
 	
  		$('.infoInput').each(function(){
 			$(this).click(function(){
-				$('.btn').toggle();
+				$('.btn').toggle("/taskDetail");
 			});
 		}); 
 		

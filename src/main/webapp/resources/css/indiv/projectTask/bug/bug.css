@@ -1,4 +1,29 @@
 @charset "UTF-8";
+@import url(http://fonts.googleapis.com/earlyaccess/notosanskr.css);
+@font-face {font-family: 'Noto Sans KR';font-style: normal;font-weight: 100;src: url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Thin.woff2) format('woff2'),url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Thin.woff) format('woff'),url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Thin.otf) format('opentype');}
+
+
+
+@font-face {font-family: 'Noto Sans KR';font-style: normal;font-weight: 300;src: url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Light.woff2) format('woff2'),url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Light.woff) format('woff'),url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Light.otf) format('opentype');}
+
+
+
+@font-face {font-family: 'Noto Sans KR';font-style: normal;font-weight: 400;src: url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Regular.woff2) format('woff2'),url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Regular.woff) format('woff'),url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Regular.otf) format('opentype');}
+
+
+
+@font-face {font-family: 'Noto Sans KR';font-style: normal;font-weight: 500;src: url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Medium.woff2) format('woff2'),url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Medium.woff) format('woff'),url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Medium.otf) format('opentype');}
+
+
+
+@font-face {font-family: 'Noto Sans KR';font-style: normal;font-weight: 700;src: url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Bold.woff2) format('woff2'),url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Bold.woff) format('woff'),url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Bold.otf) format('opentype');}
+
+
+
+@font-face {font-family: 'Noto Sans KR';font-style: normal;font-weight: 900;src: url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Black.woff2) format('woff2'),url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Black.woff) format('woff'),url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Black.otf) format('opentype');}
+body{
+	font-family: Noto Sans KR;
+}
 #content{
 	wdith:1440px;
 	height:900px;
@@ -14,7 +39,7 @@
 	margin-top: 20px;
 }
 #bug-list-area{
-	margin-top: 40px;
+	margin-top: 5px;
 	width: 30%;
 	height: 100%;
 	display: inline-block;
@@ -45,7 +70,7 @@
 }
 #bug-list{
 	width: 95%;
-	height: 100%;
+	height: 82%;
 	/* width: 350px;
 	height:655px; */
 	border:1px solid #E8E8E8;
@@ -53,10 +78,11 @@
 	max-height:780px;
     overflow-y:scroll;
     border-radius: 5px;
+    overflow-x:hidden;
 }
 #bug-detail{
 	width: 100%;
-	height: 100%;
+	height: 82%;
 	/* width: 850px;
 	height:655px; */
 	border:1px solid #E8E8E8;
@@ -95,6 +121,7 @@
 	font-size: 20px;
 }
 #bg-num{
+	margin-left:38px;
 	width: 100%; 
 	height: 7%;
 }
@@ -105,10 +132,13 @@
 }
 #bg-detail{
 	margin-left:40px;
-	width: 100%; 
-	height: 60%;
+	width: 90%; 
+	height: 50%;
+	padding-top: 30px;
+	border-radius: 6px;
 }
 #bg-reply{
+	margin-top: 100px;
 	margin-left:40px;
 	display:inline-block;
 	width: 100%; 
@@ -117,10 +147,17 @@
 #detail-ex{
 	width:100%;
 	height:10%;
+	font-size:19px;
+	padding-left: 20px;
+	margin-top: 50px;
+	font-weight: 500;
 }
 #detail-cont{
 	width:100%;
 	height:90%;
+	padding-top: 10px;
+	padding-left: 20px;
+	color:#424242;
 }
 #re-pro{
 	width:10%;
@@ -133,3 +170,216 @@
 	height: 100%;
 	display: inline-block;
 }
+.clone-delete-btn{
+	background: transparent;
+	outline: 0;
+	border-style: none;
+}
+.clone-delete-btn:focus{
+	outline: 0;
+}
+<!--드롭다운 -->
+.dropdown2 {
+    width: 40px;
+    display: inline-block;
+    background-color: #ffffff;
+    box-shadow: 0 0 2px #cccccc;
+    transition: all .5s ease;
+    position: relative;
+    font-size: 14px;
+    color: #474747;
+    height: 100%;
+    text-align: center;
+    margin-right: 30px;
+    margin-left: 30px;
+    border-radius: 10px;
+    border: 1px solid #dd0351;
+  }
+  .dropdown2 .select2 {
+      cursor: pointer;
+      display: block;
+      padding: 5px;
+      width:40px;
+  }
+  .dropdown2 .select2 > i {
+      font-size: 13px;
+      color: #888;
+      cursor: pointer;
+      transition: all .3s ease-in-out;
+      float: right;
+      line-height: 20px;
+  }
+  .dropdown2:hover {
+      box-shadow: 0 0 4px #FEF5F8;
+      text-decoration-color: #dd0351;
+      background-color: #FEF5F8;
+      border-color: #FEF5F8;
+  }
+  .dropdown2:active {
+      background-color: #FEF5F8;
+  }
+  .dropdown2.active:hover,
+  .dropdown2.active {
+      box-shadow: 0 0 4px #FEF5F8;
+      border-radius: 2px 2px 0 0;
+      background-color: #f8f8f8;
+  }
+  .dropdown2.active .select2 > i {
+      transform: rotate(-90deg)
+  }
+  .dropdown2 .dropdown-menu2 {
+      position: absolute;
+      background-color: #fff;
+      width: 50px;
+      float: right;
+      margin-top: 1px;
+      box-shadow: 0 1px 2px#FEF5F8;
+      border-radius: 10px;
+      overflow: hidden;
+      display: none;
+      max-height: 144px;
+      overflow-y: auto;
+      z-index: 9
+  }
+  .dropdown2 .dropdown-menu2 li {
+      padding: 5px;
+      transition: all .2s ease-in-out;
+      cursor: pointer
+  } 
+  .dropdown2 .dropdown-menu2 {
+      padding: 0;
+      list-style: none
+  }
+  .dropdown2 .dropdown-menu2 li:hover {
+      color: #dd0351;
+      background-color: #FEF5F8;
+  }
+  .dropdown2 .dropdown-menu2 li:active {
+      background-color: #FEF5F8;
+  }
+  .dropdown2-area{
+  	 width:40px;
+  }
+  #reply-input{
+	width:550px;
+	height:50px;
+	border: 1px solid #E8E8E8;
+	border-radius: 6px;  
+  }
+  
+  .bug-list-detail{
+  margin-top: 10px;
+  padding-top: 15px;
+  padding-left: 30px;
+  padding-right: 30px;
+  padding-bottom: 15px;
+   background-color: white;
+    margin-left: 6px;
+  	display: inline-block;
+  	width:255px;
+  	border: 1px solid #E8E8E8;
+  	border-radius: 6px;
+  	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  }
+  #bug-ti-list{
+  	width:90%;
+  	height:50%;
+  }
+  #bug-con-list{
+  	float: left;
+  	width:90%;
+  	height:40px;
+  }
+  .bug-con-list-area{
+  	display: inline-block;
+  }
+  #user-pro-lit{
+  	margin-bottom: 4px;
+  	float: right;
+  }
+  #bugicon{
+  	margin-top: 10px;
+  }
+  #bug-code-list{
+  	margin-bottom: 10px;
+  	padding-bottom: 2px;
+  }
+     
+      .wrap-loading{ /*화면 전체를 어둡게*/
+          position: fixed;
+          left:0;
+          right:0;
+          top:0;
+          bottom:0;
+          background: rgba(0,0,0,0.2); /*not in ie */
+          filter: progid:DXImageTransform.Microsoft.Gradient(startColorstr='#20000000', endColorstr='#20000000');    /* ie */
+      }
+      
+      .wrap-loading div{ /*로딩 이미지*/
+          position: fixed;
+          top:50%;
+          left:50%;
+          margin-left: -21px;
+          margin-top: -21px;
+      }
+      
+      .wrap-loading div > img {
+         width: 20%;
+         height: 20%;
+      }
+      
+      .display-none{ /*감추기*/
+          display:none;
+       }
+#bug-issue-title{
+	margin-top: 40px;
+	padding-left:20px;
+	font-size: 25px;
+	font-weight: 500;
+}
+#add-link-area{
+	margin-left: 20px;
+}
+#rectangle{
+	background: #F4F4F4;
+    border: 1px solid #F4F4F4;
+    width: 55px;
+	height: 19px;;
+    border-radius: 1px;
+    font-size: 10px;
+    color: #C4C4C4;
+    text-align: center;
+}
+#reply-add-btn{
+	background:#DD0351;
+	border: 0;
+	outline: 0;
+	color: white;
+}
+#reply-cancel-btn{
+	background-color: rgba(221, 3, 81, 0.14);
+	color: #DD0351;
+	outline: 0;
+	border: 0;
+}
+#searchBug{
+	height:25px; 
+	border: 1px solid #E8E8E8; 
+	border-radius:8px;
+}
+#bug-status{
+	width:100px;
+	height:20px;
+}
+#searchBug ~ .focus-border:before,
+#searchBug ~ .focus-border:after{content: ""; position: absolute; top: 0; right: 0; width: 0; height: 2px; background-color: #4caf50; transition: 0.2s; transition-delay: 0.2s;}
+#searchBug ~ .focus-border:after{top: auto; bottom: 0; right: auto; left: 0; transition-delay: 0.6s;}
+#searchBug ~ .focus-border i:before,
+#searchBug ~ .focus-border i:after{content: ""; position: absolute; top: 0; left: 0; width: 2px; height: 0; background-color: #4caf50; transition: 0.2s;}
+#searchBug ~ .focus-border i:after{left: auto; right: 0; top: auto; bottom: 0; transition-delay: 0.4s;}
+#searchBug:focus ~ .focus-border:before,
+#searchBug:focus ~ .focus-border:after{width: 100%; transition: 0.2s; transition-delay: 0.6s;}
+#searchBug:focus ~ .focus-border:after{transition-delay: 0.2s;}
+#searchBug:focus ~ .focus-border i:before,
+#searchBug:focus ~ .focus-border i:after{height: 100%; transition: 0.2s;}
+#searchBug:focus ~ .focus-border i:after{transition-delay: 0.4s;}

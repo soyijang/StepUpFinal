@@ -22,13 +22,13 @@
 	height:16%;
 }
 #pj-alm-area{
-	width: 38%;
+	width: 43%;
 	height:80%;
 	display: inline-block;
 	float: left;
 }
 #task-cht-area{
-	width: 60%;
+	width: 53%;
 	height:80%;
 	display: inline-block;
 	margin-left: 7px;
@@ -52,14 +52,14 @@
 	margin-right: 10px;
 	border: 1px solid #E8E8E8;
 	border-radius: 8px;
-	width: 97%;
+	width: 100%;
 	height:50%;
 }
 #cht-cont-area{
 	margin-top: 10px;
 	border: 1px solid #E8E8E8;
 	border-radius: 8px;
-	width: 97%;
+	width: 100%;
 	height:50%;
 }
 #pro-cont-title{
@@ -279,3 +279,37 @@ span.center{
     overflow-y:scroll;
 }
 
+#pro-list{
+	border: 1px solid #E8E8E8;
+	border-radius: 9px;
+	margin-top: 5px;
+	padding: 5px;
+}
+#task-list{
+	border: 1px solid #E8E8E8;
+	border-radius: 9px;
+	margin-top: 5px;
+	padding: 5px;
+}
+.ing-bor{
+	width: 80px;
+	height: 24px;
+	background-color:#FEF4E5;
+	border-radius: 10px;
+    text-align: center;
+    color: #ECC8A2;
+}
+.com-bor{
+	width: 80px;
+	height: 24px;
+	background-color:#F3F8FD;
+	border-radius: 10px;
+    text-align: center;
+    color: #B7BBDE;
+}
+.cal-schedule{
+	border-radius: 10px;
+	width:200px;
+	font-size: 15px;
+	background-color: #FFF2F2;
+}
