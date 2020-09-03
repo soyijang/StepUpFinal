@@ -38,23 +38,10 @@
                     <div id="shareArea">
 	                    <div id="userArea"><img src="/agile/resources/images/profile/dayoon_202008152056.png"><img src="/agile/resources/images/profile/soyi_202008132015.png"></div>
 	                    <div id="btn-share-area">
-		                    <div id="today-btn"><button id="rectangle3">Today</button></div>
-			                    <div id="week-dropdown">
-			                    	<div class="dropdown">
-								        <div class="select">
-								              <span id="user-list">날짜</span>
-								          <i class="fa fa-chevron-left"></i>
-								        </div>
-								        <ul class="dropdown-menu">
-								          <li id="day">day</li>
-								          <li id="week">Week</li>
-								          <li id="month">Month</li>
-								          <!-- <li id="Quater-Day">Quater Day</li> -->
-								          <li id="Half-Day">Half Day</li>
-								        </ul>
-							      </div>
-					     	 </div>	
-		                    <div id="unsch"><button id="rectangle3" width="90px;" class="addTasks">Add-tasks</button></div>
+		                    <div class="today-btn"><button id="day" class="dayBtn">Day</button></div>
+		                    <div class="today-btn"><button id="week" class="dayBtn">Week</button></div>
+		                    <div class="today-btn"><button id="month" class="dayBtn">Month</button></div>
+		                    <div class="today-btn"><button id="Half-Day" class="dayBtn2">Half Day</button></div>
 	                    </div>
                     </div>
                     <div id="line"></div>
@@ -71,20 +58,6 @@
                 		</div>
                 		<div id="epic-title-wrap">
 	                		<div id="epic-title-cont">
-		                			<!-- <div id="ep-ti">
-		               					스프린트 제목
-		                			</div>	 -->
-	                			<!-- <div id="epic-add-btn">
-	                				<button id="ep-ad-btn">
-	                					<img src="/agile/resources/icon/common/icon_circle_plus.png" width="15px;" height="15px;">
-	                				</button>
-	                				<input type="text" id="ep-ti-tx" style="display:none;" onkeyup="enterkey();">
-	                			</div> -->
-	                			<!-- <table style="width:100%;">
-	                				<tr>
-	                					<td style="border-bottom:1px solid #E8E8E8; text-align:center; height:90px;">제목이 생겨야해</td>
-	                				</tr>
-	                			</table> -->
 	                		</div>
                 		</div>
                 	</div>
@@ -95,12 +68,6 @@
                 	<div class="gantt-target">
                 	</div>
                 	
-                		<!-- <div id="epic-con-title">
-                			
-                		</div>
-                		<div id="epic-con-cont">
-                			
-                		</div> -->
                 	</div>
                 	</div>
                 	<!-- 에픽 달력 영역 끝 -->
@@ -112,12 +79,9 @@
    </div>    
 </body>
 <script>
-	
-
 	window.onload = function(){
 		
 	    drawGantt();
-	  
 	    
 	};
 	
@@ -176,7 +140,6 @@
 				}
 				
 					
-				//var monthBtn = document.getElementById("month");
 				var gantt_chart = new Gantt(".gantt-target", tasks, {
 							on_click: function (task) {
 								console.log(task);
@@ -248,59 +211,6 @@
 		});
 	}
 
- 
-	
-	
-	//input type text에서 엔터치면 실행되는 함수
-	function enterkey() {
-		if(window.event.keyCode == 13){
-			createEpic();
-			noneinput();
-		}
-	}
-	function noneinput(){
-		$("#ep-ti-tx").hide();
-		$("#ep-ad-btn").hide();
-	}
-	
-	
-	//에픽제목 버튼 누르면 input type text활성화, 버튼 비활성화 되는 함수
-	$("#ep-ad-btn").on('click',function(e){
-		$("#ep-ti-tx").show();
-		$("#ep-ad-btn").hide();
-	});
-	
-	//에픽 제목 div 영역 누르면 버튼 활성화, text창 비활성화 되는 함수
-	$(document).on("click",function(e){
-		if($("#epic-title-cont").is(e.target)){
-			
-			$("#ep-ti-tx").hide();
-			$("#ep-ad-btn").show();
-			
-		}
-	});
-	
-	function createEpic(){
-		var epdiv = $("#ep-ti");
-		
-		var ti = document.getElementById('ep-ti-tx').value;
-		console.log(ti);
-		/* var div = document.createElement('div');
-
-	    div.innerHTML = document.getElementById('ep-ti-tx').value;
-
-	    document.getElementById('epic-title-cont').appendChild(div); */
-	    $('#epic-add-btn').remove();
-	    $('#ep-ad-btn').remove();
-	    $('#ep-ti-tx').remove();
-	    
-	    $('#epic-title-cont').append('<div id="ep-ti">' + ti + '</div>');
-	    $('#ep-ti').append('<div id="epic-add-btn">');
-	    $('#epic-add-btn').append('<button id="ep-ad-btn">');
-	    $('#epic-add-btn').append('<input type="text" id="ep-ti-tx" style="display:none;" onkeyup="enterkey();">');
-	
-	    
-	}
 
     //드롭다운
    $('.dropdown').click(function() {

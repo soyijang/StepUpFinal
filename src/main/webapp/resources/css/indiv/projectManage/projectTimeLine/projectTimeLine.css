@@ -188,10 +188,12 @@ body{
 	margin-left: 5px;
 	font-size: 13px;
 }
-#today-btn{
-	width: 80px;
+
+.today-btn{
+	width: 50px;
 	height: 30px;
 	display: inline-block;
+	margin-left: 15px;
 	float: left;
 }
 #week-dropdown{
@@ -302,29 +304,50 @@ body{
   	border-right: 1px solid #DFDFDF;
   }
      
-      .wrap-loading{ /*화면 전체를 어둡게*/
-          position: fixed;
-          left:0;
-          right:0;
-          top:0;
-          bottom:0;
-          background: rgba(0,0,0,0.2); /*not in ie */
-          filter: progid:DXImageTransform.Microsoft.Gradient(startColorstr='#20000000', endColorstr='#20000000');    /* ie */
-      }
+.wrap-loading{ /*화면 전체를 어둡게*/
+     position: fixed;
+     left:0;
+     right:0;
+     top:0;
+     bottom:0;
+     background: rgba(0,0,0,0.2); /*not in ie */
+     filter: progid:DXImageTransform.Microsoft.Gradient(startColorstr='#20000000', endColorstr='#20000000');    /* ie */
+}
       
-      .wrap-loading div{ /*로딩 이미지*/
-          position: fixed;
-          top:50%;
-          left:50%;
-          margin-left: -21px;
-          margin-top: -21px;
-      }
+.wrap-loading div{ /*로딩 이미지*/
+     position: fixed;
+     top:50%;
+     left:50%;
+     margin-left: -21px;
+     margin-top: -21px;
+}
       
-      .wrap-loading div > img {
-         width: 20%;
-         height: 20%;
-      }
+.wrap-loading div > img {
+    width: 20%;
+    height: 20%;
+}
       
-      .display-none{ /*감추기*/
-          display:none;
-       }
+.display-none{ /*감추기*/
+    display:none;
+}
+       
+.dayBtn{
+	width: 60px;
+	height: 30px;
+	border-radius: 10px;
+	background-color: #2B2B49;
+	border: none;
+	outline: none;
+	color: white;
+	cursor: pointer;
+}
+.dayBtn2{
+	width: 80px;
+	height: 30px;
+	border-radius: 10px;
+	background-color: #2B2B49;
+	border: none;
+	outline: none;
+	color: white;
+	cursor: pointer;
+}
