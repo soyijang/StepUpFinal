@@ -32,24 +32,26 @@
 					<table id="contentBox1-content-table">
 						<tr>
 							<!-- 프로젝트 리스트 -->
-							<td>
-								<div class="contentBox1-content-table-tr-td">
-									<div class="left-padding-gray">
-										<div class="project-name">
-											프로젝트명
-										</div>
-										<div class="project-participants">
-											참여인원<div class="pink-btn">6</div>
-										</div>
-										<div class="project-progress-rate">
-											진행률 <div class="pink-btn">68%</div>
+							<c:forEach var="item" items="${selectedProjectHistoryList}" begin="0" end="3" step="1" varStatus="status">
+								<td>
+									<div class="contentBox1-content-table-tr-td">
+										<div class="left-padding-gray${status.index}">
+											<div class="project-name">
+												${item.project.projectName}
+											</div>
+											<div class="project-participants">
+												참여인원<div class="pink-btn">${item.project.projectParticipantCnt}</div>
+											</div>
+											<div class="project-progress-rate">
+												진행률 <div class="pink-btn">${item.project.projectProceedingRate}%</div>
+											</div>
 										</div>
 									</div>
-								</div>
-							</td>
+								</td>
+							</c:forEach>	
 							<!-- 프로젝트 추가 -->
 							<td>
-								<div class="contentBox1-content-table-tr-td">
+								<div class="contentBox1-content-table-tr-td pointer createBtn">
 									<div class="new-project-add">
 										<img class="icon_circle_plus_red" src="/agile/resources/icon/common/icon_circle_plus_red.png">
 										<div class="new-project-add-text">새 프로젝트 추가</div>
@@ -84,17 +86,17 @@
 								<th>프로젝트 종료일</th>
 								<th>프로젝트 진행상태</th>
 								<th>프로젝트 마스터</th>
-								<th>프로젝트 삭제</th>
+								<th>프로젝트 관리</th>
 							</tr>
 						</thead>
 						<tbody>
 							<!-- 프로젝트 관련정보 반복문 -->
 							<!-- begin, end, step 생략시 collection 크기만큼 반복  -->
-							<c:forEach var="item" items="${projectList}">
+							<c:forEach var="item2" items="${selectedProjectHistoryList}">
 								<tr>
 									<td>
-										<div class="project-name">
-											${item.projectName}
+										<div class="">
+											${item2.project.projectName}
 										</div>
 									</td>
 									<td>
@@ -106,15 +108,15 @@
 									<td><div class="project-participant-add"><img class="icon_user_plus" src="/agile/resources/icon/common/icon_user_plus.png"></div></td>
 									<!-- 시작일과 시작 시간 -->
 									<td>
-										<c:out value="${item.projectHistory.projectStartDate}"/>
-										<input type="hidden" class="projectStartDate" value="${item.projectHistory.projectStartDate}">
-										<input type="hidden" class="projectStartTime" value="${item.projectHistory.projectStartTime}">
+										${item2.projectStartDate}
+										<input type="hidden" class="projectStartDate" value="${item2.projectStartDate}">
+										<input type="hidden" class="projectStartTime" value="${item2.projectStartTime}">
 									</td>
 									<!-- 종료일과 종료 시간 -->
 									<td>
-										<c:out value="${item.projectHistory.projectEndDate}"/>
-										<input type="hidden" class="projectEndDate" value="${item.projectHistory.projectEndDate}">
-										<input type="hidden" class="projectEndTime" value="${item.projectHistory.projectEndTime}">
+										${item2.projectEndDate}
+										<input type="hidden" class="projectEndDate" value="${item2.projectEndDate}">
+										<input type="hidden" class="projectEndTime" value="${item2.projectEndTime}">
 									<td>
 								            <!--  <div class="incompleteBox">미완료 ${item.projectHistory.projectStartDate} - ${item.projectHistory.projectEndDate}</div> -->
 								            <!-- <div class="incompleteBox">미진행</div>  -->
@@ -156,22 +158,27 @@
 		     		<td>프로젝트 시작시간<div class="red-star">*</div></td>
 		     	</tr>
 		     	<tr>
-		     		<td><input type="date"></td>
-		     		<td><input type="time"></td>
+		     		<td><input type="date" name="projectStartDate"></td>
+		     		<td><input type="time" name="projectStartTime"></td>
 		     	</tr>
 		     	<tr>
 		     		<td>프로젝트 종료일자<div class="red-star">*</div></td>
 		     		<td>프로젝트 종료시간<div class="red-star">*</div></td>
 		     	</tr>
 		     	<tr>
-		     		<td><input type="date"></td>
-		     		<td><input type="time"></td>
+		     		<td><input type="date" name="projectEndDate"></td>
+		     		<td><input type="time" name="projectEndTime"></td>
 		     	</tr>
 		     	<tr><td>프로젝트 소개<div class="red-star">*</div></td></tr>
-		     	<tr><td colspan="2"><input type="text"/></td></tr>
 		     	<tr>
-		     		<td>
-			     		<div><input type="submit" class="rectangle6 modal0-ok" value="추가"><input type="reset" class="rectangle7 modal0-close" value="닫기"/></div>
+		     		<td colspan="2">
+		     		<input type="text" name="projectIntro"/>
+		     		<div class="red-star">* 프로젝트 생성시 프로젝트 스크럼 마스터 권한이 부여 됩니다.</div>
+		     		</td>
+		     	</tr>
+		     	<tr>
+		     		<td colspan="2">
+			     		<div class="btn-box"><input type="submit" class="rectangle6 modal0-ok" value="추가"><input type="reset" class="rectangle7 modal0-close" value="닫기"/></div>
 		     		</td>
 		     	</tr>
 	     </table>
@@ -217,17 +224,20 @@ var modal0 = document.getElementById("myModal0");
 
 //Get the button that opens the modal
 /* 모달창 띄워줄 버튼 */
-var btn0 = document.getElementsByClassName("createBtn")[0];
-
+var btn00 = document.getElementsByClassName("createBtn")[0];
+var btn01 = document.getElementsByClassName("createBtn")[1];
 //Get the <span> element that closes the modal
 var span0 = document.getElementsByClassName("modal0-close")[0];
 
 //When the user clicks on the button, open the modal
-btn0.onclick = function() {
+btn00.onclick = function() {
     $(modal0).fadeIn(300); 
     $(modal0).css('display','block');
 }
-
+btn01.onclick = function() {
+    $(modal0).fadeIn(300); 
+    $(modal0).css('display','block');
+}
 //When the user clicks on <span> (x), close the modal
 span0.onclick = function() {
     $(modal0).css('display','none');
@@ -330,8 +340,6 @@ span1.onclick = function() {
 		}
 	}
 /* 오늘 날짜 계산 하여 프로젝트 진행상태 계산  --------------------------------------------*/	
-
-
 
 
 </script>

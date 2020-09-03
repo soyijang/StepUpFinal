@@ -1,3 +1,7 @@
+body{
+	font-family : 'Noto Sans KR';
+}
+
 /* 전체 contentBox --------------------------------------*/
 #contentBox{
 	width: 100%;
@@ -13,30 +17,77 @@
 .contentBox1-content-table-tr-td{
  	background: #FCFCFC;
 	border: 0.2px solid #000000;
-	width: 221px;
+	width: 90%;
 	height: 124px;
-	margin-right: 20px;
+/* 	margin-right: 5%; */
 	box-sizing: border-box;
 	display: inline-block;
 }
 
 /* 프로젝트 최신 목록상자 왼쪽 사이드 색상 */
-.left-padding-gray{
+.left-padding-gray0{
 /* 	height: 124px;
 	width: 35px; */
 	height:100%;
 	width:100%;
-	border-left:35px solid #454545;
+ 	border-left:35px solid #343434; 
+	box-sizing: border-box;
+/* 	background: #454545; */
+}
+.left-padding-gray1{
+/* 	height: 124px;
+	width: 35px; */
+	height:100%;
+	width:100%;
+ 	border-left:35px solid #454545; 
 	box-sizing: border-box;
 /* 	background: #454545; */
 
 }
+.left-padding-gray2{
+/* 	height: 124px;
+	width: 35px; */
+	height:100%;
+	width:100%;
+ 	border-left:35px solid #565656; 
+	box-sizing: border-box;
+/* 	background: #454545; */
+}
+.left-padding-gray3{
+/* 	height: 124px;
+	width: 35px; */
+	height:100%;
+	width:100%;
+ 	border-left:35px solid #676767; 
+	box-sizing: border-box;
+/* 	background: #454545; */
+}
+.left-padding-gray3{
+/* 	height: 124px;
+	width: 35px; */
+	height:100%;
+	width:100%;
+ 	border-left:35px solid #787878; 
+	box-sizing: border-box;
+/* 	background: #454545; */
+}
+.left-padding-gray4{
+/* 	height: 124px;
+	width: 35px; */
+	height:100%;
+	width:100%;
+ 	border-left:35px solid #898989; 
+	box-sizing: border-box;
+/* 	background: #454545; */
+}
+
 /* 프로젝트 최신 목록상자 내부 프로젝트 명 */
 .project-name{
 	width: 100%;
 	height: 60px;
 	vertical-align: middle;
-	line-height: 60px;
+	line-height: 20px;
+	padding: 10px;
 	box-sizing: border-box;	
 	font-family: Noto Sans KR;
 	font-style: normal;
@@ -48,7 +99,7 @@
 /* 프로젝트 최신 목록상자 내부 참여자 수 */
 .project-participants{
 	width: 100%;	
-	padding-left: 32%;
+	padding-left: 25%;
 	font-family: Noto Sans KR;
 	font-style: normal;
 	font-weight: bold;
@@ -62,7 +113,7 @@
 /* 프로젝트 최신 목록상자 내부 진행률 */
 .project-progress-rate{
 	width: 100%;
-	padding-left: 32%;
+	padding-left: 25%;
 	font-family: Noto Sans KR;
 	font-style: normal;
 	font-weight: bold;
@@ -99,9 +150,14 @@
 	width: 60%;
 	margin-left:auto;
 	margin-right:auto;
-	margin-top: 15%;
+	margin-top: 12%;
 	box-sizing: border-box;
 }	
+
+.pointer:hover{
+	cursor: pointer;	
+}
+
 /* 프로젝트 최신 목록상자 리스트 중 새프로젝트 추가 상자 안쪽 원형 플러스 버튼 */
 .icon_circle_plus_red{
 	width: 34px;
@@ -114,21 +170,21 @@
 	font-family: Noto Sans KR;
 	font-style: normal;
 	font-weight: normal;
-	font-size: 16px;
+	font-size: 14px;
 	line-height: 25px;
 	color: #000000;	
 	text-align: center;
 }
-
-
-
-#contentBox1-content-table tr{
-
-	
+#contentBox1-content-table tr, #contentBox1-content-table tbody{
+width: 100%;
+}
+#contentBox1-content-table td{
+width: 18%;
 }
 
-
-
+#contentBox1-content-table{
+width: 100%;
+}
 
 /*상단 contentBox1--------------------------------------*/
 #contentBox1{
@@ -504,7 +560,11 @@
     background-color: rgb(0,0,0); /* Fallback color */
     background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
   }
-  
+.btn-box{
+	margin-left: auto;
+	margin-right: auto;
+	width: 200px;
+} 
   /* Modal Content/Box */
 .modal-content0 {
     background-color: #fefefe;
@@ -554,7 +614,7 @@
 } 
 .modalTable0 tr:nth-child(8) input{
      width: 100%;;
-     height: 100px;
+     height: 70px;
      border: 1px solid #D5D5D5;
      border-radius: 5px;
      background-image: url('searchicon.png');

@@ -65,7 +65,7 @@
 	                	<tbody>
 	                    <tr><td class="menuIcon"><img src="/agile/resources/icon/common/icon_layouticon.png"> </td><td id="ProjectTimeline" class="menu">Project Timeline</td></tr>
 	                    <tr><td class="menuIcon"><img src="/agile/resources/icon/common/icon_gifticon.png"> </td><td id="SprintBacklog" class="menu"><a href = "showSprintMain.st">Sprint Backlog</a></td></tr>
-	                    <tr><td class="menuIcon"><img src="/agile/resources/icon/common/icon_trelloicon.png"> </td><td id="TaskBoard" class="menu">Task Board</td></tr>
+	                    <tr><td class="menuIcon"><img src="/agile/resources/icon/common/icon_trelloicon.png"> </td><td id="TaskBoard" class="menu"><a href = "showTaskBoardMain.tk">Task Board</a></td></tr>
 	                    <tr><td class="menuIcon"><img src="/agile/resources/icon/common/icon_crosshair.png"> </td><td id="Issues" class="menu">Issues</td></tr>
 	                    <tr><td class="menuIcon"><img src="/agile/resources/icon/common/icon_feedbackform.png"> </td><td id="FeedbackForm" class="menu">Feedback Form</td></tr>
 	                    <tr><td class="menuIcon"><img src="/agile/resources/icon/common/icon_users.png"> </td><td id="StandUpMeeting" class="menu">Stand Up Meeting</td></tr>
