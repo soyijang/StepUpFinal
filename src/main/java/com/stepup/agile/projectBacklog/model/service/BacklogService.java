@@ -8,6 +8,8 @@ import com.stepup.agile.userInfo.model.vo.Member;
 public interface BacklogService {
 
 	List<Sprint> selectSprint(Member m);
+
+	List<Sprint> selectSprintList(Member m);
 	
 	
 }

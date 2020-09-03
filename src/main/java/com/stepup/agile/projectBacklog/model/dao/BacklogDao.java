@@ -10,5 +10,7 @@ import com.stepup.agile.userInfo.model.vo.Member;
 public interface BacklogDao {
 
 	List<Sprint> selectSprint(SqlSessionTemplate sqlSession, Member m);
+
+	List<Sprint> selectSprintList(SqlSessionTemplate sqlSession, Member m);
 	
 }

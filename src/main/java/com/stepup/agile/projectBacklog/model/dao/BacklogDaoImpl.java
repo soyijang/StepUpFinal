@@ -16,5 +16,10 @@ public class BacklogDaoImpl implements BacklogDao {
 		System.out.println(m.getUserEmail());
 		return sqlSession.selectList("Sprint.selectSprint", m.getUserEmail());
 	}
+
+	@Override
+	public List<Sprint> selectSprintList(SqlSessionTemplate sqlSession, Member m) {
+		return sqlSession.selectList("Sprint.selectSprintList", m);
+	}
 	
 }

@@ -140,9 +140,11 @@ body{
 }
 
 #ep-ti{
-	padding-left: 20px;
-	padding-top: 20px;
-	height: 30px;
+	height: 38px;
+	text-align: center;
+}
+#ep-ti:nth-child(even){
+	background-color: #f5f5f5;
 }
 #epic-add-btn{
 	padding: 20px;

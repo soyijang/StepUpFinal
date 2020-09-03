@@ -110,55 +110,7 @@
    </div>    
 </body>
 <script>
-	var tasks = [
-		
-		{
-			start: '2020-08-26',
-			end: '2020-08-31',
-			name: '타임라인 테스트',
-			id: "Task 0",
-			dependencies:"Task 1",
-			progress: 40
-		},
-		
-		{
-			start: '2020-08-31',
-			end: '2020-09-04',
-			name: '버그 이슈',
-			id: "Task 1",
-			progress: 100
-		},
-		
-	]
 	
-	var gantt_chart = new Gantt(".gantt-target", tasks, {
-		on_click: function (task) {
-			console.log(task);
-		},
-		on_date_change: function(task, start, end) {
-			console.log(task, start, end);
-		},
-		on_progress_change: function(task, progress) {
-			console.log(task, progress);
-		},
-		on_view_change: function(mode) {
-			console.log(mode);
-		},
-		
-		view_mode: 'Day',
-		language: 'ko'
-	});
-	
-	
-	console.log(gantt_chart);
-	
-	var YEAR = 'year';
-	var MONTH = 'month';
-	var DAY = 'day';
-	var HOUR = 'hour';
-	var MINUTE = 'minute';
-	var SECOND = 'second';
-	var MILLISECOND = 'millisecond';
 
 	window.onload = function(){
 		
@@ -204,24 +156,12 @@
 						Status = value.taskHistValue;
 							Status += ",";
 					}
-					  
 					 
 					 sCode = value.sprint;
 				 	 sprintCode = sCode.sprintCode;
 					console.log("sprintCode : " + sprintCode);
 					
-					
-					tasks = [
-						
-						{
-							start: '2020-09-02',
-							end: '2020-09-18',
-							name: Title,
-							id: "Task 0",
-							dependencies:"Task 1",
-							progress: 40
-						}
-				  ]
+				  
 					
 					});  
 					  console.log(Cont);
@@ -232,16 +172,202 @@
 					  var values2;
 					  values2 = data.SprintList;
 					  var sprintTitle;
+					  var sprintTitleArr = [];
 					  var div = '';
 					  
 					  var SprintList = $.each(values2, function(index, value){  
 						  sprintTitle = value.sprintName;
-					 	  div = '<div id="ep-ti">' + sprintTitle + '</div>';
+						  sprintTitleArr += value.sprintName;
+						  sprintTitleArr += ",";
+						  console.log("sprintTitleArr : " + sprintTitleArr);
+						  console.log("sprintTitle : " + sprintTitle);
+						  console.log("sprintTitle length : " + sprintTitle.length);
+						  if(sprintTitle.length > 10){
+							  var spTitle = sprintTitle.substring(0, 10);
+					 	  	div = '<div id="ep-ti">' + spTitle + '...' + '</div>';
+						  } else if(sprintTitle.length < 10){
+							 div = '<div id="ep-ti">' + sprintTitle + '</div>';
+						  }
 						  
 						  $("#epic-title-cont").append(div);
-						  //sprintTitle += ",";
+							
 					  });
-					  console.log("스프린트제목 : " + sprintTitle);
+					  var sTitle = sprintTitleArr.split(",");
+					  console.log(sTitle);
+					  
+					  for(var i = 1; i<=sprintTitle.length; i++){
+						  var tki = {};
+						  tki.start = '2020-09-14';
+						  tki.end = '2020-09-30';
+						  tki.name = sTitle[i-1];
+						  tki.id = 'Task ' + i;
+						  tki.progress = 100;
+						  console.log(tki);
+						  var tasks = [tki, tki, tki]
+					  }
+					//console.log(tk1);
+					  
+					  /* var tasks = [
+						  {start :'2020-08-26', end:'2020-08-31', name:sprintTitleArr[0], id: "Task 0"},
+						  {start :'2020-08-26', end:'2020-08-31', name:sprintTitleArr[1], id: "Task 1"},
+						  {start :'2020-08-26', end:'2020-08-31', name:sprintTitleArr[2], id: "Task 2"},
+					  ] */
+									   /* tk = {
+												start: '2020-08-26',
+												end: '2020-08-31',
+												name: sprintTitleArr[i],
+												id: "Task 0",
+												dependencies:"Task 1",
+												progress: 40
+											}; */ 
+											var cnt = 1;
+							  			//var tasks = [ tk1
+							  				
+							  				   /* {
+													start: '2020-08-26',
+													end: '2020-08-31',
+													name: sprintTitle,
+													id: "Task 0",
+													progress: 40
+												},
+												{
+													start: '2020-08-26',
+													end: '2020-08-31',
+													name: sprintTitle,
+													id: "Task 1",
+													progress: 40
+												},
+												{
+													start: '2020-08-26',
+													end: '2020-08-31',
+													name: sprintTitle,
+													id: "Task 2",
+													progress: 40
+												},
+												{
+													start: '2020-08-26',
+													end: '2020-08-31',
+													name: sprintTitle,
+													id: "Task 3",
+													progress: 40
+												},
+												{
+													start: '2020-08-26',
+													end: '2020-08-31',
+													name: sprintTitle,
+													id: "Task 4",
+													progress: 40
+												},
+												{
+													start: '2020-08-26',
+													end: '2020-08-31',
+													name: sprintTitle,
+													id: "Task 5",
+													progress: 40
+												},
+												{
+													start: '2020-08-26',
+													end: '2020-08-31',
+													name: sprintTitle,
+													id: "Task 6",
+													progress: 40
+												},
+												{
+													start: '2020-08-26',
+													end: '2020-08-31',
+													name: sprintTitle,
+													id: "Task 7",
+													progress: 40
+												},
+												{
+													start: '2020-08-26',
+													end: '2020-08-31',
+													name: sprintTitle,
+													id: "Task 8",
+													progress: 40
+												},
+												{
+													start: '2020-08-26',
+													end: '2020-08-31',
+													name: sprintTitle,
+													id: "Task 9",
+													progress: 40
+												},
+												{
+													start: '2020-08-26',
+													end: '2020-08-31',
+													name: sprintTitle,
+													id: "Task 10",
+													progress: 40
+												},
+												{
+													start: '2020-08-26',
+													end: '2020-08-31',
+													name: sprintTitle,
+													id: "Task 11",
+													progress: 40
+												},
+												{
+													start: '2020-08-26',
+													end: '2020-08-31',
+													name: sprintTitle,
+													id: "Task 12",
+													progress: 40
+												},
+												{
+													start: '2020-08-26',
+													end: '2020-08-31',
+													name: sprintTitle,
+													id: "Task 13",
+													progress: 40
+												},
+												{
+													start: '2020-08-26',
+													end: '2020-08-31',
+													name: sprintTitle,
+													id: "Task 14",
+													progress: 40
+												},
+												{
+													start: '2020-08-26',
+													end: '2020-08-31',
+													name: sprintTitle,
+													id: "Task 15",
+													progress: 40
+												} ]*/
+								
+							
+					  
+						
+						
+						var gantt_chart = new Gantt(".gantt-target", tasks, {
+							on_click: function (task) {
+								console.log(task);
+							},
+							on_date_change: function(task, start, end) {
+								console.log(task, start, end);
+							},
+							on_progress_change: function(task, progress) {
+								console.log(task, progress);
+							},
+							on_view_change: function(mode) {
+								console.log(mode);
+							},
+							
+							view_mode: 'Day',
+							language: 'ko'
+						});
+						
+						
+						console.log(gantt_chart);
+						
+						var YEAR = 'year';
+						var MONTH = 'month';
+						var DAY = 'day';
+						var HOUR = 'hour';
+						var MINUTE = 'minute';
+						var SECOND = 'second';
+						var MILLISECOND = 'millisecond';
 					  
 				
 			},
@@ -257,57 +383,7 @@
 		});
 	}
 
-
-	var tasks = [
-		
-		{
-			start: '2020-08-26',
-			end: '2020-08-31',
-			name: '타임라인 테스트',
-			id: "Task 0",
-			dependencies:"Task 1",
-			progress: 40
-		},
-		
-		{
-			start: '2020-08-31',
-			end: '2020-09-04',
-			name: '버그 이슈',
-			id: "Task 1",
-			progress: 100
-		},
-		
-	]
-	
-	var gantt_chart = new Gantt(".gantt-target", tasks, {
-		on_click: function (task) {
-			console.log(task);
-		},
-		on_date_change: function(task, start, end) {
-			console.log(task, start, end);
-		},
-		on_progress_change: function(task, progress) {
-			console.log(task, progress);
-		},
-		on_view_change: function(mode) {
-			console.log(mode);
-		},
-		
-		view_mode: 'Day',
-		language: 'ko'
-	});
-	
-	
-	console.log(gantt_chart);
-	
-	var YEAR = 'year';
-	var MONTH = 'month';
-	var DAY = 'day';
-	var HOUR = 'hour';
-	var MINUTE = 'minute';
-	var SECOND = 'second';
-	var MILLISECOND = 'millisecond';
-	
+ 
 	
 	
 	//input type text에서 엔터치면 실행되는 함수

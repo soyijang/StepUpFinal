@@ -187,6 +187,14 @@ public class TaskController {
 		   
 	   }
 	   
+	   @RequestMapping("selectTimeLine.tk")
+	   public String selectTimeLine(Model model, @ModelAttribute("loginUser") Member m) {
+		   
+		  
+		   return "projectManage/projectTimeLine/projectTimeLine";
+		   
+	   }
+	   
 	   @RequestMapping("timelineTask.tk")
 	   public ModelAndView timelineTask(@ModelAttribute("loginUser") Member m, Model model, ModelAndView mv) {
 		   List<TaskHistory> selectTaskList = new ArrayList<TaskHistory>();
@@ -194,7 +202,7 @@ public class TaskController {
 		   System.out.println(m.getUserCode());
 		   
 		   selectTaskList = ts.selectUserTask(m);
-		   selectSprintList = bs.selectSprint(m);
+		   selectSprintList = bs.selectSprintList(m);
 		   
 		   
 		   mv.addObject("taskList", selectTaskList);

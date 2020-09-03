@@ -31,7 +31,7 @@ public class MemberController {
 			
 			System.out.println(m);
 			
-			return "projectManage/projectTimeLine/projectTimeLine";		
+			return "common/menubar";		
 		} catch (LoginFailedException e) {
 			model.addAttribute("msg", e.getMessage());
 
