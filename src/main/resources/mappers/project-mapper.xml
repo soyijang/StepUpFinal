@@ -80,6 +80,7 @@
 		<result property="createDate" column="PROJECT_CREATE_DATE"/>
 		<result property="createTime" column="PROJECT_CREATE_TIME"/>
 		<result property="taskCnt" column="TASKCNT"/>
+    <collection property="projectHistory" resultMap="projectHistoryResultSet"/>
     <collection property="member" resultMap="memberResultSet"/>
     <collection property="userTeamList" resultMap="UserTeamListResultSet"/>
     <collection property="userProjectList" resultMap="UserProjectListResultSet"/>
@@ -211,4 +212,21 @@
      WHERE LATEST = 1;
 	</select>
 
+	<select id="selectTimelineProject" resultMap="selectUserPJRset" parameterType="ProjectHistory">
+	SELECT PL.PROJECT_NAME,
+           PH.PROJECT_START_DATE,
+           PH.PROJECT_END_DATE
+	  FROM USER_INFO I,
+		   USER_TEAM_LIST T,
+		   USER_PROJECT_LIST P,
+		   PROJECT_LIST PL,
+           PROJECT_HISTORY PH
+	 WHERE I.USER_CODE = T.USER_CODE
+	   AND T.USER_TEAM_CODE = P.USER_TEAM_CODE
+	   AND P.USER_PROJECT_CODE = PL.PROJECT_CODE
+       AND P.PROJECT_CODE = PH.PROJECT_CODE
+	   AND I.USER_CODE = (SELECT USER_CODE 
+	                        FROM USER_INFO
+	                       WHERE USER_EMAIL = #{userEmail})
+	</select>
 </mapper>

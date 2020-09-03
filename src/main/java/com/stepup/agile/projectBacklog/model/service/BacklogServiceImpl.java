@@ -25,9 +25,5 @@ public class BacklogServiceImpl implements BacklogService{
 		return md.selectSprint(sqlSession, m);
 	}
 
-	@Override
-	public List<Sprint> selectSprintList(Member m) {
-		return md.selectSprintList(sqlSession, m);
-	}
 
 }

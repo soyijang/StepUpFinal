@@ -113,7 +113,6 @@ body{
 #epic-title-cont{
 	width: 100%;
 	max-height: 625px;
-	border-right: 1px solid #DFDFDF;
 	overflow-y: scroll;
 	overflow-x:hidden; 
 }
@@ -298,8 +297,9 @@ body{
   }
   #epic-title-wrap{
   	width: 100%;
-  	height:600px;
+  	height:630px;
   	position: relative;
+  	border-right: 1px solid #DFDFDF;
   }
      
       .wrap-loading{ /*화면 전체를 어둡게*/

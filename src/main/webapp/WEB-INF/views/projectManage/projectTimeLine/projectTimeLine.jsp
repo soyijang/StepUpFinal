@@ -28,7 +28,7 @@
             <div id="content">
                 <!-- 상단 프로젝트 제목 및 메뉴 이름 영역 -->
                 <div id="contentTitle">
-                    <div id="projectTitle2">프로젝트 / <c:forEach var="i" items="${ pjList }"><c:out value="${ i.projectName }"/></c:forEach></div>
+                    <%-- <div id="projectTitle2">프로젝트 / <c:forEach var="i" items="${ pjList }"><c:out value="${ i.projectName }"/></c:forEach></div> --%>
                     <div id="menuTitle">로드맵</div>
                     <div id="share">
 	                    	<button id="shareBtn">
@@ -46,9 +46,11 @@
 								          <i class="fa fa-chevron-left"></i>
 								        </div>
 								        <ul class="dropdown-menu">
-								          <li id="week">주간</li>
-								          <li id="month">월간</li>
-								          <li id="half">분기</li>
+								          <li id="day">day</li>
+								          <li id="week">Week</li>
+								          <li id="month">Month</li>
+								          <!-- <li id="Quater-Day">Quater Day</li> -->
+								          <li id="Half-Day">Half Day</li>
 								        </ul>
 							      </div>
 					     	 </div>	
@@ -65,7 +67,7 @@
                 	<div id="epic-area">
                 		
                 		<div id="epic-title">
-                			<div id="epic">에픽</div>
+                			<div id="epic">프로젝트</div>
                 		</div>
                 		<div id="epic-title-wrap">
 	                		<div id="epic-title-cont">
@@ -121,226 +123,61 @@
 	
 	function drawGantt(){
 		$.ajax({
-			url: "timelineTask.tk",
+			url: "timelineTask.pj",
 			type:"post",
 			dataType: "json",
 			success: function(data){
 				
 				var values;
-				values = data.taskList;
-				
-				var sCode;
-				var sprintCode;
-				console.log(data.taskList);
+				values = data.ProjectList;
+
+				console.log(data.ProjectList);
 				
 				var Cont = [];
-				var Title = [];
-				var YN = [];
-				var Status =[];
+				var startDate = [];
+				var endDate = [];
+				var projectName =[];
 				var Cnt = 0;
+				var div = '';
 				
-				  var taskList = $.each(values, function(index, value){
-					  
-					  Cnt++;
-					  console.log(Cnt);
-					  if(value.taskCategoryCode == "H"){
-						Cont += value.taskHistValue;
-							 Cont += ",";
-					} else if(value.taskCategoryCode == "J"){
-						Title += value.taskHistValue;
-							 Title += ",";
-					} else if(value.taskCategoryCode == "G"){
-						YN += value.taskHistValue;
-							YN += ",";
-					} else if(value.taskCategoryCode == "I"){
-						Status = value.taskHistValue;
-							Status += ",";
+				var sDate = [];
+				var eDate = [];
+				var pjNameArr = [];
+				
+				var ProjectList = $.each(values, function(index, value){
+					startDate = value.projectHistory.projectStartDate;
+					sDate[index] = startDate;
+					
+					endDate = value.projectHistory.projectEndDate;
+					eDate[index] = endDate;
+					
+					projectName = value.projectName;
+					pjNameArr[index] = projectName;
+					if(projectName.length > 10){
+						var pjName = projectName.substring(0, 10);
+						div = '<div id="ep-ti">' + pjName + '...' + '</div>';
+					} else if(projectName.length <= 10){
+						div = '<div id="ep-ti">' + projectName + '</div>';
 					}
-					 
-					 sCode = value.sprint;
-				 	 sprintCode = sCode.sprintCode;
-					console.log("sprintCode : " + sprintCode);
 					
-				  
+					$("#epic-title-cont").append(div);
+				}); 
+				console.log(startDate);
+				console.log(endDate);
+				console.log(projectName);
+				console.log(sDate);
+				console.log(eDate);
+		
+				
+				var tasks = [];
+				
+				for(var j=0; j<ProjectList.length; j++){
+					tasks.push({start : sDate[j], end: eDate[j], name: pjNameArr[j], id: "Task " + j, progress: 100});
+				}
+				
 					
-					});  
-					  console.log(Cont);
-					  console.log(Title);
-					  console.log(YN);
-					  console.log(Status);
-				  
-					  var values2;
-					  values2 = data.SprintList;
-					  var sprintTitle;
-					  var sprintTitleArr = [];
-					  var div = '';
-					  
-					  var SprintList = $.each(values2, function(index, value){  
-						  sprintTitle = value.sprintName;
-						  sprintTitleArr += value.sprintName;
-						  sprintTitleArr += ",";
-						  console.log("sprintTitleArr : " + sprintTitleArr);
-						  console.log("sprintTitle : " + sprintTitle);
-						  console.log("sprintTitle length : " + sprintTitle.length);
-						  if(sprintTitle.length > 10){
-							  var spTitle = sprintTitle.substring(0, 10);
-					 	  	div = '<div id="ep-ti">' + spTitle + '...' + '</div>';
-						  } else if(sprintTitle.length < 10){
-							 div = '<div id="ep-ti">' + sprintTitle + '</div>';
-						  }
-						  
-						  $("#epic-title-cont").append(div);
-							
-					  });
-					  var sTitle = sprintTitleArr.split(",");
-					  console.log(sTitle);
-					  
-					  for(var i = 1; i<=sprintTitle.length; i++){
-						  var tki = {};
-						  tki.start = '2020-09-14';
-						  tki.end = '2020-09-30';
-						  tki.name = sTitle[i-1];
-						  tki.id = 'Task ' + i;
-						  tki.progress = 100;
-						  console.log(tki);
-						  var tasks = [tki, tki, tki]
-					  }
-					//console.log(tk1);
-					  
-					  /* var tasks = [
-						  {start :'2020-08-26', end:'2020-08-31', name:sprintTitleArr[0], id: "Task 0"},
-						  {start :'2020-08-26', end:'2020-08-31', name:sprintTitleArr[1], id: "Task 1"},
-						  {start :'2020-08-26', end:'2020-08-31', name:sprintTitleArr[2], id: "Task 2"},
-					  ] */
-									   /* tk = {
-												start: '2020-08-26',
-												end: '2020-08-31',
-												name: sprintTitleArr[i],
-												id: "Task 0",
-												dependencies:"Task 1",
-												progress: 40
-											}; */ 
-											var cnt = 1;
-							  			//var tasks = [ tk1
-							  				
-							  				   /* {
-													start: '2020-08-26',
-													end: '2020-08-31',
-													name: sprintTitle,
-													id: "Task 0",
-													progress: 40
-												},
-												{
-													start: '2020-08-26',
-													end: '2020-08-31',
-													name: sprintTitle,
-													id: "Task 1",
-													progress: 40
-												},
-												{
-													start: '2020-08-26',
-													end: '2020-08-31',
-													name: sprintTitle,
-													id: "Task 2",
-													progress: 40
-												},
-												{
-													start: '2020-08-26',
-													end: '2020-08-31',
-													name: sprintTitle,
-													id: "Task 3",
-													progress: 40
-												},
-												{
-													start: '2020-08-26',
-													end: '2020-08-31',
-													name: sprintTitle,
-													id: "Task 4",
-													progress: 40
-												},
-												{
-													start: '2020-08-26',
-													end: '2020-08-31',
-													name: sprintTitle,
-													id: "Task 5",
-													progress: 40
-												},
-												{
-													start: '2020-08-26',
-													end: '2020-08-31',
-													name: sprintTitle,
-													id: "Task 6",
-													progress: 40
-												},
-												{
-													start: '2020-08-26',
-													end: '2020-08-31',
-													name: sprintTitle,
-													id: "Task 7",
-													progress: 40
-												},
-												{
-													start: '2020-08-26',
-													end: '2020-08-31',
-													name: sprintTitle,
-													id: "Task 8",
-													progress: 40
-												},
-												{
-													start: '2020-08-26',
-													end: '2020-08-31',
-													name: sprintTitle,
-													id: "Task 9",
-													progress: 40
-												},
-												{
-													start: '2020-08-26',
-													end: '2020-08-31',
-													name: sprintTitle,
-													id: "Task 10",
-													progress: 40
-												},
-												{
-													start: '2020-08-26',
-													end: '2020-08-31',
-													name: sprintTitle,
-													id: "Task 11",
-													progress: 40
-												},
-												{
-													start: '2020-08-26',
-													end: '2020-08-31',
-													name: sprintTitle,
-													id: "Task 12",
-													progress: 40
-												},
-												{
-													start: '2020-08-26',
-													end: '2020-08-31',
-													name: sprintTitle,
-													id: "Task 13",
-													progress: 40
-												},
-												{
-													start: '2020-08-26',
-													end: '2020-08-31',
-													name: sprintTitle,
-													id: "Task 14",
-													progress: 40
-												},
-												{
-													start: '2020-08-26',
-													end: '2020-08-31',
-													name: sprintTitle,
-													id: "Task 15",
-													progress: 40
-												} ]*/
-								
-							
-					  
-						
-						
-						var gantt_chart = new Gantt(".gantt-target", tasks, {
+				//var monthBtn = document.getElementById("month");
+				var gantt_chart = new Gantt(".gantt-target", tasks, {
 							on_click: function (task) {
 								console.log(task);
 							},
@@ -354,12 +191,40 @@
 								console.log(mode);
 							},
 							
-							view_mode: 'Day',
-							language: 'ko'
-						});
-						
-						
-						console.log(gantt_chart);
+							
+							language: 'ko',
+							//view_mode: 'Month'
+				});
+					
+				
+				 if(
+					$(document).on('click', '#week', function(){
+						gantt_chart.change_view_mode('Week');
+					})
+				)
+				if(
+					$(document).on('click', '#month', function(){
+						gantt_chart.change_view_mode('Month');
+					})	
+				)
+				/* if(
+					$(document).on('click', '#Quater-Day', function(){
+						gantt_chart.change_view_mode('Quater Day');
+					})	
+				)  */
+				if(
+					$(document).on('click', '#day', function(){
+						gantt_chart.change_view_mode('Day');
+					})	
+				) 
+				
+				if(
+					$(document).on('click', '#Half-Day', function(){
+						gantt_chart.change_view_mode('Half Day');
+					})	
+				)
+							
+				console.log(gantt_chart);
 						
 						var YEAR = 'year';
 						var MONTH = 'month';
