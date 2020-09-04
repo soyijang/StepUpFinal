@@ -72,6 +72,35 @@
 		<result property="userTeamTime" column="USER_TEAM_TIME"/>
 	</resultMap>
 	
+	<resultMap type="com.stepup.agile.projectTask.model.vo.ReplyList" id="replyListResultSet">
+		<id property="replyCode" column="REPLY_CODE"/>
+		<result property="userCode" column="USER_CODE"/>
+		<result property="taskCode" column="TASK_CODE"/>
+		<result property="replyStatus" column="REPLY_STATUS"/>
+	</resultMap>
+	
+	<resultMap type="com.stepup.agile.projectTask.model.vo.ReplyHistory" id="replyHistoryResultSet">
+		<id property="replyCode" column="REPLY_CODE"/>
+		<result property="replyUpdateDate" column="REPLY_UPDATE_DATE"/>
+		<result property="replyUpdateTime" column="REPLY_UPDATE_TIME"/>
+		<result property="replyContents" column="REPLY_CONTENTS"/>
+		<result property="replyType" column="REPLY_TYPE"/>
+		<result property="replyHistCode" column="REPLY_HIST_CODE"/>
+	</resultMap>
+	
+	<resultMap type="com.stepup.agile.userInfo.model.vo.Attachment" id="AttachmentResultSet">
+      <id property="attachCode" column="ATTACH_CODE"/>
+      <result property="attachPath" column="ATTACH_PATH"/>
+      <result property="attachOriginName" column="ATTACH_ORIGIN_NAME"/>
+      <result property="attachChangeName" column="ATTACH_CHANGE_NAME"/>
+      <result property="attachUploadDate" column="ATTACH_UPLOAD_DATE"/>
+      <result property="attachUploadTime" column="ATTACH_UPLOAD_TIME"/>
+      <result property="taskHistCode" column="TASK_HIST_CODE"/>
+      <result property="userCode" column="USER_CODE"/>
+      <result property="attachType" column="ATTACH_TYPE"/>
+      <result property="thumbnailPath" column="THUMBNAIL_PATH"/>
+      <result property="attachSize" column="ATTACH_SIZE"/>
+   </resultMap>
 	
 	<resultMap type="com.stepup.agile.projectTask.model.vo.TaskHistory" id="selectUserTaskRSet">
 		<id property="taskHistUpdateDate" column="TASK_HIST_UPDATE_DATE"/>
@@ -88,6 +117,20 @@
 	    <collection property="sprint" resultMap="sprintResultSet"/>
 	    <collection property="taskList" resultMap="TaskListResultSet"/>
 	</resultMap>
+	
+	<!-- ReplyHistory + UserInfo + TaskList -->
+   <resultMap type="com.stepup.agile.projectTask.model.vo.ReplyHistory" id="taskReplySet">
+      <id property="replyHistCode" column="REPLY_HIST_CODE"/>
+      <result property="replyCode" column="REPLY_CODE"/>
+      <result property="replyUpdateDate" column="REPLY_UPDATE_DATE"/>
+      <result property="replyUpdateTime" column="REPLY_UPDATE_TIME"/>
+      <result property="replyContents" column="REPLY_CONTENTS"/>
+      <result property="replyType" column="REPLY_TYPE"/>
+      <collection property="member" resultMap="memberResultSet"/>
+      <collection property="replyList" resultMap="replyListResultSet"/>
+      <collection property="attachment" resultMap="AttachmentResultSet"/>
+      <collection property="taskList" resultMap="TaskListResultSet"/>
+   </resultMap>
 	
 	<insert id="createTask" parameterType="com.stepup.agile.projectTask.model.vo.TaskList">
 		<selectKey keyProperty="taskCode" resultType="int" order="BEFORE">
@@ -251,74 +294,120 @@
 	</delete>
 	
 	<select id="searchBug" resultMap="selectUserTaskRSet" parameterType="com.stepup.agile.projectTask.model.vo.TaskHistory">
-	SELECT TK.TASK_CODE, MAX(TS.TASK_HIST_VALUE) KEEP (DENSE_RANK LAST ORDER BY TS.TASK_HIST_UPDATE_DATE, TS.TASK_HIST_UPDATE_TIME) AS TASK_HIST_VALUE
-		   FROM USER_INFO I,
-				       USER_TEAM_LIST T,
-				       USER_PROJECT_LIST P,
-				       SPRINT_LIST S,
-				       TASK_LIST TK,
-				       TASK_HISTORY TS,
-                       PROJECT_LIST PL,
-                       PROJECT_HISTORY PH
-		  WHERE I.USER_CODE = T.USER_CODE
-				   AND T.USER_TEAM_CODE = P.USER_TEAM_CODE
-				   AND P.USER_PROJECT_CODE = S.USER_PROJECT_CODE
-				   AND S.SPRINT_CODE = TK.SPRINT_CODE
-				   AND TK.TASK_CODE = TS.TASK_CODE
-                   AND P.PROJECT_CODE = PL.PROJECT_CODE
-                   AND P.PROJECT_CODE = PH.PROJECT_CODE
-				   AND I.USER_CODE = #{userCode}
-                   AND PH.PROJECT_STATUS = 'N'
-                   AND TASK_HIST_VALUE LIKE '%'||#{taskCont}||'%'
-                   AND TASK_CATEGORY_CODE = 'J'
-		  GROUP BY TK.TASK_CODE, TS.TASK_CATEGORY_CODE
-		    HAVING TS.TASK_CATEGORY_CODE IS NOT NULL 
-UNION
 SELECT TASK_CODE, TASK_HIST_VALUE
-  FROM (SELECT TS.TASK_CODE
-             , MAX(TS.TASK_HIST_VALUE) KEEP (DENSE_RANK LAST ORDER BY TS.TASK_HIST_UPDATE_DATE, TS.TASK_HIST_UPDATE_TIME) AS TASK_HIST_VALUE
+		   FROM (SELECT TK.TASK_CODE, TS.TASK_CATEGORY_CODE
+		      , MAX(TS.TASK_HIST_VALUE) KEEP (DENSE_RANK LAST ORDER BY TS.TASK_HIST_UPDATE_DATE, TS.TASK_HIST_UPDATE_TIME) AS TASK_HIST_VALUE
 		   FROM USER_INFO I,
-				       USER_TEAM_LIST T,
-				       USER_PROJECT_LIST P,
-				       SPRINT_LIST S,
-				       TASK_LIST TK,
-				       TASK_HISTORY TS,
-                       PROJECT_LIST PL,
-                       PROJECT_HISTORY PH
+				USER_TEAM_LIST T,
+				USER_PROJECT_LIST P,
+		        SPRINT_LIST S,
+				TASK_LIST TK,
+				TASK_HISTORY TS
 		  WHERE I.USER_CODE = T.USER_CODE
 				   AND T.USER_TEAM_CODE = P.USER_TEAM_CODE
 				   AND P.USER_PROJECT_CODE = S.USER_PROJECT_CODE
 				   AND S.SPRINT_CODE = TK.SPRINT_CODE
 				   AND TK.TASK_CODE = TS.TASK_CODE
-                   AND P.PROJECT_CODE = PL.PROJECT_CODE
-                   AND P.PROJECT_CODE = PH.PROJECT_CODE
 				   AND I.USER_CODE = #{userCode}
-                   AND PH.PROJECT_STATUS = 'N'
-                   AND TASK_CATEGORY_CODE = 'J'
-		  GROUP BY TK.TASK_CODE, TS.TASK_CATEGORY_CODE, TS.TASK_CODE
-		    HAVING TS.TASK_CATEGORY_CODE IS NOT NULL 
-		  ORDER BY TK.TASK_CODE)
- WHERE TASK_CODE IN (SELECT TK.TASK_CODE
-                   FROM USER_INFO I,
-                               USER_TEAM_LIST T,
-                               USER_PROJECT_LIST P,
-                               SPRINT_LIST S,
-                               TASK_LIST TK,
-                               TASK_HISTORY TS,
+		           AND TS.TASK_CATEGORY_CODE = 'J'
+		           AND TS.TASK_CODE IN (SELECT TASK_CODE AS 버그있는애들
+		            FROM (SELECT TK.TASK_CODE
+		               , MAX(TS.TASK_HIST_VALUE) KEEP (DENSE_RANK LAST ORDER BY TS.TASK_HIST_UPDATE_DATE, TS.TASK_HIST_UPDATE_TIME) AS TASK_HIST_VALUE
+		           FROM USER_INFO I,
+		                       USER_TEAM_LIST T,
+		                       USER_PROJECT_LIST P,
+		                       SPRINT_LIST S,
+		                       TASK_LIST TK,
+		                       TASK_HISTORY TS,
                                PROJECT_LIST PL,
                                PROJECT_HISTORY PH
-                  WHERE I.USER_CODE = T.USER_CODE
-                           AND T.USER_TEAM_CODE = P.USER_TEAM_CODE
-                           AND P.USER_PROJECT_CODE = S.USER_PROJECT_CODE
-                           AND S.SPRINT_CODE = TK.SPRINT_CODE
-                           AND TK.TASK_CODE = TS.TASK_CODE
+		          WHERE I.USER_CODE = T.USER_CODE
+		                   AND T.USER_TEAM_CODE = P.USER_TEAM_CODE
+		                   AND P.USER_PROJECT_CODE = S.USER_PROJECT_CODE
                            AND P.PROJECT_CODE = PL.PROJECT_CODE
                            AND P.PROJECT_CODE = PH.PROJECT_CODE
-                           AND I.USER_CODE = #{userCode}
-                           AND PH.PROJECT_STATUS = 'N'
-                           AND TASK_HIST_VALUE LIKE '%'|| #{taskCont} ||'%'
-                           AND TASK_CATEGORY_CODE = 'H'
-                  GROUP BY TK.TASK_CODE, TS.TASK_CATEGORY_CODE
-                    HAVING TS.TASK_CATEGORY_CODE IS NOT NULL )
+		                   AND S.SPRINT_CODE = TK.SPRINT_CODE
+		                   AND TK.TASK_CODE = TS.TASK_CODE
+		                   AND I.USER_CODE = #{userCode}
+		                   AND TS.TASK_CATEGORY_CODE = 'G'
+                            AND PH.PROJECT_STATUS = 'N'
+                            AND TS.TASK_CATEGORY_CODE IS NOT NULL
+		          GROUP BY TK.TASK_CODE, TS.TASK_CATEGORY_CODE
+		          ORDER BY TK.TASK_CODE)
+		          WHERE TASK_HIST_VALUE = 'Y') group by TK.TASK_CODE, TS.TASK_CATEGORY_CODE)
+    WHERE TASK_HIST_VALUE LIKE '%'||#{taskCont}||'%'
+UNION
+SELECT TASK_CODE, TASK_HIST_VALUE
+  FROM TASK_HISTORY
+WHERE TASK_CODE IN (SELECT TASK_CODE
+		   FROM (SELECT TK.TASK_CODE, TS.TASK_CATEGORY_CODE
+		      , MAX(TS.TASK_HIST_VALUE) KEEP (DENSE_RANK LAST ORDER BY TS.TASK_HIST_UPDATE_DATE, TS.TASK_HIST_UPDATE_TIME) AS TASK_HIST_VALUE
+		   FROM USER_INFO I,
+				USER_TEAM_LIST T,
+				USER_PROJECT_LIST P,
+		        SPRINT_LIST S,
+				TASK_LIST TK,
+				TASK_HISTORY TS
+		  WHERE I.USER_CODE = T.USER_CODE
+				   AND T.USER_TEAM_CODE = P.USER_TEAM_CODE
+				   AND P.USER_PROJECT_CODE = S.USER_PROJECT_CODE
+				   AND S.SPRINT_CODE = TK.SPRINT_CODE
+				   AND TK.TASK_CODE = TS.TASK_CODE
+				   AND I.USER_CODE = #{userCode}
+		           AND TS.TASK_CATEGORY_CODE = 'H'
+		           AND TS.TASK_CODE IN (SELECT TASK_CODE AS 버그있는애들
+		            FROM (SELECT TK.TASK_CODE
+		               , MAX(TS.TASK_HIST_VALUE) KEEP (DENSE_RANK LAST ORDER BY TS.TASK_HIST_UPDATE_DATE, TS.TASK_HIST_UPDATE_TIME) AS TASK_HIST_VALUE
+		           FROM USER_INFO I,
+		                       USER_TEAM_LIST T,
+		                       USER_PROJECT_LIST P,
+		                       SPRINT_LIST S,
+		                       TASK_LIST TK,
+		                       TASK_HISTORY TS,
+                               PROJECT_LIST PL,
+                               PROJECT_HISTORY PH
+		          WHERE I.USER_CODE = T.USER_CODE
+		                   AND T.USER_TEAM_CODE = P.USER_TEAM_CODE
+		                   AND P.USER_PROJECT_CODE = S.USER_PROJECT_CODE
+                           AND P.PROJECT_CODE = PL.PROJECT_CODE
+                           AND P.PROJECT_CODE = PH.PROJECT_CODE
+		                   AND S.SPRINT_CODE = TK.SPRINT_CODE
+		                   AND TK.TASK_CODE = TS.TASK_CODE
+		                   AND I.USER_CODE = #{userCode}
+		                   AND TS.TASK_CATEGORY_CODE = 'G'
+                            AND PH.PROJECT_STATUS = 'N'
+                            AND TS.TASK_CATEGORY_CODE IS NOT NULL
+		          GROUP BY TK.TASK_CODE, TS.TASK_CATEGORY_CODE
+		          ORDER BY TK.TASK_CODE)
+		          WHERE TASK_HIST_VALUE = 'Y') group by TK.TASK_CODE, TS.TASK_CATEGORY_CODE)
+    WHERE TASK_HIST_VALUE LIKE '%'||#{taskCont}||'%')
+    AND TASK_CATEGORY_CODE = 'J'
 	</select>
+	
+	<!-- 5.댓글 입력 -->
+   <insert id="insertReply" parameterType="com.stepup.agile.projectTask.model.vo.ReplyList">
+      <selectKey keyProperty="replyCode" resultType="int" order="BEFORE">
+         SELECT SEQ_REPLY.NEXTVAL FROM DUAL
+      </selectKey>
+      INSERT INTO REPLY_LIST(USER_CODE, TASK_CODE, REPLY_CODE, REPLY_STATUS)
+      VALUES (#{userCode}, #{taskCode}, #{replyCode}, DEFAULT)
+   </insert>
+   
+   <update id="updateReplyHist" parameterType="com.stepup.agile.projectTask.model.vo.ReplyHistory">
+      <selectKey keyProperty="replyHistCode" resultType="int" order="BEFORE">
+         SELECT SEQ_REPLY_HIST.NEXTVAL FROM DUAL
+      </selectKey>
+      INSERT INTO REPLY_HISTORY (REPLY_HIST_CODE, REPLY_UPDATE_DATE, REPLY_UPDATE_TIME, REPLY_CONTENTS, REPLY_TYPE, REPLY_CODE) 
+        VALUES(#{replyHistCode}, TO_CHAR(SYSDATE + 9/24, 'YYYY-MM-DD'), TO_CHAR(SYSDATE + 9/24, 'hh24:mi:ss'),
+                #{replyContents, jdbcType=VARCHAR}, DEFAULT, #{replyCode})
+   </update>
+
+   <select id="selectReply" parameterType="com.stepup.agile.projectTask.model.vo.ReplyHistory" resultMap="taskReplySet">
+      SELECT *
+        FROM REPLY_HISTORY H JOIN REPLY_LIST R ON (R.REPLY_CODE = H.REPLY_CODE)
+        JOIN USER_INFO U ON(U.USER_CODE = R.USER_CODE)
+        JOIN ATTACH_FILE A ON (A.USER_CODE = U.USER_CODE)
+       WHERE R.TASK_CODE = #{taskCode, jdbcType=INTEGER}
+         AND H.REPLY_TYPE = 1 AND R.REPLY_STATUS = 'N'
+   </select>
 </mapper>

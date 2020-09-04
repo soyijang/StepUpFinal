@@ -9,6 +9,8 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.stepup.agile.projectManage.model.vo.Project;
+import com.stepup.agile.projectTask.model.vo.ReplyHistory;
+import com.stepup.agile.projectTask.model.vo.ReplyList;
 import com.stepup.agile.projectTask.model.vo.TaskHistory;
 import com.stepup.agile.projectTask.model.vo.TaskList;
 import com.stepup.agile.userInfo.model.vo.Member;
@@ -110,7 +112,37 @@ public class TaskDaoImpl implements TaskDao {
 
 	@Override
 	public List<TaskHistory> searchBug(SqlSessionTemplate sqlSession, HashMap<String, Object> map) {
+		System.out.println(map.get("userCode"));
+		System.out.println(map.get("taskCont"));
+		System.out.println("리턴값 : " + sqlSession.selectList("Task.searchBug", map));
+		
 		return sqlSession.selectList("Task.searchBug", map);
+	}
+
+	//5.댓글생성
+	@Override
+	public int insertReply(SqlSessionTemplate sqlSession, ReplyList reply) {
+	      
+	    sqlSession.insert("Task.insertReply", reply);
+	    int replyCode = reply.getReplyCode();
+	      
+	    return replyCode;
+	}
+	//5-1.댓글히스토리 업데이트
+	@Override
+	public int updateReplyHist(SqlSessionTemplate sqlSession, ReplyHistory history) {
+	      
+	    sqlSession.update("Task.updateReplyHist", history);
+
+	    int histCode = history.getReplyHistCode();
+
+	    return histCode;
+	}
+	//5-2.댓글조회
+	@Override
+	public List<ReplyHistory> selectReply(SqlSessionTemplate sqlSession, Map<String, Object> map) {
+
+	    return sqlSession.selectList("Task.selectReply", map);
 	}
 	
 

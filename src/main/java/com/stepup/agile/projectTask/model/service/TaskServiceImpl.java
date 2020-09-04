@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 
 import com.stepup.agile.projectManage.model.vo.Project;
 import com.stepup.agile.projectTask.model.dao.TaskDao;
+import com.stepup.agile.projectTask.model.vo.ReplyHistory;
+import com.stepup.agile.projectTask.model.vo.ReplyList;
 import com.stepup.agile.projectTask.model.vo.TaskHistory;
 import com.stepup.agile.projectTask.model.vo.TaskList;
 import com.stepup.agile.userInfo.model.vo.Member;
@@ -83,6 +85,21 @@ public class TaskServiceImpl implements TaskService {
 	public List<TaskHistory> searchBug(HashMap<String, Object> map) {
 		return td.searchBug(sqlSession, map);
 
+	}
+
+	@Override
+	public int insertReply(ReplyList reply) {
+		return td.insertReply(sqlSession, reply);
+	}
+
+	@Override
+	public int updateReplyHist(ReplyHistory history) {
+		return td.updateReplyHist(sqlSession, history);
+	}
+
+	@Override
+	public List<ReplyHistory> selectReply(Map<String, Object> map) {
+		return td.selectReply(sqlSession, map);
 	}
 
 }

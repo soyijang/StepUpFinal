@@ -1,5 +1,7 @@
 package com.stepup.agile.userInfo.model.vo;
 
+import com.stepup.agile.projectTask.model.vo.ReplyHistory;
+
 public class Member implements java.io.Serializable {
 	private String userEmail;
 	private String userPwd;
@@ -14,11 +16,13 @@ public class Member implements java.io.Serializable {
 	private String userManagerYn;
 	private String userEnrollTime;
 	
+	private ReplyHistory replyHistory;
+	
 	public Member() {}
 
 	public Member(String userEmail, String userPwd, String userName, int userCode, String userPhone,
 			String userCompName, String userCompDept, String userCompJob, String userEnrollDate, String userStatus,
-			String userManagerYn, String userEnrollTime) {
+			String userManagerYn, String userEnrollTime, ReplyHistory replyHistory) {
 		super();
 		this.userEmail = userEmail;
 		this.userPwd = userPwd;
@@ -32,6 +36,7 @@ public class Member implements java.io.Serializable {
 		this.userStatus = userStatus;
 		this.userManagerYn = userManagerYn;
 		this.userEnrollTime = userEnrollTime;
+		this.replyHistory = replyHistory;
 	}
 
 	public String getUserEmail() {
@@ -130,12 +135,23 @@ public class Member implements java.io.Serializable {
 		this.userEnrollTime = userEnrollTime;
 	}
 
+	
+	public ReplyHistory getReplyHistory() {
+		return replyHistory;
+	}
+
+	public void setReplyHistory(ReplyHistory replyHistory) {
+		this.replyHistory = replyHistory;
+	}
+
 	@Override
 	public String toString() {
 		return "Member [userEmail=" + userEmail + ", userPwd=" + userPwd + ", userName=" + userName + ", userCode="
 				+ userCode + ", userPhone=" + userPhone + ", userCompName=" + userCompName + ", userCompDept="
 				+ userCompDept + ", userCompJob=" + userCompJob + ", userEnrollDate=" + userEnrollDate + ", userStatus="
-				+ userStatus + ", userManagerYn=" + userManagerYn + ", userEnrollTime=" + userEnrollTime + "]";
+				+ userStatus + ", userManagerYn=" + userManagerYn + ", userEnrollTime=" + userEnrollTime
+				+ ", replyHistory=" + replyHistory + "]";
 	}
+
 
 }

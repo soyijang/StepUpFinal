@@ -8,6 +8,8 @@ import java.util.Map;
 import org.mybatis.spring.SqlSessionTemplate;
 
 import com.stepup.agile.projectManage.model.vo.Project;
+import com.stepup.agile.projectTask.model.vo.ReplyHistory;
+import com.stepup.agile.projectTask.model.vo.ReplyList;
 import com.stepup.agile.projectTask.model.vo.TaskHistory;
 import com.stepup.agile.projectTask.model.vo.TaskList;
 import com.stepup.agile.userInfo.model.vo.Member;
@@ -35,4 +37,10 @@ public interface TaskDao {
 	int deleteCloneBug(SqlSessionTemplate sqlSession, HashMap<String, Object> map);
 
 	List<TaskHistory> searchBug(SqlSessionTemplate sqlSession, HashMap<String, Object> map);
+
+	int insertReply(SqlSessionTemplate sqlSession, ReplyList reply);
+
+	List<ReplyHistory> selectReply(SqlSessionTemplate sqlSession, Map<String, Object> map);
+
+	int updateReplyHist(SqlSessionTemplate sqlSession, ReplyHistory history);
 }

@@ -172,6 +172,8 @@ public class TaskController {
 		   HashMap<String, Object> map = new HashMap<String, Object>();
 		   map.put("taskCont", taskHistValue);
 		   map.put("userCode", m.getUserCode());
+		   System.out.println(map.get("userCode"));
+		   System.out.println(map.get("taskCont"));
 		   List<TaskHistory> searchBugList1 = new ArrayList<TaskHistory>();
 		   List<TaskHistory> searchBugList2 = new ArrayList<TaskHistory>();
 		   

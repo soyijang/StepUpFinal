@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Map;
 
 import com.stepup.agile.projectManage.model.vo.Project;
+import com.stepup.agile.projectTask.model.vo.ReplyHistory;
+import com.stepup.agile.projectTask.model.vo.ReplyList;
 import com.stepup.agile.projectTask.model.vo.TaskHistory;
 import com.stepup.agile.projectTask.model.vo.TaskList;
 import com.stepup.agile.userInfo.model.vo.Member;
@@ -33,4 +35,10 @@ public interface TaskService {
 	int deleteCloneBug(HashMap<String, Object> map);
 
 	List<TaskHistory> searchBug(HashMap<String, Object> map);
+
+	int insertReply(ReplyList reply);
+
+	int updateReplyHist(ReplyHistory history);
+
+	List<ReplyHistory> selectReply(Map<String, Object> map);
 }

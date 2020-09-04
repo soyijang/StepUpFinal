@@ -6,20 +6,15 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
- <script src="https://cdn.ckeditor.com/ckeditor5/21.0.0/classic/ckeditor.js"></script>
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/indiv/projectTask/bug/summernote-lite.css">
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/common/nav.js"></script>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/indiv/projectTask/bug/bug.css">
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/common/dropdown.css">
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/common/issueType.css">
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/common/button.css">
-<script type="module" src="${pageContext.request.contextPath}/resources/js/indiv/projectTask/bug/ckeditor.js"></script>
 
-<!-- 테ㅡ트 -->
-<!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script> -->
 </head>
 <body>
  <%@ include file="../../common/menubar.jsp" %>
@@ -48,8 +43,8 @@
 				<div id="tb_wrap">
 				<div id="bug-list">
 					<p id="bug-title">Tasks</p>
-					<c:forEach var="i" items="${ bgList }" varStatus="status">
 					<div id="bug-list-wrap">
+					<c:forEach var="i" items="${ bgList }" varStatus="status">
 					<div class="bug-list-detail">
 						<div id="bug-ti-list" class="bug-ti-list">${ i.taskHistValue }</div>
 						<input type="hidden" value="${ i.sprint.sprintCode }" id="sprint-code">
@@ -57,8 +52,8 @@
 							<div id="bugicon" class="bug-con-list-area"></div><div class="bug-con-list-area" id="bug-code-list1">&nbsp;&nbsp;BUG - ${ i.taskCode }</div><div id="user-pro-lit" class="bug-con-list-area"><img src="/agile/resources/images/profile/dayoon_202008152056.png"></div>
 						</div>
 					</div>
-					</div>
 					</c:forEach>
+					</div>
 				</div>
 				</div>
 			</div>
@@ -99,26 +94,40 @@
 						<div id="detail-ex">설명</div>
 						<div id="detail-cont"></div>
 					</div>
+					<div id="re-show-area">
+						<div id="re-show-pro"></div>
+						<div id="re-show-cont"></div>
+					</div>
 					<div id="bg-reply" class="bg-reply">
 						<div id="re-pro"><img src="/agile/resources/images/profile/dayoon_202008152056.png"></div>
 						<div id="bg-re-cont">
-						<!-- <div class="container mt-4 mb-4">
-						  <div class="row justify-content-md-center">
-						    <div class="col-md-12 col-lg-8">
-						      <div class="form-group">
-						         <textarea id="editor"></textarea>
-						      </div>
-						      <button type="submit" class="btn btn-primary">Submit</button>
-						    </div>
-						  </div>
-						</div> -->
 						<div class="re-ed-area">
 					<input id="reply-input" type="text" placeholder="댓글 추가..">
-					 <div id="editor-box" class="editor-box"style="display:none;">
+					<div id="reply-add-area" style="display: none;">
+					  <textarea id="summernote" name="editordata"></textarea>
+					</div>
 					 
-					 <textarea id="editor" style="width:100; height:40"></textarea>
-					 	<button id="reply-add-btn">SAVE</button>
-					 	<button id="reply-cancel-btn">CANCEL</button>
+                		<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/indiv/projectTask/bug/summernote-lite.js"></script>
+                		<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/indiv/projectTask/bug/summernote/lang/summernote-ko-KR.js"></script>
+						<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/indiv/projectTask/bug/summernote/lang/summernote-ko-KR.min.js"></script>
+                		<script>
+                		 $(document).ready(function() {
+                				//여기 아래 부분
+                				$('#summernote').summernote({
+                					  height: 100,                 // 에디터 높이
+                					  minHeight: null,             // 최소 높이
+                					  maxHeight: null,             // 최대 높이
+                					  focus: true,                  // 에디터 로딩후 포커스를 맞출지 여부
+                					  lang: "ko-KR",					// 한글 설정
+                					  placeholder: '최대 2048자까지 쓸 수 있습니다'	//placeholder 설정
+                			          
+                				});
+                			});
+                		 
+                		 
+                		</script>
+					 	<button id="reply-add-btn" style="display: none;">SAVE</button>
+					 	<button id="reply-cancel-btn" style="display: none;">CANCEL</button>
 					 </div>
 						</div>
 						</div>
@@ -129,7 +138,6 @@
       <div class="wrap-loading display-none">
          <div><img src="/agile/resources/icon/common/icon_loading.gif"/></div>
    </div>    
-    </div>
 </body>
 <script>
 	//담당자 드롭다운
@@ -180,39 +188,13 @@
 	
 	
 	//댓글 input 박스 누르면 에디터 활성화
-	$("#reply-input").click(function(){
-		$("#editor-box").show();
+	 $("#reply-input").click(function(){
+		$("#reply-add-area").show();
 		$(this).hide();
+		$("#reply-add-btn").show();
+		$("#reply-cancel-btn").show();
 		return false;
-	});
-	
-	/* $(document).on('click', function(e){
-		if(e.target.className == "editor-box"){
-			return false;
-		}
-		$("#editor-box").hide();
-		$("#reply-input").show();
-			
-	}); */
-	
-	/* window.onclick = function(e){
-		if(e.target == ".bug-list-detail") {
-			var index = document.getElementById("buglist" + 0);
-			console.log("제발");
-			console.log(index);
-		}
-	}; */
-
-	
-	//에디터 영역 제외한 곳 누르면 에디터 없어지게
-	/* window.onclick = function(e){
-		if(e.target == "") {
-			return false;
-			$("#editor-box").hide();
-			$("#reply-input").show();
-			console.log("제발");
-		}
-	}; */
+	}); 
 	
 	//버그 리스트 중 하나 누르면 테스크 제목 가져오기
 	var a;
@@ -371,8 +353,7 @@
 	
 	//검색 이벤트
 	 function searchBug(){
-		//if(window.event.keyCode == 13){
-			
+			if(window.event.keyCode == 13){
 			var searchBug = $("#searchBug").val();
 			console.log(searchBug);
 			
@@ -394,12 +375,14 @@
 					var searchTaskCode = [];
 					var searchTitle = $.each(searchArr, function(index, value){
 							searchBugTitle += value.taskHistValue;
+							console.log(searchBugTitle);
 							searchCnt++;
 							if(searchCnt != index){
 								searchBugTitle += ",";
 							}
 							
 							searchTaskCode += value.taskCode;
+							console.log(searchTaskCode);
 							if(searchCnt != index){
 								searchTaskCode += ",";
 							}
@@ -416,7 +399,6 @@
 							if(searchCnt != index){
 								searchBugTitle += ",";
 							}
-							
 							searchTaskCode += value.taskCode;
 							if(searchCnt != index){
 								searchTaskCode += ",";
@@ -450,7 +432,7 @@
 		            $('.wrap-loading').addClass('display-none');
 		        } */
 			});
-		//}
+		}
 	} 
 	//필터링 전체 검색 이벤트
 	$(document).on('click', '#all', function(){
@@ -462,34 +444,35 @@
 			success: function(data){
 				//아무것도 입력안하고 검색했을 때
 				var searchArr2 = data.searchBugList1;
-				var searchBugTitle =[];
+				var searchAllBugTitle =[];
 				var searchBugContent;
 				var searchCnt = 0;
-				var searchTaskCode = [];
+				var searchAllTaskCode = [];
 				
 				var searchTitle = $.each(searchArr2, function(index, value){
-						searchBugTitle += value.taskHistValue;
+						searchAllBugTitle += value.taskHistValue;
 						searchCnt++;
 						if(searchCnt != index){
-							searchBugTitle += ",";
+							searchAllBugTitle += ",";
 						}
 						
-						searchTaskCode += value.taskCode;
+						searchAllTaskCode += value.taskCode;
 						if(searchCnt != index){
-							searchTaskCode += ",";
+							searchAllTaskCode += ",";
 						}
 				});
 				
-				
-				var titleArr = searchBugTitle.split(",");
-				var tCodeArr = searchTaskCode.split(",");
+				console.log(searchAllBugTitle);
+				console.log(searchAllTaskCode);
+				var titleAllArr = searchAllBugTitle.split(",");
+				var tCodeAllArr = searchAllTaskCode.split(",");
 				
 				
 				$(".bug-list-detail").remove();
-				 for(var i = 0; i < searchCnt; i++){
+				 for(var i = 0; i < titleAllArr.length; i++){
 					 $("#bug-list-wrap").append('<div class="bug-list-detail">'
-					+ '<div id="bug-ti-list" class="bug-ti-list">' + titleArr[i] + '</div><input type="hidden" value="' + sprintCode + '"id="sprint-code"><div id="bug-con-list">'	 
-					+ '<div id="bugicon" class="bug-con-list-area"></div><div class="bug-con-list-area" id="bug-code-list1">&nbsp;&nbsp;BUG - ' + tCodeArr[i]
+					+ '<div id="bug-ti-list" class="bug-ti-list">' + titleAllArr[i] + '</div><input type="hidden" value="' + sprintCode + '"id="sprint-code"><div id="bug-con-list">'	 
+					+ '<div id="bugicon" class="bug-con-list-area"></div><div class="bug-con-list-area" id="bug-code-list1">&nbsp;&nbsp;BUG - ' + tCodeAllArr[i]
 					+  '</div><div id="user-pro-lit" class="bug-con-list-area"><img src="/agile/resources/images/profile/dayoon_202008152056.png"></div></div></div>' 
 					 );
 				} 
@@ -517,7 +500,7 @@
 			data:{"taskHistValue" : searchBug},
 			dataType : "json",
 			success: function(data){
-				//아무것도 입력안하고 검색했을 때
+				
 				var searchArr2 = data.searchBugList1;
 				var searchBugTitle =[];
 				var searchBugContent;
@@ -529,6 +512,7 @@
 				var searchTitle = $.each(searchArr2, function(index, value){
 					if(value.taskList.taskLevel == "상위"){
 						searchBugTitle += value.taskHistValue;
+						console.log("상위 : " + searchBugTitle);
 						searchCnt++;
 						if(searchCnt != index){
 							searchBugTitle += ",";
@@ -545,9 +529,10 @@
 				var titleArr = searchBugTitle.split(",");
 				var tCodeArr = searchTaskCode.split(",");
 				
+				console.log(titleArr.length);
 				
 				$(".bug-list-detail").remove();
-				 for(var i = 0; i < searchCnt; i++){
+				 for(var i = 0; i < titleArr.length; i++){
 					 $("#bug-list-wrap").append('<div class="bug-list-detail">'
 					+ '<div id="bug-ti-list" class="bug-ti-list">' + titleArr[i] + '</div><input type="hidden" value="' + sprintCode + '"id="sprint-code"><div id="bug-con-list">'	 
 					+ '<div id="bugicon" class="bug-con-list-area"></div><div class="bug-con-list-area" id="bug-code-list1">&nbsp;&nbsp;BUG - ' + tCodeArr[i]
@@ -576,41 +561,45 @@
 			data:{"taskHistValue" : searchBug},
 			dataType : "json",
 			success: function(data){
-				//아무것도 입력안하고 검색했을 때
 				var searchArr2 = data.searchBugList1;
-				var searchBugTitle =[];
+				var searchBugTitle2 =[];
 				var searchBugContent;
 				var searchCnt = 0;
-				var searchTaskCode = [];
+				var searchTaskCode2 = [];
 				
 				var searchTitle = $.each(searchArr2, function(index, value){
 					if(value.taskList.taskLevel == "서브"){
-						searchBugTitle += value.taskHistValue;
+						searchBugTitle2 += value.taskHistValue;
+						console.log("서브 : " + searchBugTitle2);
 						searchCnt++;
 						if(searchCnt != index){
-							searchBugTitle += ",";
+							searchBugTitle2 += ",";
 						}
 						
-						searchTaskCode += value.taskCode;
+						searchTaskCode2 += value.taskCode;
 						if(searchCnt != index){
-							searchTaskCode += ",";
+							searchTaskCode2 += ",";
 						}
 					}
 				});
+						console.log(searchCnt);
 				
 				
-				var titleArr = searchBugTitle.split(",");
-				var tCodeArr = searchTaskCode.split(",");
+				var titleArr2 = searchBugTitle2.split(",");
+				var tCodeArr2 = searchTaskCode2.split(",");
 				
+				console.log(titleArr2);
+				console.log(tCodeArr2);
 				
-				$(".bug-list-detail").remove();
-				 for(var i = 0; i < searchCnt; i++){
-					 $("#bug-list-wrap").append('<div class="bug-list-detail">'
-					+ '<div id="bug-ti-list" class="bug-ti-list">' + titleArr[i] + '</div><input type="hidden" value="' + sprintCode + '"id="sprint-code"><div id="bug-con-list">'	 
-					+ '<div id="bugicon" class="bug-con-list-area"></div><div class="bug-con-list-area" id="bug-code-list1">&nbsp;&nbsp;BUG - ' + tCodeArr[i]
+				$("div.bug-list-detail").remove();
+				  for(var i = 0; i < titleArr2.length-1; i++){
+					$("#bug-list-wrap").append('<div class="bug-list-detail">'
+					+ '<div id="bug-ti-list" class="bug-ti-list">' + titleArr2[i] + '</div><input type="hidden" value="' + sprintCode + '"id="sprint-code"><div id="bug-con-list">'	 
+					+ '<div id="bugicon" class="bug-con-list-area"></div><div class="bug-con-list-area" id="bug-code-list1">&nbsp;&nbsp;BUG - ' + tCodeArr2[i]
 					+  '</div><div id="user-pro-lit" class="bug-con-list-area"><img src="/agile/resources/images/profile/dayoon_202008152056.png"></div></div></div>' 
 					 );
 				} 
+				 
 					
 			},
 			error: function(data){
@@ -625,41 +614,58 @@
 		});
 	});
 	
+	$(document).on('click', '#reply-add-btn', function(){
+		var cont = $("#summernote").val();
+		var cont2 = cont.replace('<p>','');
+		var content = cont2.replace('</p>','');
+		
+	    console.log(content);
+	    console.log(bcode);
+	    
+	     $.ajax({
+	           type:"post",
+	           url:"insertReply.pj",
+	           dataType : "json",
+	           data: {
+	              "replyContents": content,
+	              "taskCode": bcode
+	           }, success:function(data){
+	        	   
+	        		  var thumbnail = (data.replyHistory[i].attachment.thumbnailPath);
+	        		  var userName = (data.replyHistory[i].member.userName);
+	        		  var updateDate = (data.replyHistory[i].replyUpdateDate);
+	        	   
+	        	  for(var i = 0; i<data.replyHistory.length; i++) {
+	        		  
+				  	$("#re-show-cont").append(data.replyHistory[i].replyContents);
+				  
+	        	  }
+	        	
+	           }, error : function(){
+	        	   console.log("실패!");
+	        	   
+	        	   
+	           }, beforeSend : function(){
+	                 $('.wrap-loading').removeClass('display-none');
+	           }, complete : function(){
+	                 $('.wrap-loading').addClass('display-none');
+	           }
+
+	           }); 
+		return false;
+	});
+	
+	$(document).on('click', '#reply-cancel-btn', function(){
+		$('#reply-add-area').hide();
+		$('#reply-input').show();
+		$("#reply-add-btn").hide();
+		$("#reply-cancel-btn").hide();
+		
+		/* var cont = $("#summernote").val();
+		$('#summernote').remove(); */
+	});
+
+	
 	</script>
 	
-	
-	
-	
-	
-	<!-- <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
-
-	<script>
-	  tinymce.init({
-	    selector: 'textarea#editor',
-	    menubar: false
-	  });
-	</script> -->
-	<script>
-	  ClassicEditor
-     .create( document.querySelector( '#editor' ) )
-     .catch( error => {
-         console.error( error );
-     } ); 
-	 
-	  //댓글입력
-	 $(document).on("click","#reply-add-btn",function(){
-		var reply = CKEDITOR.instances.editor.getData();
-		console.log(CKEDITOR.instances.editor.getData());
-		 
-	 });
-	  
-	  
-	  
-	  
-	  
-	 
-	/* $(document).ready(function() {
-		  $('#summernote').summernote();
-	}); */
-</script>
 </html>
