@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.stepup.agile.projectTask.model.service.TaskService;
+import com.stepup.agile.projectTask.model.vo.ReplyHistory;
 import com.stepup.agile.projectTask.model.vo.TaskHistory;
 import com.stepup.agile.projectTask.model.vo.TaskList;
 import com.stepup.agile.userInfo.model.vo.Member;
@@ -97,7 +98,9 @@ public class TaskController {
 		   map.put("userCode", m.getUserCode());
 		   
 		   List<TaskList> bgContList = ts.selectBugCont(map);
+		   List<ReplyHistory> r = ts.selectReply(map);
 		   
+		   mv.addObject("replyHistory", r);
 		   mv.addObject("bgContList", bgContList);
 		   mv.setViewName("jsonView");
 		   return mv;

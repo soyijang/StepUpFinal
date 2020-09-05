@@ -94,12 +94,20 @@
 						<div id="detail-ex">설명</div>
 						<div id="detail-cont"></div>
 					</div>
+					<div id="re-show-area-wrap">
 					<div id="re-show-area">
-						<div id="re-show-pro"></div>
-						<div id="re-show-cont"></div>
+						<div id="re-show-pro"><img src="/agile/resources/images/profile/dayoon_202008152056.png"></div>
+						<div id="re-show-cont">
+							<div id="re-name-date-area">
+								<div id="re-name"></div>
+								<div id="re-date"></div>
+							</div>
+							<div id="re-show-cont-area"></div>
+						</div>
+					</div>
 					</div>
 					<div id="bg-reply" class="bg-reply">
-						<div id="re-pro"><img src="/agile/resources/images/profile/dayoon_202008152056.png"></div>
+						<div id="re-pro"></div>
 						<div id="bg-re-cont">
 						<div class="re-ed-area">
 					<input id="reply-input" type="text" placeholder="댓글 추가..">
@@ -262,7 +270,38 @@
 					}
 					  sCode = value.sprint;
 					  taskLevel = value.taskList;
-					}); 
+					});
+				 
+				 var replyArr = data.replyHistory;
+	      	      var thumbnail = [];
+	      	      var replyuserName = [];
+	      	      var updateDate = [];
+	      	      var replyCont = [];
+	      	      var cnt = 0;
+	      	      
+				 if(replyArr != null){
+	      	      var replyList = $.each(replyArr, function(index, value){
+	      	    	      cnt++;
+		        		  //thumbnail += (data.replyHistory.attachment.thumbnailPath);
+		        		  //if(cnt != index){
+		        		  //  thumbnail += ", ";
+		        		  //}
+		        		  replyuserName += (value.member.userName);
+		        		  if(cnt != index){
+		        			  replyuserName += ", ";
+		        		  }
+		        		  updateDate += (value.replyUpdateDate);
+		        		  if(cnt != index){
+		        			  updateDate += ", ";
+		        		  }
+		        		  replyCont += (value.replyContents);
+		        		  if(cnt != index){
+		        			  replyCont += ", ";
+		        		  }
+		        	  });
+				 }
+				 	console.log(replyList);
+	      	      	
 				 	console.log("버그 진행 : " + bugStatus);
 				 	
 				 	tLevel = taskLevel.taskLevel;
@@ -289,7 +328,25 @@
 				}
 				$("#bug-status").html(div4);	
 				 
-				return data;
+      	      
+				if(replyArr.length > 0){
+      	        var replyuserNameArr = replyuserName.split(",");
+				var updateDateArr = updateDate.split(",");
+				var replyContArr = replyCont.split(",");
+				
+				$("div#re-show-area").remove();
+				  for(var i = 0; i < replyuserNameArr.length-1; i++){
+					$("#re-show-area-wrap").append('<div id="re-show-area">'
+					+ '<div id="re-show-pro">' + '<img src="/agile/resources/images/profile/dayoon_202008152056.png">' + '</div><div id="re-show-cont">'	 
+					+ '<div id="re-name-date-area"><div id="re-name">' + replyuserNameArr[i]
+					+  '</div><div id="re-date">' + updateDateArr[i] + '</div></div> <div id="re-show-cont-area">'
+					+ replyContArr[i] + '</div></div></div>'
+					 );
+				} 
+			} else {
+				$("div#re-show-area").remove();
+			}
+      	      
 			}, error: function(data){
 			},
 			 beforeSend : function(){
@@ -630,17 +687,56 @@
 	              "replyContents": content,
 	              "taskCode": bcode
 	           }, success:function(data){
-	        	   
-	        		  var thumbnail = (data.replyHistory[i].attachment.thumbnailPath);
-	        		  var userName = (data.replyHistory[i].member.userName);
-	        		  var updateDate = (data.replyHistory[i].replyUpdateDate);
-	        	   
-	        	  for(var i = 0; i<data.replyHistory.length; i++) {
-	        		  
-				  	$("#re-show-cont").append(data.replyHistory[i].replyContents);
-				  
-	        	  }
+	        	      var replyArr = data.replyHistory;
+	        	      console.log(replyArr);
+	        	      var thumbnail = [];
+	        	      var replyuserName = [];
+	        	      var updateDate = [];
+	        	      var replyCont = [];
+	        	      var cnt = 0;
+	        	      
+	        	      var replyList = $.each(replyArr, function(index, value){
+	        	    	  cnt++;
+		        		  //thumbnail += (data.replyHistory.attachment.thumbnailPath);
+		        		  //if(cnt != index){
+		        		  //  thumbnail += ", ";
+		        		  //}
+		        		  replyuserName += (value.member.userName);
+		        		  if(cnt != index){
+		        			  replyuserName += ", ";
+		        		  }
+		        		  updateDate += (value.replyUpdateDate);
+		        		  if(cnt != index){
+		        			  updateDate += ", ";
+		        		  }
+		        		  replyCont += (value.replyContents);
+		        		  if(cnt != index){
+		        			  replyCont += ", ";
+		        		  }
+					  	
+		        	  });
+	        	      console.log(updateDate, replyCont);
+	        	       
 	        	
+	        	      
+	        	    var replyuserNameArr = replyuserName.split(",");
+	  				var updateDateArr = updateDate.split(",");
+	  				var replyContArr = replyCont.split(",");
+	  				
+	  				
+	  				
+	  				$("div#re-show-area").remove();
+	  				  for(var i = 0; i < replyuserNameArr.length-1; i++){
+	  					$("#re-show-area-wrap").append('<div id="re-show-area">'
+	  					+ '<div id="re-show-pro">' + '<img src="/agile/resources/images/profile/dayoon_202008152056.png">' + '</div><div id="re-show-cont">'	 
+	  					+ '<div id="re-name-date-area"><div id="re-name">' + replyuserNameArr[i]
+	  					+  '</div><div id="re-date">' + updateDateArr[i] + '</div></div> <div id="re-show-cont-area">'
+	  					+ replyContArr[i] + '</div></div></div>'
+	  					 );
+	  				} 
+	        	      
+	        	      
+	        	      
 	           }, error : function(){
 	        	   console.log("실패!");
 	        	   
