@@ -1,17 +1,11 @@
 package com.stepup.agile.userInfo.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.stepup.agile.userInfo.model.exception.LoginFailedException;
 import com.stepup.agile.userInfo.model.service.MemberService;
@@ -50,7 +44,7 @@ public class MemberController {
 	
 	@RequestMapping("memberJoinForm.me")
 	public String showMemberJoinForm() {
-		return "userInfo/memberJoin/memberJoinForm";
+		return "userInfo/memberJoinForm";
 	}
 	
 	@RequestMapping("insert.me")
@@ -70,8 +64,7 @@ public class MemberController {
 	
 	@RequestMapping("backlogin.me")
 	public String showloginPage() {
-		return "userInfo/loginOut/login";
+		return "userInfo/login";
 	}
-	
 
 }

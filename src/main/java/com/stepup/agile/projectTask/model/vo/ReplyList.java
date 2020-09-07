@@ -1,7 +1,5 @@
 package com.stepup.agile.projectTask.model.vo;
 
-import com.stepup.agile.userInfo.model.vo.Member;
-
 public class ReplyList implements java.io.Serializable {
 	private int userCode;
 	private int taskCode;
