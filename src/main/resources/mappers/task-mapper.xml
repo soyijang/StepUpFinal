@@ -252,6 +252,11 @@
 		 WHERE R.TASK_CODE = #{taskCode, jdbcType=INTEGER}
 		   AND H.REPLY_TYPE = 1 AND R.REPLY_STATUS = 'N'
 	</select>
+	<insert id="updateReply" parameterType="com.stepup.agile.projectTask.model.vo.ReplyHistory">
+		INSERT INTO REPLY_HISTORY (REPLY_HIST_CODE, REPLY_UPDATE_DATE, REPLY_UPDATE_TIME, REPLY_CONTENTS, REPLY_TYPE, REPLY_CODE) 
+        VALUES(#{replyHistCode}, TO_CHAR(SYSDATE + 9/24, 'YYYY-MM-DD'), TO_CHAR(SYSDATE + 9/24, 'hh24:mi:ss'),
+                #{replyContents, jdbcType=VARCHAR}, 2, #{replyCode})
+	</insert>
 	<!-- 6.담당자변경 -->
 	<!-- 팀리스트 조회 -->
 	<select id="selectTeam" parameterType="Member" resultMap="memberTeamSet">
