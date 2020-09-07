@@ -1,6 +1,7 @@
 package com.stepup.agile.userInfo.model.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import com.stepup.agile.projectManage.model.vo.Project;
 import com.stepup.agile.userInfo.model.exception.LoginFailedException;
 import com.stepup.agile.userInfo.model.vo.Member;
+import com.stepup.agile.userInfo.model.vo.UserTeamList;
 
 public interface MemberDao {
 	
@@ -24,5 +26,8 @@ public interface MemberDao {
 	int insertJob(SqlSessionTemplate sqlSession, Map<String, Object> member);
 
 	String selectUserProject(SqlSessionTemplate sqlSession, Member m);
+	
+	//myInfo 팀원 리스트조회
+	List<Member> selectTeamList(SqlSessionTemplate sqlSession, UserTeamList ul);
 
 }

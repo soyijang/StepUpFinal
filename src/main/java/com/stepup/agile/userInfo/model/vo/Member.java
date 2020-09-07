@@ -14,11 +14,13 @@ public class Member implements java.io.Serializable {
 	private String userManagerYn;
 	private String userEnrollTime;
 	
+	private UserTeamList userTeamList;
+	
 	public Member() {}
 
 	public Member(String userEmail, String userPwd, String userName, int userCode, String userPhone,
 			String userCompName, String userCompDept, String userCompJob, String userEnrollDate, String userStatus,
-			String userManagerYn, String userEnrollTime) {
+			String userManagerYn, String userEnrollTime, UserTeamList userTeamList) {
 		super();
 		this.userEmail = userEmail;
 		this.userPwd = userPwd;
@@ -32,6 +34,7 @@ public class Member implements java.io.Serializable {
 		this.userStatus = userStatus;
 		this.userManagerYn = userManagerYn;
 		this.userEnrollTime = userEnrollTime;
+		this.userTeamList = userTeamList;
 	}
 
 	public String getUserEmail() {
@@ -130,12 +133,21 @@ public class Member implements java.io.Serializable {
 		this.userEnrollTime = userEnrollTime;
 	}
 
+	public UserTeamList getUserTeamList() {
+		return userTeamList;
+	}
+
+	public void setUserTeamList(UserTeamList userTeamList) {
+		this.userTeamList = userTeamList;
+	}
+
 	@Override
 	public String toString() {
 		return "Member [userEmail=" + userEmail + ", userPwd=" + userPwd + ", userName=" + userName + ", userCode="
 				+ userCode + ", userPhone=" + userPhone + ", userCompName=" + userCompName + ", userCompDept="
 				+ userCompDept + ", userCompJob=" + userCompJob + ", userEnrollDate=" + userEnrollDate + ", userStatus="
-				+ userStatus + ", userManagerYn=" + userManagerYn + ", userEnrollTime=" + userEnrollTime + "]";
+				+ userStatus + ", userManagerYn=" + userManagerYn + ", userEnrollTime=" + userEnrollTime
+				+ ", userTeamList=" + userTeamList + "]";
 	}
 
 }

@@ -42,8 +42,22 @@
 		<id property="teamCode" column="TEAM_CODE"/>
 		<result property="teamName" column="TEAM_NAME"/>
 	</resultMap>
-
-
+	
+	<resultMap type="com.stepup.agile.userInfo.model.vo.Member" id="memberTeamResultSet">
+		<id property="userCode" column="USER_CODE"/>
+		<result property="userEmail" column="USER_EMAIL"/>
+		<result property="userPwd" column="USER_PWD"/>
+		<result property="userName" column="USER_NAME"/>
+		<result property="userPhone" column="USER_PHONE"/>
+		<result property="userCompName" column="USER_COMP_NAME"/>
+		<result property="userCompDept" column="USER_COMP_DEPT"/>
+		<result property="userCompJob" column="USER_COMP_JOB"/>
+		<result property="userEnrollDate" column="USER_ENROLL_DATE"/>
+		<result property="userStatus" column="USER_STATUS"/>
+		<result property="userManagerYn" column="USER_MANAGER_YN"/>
+		<result property="userEnrollTime" column="USER_ENROLL_TIME"/>
+		<collection property="userTeamList" resultMap="UserTeamListResultSet"/>
+	</resultMap>
 
 	<insert id="insertMember" parameterType="Member">
 		INSERT INTO USER_INFO
@@ -81,6 +95,12 @@
 		 WHERE USER_EMAIL = #{userEmail} 
 	</update>
 	
+	<select id="selectTeamList" resultMap="memberResultSet" parameterType="Member">
+		SELECT * 
+		  FROM USER_INFO I
+		  LEFT JOIN USER_TEAM_LIST L ON (I.USER_CODE = L.USER_CODE)
+		 WHERE TEAM_CODE = 1 AND USER_TEAM_YN = 'Y';
+	</select>
 
 
 </mapper>

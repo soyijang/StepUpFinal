@@ -1,15 +1,21 @@
 package com.stepup.agile.userInfo.controller;
 
+import java.util.HashMap;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 
 import com.stepup.agile.userInfo.model.exception.LoginFailedException;
 import com.stepup.agile.userInfo.model.service.MemberService;
 import com.stepup.agile.userInfo.model.vo.Member;
+import com.stepup.agile.userInfo.model.vo.UserTeamList;
 
 @SessionAttributes("loginUser")
 @Controller
@@ -65,6 +71,25 @@ public class MemberController {
 	@RequestMapping("backlogin.me")
 	public String showloginPage() {
 		return "userInfo/login";
+	}
+	
+	@RequestMapping("logout.me")
+	public String logout(SessionStatus status) {
+		status.setComplete();
+		
+		return "userInfo/login";
+	}
+	
+	@RequestMapping("profile.me")
+	public String profile(Model model, @ModelAttribute("loginUser") Member m, int teamCode) {
+		
+		UserTeamList ul = new UserTeamList();
+		
+		ul.setTeamCode(teamCode);		
+		
+		List<Member> list = ms.selectTeamList(ul);
+		
+		return "userInfo/myPage/myInfo";
 	}
 
 }
