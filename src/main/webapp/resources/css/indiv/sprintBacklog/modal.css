@@ -32,6 +32,10 @@
   	height: 65%;
   }
   
+  .mytaskupdatecontent{
+  	height: 35%;
+  }
+  
  .modaltitle{
  	font-size:30px;
  	margin-left: 20px;
@@ -72,6 +76,30 @@
  	line-height: 30px;
  }
  .finishTaskClose {
+ 	text-align: center;
+ 	display: inline-block;
+ 	vertical-align: middle;
+ 	line-height: 30px;
+ }
+ .myTaskUpdateClose {
+ 	text-align: center;
+ 	display: inline-block;
+ 	vertical-align: middle;
+ 	line-height: 30px;
+ }
+ .myTaskInsertClose {
+ 	text-align: center;
+ 	display: inline-block;
+ 	vertical-align: middle;
+ 	line-height: 30px;
+ }
+ .myTaskShareClose {
+ 	text-align: center;
+ 	display: inline-block;
+ 	vertical-align: middle;
+ 	line-height: 30px;
+ }
+ .myTaskDeleteClose {
  	text-align: center;
  	display: inline-block;
  	vertical-align: middle;

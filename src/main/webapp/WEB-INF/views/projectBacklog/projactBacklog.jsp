@@ -294,11 +294,6 @@
    		<div><img src="/agile/resources/icon/common/icon_loading.gif"/></div>
 	</div>   
 	
-	<div class="wrap-finish display-none">
-   		<div><img src="/agile/resources/images/indiv/main/backlog/stepup.gif"/></div>
-	</div>   
-	
-	 
 
 <script type="text/javascript">	
 	
