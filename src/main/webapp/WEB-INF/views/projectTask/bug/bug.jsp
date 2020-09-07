@@ -671,6 +671,7 @@
 		});
 	});
 	
+	//댓글 추가
 	$(document).on('click', '#reply-add-btn', function(){
 		var cont = $("#summernote").val();
 		var cont2 = cont.replace('<p>','');
