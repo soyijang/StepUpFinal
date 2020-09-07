@@ -17,6 +17,7 @@
 	<result property="taskCreateTime" column="TASK_CREATE_TIME"/>
 	<result property="taskMaster" column="TASK_MASTER"/>
 	<result property="taskUser" column="TASK_USER"/>
+	<result property="headTaskCode" column="HEAD_TASK_CODE"/>
 	</resultMap>
 	<!-- TaskHistory -->
 	<resultMap type="com.stepup.agile.projectTask.model.vo.TaskHistory" id="TaskHistoryResultSet">
@@ -38,12 +39,13 @@
 	</resultMap>
 	<!-- ReplyHistory -->
 	<resultMap type="com.stepup.agile.projectTask.model.vo.ReplyHistory" id="replyHistoryResultSet">
-		<id property="replyCode" column="REPLY_CODE"/>
+		<id property="replyHistCode" column="REPLY_HIST_CODE"/>
 		<result property="replyUpdateDate" column="REPLY_UPDATE_DATE"/>
 		<result property="replyUpdateTime" column="REPLY_UPDATE_TIME"/>
 		<result property="replyContents" column="REPLY_CONTENTS"/>
 		<result property="replyType" column="REPLY_TYPE"/>
-		<result property="replyHistCode" column="REPLY_HIST_CODE"/>
+		<result property="replyCode" column="REPLY_CODE"/>
+		
 	</resultMap>
 	
 	<resultMap type="com.stepup.agile.projectBacklog.model.vo.Sprint" id="sprintResultSet">
@@ -87,6 +89,20 @@
 		<result property="userTeamTime" column="USER_TEAM_TIME"/>
 	</resultMap>
 	
+	<resultMap type="com.stepup.agile.userInfo.model.vo.Attachment" id="AttachmentResultSet">
+		<id property="attachCode" column="ATTACH_CODE"/>
+		<result property="attachPath" column="ATTACH_PATH"/>
+		<result property="attachOriginName" column="ATTACH_ORIGIN_NAME"/>
+		<result property="attachChangeName" column="ATTACH_CHANGE_NAME"/>
+		<result property="attachUploadDate" column="ATTACH_UPLOAD_DATE"/>
+		<result property="attachUploadTime" column="ATTACH_UPLOAD_TIME"/>
+		<result property="taskHistCode" column="TASK_HIST_CODE"/>
+		<result property="userCode" column="USER_CODE"/>
+		<result property="attachType" column="ATTACH_TYPE"/>
+		<result property="thumbnailPath" column="THUMBNAIL_PATH"/>
+		<result property="attachSize" column="ATTACH_SIZE"/>
+	</resultMap>
+	
 	
 	<resultMap type="com.stepup.agile.projectTask.model.vo.TaskHistory" id="selectUserTaskRSet">
 		<id property="taskHistUpdateDate" column="TASK_HIST_UPDATE_DATE"/>
@@ -103,6 +119,50 @@
 	    <collection property="sprint" resultMap="sprintResultSet"/>
 	    <collection property="taskList" resultMap="TaskListResultSet"/>
 	</resultMap>
+	<!-- ReplyHistory + UserInfo + TaskList -->
+	<resultMap type="com.stepup.agile.projectTask.model.vo.ReplyHistory" id="taskReplySet">
+		<id property="replyHistCode" column="REPLY_HIST_CODE"/>
+		<result property="replyCode" column="REPLY_CODE"/>
+		<result property="replyUpdateDate" column="REPLY_UPDATE_DATE"/>
+		<result property="replyUpdateTime" column="REPLY_UPDATE_TIME"/>
+		<result property="replyContents" column="REPLY_CONTENTS"/>
+		<result property="replyType" column="REPLY_TYPE"/>
+		<collection property="member" resultMap="memberResultSet"/>
+		<collection property="replyList" resultMap="replyListResultSet"/>
+		<collection property="attachment" resultMap="AttachmentResultSet"/>
+		<collection property="taskList" resultMap="TaskListResultSet"/>
+	</resultMap>
+	<!-- TaskHistory + TaskList -->
+	<resultMap type="com.stepup.agile.projectTask.model.vo.TaskHistory" id="subTaskHistoryResultSet">
+		<id property="taskHistCode" column="TASK_HIST_CODE"/>
+		<result property="taskHistUpdateDate" column="TASK_HIST_UPDATE_DATE"/>
+		<result property="taskHistUpdateTime" column="TASK_HIST_UPDATE_TIME"/>
+		<result property="taskCode" column="TASK_CODE"/>
+		<result property="masterCode" column="MASTER_CODE"/>
+		<result property="userCode" column="USER_CODE"/>
+		<result property="taskHistValue" column="TASK_HIST_VALUE"/>
+		<result property="taskCategoryCode" column="TASK_CATEGORY_CODE"/>
+		<collection property="taskList" resultMap="TaskListResultSet"/>
+	</resultMap>
+	
+	<!-- UserInfo + UserTeamList + Attachment -->
+	<resultMap type="com.stepup.agile.userInfo.model.vo.Member" id="memberTeamSet">
+		<id property="userCode" column="USER_CODE"/>
+		<result property="userEmail" column="USER_EMAIL"/>
+		<result property="userPwd" column="USER_PWD"/>
+		<result property="userName" column="USER_NAME"/>
+		<result property="userPhone" column="USER_PHONE"/>
+		<result property="userCompName" column="USER_COMP_NAME"/>
+		<result property="userCompDept" column="USER_COMP_DEPT"/>
+		<result property="userCompJob" column="USER_COMP_JOB"/>
+		<result property="userEnrollDate" column="USER_ENROLL_DATE"/>
+		<result property="userStatus" column="USER_STATUS"/>
+		<result property="userManagerYn" column="USER_MANAGER_YN"/>
+		<result property="userEnrollTime" column="USER_ENROLL_TIME"/>
+		<collection property="userTeamList" resultMap="UserTeamListResultSet"/>
+		<collection property="attachment" resultMap="AttachmentResultSet"/>
+	</resultMap>
+	
 	<!-- 1.Task생성 -->
 	<insert id="createTask" parameterType="com.stepup.agile.projectTask.model.vo.TaskList">
 		<selectKey keyProperty="taskCode" resultType="int" order="BEFORE">
@@ -111,12 +171,11 @@
 		INSERT INTO TASK_LIST(TASK_CODE, TASK_CREATE_DATE, TASK_LEVEL, SPRINT_CODE, TASK_CREATE_TIME, TASK_MASTER, TASK_USER)
 		VALUES (#{taskCode}, TO_CHAR(SYSDATE + 9/24, 'YYYY-MM-DD'), '상위', #{sprintCode}, TO_CHAR(SYSDATE + 9/24, 'hh24:mi:ss'), DEFAULT, #{taskUser, jdbcType=VARCHAR})
 	</insert>
-	
-	<!-- <select id="selectList" parameterType="com.stepup.agile.projectTask.model.vo.TaskList">
+	<select id="selectTask" parameterType="com.stepup.agile.projectTask.model.vo.TaskList" resultMap="TaskListResultSet">
 		SELECT *
 		  FROM TASK_LIST
-		 WHERE TASK_CODE = #{taskCode} 
-	</select> -->
+		 WHERE TASK_CODE = #{taskCode}
+	</select>
 	<!-- 2.Title 수정 -->
 	<insert id="updateTaskTitle" parameterType="com.stepup.agile.projectTask.model.vo.TaskHistory">
 		<selectKey keyProperty="taskHistCode" resultType="int" order="BEFORE">
@@ -139,7 +198,7 @@
 		INSERT INTO TASK_HISTORY(TASK_HIST_UPDATE_DATE, TASK_HIST_UPDATE_TIME,TASK_CODE, TASK_HIST_CODE, MASTER_CODE, USER_CODE, TASK_HIST_VALUE, TASK_CATEGORY_CODE)
 		VALUES (TO_CHAR(SYSDATE + 9/24, 'YYYY-MM-DD'), TO_CHAR(SYSDATE + 9/24, 'hh24:mi:ss'), #{taskCode}, #{taskHistCode}, #{masterCode}, #{userCode}, #{taskHistValue, jdbcType=VARCHAR}, #{taskCategoryCode, jdbcType=VARCHAR})
 	</insert>
-	<!-- 3-1.Descript 조회 -->
+
 	<select id="selectDescript" parameterType="com.stepup.agile.projectTask.model.vo.TaskHistory" resultMap="TaskHistoryResultSet">
 		SELECT *
 		  FROM TASK_HISTORY
@@ -150,11 +209,10 @@
 		<selectKey keyProperty="taskCode" resultType="int" order="BEFORE">
 			SELECT SEQ_TASK.NEXTVAL FROM DUAL
 		</selectKey>
-		INSERT INTO TASK_LIST(TASK_CODE, TASK_CREATE_DATE, TASK_LEVEL, SPRINT_CODE, TASK_CREATE_TIME, TASK_MASTER, TASK_USER)
-		VALUES (#{taskCode}, TO_CHAR(SYSDATE + 9/24, 'YYYY-MM-DD'), '서브', #{sprintCode}, TO_CHAR(SYSDATE + 9/24, 'hh24:mi:ss'), DEFAULT, #{taskUser, jdbcType=VARCHAR})
+		INSERT INTO TASK_LIST(TASK_CODE, TASK_CREATE_DATE, TASK_LEVEL, SPRINT_CODE, TASK_CREATE_TIME, TASK_MASTER, TASK_USER, HEAD_TASK_CODE)
+		VALUES (#{taskCode}, TO_CHAR(SYSDATE + 9/24, 'YYYY-MM-DD'), '서브', #{sprintCode}, TO_CHAR(SYSDATE + 9/24, 'hh24:mi:ss'), DEFAULT, #{taskUser, jdbcType=VARCHAR}, #{headTaskCode})
 	</insert>
 	
-	<!-- 4-1.subTaskTitle 입력 -->
 	<insert id="updateSubTitle" parameterType="com.stepup.agile.projectTask.model.vo.TaskHistory">
 		<selectKey keyProperty="taskHistCode" resultType="int" order="BEFORE">
 			SELECT SEQ_TASK_HIST.NEXTVAL FROM DUAL
@@ -162,11 +220,11 @@
 		INSERT INTO TASK_HISTORY(TASK_HIST_UPDATE_DATE, TASK_HIST_UPDATE_TIME,TASK_CODE, TASK_HIST_CODE, MASTER_CODE, USER_CODE, TASK_HIST_VALUE, TASK_CATEGORY_CODE)
 		VALUES (TO_CHAR(SYSDATE + 9/24, 'YYYY-MM-DD'), TO_CHAR(SYSDATE + 9/24, 'hh24:mi:ss'), #{taskCode}, #{taskHistCode}, #{masterCode}, #{userCode}, #{taskHistValue, jdbcType=VARCHAR}, #{taskCategoryCode, jdbcType=VARCHAR})
 	</insert>
-	<!-- 4-2.subTask Title select -->
-	<select id="selectSubTitle" parameterType="com.stepup.agile.projectTask.model.vo.TaskHistory" resultMap="TaskHistoryResultSet">
-		SELECT TASK_HIST_VALUE
-		  FROM TASK_HISTORY
-		 WHERE TASK_HIST_CODE = #{taskHistCode}
+	
+	<select id="selectSubTitle" parameterType="com.stepup.agile.projectTask.model.vo.TaskHistory" resultMap="subTaskHistoryResultSet">
+		SELECT *
+		  FROM TASK_HISTORY H JOIN TASK_LIST T ON(H.TASK_CODE = T.TASK_CODE)
+		 WHERE T.HEAD_TASK_CODE = #{taskCode} AND H.TASK_CATEGORY_CODE = 'J'
 	</select>
 	<!-- 5.댓글 입력 -->
 	<insert id="insertReply" parameterType="com.stepup.agile.projectTask.model.vo.ReplyList">
@@ -176,24 +234,262 @@
 		INSERT INTO REPLY_LIST(USER_CODE, TASK_CODE, REPLY_CODE, REPLY_STATUS)
 		VALUES (#{userCode}, #{taskCode}, #{replyCode}, DEFAULT)
 	</insert>
-	<!-- 5-1.댓글 리스트 업데이트 -->
+	
 	<update id="updateReplyHist" parameterType="com.stepup.agile.projectTask.model.vo.ReplyHistory">
 		<selectKey keyProperty="replyHistCode" resultType="int" order="BEFORE">
 			SELECT SEQ_REPLY_HIST.NEXTVAL FROM DUAL
 		</selectKey>
 		INSERT INTO REPLY_HISTORY (REPLY_HIST_CODE, REPLY_UPDATE_DATE, REPLY_UPDATE_TIME, REPLY_CONTENTS, REPLY_TYPE, REPLY_CODE) 
-        VALUES(SEQ_REPLY_HIST.NEXTVAL, TO_CHAR(SYSDATE + 9/24, 'YYYY-MM-DD'), TO_CHAR(SYSDATE + 9/24, 'hh24:mi:ss'),
-                #{replyContents, jdbcType=VARCHAR}, 1, #{replyCode});
+        VALUES(#{replyHistCode}, TO_CHAR(SYSDATE + 9/24, 'YYYY-MM-DD'), TO_CHAR(SYSDATE + 9/24, 'hh24:mi:ss'),
+                #{replyContents, jdbcType=VARCHAR}, DEFAULT, #{replyCode})
 	</update>
-	<!-- 5-2.댓글 조회 -->
-	<select id="selectReply" parameterType="com.stepup.agile.projectTask.model.vo.ReplyHistory" resultMap="replyHistoryResultSet">
-		SELECT U.USER_NAME, H.REPLY_CONTENTS 
+
+	<select id="selectReply" parameterType="com.stepup.agile.projectTask.model.vo.ReplyHistory" resultMap="taskReplySet">
+		SELECT *
 		  FROM REPLY_HISTORY H JOIN REPLY_LIST R ON (R.REPLY_CODE = H.REPLY_CODE)
 		  JOIN USER_INFO U ON(U.USER_CODE = R.USER_CODE)
-		 WHERE R.TASK_CODE = #{taskCode} AND H.REPLY_HIST_CODE = #{replyHistCode}
+		  JOIN ATTACH_FILE A ON (A.USER_CODE = U.USER_CODE)
+		 WHERE R.TASK_CODE = #{taskCode, jdbcType=INTEGER}
 		   AND H.REPLY_TYPE = 1 AND R.REPLY_STATUS = 'N'
 	</select>
+	<!-- 6.담당자변경 -->
+	<!-- 팀리스트 조회 -->
+	<select id="selectTeam" parameterType="Member" resultMap="memberTeamSet">
+		SELECT *
+		FROM USER_INFO M LEFT JOIN ATTACH_FILE A ON(M.USER_CODE = A.USER_CODE)
+		LEFT JOIN USER_TEAM_LIST L ON(M.USER_CODE = L.USER_CODE)
+		WHERE L.TEAM_CODE = (SELECT TEAM_CODE
+		                       FROM (SELECT RNUM, TEAM_CODE
+		                               FROM (SELECT ROWNUM RNUM, TEAM_CODE
+		                                       FROM (SELECT TEAM_CODE, USER_TEAM_DATE
+		                                               FROM USER_TEAM_LIST T JOIN USER_INFO M ON(T.USER_CODE = M.USER_CODE)
+		                                              WHERE M.USER_CODE = #{userCode}
+		                                              ORDER BY USER_TEAM_DATE DESC))
+		                                              WHERE RNUM = 1))
+	</select>
+	<insert id="insertTaskUser" parameterType="com.stepup.agile.projectTask.model.vo.TaskHistory">
+		<selectKey keyProperty="taskHistCode" resultType="int" order="BEFORE">
+			SELECT SEQ_TASK_HIST.NEXTVAL FROM DUAL
+		</selectKey>
+		INSERT INTO TASK_HISTORY(TASK_HIST_UPDATE_DATE, TASK_HIST_UPDATE_TIME,TASK_CODE, TASK_HIST_CODE, MASTER_CODE, USER_CODE, TASK_HIST_VALUE, TASK_CATEGORY_CODE)
+		VALUES (TO_CHAR(SYSDATE + 9/24, 'YYYY-MM-DD'), TO_CHAR(SYSDATE + 9/24, 'hh24:mi:ss'), #{taskCode}, #{taskHistCode}, #{masterCode}, #{userCode}, #{taskHistValue, jdbcType=VARCHAR}, 'L')
+	</insert>
+	<update id="updateTaskList" parameterType="com.stepup.agile.projectTask.model.vo.TaskList">
+		UPDATE TASK_LIST SET(USER_CODE)
+		VALUES (#{userCode, jdbcType=INTEGER})
+	</update>
+	<!-- 6-1.보고자 조회 -->
+	<!-- 팀리스트 조회 -->
+	<select id="selectTeam2" parameterType="Member" resultMap="memberTeamSet">
+		SELECT *
+		FROM USER_INFO M LEFT JOIN ATTACH_FILE A ON(M.USER_CODE = A.USER_CODE)
+		LEFT JOIN USER_TEAM_LIST L ON(M.USER_CODE = L.USER_CODE)
+		WHERE L.TEAM_CODE = (SELECT TEAM_CODE
+		                       FROM (SELECT RNUM, TEAM_CODE
+		                               FROM (SELECT ROWNUM RNUM, TEAM_CODE
+		                                       FROM (SELECT TEAM_CODE, USER_TEAM_DATE
+		                                               FROM USER_TEAM_LIST T JOIN USER_INFO M ON(T.USER_CODE = M.USER_CODE)
+		                                              WHERE M.USER_CODE = #{userCode}
+		                                              ORDER BY USER_TEAM_DATE DESC))
+		                                              WHERE RNUM = 1))
+	</select>
+	<insert id="insertMaster" parameterType="com.stepup.agile.projectTask.model.vo.TaskHistory">
+		<selectKey keyProperty="taskHistCode" resultType="int" order="BEFORE">
+			SELECT SEQ_TASK_HIST.NEXTVAL FROM DUAL
+		</selectKey>
+		INSERT INTO TASK_HISTORY(TASK_HIST_UPDATE_DATE, TASK_HIST_UPDATE_TIME,TASK_CODE, TASK_HIST_CODE, MASTER_CODE, USER_CODE, TASK_HIST_VALUE, TASK_CATEGORY_CODE)
+		VALUES (TO_CHAR(SYSDATE + 9/24, 'YYYY-MM-DD'), TO_CHAR(SYSDATE + 9/24, 'hh24:mi:ss'), #{taskCode}, #{taskHistCode}, #{masterCode}, #{userCode}, #{taskHistValue, jdbcType=VARCHAR}, 'L')
+	</insert>
+	<update id="updateTaskList2" parameterType="com.stepup.agile.projectTask.model.vo.TaskList">
+		UPDATE TASK_LIST SET(MASTER_CODE)
+		VALUES (#{masterCode, jdbcType=INTEGER})
+	</update>
+	<!-- 7.레이블생성 -->
+	<insert id="insertLabel" parameterType="com.stepup.agile.projectTask.model.vo.TaskHistory">
+		<selectKey keyProperty="taskHistCode" resultType="int" order="BEFORE">
+			SELECT SEQ_TASK_HIST.NEXTVAL FROM DUAL
+		</selectKey>
+		INSERT INTO TASK_HISTORY(TASK_HIST_UPDATE_DATE, TASK_HIST_UPDATE_TIME,TASK_CODE, TASK_HIST_CODE, MASTER_CODE, USER_CODE, TASK_HIST_VALUE, TASK_CATEGORY_CODE)
+		VALUES (TO_CHAR(SYSDATE + 9/24, 'YYYY-MM-DD'), TO_CHAR(SYSDATE + 9/24, 'hh24:mi:ss'), #{taskCode, jdbcType=	INTEGER}, #{taskHistCode}, 0, #{userCode, jdbcType=VARCHAR}, #{taskHistValue, jdbcType=VARCHAR}, #{taskCategoryCode, jdbcType=VARCHAR})
+	</insert>
+
+	<select id="selectLabel" parameterType="com.stepup.agile.projectTask.model.vo.TaskHistory" resultMap="TaskHistoryResultSet">
+		SELECT TASK_HIST_VALUE
+		FROM TASK_HISTORY
+		WHERE TASK_HIST_CODE = #{taskHistCode}
+	</select>
+	<!-- 8.StoryPoint 입력 -->
+	<insert id="insertPoint" parameterType="com.stepup.agile.projectTask.model.vo.TaskHistory">
+		<selectKey keyProperty="taskHistCode" resultType="int" order="BEFORE">
+			SELECT SEQ_TASK_HIST.NEXTVAL FROM DUAL
+		</selectKey>
+		INSERT INTO TASK_HISTORY(TASK_HIST_UPDATE_DATE, TASK_HIST_UPDATE_TIME,TASK_CODE, TASK_HIST_CODE, MASTER_CODE, USER_CODE, TASK_HIST_VALUE, TASK_CATEGORY_CODE)
+		VALUES (TO_CHAR(SYSDATE + 9/24, 'YYYY-MM-DD'), TO_CHAR(SYSDATE + 9/24, 'hh24:mi:ss'), #{taskCode, jdbcType=	INTEGER}, #{taskHistCode}, 0, #{userCode, jdbcType=VARCHAR}, #{taskHistValue, jdbcType=VARCHAR}, #{taskCategoryCode, jdbcType=VARCHAR})
+	</insert>
+
+	<select id="selectPoint" parameterType="com.stepup.agile.projectTask.model.vo.TaskHistory" resultMap="TaskHistoryResultSet">
+		SELECT TASK_HIST_VALUE
+		FROM TASK_HISTORY
+		WHERE TASK_HIST_CODE = #{taskHistCode}
+	</select>
+	<!-- 9.최초예상시간 -->
+	<insert id="insertExpect" parameterType="com.stepup.agile.projectTask.model.vo.TaskHistory">
+		<selectKey keyProperty="taskHistCode" resultType="int" order="BEFORE">
+			SELECT SEQ_TASK_HIST.NEXTVAL FROM DUAL
+		</selectKey>
+		INSERT INTO TASK_HISTORY(TASK_HIST_UPDATE_DATE, TASK_HIST_UPDATE_TIME,TASK_CODE, TASK_HIST_CODE, MASTER_CODE, USER_CODE, TASK_HIST_VALUE, TASK_CATEGORY_CODE)
+		VALUES (TO_CHAR(SYSDATE + 9/24, 'YYYY-MM-DD'), TO_CHAR(SYSDATE + 9/24, 'hh24:mi:ss'), #{taskCode, jdbcType=	INTEGER}, #{taskHistCode}, 0, #{userCode, jdbcType=VARCHAR}, #{taskHistValue, jdbcType=VARCHAR}, #{taskCategoryCode, jdbcType=VARCHAR})
+	</insert>
+
+ 	<select id="selectExpect" parameterType="com.stepup.agile.projectTask.model.vo.TaskHistory" resultMap="TaskHistoryResultSet">
+		SELECT TASK_HIST_VALUE
+		FROM TASK_HISTORY
+		WHERE TASK_HIST_CODE = #{taskHistCode}
+	</select>
+	<!-- 11.우선순위 -->
+	<insert id="insertProperty1" parameterType="com.stepup.agile.projectTask.model.vo.TaskHistory">
+		<selectKey keyProperty="taskHistCode" resultType="int" order="BEFORE">
+			SELECT SEQ_TASK_HIST.NEXTVAL FROM DUAL
+		</selectKey>
+		INSERT INTO TASK_HISTORY(TASK_HIST_UPDATE_DATE, TASK_HIST_UPDATE_TIME,TASK_CODE, TASK_HIST_CODE, MASTER_CODE, USER_CODE, TASK_HIST_VALUE, TASK_CATEGORY_CODE)
+		VALUES (TO_CHAR(SYSDATE + 9/24, 'YYYY-MM-DD'), TO_CHAR(SYSDATE + 9/24, 'hh24:mi:ss'), #{taskCode, jdbcType=	INTEGER}, #{taskHistCode}, Default, #{userCode, jdbcType=VARCHAR}, 'high', 'C')
+	</insert>
+	<select id="selectProperty1" parameterType="com.stepup.agile.projectTask.model.vo.TaskHistory" resultMap="TaskHistoryResultSet">
+		SELECT *
+		  FROM TASK_HISTORY
+		 WHERE TASK_HIST_CODE = #{taskHistCode}
+	</select>
+ 	<insert id="insertProperty2" parameterType="com.stepup.agile.projectTask.model.vo.TaskHistory">
+		<selectKey keyProperty="taskHistCode" resultType="int" order="BEFORE">
+			SELECT SEQ_TASK_HIST.NEXTVAL FROM DUAL
+		</selectKey>
+		INSERT INTO TASK_HISTORY(TASK_HIST_UPDATE_DATE, TASK_HIST_UPDATE_TIME,TASK_CODE, TASK_HIST_CODE, MASTER_CODE, USER_CODE, TASK_HIST_VALUE, TASK_CATEGORY_CODE)
+		VALUES (TO_CHAR(SYSDATE + 9/24, 'YYYY-MM-DD'), TO_CHAR(SYSDATE + 9/24, 'hh24:mi:ss'), #{taskCode, jdbcType=	INTEGER}, #{taskHistCode}, Default, #{userCode, jdbcType=VARCHAR}, 'medium', 'C')
+	</insert>
+	<select id="selectProperty2" parameterType="com.stepup.agile.projectTask.model.vo.TaskHistory" resultMap="TaskHistoryResultSet">
+		SELECT *
+		  FROM TASK_HISTORY
+		 WHERE TASK_HIST_CODE = #{taskHistCode}
+	</select>
+	<insert id="insertProperty3" parameterType="com.stepup.agile.projectTask.model.vo.TaskHistory">
+		<selectKey keyProperty="taskHistCode" resultType="int" order="BEFORE">
+			SELECT SEQ_TASK_HIST.NEXTVAL FROM DUAL
+		</selectKey>
+		INSERT INTO TASK_HISTORY(TASK_HIST_UPDATE_DATE, TASK_HIST_UPDATE_TIME,TASK_CODE, TASK_HIST_CODE, MASTER_CODE, USER_CODE, TASK_HIST_VALUE, TASK_CATEGORY_CODE)
+		VALUES (TO_CHAR(SYSDATE + 9/24, 'YYYY-MM-DD'), TO_CHAR(SYSDATE + 9/24, 'hh24:mi:ss'), #{taskCode, jdbcType=	INTEGER}, #{taskHistCode}, Default, #{userCode, jdbcType=VARCHAR}, 'low', 'C')
+	</insert>
+	<select id="selectProperty3" parameterType="com.stepup.agile.projectTask.model.vo.TaskHistory" resultMap="TaskHistoryResultSet">
+		SELECT *
+		  FROM TASK_HISTORY
+		 WHERE TASK_HIST_CODE = #{taskHistCode}
+	</select>
+	<!-- 12.진행상태 -->
+	<insert id="taskStatus1" parameterType="com.stepup.agile.projectTask.model.vo.TaskHistory">
+		<selectKey keyProperty="taskHistCode" resultType="int" order="BEFORE">
+			SELECT SEQ_TASK_HIST.NEXTVAL FROM DUAL
+		</selectKey>
+		INSERT INTO TASK_HISTORY(TASK_HIST_UPDATE_DATE, TASK_HIST_UPDATE_TIME,TASK_CODE, TASK_HIST_CODE, MASTER_CODE, USER_CODE, TASK_HIST_VALUE, TASK_CATEGORY_CODE)
+		VALUES (TO_CHAR(SYSDATE + 9/24, 'YYYY-MM-DD'), TO_CHAR(SYSDATE + 9/24, 'hh24:mi:ss'), #{taskCode, jdbcType=	INTEGER}, #{taskHistCode}, Default, #{userCode, jdbcType=VARCHAR}, '진행중', 'I')
+	</insert>
+	<select id="tastStatusSelect1" parameterType="com.stepup.agile.projectTask.model.vo.TaskHistory" resultMap="TaskHistoryResultSet">
+		SELECT *
+		  FROM TASK_HISTORY
+		 WHERE TASK_HIST_CODE = #{taskHistCode}
+	</select>
+	<insert id="taskStatus2" parameterType="com.stepup.agile.projectTask.model.vo.TaskHistory">
+		<selectKey keyProperty="taskHistCode" resultType="int" order="BEFORE">
+			SELECT SEQ_TASK_HIST.NEXTVAL FROM DUAL
+		</selectKey>
+		INSERT INTO TASK_HISTORY(TASK_HIST_UPDATE_DATE, TASK_HIST_UPDATE_TIME,TASK_CODE, TASK_HIST_CODE, MASTER_CODE, USER_CODE, TASK_HIST_VALUE, TASK_CATEGORY_CODE)
+		VALUES (TO_CHAR(SYSDATE + 9/24, 'YYYY-MM-DD'), TO_CHAR(SYSDATE + 9/24, 'hh24:mi:ss'), #{taskCode, jdbcType=	INTEGER}, #{taskHistCode}, Default, #{userCode, jdbcType=VARCHAR}, '완료', 'I')
+	</insert>
+	<select id="tastStatusSelect2" parameterType="com.stepup.agile.projectTask.model.vo.TaskHistory" resultMap="TaskHistoryResultSet">
+		SELECT *
+		  FROM TASK_HISTORY
+		 WHERE TASK_HIST_CODE = #{taskHistCode}
+	</select>
 	
+	<!-- 13.복제 이벤트 -->
+	<insert id="insertCloneTask" parameterType="com.stepup.agile.projectTask.model.vo.TaskList">
+		<selectKey keyProperty="taskCode" resultType="int" order="AFTER">
+	         SELECT SEQ_TASK.NEXTVAL FROM DUAL
+	      </selectKey>
+		INSERT INTO TASK_LIST
+		VALUES(SEQ_TASK.NEXTVAL, TO_CHAR(SYSDATE + 9/24, 'YYYY-MM-DD'),'상위', #{sprintCode}, TO_CHAR(SYSDATE + 9/24, 'hh24:mi:ss'), NULL, #{userCode, jdbcType=VARCHAR}, NULL)
+	</insert>
+	<!-- 13-1.복제 이벤트 -->
+	<insert id="insertCloneTask2" parameterType="com.stepup.agile.projectTask.model.vo.TaskHistory">
+		INSERT INTO TASK_HISTORY (TASK_HIST_UPDATE_DATE, TASK_HIST_UPDATE_TIME, TASK_CODE, TASK_HIST_CODE, MASTER_CODE, USER_CODE, TASK_HIST_VALUE, TASK_CATEGORY_CODE)
+		VALUES(TO_CHAR(SYSDATE + 9/24, 'YYYY-MM-DD'), TO_CHAR(SYSDATE + 9/24, 'hh24:mi:ss'), #{taskCode}, SEQ_TASK_HIST.NEXTVAL, NULL, #{userCode}, 'CLONE-'||#{titleName}, 'J')
+	</insert>
+	
+	<insert id="insertCloneTask3" parameterType="com.stepup.agile.projectTask.model.vo.TaskHistory">
+		INSERT INTO TASK_HISTORY (TASK_HIST_UPDATE_DATE, TASK_HIST_UPDATE_TIME, TASK_CODE, TASK_HIST_CODE, MASTER_CODE, USER_CODE, TASK_HIST_VALUE, TASK_CATEGORY_CODE)
+		VALUES(TO_CHAR(SYSDATE + 9/24, 'YYYY-MM-DD'), TO_CHAR(SYSDATE + 9/24, 'hh24:mi:ss'), #{taskCode}, SEQ_TASK_HIST.NEXTVAL, NULL, #{userCode}, #{taskContents}, 'H')
+	</insert>
+	
+	<insert id="insertCloneTask4" parameterType="com.stepup.agile.projectTask.model.vo.TaskHistory">
+		INSERT INTO TASK_HISTORY (TASK_HIST_UPDATE_DATE, TASK_HIST_UPDATE_TIME, TASK_CODE, TASK_HIST_CODE, MASTER_CODE, USER_CODE, TASK_HIST_VALUE, TASK_CATEGORY_CODE)
+		VALUES(TO_CHAR(SYSDATE + 9/24, 'YYYY-MM-DD'), TO_CHAR(SYSDATE + 9/24, 'hh24:mi:ss'), #{taskCode}, SEQ_TASK_HIST.NEXTVAL, NULL, #{userCode}, #{expectText}, 'A')
+	</insert>
+	
+	<insert id="insertCloneTask5" parameterType="com.stepup.agile.projectTask.model.vo.TaskHistory">
+		INSERT INTO TASK_HISTORY (TASK_HIST_UPDATE_DATE, TASK_HIST_UPDATE_TIME, TASK_CODE, TASK_HIST_CODE, MASTER_CODE, USER_CODE, TASK_HIST_VALUE, TASK_CATEGORY_CODE)
+		VALUES(TO_CHAR(SYSDATE + 9/24, 'YYYY-MM-DD'), TO_CHAR(SYSDATE + 9/24, 'hh24:mi:ss'), #{taskCode}, SEQ_TASK_HIST.NEXTVAL, NULL, #{userCode}, 'high', 'C')
+	</insert>
+	<insert id="insertCloneTask6" parameterType="com.stepup.agile.projectTask.model.vo.TaskHistory">
+		INSERT INTO TASK_HISTORY (TASK_HIST_UPDATE_DATE, TASK_HIST_UPDATE_TIME, TASK_CODE, TASK_HIST_CODE, MASTER_CODE, USER_CODE, TASK_HIST_VALUE, TASK_CATEGORY_CODE)
+		VALUES(TO_CHAR(SYSDATE + 9/24, 'YYYY-MM-DD'), TO_CHAR(SYSDATE + 9/24, 'hh24:mi:ss'), #{taskCode}, SEQ_TASK_HIST.NEXTVAL, NULL, #{userCode}, 'medium', 'C')
+	</insert>
+	<insert id="insertCloneTask7" parameterType="com.stepup.agile.projectTask.model.vo.TaskHistory">
+		INSERT INTO TASK_HISTORY (TASK_HIST_UPDATE_DATE, TASK_HIST_UPDATE_TIME, TASK_CODE, TASK_HIST_CODE, MASTER_CODE, USER_CODE, TASK_HIST_VALUE, TASK_CATEGORY_CODE)
+		VALUES(TO_CHAR(SYSDATE + 9/24, 'YYYY-MM-DD'), TO_CHAR(SYSDATE + 9/24, 'hh24:mi:ss'), #{taskCode}, SEQ_TASK_HIST.NEXTVAL, NULL, #{userCode}, 'low', 'C')
+	</insert>
+	<insert id="insertCloneTask8" parameterType="com.stepup.agile.projectTask.model.vo.TaskHistory">
+		INSERT INTO TASK_HISTORY (TASK_HIST_UPDATE_DATE, TASK_HIST_UPDATE_TIME, TASK_CODE, TASK_HIST_CODE, MASTER_CODE, USER_CODE, TASK_HIST_VALUE, TASK_CATEGORY_CODE)
+		VALUES(TO_CHAR(SYSDATE + 9/24, 'YYYY-MM-DD'), TO_CHAR(SYSDATE + 9/24, 'hh24:mi:ss'), #{taskCode}, SEQ_TASK_HIST.NEXTVAL, NULL, #{userCode}, #{labelText}, 'D')
+	</insert>
+ 	<insert id="insertCloneTask9" parameterType="com.stepup.agile.projectTask.model.vo.TaskHistory"><!-- 플래그? -->
+		INSERT INTO TASK_HISTORY (TASK_HIST_UPDATE_DATE, TASK_HIST_UPDATE_TIME, TASK_CODE, TASK_HIST_CODE, MASTER_CODE, USER_CODE, TASK_HIST_VALUE, TASK_CATEGORY_CODE)
+		VALUES(TO_CHAR(SYSDATE + 9/24, 'YYYY-MM-DD'), TO_CHAR(SYSDATE + 9/24, 'hh24:mi:ss'), #{taskCode}, SEQ_TASK_HIST.NEXTVAL, NULL, #{userCode}, #{taskFlag}, 'E')
+	</insert>
+	<insert id="insertCloneTask10" parameterType="com.stepup.agile.projectTask.model.vo.TaskHistory">
+		INSERT INTO TASK_HISTORY (TASK_HIST_UPDATE_DATE, TASK_HIST_UPDATE_TIME, TASK_CODE, TASK_HIST_CODE, MASTER_CODE, USER_CODE, TASK_HIST_VALUE, TASK_CATEGORY_CODE)
+		VALUES(TO_CHAR(SYSDATE + 9/24, 'YYYY-MM-DD'), TO_CHAR(SYSDATE + 9/24, 'hh24:mi:ss'), #{taskCode}, SEQ_TASK_HIST.NEXTVAL, NULL, #{userCode}, #{summernote}, 'H')
+	</insert>
+	<insert id="insertCloneTask11" parameterType="com.stepup.agile.projectTask.model.vo.TaskHistory">
+		INSERT INTO TASK_HISTORY (TASK_HIST_UPDATE_DATE, TASK_HIST_UPDATE_TIME, TASK_CODE, TASK_HIST_CODE, MASTER_CODE, USER_CODE, TASK_HIST_VALUE, TASK_CATEGORY_CODE)
+		VALUES(TO_CHAR(SYSDATE + 9/24, 'YYYY-MM-DD'), TO_CHAR(SYSDATE + 9/24, 'hh24:mi:ss'), #{taskCode}, SEQ_TASK_HIST.NEXTVAL, NULL, #{userCode}, 'work', 'I')
+	</insert>
+	<insert id="insertCloneTask12" parameterType="com.stepup.agile.projectTask.model.vo.TaskHistory">
+		INSERT INTO TASK_HISTORY (TASK_HIST_UPDATE_DATE, TASK_HIST_UPDATE_TIME, TASK_CODE, TASK_HIST_CODE, MASTER_CODE, USER_CODE, TASK_HIST_VALUE, TASK_CATEGORY_CODE)
+		VALUES(TO_CHAR(SYSDATE + 9/24, 'YYYY-MM-DD'), TO_CHAR(SYSDATE + 9/24, 'hh24:mi:ss'), #{taskCode}, SEQ_TASK_HIST.NEXTVAL, NULL, #{userCode}, 'done', 'I')
+	</insert>
+	<insert id="insertCloneTask13" parameterType="com.stepup.agile.projectTask.model.vo.TaskHistory">
+		INSERT INTO TASK_HISTORY (TASK_HIST_UPDATE_DATE, TASK_HIST_UPDATE_TIME, TASK_CODE, TASK_HIST_CODE, MASTER_CODE, USER_CODE, TASK_HIST_VALUE, TASK_CATEGORY_CODE)
+		VALUES(TO_CHAR(SYSDATE + 9/24, 'YYYY-MM-DD'), TO_CHAR(SYSDATE + 9/24, 'hh24:mi:ss'), #{taskCode}, SEQ_TASK_HIST.NEXTVAL, NULL, #{userCode}, #{replyContents}, 'K')
+	</insert>
+	<insert id="insertCloneTask14" parameterType="com.stepup.agile.projectTask.model.vo.TaskHistory">
+		INSERT INTO TASK_HISTORY (TASK_HIST_UPDATE_DATE, TASK_HIST_UPDATE_TIME, TASK_CODE, TASK_HIST_CODE, MASTER_CODE, USER_CODE, TASK_HIST_VALUE, TASK_CATEGORY_CODE)
+		VALUES(TO_CHAR(SYSDATE + 9/24, 'YYYY-MM-DD'), TO_CHAR(SYSDATE + 9/24, 'hh24:mi:ss'), #{taskCode}, SEQ_TASK_HIST.NEXTVAL, NULL, #{userCode}, #{taskUser}, 'L')
+	</insert>
+	<insert id="insertCloneTask15" parameterType="com.stepup.agile.projectTask.model.vo.TaskHistory">
+		INSERT INTO TASK_HISTORY (TASK_HIST_UPDATE_DATE, TASK_HIST_UPDATE_TIME, TASK_CODE, TASK_HIST_CODE, MASTER_CODE, USER_CODE, TASK_HIST_VALUE, TASK_CATEGORY_CODE)
+		VALUES(TO_CHAR(SYSDATE + 9/24, 'YYYY-MM-DD'), TO_CHAR(SYSDATE + 9/24, 'hh24:mi:ss'), #{taskCode}, SEQ_TASK_HIST.NEXTVAL, NULL, #{userCode}, #{taskMaster}, 'M')
+	</insert>
+	<insert id="insertCloneTask16" parameterType="com.stepup.agile.projectTask.model.vo.TaskHistory">
+		INSERT INTO TASK_HISTORY (TASK_HIST_UPDATE_DATE, TASK_HIST_UPDATE_TIME, TASK_CODE, TASK_HIST_CODE, MASTER_CODE, USER_CODE, TASK_HIST_VALUE, TASK_CATEGORY_CODE)
+		VALUES(TO_CHAR(SYSDATE + 9/24, 'YYYY-MM-DD'), TO_CHAR(SYSDATE + 9/24, 'hh24:mi:ss'), #{taskCode}, SEQ_TASK_HIST.NEXTVAL, NULL, #{userCode}, #{labelText}, 'N')
+	</insert>
+	<!-- 14.삭제 이벤트 -->
+	<delete id="deleteCloneTask" parameterType="com.stepup.agile.projectTask.model.vo.TaskList">
+		DELETE FROM TASK_LIST
+         WHERE TASK_CODE = #{taskCode}
+	</delete>
+	
+	
+	
+	<!-- Bug -->
 	<select id="selectUserTaskTitle" parameterType="com.stepup.agile.projectTask.model.vo.TaskHistory" resultMap="selectUserTaskRSet">
 		SELECT TK.TASK_CODE, TS.TASK_CATEGORY_CODE
 		      , MAX(TS.TASK_HIST_VALUE) KEEP (DENSE_RANK LAST ORDER BY TS.TASK_HIST_UPDATE_DATE, TS.TASK_HIST_UPDATE_TIME) AS TASK_HIST_VALUE
@@ -240,5 +536,161 @@
                   GROUP BY TK.TASK_CODE, TS.TASK_CATEGORY_CODE)
           WHERE TASK_HIST_VALUE LIKE '%미진행%'
 	</select>
-
+	
+	<select id="selectBugTask" resultMap="selectUserTaskRSet" parameterType="com.stepup.agile.projectTask.model.vo.TaskHistory">
+		 SELECT TK.TASK_CODE, S.SPRINT_CODE
+		      , MAX(TS.TASK_HIST_VALUE) KEEP (DENSE_RANK LAST ORDER BY TS.TASK_HIST_UPDATE_DATE, TS.TASK_HIST_UPDATE_TIME) AS TASK_HIST_VALUE
+		   FROM USER_INFO I,
+				USER_TEAM_LIST T,
+				USER_PROJECT_LIST P,
+		        SPRINT_LIST S,
+				TASK_LIST TK,
+				TASK_HISTORY TS
+		  WHERE I.USER_CODE = T.USER_CODE
+				   AND T.USER_TEAM_CODE = P.USER_TEAM_CODE
+				   AND P.USER_PROJECT_CODE = S.USER_PROJECT_CODE
+				   AND S.SPRINT_CODE = TK.SPRINT_CODE
+				   AND TK.TASK_CODE = TS.TASK_CODE
+				   AND I.USER_CODE = #{userCode}
+		           AND TS.TASK_CATEGORY_CODE = 'J'
+		           AND TS.TASK_CODE IN (SELECT TASK_CODE AS 버그있는애들
+		            FROM (SELECT TK.TASK_CODE
+		               , MAX(TS.TASK_HIST_VALUE) KEEP (DENSE_RANK LAST ORDER BY TS.TASK_HIST_UPDATE_DATE, TS.TASK_HIST_UPDATE_TIME) AS TASK_HIST_VALUE
+		           FROM USER_INFO I,
+		                       USER_TEAM_LIST T,
+		                       USER_PROJECT_LIST P,
+		                       SPRINT_LIST S,
+		                       TASK_LIST TK,
+		                       TASK_HISTORY TS
+		          WHERE I.USER_CODE = T.USER_CODE
+		                   AND T.USER_TEAM_CODE = P.USER_TEAM_CODE
+		                   AND P.USER_PROJECT_CODE = S.USER_PROJECT_CODE
+		                   AND S.SPRINT_CODE = TK.SPRINT_CODE
+		                   AND TK.TASK_CODE = TS.TASK_CODE
+		                   AND I.USER_CODE = #{userCode}
+		                   AND TS.TASK_CATEGORY_CODE = 'G'
+		          GROUP BY TK.TASK_CODE, TS.TASK_CATEGORY_CODE
+		          ORDER BY TK.TASK_CODE)
+		          WHERE TASK_HIST_VALUE = 'Y') GROUP BY TK.TASK_CODE, S.SPRINT_CODE
+	</select>
+	
+	<select id="selectBugCont" resultMap="selectUserTaskRSet" parameterType="com.stepup.agile.projectTask.model.vo.TaskHistory">
+		 SELECT TK.TASK_CODE, TS.TASK_CATEGORY_CODE, S.SPRINT_CODE
+		      , MAX(TS.TASK_HIST_VALUE) KEEP (DENSE_RANK LAST ORDER BY TS.TASK_HIST_UPDATE_DATE, TS.TASK_HIST_UPDATE_TIME) AS TASK_HIST_VALUE
+		   FROM USER_INFO I,
+				       USER_TEAM_LIST T,
+				       USER_PROJECT_LIST P,
+				       SPRINT_LIST S,
+				       TASK_LIST TK,
+				       TASK_HISTORY TS
+		  WHERE I.USER_CODE = T.USER_CODE
+				   AND T.USER_TEAM_CODE = P.USER_TEAM_CODE
+				   AND P.USER_PROJECT_CODE = S.USER_PROJECT_CODE
+				   AND S.SPRINT_CODE = TK.SPRINT_CODE
+				   AND TK.TASK_CODE = TS.TASK_CODE
+				   AND I.USER_CODE = #{userCode}
+				   AND TK.TASK_CODE = #{taskCode}
+		  GROUP BY TK.TASK_CODE, TS.TASK_CATEGORY_CODE, S.SPRINT_CODE
+		  ORDER BY TK.TASK_CODE
+	</select>
+	
+	<insert id="insertCloneBug" parameterType="com.stepup.agile.projectTask.model.vo.TaskList">
+		<selectKey keyProperty="taskCode" resultType="int" order="AFTER">
+	         SELECT SEQ_TASK.NEXTVAL FROM DUAL
+	      </selectKey>
+		INSERT INTO TASK_LIST
+		VALUES(SEQ_TASK.NEXTVAL, TO_CHAR(SYSDATE + 9/24, 'YYYY-MM-DD'),'상위', #{sprintCode}, TO_CHAR(SYSDATE + 9/24, 'hh24:mi:ss'), NULL, #{userCode, jdbcType=VARCHAR}, NULL)
+	</insert>
+	
+	<insert id="insertCloneBug2" parameterType="com.stepup.agile.projectTask.model.vo.TaskHistory">
+		INSERT INTO TASK_HISTORY (TASK_HIST_UPDATE_DATE, TASK_HIST_UPDATE_TIME, TASK_CODE, TASK_HIST_CODE, MASTER_CODE, USER_CODE, TASK_HIST_VALUE, TASK_CATEGORY_CODE)
+		VALUES(TO_CHAR(SYSDATE + 9/24, 'YYYY-MM-DD'), TO_CHAR(SYSDATE + 9/24, 'hh24:mi:ss'), #{taskCode}, SEQ_TASK_HIST.NEXTVAL, NULL, #{userCode}, 'CLONE-'||#{bugtitle}, 'J')
+	</insert>
+	
+	<insert id="insertCloneBug3" parameterType="com.stepup.agile.projectTask.model.vo.TaskHistory">
+		INSERT INTO TASK_HISTORY (TASK_HIST_UPDATE_DATE, TASK_HIST_UPDATE_TIME, TASK_CODE, TASK_HIST_CODE, MASTER_CODE, USER_CODE, TASK_HIST_VALUE, TASK_CATEGORY_CODE)
+		VALUES(TO_CHAR(SYSDATE + 9/24, 'YYYY-MM-DD'), TO_CHAR(SYSDATE + 9/24, 'hh24:mi:ss'), #{taskCode}, SEQ_TASK_HIST.NEXTVAL, NULL, #{userCode}, #{bugCont}, 'H')
+	</insert>
+	
+	<insert id="insertCloneBug4" parameterType="com.stepup.agile.projectTask.model.vo.TaskHistory">
+		INSERT INTO TASK_HISTORY (TASK_HIST_UPDATE_DATE, TASK_HIST_UPDATE_TIME, TASK_CODE, TASK_HIST_CODE, MASTER_CODE, USER_CODE, TASK_HIST_VALUE, TASK_CATEGORY_CODE)
+		VALUES(TO_CHAR(SYSDATE + 9/24, 'YYYY-MM-DD'), TO_CHAR(SYSDATE + 9/24, 'hh24:mi:ss'), #{taskCode}, SEQ_TASK_HIST.NEXTVAL, NULL, #{userCode}, 'Y', 'G')
+	</insert>
+	
+	<delete id="deleteCloneBug" parameterType="com.stepup.agile.projectTask.model.vo.TaskList">
+		DELETE FROM TASK_LIST
+         WHERE TASK_CODE = #{taskCode}
+	</delete>
+	
+	<select id="searchBug" resultMap="selectUserTaskRSet" parameterType="com.stepup.agile.projectTask.model.vo.TaskHistory">
+	SELECT TK.TASK_CODE, MAX(TS.TASK_HIST_VALUE) KEEP (DENSE_RANK LAST ORDER BY TS.TASK_HIST_UPDATE_DATE, TS.TASK_HIST_UPDATE_TIME) AS TASK_HIST_VALUE
+		   FROM USER_INFO I,
+				       USER_TEAM_LIST T,
+				       USER_PROJECT_LIST P,
+				       SPRINT_LIST S,
+				       TASK_LIST TK,
+				       TASK_HISTORY TS,
+                       PROJECT_LIST PL,
+                       PROJECT_HISTORY PH
+		  WHERE I.USER_CODE = T.USER_CODE
+				   AND T.USER_TEAM_CODE = P.USER_TEAM_CODE
+				   AND P.USER_PROJECT_CODE = S.USER_PROJECT_CODE
+				   AND S.SPRINT_CODE = TK.SPRINT_CODE
+				   AND TK.TASK_CODE = TS.TASK_CODE
+                   AND P.PROJECT_CODE = PL.PROJECT_CODE
+                   AND P.PROJECT_CODE = PH.PROJECT_CODE
+				   AND I.USER_CODE = #{userCode}
+                   AND PH.PROJECT_STATUS = 'N'
+                   AND TASK_HIST_VALUE LIKE '%'||#{taskCont}||'%'
+                   AND TASK_CATEGORY_CODE = 'J'
+		  GROUP BY TK.TASK_CODE, TS.TASK_CATEGORY_CODE
+		    HAVING TS.TASK_CATEGORY_CODE IS NOT NULL 
+UNION
+SELECT TASK_CODE, TASK_HIST_VALUE
+  FROM (SELECT TS.TASK_CODE
+             , MAX(TS.TASK_HIST_VALUE) KEEP (DENSE_RANK LAST ORDER BY TS.TASK_HIST_UPDATE_DATE, TS.TASK_HIST_UPDATE_TIME) AS TASK_HIST_VALUE
+		   FROM USER_INFO I,
+				       USER_TEAM_LIST T,
+				       USER_PROJECT_LIST P,
+				       SPRINT_LIST S,
+				       TASK_LIST TK,
+				       TASK_HISTORY TS,
+                       PROJECT_LIST PL,
+                       PROJECT_HISTORY PH
+		  WHERE I.USER_CODE = T.USER_CODE
+				   AND T.USER_TEAM_CODE = P.USER_TEAM_CODE
+				   AND P.USER_PROJECT_CODE = S.USER_PROJECT_CODE
+				   AND S.SPRINT_CODE = TK.SPRINT_CODE
+				   AND TK.TASK_CODE = TS.TASK_CODE
+                   AND P.PROJECT_CODE = PL.PROJECT_CODE
+                   AND P.PROJECT_CODE = PH.PROJECT_CODE
+				   AND I.USER_CODE = #{userCode}
+                   AND PH.PROJECT_STATUS = 'N'
+                   AND TASK_CATEGORY_CODE = 'J'
+		  GROUP BY TK.TASK_CODE, TS.TASK_CATEGORY_CODE, TS.TASK_CODE
+		    HAVING TS.TASK_CATEGORY_CODE IS NOT NULL 
+		  ORDER BY TK.TASK_CODE)
+ WHERE TASK_CODE IN (SELECT TK.TASK_CODE
+                   FROM USER_INFO I,
+                               USER_TEAM_LIST T,
+                               USER_PROJECT_LIST P,
+                               SPRINT_LIST S,
+                               TASK_LIST TK,
+                               TASK_HISTORY TS,
+                               PROJECT_LIST PL,
+                               PROJECT_HISTORY PH
+                  WHERE I.USER_CODE = T.USER_CODE
+                           AND T.USER_TEAM_CODE = P.USER_TEAM_CODE
+                           AND P.USER_PROJECT_CODE = S.USER_PROJECT_CODE
+                           AND S.SPRINT_CODE = TK.SPRINT_CODE
+                           AND TK.TASK_CODE = TS.TASK_CODE
+                           AND P.PROJECT_CODE = PL.PROJECT_CODE
+                           AND P.PROJECT_CODE = PH.PROJECT_CODE
+                           AND I.USER_CODE = #{userCode}
+                           AND PH.PROJECT_STATUS = 'N'
+                           AND TASK_HIST_VALUE LIKE '%'|| #{taskCont} ||'%'
+                           AND TASK_CATEGORY_CODE = 'H'
+                  GROUP BY TK.TASK_CODE, TS.TASK_CATEGORY_CODE
+                    HAVING TS.TASK_CATEGORY_CODE IS NOT NULL )
+	</select>
 </mapper>

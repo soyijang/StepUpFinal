@@ -42,6 +42,20 @@
 		<id property="teamCode" column="TEAM_CODE"/>
 		<result property="teamName" column="TEAM_NAME"/>
 	</resultMap>
+	
+	<resultMap type="com.stepup.agile.userInfo.model.vo.Attachment" id="AttachmentResultSet">
+		<id property="attachCode" column="ATTACH_CODE"/>
+		<result property="attachPath" column="ATTACH_PATH"/>
+		<result property="attachOriginName" column="ATTACH_ORIGIN_NAME"/>
+		<result property="attachChangeName" column="ATTACH_CHANGE_NAME"/>
+		<result property="attachUploadDate" column="ATTACH_UPLOAD_DATE"/>
+		<result property="attachUploadTime" column="ATTACH_UPLOAD_TIME"/>
+		<result property="taskHistCode" column="TASK_HIST_CODE"/>
+		<result property="userCode" column="USER_CODE"/>
+		<result property="attachType" column="ATTACH_TYPE"/>
+		<result property="thumbnailPath" column="THUMBNAIL_PATH"/>
+		<result property="attachSize" column="ATTACH_SIZE"/>
+	</resultMap>
 
 
 
@@ -80,6 +94,8 @@
 		   SET USER_COMP_JOB = #{userJob}
 		 WHERE USER_EMAIL = #{userEmail} 
 	</update>
+	
+	
 	
 
 
