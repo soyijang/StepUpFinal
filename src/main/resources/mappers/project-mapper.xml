@@ -213,7 +213,8 @@
 	</select>
 
 	<select id="selectTimelineProject" resultMap="selectUserPJRset" parameterType="ProjectHistory">
-	SELECT PL.PROJECT_NAME,
+	SELECT PL.PROJECT_CODE,
+		   PL.PROJECT_NAME,
            PH.PROJECT_START_DATE,
            PH.PROJECT_END_DATE
 	  FROM USER_INFO I,
@@ -229,4 +230,27 @@
 	                        FROM USER_INFO
 	                       WHERE USER_EMAIL = #{userEmail})
 	</select>
+	
+	<update id="updateTimeline" parameterType="ProjectHistory">
+		UPDATE PROJECT_HISTORY
+		   SET PROJECT_START_DATE = #{startDate}
+		     , PROJECT_END_DATE = #{endDate}
+		 WHERE PROJECT_CODE = (SELECT PROJECT_CODE
+								  FROM (SELECT PL.PROJECT_CODE
+										  FROM USER_INFO I,
+											   USER_TEAM_LIST T,
+											   USER_PROJECT_LIST P,
+											   PROJECT_LIST PL,
+									           PROJECT_HISTORY PH
+										 WHERE I.USER_CODE = T.USER_CODE
+										   AND T.USER_TEAM_CODE = P.USER_TEAM_CODE
+										   AND P.USER_PROJECT_CODE = PL.PROJECT_CODE
+									       AND P.PROJECT_CODE = PH.PROJECT_CODE
+										   AND I.USER_CODE = (SELECT USER_CODE 
+										                        FROM USER_INFO
+										                       WHERE USER_EMAIL = #{userEmail}))
+								 WHERE PROJECT_CODE = (SELECT PROJECT_CODE
+								                          FROM PROJECT_LIST
+								                         WHERE PROJECT_NAME = #{projectName}))
+	</update>
 </mapper>

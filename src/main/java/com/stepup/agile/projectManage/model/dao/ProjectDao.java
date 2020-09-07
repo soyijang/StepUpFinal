@@ -27,4 +27,6 @@ public interface ProjectDao {
 
 	List<ProjectHistory> selectTimelineProject(SqlSessionTemplate sqlSession, Member m);
 
+	int updateTimeline(SqlSessionTemplate sqlSession, HashMap<String, Object> map);
+
 }

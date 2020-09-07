@@ -24,5 +24,8 @@ public interface ProjectService {
 	HashMap<String, Integer> selectProjectProceedingRate(int[] projectCodeArr);
 
 	List<ProjectHistory> selectTimelineProject(Member m);
+
+	int updateTimeline(HashMap<String, Object> map);
+
 	
 }

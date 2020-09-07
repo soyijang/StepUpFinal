@@ -55,6 +55,13 @@ public class ProjectServiceImpl implements ProjectService{
 	public List<ProjectHistory> selectTimelineProject(Member m) {
 		return pd.selectTimelineProject(sqlSession, m);
 	}
+
+	@Override
+	public int updateTimeline(HashMap<String, Object> map) {
+		return pd.updateTimeline(sqlSession, map);
+	}
+
+
 	
 	
 	

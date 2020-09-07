@@ -32,7 +32,7 @@
                     <div id="menuTitle">로드맵</div>
                     <div id="share">
 	                    	<button id="shareBtn">
-	                    		<img id="sharedIcon"alt="공유아이콘" src="/agile/resources/icon/common/icon_shareicon.png">공유
+	                    		<img id="sharedIcon"alt="공유아이콘" src="/agile/resources/icon/common/icon_shareicon.png"><div id="share-timeline">공유</div>
 	                    	</button>
 	                </div>
                     <div id="shareArea">
@@ -85,6 +85,7 @@
 	    
 	};
 	
+	var pjCode = [];
 	function drawGantt(){
 		$.ajax({
 			url: "timelineTask.pj",
@@ -109,6 +110,7 @@
 				var pjNameArr = [];
 				
 				var ProjectList = $.each(values, function(index, value){
+					Cnt++;
 					startDate = value.projectHistory.projectStartDate;
 					sDate[index] = startDate;
 					
@@ -116,6 +118,12 @@
 					eDate[index] = endDate;
 					
 					projectName = value.projectName;
+					pjCode += value.projectCode;
+					
+					if(Cnt != index){
+						pjCode += ", ";
+					}
+					
 					pjNameArr[index] = projectName;
 					if(projectName.length > 10){
 						var pjName = projectName.substring(0, 10);
@@ -131,6 +139,8 @@
 				console.log(projectName);
 				console.log(sDate);
 				console.log(eDate);
+				console.log(pjCode);
+				//console.log(pjCode);
 		
 				
 				var tasks = [];
@@ -145,7 +155,8 @@
 								console.log(task);
 							},
 							on_date_change: function(task, start, end) {
-								console.log(task, start, end);
+								var projectName = task.name;
+								date_change(projectName, start, end);
 							},
 							on_progress_change: function(task, progress) {
 								console.log(task, progress);
@@ -158,7 +169,7 @@
 							language: 'ko',
 							//view_mode: 'Month'
 				});
-					
+				
 				
 				 if(
 					$(document).on('click', '#week', function(){
@@ -211,6 +222,35 @@
 		});
 	}
 
+	function date_change(projectName, start, end){
+		console.log("함수");
+
+		
+		$.ajax({
+			url: "updateTimeline.pj",
+			type:"post",
+			data:{"projectName":projectName, "start":start, "end":end},
+			dataType: "json",
+			success: function(data){
+				console.log("projectName : " + projectName);
+				console.log("start : " + start);
+				console.log("end : " + end);
+				console.log("pjCode : " + pjCode);
+				
+				
+				console.log("컨트롤러 성공");
+				
+			}, error:function(){
+				
+			},beforeSend : function(){
+                $('.wrap-loading').removeClass('display-none');
+                
+           	},complete : function(){
+                   $('.wrap-loading').addClass('display-none');
+           	}
+		});
+	};
+	
 
     //드롭다운
    $('.dropdown').click(function() {
@@ -234,5 +274,11 @@
 			var input = '<strong>' + $(this).parents('.dropdown').find('input').val() + '</strong>', msg = '<span class="msg">Hidden input value: ';
 			$('.msg').html(msg + input + '</span>');
 	});
+	
+	$(document).on('click', '#shareBtn', function(){
+
+	});
+	
+	
 </script>
 </html>

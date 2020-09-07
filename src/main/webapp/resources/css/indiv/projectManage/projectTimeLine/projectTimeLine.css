@@ -351,3 +351,14 @@ body{
 	color: white;
 	cursor: pointer;
 }
+#share-timeline{
+	display: inline-block;
+	width: 50px;
+	height: 30px;
+	font-size: 14px;
+}
+#share-btn-area{
+	display: inline-block;
+	width: 100px;
+	height: 30px;
+}

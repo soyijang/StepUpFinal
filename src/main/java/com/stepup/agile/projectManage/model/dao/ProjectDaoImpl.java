@@ -49,6 +49,11 @@ public class ProjectDaoImpl implements ProjectDao{
 	public List<ProjectHistory> selectTimelineProject(SqlSessionTemplate sqlSession, Member m) {
 		return sqlSession.selectList("Project.selectTimelineProject", m);
 	}
+
+	@Override
+	public int updateTimeline(SqlSessionTemplate sqlSession, HashMap<String, Object> map) {
+		return sqlSession.update("Project.updateTimeline", map);
+	}
 	
 	
 }
