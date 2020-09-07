@@ -9,6 +9,7 @@
 </head>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/indiv/projectManage/projectTimeLine/projectTimeLine.css">
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/common/button.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/common/modal.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="/agile/resources/js/indiv/projectManage/projectTimeLine/projectTimeLine.js"></script>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/indiv/projectManage/projectTimeLine/frappe-gantt.css" />
@@ -28,12 +29,29 @@
             <div id="content">
                 <!-- 상단 프로젝트 제목 및 메뉴 이름 영역 -->
                 <div id="contentTitle">
-                    <%-- <div id="projectTitle2">프로젝트 / <c:forEach var="i" items="${ pjList }"><c:out value="${ i.projectName }"/></c:forEach></div> --%>
+                    <div id="projectTitle2"></div>
                     <div id="menuTitle">로드맵</div>
                     <div id="share">
+	                    	
+						    <!-- Trigger/Open The Modal -->
+						
 	                    	<button id="shareBtn">
 	                    		<img id="sharedIcon"alt="공유아이콘" src="/agile/resources/icon/common/icon_shareicon.png"><div id="share-timeline">공유</div>
 	                    	</button>
+						
+						    <!-- The Modal -->
+						    <div id="myModal" class="modal">
+						      <!-- Modal content -->
+						      <div class="modal-content">
+						        <p align="left" class ="modaltitle" style="font-size:30px; text-align: center;">클립보드 복사하기📌</p>
+						        <div id="url-form"><form name="clipboard"><input type="text" name="url" id="ShareUrl"></form></div>
+						        <div id="url-form-btn">
+						        <button class="close" style="margin-left:30px;" id="clip-close-btn">닫기</button>
+						        <button id="clipbtn" onclick="urlClipCopy();">복사</button>
+						        </div>
+						      </div>
+						    
+						    </div>
 	                </div>
                     <div id="shareArea">
 	                    <div id="userArea"><img src="/agile/resources/images/profile/dayoon_202008152056.png"><img src="/agile/resources/images/profile/soyi_202008132015.png"></div>
@@ -93,10 +111,23 @@
 			dataType: "json",
 			success: function(data){
 				
+				//계정이름
+				var name = data.userName;
+				console.log(name);
+				
+				var div = "";
+				div= name  + " 님의 타임라인";
+				$("#projectTitle2").append(div);
+				
 				var values;
 				values = data.ProjectList;
-
+				
 				console.log(data.ProjectList);
+				
+				var projectHistoryStartTime = [];
+				var projectHistoryEndTime = [];
+				var projectHistoryIntro = [];
+
 				
 				var Cont = [];
 				var startDate = [];
@@ -111,6 +142,19 @@
 				
 				var ProjectList = $.each(values, function(index, value){
 					Cnt++;
+					projectHistoryStartTime += value.projectHistory.projectStartTime;
+					if(Cnt != index){
+						projectHistoryStartTime += ",";
+					}
+					projectHistoryEndTime += value.projectHistory.projectEndTime;
+					if(Cnt != index){
+						projectHistoryEndTime += ",";
+					}
+					projectHistoryIntro += value.projectHistory.projectIntro;
+					if(Cnt != index){
+						projectHistoryIntro += ",";
+					}
+					
 					startDate = value.projectHistory.projectStartDate;
 					sDate[index] = startDate;
 					
@@ -140,7 +184,6 @@
 				console.log(sDate);
 				console.log(eDate);
 				console.log(pjCode);
-				//console.log(pjCode);
 		
 				
 				var tasks = [];
@@ -156,7 +199,7 @@
 							},
 							on_date_change: function(task, start, end) {
 								var projectName = task.name;
-								date_change(projectName, start, end);
+								date_change(projectName, start, end, values);
 							},
 							on_progress_change: function(task, progress) {
 								console.log(task, progress);
@@ -222,20 +265,40 @@
 		});
 	}
 
-	function date_change(projectName, start, end){
-		console.log("함수");
-
+	function date_change(projectName, start, end, values){
+		var projectHistoryStartTime;
+		var projectHistoryEndTime;
+		var projectHistoryIntro; 
+		console.log(projectName);
+		console.log(values);
+		/* var values;
+		values = data.ProjectList; */
 		
-		$.ajax({
+	    var ProjectList = $.each(values, function(index, value){
+			if(projectName == value.projectName){
+				console.log("성공");
+				projectHistoryStartTime = value.projectHistory.projectStartTime;
+				projectHistoryEndTime = value.projectHistory.projectEndTime;
+				projectHistoryIntro = value.projectHistory.projectIntro;
+				console.log(projectHistoryIntro);
+				console.log(projectHistoryStartTime);
+				console.log(projectHistoryEndTime);
+			}
+		});
+		
+		
+		 $.ajax({
 			url: "updateTimeline.pj",
 			type:"post",
-			data:{"projectName":projectName, "start":start, "end":end},
+			data:{"projectName":projectName, "start":start, "end":end, "projectHistoryStartTime":projectHistoryStartTime, "projectHistoryEndTime":projectHistoryEndTime, "projectHistoryIntro":projectHistoryIntro},
 			dataType: "json",
 			success: function(data){
 				console.log("projectName : " + projectName);
 				console.log("start : " + start);
 				console.log("end : " + end);
 				console.log("pjCode : " + pjCode);
+				
+				
 				
 				
 				console.log("컨트롤러 성공");
@@ -274,11 +337,52 @@
 			var input = '<strong>' + $(this).parents('.dropdown').find('input').val() + '</strong>', msg = '<span class="msg">Hidden input value: ';
 			$('.msg').html(msg + input + '</span>');
 	});
-	
-	$(document).on('click', '#shareBtn', function(){
 
-	});
+	//클립보드 복사
+	function urlClipCopy() {
+			var obShareUrl = document.getElementById("ShareUrl");
+			obShareUrl.value = window.document.location.href;
+			
+			obShareUrl.select();  // 해당 값이 선택되도록 select() 합니다
+
+			document.execCommand("copy"); // 클립보드에 복사합니다.
+
+			obShareUrl.blur(); // 선택된 것을 다시 선택안된것으로 바꿈니다.
+
+			alert("URL이 클립보드에 복사되었습니다"); 
+
+		}	
 	
+	//모달
+	// Get the modal
+    var modal = document.getElementById("myModal");
+    
+	// Get the button that opens the modal
+	    var btn = document.getElementById("shareBtn");
+	    
+	// Get the <span> element that closes the modal
+	    var span = document.getElementsByClassName("close")[0];
+	    
+	// When the user clicks on the button, open the modal
+	    btn.onclick = function() {
+	        $(modal).fadeIn(300); 
+	        $(modal).css('display','block');
+
+			var obShareUrl = document.getElementById("ShareUrl");
+			obShareUrl.value = window.document.location.href;  // 현재 URL 을 세팅해 줍니다.
+	    }
+	    
+	// When the user clicks on <span> (x), close the modal
+	    span.onclick = function() {
+	        $(modal).css('display','none');
+	    }
+	    
+	// When the user clicks anywhere outside of the modal, close it
+	    window.onclick = function(event) {
+	      if (event.target == modal) {
+	        modal.style.display = "none";
+	      }
+	    };
 	
 </script>
 </html>

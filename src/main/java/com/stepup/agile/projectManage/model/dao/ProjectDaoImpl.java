@@ -52,7 +52,7 @@ public class ProjectDaoImpl implements ProjectDao{
 
 	@Override
 	public int updateTimeline(SqlSessionTemplate sqlSession, HashMap<String, Object> map) {
-		return sqlSession.update("Project.updateTimeline", map);
+		return sqlSession.insert("Project.updateTimeline", map);
 	}
 	
 	

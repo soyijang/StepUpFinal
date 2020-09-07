@@ -354,11 +354,34 @@ body{
 #share-timeline{
 	display: inline-block;
 	width: 50px;
-	height: 30px;
+	height: 10px;
 	font-size: 14px;
 }
 #share-btn-area{
 	display: inline-block;
 	width: 100px;
 	height: 30px;
+}
+#url-form{
+	margin-left: 155px;
+}
+#url-form-btn{
+	margin-top: 20px;
+	margin-left: 160px;
+}
+#ShareUrl{
+	border:1px solid #DD0351;
+	border-radius: 3px;
+}
+#clipbtn{
+	border: 1px solid #DD0351;
+	outline: o;
+	border-radius: 3px;
+	background-color: white;
+}
+#clip-close-btn{
+	border: 1px solid #2B2B49;
+	outline: o;
+	border-radius: 3px;
+	background-color: white;
 }

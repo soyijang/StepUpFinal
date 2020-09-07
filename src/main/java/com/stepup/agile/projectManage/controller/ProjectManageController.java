@@ -44,14 +44,15 @@ public class ProjectManageController {
 		   
 		   selectTimelineProject = ps.selectTimelineProject(m);
 		   
-		   
+		   mv.addObject("userName", m.getUserName());
 		   mv.addObject("ProjectList", selectTimelineProject);
 		   mv.setViewName("jsonView");
 		   
 		   return mv;
 	   }
 	@RequestMapping("updateTimeline.pj")
-	public ModelAndView updateTimeline(@ModelAttribute("loginUser") Member m, Model model, ModelAndView mv, String projectName, String start, String end) {
+	public ModelAndView updateTimeline(@ModelAttribute("loginUser") Member m, Model model, ModelAndView mv, String projectName, String start, String end, String projectHistoryStartTime, String projectHistoryEndTime, String projectHistoryIntro) {
+		
 		int updateTimeline = 0;
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		
@@ -138,6 +139,9 @@ public class ProjectManageController {
 		map.put("userEmail", m.getUserEmail());
 		map.put("startDate", startDate);
 		map.put("endDate", endDate);
+		map.put("startTime", projectHistoryStartTime);
+		map.put("endTime", projectHistoryEndTime);
+		map.put("intro", projectHistoryIntro);
 		
 		updateTimeline = ps.updateTimeline(map);
 		if(updateTimeline > 0) {
