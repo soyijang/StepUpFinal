@@ -139,8 +139,8 @@ public class ProjectController {
 		projectHistory.setProjectEndTime( projectHistory.getProjectEndTime()+ ":00");
 		projectHistory.setProjectStartTime( projectHistory.getProjectStartTime()+ ":00");
 		int result = ps.updateProject(projectHistory);
-			
-		
+		System.out.println(projectHistory);	
+		System.out.println(project);
 		return "redirect:showProjectMain.pj";
 		
 	}

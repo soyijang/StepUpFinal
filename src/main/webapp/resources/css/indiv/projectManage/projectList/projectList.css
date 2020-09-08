@@ -866,6 +866,16 @@ width: 100%;
 .modaltitle2{
 	margin-left: 40px;
 }
+#updateName{
+	cursor:default;
+	color:white;
+ 	background: #DD0351;
+ 	padding-left: 10px;	
+}
+.modalTable2 tbody td input{
+	padding-left: 10px;
+	box-sizing: border-box;
+}
 
 /* 프로젝트 수정 관련 모달창 ------------------------------------------ */
 

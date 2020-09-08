@@ -298,8 +298,7 @@
 		     	<tr>
 		     		<td colspan="2">
 		     		<input type="text" id="updateIntro" name="projectIntro"/>
-		     		<div class="red-star">* 프로젝트 스크럼 마스터만 프로젝트 정보를 수정할 수 있습니다. </div>
-		     		<div class="red-star">* 프로젝트명은 수정이 불가능합니다. </div>
+		     		<div class="red-star">* 프로젝트 스크럼 마스터만 프로젝트 정보를 수정할 수 있습니다.</div>
 		     		</td>
 		     	</tr>
 		     	<tr>
