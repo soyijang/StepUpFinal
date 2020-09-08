@@ -54,12 +54,6 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Override
-	public int insertJob(Map<String, Object> member) {
-		
-		return md.insertJob(sqlSession, member);
-	}
-
-	@Override
 	public String selectUserProject(Member m) {
 		
 		
@@ -70,6 +64,42 @@ public class MemberServiceImpl implements MemberService{
 	public List<Member> selectTeamList(UserTeamList ul) {
 
 		return md.selectTeamList(sqlSession, ul);
+	}
+	//직업등록
+	@Override
+	public int insertJob(HashMap<String, Object> map) {
+
+		return md.insertJob(sqlSession, map);
+	}
+
+	@Override
+	public Member selectJob(int userCode) {
+
+		return md.selectJob(sqlSession, userCode);
+	}
+
+	@Override
+	public int insertDept(HashMap<String, Object> map) {
+
+		return md.insertDept(sqlSession, map);
+	}
+
+	@Override
+	public Member selectDept(int userCode) {
+
+		return md.selectDept(sqlSession, userCode);
+	}
+	//회사등록
+	@Override
+	public int insertCom(HashMap<String, Object> map) {
+		System.out.println("serviceImpl"+md.insertCom(sqlSession, map));
+		return md.insertCom(sqlSession, map);
+	}
+
+	@Override
+	public Member selectCom(int userCode) {
+
+		return md.selectCom(sqlSession, userCode);
 	}
 
 	

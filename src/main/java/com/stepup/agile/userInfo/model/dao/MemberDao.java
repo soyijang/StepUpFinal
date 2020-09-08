@@ -23,11 +23,21 @@ public interface MemberDao {
 
 	Member selectMember(SqlSessionTemplate sqlSession, Member m);
 
-	int insertJob(SqlSessionTemplate sqlSession, Map<String, Object> member);
-
 	String selectUserProject(SqlSessionTemplate sqlSession, Member m);
 	
 	//myInfo 팀원 리스트조회
 	List<Member> selectTeamList(SqlSessionTemplate sqlSession, UserTeamList ul);
+	//직업 등록
+	int insertJob(SqlSessionTemplate sqlSession, HashMap<String, Object> map);
+
+	Member selectJob(SqlSessionTemplate sqlSession, int userCode);
+	//부서 등록
+	int insertDept(SqlSessionTemplate sqlSession, HashMap<String, Object> map);
+
+	Member selectDept(SqlSessionTemplate sqlSession, int userCode);
+	//회사등록
+	int insertCom(SqlSessionTemplate sqlSession, HashMap<String, Object> map);
+	
+	Member selectCom(SqlSessionTemplate sqlSession, int userCode);
 
 }

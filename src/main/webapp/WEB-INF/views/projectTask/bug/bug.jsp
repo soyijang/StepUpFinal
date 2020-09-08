@@ -48,7 +48,7 @@
 				<div id="tb_wrap">
 				<div id="bug-list">
 					<p id="bug-title">Tasks</p>
-					<c:forEach var="i" items="${ bgList }" varStatus="status">
+					<c:forEach var="i" items="${ bgList }">
 					<div id="bug-list-wrap">
 					<div class="bug-list-detail">
 						<div id="bug-ti-list" class="bug-ti-list">${ i.taskHistValue }</div>

@@ -49,13 +49,6 @@ public class MemberDaoImpl implements MemberDao {
 		System.out.println("member.selectLoginUSERT : " + sqlSession.selectOne("Member.selectLoginUser", m));
 		return sqlSession.selectOne("Member.selectLoginUser", m);
 	}
-	
-
-	@Override
-	public int insertJob(SqlSessionTemplate sqlSession, Map<String, Object> member) {
-
-		return sqlSession.update("Member.insertJob", member);
-	}
 
 	@Override
 	public String selectUserProject(SqlSessionTemplate sqlSession, Member m) {
@@ -66,7 +59,45 @@ public class MemberDaoImpl implements MemberDao {
 	@Override
 	public List<Member> selectTeamList(SqlSessionTemplate sqlSession, UserTeamList ul) {
 
-		return sqlSession.selectList("Member.selectTeamList", ul);
+		return sqlSession.selectList("Member.myTeamMemberList", ul);
 	}
+	//직업등록
+
+	@Override
+	public int insertJob(SqlSessionTemplate sqlSession, HashMap<String, Object> map) {
+
+		return sqlSession.update("Member.insertJob", map);
+	}
+
+	@Override
+	public Member selectJob(SqlSessionTemplate sqlSession, int userCode) {
+
+		return sqlSession.selectOne("Member.selectJob", userCode);
+	}
+
+	@Override
+	public int insertDept(SqlSessionTemplate sqlSession, HashMap<String, Object> map) {
+
+		return sqlSession.update("Member.insertDept", map);
+	}
+
+	@Override
+	public Member selectDept(SqlSessionTemplate sqlSession, int userCode) {
+
+		return sqlSession.selectOne("Member.selectDept", userCode);
+	}
+
+	@Override
+	public int insertCom(SqlSessionTemplate sqlSession, HashMap<String, Object> map) {
+		System.out.println("daoImpl"+sqlSession.update("Member.insertCom", map));
+		return sqlSession.update("Member.insertCom", map);
+	}
+
+	@Override
+	public Member selectCom(SqlSessionTemplate sqlSession, int userCode) {
+		
+		return sqlSession.selectOne("Member.selectCom", userCode);
+	}
+	
 
 }
