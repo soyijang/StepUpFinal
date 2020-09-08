@@ -54,7 +54,7 @@
 						    </div>
 	                </div>
                     <div id="shareArea">
-	                    <div id="userArea"><img src="/agile/resources/images/profile/dayoon_202008152056.png"><img src="/agile/resources/images/profile/soyi_202008132015.png"></div>
+	                    <div id="userArea"><!-- <img src="/agile/resources/images/profile/dayoon_202008152056.png"><img src="/agile/resources/images/profile/soyi_202008132015.png"> --></div>
 	                    <div id="btn-share-area">
 		                    <div class="today-btn"><button id="day" class="dayBtn">Day</button></div>
 		                    <div class="today-btn"><button id="week" class="dayBtn">Week</button></div>
