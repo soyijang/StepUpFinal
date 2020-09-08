@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.stepup.agile.projectManage.model.vo.Project;
+import com.stepup.agile.projectManage.model.vo.ProjectHistory;
 import com.stepup.agile.userInfo.model.vo.Member;
 
 @Repository
@@ -42,6 +43,16 @@ public class ProjectDaoImpl implements ProjectDao{
 	@Override
 	public HashMap<String, Integer> selectProjectProceedingRate(SqlSessionTemplate sqlSession, int[] projectCodeArr) {
 		return (HashMap<String, Integer>) sqlSession.selectList("Project.selectProjectList", projectCodeArr);
+	}
+
+	@Override
+	public List<ProjectHistory> selectTimelineProject(SqlSessionTemplate sqlSession, Member m) {
+		return sqlSession.selectList("Project.selectTimelineProject", m);
+	}
+
+	@Override
+	public int updateTimeline(SqlSessionTemplate sqlSession, HashMap<String, Object> map) {
+		return sqlSession.insert("Project.updateTimeline", map);
 	}
 	
 	

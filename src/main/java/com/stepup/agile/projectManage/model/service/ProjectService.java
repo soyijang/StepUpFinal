@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import com.stepup.agile.projectManage.model.vo.Project;
+import com.stepup.agile.projectManage.model.vo.ProjectHistory;
 import com.stepup.agile.userInfo.model.vo.Member;
 
 public interface ProjectService {
@@ -21,5 +22,10 @@ public interface ProjectService {
 
 	//진행률 계산식
 	HashMap<String, Integer> selectProjectProceedingRate(int[] projectCodeArr);
+
+	List<ProjectHistory> selectTimelineProject(Member m);
+
+	int updateTimeline(HashMap<String, Object> map);
+
 	
 }

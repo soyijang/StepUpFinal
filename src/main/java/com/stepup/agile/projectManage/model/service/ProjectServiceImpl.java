@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.stepup.agile.projectManage.model.dao.ProjectDao;
 import com.stepup.agile.projectManage.model.vo.Project;
+import com.stepup.agile.projectManage.model.vo.ProjectHistory;
 import com.stepup.agile.userInfo.model.vo.Member;
 
 @Service
@@ -49,6 +50,18 @@ public class ProjectServiceImpl implements ProjectService{
 	public HashMap<String, Integer> selectProjectProceedingRate(int[] projectCodeArr) {
 		return pd.selectProjectProceedingRate(sqlSession, projectCodeArr);
 	}
+
+	@Override
+	public List<ProjectHistory> selectTimelineProject(Member m) {
+		return pd.selectTimelineProject(sqlSession, m);
+	}
+
+	@Override
+	public int updateTimeline(HashMap<String, Object> map) {
+		return pd.updateTimeline(sqlSession, map);
+	}
+
+
 	
 	
 	

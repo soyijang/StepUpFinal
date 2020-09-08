@@ -80,6 +80,7 @@
 		<result property="createDate" column="PROJECT_CREATE_DATE"/>
 		<result property="createTime" column="PROJECT_CREATE_TIME"/>
 		<result property="taskCnt" column="TASKCNT"/>
+    <collection property="projectHistory" resultMap="projectHistoryResultSet"/>
     <collection property="member" resultMap="memberResultSet"/>
     <collection property="userTeamList" resultMap="UserTeamListResultSet"/>
     <collection property="userProjectList" resultMap="UserProjectListResultSet"/>
@@ -211,4 +212,73 @@
      WHERE LATEST = 1;
 	</select>
 
+	<select id="selectTimelineProject" resultMap="selectUserPJRset" parameterType="ProjectHistory">
+	SELECT H.PROJECT_HIST_DATE, H.PROJECT_STATUS,  J.PROJECT_NAME, H.PROJECT_START_DATE, H.PROJECT_END_DATE, H.PROJECT_CODE, H.PROJECT_INTRO, H.PROJECT_START_TIME, H.PROJECT_END_TIME, RANK() OVER (PARTITION BY H.PROJECT_CODE ORDER BY H.PROJECT_HIST_DATE DESC, H.PROJECT_HIST_TIME DESC) RK
+         FROM USER_INFO I,
+              USER_TEAM_LIST T,
+              USER_PROJECT_LIST P,
+              PROJECT_LIST J,
+              PROJECT_HISTORY H
+        WHERE I.USER_CODE = T.USER_CODE
+          AND T.USER_TEAM_YN = 'Y' 
+          AND T.USER_TEAM_CODE = P.USER_TEAM_CODE
+          AND P.PROJECT_CODE = J.PROJECT_CODE
+          AND J.PROJECT_CODE = H.PROJECT_CODE 
+          AND H.PROJECT_STATUS = 'N'
+          AND I.USER_EMAIL = #{userEmail}
+          AND H.PROJECT_HIST_CODE IN (
+          SELECT PROJECT_HIST_CODE
+  FROM (SELECT H.PROJECT_CODE,H.PROJECT_HIST_CODE, RANK() OVER (PARTITION BY H.PROJECT_CODE ORDER BY H.PROJECT_HIST_DATE DESC, H.PROJECT_HIST_TIME DESC) RK
+         FROM USER_INFO I,
+              USER_TEAM_LIST T,
+              USER_PROJECT_LIST P,
+              PROJECT_LIST J,
+              PROJECT_HISTORY H
+        WHERE I.USER_CODE  = T.USER_CODE
+          AND T.USER_TEAM_YN = 'Y' 
+          AND T.USER_TEAM_CODE = P.USER_TEAM_CODE
+          AND P.PROJECT_CODE = J.PROJECT_CODE
+          AND J.PROJECT_CODE = H.PROJECT_CODE 
+          AND H.PROJECT_STATUS = 'N'
+          AND I.USER_EMAIL = #{userEmail}
+        )
+    WHERE RK = 1)
+	</select>
+	
+	<insert id="updateTimeline" parameterType="ProjectHistory">
+		INSERT INTO PROJECT_HISTORY
+			VALUES (SEQ_PROJECT_HIST.NEXTVAL, TO_CHAR(SYSDATE + 9/24, 'YYYY-MM-DD'), 'N', #{startDate}, #{endDate},
+			(SELECT H.PROJECT_CODE
+			         FROM USER_INFO I,
+			              USER_TEAM_LIST T,
+			              USER_PROJECT_LIST P,
+			              PROJECT_LIST J,
+			              PROJECT_HISTORY H
+			        WHERE I.USER_CODE = T.USER_CODE
+			          AND T.USER_TEAM_YN = 'Y' 
+			          AND T.USER_TEAM_CODE = P.USER_TEAM_CODE
+			          AND P.PROJECT_CODE = J.PROJECT_CODE
+			          AND J.PROJECT_CODE = H.PROJECT_CODE 
+			          AND H.PROJECT_STATUS = 'N'
+			          AND I.USER_EMAIL = #{userEmail}
+			          AND H.PROJECT_HIST_CODE = (
+			          SELECT PROJECT_HIST_CODE
+			  FROM (SELECT H.PROJECT_CODE,H.PROJECT_HIST_CODE, RANK() OVER (PARTITION BY H.PROJECT_CODE ORDER BY H.PROJECT_HIST_DATE DESC, H.PROJECT_HIST_TIME DESC) RK
+			         FROM USER_INFO I,
+			              USER_TEAM_LIST T,
+			              USER_PROJECT_LIST P,
+			              PROJECT_LIST J,
+			              PROJECT_HISTORY H
+			        WHERE I.USER_CODE  = T.USER_CODE
+			          AND T.USER_TEAM_YN = 'Y' 
+			          AND T.USER_TEAM_CODE = P.USER_TEAM_CODE
+			          AND P.PROJECT_CODE = J.PROJECT_CODE
+			          AND J.PROJECT_CODE = H.PROJECT_CODE 
+			          AND H.PROJECT_STATUS = 'N'
+			          AND I.USER_EMAIL = #{userEmail}
+			          AND J.PROJECT_NAME = #{projectName}
+			        )
+			    WHERE RK = 1))
+			,  TO_CHAR(SYSDATE + 9/24, 'hh24:mi:ss'), #{intro}, #{startTime}, #{endTime})
+	</insert>
 </mapper>

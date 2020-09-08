@@ -1,5 +1,6 @@
 package com.stepup.agile.projectTask.model.dao;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -7,8 +8,7 @@ import java.util.Map;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
-import com.stepup.agile.projectTask.model.vo.ReplyHistory;
-import com.stepup.agile.projectTask.model.vo.ReplyList;
+import com.stepup.agile.projectManage.model.vo.Project;
 import com.stepup.agile.projectTask.model.vo.TaskHistory;
 import com.stepup.agile.projectTask.model.vo.TaskList;
 import com.stepup.agile.userInfo.model.vo.Member;
@@ -110,46 +110,7 @@ public class TaskDaoImpl implements TaskDao {
 
 	@Override
 	public List<TaskHistory> searchBug(SqlSessionTemplate sqlSession, HashMap<String, Object> map) {
-		System.out.println(map.get("userCode"));
-		System.out.println(map.get("taskCont"));
-		System.out.println("리턴값 : " + sqlSession.selectList("Task.searchBug", map));
-		
 		return sqlSession.selectList("Task.searchBug", map);
-	}
-
-	//5.댓글생성
-	@Override
-	public int insertReply(SqlSessionTemplate sqlSession, ReplyList reply) {
-	      
-	    sqlSession.insert("Task.insertReply", reply);
-	    int replyCode = reply.getReplyCode();
-	      
-	    return replyCode;
-	}
-	//5-1.댓글히스토리 업데이트
-	@Override
-	public int updateReplyHist(SqlSessionTemplate sqlSession, ReplyHistory history) {
-	      
-	    sqlSession.update("Task.updateReplyHist", history);
-
-	    int histCode = history.getReplyHistCode();
-
-	    return histCode;
-	}
-	//5-2.댓글조회
-	@Override
-	public List<ReplyHistory> selectReply(SqlSessionTemplate sqlSession, Map<String, Object> map) {
-
-	    return sqlSession.selectList("Task.selectReply", map);
-	}
-	
-	
-	//miso Kim's task ------------------------------------------------------------------------------------
-	//테스크 리스트 조회 후 보드 메인 view로 이동(현재 진행중인 스프린트의 tasklist만 조회)
-
-	@Override
-	public List<TaskHistory> selectTaskList(SqlSessionTemplate sqlSession, HashMap<String, Object> map) {
-		return sqlSession.selectList("Task.selectTaskList", map);
 	}
 	
 

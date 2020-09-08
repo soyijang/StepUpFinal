@@ -6,6 +6,7 @@ import java.util.List;
 import org.mybatis.spring.SqlSessionTemplate;
 
 import com.stepup.agile.projectManage.model.vo.Project;
+import com.stepup.agile.projectManage.model.vo.ProjectHistory;
 import com.stepup.agile.userInfo.model.vo.Member;
 
 public interface ProjectDao {
@@ -23,5 +24,9 @@ public interface ProjectDao {
 
 	//진행률 계산식
 	HashMap<String, Integer> selectProjectProceedingRate(SqlSessionTemplate sqlSession, int[] projectCodeArr);
+
+	List<ProjectHistory> selectTimelineProject(SqlSessionTemplate sqlSession, Member m);
+
+	int updateTimeline(SqlSessionTemplate sqlSession, HashMap<String, Object> map);
 
 }
