@@ -33,14 +33,6 @@ public class BacklogController {
 		List<Sprint> sprintList;
 		sprintList = bs.selectSprint(m);
 		model.addAttribute("sprintList", sprintList);
-		System.out.println(sprintList);
-		/*
-		 * //가져온애들중에 코드만 뽑아서 다시 보내 int sprintCodeList[] = new int[sprintList.size()];
-		 * for(int i=0; i<sprintList.size(); i++) { sprintCodeList[i] =
-		 * sprintList.get(i).getSprintCode(); } int sprintTaskCount[] =
-		 * bs.sprintTaskCount(sprintCodeList); model.addAttribute("sprintTaskCount",
-		 * sprintTaskCount);
-		 */
 		
 		return "projectBacklog/projactBacklog";
 		
@@ -85,7 +77,7 @@ public class BacklogController {
 		
 		return mv;
 		
-	} 
+	}
 	
 //	스프린트 편집용
 	@RequestMapping("update.st")
@@ -108,8 +100,12 @@ public class BacklogController {
 		
 		int result = bs.updateFinish(sprintHistory);
 		
-		if(result>0) {
+		if(result == 1) {
 			return "redirect:showSprintMain.st";
+		}if(result == 2) {
+			model.addAttribute("alertmsg", "아직 진행중이거나 미진행한 Task가 존재합니다! 모든 Task를 종료 후에 스프린트를 종료해주세요.");
+			model.addAttribute("url", "showSprintMain.st");
+			return "common/alert";
 		}else {
 			model.addAttribute("msg", "스프린트 종료를 실패하였습니다!");
 			return "common/errorPage";
@@ -123,12 +119,9 @@ public class BacklogController {
 		
 		int result = bs.updateStart(sprintHistory);
 		
-		System.out.println("컨트롤러가 받은 result : " +result);
 		if(result == 1) {
-			System.out.println("설마이게실행되겠어?");
 			return "redirect:showSprintMain.st";
 		}if(result == 2) {
-			System.out.println("이게정상");
 			model.addAttribute("alertmsg", "이미 진행중인 스프린트가 존재합니다! 종료 후에 시작해주세요.");
 			model.addAttribute("url", "showSprintMain.st");
 			return "common/alert";
@@ -138,10 +131,35 @@ public class BacklogController {
 		}
 	}
 	
+//	스프린트 추가용
+	@RequestMapping("finishTask.st")
+	public String insertTask(Model model, @RequestParam(value="taskCode",required=false) int taskCode) {
+		
+		int result = bs.updateTask(taskCode);
+		
+		if(result>0) {
+			return "redirect:showSprintMain.st";
+		}else {
+			model.addAttribute("msg", "테스크 종료처리를 실패하였습니다!");
+			return "common/errorPage";
+		}
+		
+	}	
 	
 	
-	
-	
+//	스프린트 검색용
+	@RequestMapping(value="searchSprint.st",method=RequestMethod.POST)
+	public ModelAndView searchSprint(@ModelAttribute("loginUser") Member m, String sprintName, ModelAndView mv) {
+		
+		//스프린트 목록부터 조회
+		List<Sprint> searchSprint;
+		searchSprint = bs.searchSprint(m,sprintName);
+		mv.addObject("searchSprint", searchSprint);
+		mv.setViewName("jsonView");
+		
+		return mv;
+		
+	}	
 	
 	
 	
