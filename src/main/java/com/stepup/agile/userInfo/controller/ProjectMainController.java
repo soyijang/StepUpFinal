@@ -101,7 +101,10 @@ public class ProjectMainController {
 	public ModelAndView selectMyTasks(@ModelAttribute("loginUser") Member m, Model model, ModelAndView mv) {
 		List<MyTask> myTasks = mts.selectTaskList(m);
 		
-		model.addAttribute("myTasks", myTasks);
+		System.out.println(myTasks);
+		
+		mv.addObject("myTasks", myTasks);
+		mv.setViewName("jsonView");
 		
 		return mv;
 	}

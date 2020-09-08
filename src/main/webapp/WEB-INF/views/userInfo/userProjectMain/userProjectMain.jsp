@@ -240,6 +240,10 @@
 		date = getFormatDate(date);
 		console.log("포맷팅된 날짜 : " + date);
 		
+		var year;
+		year = date.substring(0,4);
+		console.log("올해 : " + year);
+		
 		var day;
 		day = date.substring(6, 8);
 		console.log("오늘 몇일 : " + day);
@@ -251,117 +255,186 @@
 		var mon;
 		mon = date.substring(6, 4);
 		
+		var mon2;
+		
 		if(mon == '01'){
-			mon = 'Jan';
+			mon2 = 'Jan';
 			console.log(mon);
 		} else if(mon == '02'){
-			mon = 'Feb';
+			mon2 = 'Feb';
 			console.log(mon);
 		} else if(mon == '03'){
-			mon = 'Mar';
+			mon2 = 'Mar';
 			console.log(mon);
 		} else if(mon == '04'){
-			mon = 'Apr';
+			mon2 = 'Apr';
 			console.log(mon);
 		} else if(mon == '05'){
-			mon = 'May';
+			mon2 = 'May';
 			console.log(mon);
 		} else if(mon == '06'){
-			mon = 'Jun';
+			mon2 = 'Jun';
 			console.log(mon);
 		} else if(mon == '07'){
-			mon = 'Jul';
+			mon2 = 'Jul';
 			console.log(mon);
 		} else if(mon == '08'){
-			mon = 'Aug';
+			mon2 = 'Aug';
 			console.log(mon);
 		} else if(mon == '09'){
-			mon = 'Sep';
+			mon2 = 'Sep';
 			console.log(mon);
 		} else if(mon == '10'){
-			mon = 'Oct';
+			mon2 = 'Oct';
 			console.log(mon);
 		} else if(mon == '11'){
-			mon = 'Nov';
+			mon2 = 'Nov';
 			console.log(mon);
 		} else if(mon == '12'){
-			mon = 'Dec';
+			mon2 = 'Dec';
 			console.log(mon);
 		}
 		
-		$.ajax({
-			url:"selectMyTasks.me",
-			dataType: "json",
-			success: function(data) {
-			      console.log("성공");
-			},
-			error: function(error) {
-			     // 에러가 발생한 경우
-			      console.log(error);
-			}
-		});
-		
-		
-		drawCalendar(today, mon, day);
+		drawCalendar(year, today, mon, mon2, day);
 		
 		
 	});
 	
-	function drawCalendar(today, mon, day){
+	function drawCalendar(year, today, mon, mon2, day){
+		var myTasksDate =[];
+		var myTasksContent =[];
 		
+		var myTaskMonth = [];		
+		var myTaskday = [];
 		
-		var setTableHTML = "";
-		var num = String(today);
-		
-	    setTableHTML+='<table width="100%;">';
-	    setTableHTML+='<thead>';
-	    setTableHTML+='<tr><th class="th-title" style="font-size: 27px;">Calendar</th>';
-	    setTableHTML+='<th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="/agile/resources/icon/common/icon_gear.png" width="20px;" height="20px;""></th>';
-	    setTableHTML+='<tr><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + day + ", " + mon + '</td>';
-	    setTableHTML+='<td></td></tr>';
-	    setTableHTML+='</thead>';
-	    setTableHTML+='<tbody style="padding: 20px;">';
-	    
-	    for(var i=0;i<7;i++){
-	        setTableHTML+='<tr style="font-size: 12px;">';
-	        setTableHTML+='<td width="10px" height="100px">';
-	        setTableHTML+= thisWeek[i];
-	        setTableHTML+='<br>';
-		     	
-		        if(today == 0) {
-		        	num = 'Sun';
-				} else if(today == 1){
-					num = 'Mon';
-				} else if(today == 2){
-					num = 'Tue';
-				} else if(today == 3){
-					num = 'Wed';
-				} else if(today == 4){
-					num = 'Tur';
-				} else if(today == 5){
-					num = 'Fri';
-				} else if(today == 6){
-					num = 'Sat';
+		$.ajax({
+			url: "selectMyTasks.me",
+			dataType: "json",
+			type:"post",
+			success: function(data){
+				var myTasksArr = data.myTasks;
+				console.log(data.myTasks);
+				
+				var Cnt = 0;
+				
+			    var searchTitle = $.each(myTasksArr, function(index, value){
+						myTasksContent += value.myTaskscontents;
+						Cnt++;
+						if(Cnt != index){
+							myTasksContent += ",";
+						}
+						
+						myTasksDate += value.myTasksstartDate;
+						if(Cnt != index){
+							myTasksDate += ",";
+						}
+						/* myTaskMonth += myTasksDate.substring(5, 7);
+						myTaskMonth += ",";
+						myTaskday += myTasksDate.substring(8, 11);
+						myTaskday += ","; */
+					
+				});
+				console.log(myTaskMonth);
+				console.log(myTaskday);
+				
+				  
+				
+				
+				
+				var setTableHTML = "";
+				var num = String(today);
+				
+			    setTableHTML+='<table width="100%;">';
+			    setTableHTML+='<thead>';
+			    setTableHTML+='<tr><th class="th-title" style="font-size: 27px;" colspan="2">Calendar</th>';
+			    setTableHTML+='<tr><td colspan="2" style="text-align:center;">' + day + ", " + mon2 + '</td></tr>';
+			    setTableHTML+='</thead>';
+			    setTableHTML+='<tbody style="padding: 20px;">';
+			    
+			    for(var i=0;i<7;i++){
+			        setTableHTML+='<tr style="font-size: 12px;">';
+			        setTableHTML+='<td width="60px" height="100px">';
+			        setTableHTML+= '<div id="cal-day'+ j + '" style="display:inline-block;">' + thisWeek[i] + '</div>';
+			        setTableHTML+='<br>';
+				     	
+				        if(today == 0) {
+				        	num = 'Sun';
+						} else if(today == 1){
+							num = 'Mon';
+						} else if(today == 2){
+							num = 'Tue';
+						} else if(today == 3){
+							num = 'Wed';
+						} else if(today == 4){
+							num = 'Tur';
+						} else if(today == 5){
+							num = 'Fri';
+						} else if(today == 6){
+							num = 'Sat';
+						}
+				        
+				        today++;
+				     	if(today >= 7){
+				     		today = 0;
+				     	}
+				        
+			        setTableHTML+= num;   
+			     	
+			        setTableHTML+= "</td>";
+			        setTableHTML+= "<td class='cal-schedule' style='width:200px height:100px' id='mytasks-sche'>";
+			        setTableHTML+= "<div class='cal-schedule'>";
+			        
+			        setTableHTML+='</div>';
+			        setTableHTML+='</td>';
+			        setTableHTML+='</td>';
+			        setTableHTML+='</td>';
+			        setTableHTML+='</tr>';
+			        
+			    }
+			    setTableHTML+='</tbody>';
+			    setTableHTML+='</table>';
+			    
+			    $("#cal-cont").html(setTableHTML);
+				
+			    $tdSche = $("td div.cal-schedule");
+			    //firstDay = new Date(year,mon-1,1);
+		        //lastDay = new Date(year,mon,0);
+			    var temp;
+						//for(var j=0; j<7; j++){
+				for(var i=0; i<data.myTasks.length; i++){
+					
+					if(data.myTasks[i].myTasksShareYN != temp){
+						
+						var startDateArr = data.myTasks[i].myTasksstartDate.split('-');
+						var startYear = startDateArr[0];
+						var startMonth = startDateArr[1];
+						var startDate = startDateArr[2];
+						
+						console.log(startYear);
+						console.log(startMonth);
+						console.log(startDate);
+						
+						//시작일자 캘린더에 넣어주기
+						//console.log($('#cal-day'+j).text());
+							if($('#cal-day').html() == startDate){
+							    var myTaskscontents = ('<li>' + data.myTasks[i].myTaskscontents + '</li>');
+							    
+								console.log(myTaskscontents);
+								$tdSche.append(myTaskscontents);
+							}
+						 
+						}
+					//}
+					
 				}
-		        
-		        today++;
-		     	if(today >= 7){
-		     		today = 0;
-		     	}
-		        
-	        setTableHTML+= num;   
-		     
-	        
-	     	
-	        setTableHTML+= "</td>";
-	        setTableHTML+= "<td class='cal-schedule' style='width:200px height:100px'>흐으음...</td>";
-	        setTableHTML+='</tr>';
-	        
-	    }
-	    setTableHTML+='</tbody>';
-	    setTableHTML+='</table>';
-	    
-	    $("#cal-cont").html(setTableHTML);
+			    
+			    
+			},error: function(){
+				
+			}
+			});
+		
+		
 	}
 	
 	
