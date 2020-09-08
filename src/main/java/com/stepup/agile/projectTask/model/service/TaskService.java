@@ -31,21 +31,23 @@ public interface TaskService {
 	//4-2.subTask 조회
 	List<ReplyHistory> selectSubTitle(int headTaskCode);
 	//5.댓글생성
-	int insertReply(ReplyList reply);
+	int insertReply(ReplyList replyList);
 	//5-1.댓글 히스토리update
 	int updateReplyHist(ReplyHistory history);
 	//5-2.댓글 조회
 	List<ReplyHistory> selectReply(Map<String, Object> map);
 	//5-3.댓글 수정
 	int updateReply(int replyCode);
+	//5-4.댓글 삭제
+	int deleteReply(int replyCode);
 	//6.담당자 변경
 	List<Member> selectTeam(int userCode);
 	int taskUser(HashMap<String, Object> map);
-	int updateTaskList(int memberCode);
+//	int updateTaskList(int memberCode);
 	//6-2.보고자변경
 	List<Member> selectTeam2(int userCode);
 	int taskMaster(HashMap<String, Object> map);
-	int updateTaskList2(int result);
+	int updateTaskList2(int masterCode);
 	//7.레이블생성
 	int createLabel(TaskHistory th);
 	//7-1.레이블 조회
@@ -94,6 +96,8 @@ public interface TaskService {
 	int deleteCloneBug(HashMap<String, Object> map);
 
 	List<TaskHistory> searchBug(HashMap<String, Object> map);
+
+
 
 
 

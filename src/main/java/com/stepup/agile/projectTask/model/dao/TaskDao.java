@@ -33,21 +33,23 @@ public interface TaskDao {
 	//4-2.subTask select
 	List<ReplyHistory> selectSubTitle(SqlSessionTemplate sqlSession, int headTaskCode);
 	//5.댓글생성
-	int insertReply(SqlSessionTemplate sqlSession, ReplyList reply);
+	int insertReply(SqlSessionTemplate sqlSession, ReplyList replyList);
 	//5-1.댓글히스토리 업데이트
 	int updateReplyHist(SqlSessionTemplate sqlSession, ReplyHistory history);
 	//5-2.댓글조회
 	List<ReplyHistory> selectReply(SqlSessionTemplate sqlSession, Map<String, Object> map);
 	//5-3.댓글수정
 	int updateReply(SqlSessionTemplate sqlSession, int replyCode);
+	//5-4.댓글삭제
+	int deleteReply(SqlSessionTemplate sqlSession, int replyCode);
 	//6.담당자 변경
 	List<Member> selectTeam(SqlSessionTemplate sqlSession, int userCode);
 	int insertTaskUser(SqlSessionTemplate sqlSession, HashMap<String, Object> map);
-	int updateTaskList(SqlSessionTemplate sqlSession, int memberCode);
+//	int updateTaskList(SqlSessionTemplate sqlSession, int memberCode);
 	//6-1.보고자 변경
 	List<Member> selectTeam2(SqlSessionTemplate sqlSession, int userCode);
 	int insertMaster(SqlSessionTemplate sqlSession, HashMap<String, Object> map);
-	int updateTaskList2(SqlSessionTemplate sqlSession, int result);
+	int updateTaskList2(SqlSessionTemplate sqlSession, int masterCode);
 	//7.레이블생성
 	int createLabel(SqlSessionTemplate sqlSession, TaskHistory th);
 	//7-1.레이블조회
@@ -96,6 +98,8 @@ public interface TaskDao {
 	int deleteCloneBug(SqlSessionTemplate sqlSession, HashMap<String, Object> map);
 
 	List<TaskHistory> searchBug(SqlSessionTemplate sqlSession, HashMap<String, Object> map);
+
+	
 
 
 

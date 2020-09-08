@@ -84,10 +84,10 @@ public class TaskDaoImpl implements TaskDao {
 	}
 	//5.댓글생성
 	@Override
-	public int insertReply(SqlSessionTemplate sqlSession, ReplyList reply) {
+	public int insertReply(SqlSessionTemplate sqlSession, ReplyList replyList) {
 		
-		sqlSession.insert("Task.insertReply", reply);
-		int replyCode = reply.getReplyCode();
+		sqlSession.insert("Task.insertReply", replyList);
+		int replyCode = replyList.getReplyCode();
 		
 		return replyCode;
 	}
@@ -113,6 +113,12 @@ public class TaskDaoImpl implements TaskDao {
 
 		return sqlSession.update("Task.updateReply", replyCode);
 	}
+	//5-4.댓글삭제
+	@Override
+	public int deleteReply(SqlSessionTemplate sqlSession, int replyCode) {
+
+		return sqlSession.delete("Task.deleteReply", replyCode);
+	}
 	
 	//6.담당자 변경
 	@Override
@@ -125,11 +131,11 @@ public class TaskDaoImpl implements TaskDao {
 
 		return sqlSession.insert("Task.insertTaskUser", map);
 	}
-	@Override
-	public int updateTaskList(SqlSessionTemplate sqlSession, int memberCode) {
+//	@Override
+//	public int updateTaskList(SqlSessionTemplate sqlSession, int memberCode) {
 
-		return sqlSession.update("Task.updateTaskList", memberCode);
-	}
+//		return sqlSession.update("Task.updateTaskList", memberCode);
+//	}
 	//6-1.보고자변경
 	@Override
 	public List<Member> selectTeam2(SqlSessionTemplate sqlSession, int userCode) {
@@ -142,9 +148,9 @@ public class TaskDaoImpl implements TaskDao {
 		return sqlSession.insert("Task.insertMaster", map);
 	}
 	@Override
-	public int updateTaskList2(SqlSessionTemplate sqlSession, int result) {
+	public int updateTaskList2(SqlSessionTemplate sqlSession, int masterCode) {
 
-		return sqlSession.update("Task.updateTaskList2", result);
+		return sqlSession.update("Task.updateTaskList2", masterCode);
 	}
 	//7.레이블생성
 	@Override
@@ -443,6 +449,8 @@ public class TaskDaoImpl implements TaskDao {
 	public List<TaskHistory> searchBug(SqlSessionTemplate sqlSession, HashMap<String, Object> map) {
 		return sqlSession.selectList("Task.searchBug", map);
 	}
+
+
 
 
 

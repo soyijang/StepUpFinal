@@ -150,15 +150,15 @@ public class TaskController {
 
 	//4.댓글 생성
 	@RequestMapping(value="/insertReply.pj", method = RequestMethod.POST, produces = "application/text; charset=utf8")
-	public ModelAndView insertReply(ModelAndView mv, @ModelAttribute("loginUser") Member m, ReplyList reply, ReplyHistory history,
-							int taskCode, String replyContents, String taskCategoryCode) {
+	public ModelAndView insertReply(ModelAndView mv, @ModelAttribute("loginUser") Member m, ReplyList replyList, ReplyHistory history,
+							int taskCode, String reply, String taskCategoryCode) {
 
-		reply.setUserCode(m.getUserCode());
-		System.out.println(replyContents);
-		int replyCode = ts.insertReply(reply);
+		replyList.setUserCode(m.getUserCode());
+		System.out.println(reply);
+		int replyCode = ts.insertReply(replyList);
 		
 		history.setReplyCode(replyCode);
-		history.setReplyContents(replyContents);
+		history.setReplyContents(reply);
 		
 		int histCode = ts.updateReplyHist(history);
 		
@@ -195,6 +195,28 @@ public class TaskController {
 			return mv;
 		}
 	}
+	
+	//4-2.댓글삭제
+	@RequestMapping("deleteReply.pj")
+	public ModelAndView deleteReply(ModelAndView mv, @ModelAttribute("loginUser") Member m, int replyCode, int userCode) {
+		
+		if(m.getUserCode() == userCode) {
+			int result = ts.deleteReply(replyCode);
+			
+			mv.addObject("result", result);
+			mv.setViewName("jsonView");
+			
+			if(result > 0) {
+
+				mv.setViewName("jsonView");
+				return mv;
+			} else {
+				return mv;
+			}
+		} else {
+			return mv;
+		}
+	}
 
 	//5.담당자 선택
 	@RequestMapping("selectTeam.pj")
@@ -213,19 +235,19 @@ public class TaskController {
 		}	
 	
 	@RequestMapping("updateUser.pj")
-	public ModelAndView taskUser(ModelAndView mv, @ModelAttribute("loginUser") Member m, int taskCode, int memberCode, String memberName) {
+	public ModelAndView taskUser(ModelAndView mv, @ModelAttribute("loginUser") Member m, int taskCode, int Code, String Name) {
 		
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("taskCode", taskCode);
-		map.put("userCode", memberCode);
-		map.put("taskHistValue", memberName);
+		map.put("userCode", Code);
+		map.put("taskHistValue", Name);
 		System.out.println(map);
 		int result = ts.taskUser(map);
-		System.out.println(memberCode);
+		System.out.println(Code);
+	
+	//	int listCode = ts.updateTaskList(result);
 		
-		int listCode = ts.updateTaskList(result);
-		
-		mv.addObject("listCode", listCode);
+		mv.addObject("result", result);
 		mv.setViewName("jsonView");
 		
 		return mv;
@@ -248,17 +270,18 @@ public class TaskController {
 			return mv;
 		}	
 	@RequestMapping("updateMaster.pj")
-	public ModelAndView updateMaster(ModelAndView mv, @ModelAttribute("loginUser") Member m, int taskCode, int memberCode, String memberName) {
+	public ModelAndView updateMaster(ModelAndView mv, @ModelAttribute("loginUser") Member m, int taskCode, int Code, String Name) {
 		System.out.println(taskCode);
-		System.out.println(memberCode);
-		System.out.println(memberName);
+		System.out.println(Code);
+		System.out.println(Name);
+		
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("taskCode", taskCode);
-		map.put("userCode", memberCode);
-		map.put("memberName", memberName);
-		System.out.println(map);
+		map.put("masterCode", Code);
+		map.put("memberName", Name);
+
 		int result = ts.taskMaster(map);
-		System.out.println(memberCode);
+		System.out.println(Code);
 		
 		int listCode = ts.updateTaskList2(result);
 		
@@ -313,13 +336,13 @@ public class TaskController {
 	@RequestMapping(value="/insertExpect.pj", method = RequestMethod.POST, produces = "application/text; charset=utf8")
 	@ResponseBody
 	public ModelAndView insertExpect(ModelAndView mv, @ModelAttribute("loginUser") Member m, TaskHistory th,
-			String taskHistValue, int taskCode, String taskCategoryCode) {
+			String expectText, int taskCode, String taskCategoryCode) {
 
 		th.setTaskCode(taskCode);
 		th.setTaskCategoryCode(taskCategoryCode);
-		th.setTaskHistValue(taskHistValue);
+		th.setTaskHistValue(expectText);
 		th.setUserCode(m.getUserCode());
-
+		System.out.println(expectText);
 		int taskHistCode = ts.createExpect(th);
 
 		TaskHistory history = ts.selectExpect(taskHistCode);

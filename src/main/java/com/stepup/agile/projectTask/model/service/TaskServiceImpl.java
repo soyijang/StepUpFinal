@@ -79,9 +79,9 @@ public class TaskServiceImpl implements TaskService {
 	}
 	//5.댓글 생성
 	@Override
-	public int insertReply(ReplyList reply) {
+	public int insertReply(ReplyList replyList) {
 
-		return td.insertReply(sqlSession, reply);
+		return td.insertReply(sqlSession, replyList);
 	}
 	//5-1.댓글 히스토리 업데이트
 	@Override
@@ -101,6 +101,12 @@ public class TaskServiceImpl implements TaskService {
 
 		return td.updateReply(sqlSession, replyCode);
 	}
+	//5-4.댓글 삭제
+	@Override
+	public int deleteReply(int replyCode) {
+
+		return td.deleteReply(sqlSession, replyCode);
+	}
 	//6.담당자변경
 	@Override
 	public List<Member> selectTeam(int userCode) {
@@ -112,11 +118,11 @@ public class TaskServiceImpl implements TaskService {
 
 		return td.insertTaskUser(sqlSession, map);
 	}
-	@Override
-	public int updateTaskList(int memberCode) {
+//	@Override
+//	public int updateTaskList(int memberCode) {
 
-		return td.updateTaskList(sqlSession, memberCode);
-	}
+//		return td.updateTaskList(sqlSession, memberCode);
+//	}
 	//6-1.보고자변경
 	@Override
 	public List<Member> selectTeam2(int userCode) {
@@ -129,9 +135,9 @@ public class TaskServiceImpl implements TaskService {
 		return td.insertMaster(sqlSession, map);
 	}
 	@Override
-	public int updateTaskList2(int result) {
+	public int updateTaskList2(int masterCode) {
 
-		return td.updateTaskList2(sqlSession, result);
+		return td.updateTaskList2(sqlSession, masterCode);
 	}
 	//7.레이블생성
 	@Override
@@ -284,6 +290,8 @@ public class TaskServiceImpl implements TaskService {
 	public List<TaskHistory> searchBug(HashMap<String, Object> map) {
 		return td.searchBug(sqlSession, map);
 	}
+
+
 
 
 
