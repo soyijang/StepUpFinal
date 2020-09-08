@@ -513,7 +513,7 @@
 				   AND I.USER_CODE = #{userCode}
                    AND PH.PROJECT_STATUS = 'N'
                    AND TO_CHAR(SYSDATE, 'YYYY-MM-DD') <![CDATA[<=]]> PH.PROJECT_END_DATE AND TO_CHAR(SYSDATE, 'YYYY-MM-DD') <![CDATA[>=]]> PH.PROJECT_START_DATE
-		  GROUP BY TK.TASK_CODE, TS.TASK_CATEGORY_CODE
+		  GROUP BY TK.TASK_CODE, TS.TASK_CATEGORY_CODE, S.SPRINT_CODE
 		    HAVING TS.TASK_CATEGORY_CODE IS NOT NULL 
 		  ORDER BY TK.TASK_CODE
 
@@ -631,74 +631,93 @@
 	</delete>
 	
 	<select id="searchBug" resultMap="selectUserTaskRSet" parameterType="com.stepup.agile.projectTask.model.vo.TaskHistory">
-	SELECT TK.TASK_CODE, MAX(TS.TASK_HIST_VALUE) KEEP (DENSE_RANK LAST ORDER BY TS.TASK_HIST_UPDATE_DATE, TS.TASK_HIST_UPDATE_TIME) AS TASK_HIST_VALUE
+	SELECT TASK_CODE, TASK_HIST_VALUE
+		   FROM (SELECT TK.TASK_CODE, TS.TASK_CATEGORY_CODE
+		      , MAX(TS.TASK_HIST_VALUE) KEEP (DENSE_RANK LAST ORDER BY TS.TASK_HIST_UPDATE_DATE, TS.TASK_HIST_UPDATE_TIME) AS TASK_HIST_VALUE
 		   FROM USER_INFO I,
-				       USER_TEAM_LIST T,
-				       USER_PROJECT_LIST P,
-				       SPRINT_LIST S,
-				       TASK_LIST TK,
-				       TASK_HISTORY TS,
-                       PROJECT_LIST PL,
-                       PROJECT_HISTORY PH
+				USER_TEAM_LIST T,
+				USER_PROJECT_LIST P,
+		        SPRINT_LIST S,
+				TASK_LIST TK,
+				TASK_HISTORY TS
 		  WHERE I.USER_CODE = T.USER_CODE
 				   AND T.USER_TEAM_CODE = P.USER_TEAM_CODE
 				   AND P.USER_PROJECT_CODE = S.USER_PROJECT_CODE
 				   AND S.SPRINT_CODE = TK.SPRINT_CODE
 				   AND TK.TASK_CODE = TS.TASK_CODE
-                   AND P.PROJECT_CODE = PL.PROJECT_CODE
-                   AND P.PROJECT_CODE = PH.PROJECT_CODE
 				   AND I.USER_CODE = #{userCode}
-                   AND PH.PROJECT_STATUS = 'N'
-                   AND TASK_HIST_VALUE LIKE '%'||#{taskCont}||'%'
-                   AND TASK_CATEGORY_CODE = 'J'
-		  GROUP BY TK.TASK_CODE, TS.TASK_CATEGORY_CODE
-		    HAVING TS.TASK_CATEGORY_CODE IS NOT NULL 
-UNION
-SELECT TASK_CODE, TASK_HIST_VALUE
-  FROM (SELECT TS.TASK_CODE
-             , MAX(TS.TASK_HIST_VALUE) KEEP (DENSE_RANK LAST ORDER BY TS.TASK_HIST_UPDATE_DATE, TS.TASK_HIST_UPDATE_TIME) AS TASK_HIST_VALUE
-		   FROM USER_INFO I,
-				       USER_TEAM_LIST T,
-				       USER_PROJECT_LIST P,
-				       SPRINT_LIST S,
-				       TASK_LIST TK,
-				       TASK_HISTORY TS,
-                       PROJECT_LIST PL,
-                       PROJECT_HISTORY PH
-		  WHERE I.USER_CODE = T.USER_CODE
-				   AND T.USER_TEAM_CODE = P.USER_TEAM_CODE
-				   AND P.USER_PROJECT_CODE = S.USER_PROJECT_CODE
-				   AND S.SPRINT_CODE = TK.SPRINT_CODE
-				   AND TK.TASK_CODE = TS.TASK_CODE
-                   AND P.PROJECT_CODE = PL.PROJECT_CODE
-                   AND P.PROJECT_CODE = PH.PROJECT_CODE
-				   AND I.USER_CODE = #{userCode}
-                   AND PH.PROJECT_STATUS = 'N'
-                   AND TASK_CATEGORY_CODE = 'J'
-		  GROUP BY TK.TASK_CODE, TS.TASK_CATEGORY_CODE, TS.TASK_CODE
-		    HAVING TS.TASK_CATEGORY_CODE IS NOT NULL 
-		  ORDER BY TK.TASK_CODE)
- WHERE TASK_CODE IN (SELECT TK.TASK_CODE
-                   FROM USER_INFO I,
-                               USER_TEAM_LIST T,
-                               USER_PROJECT_LIST P,
-                               SPRINT_LIST S,
-                               TASK_LIST TK,
-                               TASK_HISTORY TS,
+		           AND TS.TASK_CATEGORY_CODE = 'J'
+		           AND TS.TASK_CODE IN (SELECT TASK_CODE AS 버그있는애들
+		            FROM (SELECT TK.TASK_CODE
+		               , MAX(TS.TASK_HIST_VALUE) KEEP (DENSE_RANK LAST ORDER BY TS.TASK_HIST_UPDATE_DATE, TS.TASK_HIST_UPDATE_TIME) AS TASK_HIST_VALUE
+		           FROM USER_INFO I,
+		                       USER_TEAM_LIST T,
+		                       USER_PROJECT_LIST P,
+		                       SPRINT_LIST S,
+		                       TASK_LIST TK,
+		                       TASK_HISTORY TS,
                                PROJECT_LIST PL,
                                PROJECT_HISTORY PH
-                  WHERE I.USER_CODE = T.USER_CODE
-                           AND T.USER_TEAM_CODE = P.USER_TEAM_CODE
-                           AND P.USER_PROJECT_CODE = S.USER_PROJECT_CODE
-                           AND S.SPRINT_CODE = TK.SPRINT_CODE
-                           AND TK.TASK_CODE = TS.TASK_CODE
+		          WHERE I.USER_CODE = T.USER_CODE
+		                   AND T.USER_TEAM_CODE = P.USER_TEAM_CODE
+		                   AND P.USER_PROJECT_CODE = S.USER_PROJECT_CODE
                            AND P.PROJECT_CODE = PL.PROJECT_CODE
                            AND P.PROJECT_CODE = PH.PROJECT_CODE
-                           AND I.USER_CODE = #{userCode}
-                           AND PH.PROJECT_STATUS = 'N'
-                           AND TASK_HIST_VALUE LIKE '%'|| #{taskCont} ||'%'
-                           AND TASK_CATEGORY_CODE = 'H'
-                  GROUP BY TK.TASK_CODE, TS.TASK_CATEGORY_CODE
-                    HAVING TS.TASK_CATEGORY_CODE IS NOT NULL )
+		                   AND S.SPRINT_CODE = TK.SPRINT_CODE
+		                   AND TK.TASK_CODE = TS.TASK_CODE
+		                   AND I.USER_CODE = #{userCode}
+		                   AND TS.TASK_CATEGORY_CODE = 'G'
+                            AND PH.PROJECT_STATUS = 'N'
+                            AND TS.TASK_CATEGORY_CODE IS NOT NULL
+		          GROUP BY TK.TASK_CODE, TS.TASK_CATEGORY_CODE
+		          ORDER BY TK.TASK_CODE)
+		          WHERE TASK_HIST_VALUE = 'Y') group by TK.TASK_CODE, TS.TASK_CATEGORY_CODE)
+    WHERE TASK_HIST_VALUE LIKE '%'||#{taskCont}||'%'
+UNION
+SELECT TASK_CODE, TASK_HIST_VALUE
+  FROM TASK_HISTORY
+WHERE TASK_CODE IN (SELECT TASK_CODE
+		   FROM (SELECT TK.TASK_CODE, TS.TASK_CATEGORY_CODE
+		      , MAX(TS.TASK_HIST_VALUE) KEEP (DENSE_RANK LAST ORDER BY TS.TASK_HIST_UPDATE_DATE, TS.TASK_HIST_UPDATE_TIME) AS TASK_HIST_VALUE
+		   FROM USER_INFO I,
+				USER_TEAM_LIST T,
+				USER_PROJECT_LIST P,
+		        SPRINT_LIST S,
+				TASK_LIST TK,
+				TASK_HISTORY TS
+		  WHERE I.USER_CODE = T.USER_CODE
+				   AND T.USER_TEAM_CODE = P.USER_TEAM_CODE
+				   AND P.USER_PROJECT_CODE = S.USER_PROJECT_CODE
+				   AND S.SPRINT_CODE = TK.SPRINT_CODE
+				   AND TK.TASK_CODE = TS.TASK_CODE
+				   AND I.USER_CODE = #{userCode}
+		           AND TS.TASK_CATEGORY_CODE = 'H'
+		           AND TS.TASK_CODE IN (SELECT TASK_CODE AS 버그있는애들
+		            FROM (SELECT TK.TASK_CODE
+		               , MAX(TS.TASK_HIST_VALUE) KEEP (DENSE_RANK LAST ORDER BY TS.TASK_HIST_UPDATE_DATE, TS.TASK_HIST_UPDATE_TIME) AS TASK_HIST_VALUE
+		           FROM USER_INFO I,
+		                       USER_TEAM_LIST T,
+		                       USER_PROJECT_LIST P,
+		                       SPRINT_LIST S,
+		                       TASK_LIST TK,
+		                       TASK_HISTORY TS,
+                               PROJECT_LIST PL,
+                               PROJECT_HISTORY PH
+		          WHERE I.USER_CODE = T.USER_CODE
+		                   AND T.USER_TEAM_CODE = P.USER_TEAM_CODE
+		                   AND P.USER_PROJECT_CODE = S.USER_PROJECT_CODE
+                           AND P.PROJECT_CODE = PL.PROJECT_CODE
+                           AND P.PROJECT_CODE = PH.PROJECT_CODE
+		                   AND S.SPRINT_CODE = TK.SPRINT_CODE
+		                   AND TK.TASK_CODE = TS.TASK_CODE
+		                   AND I.USER_CODE = #{userCode}
+		                   AND TS.TASK_CATEGORY_CODE = 'G'
+                            AND PH.PROJECT_STATUS = 'N'
+                            AND TS.TASK_CATEGORY_CODE IS NOT NULL
+		          GROUP BY TK.TASK_CODE, TS.TASK_CATEGORY_CODE
+		          ORDER BY TK.TASK_CODE)
+		          WHERE TASK_HIST_VALUE = 'Y') group by TK.TASK_CODE, TS.TASK_CATEGORY_CODE)
+    WHERE TASK_HIST_VALUE LIKE '%'||#{taskCont}||'%')
+    AND TASK_CATEGORY_CODE = 'J'
 	</select>
 </mapper>

@@ -42,10 +42,6 @@
 		<id property="teamCode" column="TEAM_CODE"/>
 		<result property="teamName" column="TEAM_NAME"/>
 	</resultMap>
-<<<<<<< HEAD
-
-
-=======
 	
 	<resultMap type="com.stepup.agile.userInfo.model.vo.Attachment" id="AttachmentResultSet">
 		<id property="attachCode" column="ATTACH_CODE"/>

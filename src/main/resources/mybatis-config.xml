@@ -10,14 +10,14 @@
 		<typeAlias type="com.stepup.agile.projectBacklog.model.vo.SprintHistory" alias="SprintHistory"/>
 		<typeAlias type="com.stepup.agile.userMyTasks.model.vo.MyTask" alias="Mytask"/>
 		<typeAlias type="com.stepup.agile.userMyTasks.model.vo.MyTaskShare" alias="MyTaskShare"/>
-	    	<typeAlias type="com.stepup.agile.projectManage.model.vo.Project" alias="Project"/>
-	    	<typeAlias type="com.stepup.agile.projectManage.model.vo.ProjectHistory" alias="ProjectHistory"/>
-	    	<typeAlias type="com.stepup.agile.projectTask.model.vo.ReplyList" alias="Reply"/>
-        		<typeAlias type="com.stepup.agile.projectTask.model.vo.ReplyHistory" alias="ReplyHistory"/>
-        		<typeAlias type="com.stepup.agile.projectTask.model.vo.TaskHistory" alias="TaskHistory"/>
-        		<typeAlias type="com.stepup.agile.userInfo.model.vo.Team" alias="Team"/>
-        		<typeAlias type="com.stepup.agile.userInfo.model.vo.UserTeamList" alias="userTeamList"/>
-        		<typeAlias type="com.stepup.agile.userInfo.model.vo.Attachment" alias="attachment"/>
+	    <typeAlias type="com.stepup.agile.projectManage.model.vo.Project" alias="Project"/>
+	    <typeAlias type="com.stepup.agile.projectManage.model.vo.ProjectHistory" alias="ProjectHistory"/>
+	    <typeAlias type="com.stepup.agile.projectTask.model.vo.ReplyList" alias="Reply"/>
+        <typeAlias type="com.stepup.agile.projectTask.model.vo.ReplyHistory" alias="ReplyHistory"/>
+        <typeAlias type="com.stepup.agile.projectTask.model.vo.TaskHistory" alias="TaskHistory"/>
+        <typeAlias type="com.stepup.agile.userInfo.model.vo.Team" alias="Team"/>
+        <typeAlias type="com.stepup.agile.userInfo.model.vo.UserTeamList" alias="userTeamList"/>
+        <typeAlias type="com.stepup.agile.userInfo.model.vo.Attachment" alias="attachment"/>
 	</typeAliases>
 	
  	<mappers>
