@@ -106,6 +106,7 @@ body {
 	z-index: 1;
 	margin-left: 27px;
 	font-size: 18px;
+	text-align:center;
 }
 
 #teamBack {
@@ -130,6 +131,7 @@ body {
 	background-color: #F1F1F1;
 	padding-top: 1px;
 	border-radius: 5px;
+	overflow-y :auto;
 }
 
 #projectListBack {
@@ -319,10 +321,16 @@ body {
 			<div id="project">
 				작업위치
 				<div id="projectList">
+					<table>
+					<tbody>
+					<c:forEach var="i" items="${ project }" varStatus="status">
 					<div id="projectListBack">
 						<div id="projcetLogo"></div>
-						<div id="projectName">프로젝트 이름</div>
+						<div id="projectName"><c:out value="${ i.project.projectName }" /></div>
 					</div>
+					</c:forEach>
+						</tbody>
+					</table>
 				</div>
 			</div>
 		</div>

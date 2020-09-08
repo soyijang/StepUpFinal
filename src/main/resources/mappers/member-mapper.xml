@@ -73,6 +73,17 @@
 		<collection property="userTeamList" resultMap="UserTeamListResultSet"/>
 	</resultMap>
 	
+	<resultMap type="com.stepup.agile.projectManage.model.vo.Project" id="projectResultSet">
+		<id property="projectCode" column="PROJECT_CODE"/>
+		<result property="projectName" column="PROJECT_NAME"/>
+		<result property="createDate" column="PROJECT_CREATE_DATE"/>
+		<result property="createTime" column="PROJECT_CREATE_TIME"/>
+		<collection property="userProjectList" resultMap="UserProjectListResultSet"/>
+		<collection property="userTeamList" resultMap="UserTeamListResultSet"/>
+		<collection property="member" resultMap="memberResultSet"/>
+		<collection property="team" resultMap="TeamResultSet"/>
+	</resultMap>
+	
 	<!-- UserInfo + UserTeamList + Attachment -->
 	<resultMap type="com.stepup.agile.userInfo.model.vo.Member" id="memberTeamSet">
 		<id property="userCode" column="USER_CODE"/>
@@ -87,6 +98,25 @@
 		<result property="userStatus" column="USER_STATUS"/>
 		<result property="userManagerYn" column="USER_MANAGER_YN"/>
 		<result property="userEnrollTime" column="USER_ENROLL_TIME"/>
+		<collection property="userTeamList" resultMap="UserTeamListResultSet"/>
+		<collection property="attachment" resultMap="AttachmentResultSet"/>
+	</resultMap>
+	
+	<resultMap type="com.stepup.agile.userInfo.model.vo.Member" id="myProjectListResultSet">
+		<id property="userCode" column="USER_CODE"/>
+		<result property="userEmail" column="USER_EMAIL"/>
+		<result property="userPwd" column="USER_PWD"/>
+		<result property="userName" column="USER_NAME"/>
+		<result property="userPhone" column="USER_PHONE"/>
+		<result property="userCompName" column="USER_COMP_NAME"/>
+		<result property="userCompDept" column="USER_COMP_DEPT"/>
+		<result property="userCompJob" column="USER_COMP_JOB"/>
+		<result property="userEnrollDate" column="USER_ENROLL_DATE"/>
+		<result property="userStatus" column="USER_STATUS"/>
+		<result property="userManagerYn" column="USER_MANAGER_YN"/>
+		<result property="userEnrollTime" column="USER_ENROLL_TIME"/>
+		<collection property="project" resultMap="projectResultSet"/>
+		<collection property="userProjectList" resultMap="UserProjectListResultSet"/>
 		<collection property="userTeamList" resultMap="UserTeamListResultSet"/>
 		<collection property="attachment" resultMap="AttachmentResultSet"/>
 	</resultMap>
@@ -120,13 +150,7 @@
 		WHERE USER_EMAIL = #{userEmail}
 		AND USER_STATUS = 'N'
 	</select>
-	
-	<update id="insertMemberJob" parameterType="map">
-		UPDATE USER_INFO
-		   SET USER_COMP_JOB = #{userJob}
-		 WHERE USER_EMAIL = #{userEmail} 
-	</update>
-	
+	<!-- 팀원 조회 -->
 	<select id="myTeamMemberList" resultMap="memberTeamSet" parameterType="Member">
 		SELECT *
 		FROM USER_INFO M LEFT JOIN ATTACH_FILE A ON(M.USER_CODE = A.USER_CODE)
@@ -139,6 +163,16 @@
 		                                              WHERE M.USER_CODE = #{userCode}
 		                                              ORDER BY USER_TEAM_DATE DESC))
 		                                              WHERE RNUM = 1))
+	</select>
+	<!-- 프로젝트 조회 LEFTJOIN, ATTACHMENT 추가-->
+	<select id="myProjectList" resultMap="myProjectListResultSet" parameterType="Member">
+	SELECT P.PROJECT_NAME
+	  FROM PROJECT_LIST P JOIN USER_PROJECT_LIST L ON(L.PROJECT_CODE = P.PROJECT_CODE)
+	  JOIN USER_TEAM_LIST T ON(T.TEAM_CODE = L.USER_TEAM_CODE)
+      JOIN USER_INFO U ON(U.USER_CODE= T.USER_CODE)
+      JOIN TEAM M ON (M.TEAM_CODE = T.TEAM_CODE)
+      LEFT JOIN ATTACH_FILE A ON(A.USER_CODE = U.USER_CODE)
+     WHERE U.USER_CODE = 6 AND L.USER_PROJECT_STATUS = 'Y' AND T.USER_TEAM_YN = 'Y' AND TEAM_CODE = 2	  
 	</select>
 	<!-- 직업등록-->
 	<update id="insertJob" parameterType="Member">

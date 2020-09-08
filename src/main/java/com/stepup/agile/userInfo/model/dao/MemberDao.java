@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import com.stepup.agile.projectManage.model.vo.Project;
 import com.stepup.agile.userInfo.model.exception.LoginFailedException;
 import com.stepup.agile.userInfo.model.vo.Member;
+import com.stepup.agile.userInfo.model.vo.UserProjectList;
 import com.stepup.agile.userInfo.model.vo.UserTeamList;
 
 public interface MemberDao {
@@ -27,6 +28,8 @@ public interface MemberDao {
 	
 	//myInfo 팀원 리스트조회
 	List<Member> selectTeamList(SqlSessionTemplate sqlSession, UserTeamList ul);
+	//프로젝트 리스트 조회
+	List<UserProjectList> userProjectList(SqlSessionTemplate sqlSession, int userCode);
 	//직업 등록
 	int insertJob(SqlSessionTemplate sqlSession, HashMap<String, Object> map);
 
@@ -39,5 +42,7 @@ public interface MemberDao {
 	int insertCom(SqlSessionTemplate sqlSession, HashMap<String, Object> map);
 	
 	Member selectCom(SqlSessionTemplate sqlSession, int userCode);
+
+	
 
 }

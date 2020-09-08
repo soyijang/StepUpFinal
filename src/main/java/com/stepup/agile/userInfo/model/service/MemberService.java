@@ -8,6 +8,7 @@ import java.util.Map;
 import com.stepup.agile.projectManage.model.vo.Project;
 import com.stepup.agile.userInfo.model.exception.LoginFailedException;
 import com.stepup.agile.userInfo.model.vo.Member;
+import com.stepup.agile.userInfo.model.vo.UserProjectList;
 import com.stepup.agile.userInfo.model.vo.UserTeamList;
 
 public interface MemberService {
@@ -20,6 +21,8 @@ public interface MemberService {
 	
 	//myInfo 팀원 리스트조회
 	List<Member> selectTeamList(UserTeamList ul);
+	//프로젝트 리스트조회
+	List<UserProjectList> selectProjectList(int userCode);
 	//직업등록
 	int insertJob(HashMap<String, Object> map);
 
@@ -32,6 +35,7 @@ public interface MemberService {
 	int insertCom(HashMap<String, Object> map);
 
 	Member selectCom(int userCode);
+
 
 
 }

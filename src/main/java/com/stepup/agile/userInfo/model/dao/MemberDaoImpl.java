@@ -13,6 +13,7 @@ import org.springframework.stereotype.Repository;
 import com.stepup.agile.projectManage.model.vo.Project;
 import com.stepup.agile.userInfo.model.exception.LoginFailedException;
 import com.stepup.agile.userInfo.model.vo.Member;
+import com.stepup.agile.userInfo.model.vo.UserProjectList;
 import com.stepup.agile.userInfo.model.vo.UserTeamList;
 
 @Repository
@@ -61,8 +62,14 @@ public class MemberDaoImpl implements MemberDao {
 
 		return sqlSession.selectList("Member.myTeamMemberList", ul);
 	}
-	//직업등록
+	//프로젝트 리스트 조회
+	@Override
+	public List<UserProjectList> userProjectList(SqlSessionTemplate sqlSession, int userCode) {
 
+		return sqlSession.selectList("Member.myProjectList", userCode);
+	}
+	
+	//직업등록
 	@Override
 	public int insertJob(SqlSessionTemplate sqlSession, HashMap<String, Object> map) {
 
@@ -98,6 +105,7 @@ public class MemberDaoImpl implements MemberDao {
 		
 		return sqlSession.selectOne("Member.selectCom", userCode);
 	}
+
 	
 
 }
