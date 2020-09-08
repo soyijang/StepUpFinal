@@ -32,7 +32,7 @@ public interface ProjectService {
 	int insertUserProjectOne(Project project);
 
 	//프로젝트 수정
-	int updateProject(ProjectHistory projectHistory);
+	int updateProjectOne(ProjectHistory projectHistory);
 	
 	
 }

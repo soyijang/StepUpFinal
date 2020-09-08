@@ -34,6 +34,6 @@ public interface ProjectDao {
 	UserTeamList selectUserTeamCode(SqlSessionTemplate sqlSession, Member m);
 
 	//프로젝트 수정
-	int updateProject(SqlSessionTemplate sqlSession, ProjectHistory projectHistory);
+	int updateProjectOne(SqlSessionTemplate sqlSession, ProjectHistory projectHistory);
 	
 }

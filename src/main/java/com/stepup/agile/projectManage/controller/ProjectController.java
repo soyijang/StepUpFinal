@@ -132,17 +132,20 @@ public class ProjectController {
 		}
 	}
 	
-	//프로젝트 수정
+	//프로젝트 수정 : projectHistory insert 형태로 수정
 	@RequestMapping("update.pj")
-	public String updateProject(Model model, @ModelAttribute("loginUser") Member m, ProjectHistory projectHistory, Project project) {
-		//input 타입 타임 00:00:00 형식으로 변경
-		projectHistory.setProjectEndTime( projectHistory.getProjectEndTime()+ ":00");
-		projectHistory.setProjectStartTime( projectHistory.getProjectStartTime()+ ":00");
-		int result = ps.updateProject(projectHistory);
-		System.out.println(projectHistory);	
-		System.out.println(project);
-		return "redirect:showProjectMain.pj";
-		
+	public String updateProjectOne(Model model, @ModelAttribute("loginUser") Member m, ProjectHistory projectHistory) {
+			//input 타입 타임 00:00:00 형식으로 변경
+			projectHistory.setProjectEndTime( projectHistory.getProjectEndTime()+ ":00");
+			projectHistory.setProjectStartTime( projectHistory.getProjectStartTime()+ ":00");
+			int result = ps.updateProjectOne(projectHistory);
+		if(result > 0) {
+			return "redirect:showProjectMain.pj";
+		}else {
+			//project update fail
+			model.addAttribute("msg", "프로젝트 수정 실패!");
+			return "common/errorPage";
+		}
 	}
 	
 	

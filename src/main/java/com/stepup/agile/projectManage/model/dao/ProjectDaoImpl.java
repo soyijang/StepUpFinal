@@ -57,6 +57,12 @@ public class ProjectDaoImpl implements ProjectDao{
 	public int insertUserProjectOne(SqlSessionTemplate sqlSession, Project project) {
 		return sqlSession.insert("Project.insertUserProjectOne", project);
 	}
+
+	//프로젝트 수정
+	@Override
+	public int updateProjectOne(SqlSessionTemplate sqlSession, ProjectHistory projectHistory) {
+		return sqlSession.insert("Project.insertProjectHistory", projectHistory);
+	}
 	
 
 

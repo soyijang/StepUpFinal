@@ -126,7 +126,7 @@
 										</c:forEach>
 									</td>
 									
-									<td><div class="project-participant-add"><img class="icon_user_plus" src="/agile/resources/icon/common/icon_user_plus.png"></div></td>
+									<td><div class="project-participant-add" onclick="projectMemberAdd(${selectedProjectHistoryList.get(i).project.projectCode},${i})"><img class="icon_user_plus" src="/agile/resources/icon/common/icon_user_plus.png"></div></td>
 									<!-- 시작일과 시작 시간 -->
 									<td>
 										${selectedProjectHistoryList.get(i).projectStartDate}
@@ -317,6 +317,46 @@
 
     
 
+<!-- 프로젝트 멤버 초대 모달-------------------------------------------------------->
+
+ <div id="myModal3" class="modal3">
+   <!-- Modal content -->
+   <div class="modal-content3">
+   
+     <p align="left" class ="modaltitle3" style="font-size:30px;">프로젝트 멤버 추가</p>
+     	<form action="invite.pj" method="post">
+	     <table align="center" class="modalTable3">
+	     <!-- 내용-->
+		     	<tr><td>팀원 검색<div class="red-star">*</div></td></tr>
+		     	<tr>
+		     		<td>
+		     			<input type="text" id="invite" name="projectName"/>
+		     		</td>
+		     	</tr>
+		     	<tr>
+		     		<td>
+			     		<div class="red-star">* 프로젝트 멤버 추가는 팀원 내에서 추가가 가능합니다.</div>
+		     		</td>
+		     	</tr>
+		     	<tr>	
+		     		<td>
+			     		<div class="red-star">* 마이페이지에서 팀원 초대를 통해 팀원을 추가해주세요.</div>
+		     		</td>
+		     	</tr>	
+		     	<tr>
+		     		<td>
+			     		<div class="btn-box"><input type="submit" class="rectangle6 modal3-ok" value="추가"><input type="reset" class="rectangle7 modal3-close" value="닫기"/></div>
+		     		</td>
+		     	</tr>
+	     </table>
+	   </form>
+   </div>
+ </div>
+
+ 
+ 
+<!-- 프로젝트 멤버 초대 모달-------------------------------------------------------->
+
 <script>
 //추가 설정 버튼 드롭다운 ------------------------------------------------------------------------
 $('.dropdown').click(function() {
@@ -409,7 +449,6 @@ for(var i = 0; i < deleteBtn.length; i++) {
 
 
 /* 프로젝트 수정 모달창 관련 스크립트 ----------------------------------------------------------------------------------------------------------------*/
-
 /* 업데이트할 프로젝트의 수정 버튼 클릭시 함수 실행 */
 function updateProjectClick(c, i) {
 	// 수정 모달 띄우기 
@@ -445,10 +484,45 @@ function updateProjectClick(c, i) {
 	    }
 	}
 }	
-
-
 /* 프로젝트 수정 모달창 관련 스크립트 끝 ----------------------------------------------------------------------------------------------------------------*/
 
+
+/* 프로젝트 멤버 초대 모달창 관련 스크립트 ----------------------------------------------------------------------------------------------------------------*/
+/* 업데이트할 프로젝트의 초대 버튼 클릭시 함수 실행 */
+function projectMemberAdd(c, i) {
+	// 수정 모달 띄우기 
+    $("#myModal3").fadeIn(300); 
+    $("#myModal3").css('display','block');
+    
+	//클릭한 프로젝트의 코드 
+	var addMemberProjectCode = c;
+	console.log("addMemberProjectCode : " + addMemberProjectCode);	
+	
+	//controller에서 JSONArray으로 넘겨준 배열 사용하여 수정 모달에 내용 띄워주기
+	//프로젝트 기본 정보 넣을 input 상자가져오기 
+/* 	var userProjectList = JSON.parse('${userProjectList}');
+	var selectedProjectHistoryList = JSON.parse('${selectedProjectHistoryList}');
+	console.log(selectedProjectHistoryList);
+	$('#updateName').val(selectedProjectHistoryList[i].project.projectName);
+	$('#updateCode').val(projectCode);
+	$('#updateStartDate').val(selectedProjectHistoryList[i].projectStartDate);
+	$('#updateStartTime').val(selectedProjectHistoryList[i].projectStartTime);
+	$('#updateEndDate').val(selectedProjectHistoryList[i].projectEndDate);
+	$('#updateEndTime').val(selectedProjectHistoryList[i].projectEndTime);
+	$('#updateIntro').val(selectedProjectHistoryList[i].projectIntro);  */
+	
+    //닫기 버튼 클릭시 수정 모달 닫아주기
+    var span3 = document.getElementsByClassName("modal3-close")[i];
+    span3.onclick = function() {
+    	//모달 닫고
+	    $("#myModal3").css('display','none');
+	    //input 상자 초기화
+	    for(var j = 0 ; j < 6; j++){
+	    	$('.modalTable3 input')[j].val('');
+	    }
+	}
+}	
+/* 프로젝트 멤버 초대 모달창 관련 스크립트 끝 ----------------------------------------------------------------------------------------------------------------*/
 
 
 

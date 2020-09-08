@@ -67,8 +67,8 @@ public class ProjectServiceImpl implements ProjectService{
 
 	//프로젝트 수정
 	@Override
-	public int updateProject(ProjectHistory projectHistory) {
-		return pd.updateProject(sqlSession, projectHistory);
+	public int updateProjectOne(ProjectHistory projectHistory) {
+		return pd.updateProjectOne(sqlSession, projectHistory);
 	}
 	
 	

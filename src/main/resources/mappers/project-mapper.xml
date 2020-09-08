@@ -199,6 +199,7 @@
  	</insert>
 
 	<!-- Insert ProjectHistory after Insert Project -->
+	<!-- Project update-->
 	<insert id="insertProjectHistory" parameterType="ProjectHistory">
 		INSERT INTO PROJECT_HISTORY
 		VALUES (SEQ_PROJECT_HIST.NEXTVAL, TO_CHAR(SYSDATE + 9/24, 'YYYY-MM-DD'),'N',#{projectStartDate},#{projectEndDate},#{projectCode},TO_CHAR(SYSDATE + 9/24, 'hh24:mi:ss'),
@@ -223,11 +224,11 @@
 
 	<!-- Insert UserProjectList after Insert Project -->
 	<insert id="insertUserProjectOne" parameterType="Project">
-		INSERT INTO USER_PROJECT_LIST
-		VALUES (#{projectCode}, TO_CHAR(SYSDATE + 9/24, 'YYYY-MM-DD'),TO_CHAR(SYSDATE + 9/24, 'hh24:mi:ss'),DEFAULT,SEQ_USER_PROJECT.NEXTVAL,#{userTeamList.userTeamCode}, '01')
+		INSERT INTO PROJECT_HISTORY
+		VALUES (SEQ_PROJECT_HIST.NEXTVAL, TO_CHAR(SYSDATE + 9/24, 'YYYY-MM-DD'),'N',#{projectStartDate},#{projectEndDate},#{projectCode},TO_CHAR(SYSDATE + 9/24, 'hh24:mi:ss'),
+				#{projectIntro}, #{projectStartTime},#{projectEndTime})
 	</insert>
 	
-
 
 	<!-- ProjectList Select -->
 	<select id="selectProjectList" resultMap="UserProjectListResultSet2" parameterType="UserProjectList">
