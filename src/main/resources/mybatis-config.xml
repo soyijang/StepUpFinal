@@ -14,7 +14,7 @@
 	    <typeAlias type="com.stepup.agile.projectTask.model.vo.ReplyList" alias="Reply"/>
         <typeAlias type="com.stepup.agile.projectTask.model.vo.ReplyHistory" alias="ReplyHistory"/>
         <typeAlias type="com.stepup.agile.projectTask.model.vo.TaskHistory" alias="TaskHistory"/>
-        
+        <typeAlias type="com.stepup.agile.userInfo.model.vo.Team" alias="Team"/>
 	</typeAliases>
 	
 	
@@ -24,6 +24,7 @@
 		<mapper resource="mappers/mytask-mapper.xml"/>
 		<mapper resource="mappers/project-mapper.xml"/>
 		<mapper resource="mappers/task-mapper.xml"/>
+		<mapper resource="mappers/team-mapper.xml"/>
 	</mappers>
 
 </configuration>

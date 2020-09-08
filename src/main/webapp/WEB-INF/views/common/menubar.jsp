@@ -25,7 +25,7 @@
         			<th id="logoArea"><a href="selectUserProject.me"><img alt="스탭업 홈으로 가기" src="/agile/resources/images/logo/logo_stepup_nav.png"></a></th>
         			<th class="navIcon"><a href="showProjectMain.pj">Project<img src="/agile/resources/icon/common/icon_down_chevron_nav.png"></a></th>
         			<th class="navIcon"><a href="">My Tasks<img src="/agile/resources/icon/common/icon_down_chevron_nav.png"></a></th>
-        			<th class="navIcon"><a href="">Team<img src="/agile/resources/icon/common/icon_down_chevron_nav.png"></a></th>
+        			<th class="navIcon"><a href="addTeam.tm">Team<img src="/agile/resources/icon/common/icon_down_chevron_nav.png"></a></th>
         			<th id = "searchArea"><input type="text" placeholder="Search or jump to ..."></th>
         			<th class="navRightIcon">
 	        			<div>
