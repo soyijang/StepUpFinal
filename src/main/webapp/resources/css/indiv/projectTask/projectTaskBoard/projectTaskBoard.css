@@ -1,50 +1,95 @@
+/* 폰트 */
+@import url(http://fonts.googleapis.com/earlyaccess/notosanskr.css);
+@font-face {font-family: 'Noto Sans KR';font-style: normal;font-weight: 100;src: url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Thin.woff2) format('woff2'),url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Thin.woff) format('woff'),url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Thin.otf) format('opentype');}
+@font-face {font-family: 'Noto Sans KR';font-style: normal;font-weight: 300;src: url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Light.woff2) format('woff2'),url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Light.woff) format('woff'),url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Light.otf) format('opentype');}
+@font-face {font-family: 'Noto Sans KR';font-style: normal;font-weight: 400;src: url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Regular.woff2) format('woff2'),url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Regular.woff) format('woff'),url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Regular.otf) format('opentype');}
+@font-face {font-family: 'Noto Sans KR';font-style: normal;font-weight: 500;src: url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Medium.woff2) format('woff2'),url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Medium.woff) format('woff'),url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Medium.otf) format('opentype');}
+@font-face {font-family: 'Noto Sans KR';font-style: normal;font-weight: 700;src: url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Bold.woff2) format('woff2'),url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Bold.woff) format('woff'),url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Bold.otf) format('opentype');}
+@font-face {font-family: 'Noto Sans KR';font-style: normal;font-weight: 900;src: url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Black.woff2) format('woff2'),url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Black.woff) format('woff'),url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Black.otf) format('opentype');}
+body{
+	font-family: Noto Sans KR;
+}
+
+/* a태그 css 없애기 */
+a{ 
+	text-decoration:none;
+}
+/* 상단 프로젝트 클릭시 프로젝트 메인화면으로 이동 글자 css */
+#projectTitle2 a{
+	color: #6D6D6D;
+}
 #contentBox{
 	width: 100%;
 	margin-left: auto;
 	margin-right: auto;
-	height: 85%;
+	height: 90%;
 	box-sizing: border-box;
+	padding:0;
+	margin: 0;
 }
 /* 상단 sprint 정보 출력 부분 ------------------------------------- */
 #contentBox1{
 	width: 100%;
 	height: 12%;
 	background: yellow;
+	padding:0;
+	margin: 0;
+	box-sizing: border-box;
 }
+/* contentBox1 안쪽 title, subtitle, table 비율 분할 */
 /* 스프린트명 입력 */
 #contentBox1-title{
+	height:40%;
+	width: 100%;
 	font-family: Noto Sans KR;
 	font-style: normal;
 	font-weight: 300;
 	font-size: 25px;
-	line-height: 17px;
 	letter-spacing: 0.1px;
+	box-sizing: border-box;
 	color: #000000;
 }
 /* 스프린트 상세 설명 입력 */
 #contentBox1-subtitle{
+	height:25%;
+	width: 100%;
 	font-family: Noto Sans KR;
 	font-style: normal;
 	font-weight: 300;
 	font-size: 13px;
-	line-height: 17px;
 	letter-spacing: 0.1px;
 	color: #6D6D6D;
 	box-sizing: border-box;
-	margin-top: 10px;
 }
 /* contentBox1-table 내부 css */
-#contentBox1-table td{
-	padding: 0;
+#contentBox1-table{
+	height:25%;
+	padding:0;
 	margin: 0;
 	box-sizing: border-box;
 }
+#contentBox1-table, #contentBox1-table tr{
+	width: 100%;
+}
+#contentBox1-table td, #contentBox1-table tr{
+	padding:0;
+	margin: 0;
+	box-sizing: border-box;
+	height: 100%;
+}
+/* 상단 버튼 들어있는 table td 설정 */
+#contentBox1-table td:nth-child(1){width: 25%}
+#contentBox1-table td:nth-child(2){width: 10%}
+#contentBox1-table td:nth-child(3){width: 10%}
+#contentBox1-table td:nth-child(4){width: 25%}
+#contentBox1-table td:nth-child(5){width: 10%}
+#contentBox1-table td:nth-child(6){width: 20%}
 
 
 /* searchBox */
 #searchBox{
 	width: 170px;
-	height: 34px;	
+	height: 100%;	
 	background: #FBFBFB;
 	border: 2px solid #F4F4F4;
 	box-sizing: border-box;
@@ -52,9 +97,8 @@
 	display: inline-block;	
 }
 #searchBox input{
-	height: 28px;	
+	height: 100%;	
 	font-size: 13px;
-	line-height: 28px;
 	width: 80%;
 	vertical-align:middle;
 	box-sizing: border-box;
@@ -66,91 +110,52 @@
 }
 /* 검색 박스 돋보기 아이콘 */
 #icon-searchicon{
-	width: 25px;
+	width: 12%;
 	float: left;
-	margin-top: 3px;
+	vertical-align:middle;
 	box-sizing: border-box;
+	margin-top: 3%;
 }
-/* 즐겨찾기 별 아이콘 */
-#icon-star{
-	width: 30px;
-}
+/* 
+
 /* 스프린트 완료 아이콘 */
-#sprint-finish{
-	width: 100px;
-	height: 34px;
-	left: calc(50% - 100px/2 + 255px);
-	top: calc(50% - 34px/2 - 247px);
-	background: #F9F9F9;
-	border-radius: 5px;	
-	font-family: Noto Sans KR;
-	font-style: normal;
-	font-weight: normal;
-	font-size: 12px;
-	line-height: 34px;
-	color: #000000;
-	text-align: center;
+#sprint-finish {
+    width: 80%;
+    height: 100%;
+    background: #DD0351;
+    border-radius: 10px;
+    border: 0;
+    font-size: 12px;
+    color: white;
+    text-align: center;
+    cursor: pointer;
 }
-#group-standard{
-	font-family: Noto Sans KR;
-	font-style: normal;
-	font-weight: 300;
-	font-size: 16px;
-	line-height: 16px;
-	align-items: center;
-	text-align: center;
-	letter-spacing: 0.1px;
-	color: #000000;
-}
-
-
 
 /* board list 부분 css ------------------------------------ */
 #contentBox2{
 	width: 100%;
-	height: 88%;
+	height: 86%;
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+	display: inline-block;
+	padding-top:10px;
 }
 #contentBox2-title{
-	width: 100%;
+	width: 99%;
 	/* contentBox2 내부 비율 boardTitle 12% : board 88% */
-	height: 12%;
+	height: 7%;
 	background: red;
 	display: inline-block;
-}
-/* 미진행, 진행중, 완료 박스  title table 및 title css */
-/* 미진행 title 테이블 */
-#incomplete-title-table{
-	height: 34px;
-	width: 320px;
-	background: blue;
-	float: left;
+	margin:0;
+	padding: 0;
 	box-sizing: border-box;
-	padding-left: 3.5%;
-	padding-right: 3.5%;
-}
-/* 미진행 title 테이블 */
-#proceeding-title-table{
-	height: 34px;
-	width: 320px;
-	background: green;
-	float: left;
-	box-sizing: border-box;
-	padding-left: 3.5%;
-	padding-right: 3.5%;
 }
 
-/* 완료 title 테이블 */
-#complete-title-table{
-	height: 34px;
-	width: 320px;
-	background: black;
-	float: left;
-	box-sizing: border-box;
-	padding-left: 3.5%;
-	padding-right: 3.5%;
-}
-
-#incomplete-title, #proceeding-title, #complete-title{
+#incomplete-title, #proceeding-title{
+	margin-left:3%;
+	margin-right:3%;
+	width: 22%;
 	font-family: Noto Sans KR;
 	font-style: normal;
 	font-weight: bold;
@@ -158,318 +163,404 @@
 	line-height: 34px;
 	align-items: center;
 	color: #000000;
-	background: #F9F9F9;
+	background: #FAFAFA;
 	border-radius: 5px;
-	width: 250px;
-	height: 34px;
+	height: 100%;
 	float: left;
 	box-sizing: border-box;
 	padding-left: 30px;
-	margin-top: 30px;
 }
-
-
-#contentBox2-board{
-	width: 100%;
-	/* contentBox2 내부 비율 boardTitle 12% : board 88% */
-	height: 88%;
-	background: purple;	
-	display: inline-block;
-}
-/* board 박스 table들 css   */
-#incomplete-table{
-	height: 100%;
-	width: 320px;
-	background: blue;
-	float: left;
-	box-sizing: border-box;
-	padding-left: 3.5%;
-	padding-right: 3.5%;
-}
-#proceeding-table{
-	height: 100%;
-	width: 320px;
-	background: green;
-	float: left;
-	box-sizing: border-box;
-	padding-left: 3.5%;
-	padding-right: 3.5%;
-}
-#complete-table{
-	height: 100%;
-	width: 320px;
-	background: black;
-	float: left;
-	box-sizing: border-box;
-	padding-left: 3.5%;
-	padding-right: 3.5%;	
-}
-
-
-/* 회색 board 박스들 css ---------------------------------- */
-#incomplete-divs, #proceeding-divs, #complete-divs{
-	width: 250px;
-	height: 473px;
-	background: #F9F9F9;
-	border-radius: 5px;
-	float: left;
-}
-.incomplete-div, .proceeding-div, .complete-div{
-	background: #FFFFFF;
-	box-shadow: 1px 1px 2px rgba(142, 142, 142, 0.25);
-	border-radius: 5px;
-	width: 230px;
-	height: 16%;
-	margin-left: auto;
-	margin-right: auto;
-	margin-top: 10px;
-}
-
-/* 회색 board box 내 div css */
-/* 회색 board box 내 table css*/
-.incomplete-div-inner-table, .complete-div-inner-table, .proceeding-div-inner-table{
-	width: 230px;
-	height: 100%;
-}
-
-.incomplete-div-inner-table tr, .complete-div-inner-table tr, .proceeding-div-inner-table tr{
-	width: 230px;
-	height: 50%;
-}
-
-/* table td 조절 */
-/* 첫행 첫번쨰 */
-.incomplete-div-inner-table tr:nth-child(1) td:nth-child(1), .complete-div-inner-table tr:nth-child(1) td:nth-child(1), .proceeding-div-inner-table tr:nth-child(1) td:nth-child(1){
-	width: 120px;
-	height:100%;	
-}
-
-/* 테스크 명 */
-.task-name-td{
+#complete-title{
+	margin-left:3%;
+	margin-right:3%;
+	width: 22%;
 	font-family: Noto Sans KR;
 	font-style: normal;
-	font-weight: 300;
+	font-weight: bold;
 	font-size: 14px;
-	line-height: 17px;
+	line-height: 34px;
 	align-items: center;
-	letter-spacing: 0.1px;
 	color: #000000;
-	padding-left: 2%;
-	padding-right: 2%;
+	background: #FAFAFA;
+	border-radius: 5px;
+	height: 100%;
+	float: left;
 	box-sizing: border-box;
-
-}
-/* 글자 overflow 안되게 하는 css */
-.task-name-div{
-	width: 120px;
- 	overflow: hidden;
-  	text-overflow: ellipsis;
-  	white-space: nowrap; 	
+	padding-left: 30px;	
+	
 }
 
-/* 첫행 두번째 td */
-.incomplete-div-inner-table tr:nth-child(1) td:nth-child(2), .complete-div-inner-table tr:nth-child(1) td:nth-child(2), .proceeding-div-inner-table tr:nth-child(1) td:nth-child(2){
-	width: 30px; 
-	height:100%;
+#contentBox2-board{
+	width: 99%;
+	height: 92%;
+	margin:0;
+	padding:0;
+	box-sizing:border-box;
+	background: purple;	
+	display: inline-block;
+	/* 흰 상자 늘어나서 꽉차면 스크롤바 생기게함 */
+	overflow-y:scroll;
+    overflow-x:hidden;
 }
-/* 첫행 세번째 td */
-/* 담당자 프로필 사진 */
-.incomplete-div-inner-table tr:nth-child(1) td:nth-child(3), .complete-div-inner-table tr:nth-child(1) td:nth-child(3), .proceeding-div-inner-table tr:nth-child(1) td:nth-child(3){
-	width: 30px;
-	height:100%;
-/* 	border: 1px solid black;
-	border-radius: 221.5px; */
-}
-/* 첫행 네번째 td */
-.incomplete-div-inner-table tr:nth-child(1) td:nth-child(4), .complete-div-inner-table tr:nth-child(1) td:nth-child(4), .proceeding-div-inner-table tr:nth-child(1) td:nth-child(4){
-	width: 30px;
-	height:100%;
-}
+/* board 박스 table들 css   */
+/* 수정한 css ************************************************************/
 
-/* 둘째행 첫번째 td ------------------------------------------ */
-.incomplete-div-inner-table tr:nth-child(2) td:nth-child(1), .complete-div-inner-table tr:nth-child(2) td:nth-child(1), .proceeding-div-inner-table tr:nth-child(2) td:nth-child(1){
-	width: 30px;
-	padding: 5px;
-	height:100%;
+/* flag 설정 */
+.flag-true{
+	/* opacity 는 전체가 흐려지는데, background rgba 에 투명도 주면 글자는 선명하게 적용됨 */
+	background: rgba(221, 3, 81, 0.4);
+}	
+/* 미진행, 진행중, 완료 board */
+#i-board, #p-board, #c-board{
+	min-height: 97%;
+	background: #FAFAFA;
+	border-radius: 5px;
+	float: left;
+	padding:0.5%;
 	box-sizing: border-box;
-
+	margin-left:3%;
+	margin-right:3%;
+	width: 22%;
+	align-items: center;
 }
-/* 테스크 고유 아이콘 */
-.task-icon{
+/* 흰색 mini 데이터 박스들 */
+.i-mini-box, .p-mini-box, .c-mini-box{
+	background: #FFFFFF;
+	box-shadow: 1.5px 1.5px 2px rgba(142, 142, 142, 0.25);
+	border-radius: 5px;
+	width: 100%;
+	box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    padding: 12px;
+    cursor: pointer;
+    margin-bottom: 8px;
+}
+
+.i-div1, .p-div1, .c-div1,   .i-div2, .p-div2, .c-div2{
+	display: flex;
+    flex-direction: row;
+    width: 100%;
+    margin-bottom: 6px;
+}
+.i-div3, .p-div3, .c-div3{
+	display: flex;
+    flex-direction: row;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    width: 100%;
+    min-height: 28px;
+}
+/* task 이름 */
+.i-div1-span1, .p-div1-span1, .c-div1-span1{
+	/* 단어 기준으로 줄바꿈 처리 */
+    word-break: break-word;
+    overflow-wrap: break-word;
+    width: 96%;
+}
+
+/* 드롭 다운 메뉴 */
+.i-div1-drop1, .p-div1-drop1, .c-div1-drop1{
+	width: 0.8em;
+	float: right;
+	padding:0;
+	margin:0;
+	box-sizing: border-box;
+    font-weight: normal;
+    height: 0.8em;
+}
+
+.i-div3-div-type, .p-div3-div-type, .c-div3-div-type{
+	width: 17px;
+	height:17px;
 	background: #63BA3C;
 	border-radius: 3px;
-	height: 20px;
-	width: 20px;
+	height: 100%;
 	box-sizing: border-box;
 	font-weight: bold;
 	color: white;
 	text-align: center;
-	font-size:14px;
-	line-height: 16px;
+	font-size:12px;
+	display: inline-block;
+	margin-right: 4px;	
 }
-
-/* 둘째행 두번째 td ---------------------------------------- */
-.incomplete-div-inner-table tr:nth-child(2) td:nth-child(2), .complete-div-inner-table tr:nth-child(2) td:nth-child(2), .proceeding-div-inner-table tr:nth-child(2) td:nth-child(2){
-	width: 120px;
-	height:100%;
-	padding: 5px;
-	box-sizing: border-box;
-}
-
-/* 테스크 코드 */
-.task-code{
+/* task 고유 코드번호  */
+.i-div3-span-tcode, .p-div3-span-tcode, .c-div3-span-tcode{
+	width: 40% !important;
 	font-family: Noto Sans KR;
 	font-style: normal;
 	font-weight: bold;
 	font-size: 15px;
-	align-items: center;
 	letter-spacing: 0.1px;
 	color: #6D6D6D;
 	/* 글자 overflow 안되게 하기 */
-	width: 120px;
+ 	height:100%;
  	overflow: hidden;
   	text-overflow: ellipsis;
-  	white-space: nowrap; 
+  	/* 글자가 일정 크기 넘어가면 오른쪽이 생략됨 */
+  	direction: ltr;
+    white-space: nowrap;
+}
+.i-div3-inner-left, .p-div3-inner-left, .c-div3-inner-left{
+	min-width: 0px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    -webkit-box-align: center;
+    align-items: center;
+    margin-right: 4px;
+    width: 70%;
 }
 
-/* 둘째행 세번째 td ---------------------------------------- */
-.incomplete-div-inner-table tr:nth-child(2) td:nth-child(3), .complete-div-inner-table tr:nth-child(2) td:nth-child(3), .proceeding-div-inner-table tr:nth-child(2) td:nth-child(3){
-	width: 30px;
-	height:100%;
-	padding: 5px;
+.i-div3-inner-right, .p-div3-inner-right, .c-div3-inner-right{
 	box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    -webkit-box-align: center;
+    align-items: center;
+    min-width: min-content;
+    width: 30%;
 }
-/* 중요도 아이콘 */
-.icon_arrow_upward_red{
-	width: 21px;
-}
-
-/* 둘째행 네번째 td ---------------------------------------- */
-.incomplete-div-inner-table tr:nth-child(2) td:nth-child(4), .complete-div-inner-table tr:nth-child(2) td:nth-child(4), .proceeding-div-inner-table tr:nth-child(2) td:nth-child(4){
-	width: 30px;
-	height:100%;
-	padding: 5px;
-	box-sizing: border-box;
-}
-/* 상위 에픽명 */
-.epic-name{
-	background: #00875A;
-	border-radius: 3px;
-	height: 20px;
-	width: 20px;
-	box-sizing: border-box;	
-	font-weight: bold;
-	color: white;
-	text-align: center;
-	font-size:14px;
-	line-height: 16px;
-}
-
-/* 하위 테스크 있을 경우 진행 상태 */
-.proceeding-rate{
+/* 하위 테스크 진행 상태 */
+.i-div3-span-per, .p-div3-span-per, .c-div3-span-per{
+	width: 34% !important;
 	font-family: Noto Sans KR;
 	font-style: normal;
 	font-weight: bold;
 	font-size: 14px;
-	line-height: 17px;
 	align-items: center;
 	letter-spacing: 0.1px;
-	color: #A3A3A3;	
-}
-/* more-setting div */
-.more-settings{
-	box-sizing: border-box;
-	padding-left: 42%;
-	padding-right: 42%;
-	padding-top: 16%;
-	
-}
-/* more option 아이콘 */
-.icon_more_settings{
-	width:4px;
-	margin-left: auto;
-	margin-right: auto;
+	color: #A3A3A3;	 
+	display: inline-block;
 }
 
+.i-div3-span-arrow, .p-div3-span-arrow, .c-div3-span-arrow{
+	width: 33% !important;
+	display: inline-block;	
+	
+}
+/* 중요도 아이콘 important */
+/* 매우 중요 high */
+.icon_arrow_upward_red{
+	width: 20px;
+    height: 20px;
+    vertical-align: text-bottom;
+}
+/* 매우 중요 medium */
+.icon_arrow_upward_orange{
+	width: 20px;
+    height: 20px;
+    vertical-align: text-bottom;
+}
+/* low */
+.icon_arrow_downward_green{
+	width: 20px;
+    height: 20px;
+    vertical-align: text-bottom;
+}
+.icon_arrow_downward{
+	width: 20px;
+    height: 20px;
+    vertical-align: text-bottom;
+}
 
-/* flag 설정 다시하기 */
-.flag-true{
-	/* opacity 는 전체가 흐려지는데, background rgba 에 투명도 주면 글자는 선명하게 적용됨 */
-	background: rgba(221, 3, 81, 0.4);
-	
-}	
-	
-/* 드롭 다운 css-------------------------------------------- */
-@charset "UTF-8";
-.dropdown {
-  width: 90px;
-  display: inline-block;
-  background-color: #fff;
-  border-radius: 2px;
-  box-shadow: 0 0 2px rgb(204, 204, 204);
-  transition: all .5s ease;
-  position: relative;
-  font-size: 14px;
-  color: #474747;
-  height: 100%;
-  text-align: left;
-  margin-right: 30px;
-  margin-left: 30px;
+/* 담당자 프로필 사진 */
+.i-div3-span-person, .p-div3-span-person, .c-div3-span-person{
+	background-color: red;
+    border-radius: 100%;
+    display: flex;
+    height: 24px;
+	width: 24px;
 }
-.dropdown .select {
-    cursor: pointer;
-    display: block;
-    padding: 10px
+
+/***********************************************************************/
+
+/* 얇은 스크롤바 ***************************************************************/
+/* 흰 상자 늘어나서 꽉차면 스크롤바 생기게함 */
+#contentBox2-board::-webkit-scrollbar{
+	width: 5px;
+	padding-top: 10px;
 }
-.dropdown .select > i {
-    font-size: 13px;
-    color: #888;
-    cursor: pointer;
-    transition: all .3s ease-in-out;
+#contentBox2-board::-webkit-scrollbar-thumb{
+	background-color: #D9D9D9;
+	border-radius: 3px;
+}
+/***********************************************************************/
+	
+/*상세 설정 드롭 다운 css -------------------------------------------- */
+ @charset "UTF-8";
+ .dropdown {
+    display: inline-block;
+/*  background-color: #ffffff; */
+    background-color: #dd0351;
+    box-shadow: 0 0 2px #cccccc;
+    transition: all .5s ease;
+    position: relative;
+    font-size: 14px;
+    color: #474747;
+    text-align: center;
+/*     border-radius: 10px; */
+    border-radius: 221.5px; 
+    border: 1px solid #dd0351;
     float: right;
-    line-height: 20px
-}
-.dropdown:hover {
-    box-shadow: 0 0 4px rgb(204, 204, 204)
-}
-.dropdown:active {
-    background-color: #f8f8f8
-}
-.dropdown.active:hover,
-.dropdown.active {
-    box-shadow: 0 0 4px rgb(204, 204, 204);
-    border-radius: 2px 2px 0 0;
-    background-color: #f8f8f8
-}
-.dropdown.active .select > i {
-    transform: rotate(-90deg)
-}
-.dropdown .dropdown-menu {
-    position: absolute;
-    background-color: #fff;
-    width: 100%;
-    left: 0;
-    margin-top: 1px;
-    box-shadow: 0 1px 2px rgb(204, 204, 204);
-    border-radius: 0 1px 2px 2px;
-    overflow: hidden;
-    display: none;
-    max-height: 144px;
-    overflow-y: auto;
-    z-index: 9
-}
-.dropdown .dropdown-menu li {
-    padding: 10px;
-    transition: all .2s ease-in-out;
-    cursor: pointer
-} 
-.dropdown .dropdown-menu {
-    padding: 0;
-    list-style: none
-}
-.dropdown .dropdown-menu li:hover {
-    background-color: #f2f2f2
-}
-.dropdown .dropdown-menu li:active {
-    background-color: #e2e2e2
-}
+
+  }
+  .dropdown .select {
+      cursor: pointer;
+      display: block;
+      padding: 5px;
+      box-sizing: border-box;
+  }
+  .dropdown .select > i {
+      font-size: 13px;
+      color: #888;
+      cursor: pointer;
+      transition: all .3s ease-in-out;
+      float: right;
+      line-height: 20px
+  }
+  .dropdown:hover {
+      box-shadow: 0 0 4px #FEF5F8;
+      text-decoration-color: #dd0351;
+      background-color: #FEF5F8;
+      border-color: #FEF5F8;
+  }
+  .dropdown:active {
+      background-color: #FEF5F8;
+  }
+  .dropdown.active:hover,
+  .dropdown.active {
+      box-shadow: 0 0 4px #FEF5F8;
+      border-radius: 2px 2px 0 0;
+      background-color: #f8f8f8;
+  }
+  .dropdown.active .select > i {
+      transform: rotate(-90deg)
+  }
+  .dropdown .dropdown-menu {
+      position: absolute;
+      background-color: #fff;
+      width: 100%;
+      left: 0;
+      margin-top: 1px;
+      box-shadow: 0 1px 2px#FEF5F8;
+      border-radius: 10px;
+      overflow: hidden;
+      display: none;
+      max-height: 144px;
+      overflow-y: auto;
+      z-index: 9;
+      /* select 박스 위치 옆으로 옮기기 */
+      margin-left: -1200%;
+  }
+  .dropdown .dropdown-menu li {
+      padding: 5px;
+      transition: all .2s ease-in-out;
+      cursor: pointer
+  } 
+  .dropdown .dropdown-menu {
+      padding: 0;
+      list-style: none;
+      width: 1300%;
+      /* 스크롤 안생기게 하기 */
+      overflow: hidden;
+  }
+  .dropdown .dropdown-menu li:hover {
+      color: #dd0351;
+      background-color: #FEF5F8;
+  }
+  .dropdown .dropdown-menu li:active {
+      background-color: #FEF5F8;
+  }
+ /* 드롭 다운 css 원본-------------------------------------------- */
+ 
+ 
+ 
+ 
+ /* 설정 상자 드롭 다운 CSS----------------------------------------- */
+ /* 상위 드롭다운 상자 */
+ <!--드롭다운 -->
+.dropdown2 {
+    width: 40px;
+    display: inline-block;
+    background-color: #ffffff;
+    box-shadow: 0 0 2px #cccccc;
+    transition: all .5s ease;
+    position: relative;
+    font-size: 14px;
+    color: #474747;
+    height: 100%;
+    text-align: center;
+    margin-right: 30px;
+    margin-left: 30px;
+    border-radius: 10px;
+    border: 1px solid #dd0351;
+  }
+  .dropdown2 .select2 {
+      cursor: pointer;
+      display: block;
+      padding: 5px;
+      width:40px;
+  }
+  .dropdown2 .select2 > i {
+      font-size: 13px;
+      color: #888;
+      cursor: pointer;
+      transition: all .3s ease-in-out;
+      float: right;
+      line-height: 20px;
+  }
+  .dropdown2:hover {
+      box-shadow: 0 0 4px #FEF5F8;
+      text-decoration-color: #dd0351;
+      background-color: #FEF5F8;
+      border-color: #FEF5F8;
+  }
+  .dropdown2:active {
+      background-color: #FEF5F8;
+  }
+  .dropdown2.active:hover,
+  .dropdown2.active {
+      box-shadow: 0 0 4px #FEF5F8;
+      border-radius: 2px 2px 0 0;
+      background-color: #f8f8f8;
+  }
+  .dropdown2.active .select2 > i {
+      transform: rotate(-90deg)
+  }
+  .dropdown2 .dropdown-menu2 {
+      position: absolute;
+      background-color: #fff;
+      width: 50px;
+      float: right;
+      margin-top: 1px;
+      box-shadow: 0 1px 2px#FEF5F8;
+      border-radius: 10px;
+      overflow: hidden;
+      display: none;
+      max-height: 144px;
+      overflow-y: auto;
+      z-index: 9
+  }
+  .dropdown2 .dropdown-menu2 li {
+      padding: 5px;
+      transition: all .2s ease-in-out;
+      cursor: pointer
+  } 
+  .dropdown2 .dropdown-menu2 {
+      padding: 0;
+      list-style: none
+  }
+  .dropdown2 .dropdown-menu2 li:hover {
+      color: #dd0351;
+      background-color: #FEF5F8;
+  }
+  .dropdown2 .dropdown-menu2 li:active {
+      background-color: #FEF5F8;
+  }
+  .dropdown2-area{
+  	 width:40px;
+  }
+ /* 설정 상자 드롭 다운 CSS 끝--------------------------------------- */
