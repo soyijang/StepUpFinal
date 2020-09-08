@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="Team">
+  
+  	<resultMap type="com.stepup.agile.userInfo.model.vo.Team" id="teamResultSet">
+  		<id property="teamCode" column="TEAM_CODE"/>
+  		<result property="teamName" column="TEAM_NAME"/>
+  	</resultMap>
+  	
+  	<resultMap type="com.stepup.agile.userInfo.model.vo.UserTeamList" id="UserTeamListResultSet">
+		<id property="userTeamCode" column="USER_TEAM_CODE"/>
+		<result property="userTeamDate" column="USER_TEAM_DATE"/>
+		<result property="userTeamYn" column="USER_TEAM_YN"/>
+		<result property="userCode" column="USER_CODE"/>
+		<result property="teamCode" column="TEAM_CODE"/>
+		<result property="userTeamTime" column="USER_TEAM_TIME"/>
+	</resultMap>
+	
+	<resultMap type="com.stepup.agile.userInfo.model.vo.Member" id="memberResultSet">
+		<id property="userCode" column="USER_CODE"/>
+		<result property="userEmail" column="USER_EMAIL"/>
+		<result property="userPwd" column="USER_PWD"/>
+		<result property="userName" column="USER_NAME"/>
+		<result property="userPhone" column="USER_PHONE"/>
+		<result property="userCompName" column="USER_COMP_NAME"/>
+		<result property="userCompDept" column="USER_COMP_DEPT"/>
+		<result property="userCompJob" column="USER_COMP_JOB"/>
+		<result property="userEnrollDate" column="USER_ENROLL_DATE"/>
+		<result property="userStatus" column="USER_STATUS"/>
+		<result property="userManagerYn" column="USER_MANAGER_YN"/>
+		<result property="userEnrollTime" column="USER_ENROLL_TIME"/>
+	</resultMap>
+	
+  	
+  	<!-- 소속되어 있는 Team List -->
+	<select id="selectTeam" resultMap="teamResultSet" parameterType="Team">
+		SELECT T.TEAM_CODE, TEAM_NAME
+	      FROM TEAM T
+			  ,USER_TEAM_LIST UT
+			  ,USER_INFO UI
+		 WHERE UT.TEAM_CODE = T.TEAM_CODE
+		   AND UT.USER_CODE=UI.USER_CODE
+		 <!--   AND T.TEAM_CODE = #{teamCode} -->
+		   GROUP BY TEAM_NAME, T.TEAM_CODE
+	</select>  
+	
+	<!-- 소속된 Team User List -->
+	<select id="selectUserList" resultMap="memberResultSet" parameterType="Team">
+		SELECT UI.USER_NAME, UI.USER_CODE
+		FROM TEAM T
+		    ,USER_TEAM_LIST UT
+		    ,USER_INFO UI
+		WHERE UT.TEAM_CODE = T.TEAM_CODE
+		AND UT.USER_CODE=UI.USER_CODE
+		GROUP BY UI.USER_CODE,UI.USER_NAME
+		<!-- AND T.TEAM_CODE = #{teamCode} -->
+			
+	</select>
+	
+	<!-- Team 생성시 권한부여 -->
+	<select id="selectAdministration" resultType="string">
+		SELECT 
+		DISTINCT DECODE(USER_MANAGER_YN,'Y','System Administration','N','Administration')
+		FROM USER_INFO
+	</select>
+	
+	<!-- Team 생성 -->
+	<insert id="insertTeam" parameterType="Team">
+		<selectKey keyProperty="teamCode" resultType="_int" order="BEFORE">
+			SELECT SEQ_TEAM.NEXTVAL AS teamCode FROM DUAL
+		</selectKey>
+		INSERT INTO TEAM VALUES (#{teamCode},#{teamName})
+	</insert>
+	
+	<insert id="insertTeamList" parameterType="Map">
+		INSERT INTO USER_TEAM_LIST(USER_TEAM_CODE, USER_TEAM_YN, USER_CODE, TEAM_CODE, USER_TEAM_DATE, USER_TEAM_TIME) VALUES 
+			(SEQ_USER_TEAM.NEXTVAL
+			, 'Y'
+			, #{addUserName}
+			, #{teamCode}
+			, TO_CHAR(SYSDATE + 9/24, 'YYYY-MM-DD')
+			, TO_CHAR(SYSDATE + 9/24, 'hh24:mi:ss')
+			)
+	</insert>
+	
+	
+	
+ 
+  </mapper>
+  
+  
+  
+  
+  
