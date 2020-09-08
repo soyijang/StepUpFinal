@@ -95,8 +95,10 @@ public class MemberController {
 		model.addAttribute("list", list);
 		
 		List<UserProjectList> project = ms.selectProjectList(m.getUserCode());
+		model.addAttribute("project", project);
 		
 		System.out.println("여긴가요?"+list);
+		System.out.println(project);
 		return "userInfo/myPage/myInfo";
 	}
 	//직업등록

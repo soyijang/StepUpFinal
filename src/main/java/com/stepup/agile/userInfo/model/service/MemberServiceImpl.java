@@ -14,6 +14,7 @@ import com.stepup.agile.projectManage.model.vo.Project;
 import com.stepup.agile.userInfo.model.dao.MemberDao;
 import com.stepup.agile.userInfo.model.exception.LoginFailedException;
 import com.stepup.agile.userInfo.model.vo.Member;
+import com.stepup.agile.userInfo.model.vo.UserProjectList;
 import com.stepup.agile.userInfo.model.vo.UserTeamList;
 
 @Service
@@ -65,6 +66,13 @@ public class MemberServiceImpl implements MemberService{
 
 		return md.selectTeamList(sqlSession, ul);
 	}
+	//프로젝트리스트 조회
+
+	@Override
+	public List<UserProjectList> selectProjectList(int userCode) {
+
+		return md.userProjectList(sqlSession, userCode);
+	}
 	//직업등록
 	@Override
 	public int insertJob(HashMap<String, Object> map) {
@@ -107,6 +115,7 @@ public class MemberServiceImpl implements MemberService{
 
 		return md.selectCom(sqlSession, userCode);
 	}
+
 
 	
 
