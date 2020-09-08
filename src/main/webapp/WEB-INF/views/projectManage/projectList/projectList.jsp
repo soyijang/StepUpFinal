@@ -2,6 +2,7 @@
    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>  
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -86,37 +87,47 @@
 								<th>프로젝트 종료일</th>
 								<th>프로젝트 진행상태</th>
 								<th>프로젝트 마스터</th>
-								<th>프로젝트 관리</th>
+								<th>설정</th>
 							</tr>
 						</thead>
 						<tbody>
 							<!-- 프로젝트 관련정보 반복문 -->
 							<!-- begin, end, step 생략시 collection 크기만큼 반복  -->
-							<c:forEach var="item2" items="${selectedProjectHistoryList}">
+							<!-- < var="item2" items="${selectedProjectHistoryList}" varStatus="status"> -->
+							<c:forEach var="i" begin="0" end="${fn:length(selectedProjectHistoryList)-1}">
 								<tr>
 									<td>
 										<div class="">
-											${item2.project.projectName}
+											${selectedProjectHistoryList.get(i).project.projectName}
+											<input type="hidden" class="miPojectCode${i}" value="${selectedProjectHistoryList.get(i).project.projectCode}">
 										</div>
 									</td>
+									
 									<td>
-										<div class="project-participant"></div> 
-										<div class="project-participant"></div>
-										<div class="project-participant"></div>
-										<div class="project-participant"></div>
+									<!-- 프로젝트 코드 같은거 찾아서 멤버 넣어주기 -->
+										<c:forEach var="j" begin="0" end="${fn:length(userProjectList)-1}">
+											<c:if test="${userProjectList.get(j).project.projectCode == selectedProjectHistoryList.get(i).project.projectCode}">
+												<!-- 이름 두자리만 가져오기 -->
+												<!-- <div class="project-participant">${userProjectList.get(j).member.userName}</div>  -->
+												<div class="project-participant">
+													${fn:substring(userProjectList.get(j).member.userName, fn:length(userProjectList.get(j).member.userName)-2, fn:length(userProjectList.get(j).member.userName))}
+												</div> 
+											</c:if>
+										</c:forEach>
 									</td>
+									
 									<td><div class="project-participant-add"><img class="icon_user_plus" src="/agile/resources/icon/common/icon_user_plus.png"></div></td>
 									<!-- 시작일과 시작 시간 -->
 									<td>
-										${item2.projectStartDate}
-										<input type="hidden" class="projectStartDate" value="${item2.projectStartDate}">
-										<input type="hidden" class="projectStartTime" value="${item2.projectStartTime}">
+										${selectedProjectHistoryList.get(i).projectStartDate}
+										<input type="hidden" class="projectStartDate" value="${selectedProjectHistoryList.get(i).projectStartDate}">
+										<input type="hidden" class="projectStartTime" value="${selectedProjectHistoryList.get(i).projectStartTime}">
 									</td>
 									<!-- 종료일과 종료 시간 -->
 									<td>
-										${item2.projectEndDate}
-										<input type="hidden" class="projectEndDate" value="${item2.projectEndDate}">
-										<input type="hidden" class="projectEndTime" value="${item2.projectEndTime}">
+										${selectedProjectHistoryList.get(i).projectEndDate}
+										<input type="hidden" class="projectEndDate" value="${selectedProjectHistoryList.get(i).projectEndDate}">
+										<input type="hidden" class="projectEndTime" value="${selectedProjectHistoryList.get(i).projectEndTime}">
 									<td>
 								            <!--  <div class="incompleteBox">미완료 ${item.projectHistory.projectStartDate} - ${item.projectHistory.projectEndDate}</div> -->
 								            <!-- <div class="incompleteBox">미진행</div>  -->
@@ -127,7 +138,19 @@
 									<td>
 										<div class="project-master"></div>
 									</td>
-									<td><div class="deleteBtn">· · ·</div></td>
+									<!-- <td><div class="deleteBtn">· · ·</div></td> -->
+									<!-- 드래그 앤 드롭 ---------------------->    
+									<td><div class="dropdown"><!--  id="${status.index}" -->
+											<div class="select">
+												<span class="user-list">· · ·</span>
+											 </div>
+											 <input type="hidden" name="optionType" value="">
+											 <ul class="dropdown-menu">
+											 		<li class="updateBtn">수정</li>
+											     	<li class="deleteBtn">삭제</li>
+											 </ul>
+										</div>
+									</td>	 
 								</tr>
 							</c:forEach>	
 						</tbody>
@@ -202,7 +225,7 @@
 	     	<tr>
 	     		<td>
 	     			<div class="delete-modal-content">삭제 권한이 없는 사용자입니다. 관리자에게 문의하세요.</div>
-		     		<div><button class="modal1-ok">문의</button><button class="modal1-close">취소</button></div>
+		     		<div><button class="modal1-ok rectangle6">문의</button><button class="modal1-close rectangle7">취소</button></div>
 	     		</td>
 	     	</tr>
      </table>
@@ -211,11 +234,84 @@
 <!-- 프로젝트 삭제 모달-------------------------------------------------------->
 
     
-    
-    
+
+
+<!-- 프로젝트 수정 모달-------------------------------------------------------->
+
+ <div id="myModal2" class="modal2">
+   <!-- Modal content -->
+   <div class="modal-content2">
+   
+     <p align="left" class ="modaltitle2" style="font-size:30px;">새 프로젝트</p>
+     	<form action="update.pj" method="post">
+	     <table align="center" class="modalTable2">
+	     <!-- 내용-->
+		     	<tr><td colspan="2">이름<div class="red-star">*</div></td></tr>
+		     	<tr><td colspan="2"><input type="text" name="projectName"/></td></tr>
+		     	<tr>
+		     		<td>프로젝트 시작일자<div class="red-star">*</div></td>
+		     		<td>프로젝트 시작시간<div class="red-star">*</div></td>
+		     	</tr>
+		     	<tr>
+		     		<td><input type="date" name="projectStartDate"></td>
+		     		<td><input type="time" name="projectStartTime"></td>
+		     	</tr>
+		     	<tr>
+		     		<td>프로젝트 종료일자<div class="red-star">*</div></td>
+		     		<td>프로젝트 종료시간<div class="red-star">*</div></td>
+		     	</tr>
+		     	<tr>
+		     		<td><input type="date" name="projectEndDate"></td>
+		     		<td><input type="time" name="projectEndTime"></td>
+		     	</tr>
+		     	<tr><td>프로젝트 소개<div class="red-star">*</div></td></tr>
+		     	<tr>
+		     		<td colspan="2">
+		     		<input type="text" name="projectIntro"/>
+		     		<div class="red-star">* 프로젝트 생성시 프로젝트 스크럼 마스터 권한이 부여 됩니다.</div>
+		     		</td>
+		     	</tr>
+		     	<tr>
+		     		<td colspan="2">
+			     		<div class="btn-box"><input type="submit" class="rectangle6 modal2-ok" value="추가"><input type="reset" class="rectangle7 modal2-close" value="닫기"/></div>
+		     		</td>
+		     	</tr>
+	     </table>
+	   </form>
+   </div>
+ </div>
+
+ 
+ 
+<!-- 프로젝트 수정 모달-------------------------------------------------------->
+
     
 
 <script>
+//추가 설정 버튼 드롭다운 ------------------------------------------------------------------------
+$('.dropdown').click(function() {
+	$(this).attr('tabindex', 1).focus();
+	$(this).toggleClass('active');
+	$(this).find('.dropdown-menu').slideToggle(300);
+});
+
+$('.dropdown').focusout(function() {
+	$(this).removeClass('active');
+	$(this).find('.dropdown-menu').slideUp(300);
+});
+
+/* li 태그 클래스 값 input에 담아주기  id > class로 변경 */
+$('.dropdown .dropdown-menu li').click(
+	function() {
+		/* $(this).parents('.dropdown').find('span').text($(this).text()); */
+		$(this).parents('.dropdown').find('input').attr('value',$(this).attr('class'));
+});
+//선택 내용 글자 넣어주는 것 빼기
+ $('.dropdown-menu li').click(function() {
+		var input = '<strong>' + $(this).parents('.dropdown').find('input').val() + '</strong>', msg = '<span class="msg">Hidden input value: ';
+		$('.msg').html(msg + input + '</span>');
+}); 
+//추가 설정 버튼 드롭다운 끝----------------------------------------------------------------------
 
 
 /* 프로젝트 생성 모달창 관련 스크립트 ----------------------------------------------*/
@@ -257,32 +353,56 @@ $('.modal0-close').click(function(){
 
 
 
-
+/* $(‘s’).each(function(index,item){ } ) */
+/* 선택자로 선택한 요소를 index순번으로 item에 요소 값을 수정시 사용하는 메소드 */
+ 
 /* 프로젝트 삭제 모달창 관련 스크립트 ----------------------------------------------*/
-/* 몇번째 삭제 버튼인지 확인해야함 */
 //Get the modal
 var modal1 = document.getElementById("myModal1");
+var deleteBtn = document.getElementsByClassName("deleteBtn");
+var modal1Cclose = document.getElementsByClassName("modal1-close");
 
-//Get the button that opens the modal
-/* 삭제 요청할 버튼  */
-var btn1 = document.getElementsByClassName("deleteBtn")[0];
-
-//Get the <span> element that closes the modal
-var span1 = document.getElementsByClassName("modal1-close")[0];
-
-//When the user clicks on the button, open the modal
-btn1.onclick = function() {
-    $(modal1).fadeIn(300); 
-    $(modal1).css('display','block');
+for(var i = 0; i < modal1Cclose.length; i++) {
+	modal1Cclose[i].onclick = function() {
+	    $(modal1).css('display','none');
+	}
 }
 
-//When the user clicks on <span> (x), close the modal
-span1.onclick = function() {
-    $(modal1).css('display','none');
+for(var i = 0; i < deleteBtn.length; i++) {
+	deleteBtn[i].onclick = function() {
+  	    $(modal1).fadeIn(300); 
+  	    $(modal1).css('display','block');
+  	}
 }
 /* 프로젝트 삭제 모달창 관련 스크립트 ----------------------------------------------*/
 
 
+
+/* 프로젝트 수정 모달창 관련 스크립트 ----------------------------------------------*/
+var modal2 = document.getElementById("myModal2");
+var updateBtn = document.getElementsByClassName("updateBtn");
+var span2 = document.getElementsByClassName("modal2-close");
+
+for(var i = 0; i < span2.length; i++) {
+	span2[i].onclick = function() {
+	    $(modal2).css('display','none');
+	}
+}
+for(var i = 0; i < updateBtn.length; i++) {
+	updateBtn[i].onclick = function() {
+  	    $(modal2).fadeIn(300); 
+  	    $(modal2).css('display','block');
+  	}
+}
+//모달창 닫기 버튼 클릭시 내용 초기화 해주는 코드
+$('.span2').click(function(){
+	var i = 0;
+	while(i < 6){
+ 		$('.modalTable2 input')[i].val('');
+  		i++;
+	};
+});
+/* 프로젝트 수정 모달창 관련 스크립트 ----------------------------------------------*/
 
 
 
@@ -314,13 +434,10 @@ span1.onclick = function() {
 
 	//현재 날짜와 프로젝트 종료일 비교하기
 	for(var i = 0; i < listLength; i++){
-		console.log(sysdate);
-		console.log(i + "번째" + projectEndDate[i].value);
 		
 		//현재 날짜가 프로젝트 종료일보다 크다면 프로젝트 진행 상태가 완료(종료)상태로 뜸 ( task 미진행 여부는 )
 		//자바스크립트 class 속성 추가 및 html 내용 추가
 		if($('#sysdate').val() > projectEndDate[i].value){
-			console.log($('#sysdate').val() + " > " + projectEndDate[i].value);
 			projectIngStatus[i].innerHTML = "완료";
 			projectIngStatus[i].classList.add("projectIngStatus","completeBox");
 		}else{
@@ -328,14 +445,21 @@ span1.onclick = function() {
 			
 			//( 현재 날짜와 시작일 비교 )
 			//프로젝트가 아직 시작하지 않았다면 
-			if($('#sysdate').val() < projectStartDate[i].value && $('#systime').val() < projectStartTime[i].value){
+			if($('#sysdate').val() < projectStartDate[i].value){
 				projectIngStatus[i].innerHTML = "미진행";
 				projectIngStatus[i].classList.add("projectIngStatus","incompleteBox");
 				
-			}else{
+			}else if($('#sysdate').val() > projectStartDate[i].value){
 				//프로젝트가 시작했으나 아직 종료되지 않음 -> 진행중
 				projectIngStatus[i].innerHTML = "진행중";
 				projectIngStatus[i].classList.add("projectIngStatus","proceedingBox");
+				
+			}else if(($('#sysdate').val() == projectStartDate[i].value) && ($('#systime').val() >= projectStartTime[i].value)){
+				projectIngStatus[i].innerHTML = "진행중";
+				projectIngStatus[i].classList.add("projectIngStatus","proceedingBox");
+			}else if(($('#sysdate').val() == projectStartDate[i].value) && ($('#systime').val() < projectStartTime[i].value)){
+				projectIngStatus[i].innerHTML = "미진행";
+				projectIngStatus[i].classList.add("projectIngStatus","incompleteBox");
 			}
 		}
 	}

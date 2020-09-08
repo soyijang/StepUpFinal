@@ -29,56 +29,57 @@ public class ProjectController {
 		List<UserProjectList> userProjectList;
 		userProjectList = ps.selectProjectList(m);
 		
-		//projectList 정리 (유저프로젝트 매칭 기준으로 리스트를 가져왔기 때문에 프로젝트 중복된것 정리)
 		List<ProjectHistory> selectedProjectHistoryList = new ArrayList<ProjectHistory>();
-		//현재 코드번호랑 같은 코드의 개수를 반복문 통해서 확인한 후 project 잠가자수 추가해줌. 
 		
-		for(int i = 0; i < userProjectList.size(); i++) {
+		
+		//프로젝트 리스트 조회한 후에 값이 null이 아니면 
+		if (userProjectList != null) {
+			
 			//진행률 계산
-			int a = 0;
-			int b = 0;
-			int c = 0;
-			int rate = 0;
-			a = userProjectList.get(i).getProjectHistory().getProject().getSprintTypeA();
-			b = userProjectList.get(i).getProjectHistory().getProject().getSprintTypeB();
-			c = userProjectList.get(i).getProjectHistory().getProject().getSprintTypeC();
-			
-			if((a + b + c) != 0) {
-				rate = (int)( (double)c/ (double)(a + b + c) * 100.0 );
-			}else { //프로젝트의 스프린트가 없을때
-				rate = 0;
-			}
-			userProjectList.get(i).getProjectHistory().getProject().setProjectProceedingRate(rate);
-			
-			//현재 코드번호랑 같은 코드의 개수를 반복문 통해서 확인한 후 project 참가자수 추가해줌. 
-			for(int j = 0; j < userProjectList.size(); j++) {
-				if(userProjectList.get(i).getProjectHistory().getProjectCode() == userProjectList.get(j).getProjectHistory().getProjectCode()) {
-					System.out.println( i + "진행 률 " + userProjectList.get(i).getProjectHistory().getProject().getProjectProceedingRate());
-					userProjectList.get(i).getProjectHistory().getProject().setProjectParticipantCnt(1);
+			for(int i = 0; i < userProjectList.size(); i++) {
+				//진행률 계산
+				int a = 0;
+				int b = 0;
+				int c = 0;
+				int rate = 0;
+				a = userProjectList.get(i).getProjectHistory().getProject().getSprintTypeA();
+				b = userProjectList.get(i).getProjectHistory().getProject().getSprintTypeB();
+				c = userProjectList.get(i).getProjectHistory().getProject().getSprintTypeC();
+				
+				if((a + b + c) != 0) {
+					rate = (int)( (double)c/ (double)(a + b + c) * 100.0 );
+				}else { //프로젝트의 스프린트가 없을때
+					rate = 0;
+				}
+				userProjectList.get(i).getProjectHistory().getProject().setProjectProceedingRate(rate);
+				
+				//현재 코드번호랑 같은 코드의 개수를 반복문 통해서 확인한 후 project 참가자수 추가해줌. 
+				for(int j = 0; j < userProjectList.size(); j++) {
+					if(userProjectList.get(i).getProjectHistory().getProjectCode() == userProjectList.get(j).getProjectHistory().getProjectCode()) {
+						userProjectList.get(i).getProjectHistory().getProject().setProjectParticipantCnt(1);
+					}
+				}
+				//i가 0일때는 그냥 selectedProjectHistoryList에 넣어주기
+				if(i == 0) {
+					selectedProjectHistoryList.add(userProjectList.get(0).getProjectHistory());
+				//i가 0이 아니고 앞에있는 리스트 코드와 다를 경우에만 selectedProjectHistoryList에 넣어주기
+				}else if(userProjectList.get(i).getProjectHistory().getProjectCode() != userProjectList.get(i-1).getProjectHistory().getProjectCode()){
+						selectedProjectHistoryList.add(userProjectList.get(i).getProjectHistory());
 				}
 			}
-			//i가 0일때는 그냥 selectedProjectHistoryList에 넣어주기
-			if(i == 0) {
-				selectedProjectHistoryList.add(userProjectList.get(0).getProjectHistory());
-			//i가 0이 아니고 앞에있는 리스트 코드와 다를 경우에만 selectedProjectHistoryList에 넣어주기
-			}else if(userProjectList.get(i).getProjectHistory().getProjectCode() != userProjectList.get(i-1).getProjectHistory().getProjectCode()){
-					selectedProjectHistoryList.add(userProjectList.get(i).getProjectHistory());
-			}
-		}
 
-		//프로젝트 리스트 조회한 후에 값이 null이 아니면 진행률을 계산함.
-		//if (projectList != null) {
+
 			
 			//프로젝트 소속 유저 정보
 			model.addAttribute("userProjectList", userProjectList);
 			//중복 제거한 프로젝트 정보
 			model.addAttribute("selectedProjectHistoryList", selectedProjectHistoryList);
 			return "projectManage/projectList/projectList";
-		/*	
+			
 		} else {	
 			model.addAttribute("msg", "프로젝트 조회 실패!");
 			return "common/errorPage";
-		}*/
+		}
 	}
 
 	
