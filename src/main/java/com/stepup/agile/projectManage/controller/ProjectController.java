@@ -2,6 +2,7 @@ package com.stepup.agile.projectManage.controller;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,9 +10,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.stepup.agile.projectManage.model.service.ProjectService;
 import com.stepup.agile.projectManage.model.vo.Project;
+import com.stepup.agile.projectTask.model.service.TaskService;
+import com.stepup.agile.projectTask.model.vo.ReplyHistory;
+import com.stepup.agile.projectTask.model.vo.ReplyList;
 import com.stepup.agile.userInfo.model.vo.Member;
 
 
@@ -20,6 +25,9 @@ import com.stepup.agile.userInfo.model.vo.Member;
 public class ProjectController {
 	@Autowired
 	private ProjectService ps;
+	
+	@Autowired
+	private TaskService ts;
 	
 	//프로젝트 메인페이지로 포워딩 (해당 멤버의 project list 조회 후 view 이동) 
 	@RequestMapping("showProjectMain.pj")
@@ -56,8 +64,34 @@ public class ProjectController {
 			model.addAttribute("msg", "프로젝트 생성 실패!");
 			return "common/errorPage";
 		}
-	}	
+	}
 	
+	@RequestMapping("insertReply.pj")
+	   public ModelAndView insertReply(ModelAndView mv, @ModelAttribute("loginUser") Member m, ReplyList reply, ReplyHistory history, String replyContents, int taskCode) {
+
+	      reply.setUserCode(m.getUserCode());
+
+	      int replyCode = ts.insertReply(reply);
+
+	      history.setReplyCode(replyCode);
+	      history.setReplyContents(replyContents);
+
+	      System.out.println(replyContents);
+	      
+	      int histCode = ts.updateReplyHist(history);
+
+	      Map<String, Object> map = new HashMap<String, Object>();
+	      map.put("replyHistCode", histCode);
+	      map.put("taskCode", taskCode);
+
+	      List<ReplyHistory> r = ts.selectReply(map);
+
+	      mv.addObject("replyHistory", r); 
+	      mv.setViewName("jsonView");
+
+
+	      return mv;
+	   }
 	
 	
 	
