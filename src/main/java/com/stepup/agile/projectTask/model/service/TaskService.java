@@ -97,28 +97,4 @@ public interface TaskService {
 
 	List<TaskHistory> searchBug(HashMap<String, Object> map);
 
-
-
-
-
-
-
-
-
-
-
-
-	
-
-
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
 }

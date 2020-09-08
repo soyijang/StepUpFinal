@@ -57,3 +57,4 @@ public class MyTasksDaoImpl implements MyTasksDao {
 	}
 
 }
+>>>>>>> origin/feature/19/projectmain

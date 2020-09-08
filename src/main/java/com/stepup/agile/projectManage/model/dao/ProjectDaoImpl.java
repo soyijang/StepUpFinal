@@ -17,12 +17,12 @@ public class ProjectDaoImpl implements ProjectDao{
 	@Override
 	public List<Project> selectUserProject(SqlSessionTemplate sqlSession, Member m) {
 		
-		return sqlSession.selectList("Project.selectUserProject", m.getUserEmail());
+		return sqlSession.selectList("Project.selectUserProject", m);
 	}
 
 	@Override
 	public List<Project> selectUserProject2(SqlSessionTemplate sqlSession, Member m) {
-		return sqlSession.selectList("Project.selectUserProject2", m.getUserEmail());
+		return sqlSession.selectList("Project.selectUserProject2", m);
 	}
 	
 	///////////////////////////////////////////////////////////////////////////////////
