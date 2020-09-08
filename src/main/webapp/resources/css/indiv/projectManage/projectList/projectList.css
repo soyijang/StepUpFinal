@@ -22,6 +22,7 @@ body{
 /* 	margin-right: 5%; */
 	box-sizing: border-box;
 	display: inline-block;
+	cursor: pointer;
 }
 
 /* 프로젝트 최신 목록상자 왼쪽 사이드 색상 */
@@ -30,7 +31,8 @@ body{
 	width: 35px; */
 	height:100%;
 	width:100%;
- 	border-left:35px solid #343434; 
+/*  	border-left:35px solid #343434;  */
+  	border-left:35px solid #DD0351;  
 	box-sizing: border-box;
 /* 	background: #454545; */
 }
@@ -39,7 +41,8 @@ body{
 	width: 35px; */
 	height:100%;
 	width:100%;
- 	border-left:35px solid #454545; 
+/*  border-left:35px solid #454545; */ 	
+ 	border-left:35px solid #25282B; 
 	box-sizing: border-box;
 /* 	background: #454545; */
 
@@ -49,7 +52,8 @@ body{
 	width: 35px; */
 	height:100%;
 	width:100%;
- 	border-left:35px solid #565656; 
+/*  border-left:35px solid #E34880;  */
+ 	border-left:35px solid #AA0942; 
 	box-sizing: border-box;
 /* 	background: #454545; */
 }
@@ -108,7 +112,6 @@ body{
 	align-items: center;
 	color: #000000;
 	box-sizing: border-box;
-	
 }
 /* 프로젝트 최신 목록상자 내부 진행률 */
 .project-progress-rate{
@@ -337,14 +340,32 @@ width: 100%;
 /*하단 contentBox2 project list 테이블 바디----------------*/
 /* 프로젝트 현재 참여자 */
 .project-participant{
-	background: #DD0351;
 	height: 35px;
 	width: 35px;
 	float: right;
-	margin-right: -10px;
-	border: 1px solid black;
+	margin-right: -8px;
+/* 	margin-right: -10px; */
 	border-radius: 221.5px;
+	box-sizing: border-box;
+	font-size: 11px;
+	border: 2px solid #d2d2d2;
+/* 	border: 2px solid #F3F3F3; */
+	text-align: center;
+	line-height: 35px;
 }
+.color0{background: #DD0351;}
+.color1{background: #B8C800;}
+.color2{background: #46CC9F;}
+.color3{background: #BF6EFF;}
+.color4{background: #0849A6;}
+.color5{background: #E6892F;}
+.color6{background: #C2665A;}
+.color7{background: yellow;}
+.color8{background: #2ED6E1;}
+.color9{background: #2EE17B;}
+.color10{background: #FF6E87;}
+.color11{background: #5D6968;}
+.color999{background: #ffd12d;}
 
 /* 프로젝트 참여자 추가 버튼 */
 .project-participant-add{
@@ -353,6 +374,7 @@ width: 100%;
 	height: 35px;
 	width: 35px;
 	float: right;
+	cursor: pointer;
 }
 /* 프로젝트 참여자 추가 버튼 사람 이미지 */
 .icon_user_plus{
@@ -418,13 +440,17 @@ width: 100%;
 
 /* 프로젝트 마스터 */
 .project-master{
-	background: #DD0351;
 	height: 35px;
 	width: 35px;
-	margin-right: -10px;
-	border: 1px solid black;
+	float: right;
+	margin-right: 35%;
 	border-radius: 221.5px;
-	margin: auto;
+	box-sizing: border-box;
+	font-size: 11px;
+	border: 2px solid #c0c0c0;
+/* 	border: 2px solid #F3F3F3; */
+	text-align: center;
+	line-height: 35px;
 }
 
 /* delete버튼 (점점점 상세 버튼) */
@@ -466,12 +492,13 @@ width: 100%;
 	box-sizing: border-box;
 }
 
-
+/* 프로젝트 이름이 나오는 첫번째 td */
 #contentBox2-content-table td:nth-child(1){
 	widtd: 32%;	
 	text-align: left;
 	padding-left: 60px;
 	box-sizing: border-box;
+	cursor: pointer;
 }
 #contentBox2-content-table td:nth-child(2){
 	widtd: 15%;	

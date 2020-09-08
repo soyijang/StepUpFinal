@@ -17,8 +17,12 @@
 </head>
 <body>
 
-   <%@ include file="../../common/menubar.jsp" %>
-   <div id="content">
+  <!-- 왼쪽 메뉴바 필요 없는 경우 id를 content 대신에 content-nav-only 로 변경하고 nav.jsp include  -->
+  <!--%@ include file="../../common/menubar.jsp"--> 
+  <%@ include file="../../common/nav.jsp" %>
+   <div id="content-nav-only">
+   <!-- div id="content-nav-only"-->
+   
        <!-- 상단 프로젝트 제목 및 메뉴 이름 영역 -->
        <div id="contentTitle">
            <div id="projectTitle2">프로젝트 / 이름땡땡땡!!</div>
@@ -35,7 +39,8 @@
 							<!-- 프로젝트 리스트 -->
 							<c:forEach var="item" items="${selectedProjectHistoryList}" begin="0" end="3" step="1" varStatus="status">
 								<td>
-									<div class="contentBox1-content-table-tr-td">
+									<div class="contentBox1-content-table-tr-td" id="project-top-list-code${item.project.projectCode}"
+									onclick="projectClick(${item.project.projectCode})">
 										<div class="left-padding-gray${status.index}">
 											<div class="project-name">
 												${item.project.projectName}
@@ -96,8 +101,9 @@
 							<!-- < var="item2" items="${selectedProjectHistoryList}" varStatus="status"> -->
 							<c:forEach var="i" begin="0" end="${fn:length(selectedProjectHistoryList)-1}">
 								<tr>
-									<td>
-										<div class="">
+									<td id="project-list-code${selectedProjectHistoryList.get(i).project.projectCode}"
+									onclick="projectClick(${selectedProjectHistoryList.get(i).project.projectCode})">
+										<div>
 											${selectedProjectHistoryList.get(i).project.projectName}
 											<input type="hidden" class="miPojectCode${i}" value="${selectedProjectHistoryList.get(i).project.projectCode}">
 										</div>
@@ -105,12 +111,15 @@
 									
 									<td>
 									<!-- 프로젝트 코드 같은거 찾아서 멤버 넣어주기 -->
+										<c:set var="num" value="0"/><!-- color class 이름 변경해줄 변수 하나 만들어주기 -->
 										<c:forEach var="j" begin="0" end="${fn:length(userProjectList)-1}">
 											<c:if test="${userProjectList.get(j).project.projectCode == selectedProjectHistoryList.get(i).project.projectCode}">
 												<!-- 이름 두자리만 가져오기 -->
 												<!-- <div class="project-participant">${userProjectList.get(j).member.userName}</div>  -->
-												<div class="project-participant">
+												<div class="project-participant color${num}">
 													${fn:substring(userProjectList.get(j).member.userName, fn:length(userProjectList.get(j).member.userName)-2, fn:length(userProjectList.get(j).member.userName))}
+													<!-- color class 이름 변경해줄 변수 값 1 증가시키기 -->
+													<c:set var="num" value="${num+1}"/>
 												</div> 
 											</c:if>
 										</c:forEach>
@@ -135,8 +144,22 @@
 								        <div class="projectIngStatus"></div>
 <!-- 								        <div class="proceedingBox">진행중</div> -->
 									</td>
+									<!-- 프로젝트 마스터 -->
 									<td>
-										<div class="project-master"></div>
+										<c:forEach var="k" begin="0" end="${fn:length(userProjectList)-1}">
+											<c:if test="${userProjectList.get(k).project.projectCode == selectedProjectHistoryList.get(i).project.projectCode && userProjectList.get(k).userProjectAuthority == '01'}">
+												<!-- 권한 확인한 후 01번 마스터 권한인 경우에만 이름 두자리만 가져오기 -->
+												<div class="project-master color999">
+													${fn:substring(userProjectList.get(k).member.userName, fn:length(userProjectList.get(k).member.userName)-2, fn:length(userProjectList.get(k).member.userName))}
+													<!-- color class 이름 변경해줄 변수 값 1 증가시키기 -->
+												</div> 
+											</c:if>
+										</c:forEach>										
+										
+										
+										
+										
+										
 									</td>
 									<!-- <td><div class="deleteBtn">· · ·</div></td> -->
 									<!-- 드래그 앤 드롭 ---------------------->    
@@ -146,7 +169,8 @@
 											 </div>
 											 <input type="hidden" name="optionType" value="">
 											 <ul class="dropdown-menu">
-											 		<li class="updateBtn">수정</li>
+											 		<!-- 프로젝트 코드랑 index 같이 넣어줌 : 모달 띄울때 몇번째 class인지 번호 사용하기 위해서 -->	
+											 		<li class="updateBtn" onclick="updateProjectClick(${selectedProjectHistoryList.get(i).project.projectCode},${i})">수정</li>
 											     	<li class="deleteBtn">삭제</li>
 											 </ul>
 										</div>
@@ -174,7 +198,7 @@
      	<form action="insert.pj" method="post">
 	     <table align="center" class="modalTable0">
 	     <!-- 내용-->
-		     	<tr><td colspan="2">이름<div class="red-star">*</div></td></tr>
+		     	<tr><td colspan="2">프로젝트명<div class="red-star">*</div></td></tr>
 		     	<tr><td colspan="2"><input type="text" name="projectName"/></td></tr>
 		     	<tr>
 		     		<td>프로젝트 시작일자<div class="red-star">*</div></td>
@@ -242,11 +266,11 @@
    <!-- Modal content -->
    <div class="modal-content2">
    
-     <p align="left" class ="modaltitle2" style="font-size:30px;">새 프로젝트</p>
+     <p align="left" class ="modaltitle2" style="font-size:30px;">프로젝트 수정</p>
      	<form action="update.pj" method="post">
 	     <table align="center" class="modalTable2">
 	     <!-- 내용-->
-		     	<tr><td colspan="2">이름<div class="red-star">*</div></td></tr>
+		     	<tr><td colspan="2">프로젝트명<div class="red-star">*</div></td></tr>
 		     	<tr><td colspan="2"><input type="text" name="projectName"/></td></tr>
 		     	<tr>
 		     		<td>프로젝트 시작일자<div class="red-star">*</div></td>
@@ -268,12 +292,12 @@
 		     	<tr>
 		     		<td colspan="2">
 		     		<input type="text" name="projectIntro"/>
-		     		<div class="red-star">* 프로젝트 생성시 프로젝트 스크럼 마스터 권한이 부여 됩니다.</div>
+		     		<div class="red-star">* 프로젝트 스크럼 마스터만 프로젝트 정보를 수정할 수 있습니다. </div>
 		     		</td>
 		     	</tr>
 		     	<tr>
 		     		<td colspan="2">
-			     		<div class="btn-box"><input type="submit" class="rectangle6 modal2-ok" value="추가"><input type="reset" class="rectangle7 modal2-close" value="닫기"/></div>
+			     		<div class="btn-box"><input type="submit" class="rectangle6 modal2-ok" value="수정"><input type="reset" class="rectangle7 modal2-close" value="닫기"/></div>
 		     		</td>
 		     	</tr>
 	     </table>
@@ -378,31 +402,35 @@ for(var i = 0; i < deleteBtn.length; i++) {
 
 
 
-/* 프로젝트 수정 모달창 관련 스크립트 ----------------------------------------------*/
-var modal2 = document.getElementById("myModal2");
-var updateBtn = document.getElementsByClassName("updateBtn");
-var span2 = document.getElementsByClassName("modal2-close");
+/* 프로젝트 수정 모달창 관련 스크립트 ----------------------------------------------------------------------------------------------------------------*/
 
-for(var i = 0; i < span2.length; i++) {
-	span2[i].onclick = function() {
-	    $(modal2).css('display','none');
+/* 업데이트할 프로젝트의 수정 버튼 클릭시 함수 실행 */
+function updateProjectClick(c, i) {
+	// 수정 모달 띄우기 
+    $("#myModal2").fadeIn(300); 
+    $("#myModal2").css('display','block');
+    
+	//클릭한 프로젝트의 코드 (수정할 것이라 필요함)
+	var projectCode = c;
+	console.log("projectCode : " + projectCode);	
+	
+	
+	
+	
+    //닫기 버튼 클릭시 수정 모달 닫아주기
+    var span2 = document.getElementsByClassName("modal2-close")[i];
+    span2.onclick = function() {
+    	//모달 닫고
+	    $("#myModal2").css('display','none');
+	    //input 상자 초기화
+	    for(var j = 0 ; j < 6; j++){
+	    	$('.modalTable2 input')[j].val('');
+	    }
 	}
-}
-for(var i = 0; i < updateBtn.length; i++) {
-	updateBtn[i].onclick = function() {
-  	    $(modal2).fadeIn(300); 
-  	    $(modal2).css('display','block');
-  	}
-}
-//모달창 닫기 버튼 클릭시 내용 초기화 해주는 코드
-$('.span2').click(function(){
-	var i = 0;
-	while(i < 6){
- 		$('.modalTable2 input')[i].val('');
-  		i++;
-	};
-});
-/* 프로젝트 수정 모달창 관련 스크립트 ----------------------------------------------*/
+}	
+
+
+/* 프로젝트 수정 모달창 관련 스크립트 끝 ----------------------------------------------------------------------------------------------------------------*/
 
 
 
@@ -415,7 +443,7 @@ $('.span2').click(function(){
 	
 	/* 조회한 projectList 의 개수 구하기 = table id=contentBox2-content-table 의 tr 개수 구하기 및 확인*/
 	var listLength = $('#contentBox2-content-table tbody tr').length;
-	console.log("가져온 Project list 개수 " + listLength);
+	//console.log("가져온 Project list 개수 " + listLength);
 	
 	//projectEndDate, projectEndTime, projectStartDate, projectStartTime 담을 배열 만들기 ( 배열 크기는 조회한 projectList  개수만큼 )
 	var projectEndDate = new Array(listLength);
@@ -465,6 +493,33 @@ $('.span2').click(function(){
 	}
 /* 오늘 날짜 계산 하여 프로젝트 진행상태 계산  --------------------------------------------*/	
 
+/* 클릭한 프로젝트 코드 받아서 페이지 넘겨주기 ----------------------------------------------------*/	
+ function projectClick(c) {
+	//클릭한 프로젝트의 코드 
+	var projectCode = c;
+	//클릭한 것 출력
+	console.log(projectCode);	
+/* 	$.ajax({
+		type: "post",
+		url: "showTaskBoard.tb",
+		data : {
+			projectCode : projectCode
+		},
+		dataType: 'json',
+		success : function(data) {
+			
+		},
+		error : function(data) {
+			
+		} 
+	}); */
+	
+	
+	
+}
+
+
+/* 클릭한 프로젝트 코드 받아서 페이지 넘겨주기----------------------------------------------------*/
 
 </script>
    
