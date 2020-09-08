@@ -4,6 +4,7 @@ import com.stepup.agile.projectBacklog.model.vo.Sprint;
 import com.stepup.agile.projectBacklog.model.vo.SprintHistory;
 import com.stepup.agile.projectManage.model.vo.Project;
 import com.stepup.agile.projectManage.model.vo.ProjectHistory;
+import com.stepup.agile.userInfo.model.vo.Attachment;
 import com.stepup.agile.userInfo.model.vo.Member;
 import com.stepup.agile.userInfo.model.vo.Team;
 import com.stepup.agile.userInfo.model.vo.UserProjectList;
@@ -17,6 +18,7 @@ public class TaskList implements java.io.Serializable{
 	private String taskCreateTime;
 	private int taskMaster;
 	private int taskUser;
+	private int headTaskCode;
 	
 	private Member member;
 	private Team team;
@@ -43,6 +45,7 @@ public class TaskList implements java.io.Serializable{
 		this.taskCreateTime = taskCreateTime;
 		this.taskMaster = taskMaster;
 		this.taskUser = taskUser;
+		this.headTaskCode = headTaskCode;
 		this.member = member;
 		this.team = team;
 		this.userTeamList = userTeamList;
@@ -110,7 +113,22 @@ public class TaskList implements java.io.Serializable{
 		this.taskUser = taskUser;
 	}
 
-	
+	public int getHeadTaskCode() {
+		return headTaskCode;
+	}
+
+	public void setHeadTaskCode(int headTaskCode) {
+		this.headTaskCode = headTaskCode;
+	}
+
+	public Member getMember() {
+		return member;
+	}
+
+	public void setMember(Member member) {
+		this.member = member;
+	}
+
 	public Project getProject() {
 		return project;
 	}
@@ -126,7 +144,6 @@ public class TaskList implements java.io.Serializable{
 	public void setProjectHistory(ProjectHistory projectHistory) {
 		this.projectHistory = projectHistory;
 	}
-
 	
 	public Member getMember() {
 		return member;
@@ -192,5 +209,6 @@ public class TaskList implements java.io.Serializable{
 				+ ", userProjectList=" + userProjectList + ", project=" + project + ", projectHistory=" + projectHistory
 				+ ", sprint=" + sprint + ", sprintHistory=" + sprintHistory + ", taskCategory=" + taskCategory + "]";
 	}
+
 
 }

@@ -16,13 +16,17 @@ public class Member implements java.io.Serializable {
 	private String userManagerYn;
 	private String userEnrollTime;
 	
+
 	private ReplyHistory replyHistory;
+	private Attachment attachment;
+	private UserTeamList userTeamList;
 	
 	public Member() {}
 
 	public Member(String userEmail, String userPwd, String userName, int userCode, String userPhone,
 			String userCompName, String userCompDept, String userCompJob, String userEnrollDate, String userStatus,
-			String userManagerYn, String userEnrollTime, ReplyHistory replyHistory) {
+			String userManagerYn, String userEnrollTime, ReplyHistory replyHistory, Attachment attachment, UserTeamList userTeamList) {
+
 		super();
 		this.userEmail = userEmail;
 		this.userPwd = userPwd;
@@ -37,6 +41,8 @@ public class Member implements java.io.Serializable {
 		this.userManagerYn = userManagerYn;
 		this.userEnrollTime = userEnrollTime;
 		this.replyHistory = replyHistory;
+		this.attachment = attachment;
+		this.userTeamList = userTeamList;
 	}
 
 	public String getUserEmail() {
@@ -134,7 +140,6 @@ public class Member implements java.io.Serializable {
 	public void setUserEnrollTime(String userEnrollTime) {
 		this.userEnrollTime = userEnrollTime;
 	}
-
 	
 	public ReplyHistory getReplyHistory() {
 		return replyHistory;
@@ -143,6 +148,21 @@ public class Member implements java.io.Serializable {
 	public void setReplyHistory(ReplyHistory replyHistory) {
 		this.replyHistory = replyHistory;
 	}
+	public Attachment getAttachment() {
+		return attachment;
+	}
+
+	public void setAttachment(Attachment attachment) {
+		this.attachment = attachment;
+	}
+
+	public UserTeamList getUserTeamList() {
+		return userTeamList;
+	}
+
+	public void setUserTeamList(UserTeamList userTeamList) {
+		this.userTeamList = userTeamList;
+	}
 
 	@Override
 	public String toString() {
@@ -150,7 +170,8 @@ public class Member implements java.io.Serializable {
 				+ userCode + ", userPhone=" + userPhone + ", userCompName=" + userCompName + ", userCompDept="
 				+ userCompDept + ", userCompJob=" + userCompJob + ", userEnrollDate=" + userEnrollDate + ", userStatus="
 				+ userStatus + ", userManagerYn=" + userManagerYn + ", userEnrollTime=" + userEnrollTime
-				+ ", replyHistory=" + replyHistory + "]";
+				+ ", replyHistory=" + replyHistory + ", attachment=" + attachment + ", userTeamList=" + userTeamList + "]";
+
 	}
 
 

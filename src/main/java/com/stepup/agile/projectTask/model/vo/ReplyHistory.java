@@ -10,17 +10,17 @@ public class ReplyHistory implements java.io.Serializable {
 	private String replyContents;
 	private String replyType;
 	private int replyCode;
-	
-	private Member member;
+	private int taskCode;
 	private ReplyList replyList;
-	private Attachment attachment;
+	private Member member;
 	private TaskList taskList;
+	private Attachment attachment;
 	
 	public ReplyHistory() {}
 
 	public ReplyHistory(int replyHistCode, String replyUpdateDate, String replyUpdateTime, String replyContents,
-			String replyType, int replyCode, Member member, ReplyList replyList, Attachment attachment,
-			TaskList taskList) {
+			String replyType, int replyCode, int taskCode, ReplyList replyList, Member member, TaskList taskList,
+			Attachment attachment) {
 		super();
 		this.replyHistCode = replyHistCode;
 		this.replyUpdateDate = replyUpdateDate;
@@ -28,10 +28,11 @@ public class ReplyHistory implements java.io.Serializable {
 		this.replyContents = replyContents;
 		this.replyType = replyType;
 		this.replyCode = replyCode;
-		this.member = member;
+		this.taskCode = taskCode;
 		this.replyList = replyList;
-		this.attachment = attachment;
+		this.member = member;
 		this.taskList = taskList;
+		this.attachment = attachment;
 	}
 
 	public int getReplyHistCode() {
@@ -82,14 +83,12 @@ public class ReplyHistory implements java.io.Serializable {
 		this.replyCode = replyCode;
 	}
 
-	
-	public Member getMember() {
-		return member;
+	public int getTaskCode() {
+		return taskCode;
 	}
 
-
-	public void setMember(Member member) {
-		this.member = member;
+	public void setTaskCode(int taskCode) {
+		this.taskCode = taskCode;
 	}
 
 	public ReplyList getReplyList() {
@@ -100,15 +99,14 @@ public class ReplyHistory implements java.io.Serializable {
 		this.replyList = replyList;
 	}
 
-	
-	public Attachment getAttachment() {
-		return attachment;
+	public Member getMember() {
+		return member;
 	}
 
-	public void setAttachment(Attachment attachment) {
-		this.attachment = attachment;
+	public void setMember(Member member) {
+		this.member = member;
 	}
-	
+
 	public TaskList getTaskList() {
 		return taskList;
 	}
@@ -117,12 +115,20 @@ public class ReplyHistory implements java.io.Serializable {
 		this.taskList = taskList;
 	}
 
+	public Attachment getAttachment() {
+		return attachment;
+	}
+
+	public void setAttachment(Attachment attachment) {
+		this.attachment = attachment;
+	}
+
 	@Override
 	public String toString() {
 		return "ReplyHistory [replyHistCode=" + replyHistCode + ", replyUpdateDate=" + replyUpdateDate
 				+ ", replyUpdateTime=" + replyUpdateTime + ", replyContents=" + replyContents + ", replyType="
-				+ replyType + ", replyCode=" + replyCode + ", member=" + member + ", replyList=" + replyList
-				+ ", attachment=" + attachment + ", taskList=" + taskList + "]";
+				+ replyType + ", replyCode=" + replyCode + ", taskCode=" + taskCode + ", replyList=" + replyList
+				+ ", member=" + member + ", taskList=" + taskList + ", attachment=" + attachment + "]";
 	}
 
 }
