@@ -18,6 +18,18 @@
 		<result property="sprintTypeC" column="SPRINT_TYPE_C"/>
 	</resultMap>
 	
+	<resultMap type="com.stepup.agile.projectManage.model.vo.Project" id="projectResultSet">
+		<id property="projectCode" column="PROJECT_CODE"/>
+		<result property="projectName" column="PROJECT_NAME"/>
+		<result property="createDate" column="PROJECT_CREATE_DATE"/>
+		<result property="createTime" column="PROJECT_CREATE_TIME"/>
+		<collection property="userProjectList" resultMap="UserProjectListResultSet"/>
+		<collection property="userTeamList" resultMap="UserTeamListResultSet"/>
+		<collection property="member" resultMap="memberResultSet"/>
+		<collection property="projectHistory" resultMap="projectHistoryResultSet"/>
+		<collection property="team" resultMap="TeamResultSet"/>
+	</resultMap>
+	
 	<!-- 사용자정보  -->
 	<resultMap type="com.stepup.agile.userInfo.model.vo.Member" id="MemberResultSet">
 		<id property="userCode" column="USER_CODE"/>
@@ -98,10 +110,10 @@
 		<result property="createDate" column="PROJECT_CREATE_DATE"/>
 		<result property="createTime" column="PROJECT_CREATE_TIME"/>
 		<result property="taskCnt" column="TASKCNT"/>
-    		<collection property="projectHistory" resultMap="projectHistoryResultSet"/>
-    		<collection property="member" resultMap="memberResultSet"/>
-    		<collection property="userTeamList" resultMap="UserTeamListResultSet"/>
-    		<collection property="userProjectList" resultMap="UserProjectListResultSet"/>
+    	<collection property="projectHistory" resultMap="ProjectHistoryResultSet"/>
+    	<collection property="member" resultMap="MemberResultSet"/>
+    	<collection property="userTeamList" resultMap="UserTeamListResultSet"/>
+    	<collection property="userProjectList" resultMap="UserProjectListResultSet"/>
 
 	</resultMap>
 	
@@ -191,16 +203,6 @@
 	          WHERE TASK_HIST_VALUE LIKE '%진행중%'
 	          GROUP BY PROJECT_NAME) B                         
 	    ON (A.PROJECT_NAME = B.PROJECT_NAME)
-	</select>
-	
-	<select id="selectProjectProceedingRate" resultMap="projectResultSet" parameterType="Project" resultType="hashmap">
-	SELECT SPRINT_HIST_CODE, SPRINT_HIST_UPDATE_DATE, SPRINT_HIST_UPDATE_TIME, SPRINT_TYPE, SPRINT_CODE, PROJECT_CODE
-      FROM (SELECT SH.SPRINT_HIST_CODE, SH.SPRINT_HIST_UPDATE_DATE, SH.SPRINT_HIST_UPDATE_TIME, SH.SPRINT_TYPE, SH.SPRINT_CODE, UPL.PROJECT_CODE,
-			RANK() OVER (PARTITION BY SH.SPRINT_CODE ORDER BY SH.SPRINT_HIST_UPDATE_DATE DESC, SH.SPRINT_HIST_UPDATE_TIME DESC) LATEST
-			  FROM SPRINT_HISTORY SH, SPRINT_LIST S, USER_PROJECT_LIST UPL
-		     WHERE SH.SPRINT_CODE = S.SPRINT_CODE
-		       AND S.USER_PROJECT_CODE = UPL.USER_PROJECT_CODE) 
-     WHERE LATEST = 1;
 	</select>
 
 	<select id="selectTimelineProject" resultMap="selectUserPJRset" parameterType="ProjectHistory">
