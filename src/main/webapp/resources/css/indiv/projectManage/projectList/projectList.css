@@ -309,33 +309,56 @@ width: 100%;
 	box-sizing: border-box;
 }
 
-#contentBox2-content-table th:nth-child(1){
-	width: 32%;	
+/* 테이블 구조 짜기 */
+#contentBox2-content-table th:nth-child(1),
+#contentBox2-content-table td:nth-child(1){
+	width: 33%;	
 	text-align: left;
 	padding-left: 60px;
 	box-sizing: border-box;
 }
-#contentBox2-content-table th:nth-child(2){
-	width: 15%;	
+#contentBox2-content-table td:nth-child(1){	
+	cursor: pointer;
 }
-#contentBox2-content-table th:nth-child(3){
-	width: 8%;	
+/* 참여자 td */
+#contentBox2-content-table th:nth-child(2),
+#contentBox2-content-table td:nth-child(2){
+	width: 18%;	
+	padding:0;
+	box-sizing: border-box;
+	padding-right: 1.5%;
+	text-align: right;
 }
-#contentBox2-content-table th:nth-child(4){
+/* 초대 td */
+#contentBox2-content-table th:nth-child(3),
+#contentBox2-content-table td:nth-child(3){
+ 	width: 8%;	 
+}
+
+#contentBox2-content-table th:nth-child(4),
+#contentBox2-content-table td:nth-child(4){
 	width: 9%;	
 }
-#contentBox2-content-table th:nth-child(5){
+
+#contentBox2-content-table th:nth-child(5),
+#contentBox2-content-table td:nth-child(5){
 	width: 9%;	
 }
-#contentBox2-content-table th:nth-child(6){
+
+#contentBox2-content-table th:nth-child(6),
+#contentBox2-content-table td:nth-child(6){
 	width: 9%;		
 }
-#contentBox2-content-table th:nth-child(7){
-	width: 9%;	
+#contentBox2-content-table th:nth-child(7),
+#contentBox2-content-table td:nth-child(7){
+	width: 7%;	
 }
-#contentBox2-content-table th:nth-child(8){
-	width: 9%;	
+
+#contentBox2-content-table th:nth-child(8),
+#contentBox2-content-table td:nth-child(8){
+	width: 7%;	
 }
+
 
 /*하단 contentBox2 project list 테이블 바디----------------*/
 /* 프로젝트 현재 참여자 */
@@ -373,8 +396,8 @@ width: 100%;
 	background: #C4C4C4;
 	height: 35px;
 	width: 35px;
-	float: right;
 	cursor: pointer;
+	margin-left: 35%;
 }
 /* 프로젝트 참여자 추가 버튼 사람 이미지 */
 .icon_user_plus{
@@ -492,36 +515,7 @@ width: 100%;
 	box-sizing: border-box;
 }
 
-/* 프로젝트 이름이 나오는 첫번째 td */
-#contentBox2-content-table td:nth-child(1){
-	widtd: 32%;	
-	text-align: left;
-	padding-left: 60px;
-	box-sizing: border-box;
-	cursor: pointer;
-}
-#contentBox2-content-table td:nth-child(2){
-	widtd: 15%;	
-	text-align: right;
-}
-#contentBox2-content-table td:nth-child(3){
-	widtd: 8%;	
-}
-#contentBox2-content-table td:nth-child(4){
-	widtd: 9%;	
-}
-#contentBox2-content-table td:nth-child(5){
-	widtd: 9%;	
-}
-#contentBox2-content-table td:nth-child(6){
-	widtd: 9%;		
-}
-#contentBox2-content-table td:nth-child(7){
-	widtd: 9%;	
-}
-#contentBox2-content-table td:nth-child(8){
-	widtd: 9%;	
-}
+
 
 /*모달창 관련 css --------------------------------------------------*/
 
@@ -917,7 +911,8 @@ width: 100%;
     border: 0;
     font-size: 9px;
     color: white;
-    text-align: center;     
+    text-align: center;
+    cursor: pointer;     
 }
 .rectangle7 {
     background:white;
@@ -928,6 +923,7 @@ width: 100%;
     font-size: 9px;
     color:#DD0351;
     text-align: center;     
+    cursor: pointer;     
 }
 
 

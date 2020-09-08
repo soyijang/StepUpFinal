@@ -17,6 +17,8 @@ import com.stepup.agile.userInfo.model.vo.Member;
 import com.stepup.agile.userInfo.model.vo.UserProjectList;
 import com.stepup.agile.userInfo.model.vo.UserTeamList;
 
+import net.sf.json.JSONArray;
+
 @SessionAttributes("loginUser")
 @Controller
 public class ProjectController {
@@ -29,6 +31,7 @@ public class ProjectController {
 		List<UserProjectList> userProjectList;
 		userProjectList = ps.selectProjectList(m);
 		
+		//중복 제거한 projectHistory만 담을 list 생성한다.(프로젝트 고유한 history만 따로 담아줌)
 		List<ProjectHistory> selectedProjectHistoryList = new ArrayList<ProjectHistory>();
 		
 		
@@ -55,6 +58,10 @@ public class ProjectController {
 				
 				//현재 코드번호랑 같은 코드의 개수를 반복문 통해서 확인한 후 project 참가자수 추가해줌. 
 				for(int j = 0; j < userProjectList.size(); j++) {
+					//userProjectList에 있는 time 초단위 00 빼주기 input type time에 넣어줘야하기 때문에
+					userProjectList.get(i).getProjectHistory().setProjectEndTime(userProjectList.get(i).getProjectHistory().getProjectEndTime().substring(0, 5));
+					userProjectList.get(i).getProjectHistory().setProjectStartTime(userProjectList.get(i).getProjectHistory().getProjectStartTime().substring(0, 5));
+					
 					if(userProjectList.get(i).getProjectHistory().getProjectCode() == userProjectList.get(j).getProjectHistory().getProjectCode()) {
 						userProjectList.get(i).getProjectHistory().getProject().setProjectParticipantCnt(1);
 					}
@@ -67,13 +74,16 @@ public class ProjectController {
 						selectedProjectHistoryList.add(userProjectList.get(i).getProjectHistory());
 				}
 			}
-
+//			model.addAttribute("jsonList2", JSONArray.fromObject(mainTaskList));
+//			model.addAttribute("jsonList3", JSONArray.fromObject(subTaskList));
 
 			
 			//프로젝트 소속 유저 정보
-			model.addAttribute("userProjectList", userProjectList);
+			//model.addAttribute("userProjectList", userProjectList);
 			//중복 제거한 프로젝트 정보
-			model.addAttribute("selectedProjectHistoryList", selectedProjectHistoryList);
+			//model.addAttribute("selectedProjectHistoryList", selectedProjectHistoryList);
+			model.addAttribute("userProjectList", JSONArray.fromObject(userProjectList));
+			model.addAttribute("selectedProjectHistoryList", JSONArray.fromObject(selectedProjectHistoryList));
 			return "projectManage/projectList/projectList";
 			
 		} else {	
@@ -120,6 +130,19 @@ public class ProjectController {
 			model.addAttribute("msg", "프로젝트 생성 실패!");
 			return "common/errorPage";
 		}
+	}
+	
+	//프로젝트 수정
+	@RequestMapping("update.pj")
+	public String updateProject(Model model, @ModelAttribute("loginUser") Member m, ProjectHistory projectHistory, Project project) {
+		//input 타입 타임 00:00:00 형식으로 변경
+		projectHistory.setProjectEndTime( projectHistory.getProjectEndTime()+ ":00");
+		projectHistory.setProjectStartTime( projectHistory.getProjectStartTime()+ ":00");
+		int result = ps.updateProject(projectHistory);
+			
+		
+		return "redirect:showProjectMain.pj";
+		
 	}
 	
 	

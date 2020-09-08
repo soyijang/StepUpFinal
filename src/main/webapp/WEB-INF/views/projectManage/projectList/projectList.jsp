@@ -87,11 +87,12 @@
 						<thead>
 							<tr>
 								<th>프로젝트명</th>
-								<th colspan="2">프로젝트 참여자</th>
+								<th>프로젝트 참여자</th>
+								<th>참여자 추가</th>
 								<th>프로젝트 시작일</th>
 								<th>프로젝트 종료일</th>
-								<th>프로젝트 진행상태</th>
-								<th>프로젝트 마스터</th>
+								<th>진행상태</th>
+								<th>마스터</th>
 								<th>설정</th>
 							</tr>
 						</thead>
@@ -271,28 +272,34 @@
 	     <table align="center" class="modalTable2">
 	     <!-- 내용-->
 		     	<tr><td colspan="2">프로젝트명<div class="red-star">*</div></td></tr>
-		     	<tr><td colspan="2"><input type="text" name="projectName"/></td></tr>
+		     	<tr>
+		     		<td colspan="2">
+		     			<input type="text" id="updateName" name="projectName" readonly="readonly"/>
+		     			<input type="hidden" id="updateCode" name="projectCode"/>
+		     		</td>
+		     	</tr>
 		     	<tr>
 		     		<td>프로젝트 시작일자<div class="red-star">*</div></td>
 		     		<td>프로젝트 시작시간<div class="red-star">*</div></td>
 		     	</tr>
 		     	<tr>
-		     		<td><input type="date" name="projectStartDate"></td>
-		     		<td><input type="time" name="projectStartTime"></td>
+		     		<td><input type="date" id="updateStartDate" name="projectStartDate"></td>
+		     		<td><input type="time" id="updateStartTime" name="projectStartTime"></td>
 		     	</tr>
 		     	<tr>
 		     		<td>프로젝트 종료일자<div class="red-star">*</div></td>
 		     		<td>프로젝트 종료시간<div class="red-star">*</div></td>
 		     	</tr>
 		     	<tr>
-		     		<td><input type="date" name="projectEndDate"></td>
-		     		<td><input type="time" name="projectEndTime"></td>
+		     		<td><input type="date" id="updateEndDate" name="projectEndDate"></td>
+		     		<td><input type="time" id="updateEndTime" name="projectEndTime"></td>
 		     	</tr>
 		     	<tr><td>프로젝트 소개<div class="red-star">*</div></td></tr>
 		     	<tr>
 		     		<td colspan="2">
-		     		<input type="text" name="projectIntro"/>
+		     		<input type="text" id="updateIntro" name="projectIntro"/>
 		     		<div class="red-star">* 프로젝트 스크럼 마스터만 프로젝트 정보를 수정할 수 있습니다. </div>
+		     		<div class="red-star">* 프로젝트명은 수정이 불가능합니다. </div>
 		     		</td>
 		     	</tr>
 		     	<tr>
@@ -414,7 +421,18 @@ function updateProjectClick(c, i) {
 	var projectCode = c;
 	console.log("projectCode : " + projectCode);	
 	
-	
+	//controller에서 JSONArray으로 넘겨준 배열 사용하여 수정 모달에 내용 띄워주기
+	//프로젝트 기본 정보 넣을 input 상자가져오기 
+	var userProjectList = JSON.parse('${userProjectList}');
+	var selectedProjectHistoryList = JSON.parse('${selectedProjectHistoryList}');
+	console.log(selectedProjectHistoryList);
+	$('#updateName').val(selectedProjectHistoryList[i].project.projectName);
+	$('#updateCode').val(projectCode);
+	$('#updateStartDate').val(selectedProjectHistoryList[i].projectStartDate);
+	$('#updateStartTime').val(selectedProjectHistoryList[i].projectStartTime);
+	$('#updateEndDate').val(selectedProjectHistoryList[i].projectEndDate);
+	$('#updateEndTime').val(selectedProjectHistoryList[i].projectEndTime);
+	$('#updateIntro').val(selectedProjectHistoryList[i].projectIntro); 
 	
 	
     //닫기 버튼 클릭시 수정 모달 닫아주기

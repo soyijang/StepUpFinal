@@ -32,5 +32,8 @@ public interface ProjectDao {
 	
 	//사용자프로젝트리스트 생성하기위해 member 정보 기준으로 사용자팀코드 가져오기
 	UserTeamList selectUserTeamCode(SqlSessionTemplate sqlSession, Member m);
+
+	//프로젝트 수정
+	int updateProject(SqlSessionTemplate sqlSession, ProjectHistory projectHistory);
 	
 }

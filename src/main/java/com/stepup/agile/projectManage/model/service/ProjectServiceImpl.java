@@ -64,6 +64,12 @@ public class ProjectServiceImpl implements ProjectService{
 	public int insertUserProjectOne(Project project) {
 		return pd.insertUserProjectOne(sqlSession, project);
 	}
+
+	//프로젝트 수정
+	@Override
+	public int updateProject(ProjectHistory projectHistory) {
+		return pd.updateProject(sqlSession, projectHistory);
+	}
 	
 	
 

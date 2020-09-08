@@ -30,6 +30,9 @@ public interface ProjectService {
 	
 	//프로젝트 생성 후  사용자프로젝트리스트 생성(스크럼마스터 권한으로 생성)
 	int insertUserProjectOne(Project project);
+
+	//프로젝트 수정
+	int updateProject(ProjectHistory projectHistory);
 	
 	
 }
