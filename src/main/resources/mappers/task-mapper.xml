@@ -72,27 +72,6 @@
 	</resultMap>
 	
 	
-	<resultMap type="com.stepup.agile.projectTask.model.vo.TaskHistory" id="selectUserTaskRSet">
-		<id property="taskHistUpdateDate" column="TASK_HIST_UPDATE_DATE"/>
-		<result property="taskHistUpdateTime" column="TASK_HIST_UPDATE_TIME"/>
-		<result property="taskCode" column="TASK_CODE"/>
-		<result property="taskHistCode" column="TASK_HIST_CODE"/>
-		<result property="masterCode" column="MASTER_CODE"/>
-		<result property="userCode" column="USER_CODE"/>
-		<result property="taskHistValue" column="TASK_HIST_VALUE"/>
-		<result property="taskCategoryCode" column="TASK_CATEGORY_CODE"/>
-		<collection property="member" resultMap="memberResultSet"/>
-	    <collection property="userTeamList" resultMap="UserTeamListResultSet"/>
-	    <collection property="userProjectList" resultMap="UserProjectListResultSet"/>
-	    <collection property="sprint" resultMap="sprintResultSet"/>
-	    <collection property="taskList" resultMap="TaskListResultSet"/>
-	</resultMap>
-	
-	
-	
-	
-	
-	
 	<!-- misoKim taskHistory table -->
 	<resultMap type="com.stepup.agile.projectTask.model.vo.TaskHistory" id="TaskHistoryResultSetMi">
 		<id property="taskHistCode" column="TASK_HIST_CODE"/>
@@ -153,11 +132,65 @@
 		<result property="createTime" column="PROJECT_CREATE_TIME"/>
 	</resultMap>
 
+	<resultMap type="com.stepup.agile.projectTask.model.vo.ReplyList" id="replyListResultSet">
+		<id property="replyCode" column="REPLY_CODE"/>
+		<result property="userCode" column="USER_CODE"/>
+		<result property="taskCode" column="TASK_CODE"/>
+		<result property="replyStatus" column="REPLY_STATUS"/>
+	</resultMap>
+	
+	<resultMap type="com.stepup.agile.projectTask.model.vo.ReplyHistory" id="replyHistoryResultSet">
+		<id property="replyCode" column="REPLY_CODE"/>
+		<result property="replyUpdateDate" column="REPLY_UPDATE_DATE"/>
+		<result property="replyUpdateTime" column="REPLY_UPDATE_TIME"/>
+		<result property="replyContents" column="REPLY_CONTENTS"/>
+		<result property="replyType" column="REPLY_TYPE"/>
+		<result property="replyHistCode" column="REPLY_HIST_CODE"/>
+	</resultMap>
 
+	<resultMap type="com.stepup.agile.userInfo.model.vo.Attachment" id="AttachmentResultSet">
+      <id property="attachCode" column="ATTACH_CODE"/>
+      <result property="attachPath" column="ATTACH_PATH"/>
+      <result property="attachOriginName" column="ATTACH_ORIGIN_NAME"/>
+      <result property="attachChangeName" column="ATTACH_CHANGE_NAME"/>
+      <result property="attachUploadDate" column="ATTACH_UPLOAD_DATE"/>
+      <result property="attachUploadTime" column="ATTACH_UPLOAD_TIME"/>
+      <result property="taskHistCode" column="TASK_HIST_CODE"/>
+      <result property="userCode" column="USER_CODE"/>
+      <result property="attachType" column="ATTACH_TYPE"/>
+      <result property="thumbnailPath" column="THUMBNAIL_PATH"/>
+      <result property="attachSize" column="ATTACH_SIZE"/>
+   </resultMap>
 
-
-
-
+	<resultMap type="com.stepup.agile.projectTask.model.vo.TaskHistory" id="selectUserTaskRSet">
+		<id property="taskHistUpdateDate" column="TASK_HIST_UPDATE_DATE"/>
+		<result property="taskHistUpdateTime" column="TASK_HIST_UPDATE_TIME"/>
+		<result property="taskCode" column="TASK_CODE"/>
+		<result property="taskHistCode" column="TASK_HIST_CODE"/>
+		<result property="masterCode" column="MASTER_CODE"/>
+		<result property="userCode" column="USER_CODE"/>
+		<result property="taskHistValue" column="TASK_HIST_VALUE"/>
+		<result property="taskCategoryCode" column="TASK_CATEGORY_CODE"/>
+		<collection property="member" resultMap="memberResultSet"/>
+	    <collection property="userTeamList" resultMap="UserTeamListResultSet"/>
+	    <collection property="userProjectList" resultMap="UserProjectListResultSet"/>
+	    <collection property="sprint" resultMap="sprintResultSet"/>
+	    <collection property="taskList" resultMap="TaskListResultSet"/>
+	</resultMap>
+	
+	<!-- ReplyHistory + UserInfo + TaskList -->
+   <resultMap type="com.stepup.agile.projectTask.model.vo.ReplyHistory" id="taskReplySet">
+      <id property="replyHistCode" column="REPLY_HIST_CODE"/>
+      <result property="replyCode" column="REPLY_CODE"/>
+      <result property="replyUpdateDate" column="REPLY_UPDATE_DATE"/>
+      <result property="replyUpdateTime" column="REPLY_UPDATE_TIME"/>
+      <result property="replyContents" column="REPLY_CONTENTS"/>
+      <result property="replyType" column="REPLY_TYPE"/>
+      <collection property="member" resultMap="memberResultSet"/>
+      <collection property="replyList" resultMap="replyListResultSet"/>
+      <collection property="attachment" resultMap="AttachmentResultSet"/>
+      <collection property="taskList" resultMap="TaskListResultSet"/>
+   </resultMap>
 
 
 
