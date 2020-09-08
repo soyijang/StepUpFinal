@@ -711,7 +711,7 @@
  					var $contentTd = $("<td>").text(data.replyHistory[i].replyContents).css("width", "130px");
  					var $dateTd = $("<td>").text(data.replyHistory[i].replyUpdateDate).css("width", "80px");
  					var $reviseBtn = $("<td><button onclick='updateReply(" + replyCode + "," + memberCode ")';>수정</button>").css("width","50px");
- 					var $deleteBtn = $("<td><button>삭제</button></td>").css("width","50px");
+ 					var $deleteBtn = $("<td><button>삭제</button>").css("width","50px");
  					$('#replyHistCode').val(data.replyHistory[i].replyHistCode);
  					
  					$tr.append($pictureTd);

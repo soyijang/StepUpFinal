@@ -77,7 +77,7 @@ public class MemberController {
 	public String logout(SessionStatus status) {
 		status.setComplete();
 		
-		return "userInfo/login";
+		return "userInfo/loginOut/login";
 	}
 	
 	@RequestMapping("profile.me")
