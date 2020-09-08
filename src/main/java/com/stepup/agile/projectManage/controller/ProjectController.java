@@ -1,5 +1,6 @@
 package com.stepup.agile.projectManage.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.stepup.agile.projectManage.model.service.ProjectService;
 import com.stepup.agile.projectManage.model.vo.Project;
+import com.stepup.agile.projectManage.model.vo.ProjectHistory;
 import com.stepup.agile.projectTask.model.service.TaskService;
 import com.stepup.agile.projectTask.model.vo.ReplyHistory;
 import com.stepup.agile.projectTask.model.vo.ReplyList;
@@ -92,9 +94,6 @@ public class ProjectController {
 
 	      return mv;
 	   }
-	
-	
-	
 	
 	
 	

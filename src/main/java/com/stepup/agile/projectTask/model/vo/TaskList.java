@@ -34,7 +34,7 @@ public class TaskList implements java.io.Serializable{
 
 	
 	public TaskList(int taskCode, String taskCreateDate, String taskLevel, int sprintCode, String taskCreateTime,
-			int taskMaster, int taskUser, Member member, Team team, UserTeamList userTeamList,
+			int taskMaster, int taskUser, int headTaskCode, Member member, Team team, UserTeamList userTeamList,
 			UserProjectList userProjectList, Project project, ProjectHistory projectHistory, Sprint sprint,
 			SprintHistory sprintHistory, TaskCategory taskCategory) {
 		super();
@@ -144,14 +144,6 @@ public class TaskList implements java.io.Serializable{
 	public void setProjectHistory(ProjectHistory projectHistory) {
 		this.projectHistory = projectHistory;
 	}
-	
-	public Member getMember() {
-		return member;
-	}
-
-	public void setMember(Member member) {
-		this.member = member;
-	}
 
 	protected Team getTeam() {
 		return team;
@@ -201,6 +193,7 @@ public class TaskList implements java.io.Serializable{
 		this.taskCategory = taskCategory;
 	}
 
+	
 	@Override
 	public String toString() {
 		return "TaskList [taskCode=" + taskCode + ", taskCreateDate=" + taskCreateDate + ", taskLevel=" + taskLevel

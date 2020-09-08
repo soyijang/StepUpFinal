@@ -99,7 +99,6 @@ public interface TaskDao {
 
 	List<TaskHistory> searchBug(SqlSessionTemplate sqlSession, HashMap<String, Object> map);
 
-	
 
 
 
