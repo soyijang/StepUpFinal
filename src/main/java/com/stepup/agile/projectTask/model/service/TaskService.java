@@ -9,6 +9,7 @@ import com.stepup.agile.projectManage.model.vo.Project;
 import com.stepup.agile.projectTask.model.vo.TaskHistory;
 import com.stepup.agile.projectTask.model.vo.TaskList;
 import com.stepup.agile.userInfo.model.vo.Member;
+import com.stepup.agile.userMyTasks.model.vo.MyTask;
 
 public interface TaskService {
 	
@@ -21,6 +22,7 @@ public interface TaskService {
 	List<TaskHistory> selectUserTask(Member m);
 
 	String selectPjNonTask(Map<String, Object> map);
+
 
 
 }

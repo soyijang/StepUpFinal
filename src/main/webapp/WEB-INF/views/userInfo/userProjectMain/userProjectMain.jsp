@@ -289,6 +289,18 @@
 			console.log(mon);
 		}
 		
+		$.ajax({
+			url:"selectMyTasks.me",
+			dataType: "json",
+			success: function(data) {
+			      console.log("성공");
+			},
+			error: function(error) {
+			     // 에러가 발생한 경우
+			      console.log(error);
+			}
+		});
+		
 		
 		drawCalendar(today, mon, day);
 		
