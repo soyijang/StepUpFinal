@@ -187,5 +187,8 @@ public class TaskHistory implements java.io.Serializable{
 				+ userProjectList + ", taskList=" + taskList + ", sprint=" + sprint + ", taskCategory=" + taskCategory
 				+ ", sprintHistory=" + sprintHistory + "]";
 	}
+	
+	
+
 
 }
