@@ -15,18 +15,17 @@ public class Member implements java.io.Serializable {
 	private String userStatus;
 	private String userManagerYn;
 	private String userEnrollTime;
-	
 
 	private ReplyHistory replyHistory;
 	private Attachment attachment;
 	private UserTeamList userTeamList;
+	private int attachCode;
 	
 	public Member() {}
 
 	public Member(String userEmail, String userPwd, String userName, int userCode, String userPhone,
 			String userCompName, String userCompDept, String userCompJob, String userEnrollDate, String userStatus,
-			String userManagerYn, String userEnrollTime, ReplyHistory replyHistory, Attachment attachment, UserTeamList userTeamList) {
-
+			String userManagerYn, String userEnrollTime, ReplyHistory replyHistory, Attachment attachment, UserTeamList userTeamList, int attachCode) {
 		super();
 		this.userEmail = userEmail;
 		this.userPwd = userPwd;
@@ -43,6 +42,7 @@ public class Member implements java.io.Serializable {
 		this.replyHistory = replyHistory;
 		this.attachment = attachment;
 		this.userTeamList = userTeamList;
+		this.attachCode = attachCode;
 	}
 
 	public String getUserEmail() {
@@ -164,13 +164,37 @@ public class Member implements java.io.Serializable {
 		this.userTeamList = userTeamList;
 	}
 
+	public int getAttachCode() {
+		return attachCode;
+	}
+
+	public void setAttachCode(int attachCode) {
+		this.attachCode = attachCode;
+	}
+
+	public UserTeamList getUserTeamList() {
+		return userTeamList;
+	}
+
+	public void setUserTeamList(UserTeamList userTeamList) {
+		this.userTeamList = userTeamList;
+	}
+
+	public Attachment getAttachment() {
+		return attachment;
+	}
+
+	public void setAttachment(Attachment attachment) {
+		this.attachment = attachment;
+	}
+
 	@Override
 	public String toString() {
 		return "Member [userEmail=" + userEmail + ", userPwd=" + userPwd + ", userName=" + userName + ", userCode="
 				+ userCode + ", userPhone=" + userPhone + ", userCompName=" + userCompName + ", userCompDept="
 				+ userCompDept + ", userCompJob=" + userCompJob + ", userEnrollDate=" + userEnrollDate + ", userStatus="
 				+ userStatus + ", userManagerYn=" + userManagerYn + ", userEnrollTime=" + userEnrollTime
-				+ ", replyHistory=" + replyHistory + ", attachment=" + attachment + ", userTeamList=" + userTeamList + "]";
+				+ ", replyHistory=" + replyHistory + ", attachment=" + attachment + ", userTeamList=" + userTeamList + ", attachCode=" + attachCode + "]";
 
 	}
 

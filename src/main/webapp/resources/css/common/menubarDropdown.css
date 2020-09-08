@@ -1,8 +1,8 @@
 @charset "UTF-8";
- .dropdown {
-    width: 120px;
+ .myInfodropdown {
+    width: 150px; 
     display: inline-block;
-    background-color: #ffffff;
+    background-color: #2B2B49;
     box-shadow: 0 0 2px #cccccc;
     transition: all .5s ease;
     position: relative;
@@ -10,17 +10,21 @@
     color: #474747;
     height: 100%;
     text-align: center;
-    margin-right: 30px;
+  /*  margin-right: 30px;
     margin-left: 30px;
     border-radius: 10px;
-    border: 1px solid #dd0351;
+    border: 1px solid #dd0351;*/
   }
-  .dropdown .select {
+  .myInfodropdown-menu {
+  	width:200px;
+  } 
+  .myInfodropdown .select {
       cursor: pointer;
       display: block;
-      padding: 5px
+      padding: 5px;
+      width:36px;
   }
-  .dropdown .select > i {
+  .myInfodropdown .select > i {
       font-size: 13px;
       color: #888;
       cursor: pointer;
@@ -31,22 +35,22 @@
   .dropdown:hover {
       box-shadow: 0 0 4px #FEF5F8;
       text-decoration-color: #dd0351;
-      background-color: #FEF5F8;
-      border-color: #FEF5F8;
+      background-color: #2B2B49;
+      border-color: #2B2B49;
   }
-  .dropdown:active {
+  .myInfodropdown:active {
       background-color: #FEF5F8;
   }
-  .dropdown.active:hover,
-  .dropdown.active {
+  .myInfodropdown.active:hover,
+  .myInfodropdown.active {
       box-shadow: 0 0 4px #FEF5F8;
       border-radius: 2px 2px 0 0;
-      background-color: #f8f8f8;
+      background-color: #2B2B49;
   }
-  .dropdown.active .select > i {
+  .myInfodropdown.active .select > i {
       transform: rotate(-90deg)
   }
-  .dropdown .dropdown-menu {
+  .myInfodropdown .myInfodropdown-menu {
       position: absolute;
       background-color: #fff;
       width: 100%;
@@ -60,19 +64,19 @@
       overflow-y: auto;
       z-index: 9
   }
-  .dropdown .dropdown-menu li {
+  .myInfodropdown .myInfodropdown-menu li {
       padding: 5px;
       transition: all .2s ease-in-out;
       cursor: pointer
   } 
-  .dropdown .dropdown-menu {
+  .myInfodropdown .myInfodropdown-menu {
       padding: 0;
       list-style: none
   }
-  .dropdown .dropdown-menu li:hover {
+  .myInfodropdown .myInfodropdown-menu li:hover {
       color: #dd0351;
       background-color: #FEF5F8;
   }
-  .dropdown .dropdown-menu li:active {
+  .myInfodropdown .myInfodropdown-menu li:active {
       background-color: #FEF5F8;
   }
