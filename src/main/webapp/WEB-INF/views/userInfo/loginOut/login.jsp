@@ -9,6 +9,7 @@
  <style>
         body {
             background-color: #E5E5E5;
+            font-family : 'Noto Sans KR';
         }
         #logo {
             width: 200px;
