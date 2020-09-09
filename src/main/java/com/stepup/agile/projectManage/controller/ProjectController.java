@@ -10,9 +10,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.stepup.agile.projectBacklog.model.vo.Sprint;
 import com.stepup.agile.projectManage.model.service.ProjectService;
 import com.stepup.agile.projectManage.model.vo.Project;
 import com.stepup.agile.projectManage.model.vo.ProjectHistory;
@@ -131,6 +133,7 @@ public class ProjectController {
 			//사용자프로젝트리스트 생성(스크럼마스터 권한으로 생성)
 			//멤버의 이메일 주소 project에 넣음
 			project.setMember(m);
+			System.out.println("project controller 멤버의 이메일 주소를 project에 넣음 사용자 팀 정보 도" + project);
 			int result12 = ps.insertUserProjectOne(project);
 			
 			//완료 후 서블릿으로 이동
@@ -186,5 +189,30 @@ public class ProjectController {
 		}
 	}
 	
+	
+	
+	//프로젝트 멤버 초대를 위한 팀원 검색
+	@RequestMapping(value="searchTeamMember.pj",method=RequestMethod.POST)
+	public ModelAndView searchTeamMember(@ModelAttribute("loginUser") Member m, String searchName, int projectCode, ModelAndView mv) {
+		//System.out.println("searchName : " + searchName +", projectCode : "+ projectCode);
+		//멤버 검색
+		List<Member> searchTeamMember;
+		Map<String, Object> map = new HashMap<String, Object>();
+		//map.put("searchName", searchName);
+		//map.put("projectCode", projectCode);
+		//팀원 이름을 검색하기 위해 받아온 검색어를 member 객체에 임시로 담는다.
+		m.setUserName(searchName);
+		//map.put("Member", m);
+		//searchTeamMember = ps.searchTeamMember(map);
+		//조회한 내용은 팀원의 유저 번호와 이름
+		searchTeamMember = ps.searchTeamMember(m);
+		System.out.println("---------------------");
+		for(int i = 0 ; i < searchTeamMember.size(); i++) {
+			System.out.println("projectController searchTeamMember  " + i + "번 : "+ searchTeamMember.get(i).getUserName() + "유저팀코드 : "  +searchTeamMember.get(i).getUserTeamList().getUserTeamCode());
+		}
+		mv.addObject("searchTeamMember", searchTeamMember);
+		mv.setViewName("jsonView");
+		return mv;
+	}	
 	
 }

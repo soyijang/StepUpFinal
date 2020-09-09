@@ -3,6 +3,7 @@ package com.stepup.agile.projectManage.model.service;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.stepup.agile.projectManage.model.vo.Project;
 import com.stepup.agile.projectManage.model.vo.ProjectHistory;
@@ -38,6 +39,10 @@ public interface ProjectService {
 
 	//프로젝트 수정
 	int updateProjectOne(ProjectHistory projectHistory);
+
+	//프로젝트 멤버 추가를 위한 팀원 검색
+	//List<Member> searchTeamMember(Map<String, Object> map);
+	List<Member> searchTeamMember(Member m);
 	
 	
 }

@@ -72,7 +72,7 @@
 		<result property="userTeamCode" column="USER_TEAM_CODE"/>
 		<result property="userProjectAuthority" column="USER_PROJECT_AUTHORITY"/>
 	</resultMap>
-	
+	<!-- 사용자 프로젝트 소속 2-->
 	<resultMap type="com.stepup.agile.userInfo.model.vo.UserProjectList" id="UserProjectListResultSet2">
 		<id property="userProjectCode" column="USER_PROJECT_CODE"/>
 		<result property="userProjectUpdateDate" column="USER_PROJECT_UPDATE_DATE"/>
@@ -117,7 +117,22 @@
 
 	</resultMap>
 	
-	
+	<!-- 사용자정보 2 -->
+	<resultMap type="com.stepup.agile.userInfo.model.vo.Member" id="MemberResultSet2">
+		<id property="userCode" column="USER_CODE"/>
+		<result property="userEmail" column="USER_EMAIL"/>
+		<result property="userPwd" column="USER_PWD"/>
+		<result property="userName" column="USER_NAME"/>
+		<result property="userPhone" column="USER_PHONE"/>
+		<result property="userCompName" column="USER_COMP_NAME"/>
+		<result property="userCompDept" column="USER_COMP_DEPT"/>
+		<result property="userCompJob" column="USER_COMP_JOB"/>
+		<result property="userEnrollDate" column="USER_ENROLL_DATE"/>
+		<result property="userStatus" column="USER_STATUS"/>
+		<result property="userManagerYn" column="USER_MANAGER_YN"/>
+		<result property="userEnrollTime" column="USER_ENROLL_TIME"/>
+		<collection property="userTeamList" resultMap="UserTeamListResultSet"/>
+	</resultMap>
 	
 	<select id="selectUserProject" resultMap="selectUserPJRset" parameterType="Project">
 	 	SELECT *
@@ -315,16 +330,15 @@
           WHERE RK = 1
    </select>
 
-   <!-- Insert UserProjectList after Insert Project -->
-   <insert id="insertUserProjectOne" parameterType="Project">
-      INSERT INTO PROJECT_HISTORY
-      VALUES (SEQ_PROJECT_HIST.NEXTVAL, TO_CHAR(SYSDATE + 9/24, 'YYYY-MM-DD'),'N',#{projectStartDate},#{projectEndDate},#{projectCode},TO_CHAR(SYSDATE + 9/24, 'hh24:mi:ss'),
-            #{projectIntro}, #{projectStartTime},#{projectEndTime})
-   </insert>
+	<!-- Insert UserProjectList after Insert Project -->
+	<insert id="insertUserProjectOne" parameterType="Project">
+		INSERT INTO USER_PROJECT_LIST
+		VALUES (#{projectCode}, TO_CHAR(SYSDATE + 9/24, 'YYYY-MM-DD'),TO_CHAR(SYSDATE + 9/24, 'hh24:mi:ss'),DEFAULT,SEQ_USER_PROJECT.NEXTVAL,#{userTeamList.userTeamCode}, '01')
+	</insert>
    
 
    <!-- ProjectList Select -->
-   <select id="selectProjectList" resultMap="UserProjectListResultSet2" parameterType="UserProjectList">
+   <select id="selectProjectList" resultMap="UserProjectListResultSet2" parameterType="userProjectList">
       SELECT 
           I.USER_CODE, I.USER_NAME,
           J.PROJECT_CODE, J.PROJECT_NAME,
@@ -399,5 +413,24 @@
            ORDER BY PH.PROJECT_START_DATE DESC, PH.PROJECT_START_TIME, J.PROJECT_NAME ASC
    </select>
    
-	
+	<select id="searchTeamMember" resultMap="MemberResultSet2" parameterType="Member">
+		SELECT UI.USER_CODE, UI.USER_NAME, UTL.USER_TEAM_CODE
+			FROM USER_INFO UI, USER_TEAM_LIST UTL
+			WHERE UI.USER_CODE = UTL.USER_CODE
+			AND UTL.USER_TEAM_CODE IN (SELECT MAX(UTL.USER_TEAM_CODE)
+			                            FROM USER_TEAM_LIST UTL, USER_INFO UI
+			                            WHERE UI.USER_CODE = UTL.USER_CODE 
+			                            GROUP BY UI.USER_CODE, UI.USER_NAME)
+			AND UTL.USER_TEAM_YN = 'Y' 
+			AND UTL.TEAM_CODE = (SELECT UTL.TEAM_CODE 
+			                        FROM USER_INFO UI, USER_TEAM_LIST UTL
+			                        WHERE UI.USER_CODE = UTL.USER_CODE 
+			                        AND UTL.USER_TEAM_CODE = (SELECT MAX(UTL1.USER_TEAM_CODE) 
+			                                                    FROM USER_INFO UI1, USER_TEAM_LIST UTL1
+			                                                   WHERE UI1.USER_CODE = UTL1.USER_CODE 
+			                                                     AND UI1.USER_EMAIL = #{userEmail, jdbcType=VARCHAR}                                        
+			                                                     AND UTL1.USER_TEAM_YN = 'Y')
+			                        AND UI.USER_EMAIL = #{userEmail, jdbcType=VARCHAR})
+		AND UI.USER_NAME LIKE '%'|| #{userName, jdbcType=VARCHAR} ||'%'
+	</select>
 </mapper>

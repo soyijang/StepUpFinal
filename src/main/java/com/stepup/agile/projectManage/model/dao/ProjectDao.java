@@ -2,6 +2,7 @@ package com.stepup.agile.projectManage.model.dao;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 
@@ -40,6 +41,10 @@ public interface ProjectDao {
 
 	//프로젝트 수정
 	int updateProjectOne(SqlSessionTemplate sqlSession, ProjectHistory projectHistory);
+
+	//프로젝트 멤버 추가를 위한 팀원 검색
+	//List<Member> searchTeamMember(SqlSessionTemplate sqlSession, Map<String, Object> map);
+	List<Member> searchTeamMember(SqlSessionTemplate sqlSession, Member m);
 
 	
 	

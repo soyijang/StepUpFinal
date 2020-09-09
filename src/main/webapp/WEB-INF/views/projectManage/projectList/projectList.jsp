@@ -126,7 +126,7 @@
 										</c:forEach>
 									</td>
 									
-									<td><div class="project-participant-add" onclick="projectMemberAdd(${selectedProjectHistoryList.get(i).project.projectCode},${i})"><img class="icon_user_plus" src="/agile/resources/icon/common/icon_user_plus.png"></div></td>
+ 									<td><div class="project-participant-add" onclick="projectMemberAdd(${selectedProjectHistoryList.get(i).project.projectCode},'${i}')"><img class="icon_user_plus" src="/agile/resources/icon/common/icon_user_plus.png"></div></td> 
 									<!-- 시작일과 시작 시간 -->
 									<td>
 										${selectedProjectHistoryList.get(i).projectStartDate}
@@ -162,9 +162,8 @@
 										
 										
 									</td>
-									<!-- <td><div class="deleteBtn">· · ·</div></td> -->
 									<!-- 드래그 앤 드롭 ---------------------->    
-									<td><div class="dropdown"><!--  id="${status.index}" -->
+									<td><div class="dropdown">
 											<div class="select">
 												<span class="user-list">· · ·</span>
 											 </div>
@@ -322,15 +321,26 @@
  <div id="myModal3" class="modal3">
    <!-- Modal content -->
    <div class="modal-content3">
-   
      <p align="left" class ="modaltitle3" style="font-size:30px;">프로젝트 멤버 추가</p>
-     	<form action="invite.pj" method="post">
 	     <table align="center" class="modalTable3">
 	     <!-- 내용-->
 		     	<tr><td>팀원 검색<div class="red-star">*</div></td></tr>
 		     	<tr>
 		     		<td>
-		     			<input type="text" id="invite" name="projectName"/>
+
+	     				<input type="text" name="searchTeam" id="searchTeam" onkeyup="searchTeam();" autocomplete="off"/> 
+	     				<div class="dropdown1">
+							<div class="select">
+								<span><img class="icon_check_pink" src="/agile/resources/icon/indiv/icon_check_pink.png"></span>
+							 </div>
+							 <input type="hidden" name="userName" value="">
+							 <ul class="dropdown1-menu">
+							 		<li class="">김씨</li>
+							     	<li class="">이씨</li>
+							 </ul>
+						</div>
+	     				<input type="hidden" name="c" id="c" value="">
+	     				<input type="hidden" name="i" id="i" value="">
 		     		</td>
 		     	</tr>
 		     	<tr>
@@ -345,12 +355,27 @@
 		     	</tr>	
 		     	<tr>
 		     		<td>
-			     		<div class="btn-box"><input type="submit" class="rectangle6 modal3-ok" value="추가"><input type="reset" class="rectangle7 modal3-close" value="닫기"/></div>
+			     		<div class="btn-box"><input type="submit" class="rectangle6 modal3-ok" value="추가"><button class="rectangle7 modal3-close" onclick="closeModal3();" >닫기</button></div>
+		     		
+		     		
+<!-- 		     		<div class="dropdown1">				
+		     						<div class="select">
+					<span></span>
+				 </div>
+				 
+				 <input type="hidden" name="optionType" value="">
+				 <ul class="dropdown1-menu">
+				 		프로젝트 코드랑 index 같이 넣어줌 : 모달 띄울때 몇번째 class인지 번호 사용하기 위해서	
+				 		<li class="">수정</li>
+				     	<li class="">삭제</li>
+				 </ul>
+				</div> -->
+
+		     		
 		     		</td>
 		     	</tr>
 	     </table>
-	   </form>
-   </div>
+	</div>
  </div>
 
  
@@ -382,6 +407,32 @@ $('.dropdown .dropdown-menu li').click(
 		$('.msg').html(msg + input + '</span>');
 }); 
 //추가 설정 버튼 드롭다운 끝----------------------------------------------------------------------
+
+
+//멤버 검색 드롭다운 ------------------------------------------------------------------------
+$('.dropdown1').click(function() {
+	$(this).attr('tabindex', 1).focus();
+	$(this).toggleClass('active');
+	$(this).find('.dropdown1-menu').slideToggle(300);
+});
+
+$('.dropdown1').focusout(function() {
+	$(this).removeClass('active');
+	$(this).find('.dropdown1-menu').slideUp(300);
+});
+
+/* li 태그 클래스 값 input에 담아주기  id > class로 변경 */
+$('.dropdown1 .dropdown1-menu li').click(
+	function() {
+		$(this).parents('.dropdown1').find('#searchTeam').attr('value',$(this).text());
+});
+//선택 내용 글자 넣어주는 것 빼기
+/*   $('.dropdown1-menu li').click(function() {
+		var input = '<strong>' + $(this).parents('.dropdown').find('input').val() + '</strong>', msg = '<span class="msg">Hidden input value: ';
+		$('.msg').html(msg + input + '</span>');
+});   */
+//멤버 검색 드롭다운 끝----------------------------------------------------------------------
+
 
 
 /* 프로젝트 생성 모달창 관련 스크립트 ----------------------------------------------*/
@@ -456,16 +507,14 @@ function updateProjectClick(c, i) {
     $("#myModal2").css('display','block');
     
 	//클릭한 프로젝트의 코드 (수정할 것이라 필요함)
-	var projectCode = c;
-	console.log("projectCode : " + projectCode);	
+	var pCode = c;
 	
 	//controller에서 JSONArray으로 넘겨준 배열 사용하여 수정 모달에 내용 띄워주기
 	//프로젝트 기본 정보 넣을 input 상자가져오기 
 	var userProjectList = JSON.parse('${userProjectList}');
 	var selectedProjectHistoryList = JSON.parse('${selectedProjectHistoryList}');
-	console.log(selectedProjectHistoryList);
 	$('#updateName').val(selectedProjectHistoryList[i].project.projectName);
-	$('#updateCode').val(projectCode);
+	$('#updateCode').val(pCode);
 	$('#updateStartDate').val(selectedProjectHistoryList[i].projectStartDate);
 	$('#updateStartTime').val(selectedProjectHistoryList[i].projectStartTime);
 	$('#updateEndDate').val(selectedProjectHistoryList[i].projectEndDate);
@@ -487,41 +536,157 @@ function updateProjectClick(c, i) {
 /* 프로젝트 수정 모달창 관련 스크립트 끝 ----------------------------------------------------------------------------------------------------------------*/
 
 
+
+
+
+
+
+
+
 /* 프로젝트 멤버 초대 모달창 관련 스크립트 ----------------------------------------------------------------------------------------------------------------*/
-/* 업데이트할 프로젝트의 초대 버튼 클릭시 함수 실행 */
+//모달 안에서 검색 기능 구현하기 : 모달 열면서 모달에 값 주기, 모달에 있는 값 얻어서 Ajax로 검색하기
+//0. 팀원 초대 모달창에서 닫기 버튼을 누르면 모달이 닫히도록 함수 실행
+function closeModal3() {
+		$("#myModal3").css('display','none');
+		//모달 안에 있는 내용 초기화 해줌
+		$("#searchTeam").val(''); //검색을 위해 입력한 내용
+	    $("#c").val('');
+	    $("#i").val('');
+}
+
+//1.팀원 추가 버튼 클릭시 클릭한 행의 프로젝트 코드와 리스트 순서를 담은 함수를 실행하여 모달을 열고, 모달 안에있는 input type hidden에 정보를 담는다.
 function projectMemberAdd(c, i) {
-	// 수정 모달 띄우기 
+	/* 모달 띄워주기 */
     $("#myModal3").fadeIn(300); 
     $("#myModal3").css('display','block');
-    
-	//클릭한 프로젝트의 코드 
-	var addMemberProjectCode = c;
-	console.log("addMemberProjectCode : " + addMemberProjectCode);	
+    $("#c").val(c);
+    $("#i").val(i);
+}
+//2. 실시간 검색을 할 input 상자에 값을 입력하면 실행할 함수 작성한다. 함수에는  hidden input에 담겨있는 c, i 값을 매개변수로 함께 넘겨 받는다 (ajax로 정보 보내야해서) 
+function searchTeam(){
+    var c = $("#c").val();
+    var i = $("#i").val();
+    //console.log("코드 : " + c);
+    //console.log("인덱스 : " + i);
+  	//검색할 값 가져오기
+	var searchName = $("#searchTeam").val();
+	//console.log(searchName);
+	$.ajax({
+		url:"searchTeamMember.pj",
+		type:"post",
+		dataType : "json",
+		data: {
+			"projectCode" : c, 
+			"searchName" : searchName
+			}, success: function(data){
+				//console.log("성공");
+ 				//date.리스트 명으로 컨트롤러에서 보낸 정보 받아옴
+ 				for(var i = 0; i < data.searchTeamMember.lenth; i++){
+ 					console.log(data.searchTeamMember[i].userName);
+ 					console.log(data.searchTeamMember[i].userCode);
+ 					console.log(data.searchTeamMember[i].userTeamList.userTeamCode);
+ 				} 
+				
+				//드롭다운 박스 추가를 위해 input 상자 가져오기
+ 				var searchTeam = $('#searchTeam');
+ 				/* searchTeam.append("<ul class='dropdown1-menu'><li>문자<li></ul>");
+ 				 */
+ 				 
+ 				 
+ 				 
+ 			/* 	$('#searchTeam').autocomplete */
+			
+			
+			
+			
+		/*		<div class="select">
+					<span class="user-list">· · ·</span>
+				 </div>
+				 
+				 <input type="hidden" name="optionType" value="">
+				 <ul class="dropdown-menu">
+				 		<!-- 프로젝트 코드랑 index 같이 넣어줌 : 모달 띄울때 몇번째 class인지 번호 사용하기 위해서 -->	
+				 		<li class="updateBtn" onclick="updateProjectClick(${selectedProjectHistoryList.get(i).project.projectCode},${i})">수정</li>
+				     	<li class="deleteBtn">삭제</li>
+				 </ul>
+			</div> */
+				
+			}, error: function(){
+				//console.log("실패");
+			}
+		});
 	
-	//controller에서 JSONArray으로 넘겨준 배열 사용하여 수정 모달에 내용 띄워주기
-	//프로젝트 기본 정보 넣을 input 상자가져오기 
-/* 	var userProjectList = JSON.parse('${userProjectList}');
-	var selectedProjectHistoryList = JSON.parse('${selectedProjectHistoryList}');
-	console.log(selectedProjectHistoryList);
-	$('#updateName').val(selectedProjectHistoryList[i].project.projectName);
-	$('#updateCode').val(projectCode);
-	$('#updateStartDate').val(selectedProjectHistoryList[i].projectStartDate);
-	$('#updateStartTime').val(selectedProjectHistoryList[i].projectStartTime);
-	$('#updateEndDate').val(selectedProjectHistoryList[i].projectEndDate);
-	$('#updateEndTime').val(selectedProjectHistoryList[i].projectEndTime);
-	$('#updateIntro').val(selectedProjectHistoryList[i].projectIntro);  */
 	
-    //닫기 버튼 클릭시 수정 모달 닫아주기
-    var span3 = document.getElementsByClassName("modal3-close")[i];
-    span3.onclick = function() {
-    	//모달 닫고
-	    $("#myModal3").css('display','none');
-	    //input 상자 초기화
-	    for(var j = 0 ; j < 6; j++){
-	    	$('.modalTable3 input')[j].val('');
-	    }
-	}
-}	
+	
+}
+
+/* 업데이트할 프로젝트의 초대 버튼 클릭시 함수 실행 */ 
+/* 
+		
+		$.ajax({
+			url:"searchTeamMember.pj",
+			type:"post",
+			dataType : "json",
+			data: {
+				"projectCode" : c, 
+				"userName" : userName
+				}, success: function(data){ */
+				/* <div class="dropdown"><!--  id="${status.index}" -->
+				<div class="select">
+					<span class="user-list">· · ·</span>
+				 </div>
+				 <input type="hidden" name="optionType" value="">
+				 <ul class="dropdown-menu">
+				 		<!-- 프로젝트 코드랑 index 같이 넣어줌 : 모달 띄울때 몇번째 class인지 번호 사용하기 위해서 -->	
+				 		<li class="updateBtn" onclick="updateProjectClick(${selectedProjectHistoryList.get(i).project.projectCode},${i})">수정</li>
+				     	<li class="deleteBtn">삭제</li>
+				 </ul>
+				</div> */
+				
+				
+				/* console.log("성공"); */
+			/* 	
+			
+				var sprintListIngTable = $('#sprintListIngTable');
+				var sprintListFinTable = $('#sprintListFinTable');
+				sprintListIngTable.children().remove();
+				sprintListFinTable.children().remove();
+				
+				for(var i=0; i<data.searchSprint.length; i++){
+					var tbodyName = 'tbody' + data.searchSprint[i].sprintCode ;
+					var tbodyOnclick = '"' + data.searchSprint[i].sprintName + '"' ;
+					
+					if(data.searchSprint[i].sprintType != '03'){
+						
+						sprintListIngTable.append("<tbody class='sprinttbody' id='" + tbodyName 
+								 + "' onclick='tbodyClick(" + data.searchSprint[i].sprintCode + "," + tbodyOnclick + ")'><tr>"
+								 + "<td id='progressPercent" + i +"' class='progressPercent' rowspan='2'> " + data.searchSprint[i].sprintTaskCount 
+								 + "%</td><td class='sprintName' colspan='2'>" + data.searchSprint[i].sprintName + "</td></tr>"
+								 + "<tr><td class='progressLine' colspan='2'><progress value='" + data.searchSprint[i].sprintTaskCount + "' max='100'></progress></td>"
+								 + "<td><input type='hidden' name='sendSprintCode' id='sendSprintCode' value='" + data.searchSprint[i].sprint.sprintCode +"'></td></tr></tbody>"
+						)
+						 
+					}else if(data.searchSprint[i].sprintType == '03'){
+						sprintListFinTable.append("<tbody class='sprinttbody' id='" + tbodyName 
+								 + "' onclick='tbodyClick(" + data.searchSprint[i].sprintCode + "," + tbodyOnclick + ")'><tr>"
+								 + "<td id='progressPercent" + i +"' class='progressPercent' rowspan='2'> " + data.searchSprint[i].sprintTaskCount 
+								 + "%</td><td class='sprintName' colspan='2'>" + data.searchSprint[i].sprintName + "</td></tr>"
+								 + "<tr><td class='progressLine' colspan='2'><progress value='" + data.searchSprint[i].sprintTaskCount + "' max='100'></progress></td>"
+								 + "<td><input type='hidden' name='sendSprintCode' id='sendSprintCode' value='" + data.searchSprint[i].sprint.sprintCode +"'></td></tr></tbody>"
+						)
+					}
+				} */
+			/* 	
+			},
+			error: function(){
+				console.log("실패");
+			}
+		});
+		
+	} */
+	
+
+/* }	 */
 /* 프로젝트 멤버 초대 모달창 관련 스크립트 끝 ----------------------------------------------------------------------------------------------------------------*/
 
 
@@ -587,9 +752,9 @@ function projectMemberAdd(c, i) {
 /* 클릭한 프로젝트 코드 받아서 페이지 넘겨주기 ----------------------------------------------------*/	
  function projectClick(c) {
 	//클릭한 프로젝트의 코드 
-	var projectCode = c;
+	var projectCode2 = c;
 	//클릭한 것 출력
-	console.log(projectCode);	
+	console.log(projectCode2);	
 /* 	$.ajax({
 		type: "post",
 		url: "showTaskBoard.tb",
@@ -605,13 +770,18 @@ function projectMemberAdd(c, i) {
 		} 
 	}); */
 	
-	
-	
+	 location.href="showTaskBoardMain.tk"; 
 }
 
 
 /* 클릭한 프로젝트 코드 받아서 페이지 넘겨주기----------------------------------------------------*/
+/* 팀 검색 기능 ------------------------------------------------------------------------*/
 
+
+
+
+
+/* 팀 검색 기능 끝----------------------------------------------------------------------*/
 </script>
    
 </body>
