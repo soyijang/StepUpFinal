@@ -346,7 +346,7 @@
 				
 			    setTableHTML+='<table width="100%;">';
 			    setTableHTML+='<thead>';
-			    setTableHTML+='<tr><th class="th-title" style="font-size: 27px;" colspan="2">Calendar</th>';
+			    setTableHTML+='<tr><th class="th-title" style="font-size: 27px;" colspan="2">Calendar📆</th>';
 			    setTableHTML+='<tr><td colspan="2" style="text-align:center;">' + day + ", " + mon2 + '</td></tr>';
 			    setTableHTML+='</thead>';
 			    setTableHTML+='<tbody style="padding: 20px;">';
@@ -419,7 +419,7 @@
 					for(var j=0; j<7; j++){
 						if(thisWeek[j] == startDate){
 							console.log("thisweek : " + thisWeek[j]);
-						    var myTaskscontents = ('<li>' + data.myTasks[i].myTaskscontents + '</li>');
+						    var myTaskscontents = ('<ol class="circle"><li>' + data.myTasks[i].myTaskscontents + '</li>');
 						    
 							console.log(myTaskscontents);
 							$tdSche.eq(j).append(myTaskscontents);
