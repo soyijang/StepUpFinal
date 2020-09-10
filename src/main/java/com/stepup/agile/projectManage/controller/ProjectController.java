@@ -175,16 +175,22 @@ public class ProjectController {
 	
 	//프로젝트 수정 : projectHistory insert 형태로 수정
 	@RequestMapping("update.pj")
-	public String updateProjectOne(Model model, @ModelAttribute("loginUser") Member m, ProjectHistory projectHistory) {
-			//input 타입 타임 00:00:00 형식으로 변경
-			projectHistory.setProjectEndTime( projectHistory.getProjectEndTime()+ ":00");
-			projectHistory.setProjectStartTime( projectHistory.getProjectStartTime()+ ":00");
-			int result = ps.updateProjectOne(projectHistory);
-		if(result > 0) {
-			return "redirect:showProjectMain.pj";
+	public String updateProjectOne(Model model, @ModelAttribute("loginUser") Member m, ProjectHistory projectHistory, String updatePossible) {
+		if(updatePossible.equals("ok")) {
+				//input 타입 타임 00:00:00 형식으로 변경
+				projectHistory.setProjectEndTime( projectHistory.getProjectEndTime()+ ":00");
+				projectHistory.setProjectStartTime( projectHistory.getProjectStartTime()+ ":00");
+				int result = ps.updateProjectOne(projectHistory);
+			if(result > 0) {
+				return "redirect:showProjectMain.pj";
+			}else {
+				//project update fail
+				model.addAttribute("msg", "프로젝트 수정 실패!");
+				return "common/errorPage";
+			}
 		}else {
 			//project update fail
-			model.addAttribute("msg", "프로젝트 수정 실패!");
+			model.addAttribute("msg", "수정 권한이 없습니다!");
 			return "common/errorPage";
 		}
 	}
@@ -197,22 +203,53 @@ public class ProjectController {
 		//System.out.println("searchName : " + searchName +", projectCode : "+ projectCode);
 		//멤버 검색
 		List<Member> searchTeamMember;
-		Map<String, Object> map = new HashMap<String, Object>();
-		//map.put("searchName", searchName);
-		//map.put("projectCode", projectCode);
 		//팀원 이름을 검색하기 위해 받아온 검색어를 member 객체에 임시로 담는다.
 		m.setUserName(searchName);
 		//map.put("Member", m);
 		//searchTeamMember = ps.searchTeamMember(map);
 		//조회한 내용은 팀원의 유저 번호와 이름
 		searchTeamMember = ps.searchTeamMember(m);
-		System.out.println("---------------------");
-		for(int i = 0 ; i < searchTeamMember.size(); i++) {
-			System.out.println("projectController searchTeamMember  " + i + "번 : "+ searchTeamMember.get(i).getUserName() + "유저팀코드 : "  +searchTeamMember.get(i).getUserTeamList().getUserTeamCode());
-		}
+		//System.out.println("---------------------");
+		//for(int i = 0 ; i < searchTeamMember.size(); i++) {
+		//	System.out.println("projectController searchTeamMember  " + i + "번 : "+ searchTeamMember.get(i).getUserName() + "유저팀코드 : "  +searchTeamMember.get(i).getUserTeamList().getUserTeamCode());
+		//}
 		mv.addObject("searchTeamMember", searchTeamMember);
 		mv.setViewName("jsonView");
 		return mv;
 	}	
 	
+	
+	//프로젝트 멤버 추가
+	@RequestMapping("insertUserProjectMember.pj")
+	public String insertUserProjectMember(Model model, @ModelAttribute("loginUser") Member m, int userTeamCode, int projectCode, String userName) {
+		//팀코드가 0이 아니면 (팀 정보가 정확히 넘어온 것이기 때문에 insert 함)
+		if(userTeamCode != 0) {
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("userTeamCode", userTeamCode);
+			map.put("projectCode", projectCode);
+			
+			//중복으로 추가되지 않도록 유저프로젝트 소속 여부 확인해보기
+			UserProjectList userProject = ps.checkBelongTo(map);
+			System.out.println("중복인지 확인  : " + userProject);
+			//중복 아닐때
+			if(userProject == null) {
+				int result = ps.insertUserProjectMember(map);
+				System.out.println(result + "hashMap");
+				//성공할 경우 다시 리스트 조회해서 프로젝트 메인페이지로 이동
+				if(result > 0) {
+					return "redirect:showProjectMain.pj";	
+				}else {
+					model.addAttribute("msg", "추가 실패!");
+					return "common/errorPage";
+				}
+			//중복일 때	
+			}else {
+				model.addAttribute("msg", "기존 멤버입니다!");
+				return "common/errorPage";
+			}
+		}else {
+			model.addAttribute("msg", "팀원명 입력 오류로 실패!");
+			return "common/errorPage";
+		}
+	}	
 }

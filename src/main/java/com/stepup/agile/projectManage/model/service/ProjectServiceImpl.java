@@ -83,16 +83,23 @@ public class ProjectServiceImpl implements ProjectService{
 		return pd.updateProjectOne(sqlSession, projectHistory);
 	}
 	//프로젝트 멤버 추가를 위한 팀원 검색
-//	@Override
-//	public List<Member> searchTeamMember(Map<String, Object> map) {
-//		return pd.searchTeamMember(sqlSession, map);
-//	}
 	@Override
 	public List<Member> searchTeamMember(Member m) {
 		return pd.searchTeamMember(sqlSession, m);
 	}
-	
 
+	//프로젝트 멤버 추가
+	@Override
+	public int insertUserProjectMember(Map<String, Object> map) {
+		return pd.insertUserProjectMember(sqlSession, map);
+	}
+
+	//중복으로 추가되지 않도록 유저프로젝트 소속 여부 확인해보기
+	@Override
+	public UserProjectList checkBelongTo(Map<String, Object> map) {
+		return pd.checkBelongTo(sqlSession, map);
+	}
+	
 
 	
 }

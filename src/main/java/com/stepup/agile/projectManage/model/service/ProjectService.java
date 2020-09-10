@@ -41,8 +41,13 @@ public interface ProjectService {
 	int updateProjectOne(ProjectHistory projectHistory);
 
 	//프로젝트 멤버 추가를 위한 팀원 검색
-	//List<Member> searchTeamMember(Map<String, Object> map);
 	List<Member> searchTeamMember(Member m);
+
+	//프로젝트 멤버 추가
+	int insertUserProjectMember(Map<String, Object> map);
+
+	//중복으로 추가되지 않도록 유저프로젝트 소속 여부 확인해보기
+	UserProjectList checkBelongTo(Map<String, Object> map);
 	
 	
 }

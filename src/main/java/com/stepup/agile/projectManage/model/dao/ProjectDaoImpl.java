@@ -84,6 +84,18 @@ public class ProjectDaoImpl implements ProjectDao{
 		//return sqlSession.selectList("Project.searchTeamMember", map);
 		return sqlSession.selectList("Project.searchTeamMember", m);
 	}
+
+	//프로젝트 멤버 추가
+	@Override
+	public int insertUserProjectMember(SqlSessionTemplate sqlSession, Map<String, Object> map) {
+		return sqlSession.insert("Project.insertUserProjectMember", map);
+	}
+
+	//중복으로 추가되지 않도록 유저프로젝트 소속 여부 확인해보기
+	@Override
+	public UserProjectList checkBelongTo(SqlSessionTemplate sqlSession, Map<String, Object> map) {
+		return sqlSession.selectOne("Project.checkBelongTo", map);
+	}
 	
 
 

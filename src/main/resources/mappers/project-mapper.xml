@@ -330,16 +330,22 @@
           WHERE RK = 1
    </select>
 
+	<!-- master -->
 	<!-- Insert UserProjectList after Insert Project -->
 	<insert id="insertUserProjectOne" parameterType="Project">
 		INSERT INTO USER_PROJECT_LIST
 		VALUES (#{projectCode}, TO_CHAR(SYSDATE + 9/24, 'YYYY-MM-DD'),TO_CHAR(SYSDATE + 9/24, 'hh24:mi:ss'),DEFAULT,SEQ_USER_PROJECT.NEXTVAL,#{userTeamList.userTeamCode}, '01')
 	</insert>
+   <!-- member -->
+   	<insert id="insertUserProjectMember" parameterType="hashMap">
+		INSERT INTO USER_PROJECT_LIST
+		VALUES (#{projectCode}, TO_CHAR(SYSDATE + 9/24, 'YYYY-MM-DD'),TO_CHAR(SYSDATE + 9/24, 'hh24:mi:ss'),DEFAULT,SEQ_USER_PROJECT.NEXTVAL,#{userTeamCode}, '02')
+	</insert>
    
 
    <!-- ProjectList Select -->
    <select id="selectProjectList" resultMap="UserProjectListResultSet2" parameterType="userProjectList">
-      SELECT 
+            SELECT 
           I.USER_CODE, I.USER_NAME,
           J.PROJECT_CODE, J.PROJECT_NAME,
           T.USER_TEAM_CODE,
@@ -368,7 +374,7 @@
                                                           AND P.PROJECT_CODE = J.PROJECT_CODE
                                                           AND J.PROJECT_CODE = H.PROJECT_CODE 
                                                           AND H.PROJECT_STATUS = 'N'
-                                                          AND I.USER_EMAIL = #{userEmail, jdbcType=VARCHAR})
+                                                          AND I.USER_EMAIL =#{userEmail, jdbcType=VARCHAR})
                         ) 
                   WHERE LATEST = 1
                  )
@@ -376,11 +382,29 @@
             ) TY
           WHERE T.USER_TEAM_CODE = P.USER_TEAM_CODE
           AND P.PROJECT_CODE = J.PROJECT_CODE 
-            AND TY.PROJECT_CODE(+) = P.PROJECT_CODE
+        AND TY.PROJECT_CODE(+) = P.PROJECT_CODE
           AND J.PROJECT_CODE = PH.PROJECT_CODE
           AND I.USER_CODE  = T.USER_CODE
           AND T.USER_TEAM_YN = 'Y'
           AND P.USER_PROJECT_STATUS = 'Y'
+          AND I.USER_CODE IN (SELECT UI.USER_CODE
+                                FROM USER_INFO UI, USER_TEAM_LIST UTL
+                                WHERE UI.USER_CODE = UTL.USER_CODE
+                                AND UTL.USER_TEAM_CODE IN (SELECT MAX(UTL.USER_TEAM_CODE)
+                                                            FROM USER_TEAM_LIST UTL, USER_INFO UI
+                                                            WHERE UI.USER_CODE = UTL.USER_CODE 
+                                                            GROUP BY UI.USER_CODE, UI.USER_NAME)
+                                AND UTL.USER_TEAM_YN = 'Y'
+                                AND UTL.TEAM_CODE = (SELECT UTL.TEAM_CODE 
+                                                        FROM USER_INFO UI, USER_TEAM_LIST UTL
+                                                        WHERE UI.USER_CODE = UTL.USER_CODE 
+                                                        AND UTL.USER_TEAM_CODE = (SELECT MAX(UTL1.USER_TEAM_CODE) 
+                                                                                    FROM USER_INFO UI1, USER_TEAM_LIST UTL1
+                                                                                   WHERE UI1.USER_CODE = UTL1.USER_CODE 
+                                                                                     AND UI1.USER_EMAIL = #{userEmail, jdbcType=VARCHAR}
+                                                                                     AND UTL1.USER_TEAM_YN = 'Y')
+                                                        AND UI.USER_EMAIL = #{userEmail, jdbcType=VARCHAR})
+                               )
           AND J.PROJECT_CODE IN (SELECT J.PROJECT_CODE
                                    FROM USER_INFO I,
                                         USER_TEAM_LIST T,
@@ -393,7 +417,7 @@
                                     AND P.PROJECT_CODE = J.PROJECT_CODE
                                     AND J.PROJECT_CODE = H.PROJECT_CODE 
                                     AND H.PROJECT_STATUS = 'N'
-                                    AND I.USER_EMAIL = #{userEmail, jdbcType=VARCHAR})
+                                    AND I.USER_EMAIL =#{userEmail, jdbcType=VARCHAR})
              AND PH.PROJECT_HIST_CODE IN (SELECT PROJECT_HIST_CODE
                                               FROM (SELECT H.PROJECT_CODE,H.PROJECT_HIST_CODE, RANK() OVER (PARTITION BY H.PROJECT_CODE ORDER BY H.PROJECT_HIST_DATE DESC, H.PROJECT_HIST_TIME DESC) RK
                                                      FROM USER_INFO I,
@@ -407,10 +431,10 @@
                                                       AND P.PROJECT_CODE = J.PROJECT_CODE
                                                       AND J.PROJECT_CODE = H.PROJECT_CODE 
                                                       AND H.PROJECT_STATUS = 'N'
-                                                      AND I.USER_EMAIL = #{userEmail, jdbcType=VARCHAR})
+                                                      AND I.USER_EMAIL =#{userEmail, jdbcType=VARCHAR})
                                               WHERE RK = 1
                                          )                                      
-           ORDER BY PH.PROJECT_START_DATE DESC, PH.PROJECT_START_TIME, J.PROJECT_NAME ASC
+           ORDER BY PH.PROJECT_START_DATE DESC, PH.PROJECT_START_TIME DESC, J.PROJECT_NAME ASC, I.USER_NAME ASC
    </select>
    
 	<select id="searchTeamMember" resultMap="MemberResultSet2" parameterType="Member">
@@ -432,5 +456,12 @@
 			                                                     AND UTL1.USER_TEAM_YN = 'Y')
 			                        AND UI.USER_EMAIL = #{userEmail, jdbcType=VARCHAR})
 		AND UI.USER_NAME LIKE '%'|| #{userName, jdbcType=VARCHAR} ||'%'
+	</select>
+	<select id="checkBelongTo" resultMap="UserProjectListResultSet2" parameterType="hashMap">
+		SELECT *
+		  FROM USER_PROJECT_LIST
+		 WHERE PROJECT_CODE = #{projectCode, jdbcType=VARCHAR}
+		   AND USER_TEAM_CODE = #{userTeamCode, jdbcType=VARCHAR}
+		   AND USER_PROJECT_STATUS = 'Y'
 	</select>
 </mapper>
