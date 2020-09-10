@@ -306,7 +306,7 @@
 		     		<td colspan="2">
 			     		<div class="btn-box">
 			     			<input type="submit" class="rectangle6 modal2-ok" value="수정">
-			     			<input type="reset" class="rectangle7 modal2-close" value="닫기"/>
+			     			<button type="reset" class="rectangle7 modal2-close">닫기</button>
 			     		</div>
 		     		</td>
 		     	</tr>
