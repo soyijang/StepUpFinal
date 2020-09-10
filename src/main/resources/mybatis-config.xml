@@ -19,9 +19,11 @@
         <typeAlias type="com.stepup.agile.userInfo.model.vo.UserTeamList" alias="userTeamList"/>
         <typeAlias type="com.stepup.agile.userInfo.model.vo.UserProjectList" alias="userProjectList"/>
         <typeAlias type="com.stepup.agile.userInfo.model.vo.Attachment" alias="attachment"/>
+        <typeAlias type="com.stepup.agile.projectFeedback.model.vo.SurveyList" alias="SurveyList"/>
 	</typeAliases>
 	
  	<mappers>
+ 		<mapper resource="mappers/survey-mapper.xml"/>
  		<mapper resource="mappers/member-mapper.xml"/>
 		<mapper resource="mappers/sprint-mapper.xml"/>
 		<mapper resource="mappers/mytask-mapper.xml"/>
