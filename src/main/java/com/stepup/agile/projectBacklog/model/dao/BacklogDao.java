@@ -24,5 +24,9 @@ public interface BacklogDao {
 	int updateFinish(SqlSessionTemplate sqlSession, SprintHistory sprintHistory);
 
 	int updateStart(SqlSessionTemplate sqlSession, SprintHistory sprintHistory);
+
+	int updateTask(SqlSessionTemplate sqlSession, int taskCode);
+
+	List<Sprint> searchSprint(SqlSessionTemplate sqlSession, Member m, String sprintName);
 	
 }

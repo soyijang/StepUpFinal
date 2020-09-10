@@ -8,10 +8,11 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/indiv/sprintBacklog/sprintBacklog.css">
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/indiv/sprintBacklog/modal.css">
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/common/button.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/indiv/sprintBacklog/button.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/indiv/sprintBacklog/dropdown.css">
 
 </head>
 <body onload="tbodyClick(${sprintList.get(0).sprintCode},'${ sprintList.get(0).sprintName }')">
@@ -23,8 +24,7 @@
 	<div id="content">
 		<!-- 상단 프로젝트 제목 및 메뉴 이름 영역 -->
 		<div id="contentTitle">
-			<div id="projectTitle2">
-				프로젝트백로그 /<b id="projectName">
+			<div id="projectTitle2">프로젝트백로그 /<b id="projectName">
 				<c:out value="${ sprintList.get(0).project.projectName }" /></b>
 			</div>
 			<div id="menuTitle">ProjectBacklog</div>
@@ -34,10 +34,10 @@
 		<div id="topArea">
 			<!-- 검색 -->
 			<div id="searchSprint">
-				<input type="text" placeholder="Search or jump to ...">
+				<input type="text" id="sprintName" onkeyup="searchSprint();" placeholder="Search or jump to ..." autocomplete="off">
+				
 			</div>
 
-			<!-- 팀원 -->
 			<div></div>
 		</div>
 
@@ -48,15 +48,14 @@
 			<div id="sprint">
 				<div id="ListState">
 					<button id="rectangle2" class="btnIng">진행/예정</button>
-					<button id="rectangle2" class="btnFin">종료</button>
+					<button id="rectangle3" class="btnFin">종료</button>
 				</div>
 				
 				<!-- 진행중인 목록 -->
 				<div id="sprintList" class="sprintListIng">
-					<table>
+					<table id="sprintListIngTable">
 						<c:forEach var="i" begin="0" end="${fn:length(sprintList)-1}">
-							<tbody class="sprinttbody"
-								id="tbody${sprintList.get(i).sprintCode}"
+							<tbody class="sprinttbody" id="tbody${sprintList.get(i).sprintCode}"
 								onclick="tbodyClick(${sprintList.get(i).sprintCode},'${ sprintList.get(i).sprintName }')">
 								<c:if test="${sprintList.get(i).sprintType != '03'}">
 									<tr>
@@ -77,10 +76,9 @@
 				
 				<!-- 종료된 목록 -->
 				<div id="sprintList" class="sprintListFin" style="display: none;">
-					<table>
+					<table id="sprintListFinTable">
 						<c:forEach var="i" begin="0" end="${fn:length(sprintList)-1}">
-							<tbody class="sprinttbody"
-								id="tbody${sprintList.get(i).sprintCode}"
+							<tbody class="sprinttbody" id="tbody${sprintList.get(i).sprintCode}"
 								onclick="tbodyClick(${sprintList.get(i).sprintCode},'${ sprintList.get(i).sprintName }')">
 								<c:if test="${sprintList.get(i).sprintType == '03'}">
 									<tr>
@@ -117,7 +115,6 @@
 				
 				<!-- 스프린트정보 주입장소 -->
 				<div id="addPostPart"></div>
-
 				<div id="sprintTaskList">
 					<table>
 						<thead>
@@ -159,7 +156,7 @@
 					</tbody>
 				</table>
 				<div class="modalButtonArea">
-					<button class="" id="rectangle6" type="submit">저장</button>
+					<button class="rectangle6" type="submit">저장</button>
 					<div class="sprintclose" id="rectangle7">취소</div>
 				</div>
 				<input style="display: none" name="userProjectCode"
@@ -201,7 +198,7 @@
 					</tbody>
 				</table>
 				<div class="modalButtonArea">
-					<button class="" id="rectangle6" type="submit">저장</button>
+					<button class="rectangle6" type="submit">저장</button>
 					<div class="sprintupdateclose" id="rectangle7">취소</div>
 				</div>
 				<input style="display: none" name="userProjectCode"
@@ -226,7 +223,7 @@
 					</tbody>
 				</table>
 				<div class="modalButtonArea">
-					<button class="" id="rectangle6" type="submit">저장</button>
+					<button class="rectangle6" type="submit">저장</button>
 					<div class="updateFinishClose" id="rectangle7">취소</div>
 				</div>
 				
@@ -257,10 +254,10 @@
 					</tbody>
 				</table>
 				<div class="modalButtonArea">
-					<button class="" id="rectangle6" type="submit">저장</button>
+					<button class="rectangle6" type="submit">저장</button>
 					<div class="updateStartClose" id="rectangle7">취소</div>
 				</div>
-					<!-- 데이터넘기기용영역 -->
+				<!-- 데이터넘기기용영역 -->
 				<input type="hidden" class="updateInput updateSprintCode" name="sprintCode" value="" >
 				<input type="hidden" class="updateInput updateSprintName" name="sprintName" value="">
 				<input type="hidden" class="updateInput updateSprintStart" name="sprintHistUpdateTime" value="" >
@@ -271,12 +268,32 @@
 		</div>
 	</form>
 	
+	<!--  Task 종료 모달창 -->
+	<form action="finishTask.st" method="post">
+		<div id="finishTaskModal" class="modal">
+			<div class="modal-content">
+				<p align="left" class="modaltitle">🎉 Task 완료!</p>
+				<table align="center" class="modalTable">
+					<tbody>
+						<tr>
+							<td><span id="finishTask" name="finishTask"></span></td>
+						</tr>
+					</tbody>
+				</table>
+				<div class="modalButtonArea">
+					<button class="rectangle6" type="submit">저장</button>
+					<div class="finishTaskClose" id="rectangle7">취소</div>
+				</div>
+				<!-- 데이터넘기기용영역 -->
+				<input type="hidden" id="updateTaskCode" name="taskCode" value="">
+			</div>
+		</div>
+	</form>
+	
 	<div class="wrap-loading display-none">
    		<div><img src="/agile/resources/icon/common/icon_loading.gif"/></div>
-	</div>    
-
-
-
+	</div>   
+	
 
 <script type="text/javascript">	
 	
@@ -303,7 +320,7 @@
 		
 		/* 스프린트 상세정보 상단 표시 */
 		$.ajax({
-			type: "post",
+			type : 'post',
 			url: "showSprintDetail.st",
 			data : {
 				sprintCode : sprintCode
@@ -314,6 +331,7 @@
 				sprintBtnF.children().remove();
 				sprintBtnS.children().remove();
 				
+				/* --------------------------------첫번째 성공구문시작------------------------------- */
 				if(data!=null){
 					
 					/* 스프린트 진행상태에 따라 div스타일 변경 */
@@ -325,12 +343,14 @@
 					switch (sprintType) {
 						case '01': sprintType2='sprintCodeNon'; sprintButton='sprintStartBtn'; sprintBtnText='스프린트 시작'; 
 									$(sprintBtnS).css('display','block'); $(sprintBtnF).css('display','none'); 
+									$('.taskapply').css('display','inline-block');
 									sprintBtnS.prepend(
 									"<button class='" + sprintButton + "' id='rectangle5' style='width: 100px;'>"+ sprintBtnText +"</button>"		
 									)
 									break;
 						case '02': sprintType2='sprintCodeStarted'; sprintButton='sprintFinishBtn'; sprintBtnText='스프린트 종료'; 
 									$(sprintBtnF).css('display','block'); $(sprintBtnS).css('display','none'); 
+									$('.taskapply').css('display','inline-block');
 									/* 버튼주입 */
 									sprintBtnF.prepend(
 									"<button class='" + sprintButton + "' id='rectangle5' style='width: 100px;'>"+ sprintBtnText +"</button>"		
@@ -360,7 +380,7 @@
 					
 					/* 해당 스프린트에 포함된 task리스트 조회 */
 					$.ajax({
-						type: "post",
+						type : 'post',
 						url: "showTaskDetail.st",
 						data : {
 							sprintCode : sprintCode
@@ -378,79 +398,108 @@
 								var taskTotal = 0;
 							
 								if(data.sprintTaskList.length > 0){
-								var taskCode = [];
-								taskCode[0] =  data.sprintTaskList[0].taskCode;
-								var count = 0;
-								
-								for(var i = 1 ; i<data.sprintTaskList.length; i++){
+									var taskCode = [];
+									taskCode[0] =  data.sprintTaskList[0].taskCode;
+									var count = 0;
 									
-									//이미 앞 배열에 들어있는거랑 같지 않을때만 저장
-									if(data.sprintTaskList[i].taskCode != taskCode[count]){
-										//taskcode 저장
-										taskCode[count+1] = data.sprintTaskList[i].taskCode;
-										count++;
-									}
-								}
-								
-								//같은 taskCode끼리 묶어서
-								for(var i = 0; i<taskCode.length; i++){
-									//꺼내서 행 구분하는 작업
-										var taskName = '미지정';
-										var realTime = '미지정';
-										var expectTime = '미지정';
-										var point = '미지정';
-										var taskStatus = '미진행';
-										var bug = 'N';
-										var deleteyn = 'N';
-										var statusButton = 'taskStatus3';
-										var userCode ;
-							
-									for(var j = 0; j<data.sprintTaskList.length; j++){
-										//taskCode같으면 한 행으로 나오게!
-										userCode = data.sprintTaskList[j].userCode;	
-										if(taskCode[i] == data.sprintTaskList[j].taskCode){
-											
-											switch(data.sprintTaskList[j].taskCategoryCode){
-											case 'J' : taskName = data.sprintTaskList[j].taskHistValue; break;
-											case 'I' : taskStatus = data.sprintTaskList[j].taskHistValue; 
-														/* 스타일다른 버튼 적용하기 위해 clss명 다르게 지정해주기 */
-														if(taskStatus =='미진행'){
-															statusButton = 'taskStatus3';
-															tasknonFinish++;
-														}else if(taskStatus =='진행중'){
-															statusButton = 'taskStatus2';
-															taskIng++;
-														}else if(taskStatus =='완료'){
-															statusButton = 'taskStatus1';
-															taskFinish++;
-														}
-														break;
-											case 'A' : expectTime = data.sprintTaskList[j].taskHistValue; break;
-											case 'B' : realTime = data.sprintTaskList[j].taskHistValue; break;
-											case 'D' : point = data.sprintTaskList[j].taskHistValue; break;
-											case 'F' : deleteyn = data.sprintTaskList[j].taskHistValue; break;
-											case 'G' : bug = data.sprintTaskList[j].taskHistValue; break;
-											} 
+									for(var i = 1 ; i<data.sprintTaskList.length; i++){
+										
+										//이미 앞 배열에 들어있는거랑 같지 않을때만 저장
+										if(data.sprintTaskList[i].taskCode != taskCode[count]){
+											//taskcode 저장
+											taskCode[count+1] = data.sprintTaskList[i].taskCode;
+											count++;
 										}
 									}
-									addPostPart2.prepend(
-								"<tr><td class='taskCode'>"+ taskCode[i]+ "</td><td class='taskName'>" + taskName + "</td><td class='realTime'>" + realTime + "</td><td class='expectTime'>" + expectTime + "</td><td class='storyPoint'>" + 
-										point + "</td><td><span class='" +  statusButton + "'>" +  taskStatus + "</td><td class='person'>" + userCode + "</td><td class='more'>...</td></tr>"
-									);
-								}
-								taskTotal = tasknonFinish + taskIng + taskFinish;
+									
+									//같은 taskCode끼리 묶어서
+									for(var i = 0; i<taskCode.length; i++){
+										//꺼내서 행 구분하는 작업
+											var taskName = '미지정';
+											var realTime = '미지정';
+											var expectTime = '미지정';
+											var point = '미지정';
+											var taskStatus = '미진행';
+											var bug = 'N';
+											var deleteyn = 'N';
+											var statusButton = 'taskStatus3';
+											var userCode ;
 								
-								if (taskCode.length - taskTotal >0){
-									tasknonFinish += taskCode.length - taskTotal;
+										for(var j = 0; j<data.sprintTaskList.length; j++){
+											//taskCode같으면 한 행으로 나오게!
+											userCode = data.sprintTaskList[j].userCode;	
+											if(taskCode[i] == data.sprintTaskList[j].taskCode){
+												
+												switch(data.sprintTaskList[j].taskCategoryCode){
+												case 'J' : taskName = data.sprintTaskList[j].taskHistValue; break;
+												case 'I' : taskStatus = data.sprintTaskList[j].taskHistValue; 
+															/* 스타일다른 버튼 적용하기 위해 clss명 다르게 지정해주기 */
+															if(taskStatus =='미진행'){
+																statusButton = 'taskStatus3';
+																tasknonFinish++;
+															}else if(taskStatus =='진행중'){
+																statusButton = 'taskStatus2';
+																taskIng++;
+															}else if(taskStatus =='완료'){
+																statusButton = 'taskStatus1';
+																taskFinish++;
+															}
+															break;
+												case 'A' : expectTime = data.sprintTaskList[j].taskHistValue; break;
+												case 'B' : realTime = data.sprintTaskList[j].taskHistValue; break;
+												case 'D' : point = data.sprintTaskList[j].taskHistValue; break;
+												case 'F' : deleteyn = data.sprintTaskList[j].taskHistValue; break;
+												case 'G' : bug = data.sprintTaskList[j].taskHistValue; break;
+												} 
+											}
+										}
+										
+										var givetaskName = '"' + taskName +'"';
+										addPostPart2.prepend(
+										"<tr><td class='taskCode'>"+ taskCode[i]+ "</td><td class='taskName'>" + taskName + "</td><td class='realTime'>" + realTime + "</td><td class='expectTime'>" + expectTime + "</td><td class='storyPoint'>" + 
+											point + "</td><td><span class='" +  statusButton + "'>" +  taskStatus + "</td><td class='person'>" + userCode 
+											+ "</td><td class='more2'><div class='dropdown'><div class='select'><span id='more'>...</span><i class='fa fa-chevron-left'></i>"+
+					                    "</div><ul class='dropdown-menu'><li id='taskFinish' onclick='taskFinish(" + taskCode[i] + "," + givetaskName + ");'>종료</li><li id='taskUpdate'>수정</li><li id='taskDelete'>삭제</li></ul></div></td></tr>"
+					                    
+										);
+									}
 									taskTotal = tasknonFinish + taskIng + taskFinish;
+									
+									if (taskCode.length - taskTotal >0){
+										tasknonFinish += taskCode.length - taskTotal;
+										taskTotal = tasknonFinish + taskIng + taskFinish;
+									}
 								}
-							}
+								
 								$('.taskTotal').html('총 ' + taskTotal+ '개');
 								$('.tasknonFinish').html(tasknonFinish);
 								$('.taskIng').html(taskIng);
 								$('.taskFinish').html(taskFinish);
-								
+							
 							}
+
+							$('.dropdown').click(function() {
+								$(this).attr('tabindex', 1).focus();
+								$(this).toggleClass('active');
+								$(this).find('.dropdown-menu').slideToggle(300);
+							});
+						
+							$('.dropdown').focusout(function() {
+								$(this).removeClass('active');
+								$(this).find('.dropdown-menu').slideUp(300);
+							});
+						
+							$('.dropdown .dropdown-menu li').click(
+								function() {
+									$(this).parents('.dropdown').find('input').attr('value',$(this).attr('id'));
+							});
+						
+							$('.dropdown-menu li').click(
+								function() {
+									var input = $(this).parents('.dropdown').find('input').val()
+									
+							});
+							
 						},
 						error : function () {
 							addPostPart2.children().remove();
@@ -467,16 +516,30 @@
 			},
 			error : function() {
 				 addPostPart.children().remove();
-					addPostPart.prepend(
-						"<div id='sprintInfo'><div id='sprintCode'>" + "0" + "</div><div id='sprintInfomation'><table><tbody><tr><td>스프린트명 :" +
-						" 스프린트가 없습니다." + "</td></tr><tr><td>스프린트 시작일 :" +  "--.--.--"  + " / 예상소요시간 : " +  "--.--.--" + 
-						"m<td></tr></tbody></table></div><div id='sprintCounting'><table><tbody><tr><td><span class='pointAverage'>3.4pts</span></td><td>미완료</td><td><span class='tasknonFinish'>0</span></td><td>완료</td><td><span class='taskFinish'>1</span></td><td>진행중</td><td><span class='taskIng'>1</span></td><td>총 2개</td></tr></tbody></table></div>"+							
-						"</div><div id='sprintIntro'>스프린트 설명 : " + "스프린트가 없습니다." + "</div>"
-					);
+				 console.log("실패");
 			}
+			
 		});
 	}
+	
+	/* 테스크종료 모달 */
+    var finishTaskModal = document.getElementById("finishTaskModal");
+    var span5 = document.getElementsByClassName("finishTaskClose")[0];
+	
+	function taskFinish(taskCode, taskName) {
+		var taskName = taskName;
+		console.log(taskName );
+		$('#updateTaskCode').val(taskCode);
+		$('#finishTask').html('<b>' + taskName + '</b> Task를 종료 하시겠습니까?');
+		$(finishTaskModal).css('display','block');
+	}
+	
+	span5.onclick = function() {
+	    $(finishTaskModal).css('display','none');
+	}
+	
 </script>
+
 	<script type="text/javascript">
 	
 		/* task Detail 모달관련 설정 */
@@ -506,14 +569,17 @@
 	  	var btnIng = document.getElementsByClassName("btnIng")[0];
 	    
 	  	btnFin.onclick = function() {
+	  		$(btnIng).css('background','#C4C4C4');
+	  		$(btnFin).css('background','#2B2B49');
 		    $(sprintListFin).css('display','block');
 		    $(sprintListIng).css('display','none');
 		}
 	  	btnIng.onclick = function() {
+	  		$(btnIng).css('background','#2B2B49');
+	  		$(btnFin).css('background','#C4C4C4');
 		    $(sprintListIng).css('display','block');
 		    $(sprintListFin).css('display','none');
 		}
-	  	
 	  	
 	   /* 모달창 */
 		var newSprintModal = document.getElementById("newSprintModal");
@@ -592,5 +658,69 @@
 			$(taskmodal).css('display','block');
 		});
 
+		/* 검색 */
+		function searchSprint() {
+			
+			var sprintName = $("#sprintName").val();
+			
+			$.ajax({
+				url:"searchSprint.st",
+				type:"post",
+				data:{"sprintName" : sprintName},
+				dataType : "json",
+				success: function(data){
+					
+					var sprintListIngTable = $('#sprintListIngTable');
+					var sprintListFinTable = $('#sprintListFinTable');
+					sprintListIngTable.children().remove();
+					sprintListFinTable.children().remove();
+					
+					for(var i=0; i<data.searchSprint.length; i++){
+						var tbodyName = 'tbody' + data.searchSprint[i].sprintCode ;
+						var tbodyOnclick = '"' + data.searchSprint[i].sprintName + '"' ;
+						
+						if(data.searchSprint[i].sprintType != '03'){
+							
+							sprintListIngTable.append("<tbody class='sprinttbody' id='" + tbodyName 
+									 + "' onclick='tbodyClick(" + data.searchSprint[i].sprintCode + "," + tbodyOnclick + ")'><tr>"
+									 + "<td id='progressPercent" + i +"' class='progressPercent' rowspan='2'> " + data.searchSprint[i].sprintTaskCount 
+									 + "%</td><td class='sprintName' colspan='2'>" + data.searchSprint[i].sprintName + "</td></tr>"
+									 + "<tr><td class='progressLine' colspan='2'><progress value='" + data.searchSprint[i].sprintTaskCount + "' max='100'></progress></td>"
+									 + "<td><input type='hidden' name='sendSprintCode' id='sendSprintCode' value='" + data.searchSprint[i].sprint.sprintCode +"'></td></tr></tbody>"
+							)
+							 
+						}else if(data.searchSprint[i].sprintType == '03'){
+							sprintListFinTable.append("<tbody class='sprinttbody' id='" + tbodyName 
+									 + "' onclick='tbodyClick(" + data.searchSprint[i].sprintCode + "," + tbodyOnclick + ")'><tr>"
+									 + "<td id='progressPercent" + i +"' class='progressPercent' rowspan='2'> " + data.searchSprint[i].sprintTaskCount 
+									 + "%</td><td class='sprintName' colspan='2'>" + data.searchSprint[i].sprintName + "</td></tr>"
+									 + "<tr><td class='progressLine' colspan='2'><progress value='" + data.searchSprint[i].sprintTaskCount + "' max='100'></progress></td>"
+									 + "<td><input type='hidden' name='sendSprintCode' id='sendSprintCode' value='" + data.searchSprint[i].sprint.sprintCode +"'></td></tr></tbody>"
+							)
+						}
+					}
+					
+				},
+				error: function(data){
+					console.log("실패");
+				}
+			});
+			
+		}
 	</script>
+	
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

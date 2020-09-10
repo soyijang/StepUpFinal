@@ -17,7 +17,6 @@ public class BacklogDaoImpl implements BacklogDao {
 
 	@Override
 	public List<Sprint> selectSprint(SqlSessionTemplate sqlSession, Member m) {
-		System.out.println(m.getUserEmail());
 		return sqlSession.selectList("Sprint.selectSprint", m.getUserEmail());
 	}
 
@@ -44,8 +43,21 @@ public class BacklogDaoImpl implements BacklogDao {
 
 	@Override
 	public int updateFinish(SqlSessionTemplate sqlSession, SprintHistory sprintHistory) {
-		// TODO Auto-generated method stub
-		return sqlSession.insert("Sprint.updateFinish", sprintHistory);
+		
+		int result = 0;
+		List<TaskHistory> taskType = sqlSession.selectList("Sprint.selectTaskType", sprintHistory);
+		
+		for(int i=0; i<taskType.size(); i++) {
+			//테스크 진행상태가 != 완료 이면 안됌
+			if(!taskType.get(i).getTaskHistValue().equals("완료")) {
+				result=2; break;
+			}
+		}
+		if(result != 2) {
+			result = sqlSession.insert("Sprint.updateFinish", sprintHistory);
+		}
+		return result;
+		
 	}
 
 	@Override
@@ -53,21 +65,43 @@ public class BacklogDaoImpl implements BacklogDao {
 		
 		int result = 0;
 		List<SprintHistory> SprintType = sqlSession.selectList("Sprint.selectSprintType", sprintHistory);
-		System.out.println("스프린트 타입 리스트"+SprintType);
 		
 		for(int i=0; i<SprintType.size(); i++) {
 			if(SprintType.get(i).getSprintTypeYn().equals("02")) {
 				result=2; break;
 			}
 		}
-
 		if(result != 2) {
 			result = sqlSession.insert("Sprint.updateStart", sprintHistory);
 		}
-		
-		System.out.println("돌려준 return : " + result);
 		return result;
 	}
 
-	
+	@Override
+	public int updateTask(SqlSessionTemplate sqlSession, int taskCode) {
+		return sqlSession.insert("Sprint.updateTask", taskCode);
+	}
+
+	@Override
+	public List<Sprint> searchSprint(SqlSessionTemplate sqlSession, Member m, String sprintName) {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("sprintName", "%"+sprintName+"%");
+		map.put("userEmail", m.getUserEmail());
+		
+		return sqlSession.selectList("Sprint.searchSprint", map);
+	}
+
 }
+
+
+
+
+
+
+
+
+
+
+
+

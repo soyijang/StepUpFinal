@@ -22,5 +22,9 @@ public interface BacklogService {
 	int updateFinish(SprintHistory sprintHistory);
 
 	int updateStart(SprintHistory sprintHistory);
+
+	int updateTask(int taskCode);
+
+	List<Sprint> searchSprint(Member m, String sprintName);
 	
 }

@@ -111,7 +111,7 @@
 <body>
 	<form action="insert.me" method="post">
 	<div id="wrapper">
-    <div><img src="${ contextPath }/resources/images/logo/logo_trans.png" id="logo"></div>
+    <div><img src="/agile/resources/images/logo/logo_trans.png" id="logo"></div>
     <div class="login">
         <div id="title"><label>Sign up for your account</label></div>
         <input type="text" placeholder="Enter your email" id="email" name="userEmail">
@@ -122,9 +122,9 @@
         <hr>
         <div class="account" id="sign"><label>Already have an Stepup account?</label><a href="backlogin.me">Login</a></div>    
     </div>
-    <div id="man"><img src="${ contextPath }/resources/images/files/login_man.png"></div>
-    				<div id="woman"><img src="${ contextPath }/resources/images/files/login_woman.png"></div>
-    				<div><img src="${ contextPath }/resources/images/logo/logo_trans.png" id="bottomlogo"></div>
+    <div id="man"><img src="/agile/resources/images/files/login_man.png"></div>
+    				<div id="woman"><img src="/agile/resources/images/files/login_woman.png"></div>
+    				<div><img src="/agile/resources/images/logo/logo_trans.png" id="bottomlogo"></div>
     <div id="bottomlabel"><label>with one account, can meet everyone</label></div>
     </div>
     </form>
