@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.stepup.agile.projectManage.model.vo.Project;
+import com.stepup.agile.projectTask.model.vo.Bookmark;
 import com.stepup.agile.projectTask.model.vo.ReplyHistory;
 import com.stepup.agile.projectTask.model.vo.ReplyList;
 import com.stepup.agile.projectTask.model.vo.TaskHistory;
@@ -78,7 +79,7 @@ public interface TaskService {
 	int insertCloneTask2(HashMap<String, Object> map2);
 	//14.삭제 이벤트
 	int deleteCloneTask(HashMap<String, Object> map);
-	
+
 	
 	//Bug
 	List<TaskHistory> selectUserTask(Member m);
@@ -96,30 +97,8 @@ public interface TaskService {
 	int deleteCloneBug(HashMap<String, Object> map);
 
 	List<TaskHistory> searchBug(HashMap<String, Object> map);
-
-
-
-
-
-
-
-
-
-
-
-
-
 	
-
-
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	//miso Kim's task ------------------------------------------------------------------------------------
+	//테스크 리스트 조회 후 보드 메인 view로 이동(현재 진행중인 스프린트의 tasklist만 조회)
+	List<TaskHistory> selectTaskList(HashMap<String, Object> map);
 }

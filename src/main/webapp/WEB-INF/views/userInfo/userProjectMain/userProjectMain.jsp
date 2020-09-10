@@ -50,20 +50,20 @@
 	                             <tr>
 	                            	<td rowspan="2" style=" width:50px;"><img src="/agile/resources/images/profile/dayoon_202008152056.png"></td>
 	                            	<td rowspan="2" style=" width:170px;"><div name="projectName">${ i.projectName }</div></td>
-	                            	<td style=" width:110px; background-color:#FEF4E5; border-radius:7px;">진행중 이슈</td>
+	                            	<td style=" width:140px; background-color:#2B2B49; border-radius:7px; color:white;">진행중 테스크</td>
 	                            	<td style=" width:30px; ">${ pjList2[status.index].taskCnt }</td>
 	                            </tr>
 	                            <tr>
-	                            	<td style="width:110px; background-color:#FFDFDF; border-radius:7px;">미해결 이슈</td>
+	                            	<td style="width:140px; background-color:#C4C4C4; border-radius:7px;">미진행 테스크</td>
 	                            	<td style=" width:30px;">${ i.taskCnt }</td>
 	                            </tr>
 	                            <tr>
-	                            	<td colspan="3" style="">status</td>
+	                            	<td colspan="3" style="">Status</td>
 	                            	<c:if test="${ 0 ne i.taskCnt }">
-	                            	<td style="text-align:right; width:50px;"><img src="/agile/resources/images/indiv/main/userInfo/userProjectMain/img_status_ing.png" width="70px;" height="20px;"></td>
+	                            	<td style="text-align:right; width:30px;"><img src="/agile/resources/images/indiv/main/userInfo/userProjectMain/img_status_ing2.png" width="70px;" height="20px;"></td>
 	                            	</c:if>
 	                            	<c:if test="${ 0 eq i.taskCnt and 0 eq pjList2[status.index].taskCnt }">
-	                            	<td style="text-align:right; width:50px;"><img src="/agile/resources/images/indiv/main/userInfo/userProjectMain/img_status_non.png" width="70px;" height="20px;"></td>
+	                            	<td style="text-align:right; width:30px;"><img src="/agile/resources/images/indiv/main/userInfo/userProjectMain/img_status_non2.png" width="70px;" height="20px;"></td>
 	                            	</c:if>
 	                            </tr>
 	                            </tbody>
@@ -130,13 +130,13 @@
                       
                          				<td style="width:800px;">Status</td>
                          				<c:if test="${ taskStatus[status.index] eq '진행중' }">
-                         				<td style="width:240px;"><img src="/agile/resources/images/indiv/main/userInfo/userProjectMain/img_status_ing.png" width="70px;" height="20px;"></td>
+                         				<td style="width:240px;"><img src="/agile/resources/images/indiv/main/userInfo/userProjectMain/img_status_ing2.png" width="70px;" height="20px;"></td>
                          				</c:if>
                          				<c:if test="${ taskStatus[status.index] eq '완료' }">
-                         				<td style="width:240px;"><img src="/agile/resources/images/indiv/main/userInfo/userProjectMain/img_status_com.png" width="70px;" height="20px;"></td>
+                         				<td style="width:240px;"><img src="/agile/resources/images/indiv/main/userInfo/userProjectMain/img_status_com2.png" width="70px;" height="20px;"></td>
                          				</c:if>
                          				<c:if test="${ taskStatus[status.index] eq '미진행' }">
-                         				<td style="width:240px;"><img src="/agile/resources/images/indiv/main/userInfo/userProjectMain/img_status_non.png" width="70px;" height="20px;"></td>
+                         				<td style="width:240px;"><img src="/agile/resources/images/indiv/main/userInfo/userProjectMain/img_status_non2.png" width="70px;" height="20px;"></td>
                          				</c:if>
                          				<c:if test="${ empty taskStatus[status.index] }">
                          				<td style="width:240px;"><img src="/agile/resources/images/indiv/main/userInfo/userProjectMain/img_status_nonexist.png" width="75px;" height="20px;"></td>
@@ -157,12 +157,15 @@
                          <div id="cht-cont">
                             <div id="cht">
                                <div class="pie-chart1"><span class="center"><p id="to-ch">${ nonTaskCnt + ingTaskCnt + comTaskCnt }</p><p id="to-ch-ti">전체업무</p></span></div>
-                                <div id="cht-st" style="width:50%">
-	                               <div id="no-ch" class="cht-tt"><img src="/agile/resources/images/indiv/main/userInfo/userProjectMain/img_over_task.png" width="10px;" height="10px;"> 미진행</div><span id="no-ch-to">${ nonTaskCnt }</span><br>
+                                <div id="cht-st">
+	                               <div id="no-ch" class="cht-tt"><img src="/agile/resources/images/indiv/main/userInfo/userProjectMain/img_non_task.png" width="10px;" height="10px;"> 미진행</div><span id="no-ch-to">${ nonTaskCnt }</span><br>
 		                           <div id="ing-ch" class="cht-tt"><img src="/agile/resources/images/indiv/main/userInfo/userProjectMain/img_ing_task.png" width="10px;" height="10px;"> 진행중 </div><span id="ing-ch-to">${ ingTaskCnt }</span><br>
 		                           <div id="com-ch" class="cht-tt"><img src="/agile/resources/images/indiv/main/userInfo/userProjectMain/img_com_task.png" width="10px;" height="10px;"> 완료</div><span id="com-ch-to">${ comTaskCnt }</span>
 	                           </div>
                             </div>
+                           <!--  <script src="https://www.amcharts.com/lib/4/core.js"></script>
+							<script src="https://www.amcharts.com/lib/4/charts.js"></script>
+							<div id="chartdiv"></div> -->
                          </div>
                       </div>
                       <!-- 차트 영역 끝 -->
@@ -182,34 +185,41 @@
 </body>
 </body>
 <script>
-	<!-- 캘린더 -->
-	//이번주 일주일 구하기
+	/* 이번주 일주일 구하기 */
 	var currentDay = new Date();  
 	var theYear = currentDay.getFullYear();
-	var theMonth = currentDay.getMonth();
+	var theMonth = Number(currentDay.getMonth() + 1);
 	var theDate  = currentDay.getDate();
 	var theDayOfWeek = currentDay.getDay();
-	 
+	
+	console.log("currentDay" + currentDay);
+	console.log("theYear " + theYear);
+	console.log("theMonth" + theMonth);
+	console.log("theDate" + theDate);
+	console.log("theDayOfWeek" + theDayOfWeek);
+	
 	var thisWeek = [];
-	 
 	for(var i=0; i<7; i++) {
-	  var resultDay = new Date(theYear, theMonth, theDate + (i - theDayOfWeek));
+	  var resultDay = new Date(theYear, theMonth, theDate + i);
 	  var yyyy = resultDay.getFullYear();
-	  var mm = Number(resultDay.getMonth()) + 1;
+	  var mm = resultDay.getMonth();
 	  var dd = resultDay.getDate();
 	 
+	  console.log("result day : " + resultDay);
+	  console.log("yyyy" + yyyy);
+	  console.log("mm : " + mm);
+	  console.log("dd" + dd);
+	  
 	  mm = String(mm).length === 1 ? '0' + mm : mm;
 	  dd = String(dd).length === 1 ? '0' + dd : dd;
 	 
-	  //thisWeek[i] = yyyy + '-' + mm + '-' + dd;
+	  console.log("연산자 mm : " + mm);
+	  console.log("연산자 mm : " + dd);
+	  
 	  thisWeek[i] = dd;
+	  //thisWeek[i] = yyyy + '-' + mm + '-' + dd;
 	}
-	 
-	console.log(thisWeek);
-	
-	
-	
-	
+	console.log("thisweek" + thisWeek);
 	/**
 	 *  yyyyMMdd 포맷으로 반환
 	 */
@@ -225,11 +235,14 @@
 	
 	
 	$(document).ready(function(){
-		var date = new Date();
-		console.log(date);
-		date = getFormatDate(date);
 		
+		var date = new Date();
+		date = getFormatDate(date);
 		console.log("포맷팅된 날짜 : " + date);
+		
+		var year;
+		year = date.substring(0,4);
+		console.log("올해 : " + year);
 		
 		var day;
 		day = date.substring(6, 8);
@@ -238,186 +251,248 @@
 		var today;
 		today = date.substring(10, 8);
 		console.log("오늘 요일 : " + today);
-		
-		/* if(today == '0') {
-			today = '일';
-		} else if(today == '1'){
-			today = '월';
-		} else if(today == '2'){
-			today = '화';
-		} else if(today == '3'){
-			today = '수';
-		} else if(today == '4'){
-			today = '목';
-		} else if(today == '5'){
-			today = '금';
-		} else if(today == '6'){
-			today = '토';
-		} */
 
 		var mon;
 		mon = date.substring(6, 4);
 		
+		var mon2;
+		
 		if(mon == '01'){
-			mon = 'Jan';
+			mon2 = 'Jan';
 			console.log(mon);
 		} else if(mon == '02'){
-			mon = 'Feb';
+			mon2 = 'Feb';
 			console.log(mon);
 		} else if(mon == '03'){
-			mon = 'Mar';
+			mon2 = 'Mar';
 			console.log(mon);
 		} else if(mon == '04'){
-			mon = 'Apr';
+			mon2 = 'Apr';
 			console.log(mon);
 		} else if(mon == '05'){
-			mon = 'May';
+			mon2 = 'May';
 			console.log(mon);
 		} else if(mon == '06'){
-			mon = 'Jun';
+			mon2 = 'Jun';
 			console.log(mon);
 		} else if(mon == '07'){
-			mon = 'Jul';
+			mon2 = 'Jul';
 			console.log(mon);
 		} else if(mon == '08'){
-			mon = 'Aug';
+			mon2 = 'Aug';
 			console.log(mon);
 		} else if(mon == '09'){
-			mon = 'Sep';
+			mon2 = 'Sep';
 			console.log(mon);
 		} else if(mon == '10'){
-			mon = 'Oct';
+			mon2 = 'Oct';
 			console.log(mon);
 		} else if(mon == '11'){
-			mon = 'Nov';
+			mon2 = 'Nov';
 			console.log(mon);
 		} else if(mon == '12'){
-			mon = 'Dec';
+			mon2 = 'Dec';
 			console.log(mon);
 		}
 		
-		drawCalendar(today, mon, day);
+		drawCalendar(year, today, mon, mon2, day);
 		
 		
 	});
 	
-	function drawCalendar(today, mon, day){
-		var setTableHTML = "";
-		var num = String(today);
+	function drawCalendar(year, today, mon, mon2, day){
+		var myTasksDate =[];
+		var myTasksContent =[];
 		
-	    setTableHTML+='<table width="100%;">';
-	    setTableHTML+='<thead>';
-	    setTableHTML+='<tr><th class="th-title" style="font-size: 27px;">Calendar</th>';
-	    setTableHTML+='<th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="/agile/resources/icon/common/icon_gear.png" width="20px;" height="20px;""></th>';
-	    setTableHTML+='<tr><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + day + ", " + mon + '</td>';
-	    setTableHTML+='<td></td></tr>';
-	    setTableHTML+='</thead>';
-	    setTableHTML+='<tbody style="padding: 20px;">';
-	    
-	    for(var i=0;i<7;i++){
-	        setTableHTML+='<tr style="font-size: 12px;">';
-	        setTableHTML+='<td width="10px" height="100px">';
-	        setTableHTML+= thisWeek[i];
-	        setTableHTML+='<br>';
-		     	
-		        if(today == 0) {
-		        	num = 'Sun';
-				} else if(today == 1){
-					num = 'Mon';
-				} else if(today == 2){
-					num = 'Tue';
-				} else if(today == 3){
-					num = 'Wed';
-				} else if(today == 4){
-					num = 'Tur';
-				} else if(today == 5){
-					num = 'Fri';
-				} else if(today == 6){
-					num = 'Sat';
+		var myTaskMonth = [];		
+		var myTaskday = [];
+		
+		$.ajax({
+			url: "selectMyTasks.me",
+			dataType: "json",
+			type:"post",
+			success: function(data){
+				var myTasksArr = data.myTasks;
+				console.log(data.myTasks);
+				
+				var Cnt = 0;
+				
+			    var searchTitle = $.each(myTasksArr, function(index, value){
+						myTasksContent += value.myTaskscontents;
+						Cnt++;
+						if(Cnt != index){
+							myTasksContent += ",";
+						}
+						
+						myTasksDate += value.myTasksstartDate;
+						if(Cnt != index){
+							myTasksDate += ",";
+						}
+						/* myTaskMonth += myTasksDate.substring(5, 7);
+						myTaskMonth += ",";
+						myTaskday += myTasksDate.substring(8, 11);
+						myTaskday += ","; */
+					
+				});
+				console.log(myTaskMonth);
+				console.log(myTaskday);
+				
+				  
+				
+				
+				
+				var setTableHTML = "";
+				var num = String(today);
+				
+			    setTableHTML+='<table width="100%;">';
+			    setTableHTML+='<thead>';
+			    setTableHTML+='<tr><th class="th-title" style="font-size: 27px;" colspan="2">Calendar</th>';
+			    setTableHTML+='<tr><td colspan="2" style="text-align:center;">' + day + ", " + mon2 + '</td></tr>';
+			    setTableHTML+='</thead>';
+			    setTableHTML+='<tbody style="padding: 20px;">';
+			    
+			    for(var i=0;i<7;i++){
+			        setTableHTML+='<tr style="font-size: 12px;">';
+			        setTableHTML+='<td width="60px" height="100px">';
+			        setTableHTML+= '<div id="cal-day'+ j + '" style="display:inline-block;">' + thisWeek[i] + '</div>';
+			        setTableHTML+='<br>';
+				     	
+				        if(today == 0) {
+				        	num = 'Sun';
+						} else if(today == 1){
+							num = 'Mon';
+						} else if(today == 2){
+							num = 'Tue';
+						} else if(today == 3){
+							num = 'Wed';
+						} else if(today == 4){
+							num = 'Tur';
+						} else if(today == 5){
+							num = 'Fri';
+						} else if(today == 6){
+							num = 'Sat';
+						}
+				        
+				        today++;
+				     	if(today >= 7){
+				     		today = 0;
+				     	}
+				        
+			        setTableHTML+= num;   
+			     	
+			        setTableHTML+= "</td>";
+			        setTableHTML+= "<td class='cal-schedule' style='width:200px height:100px' id='mytasks-sche'>";
+			        setTableHTML+= "<div class='cal-schedule'>";
+			        
+			        setTableHTML+='</div>';
+			        setTableHTML+='</td>';
+			        setTableHTML+='</td>';
+			        setTableHTML+='</td>';
+			        setTableHTML+='</tr>';
+			        
+			    }
+			    setTableHTML+='</tbody>';
+			    setTableHTML+='</table>';
+			    
+			    $("#cal-cont").html(setTableHTML);
+				
+			    $tdSche = $("td div.cal-schedule");
+			    //firstDay = new Date(year,mon-1,1);
+		        //lastDay = new Date(year,mon,0);
+			    var temp;
+						//for(var j=0; j<7; j++){
+				for(var i=0; i<data.myTasks.length; i++){
+					
+					if(data.myTasks[i].myTasksShareYN != temp){
+						
+						var startDateArr = data.myTasks[i].myTasksstartDate.split('-');
+						var startYear = startDateArr[0];
+						var startMonth = startDateArr[1];
+						var startDate = startDateArr[2];
+						
+						console.log(startYear);
+						console.log(startMonth);
+						console.log(startDate);
+						
+						//시작일자 캘린더에 넣어주기
+						//console.log($('#cal-day'+j).text());
+							if($('#cal-day').html() == startDate){
+							    var myTaskscontents = ('<li>' + data.myTasks[i].myTaskscontents + '</li>');
+							    
+								console.log(myTaskscontents);
+								$tdSche.append(myTaskscontents);
+							}
+						 
+						}
+					//}
+					
 				}
-		        
-		        today++;
-		     	if(today >= 7){
-		     		today = 0;
-		     	}
-		        
-	        setTableHTML+= num;   
-		     
-	        
-	     	
-	        setTableHTML+= "</td>";
-	        setTableHTML+= "<td class='cal-schedule' style='width:200px height:100px'>흐으음...</td>";
-	        setTableHTML+='</tr>';
-	        
-	    }
-	    setTableHTML+='</tbody>';
-	    setTableHTML+='</table>';
-	    
-	    $("#cal-cont").html(setTableHTML);
+			    
+			    
+			},error: function(){
+				
+			}
+			});
+		
+		
 	}
 	
 	
 	
 	//차트
+    var non=$("#n-tk").text();
+    var ing=$("#tk-ing").text();
+    var com=$("#co-tk").text();
+    var tot=$("#to-tk").text();
+
+    var non2 = Math.round((non/tot)*100);
+    var ing2 = Math.round((ing/tot)*100);
+    var com2 = Math.round((com/tot)*100);
+	
 	$(window).ready(function(){
-    var i=1;
-    var non=$("#no-ch-to").text();
-    var ing=$("#ing-ch-to").text();
-    var com=$("#com-ch-to").text();
-    var tot=$("#to-ch").text();
-    
-    var non2 = non/tot*100;
-    var ing2 = ing/tot*100;
-    var com2 = com/tot*100;
     
     
-    
-    
+  /*   var max = 0;
+	var mid = 0;
+	var min = 0;
+	
+	  max = (num1>num2)&&(num1>num3)?num1:(num3>num2?num3:num2);
+      //num1이 num2보다 큰지 비교,num1이 num3보다 큰지 비교 둘 다 참이면 num1이 가장크다. 
+      min = (num2>num1)&&(num3>num1)?num1:(num2>num3?num3:num2);
+      //num2이 num1보다 큰지 비교,num3이 num1보다 큰지 비교해서 num1이 제일 작으면 저장 아니면 뒤의 수식 수행
+      mid = (num1>num2)?((num1>num3)?((num2>num3)?num2:num3):num1):((num2>num3)?((num1>num3)?num1:num3):num2);
+	
+      console.log(max);
+      console.log(mid);
+      console.log(min); */
     
     var func1 = setInterval(function(){
-    	var s;
-    	var m;
-    	var l = Math.max(non2, ing2, com2);
-    	
-    	if(Math.min(non2, ing2, com2))
-    	
-        if(i<Math.ceil(non2)){
-            color1(i);
-            i++;
-        } else if(i<Math.ceil(non2) + Math.ceil(ing2)){
-            color2(i);
-            i++;
-        } else if(i<Math.ceil(non2) + Math.ceil(ing2) + Math.ceil(com2)){
-            color3(i);
-            i++;
-        } else {
-            clearInterval(func1);
-        }
+	    	color1(non2);
+	 		color2(ing2);
+	 		color3(com2);
 		},10);
     
-    console.log(Math.ceil(non2));
-    console.log(Math.ceil(ing2));
-    console.log(Math.ceil(com2));
-    console.log(tot);
 	});
 
-	function color1(i){
+	
+	function color1(non2){
 	    $(".pie-chart1").css({
-	        "background":"conic-gradient(#C4C4C4 0% "+i+"%, #ffffff "+i+"% 100%)"
+	        "background":"conic-gradient(#C4C4C4 0% "+0+"%, #ffffff "+non2+"% 100%)"
 	        });
 	    
 	}
-	function color2(i){
+	function color2(ing2){
 	    $(".pie-chart1").css({
-	        "background":"conic-gradient(#C4C4C4 0% 25%, #DD0351 25% "+i+"%, #ffffff "+i+"% 100%)"
+	        "background":"conic-gradient(#C4C4C4 0% 25%, #DD0351 25% "+non2+"%, #ffffff "+ing2+"% 100%)"
 	        });
 	     
 	}
-	function color3(i){
+	function color3(com2){
 	    $(".pie-chart1").css({
-	        "background":"conic-gradient(#C4C4C4 0% 25%, #DD0351 25% 70%, #2B2B49 70% "+i+"%, #ffffff "+i+"% 100%)"
+	        "background":"conic-gradient(#C4C4C4 0% 25%, #DD0351 25% 70%, #2B2B49 70% "+non2+ing2+"%, #ffffff "+com2+"% 100%)"
 	        });
 	     
 	}
+	
 </script>
 </html>

@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.stepup.agile.projectManage.model.service.ProjectService;
 import com.stepup.agile.projectManage.model.vo.Project;
@@ -20,6 +21,8 @@ import com.stepup.agile.projectTask.model.vo.TaskHistory;
 import com.stepup.agile.projectTask.model.vo.TaskList;
 import com.stepup.agile.userInfo.model.service.MemberService;
 import com.stepup.agile.userInfo.model.vo.Member;
+import com.stepup.agile.userMyTasks.model.service.MyTasksService;
+import com.stepup.agile.userMyTasks.model.vo.MyTask;
 
 @SessionAttributes("loginUser")
 @Controller
@@ -33,13 +36,16 @@ public class ProjectMainController {
 	@Autowired
 	private TaskService ts;
 	
+	@Autowired
+	private MyTasksService mts;
+	
 	@RequestMapping("selectUserProject.me")
 	public String selectUserProject(@ModelAttribute("loginUser") Member m, Model model, Project p) {
 	
+		
+		
 		List<Project> pjName = ps.selectUserProject(m);
 		List<Project> pjName2 = ps.selectUserProject2(m);
-		
-		
 		
 		
 		List<TaskHistory> taskList = ts.selectUserTask(m);
@@ -57,6 +63,8 @@ public class ProjectMainController {
 			}
 		}
 		
+		System.out.println(taskTitle);
+		
 		int nonTaskCnt=0;
 		int ingTaskCnt=0;
 		int comTaskCnt=0;
@@ -70,6 +78,9 @@ public class ProjectMainController {
 			}
 		}
 		
+	System.out.println(nonTaskCnt);
+	System.out.println(ingTaskCnt);
+	System.out.println(comTaskCnt);
 		
 	model.addAttribute("pjList", pjName);
 	model.addAttribute("pjList2", pjName2);
@@ -84,6 +95,18 @@ public class ProjectMainController {
 	
 	return "userInfo/userProjectMain/userProjectMain";
 			
+	}
+	
+	@RequestMapping("selectMyTasks.me")
+	public ModelAndView selectMyTasks(@ModelAttribute("loginUser") Member m, Model model, ModelAndView mv) {
+		List<MyTask> myTasks = mts.selectTaskList(m);
+		
+		System.out.println(myTasks);
+		
+		mv.addObject("myTasks", myTasks);
+		mv.setViewName("jsonView");
+		
+		return mv;
 	}
 
 }

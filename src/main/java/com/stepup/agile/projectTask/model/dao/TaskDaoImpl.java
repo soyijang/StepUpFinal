@@ -9,6 +9,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.stepup.agile.projectManage.model.vo.Project;
+import com.stepup.agile.projectTask.model.vo.Bookmark;
 import com.stepup.agile.projectTask.model.vo.ReplyHistory;
 import com.stepup.agile.projectTask.model.vo.ReplyList;
 import com.stepup.agile.projectTask.model.vo.TaskHistory;
@@ -451,26 +452,13 @@ public class TaskDaoImpl implements TaskDao {
 	}
 
 
+	//miso Kim's task ------------------------------------------------------------------------------------
+	//테스크 리스트 조회 후 보드 메인 view로 이동(현재 진행중인 스프린트의 tasklist만 조회)
 
+	@Override
+	public List<TaskHistory> selectTaskList(SqlSessionTemplate sqlSession, HashMap<String, Object> map) {
+		return sqlSession.selectList("Task.selectTaskList", map);
+	}
 
-
-
-
-
-	
-
-
-
-
-
-
-
-
-
-	
-
-
-
-	
 
 }

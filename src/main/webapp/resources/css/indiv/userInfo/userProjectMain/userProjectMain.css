@@ -1,4 +1,29 @@
 @charset "UTF-8";
+.@import url(http://fonts.googleapis.com/earlyaccess/notosanskr.css);
+@font-face {font-family: 'Noto Sans KR';font-style: normal;font-weight: 100;src: url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Thin.woff2) format('woff2'),url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Thin.woff) format('woff'),url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Thin.otf) format('opentype');}
+
+
+
+@font-face {font-family: 'Noto Sans KR';font-style: normal;font-weight: 300;src: url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Light.woff2) format('woff2'),url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Light.woff) format('woff'),url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Light.otf) format('opentype');}
+
+
+
+@font-face {font-family: 'Noto Sans KR';font-style: normal;font-weight: 400;src: url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Regular.woff2) format('woff2'),url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Regular.woff) format('woff'),url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Regular.otf) format('opentype');}
+
+
+
+@font-face {font-family: 'Noto Sans KR';font-style: normal;font-weight: 500;src: url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Medium.woff2) format('woff2'),url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Medium.woff) format('woff'),url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Medium.otf) format('opentype');}
+
+
+
+@font-face {font-family: 'Noto Sans KR';font-style: normal;font-weight: 700;src: url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Bold.woff2) format('woff2'),url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Bold.woff) format('woff'),url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Bold.otf) format('opentype');}
+
+
+
+@font-face {font-family: 'Noto Sans KR';font-style: normal;font-weight: 900;src: url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Black.woff2) format('woff2'),url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Black.woff) format('woff'),url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Black.otf) format('opentype');}
+ body{
+    font-family: "Noto Sans KR";
+ }
 #content{
     width: 1440px;
     height: 900px;
@@ -190,13 +215,13 @@
 
 
 #n-tk{
-	color:#F04758;
+	color:#C4C4C4;
 }
 #tk-ing{
-	color:#00BF9C;
+	color:#DD0351;
 }
 #co-tk{
-	color:#008CE3;
+	color:#2B2B49;
 }
 #to-tk{
 	color: black;
@@ -238,6 +263,7 @@ span.center{
 #cht-st{
 	display: inline-block;
 	height:80%;
+	width:40%;
 }
 .cht-tt{
 	margin-bottom: 40px;
@@ -245,7 +271,7 @@ span.center{
 }
 #no-ch, #ing-ch, #com-ch{
 	display: inline-block;
-	margin-left: 60px;
+	margin-left: 30px;
 }
 #no-ch-to, #ing-ch-to{
 	margin-left: 60px;
@@ -312,4 +338,8 @@ span.center{
 	width:200px;
 	font-size: 15px;
 	background-color: #FFF2F2;
+}
+#chartdiv {
+  width: 100%;
+  height: 400px;
 }

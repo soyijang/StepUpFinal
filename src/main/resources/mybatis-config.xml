@@ -15,16 +15,23 @@
 	    <typeAlias type="com.stepup.agile.projectTask.model.vo.ReplyList" alias="Reply"/>
         <typeAlias type="com.stepup.agile.projectTask.model.vo.ReplyHistory" alias="ReplyHistory"/>
         <typeAlias type="com.stepup.agile.projectTask.model.vo.TaskHistory" alias="TaskHistory"/>
+        <typeAlias type="com.stepup.agile.userInfo.model.vo.Team" alias="Team"/>
         <typeAlias type="com.stepup.agile.userInfo.model.vo.UserTeamList" alias="userTeamList"/>
+        <typeAlias type="com.stepup.agile.userInfo.model.vo.UserProjectList" alias="userProjectList"/>
         <typeAlias type="com.stepup.agile.userInfo.model.vo.Attachment" alias="attachment"/>
+        <typeAlias type="com.stepup.agile.projectTask.model.vo.Bookmark" alias="bookMark"/>
 	</typeAliases>
 	
-	<mappers>
-		<mapper resource="mappers/member-mapper.xml"/>
+ 	<mappers>
+ 		<mapper resource="mappers/member-mapper.xml"/>
 		<mapper resource="mappers/sprint-mapper.xml"/>
 		<mapper resource="mappers/mytask-mapper.xml"/>
 		<mapper resource="mappers/project-mapper.xml"/>
 		<mapper resource="mappers/task-mapper.xml"/>
-	</mappers>
-
+		<mapper resource="mappers/team-mapper.xml"/>
+		<mapper resource="mappers/reply-mapper.xml"/>
+		<mapper resource="mappers/bookmark-mapper.xml"/>
+ 	</mappers>
+	
+	
 </configuration>

@@ -5,11 +5,17 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.activation.CommandMap;
+import javax.servlet.http.HttpServletRequest;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.stepup.agile.projectManage.model.vo.Project;
+import com.stepup.agile.projectTask.model.vo.Bookmark;
+import com.stepup.agile.projectTask.model.vo.TaskHistory;
 import com.stepup.agile.userInfo.model.exception.LoginFailedException;
+import com.stepup.agile.userInfo.model.vo.Attachment;
 import com.stepup.agile.userInfo.model.vo.Member;
 import com.stepup.agile.userInfo.model.vo.UserProjectList;
 import com.stepup.agile.userInfo.model.vo.UserTeamList;
@@ -30,18 +36,33 @@ public interface MemberDao {
 	List<Member> selectTeamList(SqlSessionTemplate sqlSession, UserTeamList ul);
 	//프로젝트 리스트 조회
 	List<UserProjectList> userProjectList(SqlSessionTemplate sqlSession, int userCode);
+	//북마크조회
+	List<TaskHistory> selectBookmark(SqlSessionTemplate sqlSession, HashMap<String, Object> map);
+	//썸네일 조회
+	Attachment selectThumb(SqlSessionTemplate sqlSession, int userCode);
 	//직업 등록
 	int insertJob(SqlSessionTemplate sqlSession, HashMap<String, Object> map);
-
 	Member selectJob(SqlSessionTemplate sqlSession, int userCode);
 	//부서 등록
 	int insertDept(SqlSessionTemplate sqlSession, HashMap<String, Object> map);
-
 	Member selectDept(SqlSessionTemplate sqlSession, int userCode);
 	//회사등록
 	int insertCom(SqlSessionTemplate sqlSession, HashMap<String, Object> map);
-	
 	Member selectCom(SqlSessionTemplate sqlSession, int userCode);
+	//썸네일 등록
+	int insertThumbnail(SqlSessionTemplate sqlSession, Attachment attachment);
+	Attachment selectThumbnail(SqlSessionTemplate sqlSession, int attachCode);
+	//비밀번호 변경
+	int updatePwd(SqlSessionTemplate sqlSession, HashMap<String, Object> map);
+	Member selectNewLogin(SqlSessionTemplate sqlSession, int userCode);
+	//회원탈퇴
+	int getout(SqlSessionTemplate sqlSession, Member m);
+	//배경 등록
+	int insertBackImg(SqlSessionTemplate sqlSession, Attachment attachment);
+	//배경 조회
+	Attachment selectBackImg(SqlSessionTemplate sqlSession, int attachCode);
+
+	
 
 	
 

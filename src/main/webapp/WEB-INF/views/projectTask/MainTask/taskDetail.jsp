@@ -18,8 +18,8 @@
     <!-- The Modal -->
     <div id="taskDetailModal"  class="taskmodal">
       <!-- Modal content -->
-      <div class="taskmodal-content"><!-- 
-      	 <input type="text" name="taskCode" id="taskCode" value=""> -->
+      <div class="taskmodal-content">
+      	 <input type="hidden" name="taskCode" id="taskCode" value="">
          <div class="projectList" id="project"><div id="storyicon"></div><p id="sprintName" value=""></p></div><div class="projectList">/</div>
          <div class="projectList" id="story"><div id="taskicon"></div>TEST<p id="taskCode" value=""></p></div>
          <div id="cancel"><img src="/agile/resources/icon/common/icon_x.png" class="taskclose"></div>
@@ -48,11 +48,9 @@
             <tr>
                <td>
                <button id="attachment"><img src = "/agile/resources/icon/common/icon_clip.png"><label class="subBtn">첨부</label></button>
-               <form id="uploadForm" method="post" enctype="multipart/form-data" action="fileUpload" >
                <input type="file" name="upload" multiple="true" id="fileArea">
                <button id="uploadBtn" value="">업로드</button>
-               </form>
-               <button id="subtask"><img src = "/agile/resources/icon/common/icon_copyicon.png"><label class="subBtn">하위 테스크 생성</label></button>
+             <!--   <button id="subtask"><img src = "/agile/resources/icon/common/icon_copyicon.png"><label class="subBtn">하위 테스크 생성</label></button> -->
                </td>
             </tr>
             <tr>
@@ -71,15 +69,16 @@
                <button class="intBtn" onclick="updateDescipt()">Save</button></td>
             </tr>
             <div>
-            <tr id="subTaskBox" style="display:none;">
+            <tr id="subTaskBox">
                <td>하위 테스크</td>
             </tr>
             <table id="replySelect"><thead></thead><tbody></tbody></table>
-            <tr id="subTaskText" style="display:none;"> 
+            <tr id="subTaskText"> 
                <td><input tyep="text" name="subTaskTitle" id="subTaskTitle" placeholder="무엇을해야합니까?" value=""></td>
             </tr>
-            <tr id="subTaskBtn" style="display:none;">
+            <tr id="subTaskBtn">
                <td>
+               <jsp:include page="../subTask/subTask.jsp"/>
                <button id="subTaskCan" class="subTaskBtn">취소</button>
                <button id="subTaskMake"class="subTaskBtn" onclick="insertSubTask()">만들기</button>
                </td>
@@ -201,10 +200,10 @@
                 <input type="hidden" name="taskCategoryCode7" id="taskCategoryCode7" value="D">
              </tr>
              <tr>
-                <td class="rTitle">최초예상</td>
+                <td class="rTitle">예상 종료 시간</td>
              </tr>
              <tr>
-                <td><input type="datetime" placeholder="0m" class="dinput" id="expectText" name="expectTime" value=""></td>
+                <td><input type="date" class="dinput" id="expectText" name="expectTime" value=""></td>
                 <td><button type="submit" class="btn" id="expectBtn" onclick="insertExpect()"><img src="/agile/resources/icon/common/icon_check.png" class="btnImage" style="width:10px; height:10px;"></button></td>
                 <input type="hidden" name="taskCategoryCode8" id="taskCategoryCode8" value="A">
              </tr>
@@ -271,7 +270,6 @@
                <button onclick="createTask()" class="taskMake" id="rectangle7" type="submit">저장</button>
                <div class="taskCancel" id="rectangle7" data-dismiss="modal" aria-label="Close">취소</div>
                <input type="hidden" name="sprintCode" id="sprintCode" value="">
-               <input type="hidden" name="taskCode" id="taskCode" value="">
             </div>    
 
          </div>
@@ -330,6 +328,8 @@
 		console.log('#taskCode');
 	    
 	 })
+	 
+    var subtaskDetailModal = document.getElementById("subtaskDetailModal");
    
    //When the user clicks anywhere outside of the modal, close it
    window.onclick = function(event) {
@@ -489,10 +489,35 @@
     			        }
     			        return str;
     			 }
+ 	
+    
+	//input type text에서 엔터치면 실행되는 함수
+	function enterkey() {
+		if(window.event.keyCode == 13){
+				updateTitle();
+		}
+	}
+	
+ 	//날짜 변경
+ 	$(function(){
+	 	$('#expectText').datepicker({ dateFormat: 'YYYY- mm-dd' });	
+ 	});
+/*	var expectText = document.frmWork.txtHpDate.value;
+	var dateSplit = inputDate.split("-");
+	
+	year = dateSplit[0];
+	month = dateSplit[1];
+	day = dateSplit[2];
+	expectText = year + "" + month + "" + day;
+	
+	if(parseInt(expectText) < parseInt(today)) {
+		alert("오늘 날짜보다 이전 날짜입니다.");
+		document.frmWork.txtHpDate.value = "";
+	} */
+	
  
 	 
     //TASK_LIST 생성 후 TASK 모달로 연결
-   	var taskCode;
 	 function createTask() {
 			var sprintCode = $('#sendSprintCode').val();
 			
@@ -515,6 +540,7 @@
 					$('#taskModalYn').css('display','none');
 					$('#taskDetailModal').fadeIn(); 
 					$('#taskDetailModal').css('display','block');
+					taskCode = $('#taskCode').val(data.list.taskCode);
 				},
 				error:function(){
 					console.log("에러!");
@@ -528,13 +554,7 @@
 			});
 			return taskCode;
 		}
-    
-	//input type text에서 엔터치면 실행되는 함수
-	function enterkey() {
-		if(window.event.keyCode == 13){
-				updateTitle();
-		}
-	}
+
     
     //TASK_HISTORY에 정보 입력
     //1. 제목 변경
@@ -616,6 +636,9 @@
     }
     
     //3.서브 테스크 추가
+    var taskHistCode;
+    var taskHistValue;
+    var subTitleValue;
      function insertSubTask(){
     	var headTaskCode = $('#taskCode').val();
     	var subTaskTitle = $('#subTaskTitle').val();
@@ -635,14 +658,20 @@
     		success: function(data){
     			console.log("성공!")
      			console.log(data);
-     			
+    			
  				var $replySelect = $("#replySelect tbody");
  				$replySelect.html('');
  				
  				for(var i = 0; i<data.history.length; i++) {
+
+ 	    			taskHistCode = data.history[i].taskHistCode;
+ 	    			taskHistValue = data.history[i].taskHistValue;
+ 					
+ 					subTitleValue = '""' + taskHistValue + '""';
+ 					
  					var $tr = $("<tr>").css("border", "1px");
  					var $img = $("<td><div id='taskicon'></div></td>").css("width","40px");
- 					var $teskNumTd = $("<td>").text('Task'+data.history[i].taskHistCode);
+ 					var $teskNumTd = $("<td id='subTaskLink';>").text('Task'+data.history[i].taskHistCode);
  					var $titleTd = $("<td>").text(data.history[i].taskHistValue).css("width", "200px");
  					/* var $statusTd =  진행미진행 추가하기 */
  					
@@ -651,6 +680,13 @@
  					$tr.append($titleTd);
  					
  					$replySelect.append($tr);
+ 					
+ 					$('#subTaskLink').click(function(){
+ 						$('#taskDetailModal').css('display','none');
+ 						$(subtaskDetailModal).fadeIn(100); 
+ 						$(subtaskDetailModal).css('display','block');
+ 					});
+ 					
  				} 
      		},
     		error:function(){
@@ -672,11 +708,11 @@
     var userCode;
     var memberCode;
      function insertReply() {
-  		var content = $("#replyContents").val();
+  		var reply = $('#replyContents').val();
   		var taskCode = $('#taskCode').val();
   		var taskCategoryCode = $('#taskCategoryCode3').val();
 
-  		console.log(content);
+  		console.log(reply);
   		console.log(taskCode);
   		console.log(taskCategoryCode);
      	
@@ -684,8 +720,9 @@
      		type:"post",
      		url:"insertReply.pj",
      		dataType : "json",
+     		processData: false,
      		data: {
-     			"content": content,
+     			"reply": reply,
      			"taskCode": taskCode,
      			"taskCategoryCode": taskCategoryCode
      		},
@@ -710,8 +747,8 @@
  					var $nameTd = $("<td>").text(data.replyHistory[i].member.userName).css("width", "50px");
  					var $contentTd = $("<td>").text(data.replyHistory[i].replyContents).css("width", "130px");
  					var $dateTd = $("<td>").text(data.replyHistory[i].replyUpdateDate).css("width", "80px");
- 					var $reviseBtn = $("<td><button onclick='updateReply(" + replyCode + "," + memberCode ")';>수정</button>").css("width","50px");
- 					var $deleteBtn = $("<td><button>삭제</button>").css("width","50px");
+ 					var $reviseBtn = $("<td><button onclick='updateReply(" + replyCode + "," + memberCode + ")';>수정</button>").css("width","50px");
+ 					var $deleteBtn = $("<td><button onclick='deleteReply(" + replyCode + "," + memberCode + ")'>삭제</button>").css("width","50px");
  					$('#replyHistCode').val(data.replyHistory[i].replyHistCode);
  					
  					$tr.append($pictureTd);
@@ -741,23 +778,57 @@
    }
    
    //4-1.댓글 수정
-   
    function updateReply(replyCode, memberCode) {
  						console.log(replyCode);
  						console.log(memberCode);
  						
  						var taskCode = $('#taskCode').val();
- 						var replyCode = replyCode;
- 						var userCode = userCode;
+ 						var reply = replyCode;
+ 						var user = userCode;
  						
  						$.ajax({
  							url:"updateReply.pj",
  							type:"post",
- 							async:false,
  							data : {
  								'taskCode':taskCode,
- 								'replyCode':replyCode,
- 								'userCode' :userCode
+ 								'reply':reply,
+ 								'user' :user
+ 							},
+ 							dataType:"json",
+ 							success:function(data) {
+ 								console.log("성공!");
+ 								console.log(data);
+ 							},
+ 							error:function(){
+									console.log("에러!");
+								},
+								beforeSend : function(){
+				                 $('.wrap-loading').removeClass('display-none');
+				             },
+				             complete : function(){
+				                 $('.wrap-loading').addClass('display-none');
+				              }
+							});
+							return taskCode;
+						} 
+   
+   //댓글삭제
+   function deleteReply(replyCode, memberCode) {
+	   
+ 						console.log(replyCode);
+ 						console.log(memberCode);
+ 						
+ 						var taskCode = $('#taskCode').val();
+ 						var reply = replyCode;
+ 						var user = userCode;
+ 						
+ 						$.ajax({
+ 							url:"deleteReply.pj",
+ 							type:"post",
+ 							data : {
+ 								'taskCode':taskCode,
+ 								'reply':reply,
+ 								'user' :user
  							},
  							dataType:"json",
  							success:function(data) {
@@ -778,9 +849,10 @@
 						} 
      
    //5.담당자 리스트 선택
-   
-	
-	//5.담당자 선택
+
+	var memberCode;
+    var memberName;
+    var giveUserName;
 	function selectTeam(){
 	   
 	   var taskCode = $('#taskCode').val();
@@ -790,7 +862,6 @@
 		   type:"post",
 		   url:"selectTeam.pj",
 		   dataType:"json",
-		   async:false,
 		   data: {
 			   "taskCode" : taskCode
 		   },
@@ -799,7 +870,7 @@
 			   console.log(data);
 			   console.log(data.list[0].userName);
 			   
-			   var $teamlist = $("#teamList");
+			   var $teamlist = $("#teamlist2");
 			   $teamlist.html('');
 			   
 			   for(var i = 0; i<data.list.length; i++) {
@@ -808,7 +879,7 @@
 				   giveUserName = '""' + memberName + '""';
 				   
 				   var $li = $("<li>");
-				   var $userName = $("<li onclick='updateUser(" + memberCode + "," + giveUserName + ");'>").text(data.list[i].userName);
+				   var $userName = $("<li onclick='updateUser(" + memberCode + "," + giveUserName + ")';>").text(data.list[i].userName);
 				   
 				   $li.append($userName);
 				   $teamlist.append($li);
@@ -826,26 +897,24 @@
    	});
    	
    	return false;
-	}
+  }
 	
-	//6.보고자 팀리스트 선택
-	  function updateUser(memberCode, giveUserName) {
-		console.log(memberCode);
-		console.log(memberName);
-		
+	//5.담당자 선택
+	function  updateUser(memberCode, giveUserName) {
 		var taskCode = $('#taskCode').val();
-		var memberCode = memberCode;
-		var memberName = memberName;
-		
+		var Code = memberCode;
+		var Name = giveUserName;
+		console.log(Code);
+		console.log(Name);
+ 						
 		$.ajax({
 			url:"updateUser.pj",
 			type:"post",
 			data:{
-				'taskCode' :taskCode,
-				'memberCode':memberCode,
-				'memberName' :memberName
+				'taskCode': taskCode,
+				'Code': Code,
+				'Name': Name
 			},
-			async:false,
 			dataType:"json",
 			success:function(data){
 				console.log("성공!");
@@ -862,10 +931,12 @@
           }
 		});
 		return taskCode;
-	}  
+	}  	  
 
-   
-   //6.보고자 선택
+	//6.보고자 팀리스트 선택
+	var pplCode;
+	var pplName;
+	var UserName;
 	function teamSelect(){
 
     	var taskCode = $('#taskCode').val();
@@ -883,15 +954,14 @@
     			console.log(data);
     			
     			
-    			var $teamlist = $("#teamlist2");
+    			var $teamlist = $("#teamlist");
  				$teamlist.html('');
  				
 				for(var i = 0; i<data.list.length; i++) {
  					
  					pplCode = data.list[i].userCode;
  					pplName = data.list[i].userName;
- 					pplName = data.list[i].userName;
-	 				UserName = '"' + memberName +'"';
+	 				UserName = '"' + pplName +'"';
  					
  					var $li = $("<li>");
  					var $userName = $("<li onclick='updateMaster(" + pplCode + "," + UserName + ");'>").text(data.list[i].userName);
@@ -899,23 +969,42 @@
  					
  					$teamlist.append($li);
  					
- 					 function updateMaster(pplCode, UserName) {
- 						console.log(taskCode);
- 						console.log(pplCode);
- 						console.log(mempplCodeberName);
+ 					 
+ 				}
+     		},
+    		error:function(){
+    			console.log("에러!");
+    		},
+    		beforeSend : function(){
+                $('.wrap-loading').removeClass('display-none');
+            },
+            complete : function(){
+                $('.wrap-loading').addClass('display-none');
+             }
+    	});
+    	
+    	return false;
+    }	 	
+
+	   
+	//6.보고자 선택
+	function updateMaster(pplCode, UserName) {
  						var taskCode = $('#taskCode').val();
- 						var pplCode = pplCode;
- 						var pplName = pplName;
- 						console.log(memberCode);
- 						console.log(pplName);
+ 						var Code = pplCode;
+ 						var Name = UserName;
+ 						var userCode= memberCode;
+ 						console.log(Code);
+ 						console.log(Name);
+ 						console.log(UserName);
  						
  						$.ajax({
- 								url:"taskUser.pj",
+ 								url:"updateMaster.pj",
  								type:"post",
  								async: false,
  								data:{
- 									  'pplCode' : pplCode,
- 									  'pplName' : pplName,
+ 									  'Code' : Code,
+ 									  'Name' : Name,
+ 									  'userCode' : userCode,
  									  'taskCode' : taskCode
  								},
  								dataType : "json",
@@ -935,22 +1024,7 @@
  				              }
  							});
  							return taskCode;
- 						} 
- 				}
-     		},
-    		error:function(){
-    			console.log("에러!");
-    		},
-    		beforeSend : function(){
-                $('.wrap-loading').removeClass('display-none');
-            },
-            complete : function(){
-                $('.wrap-loading').addClass('display-none');
-             }
-    	});
-    	
-    	return false;
-    }	 		
+ 						}    
    //7.레이블 선택
 	function insertLabel(){
 
@@ -1028,11 +1102,11 @@
    //9.최초예상 선택
 	 function insertExpect(){
 
-    	var taskHistValue = $('#expectText').val();
+    	var expectText = $('#expectText').datepicker({ dateFormat: 'YYYY- mm-dd' }).val();
     	var taskCode = $('#taskCode').val();
     	var taskCategoryCode = $('#taskCategoryCode8').val();
     	console.log(taskCode);
-    	console.log(taskHistValue);
+    	console.log(expectText);
     	console.log(taskCategoryCode);
     	
     	$.ajax({
@@ -1040,7 +1114,7 @@
     		url:"insertExpect.pj",
     		dataType:"json",
     		data: {
-    			"taskHistValue": taskHistValue, 
+    			"expectText": expectText, 
     			"taskCode": taskCode, 
     			"taskCategoryCode": taskCategoryCode
     		},
@@ -1300,34 +1374,7 @@
     } */
     
    //파일업로드
-	/* $('.file').change(function(){                            //업로드할 파일을 선택 할 경우 동작을 일으킵니다.
-
-var form = $('#uploadForm');
-
-form.ajaxSubmit({
-
-           url: 'fileUploadAjax',
-
-           data: form.serialize(),                         //폼의 값들을 주소화하여 보내게 됩니다.
-
-           type: 'POST',     
-
-           success: function(data){
-        	   $('.file').val('');                           //file input에 들어가 있는 값을 비워줍니다.
-               console.log(data);                      //업로드 되었다면 결과를 콘솔에 출력해봅니다.
-           },
-			error: function(data){
-				console.log("실패");
-			},
-			 beforeSend : function(){
-	            $('.wrap-loading').removeClass('display-none');
-	        },
-	          complete : function(){
-	            $('.wrap-loading').addClass('display-none');
-	        }
-		}); // $.ajax
-	}); */
-   
+	
     
    //복제 클릭 이벤트
 	$(document).on("click","#clone-task",function(){

@@ -83,6 +83,36 @@
 		<collection property="member" resultMap="memberResultSet"/>
 		<collection property="team" resultMap="TeamResultSet"/>
 	</resultMap>
+	<!-- TaskList -->
+	<resultMap type="com.stepup.agile.projectTask.model.vo.TaskList" id="TaskListResultSet">
+	<id property="taskCode" column="TASK_CODE"/>
+	<result property="taskCreateDate" column="TASK_CREATE_DATE"/>
+	<result property="taskLevel" column="TASK_LEVEL"/>
+	<result property="sprintCode" column="SPRINT_CODE"/>
+	<result property="taskCreateTime" column="TASK_CREATE_TIME"/>
+	<result property="taskMaster" column="TASK_MASTER"/>
+	<result property="taskUser" column="TASK_USER"/>
+	<result property="headTaskCode" column="HEAD_TASK_CODE"/>
+	</resultMap>
+	<!-- TaskHistory -->
+	<resultMap type="com.stepup.agile.projectTask.model.vo.TaskHistory" id="TaskHistoryResultSet">
+	<id property="taskHistCode" column="TASK_HIST_CODE"/>
+	<result property="taskHistUpdateDate" column="TASK_HIST_UPDATE_DATE"/>
+	<result property="taskHistUpdateTime" column="TASK_HIST_UPDATE_TIME"/>
+	<result property="taskCode" column="TASK_CODE"/>
+	<result property="masterCode" column="MASTER_CODE"/>
+	<result property="userCode" column="USER_CODE"/>
+	<result property="taskHistValue" column="TASK_HIST_VALUE"/>
+	<result property="taskCategoryCode" column="TASK_CATEGORY_CODE"/>
+	</resultMap>
+	<!-- 북마크 -->
+	<resultMap type="com.stepup.agile.projectTask.model.vo.Bookmark" id="bookmarkResultSet">
+		<id property="bookmarkCode" column="BOOKMARK_CODE"/>
+		<result property="userCode" column="USER_CODE"/>
+		<result property="taskCode" column="TASK_CODE"/>
+		<result property="bookmarkDate" column="BOOKMARK_DATE"/>
+		<result property="bookmarkTime" column="BOOKMARK_TIME"/>
+	</resultMap>
 	
 	<!-- UserInfo + UserTeamList + Attachment -->
 	<resultMap type="com.stepup.agile.userInfo.model.vo.Member" id="memberTeamSet">
@@ -118,6 +148,58 @@
 		<collection property="project" resultMap="projectResultSet"/>
 		<collection property="userProjectList" resultMap="UserProjectListResultSet"/>
 		<collection property="userTeamList" resultMap="UserTeamListResultSet"/>
+		<collection property="attachment" resultMap="AttachmentResultSet"/>
+	</resultMap>
+	
+	<!-- taskList + taskHistory + userInfo -->
+	<resultMap type="com.stepup.agile.userInfo.model.vo.Member" id="selectBookmark">
+		<id property="userCode" column="USER_CODE"/>
+		<result property="userEmail" column="USER_EMAIL"/>
+		<result property="userPwd" column="USER_PWD"/>
+		<result property="userName" column="USER_NAME"/>
+		<result property="userPhone" column="USER_PHONE"/>
+		<result property="userCompName" column="USER_COMP_NAME"/>
+		<result property="userCompDept" column="USER_COMP_DEPT"/>
+		<result property="userCompJob" column="USER_COMP_JOB"/>
+		<result property="userEnrollDate" column="USER_ENROLL_DATE"/>
+		<result property="userStatus" column="USER_STATUS"/>
+		<result property="userManagerYn" column="USER_MANAGER_YN"/>
+		<result property="userEnrollTime" column="USER_ENROLL_TIME"/>
+		<collection property="taskHistory" resultMap="TaskHistoryResultSet"></collection>
+		<collection property="taskList" resultMap="TaskListResultSet"></collection>
+		<collection property="bookMark" resultMap="bookmarkResultSet"></collection>
+	</resultMap>
+	<!-- userInfo + attachment -->
+	<resultMap type="com.stepup.agile.userInfo.model.vo.Member" id="selectThumb">
+		<id property="userCode" column="USER_CODE"/>
+		<result property="userEmail" column="USER_EMAIL"/>
+		<result property="userPwd" column="USER_PWD"/>
+		<result property="userName" column="USER_NAME"/>
+		<result property="userPhone" column="USER_PHONE"/>
+		<result property="userCompName" column="USER_COMP_NAME"/>
+		<result property="userCompDept" column="USER_COMP_DEPT"/>
+		<result property="userCompJob" column="USER_COMP_JOB"/>
+		<result property="userEnrollDate" column="USER_ENROLL_DATE"/>
+		<result property="userStatus" column="USER_STATUS"/>
+		<result property="userManagerYn" column="USER_MANAGER_YN"/>
+		<result property="userEnrollTime" column="USER_ENROLL_TIME"/>
+		<collection property="attachment" resultMap="AttachmentResultSet"/>
+	</resultMap>
+	
+	<!-- userInfo + attachment -->
+	<resultMap type="com.stepup.agile.userInfo.model.vo.Member" id="selectBack">
+		<id property="userCode" column="USER_CODE"/>
+		<result property="userEmail" column="USER_EMAIL"/>
+		<result property="userPwd" column="USER_PWD"/>
+		<result property="userName" column="USER_NAME"/>
+		<result property="userPhone" column="USER_PHONE"/>
+		<result property="userCompName" column="USER_COMP_NAME"/>
+		<result property="userCompDept" column="USER_COMP_DEPT"/>
+		<result property="userCompJob" column="USER_COMP_JOB"/>
+		<result property="userEnrollDate" column="USER_ENROLL_DATE"/>
+		<result property="userStatus" column="USER_STATUS"/>
+		<result property="userManagerYn" column="USER_MANAGER_YN"/>
+		<result property="userEnrollTime" column="USER_ENROLL_TIME"/>
 		<collection property="attachment" resultMap="AttachmentResultSet"/>
 	</resultMap>
 
@@ -164,7 +246,7 @@
 		                                              ORDER BY USER_TEAM_DATE DESC))
 		                                              WHERE RNUM = 1))
 	</select>
-	<!-- 프로젝트 조회 LEFTJOIN, ATTACHMENT 추가-->
+	<!-- 프로젝트 조회 LEFTJOIN 삭제, ATTACHMENT 추가-->
 	<select id="myProjectList" resultMap="myProjectListResultSet" parameterType="Member">
 	SELECT P.PROJECT_NAME
 	  FROM PROJECT_LIST P JOIN USER_PROJECT_LIST L ON(L.PROJECT_CODE = P.PROJECT_CODE)
@@ -172,7 +254,27 @@
       JOIN USER_INFO U ON(U.USER_CODE= T.USER_CODE)
       JOIN TEAM M ON (M.TEAM_CODE = T.TEAM_CODE)
       LEFT JOIN ATTACH_FILE A ON(A.USER_CODE = U.USER_CODE)
-     WHERE U.USER_CODE = 6 AND L.USER_PROJECT_STATUS = 'Y' AND T.USER_TEAM_YN = 'Y' AND TEAM_CODE = 2	  
+     WHERE U.USER_CODE = 6 AND L.USER_PROJECT_STATUS = 'Y' AND T.USER_TEAM_YN = 'Y' AND M.TEAM_CODE = 2  
+	</select>
+	<!-- 북마크조회 -->
+	<select id="selectBookmark" resultMap="memberResultSet" parameterType="com.stepup.agile.userInfo.model.vo.Member">
+		SELECT B.BOOKMARK_CODE, U.USER_CODE, T.TASK_CODE, H.TASK_HIST_VALUE
+          FROM TASK_HISTORY H JOIN TASK_LIST T ON(H.TASK_CODE = T.TASK_CODE)
+         RIGHT JOIN BOOKMARK_LIST B ON (B.TASK_CODE = T.TASK_CODE)
+          JOIN USER_INFO U ON (U.USER_CODE = B.USER_CODE)
+         WHERE H.TASK_CATEGORY_CODE = 'J'
+           AND U.USER_CODE = #{userCode}
+	</select>
+	<!-- 썸네일 조회 -->
+	<select id="selectThumb" resultMap="AttachmentResultSet" parameterType="com.stepup.agile.userInfo.model.vo.Member">
+		SELECT  ATTACH_CHANGE_NAME, ATTACH_UPLOAD_DATE, ATTACH_UPLOAD_TIME 
+		  FROM  (SELECT ROWNUM RNUM, ATTACH_CHANGE_NAME, ATTACH_UPLOAD_DATE, ATTACH_UPLOAD_TIME
+          FROM  (SELECT ATTACH_CHANGE_NAME, ATTACH_UPLOAD_DATE, ATTACH_UPLOAD_TIME, ATTACH_TYPE
+          FROM  ATTACH_FILE A JOIN USER_INFO U ON (U.USER_CODE = A.USER_CODE)
+         WHERE  U.USER_CODE = #{userCode}
+           AND  ATTACH_TYPE = 1
+         ORDER BY ATTACH_UPLOAD_DATE DESC,ATTACH_UPLOAD_TIME DESC))
+         WHERE RNUM = 1
 	</select>
 	<!-- 직업등록-->
 	<update id="insertJob" parameterType="Member">
@@ -203,6 +305,56 @@
 	<select id="selectCom" resultMap="memberResultSet" parameterType="Member">
 		SELECT *
 		FROM USER_INFO WHERE USER_CODE = #{userCode}
+	</select>
+	<!-- 썸네일등록 -->
+	<insert id="insertThumbnail" parameterType="com.stepup.agile.userInfo.model.vo.Attachment">
+		<selectKey keyProperty="attachCode" resultType="int" order="BEFORE">
+			SELECT SEQ_ATTACH.NEXTVAL FROM DUAL
+		</selectKey>
+		INSERT INTO ATTACH_FILE (ATTACH_CODE, ATTACH_PATH, ATTACH_ORIGIN_NAME, ATTACH_CHANGE_NAME, ATTACH_UPLOAD_DATE, ATTACH_UPLOAD_TIME,
+		TASK_HIST_CODE, USER_CODE, ATTACH_TYPE, THUMBNAIL_PATH, ATTACH_SIZE)
+		VALUES (#{attachCode}, #{attachPath}, #{attachOriginName}, #{attachChangeName}, TO_CHAR(SYSDATE + 9/24, 'YYYY-MM-DD'), TO_CHAR(SYSDATE + 9/24, 'hh24:mi:ss'), 
+		DEFAULT, #{userCode}, 1, #{thumbnailPath, jdbcType=VARCHAR}, #{attachSize})
+	</insert>
+	
+	<select id="selectThumbnail" parameterType="com.stepup.agile.userInfo.model.vo.Attachment" resultMap="AttachmentResultSet">
+		SELECT ATTACH_CHANGE_NAME, ATTACH_UPLOAD_DATE, ATTACH_UPLOAD_TIME, ATTACH_TYPE
+          FROM ATTACH_FILE A JOIN USER_INFO U ON (U.USER_CODE = A.USER_CODE)
+         WHERE ATTACH_CODE = #{attachCode}
+	</select>
+	<!-- 비밀번호변경 -->
+	<update id="updatePwd" parameterType="com.stepup.agile.userInfo.model.vo.Member">
+		UPDATE USER_INFO
+		   SET USER_PWD = #{userPwd}
+		 WHERE USER_CODE = #{userCode}
+	</update>
+	
+	<select id="selectNewLogin" parameterType="com.stepup.agile.userInfo.model.vo.Member" resultMap="memberResultSet">
+		SELECT *
+		  FROM USER_INFO
+		 WHERE USER_CODE = #{userCode}
+	</select>
+	<!-- 회원탈퇴 -->
+	<delete id="getout">
+		DELETE USER_INFO 
+		WHERE USER_EMAIL = #{userEmail}
+		  AND USER_STATUS = 'N'
+	</delete>
+	<!-- 배경등록 -->
+	<insert id="insertBackImg" parameterType="com.stepup.agile.userInfo.model.vo.Attachment">
+		<selectKey keyProperty="attachCode" resultType="int" order="BEFORE">
+			SELECT SEQ_ATTACH.NEXTVAL FROM DUAL
+		</selectKey>
+		INSERT INTO ATTACH_FILE (ATTACH_CODE, ATTACH_PATH, ATTACH_ORIGIN_NAME, ATTACH_CHANGE_NAME, ATTACH_UPLOAD_DATE, ATTACH_UPLOAD_TIME,
+		TASK_HIST_CODE, USER_CODE, ATTACH_TYPE, THUMBNAIL_PATH, ATTACH_SIZE)
+		VALUES (#{attachCode}, #{attachPath}, #{attachOriginName}, #{attachChangeName}, TO_CHAR(SYSDATE + 9/24, 'YYYY-MM-DD'), TO_CHAR(SYSDATE + 9/24, 'hh24:mi:ss'), 
+		DEFAULT, #{userCode}, 3, #{thumbnailPath, jdbcType=VARCHAR}, #{attachSize})
+	</insert>
+	<!-- 배경 조회 -->
+	<select id="selectBackImg" resultMap="AttachmentResultSet" parameterType="com.stepup.agile.userInfo.model.vo.Attachment">
+		SELECT ATTACH_CHANGE_NAME, ATTACH_UPLOAD_DATE, ATTACH_UPLOAD_TIME, ATTACH_TYPE
+          FROM ATTACH_FILE A JOIN USER_INFO U ON (U.USER_CODE = A.USER_CODE)
+         WHERE ATTACH_CODE = #{attachCode}
 	</select>
 
 </mapper>

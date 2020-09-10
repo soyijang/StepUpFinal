@@ -5,14 +5,21 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.activation.CommandMap;
+import javax.servlet.http.HttpServletRequest;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.stepup.agile.projectManage.model.vo.Project;
+import com.stepup.agile.projectTask.model.vo.Bookmark;
+import com.stepup.agile.projectTask.model.vo.TaskHistory;
 import com.stepup.agile.userInfo.model.dao.MemberDao;
 import com.stepup.agile.userInfo.model.exception.LoginFailedException;
+import com.stepup.agile.userInfo.model.exception.UpdateFailedException;
+import com.stepup.agile.userInfo.model.vo.Attachment;
 import com.stepup.agile.userInfo.model.vo.Member;
 import com.stepup.agile.userInfo.model.vo.UserProjectList;
 import com.stepup.agile.userInfo.model.vo.UserTeamList;
@@ -73,6 +80,18 @@ public class MemberServiceImpl implements MemberService{
 
 		return md.userProjectList(sqlSession, userCode);
 	}
+	//북마크 조회
+	@Override
+	public List<TaskHistory> selectBookmark(HashMap<String, Object> map) {
+
+		return md.selectBookmark(sqlSession, map);
+	}
+	//썸네일 조회
+	@Override
+	public Attachment selectThumnail(int userCode) {
+
+		return md.selectThumb(sqlSession, userCode);
+	}
 	//직업등록
 	@Override
 	public int insertJob(HashMap<String, Object> map) {
@@ -109,8 +128,73 @@ public class MemberServiceImpl implements MemberService{
 
 		return md.selectCom(sqlSession, userCode);
 	}
+	//썸네일 등록
+	@Override
+	public int insertThumbnail(Attachment attachment) {
+
+		return md.insertThumbnail(sqlSession, attachment);
+	}
+
+	@Override
+	public Attachment selectThumbnail(int attachCode) {
+
+		return md.selectThumbnail(sqlSession, attachCode);
+	}
+	
+	//비밀번호 변경
+	@Override
+	public Member changePwd(Member m, String pwdChange, String pwdOrigin) throws UpdateFailedException {
+		
+		System.out.println(pwdChange);
+		System.out.println(m);
+		System.out.println(m.getUserPwd());
+		System.out.println(pwdOrigin);
+		Member loginUser;
+		if(!passwordEncoder.matches(pwdOrigin, m.getUserPwd())) {
+			
+			throw new UpdateFailedException("비밀번호 변경 실패!");
+		} else {
+			
+			String newPwd = passwordEncoder.encode(pwdChange);
+			
+			HashMap<String, Object>map = new HashMap();
+			map.put("userPwd", newPwd);
+			map.put("userCode", m.getUserCode());
+			
+			int result = md.updatePwd(sqlSession, map);
+			System.out.println(result);
+			
+			loginUser = md.selectNewLogin(sqlSession, m.getUserCode());
+			
+		}
+		
+		return loginUser;
+	}
+	//회원탈퇴
+	@Override
+	public int getout(Member m) {
+
+		return md.getout(sqlSession, m);
+	}
+
+	@Override
+	public int insertBackImg(Attachment attachment) {
+
+		return md.insertBackImg(sqlSession, attachment);
+	}
+	//배경 이미지 조회
+	@Override
+	public Attachment selectBackImg(int attachCode) {
+
+		return md.selectBackImg(sqlSession, attachCode);
+	}
+
+
 
 
 	
 
 }
+
+
+	

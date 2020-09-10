@@ -6,7 +6,7 @@
 <mapper namespace="Bookmark">
 
 
-	<resultMap type="com.stepup.agile.projectManage.model.vo.Project" id="projectResultSet">
+	<resultMap type="com.stepup.agile.projectTask.model.vo.Bookmark" id="bookmarkResultSet">
 		<id property="bookmarkCode" column="BOOKMARK_CODE"/>
 		<result property="userCode" column="USER_CODE"/>
 		<result property="taskCode" column="TASK_CODE"/>
