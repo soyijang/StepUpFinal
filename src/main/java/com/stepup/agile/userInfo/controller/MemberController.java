@@ -103,6 +103,7 @@ public class MemberController {
 		
 		List<Member> list = ms.selectTeamList(ul);
 		model.addAttribute("list", list);
+		System.out.println("리스트에뭐나옴?"+list);
 		
 		List<UserProjectList> project = ms.selectProjectList(m.getUserCode());
 		model.addAttribute("project", project);
