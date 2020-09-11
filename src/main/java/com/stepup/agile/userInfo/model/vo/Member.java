@@ -21,7 +21,6 @@ public class Member implements java.io.Serializable {
 	
 	private int attachCode;
 	private String projectName;
-	private String taskHistValue;
 	
 	private UserTeamList userTeamList;
 	private Attachment attachment;
@@ -36,9 +35,9 @@ public class Member implements java.io.Serializable {
 
 	public Member(String userEmail, String userPwd, String userName, int userCode, String userPhone,
 			String userCompName, String userCompDept, String userCompJob, String userEnrollDate, String userStatus,
-			String userManagerYn, String userEnrollTime, int attachCode, String projectName, String taskHistValue,
-			UserTeamList userTeamList, Attachment attachment, Project project, UserProjectList userProjectList,
-			TaskHistory taskHistory, Bookmark bookMark, TaskList taskList) {
+			String userManagerYn, String userEnrollTime, int attachCode, String projectName, UserTeamList userTeamList,
+			Attachment attachment, Project project, UserProjectList userProjectList, TaskHistory taskHistory,
+			Bookmark bookMark, TaskList taskList) {
 		super();
 		this.userEmail = userEmail;
 		this.userPwd = userPwd;
@@ -54,7 +53,6 @@ public class Member implements java.io.Serializable {
 		this.userEnrollTime = userEnrollTime;
 		this.attachCode = attachCode;
 		this.projectName = projectName;
-		this.taskHistValue = taskHistValue;
 		this.userTeamList = userTeamList;
 		this.attachment = attachment;
 		this.project = project;
@@ -176,14 +174,6 @@ public class Member implements java.io.Serializable {
 		this.projectName = projectName;
 	}
 
-	public String getTaskHistValue() {
-		return taskHistValue;
-	}
-
-	public void setTaskHistValue(String taskHistValue) {
-		this.taskHistValue = taskHistValue;
-	}
-
 	public UserTeamList getUserTeamList() {
 		return userTeamList;
 	}
@@ -246,13 +236,11 @@ public class Member implements java.io.Serializable {
 				+ userCode + ", userPhone=" + userPhone + ", userCompName=" + userCompName + ", userCompDept="
 				+ userCompDept + ", userCompJob=" + userCompJob + ", userEnrollDate=" + userEnrollDate + ", userStatus="
 				+ userStatus + ", userManagerYn=" + userManagerYn + ", userEnrollTime=" + userEnrollTime
-				+ ", attachCode=" + attachCode + ", projectName=" + projectName + ", taskHistValue=" + taskHistValue
-				+ ", userTeamList=" + userTeamList + ", attachment=" + attachment + ", project=" + project
-				+ ", userProjectList=" + userProjectList + ", taskHistory=" + taskHistory + ", bookMark=" + bookMark
-				+ ", taskList=" + taskList + "]";
+				+ ", attachCode=" + attachCode + ", projectName=" + projectName + ", userTeamList=" + userTeamList
+				+ ", attachment=" + attachment + ", project=" + project + ", userProjectList=" + userProjectList
+				+ ", taskHistory=" + taskHistory + ", bookMark=" + bookMark + ", taskList=" + taskList + "]";
 	}
 
 	
-
 	
 }

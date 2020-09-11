@@ -92,6 +92,12 @@ public class MemberServiceImpl implements MemberService{
 
 		return md.selectThumb(sqlSession, userCode);
 	}
+	//배경 조회
+	@Override
+	public Attachment selectAttachment(int userCode) {
+
+		return md.selectAttachment(sqlSession, userCode);
+	}
 	//직업등록
 	@Override
 	public int insertJob(HashMap<String, Object> map) {
@@ -135,11 +141,11 @@ public class MemberServiceImpl implements MemberService{
 		return md.insertThumbnail(sqlSession, attachment);
 	}
 
-	@Override
-	public Attachment selectThumbnail(int attachCode) {
-
-		return md.selectThumbnail(sqlSession, attachCode);
-	}
+	/*
+	 * @Override public Attachment selectThumbnail(int attachCode) {
+	 * 
+	 * return md.selectThumbnail(sqlSession, attachCode); }
+	 */
 	
 	//비밀번호 변경
 	@Override
@@ -183,11 +189,12 @@ public class MemberServiceImpl implements MemberService{
 		return md.insertBackImg(sqlSession, attachment);
 	}
 	//배경 이미지 조회
-	@Override
-	public Attachment selectBackImg(int attachCode) {
+	/*
+	 * @Override public Attachment selectBackImg(int attachCode) {
+	 * 
+	 * return md.selectBackImg(sqlSession, attachCode); }
+	 */
 
-		return md.selectBackImg(sqlSession, attachCode);
-	}
 
 
 

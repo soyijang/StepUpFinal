@@ -34,6 +34,8 @@ public interface MemberService {
 	List<TaskHistory> selectBookmark(HashMap<String, Object> map);
 	//썸네일조회
 	Attachment selectThumnail(int userCode);
+	//이미지 조회
+	Attachment selectAttachment(int userCode);
 	//직업등록
 	int insertJob(HashMap<String, Object> map);
 	Member selectJob(int userCode);
@@ -45,7 +47,8 @@ public interface MemberService {
 	Member selectCom(int userCode);
 	//썸네일등록
 	int insertThumbnail(Attachment attachment);
-	Attachment selectThumbnail(int attachCode);
+
+	/* Attachment selectThumbnail(int attachCode); */
 	//비밀번호변경
 	Member changePwd(Member m, String pwdChange, String pwdOrigin) throws UpdateFailedException;
 	//회원탈퇴
@@ -53,7 +56,9 @@ public interface MemberService {
 	//배경이미지등록
 	int insertBackImg(Attachment attachment);
 	//배경이미지 조회
-	Attachment selectBackImg(int attachCode);
+	/* Attachment selectBackImg(int attachCode); */
+
+	
 	
 
 	

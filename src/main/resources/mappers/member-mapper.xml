@@ -151,8 +151,8 @@
 		<collection property="attachment" resultMap="AttachmentResultSet"/>
 	</resultMap>
 	
-	<!-- taskList + taskHistory + userInfo -->
-	<resultMap type="com.stepup.agile.userInfo.model.vo.Member" id="selectBookmark">
+	<!-- taskList + taskHistory + userInfo + bookmark + userteamlist -->
+	<resultMap type="com.stepup.agile.userInfo.model.vo.Member" id="selectBookmarkResultSet">
 		<id property="userCode" column="USER_CODE"/>
 		<result property="userEmail" column="USER_EMAIL"/>
 		<result property="userPwd" column="USER_PWD"/>
@@ -165,6 +165,7 @@
 		<result property="userStatus" column="USER_STATUS"/>
 		<result property="userManagerYn" column="USER_MANAGER_YN"/>
 		<result property="userEnrollTime" column="USER_ENROLL_TIME"/>
+		<collection property="userTeamList" resultMap="UserTeamListResultSet"></collection>
 		<collection property="taskHistory" resultMap="TaskHistoryResultSet"></collection>
 		<collection property="taskList" resultMap="TaskListResultSet"></collection>
 		<collection property="bookMark" resultMap="bookmarkResultSet"></collection>
@@ -257,13 +258,15 @@
      WHERE U.USER_CODE = 6 AND L.USER_PROJECT_STATUS = 'Y' AND T.USER_TEAM_YN = 'Y' AND M.TEAM_CODE = 2  
 	</select>
 	<!-- 북마크조회 -->
-	<select id="selectBookmark" resultMap="memberResultSet" parameterType="com.stepup.agile.userInfo.model.vo.Member">
+	<select id="selectBookmark" resultMap="selectBookmarkResultSet" parameterType="member">
 		SELECT B.BOOKMARK_CODE, U.USER_CODE, T.TASK_CODE, H.TASK_HIST_VALUE
           FROM TASK_HISTORY H JOIN TASK_LIST T ON(H.TASK_CODE = T.TASK_CODE)
          RIGHT JOIN BOOKMARK_LIST B ON (B.TASK_CODE = T.TASK_CODE)
           JOIN USER_INFO U ON (U.USER_CODE = B.USER_CODE)
+          JOIN USER_TEAM_LIST L ON (L.USER_CODE = U.USER_CODE)
          WHERE H.TASK_CATEGORY_CODE = 'J'
            AND U.USER_CODE = #{userCode}
+           AND L.TEAM_CODE = 1
 	</select>
 	<!-- 썸네일 조회 -->
 	<select id="selectThumb" resultMap="AttachmentResultSet" parameterType="com.stepup.agile.userInfo.model.vo.Member">
@@ -273,6 +276,17 @@
           FROM  ATTACH_FILE A JOIN USER_INFO U ON (U.USER_CODE = A.USER_CODE)
          WHERE  U.USER_CODE = #{userCode}
            AND  ATTACH_TYPE = 1
+         ORDER BY ATTACH_UPLOAD_DATE DESC,ATTACH_UPLOAD_TIME DESC))
+         WHERE RNUM = 1
+	</select>
+	<!-- 배경 조회 -->
+	<select id="selectBack" resultMap="AttachmentResultSet" parameterType="com.stepup.agile.userInfo.model.vo.Member">
+		SELECT  ATTACH_CHANGE_NAME, ATTACH_UPLOAD_DATE, ATTACH_UPLOAD_TIME 
+		  FROM  (SELECT ROWNUM RNUM, ATTACH_CHANGE_NAME, ATTACH_UPLOAD_DATE, ATTACH_UPLOAD_TIME
+          FROM  (SELECT ATTACH_CHANGE_NAME, ATTACH_UPLOAD_DATE, ATTACH_UPLOAD_TIME, ATTACH_TYPE
+          FROM  ATTACH_FILE A JOIN USER_INFO U ON (U.USER_CODE = A.USER_CODE)
+         WHERE  U.USER_CODE = #{userCode}
+           AND  ATTACH_TYPE = 3
          ORDER BY ATTACH_UPLOAD_DATE DESC,ATTACH_UPLOAD_TIME DESC))
          WHERE RNUM = 1
 	</select>
@@ -317,11 +331,11 @@
 		DEFAULT, #{userCode}, 1, #{thumbnailPath, jdbcType=VARCHAR}, #{attachSize})
 	</insert>
 	
-	<select id="selectThumbnail" parameterType="com.stepup.agile.userInfo.model.vo.Attachment" resultMap="AttachmentResultSet">
+<!-- 	<select id="selectThumbnail" parameterType="com.stepup.agile.userInfo.model.vo.Attachment" resultMap="AttachmentResultSet">
 		SELECT ATTACH_CHANGE_NAME, ATTACH_UPLOAD_DATE, ATTACH_UPLOAD_TIME, ATTACH_TYPE
           FROM ATTACH_FILE A JOIN USER_INFO U ON (U.USER_CODE = A.USER_CODE)
          WHERE ATTACH_CODE = #{attachCode}
-	</select>
+	</select> -->
 	<!-- 비밀번호변경 -->
 	<update id="updatePwd" parameterType="com.stepup.agile.userInfo.model.vo.Member">
 		UPDATE USER_INFO
@@ -351,10 +365,10 @@
 		DEFAULT, #{userCode}, 3, #{thumbnailPath, jdbcType=VARCHAR}, #{attachSize})
 	</insert>
 	<!-- 배경 조회 -->
-	<select id="selectBackImg" resultMap="AttachmentResultSet" parameterType="com.stepup.agile.userInfo.model.vo.Attachment">
+	<!-- <select id="selectBackImg" resultMap="AttachmentResultSet" parameterType="com.stepup.agile.userInfo.model.vo.Attachment">
 		SELECT ATTACH_CHANGE_NAME, ATTACH_UPLOAD_DATE, ATTACH_UPLOAD_TIME, ATTACH_TYPE
           FROM ATTACH_FILE A JOIN USER_INFO U ON (U.USER_CODE = A.USER_CODE)
          WHERE ATTACH_CODE = #{attachCode}
-	</select>
+	</select> -->
 
 </mapper>

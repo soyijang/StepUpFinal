@@ -40,6 +40,8 @@ public interface MemberDao {
 	List<TaskHistory> selectBookmark(SqlSessionTemplate sqlSession, HashMap<String, Object> map);
 	//썸네일 조회
 	Attachment selectThumb(SqlSessionTemplate sqlSession, int userCode);
+	//배경조회
+	Attachment selectAttachment(SqlSessionTemplate sqlSession, int userCode);
 	//직업 등록
 	int insertJob(SqlSessionTemplate sqlSession, HashMap<String, Object> map);
 	Member selectJob(SqlSessionTemplate sqlSession, int userCode);
@@ -51,7 +53,8 @@ public interface MemberDao {
 	Member selectCom(SqlSessionTemplate sqlSession, int userCode);
 	//썸네일 등록
 	int insertThumbnail(SqlSessionTemplate sqlSession, Attachment attachment);
-	Attachment selectThumbnail(SqlSessionTemplate sqlSession, int attachCode);
+
+	/* Attachment selectThumbnail(SqlSessionTemplate sqlSession, int attachCode); */
 	//비밀번호 변경
 	int updatePwd(SqlSessionTemplate sqlSession, HashMap<String, Object> map);
 	Member selectNewLogin(SqlSessionTemplate sqlSession, int userCode);
@@ -60,7 +63,10 @@ public interface MemberDao {
 	//배경 등록
 	int insertBackImg(SqlSessionTemplate sqlSession, Attachment attachment);
 	//배경 조회
-	Attachment selectBackImg(SqlSessionTemplate sqlSession, int attachCode);
+	/*
+	 * Attachment selectBackImg(SqlSessionTemplate sqlSession, int attachCode);
+	 */
+	
 
 	
 

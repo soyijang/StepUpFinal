@@ -101,7 +101,7 @@ public class MemberController {
 		UserTeamList ul = new UserTeamList();
 		
 		ul.setUserCode(m.getUserCode());
-//		ul.setTeamCode(teamCode);		
+		ul.setTeamCode(1);		//팀코드 넣기
 		
 		List<Member> list = ms.selectTeamList(ul);
 		model.addAttribute("list", list);
@@ -116,14 +116,16 @@ public class MemberController {
 		System.out.println(map);
 				
 		List<TaskHistory> TaskHistory = ms.selectBookmark(map);
-		System.out.println(TaskHistory);
+		System.out.println("맵"+map);
+		System.out.println("테스크히스토리"+TaskHistory);
 		model.addAttribute("TaskHistory", TaskHistory);
 		System.out.println(model);
 		
+		Attachment attach = ms.selectThumnail(m.getUserCode());
+		model.addAttribute("attach", attach);
 		
-		 Attachment attach = ms.selectThumnail(m.getUserCode());
-		 model.addAttribute("attach", attach);
-		
+		Attachment backGround = ms.selectAttachment(m.getUserCode());
+		model.addAttribute("backGround", backGround);
 		
 		return "userInfo/myPage/myInfo";
 	}
@@ -209,10 +211,14 @@ public class MemberController {
 			int result = ms.insertThumbnail(attachment);
 			int attachCode = attachment.getAttachCode();
 
-			Attachment attach = ms.selectThumbnail(attachCode);
+			Attachment attach = ms.selectThumnail(m.getUserCode());
 
 			model.addAttribute("attach", attach);
 			System.out.println("썸네일 모달"+model);
+			
+			Attachment backGround = ms.selectAttachment(m.getUserCode());
+			
+			model.addAttribute("backGround", backGround);
 			
 			
 		} catch (IllegalStateException | IOException e) {
@@ -304,13 +310,15 @@ public class MemberController {
 			picture.transferTo(new File(filePath + "\\" + changeName + ext));
 			int result = ms.insertBackImg(attachment);
 			int attachCode = attachment.getAttachCode();
-			System.out.println(attachCode);
-			Attachment backGround = ms.selectBackImg(attachCode);
-			System.out.println(attachment.getAttachCode());
-			System.out.println("배경 picture"+picture);
+			
+			Attachment backGround = ms.selectAttachment(m.getUserCode());
 			
 			model.addAttribute("backGround", backGround);
-			System.out.println("배경 모달"+model);
+			
+			Attachment attach = ms.selectThumnail(m.getUserCode());
+
+			model.addAttribute("attach", attach);
+			
 			
 		} catch (IllegalStateException | IOException e) {
 			new File(filePath + "\\" + changeName + ext).delete();

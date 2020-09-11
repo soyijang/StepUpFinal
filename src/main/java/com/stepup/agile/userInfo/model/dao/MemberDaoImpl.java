@@ -83,6 +83,12 @@ public class MemberDaoImpl implements MemberDao {
 
 		return sqlSession.selectOne("Member.selectThumb", userCode);
 	}
+	//배경조회
+	@Override
+	public Attachment selectAttachment(SqlSessionTemplate sqlSession, int userCode) {
+
+		return sqlSession.selectOne("Member.selectBack", userCode);
+	}
 	//직업등록
 	@Override
 	public int insertJob(SqlSessionTemplate sqlSession, HashMap<String, Object> map) {
@@ -126,11 +132,6 @@ public class MemberDaoImpl implements MemberDao {
 		System.out.println("썸네일" + attachCode);
 		return attachCode;
 	}
-	@Override
-	public Attachment selectThumbnail(SqlSessionTemplate sqlSession, int attachCode) {
-
-		return sqlSession.selectOne("Member.selectThumbnail", attachCode);
-	}
 	//비밀번호 변경
 	@Override
 	public int updatePwd(SqlSessionTemplate sqlSession, HashMap<String, Object> map) {
@@ -159,11 +160,14 @@ public class MemberDaoImpl implements MemberDao {
 		return attachCode; 
 	}
 	//배경 조회
-	@Override
-	public Attachment selectBackImg(SqlSessionTemplate sqlSession, int attachCode) {
+	/*
+	 * @Override public Attachment selectBackImg(SqlSessionTemplate sqlSession, int
+	 * attachCode) {
+	 * 
+	 * return sqlSession.selectOne("Member.selectBackImg", attachCode); }
+	 */
 
-		return sqlSession.selectOne("Member.selectBackImg", attachCode);
-	}
+
 
 
 

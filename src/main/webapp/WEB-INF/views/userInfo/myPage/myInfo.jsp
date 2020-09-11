@@ -12,7 +12,6 @@
 	src="${pageContext.request.contextPath}/resources/js/common/nav.js"></script>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/indiv/userInfo/myInfo/modal.css">
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/indiv/userInfo/myInfo/myInfo.css">
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/indiv/userInfo/myInfo/tabMenu.css">
 </head>
 <body>
 	<%@ include file="../../common/menubar.jsp"%>
@@ -29,13 +28,13 @@
 		<div id="mainProfile">
 			<input type="file" name="photo" multiple="true" id="gdsImg" value="">
 			<c:if test="${ attach.attachChangeName != null }">
-			<div class="select_img"><img src="resources/uploadFiles/${attach.attachChangeName}.png"
+			<!-- <div class="select_img"> --><img src="resources/uploadFiles/${attach.attachChangeName}.png"
 				id="profilePhoto1">
-			<button id="uploadBtn" value="">업로드</button></div>
+			<button id="uploadBtn" class="upBtn" value="">업로드</button><!-- </div> -->
 			</c:if>
 			<c:if test="${attach.attachChangeName == null}">
 			<div class="select_img">${fn:substring(i.userName, fn:length(i.userName)-2, fn:length(i.userName))}
-			<button id="uploadBtn" value="">업로드</button></div>
+			<button id="uploadBtn" class="upBtn" value="">업로드</button></div>
 			</c:if>
 				
 		</div>
@@ -43,9 +42,9 @@
 		<div id="name">
 			<label><c:out value="${ sessionScope.loginUser.userName }" /></label>
 			<button id="pwdChange" class="pwdChange" >비밀번호변경</button>
-			<button id="getOut">회원탈퇴</button>
-			<img src="/agile/resources/icon/common/icon_bookmarkfull.png" id="bookImg">
-			<button id="bookMarkBtn"></button>
+			<button id="getOut" class="getOut">회원탈퇴</button>
+			<img src="/agile/resources/icon/common/icon_bookmarkfull.png" id="bookMarkBtn">
+			<!-- <button id="bookMarkBtn">북마크 리스트</button> -->
 		</div>
 		<div>
 			<div class="personalInfo">
@@ -135,7 +134,7 @@
 				</table>
 			</div>
 			
-			        <div id="team">팀원
+			        <div id="team"><label id="teamlabel">팀원</label>
 						<div class="teamList">
 							<table id="team-List-table">
 								<tbody>
@@ -144,7 +143,7 @@
 											<td>
 												<div id="teamBack">
 													<c:if test="${i.attachCode != 0 }">
-													<div id="teamProfile" value="${ i.attachCode }">
+													<div id="teamProfile" value="${ i.attachCode }"><img src="resources/uploadFiles/${attach.attachChangeName}.png">
 													<div id="teamName"><c:out value="${ i.userName }" />
 													</div>
 													</c:if>
@@ -191,7 +190,7 @@
 	<form action="changePwd.me" method="post">
 	 <div id="myModal" class="modal">
          <div class="modal-content">
-            <p align="left" class="modaltitle">🎉 비밀번호변경</p>
+            <p align="left" class="modaltitle">💻 비밀번호변경</p>
             <table align="center" class="modalTable">
                <tbody>
                   <tr>
@@ -207,65 +206,65 @@
                </tbody>
             </table>
             <div class="modalButtonArea" id="newTask">
-               <button class="changeBtn" id="rectangle6" type="submit">비밀번호 변경</button>
+               <button class="changeBtn" id="change" type="submit">비밀번호 변경</button>
                <div class="cancelBtn" id="rectangle7" data-dismiss="modal" aria-label="Close">취소</div>
             </div>
             </div>
+           </div>
     	</form>
     	
-    <!-- 회원탈퇴 -->      
-	 <div id="bookMarkmodal" class="modal">
+    <!-- 회원탈퇴 -->
+    <form action="getOut.me" method="post">
+	<div id="outmodal" class="outmodal">
+         <div class="outmodal-content">
+            <p align="left" class="outmodaltitle">😭회원탈퇴</p>
+            <table align="center" class="outmodalTable">
+               <tbody>
+                  <tr>
+                     <td>[이메일]: ${ sessionScope.loginUser.userEmail }</td>
+                  </tr>
+                  <tr>
+                     <td>[기존비밀번호] : <input type="password" class="getout-password" id="pwd-getout" name="pwdGetout" placeholder="비밀번호를 적어주세요"></td>
+                  </tr>
+                  <tr>
+                  	<td>[비밀번호 확인] : <input type="password" class="getout-password" id="pwd-check" name="pwdCheck" placeholder="변경할 비밀번호를 적어주세요"></td>
+                  	<td><span id="alert-danger" style="display: none; color: #d92742; font-weight: bold; ">비밀번호가 일치하지 않습니다.</span></td>
+                  </tr>
+               </tbody>
+            </table>
+            <div class="outmodalButtonArea" id="newTask">
+               <button class="outBtn" id="goHome" type="submit">회원탈퇴</button>
+               <div class="backMain" id="rectangle7" data-dismiss="modal" aria-label="Close">취소</div>
+            </div>
+            </div>
+           </div>
+    	</form>
+    	
+    <!-- 북마크 -->  
+       
+	 <div id="bookMarkmodal" class="bookmodal">
          <div class="bookmodal-content">
-            <p align="left" class="bookmodaltitle">🎉 회원탈퇴</p>
+            <p align="left" class="bookmodaltitle">🔖 북마크 리스트</p>
             <table align="center" class="bookmodalTable">
                <div id="bookmarkList">
-						Task 북마크
 						<div id="bookmarkContent">
-							<table>
-							<tbody>
 							<c:forEach var="i" items="${ TaskHistory }" varStatus="status">
 							<div id="bookmarkListBack">
-								<div id="TaskLogo"><label style="margin-left:10px;">P</label></div>
-								<div id="projectName"><c:out value="${ i.taskHistValue }" /></div>
+								<div id="TaskLogo"><label style="margin-left:10px;">T</label></div>
+								<div id="projectName"><c:out value="${ i.taskHistory.taskHistValue }" /></div>
 							</div>
 							</c:forEach>
-								</tbody>
-							</table>
 						</div>
 					</div> 
             </table>
             <div class="bookmodalButtonArea" id="newTask">
-               <button class="OutBtn" id="rectangle6" type="submit">회원탈퇴</button>
-               <div class="backBtn" id="rectangle7" data-dismiss="modal" aria-label="Close">취소</div>
+               <button class="bookback" id="bookback" type="submit">확인</button>
             </div>               
 
          </div>
       </div>
-    <!-- 북마크 리스트 -->
-    <form action="changePwd.me" method="post">
-	 <div id="myModal" class="modal">
-         <div class="modal-content">
-            <p align="left" class="modaltitle">🎉 비밀번호변경</p>
-            <table align="center" class="modalTable">
-               <tbody>
-                  <tr>
-                     <td>[이메일]: ${ sessionScope.loginUser.userEmail }</td>
-                  </tr>
-                  <tr>
-                     <td>[기존비밀번호] : <input type="password" class="password-Change" id="pwd-origin" name="pwdOrigin" placeholder="비밀번호를 적어주세요"></td>
-                  </tr>
-                  <tr>
-                  	<td>[변경할 비밀번호] : <input type="password" class="password-Change" id="pwd-change" name="pwdChange" placeholder="변경할 비밀번호를 적어주세요"></td>
-                  	<td><span id="alert-danger" style="display: none; color: #d92742; font-weight: bold; ">비밀번호가 일치하지 않습니다.</span></td>
-                  </tr>
-               </tbody>
-            </table>
-            <div class="modalButtonArea" id="newTask">
-               <button class="changeBtn" id="rectangle6" type="submit">비밀번호 변경</button>
-               <div class="backMain" id="rectangle7" data-dismiss="modal" aria-label="Close">취소</div>
-            </div>
-            </div>
-    	</form>
+     
+    
 	
 	<script>
 		//버튼 숨김
@@ -295,8 +294,8 @@
 			   if(this.files && this.files[0]) {
 			    var reader = new FileReader;
 			    reader.onload = function(data) {
-			     $(".select_img img").attr("src", data.target.result).width(110);
-			     $(".select_img img").attr("src", data.target.result).height(90);
+			     $("#profilePhoto1").attr("src", data.target.result).width(100);
+			     $("#profilePhoto1").attr("src", data.target.result).height(100);
 			    }
 			    reader.readAsDataURL(this.files[0]);
 			   }
@@ -334,24 +333,32 @@
     }
     
 //회원탈퇴 모달        
-    $("#getOut").onclick = function() {
-        $("#outmodal").fadeIn(300); 
-        $("#outmodal").css('display','block');
+    var modal2 = document.getElementById("outmodal");
+    var btn2 = document.getElementById("getOut");
+    var span2 = document.getElementsByClassName("backMain")[0];
+    
+    btn2.onclick = function() {
+        $(modal2).fadeIn(300); 
+        $(modal2).css('display','block');
     }
     
-    $(".backBtn").onclick = function() {
-        $("#outmodal").css('display','none');
+    span2.onclick = function() {
+        $(modal2).css('display','none');
     }
     
 //북마크리스트 모달    
-    $("#bookMarkBtn").onclick = function() {
-        $("#bookMarkmodal").fadeIn(300); 
-        $("#bookMarkmodal").css('display','block');
+    var modal3 = document.getElementById("bookMarkmodal");
+    var btn3 = document.getElementById("bookMarkBtn");
+    var span3 = document.getElementsByClassName("bookback")[0];
+    
+    btn3.onclick = function() {
+        $(modal3).fadeIn(300); 
+        $(modal3).css('display','block');
     }
     
-    $(".backMain").onclick = function() {
-        $("#bookMarkmodal").css('display','none');
-    }   
+    span3.onclick = function() {
+        $(modal3).css('display','none');
+    }
 // When the user clicks anywhere outside of the modal, close it
     window.onclick = function(event) {
       if (event.target == modal) {
@@ -363,14 +370,14 @@
       }
     };
     
-    $(function(){
+/*     $(function(){
 		$("#bookMarkBtn").hide();
 		
 		$("#bookImg").click(function(){
 			$("#bookMarkBtn").click();
 		});
 	});
-    
+     */
     //비밀번호 변경
 /*    $('(.password-Change)').focusout(function () {
         var pwd1 = $("(#pwd-origin)").val();
