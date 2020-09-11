@@ -2,6 +2,7 @@ package com.stepup.agile.userInfo.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -13,15 +14,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.stepup.agile.common.CommonUtils;
-import com.stepup.agile.projectTask.model.vo.Bookmark;
 import com.stepup.agile.projectTask.model.vo.TaskHistory;
 import com.stepup.agile.userInfo.model.exception.LoginFailedException;
 import com.stepup.agile.userInfo.model.exception.UpdateFailedException;
@@ -116,17 +114,14 @@ public class MemberController {
 		System.out.println(map);
 				
 		List<TaskHistory> TaskHistory = ms.selectBookmark(map);
-		System.out.println("맵"+map);
-		System.out.println("테스크히스토리"+TaskHistory);
-		model.addAttribute("TaskHistory", TaskHistory);
-		System.out.println(model);
+		model.addAttribute("TaskHistory", TaskHistory);		
 		
 		Attachment attach = ms.selectThumnail(m.getUserCode());
 		model.addAttribute("attach", attach);
 		
 		Attachment backGround = ms.selectAttachment(m.getUserCode());
 		model.addAttribute("backGround", backGround);
-		
+		System.out.println("모델"+model);
 		return "userInfo/myPage/myInfo";
 	}
 	//직업등록

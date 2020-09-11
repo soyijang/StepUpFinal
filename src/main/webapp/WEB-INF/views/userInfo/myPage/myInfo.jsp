@@ -32,7 +32,7 @@
 				id="profilePhoto1">
 			<button id="uploadBtn" class="upBtn" value="">업로드</button><!-- </div> -->
 			</c:if>
-			<c:if test="${attach.attachChangeName == null}">
+			<c:if test="${ attach.attachChangeName == null }">
 			<div class="select_img">${fn:substring(i.userName, fn:length(i.userName)-2, fn:length(i.userName))}
 			<button id="uploadBtn" class="upBtn" value="">업로드</button></div>
 			</c:if>
