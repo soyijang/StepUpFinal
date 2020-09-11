@@ -640,7 +640,7 @@ public class TaskController {
 		   
 	   }	
 
-	 //miso Kim's task ------------------------------------------------------------------------------------
+	 //miso Kim's task --------------------------------------------------------------------------------------------------------
 
 	 //테스크 리스트 조회 후 보드 메인 view로 이동(현재 진행중인 스프린트의 tasklist만 조회)
 	 	@RequestMapping("showTaskBoardMain.tk")
@@ -652,52 +652,157 @@ public class TaskController {
 	 		map.put("userEmail", m.getUserEmail());
 
 	 		// taskHistory vo 기준으로 data return 받기 (resultSet 데이터별 고유 값이 taskHistoryCode라서)
-	 		List<TaskHistory> taskList;
-	 		List<TaskList> mainTaskList = new ArrayList<TaskList>();
-	 		List<TaskList> subTaskList = new ArrayList<TaskList>();
+	 		List<TaskHistory> taskList;//전체리스트
 	 		taskList = ts.selectTaskList(map);
+	 		
 	 		if (taskList != null) {
+	 			//담아갈 리스트
+	 			
+	 			List<TaskHistory> mainTaskList = new ArrayList<TaskHistory>();//상위전체
+	 			List<TaskHistory> subTaskList = new ArrayList<TaskHistory>();//하위전체
+	 			List<TaskHistory> selectedTaskList = new ArrayList<TaskHistory>();//중복제거한 리스트(진행상태기준)
+	 			List<TaskHistory> mainTaskList1 = new ArrayList<TaskHistory>();//중복제거 상위미진행
+	 			List<TaskHistory> mainTaskList2= new ArrayList<TaskHistory>();//중복제거 상위진행중
+	 			List<TaskHistory> mainTaskList3 = new ArrayList<TaskHistory>();//중복제거 상위완료
+	 			List<TaskHistory> subTaskList1 = new ArrayList<TaskHistory>();//중복제거 하위미진행
+	 			List<TaskHistory> subTaskList2 = new ArrayList<TaskHistory>();//중복제거 하위진행중
+	 			List<TaskHistory> subTaskList3 = new ArrayList<TaskHistory>();//중복제거 하위완료
 
+	 			//상위 하위 리스트 정리
+	 			for (int k = 0; k < taskList.size(); k++) {
+	 				if (taskList.get(k).getTaskList().getTaskLevel().equals("상위")) {
+	 					mainTaskList.add(taskList.get(k));
+	 				}else if(taskList.get(k).getTaskList().getTaskLevel().equals("서브")) {
+	 					subTaskList.add(taskList.get(k));
+	 				}else {
+	 					System.out.println("테스크 타입(상위, 하위 테크스) data 입력 오류");
+	 				}
+	 			}
+	 			
 	 			// 중복 내용 정리
-	 			List<TaskList> selectedTaskList = new ArrayList<TaskList>();
 	 			for (int i = 0; i < taskList.size(); i++) {
 	 				// i가 0일때는 그냥 selectedTaskList에 넣어주기
 	 				if (i == 0) {
-	 					selectedTaskList.add(taskList.get(0).getTaskList());
+	 					selectedTaskList.add(taskList.get(0));
 	 					// i가 0이 아니고 앞에있는 테스크 코드와 다를 경우에만 selectedTaskList에 넣어주기
 	 				} else if (taskList.get(i).getTaskList().getTaskCode() != taskList.get(i - 1).getTaskList()
 	 						.getTaskCode()) {
-	 					selectedTaskList.add(taskList.get(i).getTaskList());
+	 					selectedTaskList.add(taskList.get(i));
 	 				}
 	 			}
-	 			
+
+
 	 			// 상위 하위 테스크 구분
 	 			for (int j = 0; j < selectedTaskList.size(); j++) {
-	 				if (selectedTaskList.get(j).getTaskLevel().equals("상위")) {
-	 					mainTaskList.add(selectedTaskList.get(j));
-	 				} else {
-	 					subTaskList.add(selectedTaskList.get(j));
+	 				
+	 				if (selectedTaskList.get(j).getTaskList().getTaskLevel().equals("상위")) {
+	 					
+	 					//상위테스크 미진행, 진행, 완료 구분
+	 					if(selectedTaskList.get(j).getTaskCategoryCode().equals("I") && selectedTaskList.get(j).getTaskHistValue().equals("미진행")) {
+	 						mainTaskList1.add(selectedTaskList.get(j));
+	 					}else if(selectedTaskList.get(j).getTaskCategoryCode().equals("I") && selectedTaskList.get(j).getTaskHistValue().equals("진행중")) {
+	 						mainTaskList2.add(selectedTaskList.get(j));
+	 					}else if(selectedTaskList.get(j).getTaskCategoryCode().equals("I") && selectedTaskList.get(j).getTaskHistValue().equals("완료")) {
+	 						mainTaskList3.add(selectedTaskList.get(j));
+	 					}else {
+	 						System.out.println("테스크 진행상태 없슴. 테스크 data 확인");
+	 					}
+	 					
+	 				} else if(selectedTaskList.get(j).getTaskList().getTaskLevel().equals("서브")){
+	 					
+	 					//하위테스크 미진행, 진행, 완료 구분
+	 					if(selectedTaskList.get(j).getTaskCategoryCode().equals("I") && selectedTaskList.get(j).getTaskHistValue().equals("미진행")) {
+	 						subTaskList1.add(selectedTaskList.get(j));
+	 					}else if(selectedTaskList.get(j).getTaskCategoryCode().equals("I") && selectedTaskList.get(j).getTaskHistValue().equals("진행중")) {
+	 						subTaskList2.add(selectedTaskList.get(j));
+	 					}else if(selectedTaskList.get(j).getTaskCategoryCode().equals("I") && selectedTaskList.get(j).getTaskHistValue().equals("완료")) {
+	 						subTaskList3.add(selectedTaskList.get(j));
+	 					}else {
+	 						System.out.println("테스크 진행상태 없슴. 테스크 data 확인");
+	 					}
+	 				}else {
+	 					System.out.println("테스크 상위, 서브 분류 data 오류");
 	 				}
 	 			}
 	 			
+	 			System.out.println("원본 리스트 사이즈" + taskList.size());
+	 			System.out.println("상위테스크 원본 리스트 사이즈" + mainTaskList.size());
+	 			System.out.println("하위테스크 원본 리스트 사이즈" + subTaskList.size());
+	 			System.out.println("중복 제거 리스트 사이즈" + selectedTaskList.size());	 			
+	 			System.out.println("상위테스크 미진행 중복제거 사이즈: " + mainTaskList1.size());
+	 			System.out.println("상위테스크 진행중 중복제거 사이즈: " + mainTaskList2.size());
+	 			System.out.println("상위테스크 완료 중복제거 사이즈: " + mainTaskList3.size());
+	 			System.out.println("하위테스크 미진행 중복제거 사이즈: " + subTaskList1.size());
+	 			System.out.println("하위테스크 진행중 중복제거 사이즈: " + subTaskList2.size());
+	 			System.out.println("하위테스크 완료 중복제거 사이즈: " + subTaskList3.size());
 	 			//model.addAttribute("taskList", taskList);
 	 			// 중복 제거한 테스크 정보
 	 			//-- model.addAttribute("selectedTaskList", selectedTaskList);
 	 			//model.addAttribute("mainTaskList", mainTaskList);
-	 			//model.addAttribute("subTaskList", subTaskList);
+	 			//model.addAttribute("subTaskList" , subTaskList);
 	 			
 	 			//JSONArray jsonArray = new JSONArray();
-	 			model.addAttribute("jsonList1", JSONArray.fromObject(taskList));
-	 			model.addAttribute("jsonList2", JSONArray.fromObject(mainTaskList));
-	 			model.addAttribute("jsonList3", JSONArray.fromObject(subTaskList));
+	 			model.addAttribute("taskList", JSONArray.fromObject(taskList));
+	 			model.addAttribute("mainTaskList", JSONArray.fromObject(mainTaskList));
+	 			model.addAttribute("subTaskList", JSONArray.fromObject(subTaskList));
+	 			model.addAttribute("selectedTaskList", JSONArray.fromObject(selectedTaskList));
+	 			model.addAttribute("mainTaskList1", JSONArray.fromObject(mainTaskList1));
+	 			model.addAttribute("mainTaskList2", JSONArray.fromObject(mainTaskList2));
+	 			model.addAttribute("mainTaskList3", JSONArray.fromObject(mainTaskList3));
+	 			model.addAttribute("subTaskList1", JSONArray.fromObject(subTaskList1));
+	 			model.addAttribute("subTaskList2", JSONArray.fromObject(subTaskList2));
+	 			model.addAttribute("subTaskList3", JSONArray.fromObject(subTaskList3));
 	 			return "projectTask/projectTaskBoard/projectTaskBoard";
 	 		} else {
 	 			model.addAttribute("msg", "테스크 조회 실패!");
 	 			return "common/errorPage";
 	 		}
 	 	}
-
-	 //----------------------------------------------------------------------------------------------------
+	 	
+	 	//플래그 추가
+	   @RequestMapping("insertTaskHistoryFlagYes.tk")
+	   public ModelAndView insertTaskHistoryFlagYes(ModelAndView mv, @ModelAttribute("loginUser") Member m, int taskCode) {
+		   int result = ts.insertTaskHistoryFlagYes(taskCode);
+		   System.out.println("플래그 추가 성공 : " + result);
+		   mv.addObject("result", result);
+		   mv.setViewName("jsonView");
+		   return mv;
+	   }	
+	 	
+	 	//플래그 제거
+	   @RequestMapping("insertTaskHistoryFlagNo.tk")
+	   public ModelAndView insertTaskHistoryFlagNo(ModelAndView mv, @ModelAttribute("loginUser") Member m, int taskCode) {
+		   int result = ts.insertTaskHistoryFlagNo(taskCode);
+		   System.out.println("플래그 제거 성공 : " + result);
+		   mv.addObject("result", result);
+		   mv.setViewName("jsonView");
+		   return mv;
+	   }
+	   
+	 	//레이블 제거
+	   @RequestMapping("insertTaskHistoryLabelNo.tk")
+	   public ModelAndView insertTaskHistoryLabelNo(ModelAndView mv, @ModelAttribute("loginUser") Member m, int taskCode) {
+		   int result = ts.insertTaskHistoryLabelNo(taskCode);
+		   System.out.println("레이블 제거 성공 : " + result);
+		   mv.addObject("result", result);
+		   mv.setViewName("jsonView");
+		   return mv;
+	   }	   
+	   
+	   
+	   
+	   //테스크 삭제
+	   @RequestMapping("insertTaskHistoryTaskDelete.tk")
+	   public ModelAndView insertTaskHistoryTaskDelete(ModelAndView mv, @ModelAttribute("loginUser") Member m, int taskCode) {
+		   int result = ts.insertTaskHistoryTaskDelete(taskCode);
+		   System.out.println("테스크 삭제 성공 : " + result);
+		   mv.addObject("result", result);
+		   mv.setViewName("jsonView");
+		   return mv;
+	   }	
+	   
+	   
+	 //--------------------------------------------------------------------------------------------------------------------------------------------------
 	   
 	   
 }

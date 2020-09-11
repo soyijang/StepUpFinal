@@ -205,11 +205,38 @@ a{
 /* board 박스 table들 css   */
 /* 수정한 css ************************************************************/
 
-/* flag 설정 */
+/* 레이블 css 설정 */
+.label-css{
+/* 레이블을 span 속성으로 만들어 레이블 글자만큼 회색 배경 색칠 */
+	background-color: #EDEDED;
+    color: rgb(37, 56, 88);
+    border-radius: 3px;
+    cursor: default;
+    height: 23px;
+    line-height: 23px;
+    margin: 4px;
+    padding: 0px;
+/*     height:100%; */
+/*     display: flex; */
+/* block 속성 가지고 있어야지 글자수 많은 경우 ... 이런식으로 글자 생략 가능해서 display 속성  inline-block 줌*/
+    display: inline-block; 
+/* 글자가 일정 크기 넘어가면 오른쪽이 생략됨 */
+  	overflow: hidden;
+  	text-overflow: ellipsis; 
+  	direction: ltr;
+    white-space: nowrap;
+}
+
+
+/* 플래그 설정 */
 .flag-true{
 	/* opacity 는 전체가 흐려지는데, background rgba 에 투명도 주면 글자는 선명하게 적용됨 */
-	background: rgba(221, 3, 81, 0.4);
+	background: rgba(221, 3, 81, 0.2) !important;
+/* 좀더 진하게  */
+/* 	background: rgba(221, 3, 81, 0.4) !important; */
 }	
+
+
 /* 미진행, 진행중, 완료 board */
 #i-board, #p-board, #c-board{
 	min-height: 97%;
@@ -226,7 +253,7 @@ a{
 /* 흰색 mini 데이터 박스들 */
 .i-mini-box, .p-mini-box, .c-mini-box{
 	background: #FFFFFF;
-	box-shadow: 1.5px 1.5px 2px rgba(142, 142, 142, 0.25);
+	box-shadow: 4px 3px 4px rgba(142, 142, 142, 0.35);
 	border-radius: 5px;
 	width: 100%;
 	box-sizing: border-box;
@@ -254,7 +281,7 @@ a{
     min-height: 28px;
 }
 /* task 이름 */
-.i-div1-span1, .p-div1-span1, .c-div1-span1{
+.i-div1-div1, .p-div1-div1, .c-div1-div1{
 	/* 단어 기준으로 줄바꿈 처리 */
     word-break: break-word;
     overflow-wrap: break-word;
@@ -272,6 +299,7 @@ a{
     height: 0.8em;
 }
 
+
 .i-div3-div-type, .p-div3-div-type, .c-div3-div-type{
 	width: 17px;
 	height:17px;
@@ -287,8 +315,8 @@ a{
 	margin-right: 4px;	
 }
 /* task 고유 코드번호  */
-.i-div3-span-tcode, .p-div3-span-tcode, .c-div3-span-tcode{
-	width: 40% !important;
+.i-div3-div-tcode, .p-div3-div-tcode, .c-div3-div-tcode{
+	width: 70% !important;
 	font-family: Noto Sans KR;
 	font-style: normal;
 	font-weight: bold;
@@ -297,8 +325,8 @@ a{
 	color: #6D6D6D;
 	/* 글자 overflow 안되게 하기 */
  	height:100%;
- 	overflow: hidden;
-  	text-overflow: ellipsis;
+  	overflow: hidden;
+  	text-overflow: ellipsis; 
   	/* 글자가 일정 크기 넘어가면 오른쪽이 생략됨 */
   	direction: ltr;
     white-space: nowrap;
@@ -447,13 +475,15 @@ a{
       margin-top: 1px;
       box-shadow: 0 1px 2px#FEF5F8;
       border-radius: 10px;
-      overflow: hidden;
+       overflow: hidden; 
       display: none;
-      max-height: 144px;
+      /* 메뉴 드롭 상자의 최대 높이 */
+      max-height: 300px;
       overflow-y: auto;
       z-index: 9;
       /* select 박스 위치 옆으로 옮기기 */
       margin-left: -1200%;
+      box-sizing: border-box;
   }
   .dropdown .dropdown-menu li {
       padding: 5px;

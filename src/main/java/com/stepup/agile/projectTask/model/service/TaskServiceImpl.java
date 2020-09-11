@@ -298,8 +298,26 @@ public class TaskServiceImpl implements TaskService {
 	public List<TaskHistory> selectTaskList(HashMap<String, Object> map) {
 		return td.selectTaskList(sqlSession, map);
 	}
-
-
+ 	//플래그 추가
+	@Override
+	public int insertTaskHistoryFlagYes(int taskCode) {
+		return td.insertTaskHistoryFlagYes(sqlSession, taskCode);
+	}
+ 	//플래그 제거
+	@Override
+	public int insertTaskHistoryFlagNo(int taskCode) {
+		return td.insertTaskHistoryFlagNo(sqlSession, taskCode);
+	}
+	//레이블 제거
+	@Override
+	public int insertTaskHistoryLabelNo(int taskCode) {
+		return td.insertTaskHistoryLabelNo(sqlSession, taskCode);
+	}
+	//테스크 삭제
+	@Override
+	public int insertTaskHistoryTaskDelete(int taskCode) {
+		return td.insertTaskHistoryTaskDelete(sqlSession, taskCode);
+	}
 
 	
 

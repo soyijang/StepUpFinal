@@ -103,6 +103,14 @@ public interface TaskDao {
 	//miso Kim's task ------------------------------------------------------------------------------------
 	//테스크 리스트 조회 후 보드 메인 view로 이동(현재 진행중인 스프린트의 tasklist만 조회)
 	List<TaskHistory> selectTaskList(SqlSessionTemplate sqlSession, HashMap<String, Object> map);
+ 	//플래그 추가
+	int insertTaskHistoryFlagYes(SqlSessionTemplate sqlSession, int taskCode);
+ 	//플래그 제거
+	int insertTaskHistoryFlagNo(SqlSessionTemplate sqlSession, int taskCode);
+	//레이블 제거
+	int insertTaskHistoryLabelNo(SqlSessionTemplate sqlSession, int taskCode);
+	//테스크 삭제
+	int insertTaskHistoryTaskDelete(SqlSessionTemplate sqlSession, int taskCode);
 
 
 

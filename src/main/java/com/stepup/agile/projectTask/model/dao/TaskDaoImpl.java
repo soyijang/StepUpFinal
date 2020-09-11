@@ -453,11 +453,29 @@ public class TaskDaoImpl implements TaskDao {
 
 	//miso Kim's task ------------------------------------------------------------------------------------
 	//테스크 리스트 조회 후 보드 메인 view로 이동(현재 진행중인 스프린트의 tasklist만 조회)
-
 	@Override
 	public List<TaskHistory> selectTaskList(SqlSessionTemplate sqlSession, HashMap<String, Object> map) {
 		return sqlSession.selectList("Task.selectTaskList", map);
 	}
-
-
+ 	//플래그 추가
+	@Override
+	public int insertTaskHistoryFlagYes(SqlSessionTemplate sqlSession, int taskCode) {
+		return sqlSession.insert("Task.insertTaskHistoryFlagYes", taskCode);
+	}
+ 	//플래그 제거
+	@Override
+	public int insertTaskHistoryFlagNo(SqlSessionTemplate sqlSession, int taskCode) {
+		return sqlSession.insert("Task.insertTaskHistoryFlagNo", taskCode);
+	}
+	//레이블 제거
+	@Override
+	public int insertTaskHistoryLabelNo(SqlSessionTemplate sqlSession, int taskCode) {
+		return sqlSession.insert("Task.insertTaskHistoryLabelNo", taskCode);
+	}
+	//테스크 삭제
+	@Override
+	public int insertTaskHistoryTaskDelete(SqlSessionTemplate sqlSession, int taskCode) {
+		return sqlSession.insert("Task.insertTaskHistoryTaskDelete", taskCode);
+	}
+	
 }
