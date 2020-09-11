@@ -19,7 +19,7 @@
 		<!-- 배경화면 입력 -->
 		<form action="makebackImage.me" method="post" enctype="multipart/form-data">
 		<input type="file" name="picture" multiple="true" id="backInput" value="">
-		<div id="backimg"><img src="resources/uploadFiles/${backGround.attachChangeName}.png" id="backSrc"></div><button id="backUpload" value="">업로드</button>
+		<div id="backimg"><img src="resources/uploadFiles/${ backGround.attachChangeName}.png" id="backSrc"></div><button id="backUpload" value="">업로드</button>
 		</form>
 		
 		
@@ -28,7 +28,7 @@
 		<div id="mainProfile">
 			<input type="file" name="photo" multiple="true" id="gdsImg" value="">
 			<c:if test="${ attach.attachChangeName != null }">
-			<!-- <div class="select_img"> --><img src="resources/uploadFiles/${attach.attachChangeName}.png"
+			<!-- <div class="select_img"> --><img src="resources/uploadFiles/${ attach.attachChangeName }.png"
 				id="profilePhoto1">
 			<button id="uploadBtn" class="upBtn" value="">업로드</button><!-- </div> -->
 			</c:if>
@@ -143,7 +143,7 @@
 											<td>
 												<div id="teamBack">
 													<c:if test="${i.attachCode != 0 }">
-													<div id="teamProfile" value="${ i.attachCode }"><img src="resources/uploadFiles/${attach.attachChangeName}.png">
+													<div id="teamProfile" value="${ i.attachCode }"><img src="resources/uploadFiles/${ i.attachChangeName }.png">
 													<div id="teamName"><c:out value="${ i.userName }" />
 													</div>
 													</c:if>

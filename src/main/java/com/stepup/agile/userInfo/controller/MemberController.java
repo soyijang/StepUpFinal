@@ -118,11 +118,16 @@ public class MemberController {
 		model.addAttribute("TaskHistory", TaskHistory);		
 		
 		Attachment attach = ms.selectThumnail(m.getUserCode());
-		model.addAttribute("attach", attach);
 		
 		Attachment backGround = ms.selectAttachment(m.getUserCode());
-		model.addAttribute("backGround", backGround);
+		
+		HashMap<String, Object> map2 = new HashMap<String, Object>();
+		map2.put("attach", attach);
+		map2.put("backGround", backGround);
+		
+		model.addAttribute("map2", map2);
 		System.out.println("모델"+model);
+		
 		return "userInfo/myPage/myInfo";
 	}
 	//직업등록
@@ -208,13 +213,15 @@ public class MemberController {
 			int attachCode = attachment.getAttachCode();
 
 			Attachment attach = ms.selectThumnail(m.getUserCode());
-
-			model.addAttribute("attach", attach);
-			System.out.println("썸네일 모달"+model);
 			
 			Attachment backGround = ms.selectAttachment(m.getUserCode());
 			
-			model.addAttribute("backGround", backGround);
+			HashMap<String, Object> map2 = new HashMap<String, Object>();
+			map2.put("attach", attach);
+			map2.put("backGround", backGround);
+			
+			model.addAttribute("map2", map2);
+			System.out.println("모델"+model);
 			
 			
 		} catch (IllegalStateException | IOException e) {
@@ -307,13 +314,16 @@ public class MemberController {
 			int result = ms.insertBackImg(attachment);
 			int attachCode = attachment.getAttachCode();
 			
+			Attachment attach = ms.selectThumnail(m.getUserCode());
+			
 			Attachment backGround = ms.selectAttachment(m.getUserCode());
 			
-			model.addAttribute("backGround", backGround);
+			HashMap<String, Object> map2 = new HashMap<String, Object>();
+			map2.put("attach", attach);
+			map2.put("backGround", backGround);
 			
-			Attachment attach = ms.selectThumnail(m.getUserCode());
-
-			model.addAttribute("attach", attach);
+			model.addAttribute("map2", map2);
+			System.out.println("모델"+model);
 			
 			
 		} catch (IllegalStateException | IOException e) {
