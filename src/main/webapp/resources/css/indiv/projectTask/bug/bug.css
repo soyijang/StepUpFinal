@@ -297,8 +297,21 @@ body{
   	display: inline-block;
   }
   #user-pro-lit{
+  	height: 35px;
+   width: 35px;
+   float: right;
+   margin-right: -8px;
+/*    margin-right: -10px; */
+   border-radius: 221.5px;
+   box-sizing: border-box;
+   font-size: 13px;
+   border: 2px solid #d2d2d2;
+/*    border: 2px solid #F3F3F3; */
+   text-align: center;
+   line-height: 35px;
   	margin-bottom: 4px;
   	float: right;
+  	background: #ffb1009c;
   }
   #bugicon{
   	margin-top: 10px;

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -49,7 +50,7 @@
 						<div id="bug-ti-list" class="bug-ti-list">${ i.taskHistValue }</div>
 						<input type="hidden" value="${ i.sprint.sprintCode }" id="sprint-code">
 						<div id="bug-con-list">
-							<div id="bugicon" class="bug-con-list-area"></div><div class="bug-con-list-area" id="bug-code-list1">&nbsp;&nbsp;BUG - ${ i.taskCode }</div><div id="user-pro-lit" class="bug-con-list-area"><img src="/agile/resources/images/profile/dayoon_202008152056.png"></div>
+							<div id="bugicon" class="bug-con-list-area"></div><div class="bug-con-list-area" id="bug-code-list1">&nbsp;&nbsp;BUG - ${ i.taskCode }</div><div id="user-pro-lit" class="bug-con-list-area">${fn:substring(i.member.userName, fn:length(i.member.userName)-2, fn:length(i.member.userName))}</div>
 						</div>
 					</div>
 					</c:forEach>
@@ -60,19 +61,19 @@
 			<div id="bug-detail-area">
 				<div id="bug-detail">
 					<div id="bg-num">
-						<div id="bugicon" style="margin-left: 30px; margin-top:25px;"></div>&nbsp;&nbsp;BUG
+						<div id="bugicon" style="margin-left: 30px; margin-top:25px;"></div>&nbsp;&nbsp;BUG-
 					</div>
 					<div id="bg-detail-title">
 						<table width="100%" id="bg-tb-title">
 						<tbody id="bg-tbody">
 							<tr>
 								<td id="bgtitle-td"><div id="bug-issue-title">제목</div></td>
-								<td style="text-align:right;"><img src="/agile/resources/images/profile/dayoon_202008152056.png"></td>
+								<td style="text-align:right;"><!-- <img src="/agile/resources/images/profile/dayoon_202008152056.png"> --></td>
 								<td>
 									<div class="dropdown2-area">
 									<div class="dropdown2">
 								        <div class="select2">
-								              <button class="clone-delete-btn"><img src="/agile/resources/icon/common/icon_more%20horizontalicon.png" width="20px;" height="20px;"></button>
+								              <button class="clone-delete-btn"><!-- <img src="/agile/resources/icon/common/icon_more%20horizontalicon.png" width="20px;" height="20px;"> --></button>
 								          <i class="fa fa-chevron-left"></i>
 								        </div>
 								        <ul class="dropdown-menu2">
@@ -96,7 +97,7 @@
 					</div>
 					<div id="re-show-area-wrap">
 					<div id="re-show-area">
-						<div id="re-show-pro"><img src="/agile/resources/images/profile/dayoon_202008152056.png"></div>
+						<div id="re-show-pro"><!-- <img src="/agile/resources/images/profile/dayoon_202008152056.png"> --></div>
 						<div id="re-show-cont">
 							<div id="re-name-date-area">
 								<div id="re-name"></div>
@@ -224,9 +225,11 @@
 			var str = a.replace(/(\s*)/g, "");
 			
 			var start = str.indexOf(":");
-			var end = str.indexOf("B", start+1);
-			
+			console.log(start);
+			var end = str.indexOf("B", 0);
+			console.log(end);
 			bugcode = str.substring(end);
+			console.log(bugcode);
 			bugtitle = str.substring(start+1, end);
 			
 		});
@@ -270,6 +273,9 @@
 					}
 					  sCode = value.sprint;
 					  taskLevel = value.taskList;
+					  
+					  uName = value.member;
+					  
 					});
 				 
 				 var replyArr = data.replyHistory;
@@ -337,7 +343,7 @@
 				$("div#re-show-area").remove();
 				  for(var i = 0; i < replyuserNameArr.length-1; i++){
 					$("#re-show-area-wrap").append('<div id="re-show-area">'
-					+ '<div id="re-show-pro">' + '<img src="/agile/resources/images/profile/dayoon_202008152056.png">' + '</div><div id="re-show-cont">'	 
+					+ '<div id="re-show-pro">' + uName + '</div><div id="re-show-cont">'	 
 					+ '<div id="re-name-date-area"><div id="re-name">' + replyuserNameArr[i]
 					+  '</div><div id="re-date">' + updateDateArr[i] + '</div></div> <div id="re-show-cont-area">'
 					+ replyContArr[i] + '</div></div></div>'
@@ -499,7 +505,7 @@
 			data:{"taskHistValue" : searchBug},
 			dataType : "json",
 			success: function(data){
-				//아무것도 입력안하고 검색했을 때
+				
 				var searchArr2 = data.searchBugList1;
 				var searchAllBugTitle =[];
 				var searchBugContent;
@@ -511,22 +517,21 @@
 						searchCnt++;
 						if(searchCnt != index){
 							searchAllBugTitle += ",";
-						}
-						
+						} 
 						searchAllTaskCode += value.taskCode;
 						if(searchCnt != index){
 							searchAllTaskCode += ",";
 						}
 				});
 				
-				console.log(searchAllBugTitle);
-				console.log(searchAllTaskCode);
 				var titleAllArr = searchAllBugTitle.split(",");
 				var tCodeAllArr = searchAllTaskCode.split(",");
+				console.log(titleAllArr);
+				console.log(tCodeAllArr);
 				
 				
 				$(".bug-list-detail").remove();
-				 for(var i = 0; i < titleAllArr.length; i++){
+				 for(var i = 0; i < searchCnt; i++){
 					 $("#bug-list-wrap").append('<div class="bug-list-detail">'
 					+ '<div id="bug-ti-list" class="bug-ti-list">' + titleAllArr[i] + '</div><input type="hidden" value="' + sprintCode + '"id="sprint-code"><div id="bug-con-list">'	 
 					+ '<div id="bugicon" class="bug-con-list-area"></div><div class="bug-con-list-area" id="bug-code-list1">&nbsp;&nbsp;BUG - ' + tCodeAllArr[i]
@@ -623,6 +628,9 @@
 				var searchBugContent;
 				var searchCnt = 0;
 				var searchTaskCode2 = [];
+				
+				console.log(searchBugTitle2);
+				console.log(searchTaskCode2);
 				
 				var searchTitle = $.each(searchArr2, function(index, value){
 					if(value.taskList.taskLevel == "서브"){
@@ -735,7 +743,10 @@
 	  					+ replyContArr[i] + '</div></div></div>'
 	  					 );
 	  				} 
-	        	      
+	  				$('#reply-add-area').hide();
+	  				$('#reply-input').show();
+	  				$("#reply-add-btn").hide();
+	  				$("#reply-cancel-btn").hide();    
 	        	      
 	        	      
 	           }, error : function(){
