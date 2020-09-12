@@ -8,78 +8,35 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/common/nav.js"></script>
 <style>
-	                   
+	.@import url(http://fonts.googleapis.com/earlyaccess/notosanskr.css);
+@font-face {font-family: 'Noto Sans KR';font-style: normal;font-weight: 100;src: url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Thin.woff2) format('woff2'),url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Thin.woff) format('woff'),url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Thin.otf) format('opentype');}
+
+
+
+@font-face {font-family: 'Noto Sans KR';font-style: normal;font-weight: 300;src: url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Light.woff2) format('woff2'),url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Light.woff) format('woff'),url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Light.otf) format('opentype');}
+
+
+
+@font-face {font-family: 'Noto Sans KR';font-style: normal;font-weight: 400;src: url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Regular.woff2) format('woff2'),url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Regular.woff) format('woff'),url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Regular.otf) format('opentype');}
+
+
+
+@font-face {font-family: 'Noto Sans KR';font-style: normal;font-weight: 500;src: url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Medium.woff2) format('woff2'),url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Medium.woff) format('woff'),url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Medium.otf) format('opentype');}
+
+
+
+@font-face {font-family: 'Noto Sans KR';font-style: normal;font-weight: 700;src: url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Bold.woff2) format('woff2'),url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Bold.woff) format('woff'),url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Bold.otf) format('opentype');}
+
+
+
+@font-face {font-family: 'Noto Sans KR';font-style: normal;font-weight: 900;src: url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Black.woff2) format('woff2'),url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Black.woff) format('woff'),url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Black.otf) format('opentype');}                   
 body{
     margin: 0;
     /* 현재 창 높이의 100% */
     height: 100vh;
-}
-
-/* 전체 wrapper */
-#wrapper{
-    display: table;
-    margin-left: auto;
-    margin-right: auto;
-    height: 100vh;
-}
-
-/* 상단 네브바 영역 레이아웃 */
-#navbar{
-    height: 57px;
-    /* 현재 창의 폭  */
-    width: 100vw;
-    background-color: #2B2B49;   
-}
-
-/* 네브바 아래 전체 section(본문영역) 레이아웃 */
-#section{
-    height: 843px;
-
-}
-
-/* section(본문영역) 안쪽 왼쪽 메뉴바*/
-#menubar{
-    width: 12vw;
-    height: 843px;
-    background-color: #F9F9F9;
-    float: left;
-}
-
-/* 메뉴바 상단 Box */
-#menubarTitleBox{
-    height: 12%;
-    width: 100%;
-    text-align: center;
-}
-
-/* 메뉴바 Project명 입력 부분 */
-#projectTitle{
-    height: 100%;
-}
-
-/* 메뉴바 하단 리스트 부분 */
-#menubarList{
-    padding: 10px;
-    box-sizing: border-box;
-    height: 88%;
-    width: 100%;
-    display: inline-block;
-    text-align:center;
-}
-
-/* 메뉴 목록 공통 css 적용 */
-.menu{
-    height: 55px;
-    width: 100%;
-    text-align: left;
-    font-family: Montserrat;
-    font-style: normal;
-    font-weight: 500;
-    font-size: 14px;
-    line-height: 18px;
-    letter-spacing: 0.1px;
-    color: #000000;
+    font-family: "Noto Sans KR";
 }
 
 /* section 안쪽 오른쪽*/
@@ -311,31 +268,24 @@ mark {
   .dropdown .dropdown-menu li:active {
       background-color: #FEF5F8;
   }
+  #survey-name, #survey-intro, #survey-start-date, #survey-end-date{
+  	  border: 1px solid #C4C4C4;
+  	  border-radius: 5px;
+  	  height:20px;
+  }
+  #survey-save, #survey-cancel{
+  		outline: none;
+  		border: 0;
+  		background-color: #dd0351;
+  		color: white;
+  		border-radius: 5px;
+  }
 </style>
 
 
 </head>
 <body>
-
-  <div id="wrapper">
-        <!-- nav바 영역 -->
-        <div id="navbar">navbar</div>
-        <!-- nav바 하단 영역 -->
-        <div id="section">
-            <!-- 왼쪽 메뉴바 영역 -->
-            <div id="menubar">
-                <table id="menubarTitleBox">
-                    <tr><td id="projectTitle"> 여기에 프로젝트명</td></tr>
-                </table>
-                <table id="menubarList">
-                    <tr><td class="menuIcon">icon</td><td id="ProjectTimeline" class="menu">Project Timedivne</td></tr>
-                    <tr><td class="menuIcon">icon</td><td id="SprintBacklog" class="menu">Sprint Backlog</td></tr>
-                    <tr><td class="menuIcon">icon</td><td id="TaskBoard" class="menu">Task Board</td></tr>
-                    <tr><td class="menuIcon">icon</td><td id="Issues" class="menu">Issues</td></tr>
-                    <tr><td class="menuIcon">icon</td><td id="FeedbackForm" class="menu">Feedback Form</td></tr>
-                    <tr><td class="menuIcon">icon</td><td id="StandUpMeeting" class="menu">Stand Up Meeting</td></tr>
-                </table>
-            </div>
+ 	<%@ include file="../common/menubar.jsp" %>
             <div id="content">  
                 <!-- 상단 프로젝트 제목 및 메뉴 이름 영역 -->
                 <div id="contentTitle">
@@ -398,7 +348,7 @@ mark {
 					        </table>
 					        <div id="button-area">
 						        <button class="" id="survey-save">저장</button>
-						        <button class="close" id="">취소</button>
+						        <button class="close" id="survey-cancel">취소</button>
 					        </div>
 					      </div>
 					    
@@ -422,7 +372,7 @@ mark {
                             <button id="surveyUpdate"><img src="icon_more verticalicon.png" style="width: 20px;"></button>
                         </div>
                     </div>
-                    <div id="surveyAnswer">
+                   <!--  <div id="surveyAnswer">
                         <div id="surveyImage">
                             <img src="Frame 3.png">
                         </div>
@@ -441,7 +391,7 @@ mark {
                             2020.08.21
                             <button id="surveyUpdate"><img src="icon_more verticalicon.png" style="width: 20px;"></button>
                         </div>
-                    </div>
+                    </div> -->
                     </div>
                     
 
@@ -451,9 +401,6 @@ mark {
 
                 </div>
             </div>
-        </div> 
-    </div>       
-   
 <script>
 	// Get the modal
 	var modal = document.getElementById("myModal");

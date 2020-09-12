@@ -100,7 +100,6 @@ body{
     height: 15px;
 }
 #optionIconArea {
-    border-left: 1px solid black;
     display: inline-block;
     margin-right: 10px;
 }
@@ -230,6 +229,7 @@ input[type=checkbox] {
 	text-align: center;
 	background-color: #dd0351;
 	color: white;
+	cursor: pointer;
 }
 
 .input1{
@@ -247,6 +247,30 @@ textarea {
 }
 .AddNewOption, #AddNewQue{
 	cursor: pointer;
+}
+.newOption{
+	border: 1px solid #6d6d6d4d;
+    border-radius: 10px;
+    width: 110px;
+    height: 40px;
+    text-align: center;
+    display: inline-block;
+}
+.newOption p{
+	display: inline-block;
+    font-size: 13px;
+    margin: 0;
+    margin-top: 9%;
+    cursor: pointer;
+}
+.newOptionBtn{
+	background: #DD0351;
+    border: 0px;
+    outline: 0px;
+    border-radius: 50%;
+    text-align: center;
+    color: white;
+    margin-top: 0;
 }
 #send-survey{
 	cursor: pointer;
@@ -268,6 +292,9 @@ textarea {
 .AddnewQuestion{
 	cursor: pointer;
 }
+#multi-must-chek-area{
+	margin-left: 190px;
+}
     </style>
 </head>
 <body>
@@ -285,27 +312,37 @@ textarea {
 					<div id="survey-number">질문 1</div>
 						<div id="survey-form1" class="survey-form">
 							<div id="survey-title">
-								<input type="text" placeholder="질문을 입력하세요" class="input1">
+								<input type="text" placeholder="질문을 입력하세요" class="input1" id="QueText1">
 								<div class="dropdown" style="width:90px;">
 							        <div class="select">
-							              <span id="survey-type-filter">질문 유형</span>
+							              <span id="survey-type-filter1" class="survey-type-filter">질문 유형</span>
 							          <i class="fa fa-chevron-left"></i>
 							        </div>
 							        <ul class="dropdown-menu">
 							          <li id="all">질문 유형</li>
-							          <li id="survey-type1">객관식 질문</li>
-							          <li id="survey-type2">주관식 질문</li>
+							          <li class="survey-type1">객관식 질문</li>
+							          <li class="survey-type2">주관식 질문</li>
 							        </ul>
 						      </div>
 							</div>
 							<div id="survey-cont1">
-								<div class="Multiple" id="multi">
-								<input id="radio-2" name="radio" type="checkbox"><input type="text" placeholder="옵션을 입력하세요" class="input1">
+								<div class="Multiple" id="multi1">
+								<input id="radio-2" name="radio" type="checkbox"><input type="text" placeholder="옵션을 입력하세요" class="input1" id="setinput1">
 								</div>
-								<div class="newQuestion" id="newOption1">
-									 <button class="newQuestionBtn" id="newOptBtn1">+</button>
-                        			 <p class="AddnewQuestion" id="AddNewOption1">옵션 추가</p>
+								<div class="newOption" id="newOption1">
+									 <button class="newOptionBtn" id="newOptBtn1">+</button>
+                        			 <p class="AddnewOption" id="AddNewOption1">옵션 추가</p>
 								</div>
+								
+							</div>
+							<div id="multi-must-chek-area1">
+								<div id="optionIconArea">
+                                    &nbsp;&nbsp;
+                                    <input type="checkbox" id="must1" name="check">
+                                    <label>필수</label>
+                                    <input type="checkbox" id="multi1" name="check">
+                                    <label>복수선택</label>
+                                </div>
 							</div>
 						</div>
 					</div>
@@ -391,117 +428,197 @@ textarea {
             </div>
 </body>
 <script>
-	$('.dropdown').click(function() {
+	$(document).on('click', '.dropdown', function(){
 		$(this).attr('tabindex', 1).focus();
 		$(this).toggleClass('active');
 		$(this).find('.dropdown-menu').slideToggle(300);
 	});
 	
-	$('.dropdown').focusout(function() {
+	$(document).on('focusout', '.dropdown', function(){
 		$(this).removeClass('active');
 		$(this).find('.dropdown-menu').slideUp(300);
 	});
-	
-	$('.dropdown .dropdown-menu li').click(
-		function() {
-			$(this).parents('.dropdown').find('span').text($(this).text());
-			$(this).parents('.dropdown').find('input').attr('value',$(this).attr('id'));
+		
+	$(document).on('click', '.dropdown .dropdown-menu li', function(){
+		$(this).parents('.dropdown').find('span').text($(this).text());
+		$(this).parents('.dropdown').find('input').attr('value',$(this).attr('id'));
 	});
 	
-	$('.dropdown-menu li').click(function() {
-			var input = '<strong>' + $(this).parents('.dropdown').find('input').val() + '</strong>', msg = '<span class="msg">Hidden input value: ';
-			$('.msg').html(msg + input + '</span>');
+	$(document).on('click', '.dropdown-menu li', function(){
+		var input = '<strong>' + $(this).parents('.dropdown').find('input').val() + '</strong>', msg = '<span class="msg">Hidden input value: ';
+		$('.msg').html(msg + input + '</span>');
 	});
+	
 		var cnt = 1;
 		var num2 = 1;
+		
+		var addNewQue = document.getElementById("AddNewQue");
 	//질문추가
 	$(document).on('click', "#AddNewQue", function(){
+		
+		
 		cnt += 1;
 		
 		$('div#survey-form-area').append('<div id="survey-number">질문 '+ cnt + '</div>'
 			+	'<div id="survey-form'+ cnt + '"class="survey-form"><div id="survey-title">'
-			+		'<input type="text" placeholder="질문을 입력하세요" class="input1">'
+			+		'<input type="text" placeholder="질문을 입력하세요" class="input1" id="QueText' + cnt + '">'
 			+		'<div class="dropdown" style="width:90px;">'
 			+	        '<div class="select">'
-			+	              '<span id="survey-type-filter">질문 유형</span>'
+			+	              '<span id="survey-type-filter' + cnt + '" class="survey-type-filter">질문 유형</span>'
 			+	          '<i class="fa fa-chevron-left"></i>'
 			+	        '</div>'
 			+	        '<ul class="dropdown-menu">'
 			+	          '<li id="all">질문 유형</li>'
-			+	          '<li id="survey-type1">객관식 질문</li>'
-			+	          '<li id="survey-type2">주관식 질문</li>'
+			+	          '<li class="survey-type1">객관식 질문</li>'
+			+	          '<li class="survey-type2">주관식 질문</li>'
 			+	        '</ul>'
 			+      '</div>'
 			+	'</div>'
 			+	'<div id="survey-cont' + cnt + '">'
- 		 	+		'<div class="Multiple" id="multi">'
-			+		'<input id="radio-2" name="radio" type="checkbox"><input type="text" placeholder="옵션을 입력하세요" class="input1"><br>'
+ 		 	+		'<div class="Multiple" id="multi' + cnt + '">'
+			+		'<input id="radio-2" name="radio" type="checkbox"><input type="text" placeholder="옵션을 입력하세요" class="input1" id="setinput' + cnt + '"><br>'
 			+		'</div>'
-			+       '<div class="Multiple" id="must" style="display: none;">'
-			+       '<textarea rows="5" cols="25">입력</textarea>'
-			+       '</div>'
-		    +		'<div class="newQuestion" id="newOption' + cnt + '">'
-			+		'<button class="newQuestionBtn" id="newOptBtn' + cnt + '">+</button>'
-	        +		'<p class="AddnewQuestion" id="AddNewOption' + cnt + '">옵션 추가</p>'
+		    +		'<div class="newOption" id="newOption' + cnt + '">'
+			+		'<button class="newOptionBtn" id="newOptBtn' + cnt + '">+</button>'
+	        +		'<p class="AddnewOption" id="AddNewOption' + cnt + '">옵션 추가</p>'
 			+		'</div>'
 			+	'</div>'
+			+ '<div id="multi-must-chek-area">'
+			+ '<div id="optionIconArea">&nbsp;&nbsp;'
+            + '<input type="checkbox" id="must' + cnt + '" name="check">'
+            + '<label>필수</label>'
+            + '<input type="checkbox" id="multi' + cnt + '" name="check">'
+            + '<label>복수선택</label>'
+        	+ '</div>'
+			+ '</div>'
 			+'</div>');
 		
 		$('div#survey-cont' + cnt).append()
-		num2++;
+		
+		//addNewQue(cnt);
 	});
 	
-	console.log(num2);
+
 	
-	
-	$('.AddnewQuestion').mouseover(function(){
-    	var id_check = $(this).attr("id");
-    	console.log(id_check);
-	});
-	
-	
-	//옵션 추가
-	/* var num = 150;
-	$(document).on('click', '#AddNewOption3', function(){
-		console.log("ㅋㅋ");
-		var surveyCont = $('#AddNewOption3').parent().parent().prop('id');
-		var surveyForm = $('#AddNewOption3').parent().parent().parent().children().children().children().children().eq(1).prop('id');
-		console.log(surveyCont);
-		console.log(surveyForm);
-		
-		
-		$('<br>').remove();
-		$('div').remove('#newOption3');
-		$('button').remove('#newOptBtn3');
-		$('p').remove('#AddNewOption3');
-		$('div#survey-cont' + cnt).append('<div class="Multiple" id="multi"><input id="radio-2" name="radio" type="checkbox"><input type="text" placeholder="옵션을 입력하세요" class="input1"></div>'
-			  + '<div class="newQuestion" id="newOption' + cnt + '">'
-			  + '<button class="newQuestionBtn" id="newOptBtn' + cnt + '">+</button>'
-   			  + '<p class="AddnewQuestion" id="AddNewOption' + cnt + '">옵션 추가</p>'
-			  + '</div>');
-		num += 35;
-		console.log(num);
-		$('div#survey-form3').css("height", num);
-		
+	/* $(document).on('click', '#survey-number', function(){
+		var surId = $('#Add').parent().eq(1).children().attr('id');
+		console.log("질문 눌렀을때 : " + surId);
 	}); */
 	
-	$(document).on('click', '#survey-type2', function(){
-		$("#multi").hide();
-		$("#newOption").hide();
-		$("#survey-form").css("height","180px");
-		$("#survey-cont1").remove();
-	});
-	$(document).on('click', '#survey-type1', function(){
-		$("#multi").show();
-		$("#newOption").show();
-		$("#survey-form").css("height","150px");
-		$("#survey-cont1").append('<div class="Multiple" id="multi">'
-				+		'<input id="radio-2" name="radio" type="checkbox"><input type="text" placeholder="옵션을 입력하세요" class="input1"><br>'
-				+		'</div>');
-	});
+	/* function addNewOpt(cnt){
+		for(var i = 0; i < cnt; i++){
+			
+		}
+	}; */
 
 	
 	
+	//옵션 추가
+	var num = 150;
+	$(document).on('click', '.AddnewOption', function(event){
+		//var optionid = $('.AddnewOption').prop('id');
+		var optionid = event.target.id;
+		console.log(optionid);
+		var chkbox = $('#'+optionid).parent().parent().prop('id');
+		console.log("체크박스 : " + chkbox);
+		var surveyCont = $('#'+optionid).parent().parent().prop('id');
+		console.log(surveyCont);
+		var surveyform = $('#'+optionid).parent().parent().parent().prop("id");
+		console.log(surveyform);
+		
+		$('<br>').remove();
+		$('div').remove('#newOption'+cnt);
+		$('button').remove('#newOptionBtn'+cnt);
+		$('p').remove('#AddnewOption'+cnt);
+		$('div').remove('#multi-must-chek-area');
+		$('div').remove('#optionIconArea');
+		$('#'+surveyCont).append('<div class="Multiple" id="multi'+ cnt + '"><input id="radio-2" name="radio" type="checkbox"><input type="text" placeholder="옵션을 입력하세요" class="input1" id="setinput' + cnt +'"></div>'
+			  + '<div class="newOption" id="newOption' + cnt + '">'
+			  + '<button class="newOptionBtn" id="newOptBtn' + cnt + '">+</button>'
+   			  + '<p class="AddnewOption" id="AddNewOption' + cnt + '">옵션 추가</p>'
+			  + '</div>'
+			  + '<div id="multi-must-chek-area">'
+				+ '<div id="optionIconArea">&nbsp;&nbsp;'
+	            + '<input type="checkbox" id="must' + cnt + '" name="check">'
+	            + '<label>필수</label>'
+	            + '<input type="checkbox" id="multi' + cnt + '" name="check">'
+	            + '<label>복수선택</label>'
+	        	+ '</div>'
+				+ '</div>');
+		num += 35;
+		console.log(num);
+		
+		//$('#')
+		$('#'+surveyform).css("height", num);
+		
+	});
+	
+	$(document).on('click', '.survey-type2', function(event){
+		var typeid = event.target;
+		var parent = typeid.parentElement;
+		var parent2 = parent.parentElement;
+		var parent3 = parent2.parentElement;
+		//survey-form id
+		var parent4 = parent3.parentElement;
+		console.log(parent4);
+		var child = parent4.children[1].children[0].id;
+		var child2 = parent4.children[1].children[1].id;
+		console.log(child);
+		var pid = parent4.id;
+		console.log(pid);
+		
+		//var surveyform = $('.survey-type2').parent().parent().parent().parent().prop("id");
+		//console.log(surveyform);
+		$("#"+child).hide();
+		$("#"+child2).hide();
+		$("#"+pid).css("height","100px");
+	});
+	$(document).on('click', '.survey-type1', function(){
+		var typeid = event.target;
+		var parent = typeid.parentElement;
+		var parent2 = parent.parentElement;
+		var parent3 = parent2.parentElement;
+		//survey-form id
+		var parent4 = parent3.parentElement;
+		var child = parent4.children[1].children[0].id;
+		var child2 = parent4.children[1].children[1].id;
+		var pid = parent4.id;
+		console.log(pid);
+		
+		$("#"+child).show();
+		$("#"+child2).show();
+		$("#"+pid).css("height","150px");
+
+	});
+
+	$(document).on('click', '#send-survey', function(){
+		var get_input = $("input[type=text]");
+		var inputTitle = $("#QueText").val();
+		console.log("제목 : " + inputTitle);
+		var get_input2 = [];
+		var get_input3 = [];
+		var chked = $("input:checkbox[name='check']").is(":checked");
+
+		$.each(get_input, function (index, value){
+			if($(value).val() != ""){
+				get_input2 += $(value).val();
+				get_input2 += ",";
+			}
+		});
+				console.log("1 : " + get_input);
+				console.log("2 : "+ get_input2);
+		
+		var number = 1;
+		//$.each(get_input2)
+		
+		/* if($(".survey-type-filter").html() == '주관식 질문'){
+			var essay = $(".input1").val();
+			console.log(essay);
+		} else if($(".survey-type-filter").html() == '객관식 질문'){
+			var essay2 = $(".input1").val();
+			console.log(essay2);
+		} */
+	});
 	
 </script>
 </html>
