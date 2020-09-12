@@ -73,7 +73,7 @@
 									<div class="dropdown2-area">
 									<div class="dropdown2">
 								        <div class="select2">
-								              <button class="clone-delete-btn"><!-- <img src="/agile/resources/icon/common/icon_more%20horizontalicon.png" width="20px;" height="20px;"> --></button>
+								              <button class="clone-delete-btn" style="display: none;" id="clone-deleteBtn"><img src="/agile/resources/icon/common/icon_more%20horizontalicon.png" width="20px;" height="20px;"></button>
 								          <i class="fa fa-chevron-left"></i>
 								        </div>
 								        <ul class="dropdown-menu2">
@@ -97,7 +97,7 @@
 					</div>
 					<div id="re-show-area-wrap">
 					<div id="re-show-area">
-						<div id="re-show-pro"><!-- <img src="/agile/resources/images/profile/dayoon_202008152056.png"> --></div>
+						<!-- <div id="re-show-pro"><img src="/agile/resources/images/profile/dayoon_202008152056.png"></div> -->
 						<div id="re-show-cont">
 							<div id="re-name-date-area">
 								<div id="re-name"></div>
@@ -110,7 +110,7 @@
 					<div id="bg-reply" class="bg-reply">
 						<div id="re-pro"></div>
 						<div id="bg-re-cont">
-						<div class="re-ed-area">
+						<div class="re-ed-area" style="display: none;" id="re-ed-show">
 					<input id="reply-input" type="text" placeholder="댓글 추가..">
 					<div id="reply-add-area" style="display: none;">
 					  <textarea id="summernote" name="editordata"></textarea>
@@ -213,11 +213,12 @@
 	var bugYN;
 	var bugStatus;
 	var bugCont;
-	var sprintCode;
-	var taskLevel;
+	var sprintCode = "";
+	var taskLevel = "";
 	var tLevel;
 	var taskMaster;
 	var headCode;
+	var bugUserName = "";
 	
 	$(document).on("click",".bug-list-detail",function(){
 			a = $(this).text();
@@ -228,19 +229,23 @@
 			console.log(start);
 			var end = str.indexOf("B", 0);
 			console.log(end);
-			bugcode = str.substring(end);
+			bugcode = str.substr(end);
 			console.log(bugcode);
+			
+			bugUserName = bugcode.slice(0,-2);
+			console.log("dd : " + bugUserName);
+			
 			bugtitle = str.substring(start+1, end);
+			console.log(bugtitle);
 			
 		});
 
 	
 	//버그리스트 누르면 상세 영역에 버그제목하고 코드가져오기
 	$(document).on("click", ".bug-list-detail", function(){
-		  
-        var div = "";
-		div += '<div id="epicicon" style="margin-left:30px; margin-top:25px; display:inline-block;"></div> SPRINT-' + sprintCode + ' /' + '<div id="bugicon" style="margin-left: 10px; margin-top:25px;">&nbsp;&nbsp;</div> ' + bugcode;
-		$("#bg-num").html(div);
+		var showBtn = $("#clone-deleteBtn").show();  
+		
+		var showReply = $("#re-ed-show").show();
 		
 		var div2 = "";
 		div2 += '<div id="bug-issue-title">' + bugtitle + '</div>';
@@ -334,7 +339,12 @@
 				}
 				$("#bug-status").html(div4);	
 				 
-      	      
+				var div = "";
+				div += '<div id="epicicon" style="margin-left:30px; margin-top:25px; display:inline-block;"></div> SPRINT-' + sprintCode + ' /' + '<div id="bugicon" style="margin-left: 10px; margin-top:25px;">&nbsp;&nbsp;</div> ' + bugUserName;
+				$("#bg-num").html(div);
+				
+				
+				
 				if(replyArr.length > 0){
       	        var replyuserNameArr = replyuserName.split(",");
 				var updateDateArr = updateDate.split(",");
@@ -343,7 +353,7 @@
 				$("div#re-show-area").remove();
 				  for(var i = 0; i < replyuserNameArr.length-1; i++){
 					$("#re-show-area-wrap").append('<div id="re-show-area">'
-					+ '<div id="re-show-pro">' + uName + '</div><div id="re-show-cont">'	 
+					+ '<div id="re-show-pro">' + replyuserNameArr[i].slice(-2) + '</div><div id="re-show-cont">'	 
 					+ '<div id="re-name-date-area"><div id="re-name">' + replyuserNameArr[i]
 					+  '</div><div id="re-date">' + updateDateArr[i] + '</div></div> <div id="re-show-cont-area">'
 					+ replyContArr[i] + '</div></div></div>'
@@ -434,6 +444,7 @@
 					var searchBugTitle =[];
 					var searchBugContent;
 					var searchCnt = 0;
+					var uName = [];
 					
 					var searchTaskCode = [];
 					var searchTitle = $.each(searchArr, function(index, value){
@@ -450,6 +461,11 @@
 								searchTaskCode += ",";
 							}
 						
+							uName += value.member.userName;
+							if(searchCnt != index){
+								uName += ",";
+							}
+							console.log(uName);
 					});
 					
 					
@@ -466,19 +482,26 @@
 							if(searchCnt != index){
 								searchTaskCode += ",";
 							}
+							uName += value.member.userName;
+							if(searchCnt != index){
+								uName += ",";
+							}
+							console.log(uName);
 					});
 					
 					
 					var titleArr = searchBugTitle.split(",");
 					var tCodeArr = searchTaskCode.split(",");
-					
+					var userName = uName.split(",");
+					var accountName = userName.slice(-2);
+					console.log(accountName);
 					
 					$(".bug-list-detail").remove();
 					 for(var i = 0; i < searchCnt; i++){
 						 $("#bug-list-wrap").append('<div class="bug-list-detail">'
 						+ '<div id="bug-ti-list" class="bug-ti-list">' + titleArr[i] + '</div><input type="hidden" value="' + sprintCode + '"id="sprint-code"><div id="bug-con-list">'	 
 						+ '<div id="bugicon" class="bug-con-list-area"></div><div class="bug-con-list-area" id="bug-code-list1">&nbsp;&nbsp;BUG - ' + tCodeArr[i]
-						+  '</div><div id="user-pro-lit" class="bug-con-list-area"><img src="/agile/resources/images/profile/dayoon_202008152056.png"></div></div></div>' 
+						+  '</div><div id="user-pro-lit" class="bug-con-list-area">' + userName[i].slice(-2) + '</div></div></div>' 
 						 );
 					} 
 						
@@ -511,6 +534,7 @@
 				var searchBugContent;
 				var searchCnt = 0;
 				var searchAllTaskCode = [];
+				var uName = [];
 				
 				var searchTitle = $.each(searchArr2, function(index, value){
 						searchAllBugTitle += value.taskHistValue;
@@ -522,12 +546,15 @@
 						if(searchCnt != index){
 							searchAllTaskCode += ",";
 						}
+						uName += value.member.userName;
+						if(searchCnt != index){
+							uName += ",";
+						}
 				});
 				
 				var titleAllArr = searchAllBugTitle.split(",");
 				var tCodeAllArr = searchAllTaskCode.split(",");
-				console.log(titleAllArr);
-				console.log(tCodeAllArr);
+				var userName = uName.split(",");
 				
 				
 				$(".bug-list-detail").remove();
@@ -535,7 +562,7 @@
 					 $("#bug-list-wrap").append('<div class="bug-list-detail">'
 					+ '<div id="bug-ti-list" class="bug-ti-list">' + titleAllArr[i] + '</div><input type="hidden" value="' + sprintCode + '"id="sprint-code"><div id="bug-con-list">'	 
 					+ '<div id="bugicon" class="bug-con-list-area"></div><div class="bug-con-list-area" id="bug-code-list1">&nbsp;&nbsp;BUG - ' + tCodeAllArr[i]
-					+  '</div><div id="user-pro-lit" class="bug-con-list-area"><img src="/agile/resources/images/profile/dayoon_202008152056.png"></div></div></div>' 
+					+  '</div><div id="user-pro-lit" class="bug-con-list-area">' + userName[i].slice(-2) + '</div></div></div>' 
 					 );
 				} 
 					
@@ -569,7 +596,7 @@
 				var searchCnt = 0;
 				var searchTaskCode = [];
 				console.log(searchArr2);
-				
+				var uName = [];
 				
 				var searchTitle = $.each(searchArr2, function(index, value){
 					if(value.taskList.taskLevel == "상위"){
@@ -584,12 +611,17 @@
 						if(searchCnt != index){
 							searchTaskCode += ",";
 						}
+						uName += value.member.userName;
+						if(searchCnt != index){
+							uName += ",";
+						}
 					}
 				});
 				
 				
 				var titleArr = searchBugTitle.split(",");
 				var tCodeArr = searchTaskCode.split(",");
+				var userName = uName.split(",");
 				
 				console.log(titleArr.length);
 				
@@ -598,7 +630,7 @@
 					 $("#bug-list-wrap").append('<div class="bug-list-detail">'
 					+ '<div id="bug-ti-list" class="bug-ti-list">' + titleArr[i] + '</div><input type="hidden" value="' + sprintCode + '"id="sprint-code"><div id="bug-con-list">'	 
 					+ '<div id="bugicon" class="bug-con-list-area"></div><div class="bug-con-list-area" id="bug-code-list1">&nbsp;&nbsp;BUG - ' + tCodeArr[i]
-					+  '</div><div id="user-pro-lit" class="bug-con-list-area"><img src="/agile/resources/images/profile/dayoon_202008152056.png"></div></div></div>' 
+					+  '</div><div id="user-pro-lit" class="bug-con-list-area">' + userName[i].slice(-2) + '</div></div></div>' 
 					 );
 				} 
 					
@@ -628,7 +660,7 @@
 				var searchBugContent;
 				var searchCnt = 0;
 				var searchTaskCode2 = [];
-				
+				var uName = [];
 				console.log(searchBugTitle2);
 				console.log(searchTaskCode2);
 				
@@ -645,6 +677,11 @@
 						if(searchCnt != index){
 							searchTaskCode2 += ",";
 						}
+						
+						uName += value.member.userName;
+						if(searchCnt != index){
+							uName += ",";
+						}
 					}
 				});
 						console.log(searchCnt);
@@ -652,6 +689,7 @@
 				
 				var titleArr2 = searchBugTitle2.split(",");
 				var tCodeArr2 = searchTaskCode2.split(",");
+				var userName = uName.split(",");
 				
 				console.log(titleArr2);
 				console.log(tCodeArr2);
@@ -661,7 +699,7 @@
 					$("#bug-list-wrap").append('<div class="bug-list-detail">'
 					+ '<div id="bug-ti-list" class="bug-ti-list">' + titleArr2[i] + '</div><input type="hidden" value="' + sprintCode + '"id="sprint-code"><div id="bug-con-list">'	 
 					+ '<div id="bugicon" class="bug-con-list-area"></div><div class="bug-con-list-area" id="bug-code-list1">&nbsp;&nbsp;BUG - ' + tCodeArr2[i]
-					+  '</div><div id="user-pro-lit" class="bug-con-list-area"><img src="/agile/resources/images/profile/dayoon_202008152056.png"></div></div></div>' 
+					+  '</div><div id="user-pro-lit" class="bug-con-list-area">' + userName[i].slice(-2) + '</div></div></div>' 
 					 );
 				} 
 				 
@@ -731,13 +769,12 @@
 	        	    var replyuserNameArr = replyuserName.split(",");
 	  				var updateDateArr = updateDate.split(",");
 	  				var replyContArr = replyCont.split(",");
-	  				
-	  				
+	  				console.log(replyuserName);
 	  				
 	  				$("div#re-show-area").remove();
 	  				  for(var i = 0; i < replyuserNameArr.length-1; i++){
 	  					$("#re-show-area-wrap").append('<div id="re-show-area">'
-	  					+ '<div id="re-show-pro">' + '<img src="/agile/resources/images/profile/dayoon_202008152056.png">' + '</div><div id="re-show-cont">'	 
+	  					+ '<div id="re-show-pro">' + replyuserNameArr[i].slice(-2) + '</div><div id="re-show-cont">'	 
 	  					+ '<div id="re-name-date-area"><div id="re-name">' + replyuserNameArr[i]
 	  					+  '</div><div id="re-date">' + updateDateArr[i] + '</div></div> <div id="re-show-cont-area">'
 	  					+ replyContArr[i] + '</div></div></div>'
