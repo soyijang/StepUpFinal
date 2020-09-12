@@ -19,8 +19,7 @@ public class Member implements java.io.Serializable {
 	private String userManagerYn;
 	private String userEnrollTime;
 	
-	private String domain;
-	private char verify;
+	private String verified;
 	private int attachCode;
 	private String projectName;
 	
@@ -37,7 +36,7 @@ public class Member implements java.io.Serializable {
 
 	public Member(String userEmail, String userPwd, String userName, int userCode, String userPhone,
 			String userCompName, String userCompDept, String userCompJob, String userEnrollDate, String userStatus,
-			String userManagerYn, String userEnrollTime, String domain, char verify, int attachCode, String projectName,
+			String userManagerYn, String userEnrollTime, String verified, int attachCode, String projectName,
 			UserTeamList userTeamList, Attachment attachment, Project project, UserProjectList userProjectList,
 			TaskHistory taskHistory, Bookmark bookMark, TaskList taskList) {
 		super();
@@ -53,8 +52,7 @@ public class Member implements java.io.Serializable {
 		this.userStatus = userStatus;
 		this.userManagerYn = userManagerYn;
 		this.userEnrollTime = userEnrollTime;
-		this.domain = domain;
-		this.verify = verify;
+		this.verified = verified;
 		this.attachCode = attachCode;
 		this.projectName = projectName;
 		this.userTeamList = userTeamList;
@@ -162,20 +160,12 @@ public class Member implements java.io.Serializable {
 		this.userEnrollTime = userEnrollTime;
 	}
 
-	public String getDomain() {
-		return domain;
+	public String getVerified() {
+		return verified;
 	}
 
-	public void setDomain(String domain) {
-		this.domain = domain;
-	}
-
-	public char getVerify() {
-		return verify;
-	}
-
-	public void setVerify(char verify) {
-		this.verify = verify;
+	public void setVerified(String verified) {
+		this.verified = verified;
 	}
 
 	public int getAttachCode() {
@@ -255,14 +245,11 @@ public class Member implements java.io.Serializable {
 		return "Member [userEmail=" + userEmail + ", userPwd=" + userPwd + ", userName=" + userName + ", userCode="
 				+ userCode + ", userPhone=" + userPhone + ", userCompName=" + userCompName + ", userCompDept="
 				+ userCompDept + ", userCompJob=" + userCompJob + ", userEnrollDate=" + userEnrollDate + ", userStatus="
-				+ userStatus + ", userManagerYn=" + userManagerYn + ", userEnrollTime=" + userEnrollTime + ", domain="
-				+ domain + ", verify=" + verify + ", attachCode=" + attachCode + ", projectName=" + projectName
-				+ ", userTeamList=" + userTeamList + ", attachment=" + attachment + ", project=" + project
-				+ ", userProjectList=" + userProjectList + ", taskHistory=" + taskHistory + ", bookMark=" + bookMark
-				+ ", taskList=" + taskList + "]";
+				+ userStatus + ", userManagerYn=" + userManagerYn + ", userEnrollTime=" + userEnrollTime + ", verified="
+				+ verified + ", attachCode=" + attachCode + ", projectName=" + projectName + ", userTeamList="
+				+ userTeamList + ", attachment=" + attachment + ", project=" + project + ", userProjectList="
+				+ userProjectList + ", taskHistory=" + taskHistory + ", bookMark=" + bookMark + ", taskList=" + taskList
+				+ "]";
 	}
-
-	
-
 	
 }

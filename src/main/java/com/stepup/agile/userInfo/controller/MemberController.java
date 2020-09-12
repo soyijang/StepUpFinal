@@ -392,10 +392,10 @@ public class MemberController {
 		int result = ms.insertMember(m);
 		
 		MailHandler sendMail = new MailHandler(mailSender);
-		sendMail.setSubject("[STEPUP]회원가입 이메일 인증");
+		sendMail.setSubject("[STEPUP] 회원가입 이메일 인증");
 		sendMail.setText(new StringBuffer().append("<h1>메일인증<h1>")
-				.append("<a href='http://localhost:8001/agile/verify.me?m.userEmail=" + m.getUserEmail())
-				.append("'target='_blenk'>이메일 인증 확인</a>").toString());
+				.append("<a href='http://localhost:8001/agile/verify.me?userEmail=" + m.getUserEmail())
+				.append("'target='_blank'>이메일 인증 확인</a>").toString());
 		sendMail.setFrom("stepup9180@gmail.com", "스탭업");
 		sendMail.setTo(m.getUserEmail());
 		sendMail.send();
@@ -403,17 +403,24 @@ public class MemberController {
 		return "userInfo/memberJoin/mailForm";
 	}
 	
-	@RequestMapping(value="verify.me", method=RequestMethod.GET)
-	public String signSuccess(@RequestParam String userEmail, @RequestParam String domain) {
+	@RequestMapping(value="/verify.me", method=RequestMethod.GET)
+	public String signSuccess(Model model, @RequestParam String userEmail) {
 		System.out.println("이메일 인증기능 처리");
+		System.out.println(userEmail);
 		
 		Member member = new Member();
 		member.setUserEmail(userEmail);
 		/* member.setDomain(domain); */
 		
-		ms.verifyMember(member);
-		
-		return "main/main";
+		int result = ms.verifyMember(member);
+		System.out.println("인증확인?"+ result);
+			
+		/* loginUser = ms.loginMember(member); */
+		Member loginUser = ms.loginverify(userEmail);
+		System.out.println(loginUser);
+		model.addAttribute("loginUser", loginUser);
+			
+		return "common/menubar";
 	}
 	
 	@RequestMapping("login.me")
@@ -424,14 +431,11 @@ public class MemberController {
 		try {
 			loginUser = ms.loginMember(m);
 			System.out.println("로그인 유저"+ loginUser);
-			if(loginUser != null) {
-				if(m.getVerify() == 'y') {
+
+			if(loginUser.getVerified().equals("Y")) {
 					
-					model.addAttribute("loginUser", loginUser);
-					return "common/menubar";		
-				} else {
-					return "userInfo/loginOut/login";
-				}
+				model.addAttribute("loginUser", loginUser);
+				return "common/menubar";		
 			} else {
 				return "userInfo/loginOut/login";
 			}

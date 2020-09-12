@@ -168,8 +168,15 @@ public class MemberDaoImpl implements MemberDao {
 	 */
 
 	@Override
-	public void verifyMember(SqlSessionTemplate sqlSession, Member member) {
-		sqlSession.update("Member.verifyMember", member);
+	public int verifyMember(SqlSessionTemplate sqlSession, Member member) {
+		
+		return sqlSession.update("Member.verifyMember", member);
+	}
+	//인증 후 로그인
+	@Override
+	public Member loginverify(SqlSessionTemplate sqlSession, String userEmail) {
+
+		return sqlSession.selectOne("Member.loginVerify", userEmail);
 	}
 
 

@@ -17,6 +17,7 @@
 		<result property="userStatus" column="USER_STATUS"/>
 		<result property="userManagerYn" column="USER_MANAGER_YN"/>
 		<result property="userEnrollTime" column="USER_ENROLL_TIME"/>
+		<result property="verified" column="VERIFIED"/>
 	</resultMap>
 	
 	<resultMap type="com.stepup.agile.userInfo.model.vo.UserProjectList" id="UserProjectListResultSet">
@@ -70,6 +71,7 @@
 		<result property="userStatus" column="USER_STATUS"/>
 		<result property="userManagerYn" column="USER_MANAGER_YN"/>
 		<result property="userEnrollTime" column="USER_ENROLL_TIME"/>
+		<result property="verified" column="VERIFIED"/>
 		<collection property="userTeamList" resultMap="UserTeamListResultSet"/>
 	</resultMap>
 	
@@ -128,6 +130,7 @@
 		<result property="userStatus" column="USER_STATUS"/>
 		<result property="userManagerYn" column="USER_MANAGER_YN"/>
 		<result property="userEnrollTime" column="USER_ENROLL_TIME"/>
+		<result property="verified" column="VERIFIED"/>
 		<collection property="userTeamList" resultMap="UserTeamListResultSet"/>
 		<collection property="attachment" resultMap="AttachmentResultSet"/>
 	</resultMap>
@@ -145,6 +148,7 @@
 		<result property="userStatus" column="USER_STATUS"/>
 		<result property="userManagerYn" column="USER_MANAGER_YN"/>
 		<result property="userEnrollTime" column="USER_ENROLL_TIME"/>
+		<result property="verified" column="VERIFIED"/>
 		<collection property="project" resultMap="projectResultSet"/>
 		<collection property="userProjectList" resultMap="UserProjectListResultSet"/>
 		<collection property="userTeamList" resultMap="UserTeamListResultSet"/>
@@ -165,6 +169,7 @@
 		<result property="userStatus" column="USER_STATUS"/>
 		<result property="userManagerYn" column="USER_MANAGER_YN"/>
 		<result property="userEnrollTime" column="USER_ENROLL_TIME"/>
+		<result property="verified" column="VERIFIED"/>
 		<collection property="userTeamList" resultMap="UserTeamListResultSet"></collection>
 		<collection property="taskHistory" resultMap="TaskHistoryResultSet"></collection>
 		<collection property="taskList" resultMap="TaskListResultSet"></collection>
@@ -184,6 +189,7 @@
 		<result property="userStatus" column="USER_STATUS"/>
 		<result property="userManagerYn" column="USER_MANAGER_YN"/>
 		<result property="userEnrollTime" column="USER_ENROLL_TIME"/>
+		<result property="verified" column="VERIFIED"/>
 		<collection property="attachment" resultMap="AttachmentResultSet"/>
 	</resultMap>
 	
@@ -201,6 +207,7 @@
 		<result property="userStatus" column="USER_STATUS"/>
 		<result property="userManagerYn" column="USER_MANAGER_YN"/>
 		<result property="userEnrollTime" column="USER_ENROLL_TIME"/>
+		<result property="verified" column="VERIFIED"/>
 		<collection property="attachment" resultMap="AttachmentResultSet"/>
 	</resultMap>
 
@@ -226,6 +233,13 @@
 		 WHERE USER_EMAIL = #{userEmail}
 	</update>
 	
+	<select id="loginVerify" resultMap="memberResultSet" parameterType="Member">
+		SELECT *
+		  FROM USER_INFO
+		 WHERE USER_EMAIL=#{userEmail}
+		   AND USER_STATUS = 'N'
+	</select>
+	
 	<select id="selectLoginUser" resultMap="memberResultSet" parameterType="Member">
 		SELECT *
 		FROM USER_INFO
@@ -239,6 +253,7 @@
 		 WHERE USER_EMAIL = #{userEmail}
 		   AND USER_PWD = #{userPwd}
 		   AND USER_STATUS = 'N'
+		   AND VERIFIED = 'Y'
 	</select>
 	
 	<select id="selectPwd" resultType="java.lang.String" parameterType="java.lang.String">

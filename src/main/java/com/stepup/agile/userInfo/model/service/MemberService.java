@@ -58,7 +58,9 @@ public interface MemberService {
 	//배경이미지 조회
 	/* Attachment selectBackImg(int attachCode); */
 	//이메일 인증
-	void verifyMember(Member member);
+	int verifyMember(Member member);
+	//인증 후 로그인 확인
+	Member loginverify(String userEmail);
 
 	
 	

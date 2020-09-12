@@ -67,7 +67,9 @@ public interface MemberDao {
 	 * Attachment selectBackImg(SqlSessionTemplate sqlSession, int attachCode);
 	 */
 	//메일인증
-	void verifyMember(SqlSessionTemplate sqlSession, Member member);
+	int verifyMember(SqlSessionTemplate sqlSession, Member member);
+	//인증 후 로그인
+	Member loginverify(SqlSessionTemplate sqlSession, String userEmail);
 	
 
 	

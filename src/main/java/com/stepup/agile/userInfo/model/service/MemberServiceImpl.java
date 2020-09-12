@@ -194,10 +194,17 @@ public class MemberServiceImpl implements MemberService{
 	 * 
 	 * return md.selectBackImg(sqlSession, attachCode); }
 	 */
-
+	//인증
 	@Override
-	public void verifyMember(Member member) {
-		md.verifyMember(sqlSession, member);
+	public int verifyMember(Member member) {
+		
+		return md.verifyMember(sqlSession, member);
+	}
+	//인증 후 로그인
+	@Override
+	public Member loginverify(String userEmail) {
+
+		return md.loginverify(sqlSession, userEmail);
 	}
 
 
