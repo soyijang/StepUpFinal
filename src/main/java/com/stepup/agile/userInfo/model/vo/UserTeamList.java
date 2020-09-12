@@ -8,10 +8,13 @@ public class UserTeamList implements java.io.Serializable {
 	private int userTeamCode;
 	private String userTeamTime;
 	
+	private UserProjectList userProjectList;
+	private UserTeamList userTeamList;
+	
 	public UserTeamList() {}
 
 	public UserTeamList(String userTeamDate, String userTeamYn, int userCode, int teamCode, int userTeamCode,
-			String userTeamTime) {
+			String userTeamTime, UserProjectList userProjectList, UserTeamList userTeamList) {
 		super();
 		this.userTeamDate = userTeamDate;
 		this.userTeamYn = userTeamYn;
@@ -19,6 +22,8 @@ public class UserTeamList implements java.io.Serializable {
 		this.teamCode = teamCode;
 		this.userTeamCode = userTeamCode;
 		this.userTeamTime = userTeamTime;
+		this.userProjectList = userProjectList;
+		this.userTeamList = userTeamList;
 	}
 
 	public String getUserTeamDate() {
@@ -69,9 +74,27 @@ public class UserTeamList implements java.io.Serializable {
 		this.userTeamTime = userTeamTime;
 	}
 
+	public UserProjectList getUserProjectList() {
+		return userProjectList;
+	}
+
+	public void setUserProjectList(UserProjectList userProjectList) {
+		this.userProjectList = userProjectList;
+	}
+
+	public UserTeamList getUserTeamList() {
+		return userTeamList;
+	}
+
+	public void setUserTeamList(UserTeamList userTeamList) {
+		this.userTeamList = userTeamList;
+	}
+
 	@Override
 	public String toString() {
 		return "UserTeamList [userTeamDate=" + userTeamDate + ", userTeamYn=" + userTeamYn + ", userCode=" + userCode
-				+ ", teamCode=" + teamCode + ", userTeamCode=" + userTeamCode + ", userTeamTime=" + userTeamTime + "]";
+				+ ", teamCode=" + teamCode + ", userTeamCode=" + userTeamCode + ", userTeamTime=" + userTeamTime
+				+ ", userProjectList=" + userProjectList + ", userTeamList=" + userTeamList + "]";
 	}
+
 }

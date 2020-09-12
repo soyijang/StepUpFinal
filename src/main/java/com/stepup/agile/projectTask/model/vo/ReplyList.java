@@ -6,14 +6,17 @@ public class ReplyList implements java.io.Serializable {
 	private int replyCode;
 	private String replyStatus;
 	
+	private ReplyList reply;
+	
 	public ReplyList() {}
 
-	public ReplyList(int userCode, int taskCode, int replyCode, String replyStatus) {
+	public ReplyList(int userCode, int taskCode, int replyCode, String replyStatus, ReplyList reply) {
 		super();
 		this.userCode = userCode;
 		this.taskCode = taskCode;
 		this.replyCode = replyCode;
 		this.replyStatus = replyStatus;
+		this.reply = reply;
 	}
 
 	public int getUserCode() {
@@ -48,9 +51,18 @@ public class ReplyList implements java.io.Serializable {
 		this.replyStatus = replyStatus;
 	}
 
+	public ReplyList getReply() {
+		return reply;
+	}
+
+	public void setReply(ReplyList reply) {
+		this.reply = reply;
+	}
+
 	@Override
 	public String toString() {
 		return "ReplyList [userCode=" + userCode + ", taskCode=" + taskCode + ", replyCode=" + replyCode
-				+ ", replyStatus=" + replyStatus + "]";
+				+ ", replyStatus=" + replyStatus + ", reply=" + reply + "]";
 	}
+
 }

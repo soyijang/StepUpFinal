@@ -5,14 +5,12 @@
  <mapper namespace="Rss">
 
 
-	<!-- RSS_LIST 테이블 -->
 	<resultMap type="com.stepup.agile.userMyTasks.model.vo.Rss" id="rssResultSet">
 		<id property="rssCode" column="RSS_CODE"/>
 		<result property="userProjectCode" column="USER_PROJECT_CODE"/>
 		<result property="rssYn" column="RSS_YN"/>
 	</resultMap>
 
-	<!-- RSS_HISTORY 테이블 -->
 	<resultMap type="com.stepup.agile.userMyTasks.model.vo.RssHistory" id="rssHistoryResultSet">
 		<id property="rssHistoryCode" column="RSS_HISTORY_CODE"/>
 		<result property="rssModifyDate" column="RSS_MODIFY_DATE"/>
