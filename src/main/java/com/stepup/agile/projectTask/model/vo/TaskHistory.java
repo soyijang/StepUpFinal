@@ -1,5 +1,11 @@
 package com.stepup.agile.projectTask.model.vo;
 
+import com.stepup.agile.projectBacklog.model.vo.Sprint;
+import com.stepup.agile.projectBacklog.model.vo.SprintHistory;
+import com.stepup.agile.userInfo.model.vo.Member;
+import com.stepup.agile.userInfo.model.vo.UserProjectList;
+import com.stepup.agile.userInfo.model.vo.UserTeamList;
+
 public class TaskHistory implements java.io.Serializable{
 	private String taskHistUpdateDate;
 	private String taskHistUpdateTime;
@@ -10,10 +16,20 @@ public class TaskHistory implements java.io.Serializable{
 	private String taskHistValue;
 	private String taskCategoryCode;
 	
+	private Member member;
+	private UserTeamList userTeamList;
+	private UserProjectList userProjectList;
+	private TaskList taskList;
+	private Sprint sprint;
+	private TaskCategory taskCategory;
+	private SprintHistory sprintHistory;
+	
 	public TaskHistory() {}
 
 	public TaskHistory(String taskHistUpdateDate, String taskHistUpdateTime, int taskCode, int taskHistCode,
-			int masterCode, int userCode, String taskHistValue, String taskCategoryCode) {
+			int masterCode, int userCode, String taskHistValue, String taskCategoryCode, Member member,
+			UserTeamList userTeamList, UserProjectList userProjectList, TaskList taskList, Sprint sprint,
+			TaskCategory taskCategory, SprintHistory sprintHistory) {
 		super();
 		this.taskHistUpdateDate = taskHistUpdateDate;
 		this.taskHistUpdateTime = taskHistUpdateTime;
@@ -23,7 +39,15 @@ public class TaskHistory implements java.io.Serializable{
 		this.userCode = userCode;
 		this.taskHistValue = taskHistValue;
 		this.taskCategoryCode = taskCategoryCode;
+		this.member = member;
+		this.userTeamList = userTeamList;
+		this.userProjectList = userProjectList;
+		this.taskList = taskList;
+		this.sprint = sprint;
+		this.taskCategory = taskCategory;
+		this.sprintHistory = sprintHistory;
 	}
+
 
 	public String getTaskHistUpdateDate() {
 		return taskHistUpdateDate;
@@ -89,14 +113,82 @@ public class TaskHistory implements java.io.Serializable{
 		this.taskCategoryCode = taskCategoryCode;
 	}
 
+	
+	public Member getMember() {
+		return member;
+	}
+
+
+	public void setMember(Member member) {
+		this.member = member;
+	}
+
+
+	public UserTeamList getUserTeamList() {
+		return userTeamList;
+	}
+
+
+	public void setUserTeamList(UserTeamList userTeamList) {
+		this.userTeamList = userTeamList;
+	}
+
+
+	public UserProjectList getUserProjectList() {
+		return userProjectList;
+	}
+
+
+	public void setUserProjectList(UserProjectList userProjectList) {
+		this.userProjectList = userProjectList;
+	}
+
+
+	public TaskList getTaskList() {
+		return taskList;
+	}
+
+
+	public void setTaskList(TaskList taskList) {
+		this.taskList = taskList;
+	}
+
+
+	public Sprint getSprint() {
+		return sprint;
+	}
+
+	public void setSprint(Sprint sprint) {
+		this.sprint = sprint;
+	}
+
+	public TaskCategory getTaskCategory() {
+		return taskCategory;
+	}
+
+	public void setTaskCategory(TaskCategory taskCategory) {
+		this.taskCategory = taskCategory;
+	}
+
+	public SprintHistory getSprintHistory() {
+		return sprintHistory;
+	}
+
+	public void setSprintHistory(SprintHistory sprintHistory) {
+		this.sprintHistory = sprintHistory;
+	}
+
 	@Override
 	public String toString() {
 		return "TaskHistory [taskHistUpdateDate=" + taskHistUpdateDate + ", taskHistUpdateTime=" + taskHistUpdateTime
 				+ ", taskCode=" + taskCode + ", taskHistCode=" + taskHistCode + ", masterCode=" + masterCode
 				+ ", userCode=" + userCode + ", taskHistValue=" + taskHistValue + ", taskCategoryCode="
-				+ taskCategoryCode + "]";
+				+ taskCategoryCode + ", member=" + member + ", userTeamList=" + userTeamList + ", userProjectList="
+				+ userProjectList + ", taskList=" + taskList + ", sprint=" + sprint + ", taskCategory=" + taskCategory
+				+ ", sprintHistory=" + sprintHistory + "]";
 	}
 	
 	
-	
+
+
 }

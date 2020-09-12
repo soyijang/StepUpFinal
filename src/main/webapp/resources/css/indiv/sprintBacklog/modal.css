@@ -1,0 +1,116 @@
+.modalTable{
+	width: 1000px;
+	margin: 20px;
+	
+  }
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 2; /* Sit on top */
+    left: 0;
+    top: 0 ;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.3); /* Black w/ opacity */
+  }
+  
+  /* Modal Content/Box */
+.modal-content {
+    background-color: #fefefe;
+    margin: 10% auto; /* 15% from the top and centered */
+    padding: 10px;
+    border: 1px solid #c4c4c4;
+    width: 40%; /* Could be more or less, depending on screen size */
+    z-index:1;
+    border-radius: 10px;
+    box-shadow: 0 0 4px #cccccc;
+  }
+  
+  .updatecontent{
+  	height: 65%;
+  }
+  
+  .mytaskupdatecontent{
+  	height: 35%;
+  }
+  
+ .modaltitle{
+ 	font-size:30px;
+ 	margin-left: 20px;
+ }
+  
+  .modalTable{
+  	font-size: small;
+  }
+  
+ .modalButtonArea{
+ 	margin:30px;
+ 	text-align: center;
+ }
+ 
+ .sprintclose{
+ 	text-align: center;
+ 	display: inline-block;
+ 	vertical-align: middle;
+ 	line-height: 30px;
+ }
+ .sprintupdateclose{
+ 	text-align: center;
+ 	display: inline-block;
+ 	vertical-align: middle;
+ 	line-height: 30px;
+ }
+ 
+ .updateFinishClose {
+ 	text-align: center;
+ 	display: inline-block;
+ 	vertical-align: middle;
+ 	line-height: 30px;
+ }
+ .updateStartClose {
+ 	text-align: center;
+ 	display: inline-block;
+ 	vertical-align: middle;
+ 	line-height: 30px;
+ }
+ .finishTaskClose {
+ 	text-align: center;
+ 	display: inline-block;
+ 	vertical-align: middle;
+ 	line-height: 30px;
+ }
+ .myTaskUpdateClose {
+ 	text-align: center;
+ 	display: inline-block;
+ 	vertical-align: middle;
+ 	line-height: 30px;
+ }
+ .myTaskInsertClose {
+ 	text-align: center;
+ 	display: inline-block;
+ 	vertical-align: middle;
+ 	line-height: 30px;
+ }
+ .myTaskShareClose {
+ 	text-align: center;
+ 	display: inline-block;
+ 	vertical-align: middle;
+ 	line-height: 30px;
+ }
+ .myTaskDeleteClose {
+ 	text-align: center;
+ 	display: inline-block;
+ 	vertical-align: middle;
+ 	line-height: 30px;
+ }
+ 
+ button{
+    outline: 0;
+ }
+ 
+ .SprintUpdateModalTable{
+ 	width: 90%;
+ }
+ 

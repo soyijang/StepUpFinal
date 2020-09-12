@@ -4,7 +4,6 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="Qna">
 	
-	<!-- QNA_LIST 테이블 -->
 	<resultMap type="com.stepup.agile.userQna.model.vo.QnaList" id="qnaListResultSet">
 	<id property="qnaCode" column="QNA_CODE"/>
 	<result property="qnaType" column="QNA_TYPE"/>
@@ -14,7 +13,6 @@
 	<result property="qnaReply" column="QNA_REPLY"/>
 	</resultMap>
 	
-	<!-- QNA_REPLY 테이블 -->
 	<resultMap type="com.stepup.agile.userQna.model.vo.QnaReply" id="qnaReplyResultSet">
 	<id property="qnaCode" column="QNA_CODE"/>
 	<result property="qnaReplyContent" column="QNA_REPLY_CONTENT"/>

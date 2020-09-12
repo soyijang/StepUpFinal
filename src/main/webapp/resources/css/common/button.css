@@ -45,7 +45,7 @@
             width: 80px;
             border-radius: 10px;
             border: 0;
-            font-size: 8px;
+            font-size: 14px;
             color: white;
             text-align: center;     
         }
@@ -55,7 +55,7 @@
             width: 80px;
             border-radius: 10px;
             border: 0;
-            font-size: 8px;
+            font-size: 14px;
             color: white;
             text-align: center;     
         }
@@ -65,7 +65,7 @@
             width: 80px;
             border-radius: 1000mm;
             border: 0;
-            font-size: 8px;
+            font-size: 10px;
             color: white;
             text-align: center;     
         }
@@ -75,7 +75,7 @@
             height: 30px;
             width: 80px;
             border-radius: 1000mm;
-            font-size: 8px;
+            font-size: 10px;
             color: #C4C4C4;
             text-align: center;     
         }

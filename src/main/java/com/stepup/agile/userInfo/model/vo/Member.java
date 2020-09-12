@@ -1,5 +1,10 @@
 package com.stepup.agile.userInfo.model.vo;
 
+import com.stepup.agile.projectManage.model.vo.Project;
+import com.stepup.agile.projectTask.model.vo.Bookmark;
+import com.stepup.agile.projectTask.model.vo.TaskHistory;
+import com.stepup.agile.projectTask.model.vo.TaskList;
+
 public class Member implements java.io.Serializable {
 	private String userEmail;
 	private String userPwd;
@@ -14,11 +19,27 @@ public class Member implements java.io.Serializable {
 	private String userManagerYn;
 	private String userEnrollTime;
 	
+	private String domain;
+	private char verify;
+	private int attachCode;
+	private String projectName;
+	
+	private UserTeamList userTeamList;
+	private Attachment attachment;
+	private Project project;
+	private UserProjectList userProjectList;
+
+	private TaskHistory taskHistory;
+	private Bookmark bookMark;
+	private TaskList taskList;
+	
 	public Member() {}
 
 	public Member(String userEmail, String userPwd, String userName, int userCode, String userPhone,
 			String userCompName, String userCompDept, String userCompJob, String userEnrollDate, String userStatus,
-			String userManagerYn, String userEnrollTime) {
+			String userManagerYn, String userEnrollTime, String domain, char verify, int attachCode, String projectName,
+			UserTeamList userTeamList, Attachment attachment, Project project, UserProjectList userProjectList,
+			TaskHistory taskHistory, Bookmark bookMark, TaskList taskList) {
 		super();
 		this.userEmail = userEmail;
 		this.userPwd = userPwd;
@@ -32,6 +53,17 @@ public class Member implements java.io.Serializable {
 		this.userStatus = userStatus;
 		this.userManagerYn = userManagerYn;
 		this.userEnrollTime = userEnrollTime;
+		this.domain = domain;
+		this.verify = verify;
+		this.attachCode = attachCode;
+		this.projectName = projectName;
+		this.userTeamList = userTeamList;
+		this.attachment = attachment;
+		this.project = project;
+		this.userProjectList = userProjectList;
+		this.taskHistory = taskHistory;
+		this.bookMark = bookMark;
+		this.taskList = taskList;
 	}
 
 	public String getUserEmail() {
@@ -130,12 +162,107 @@ public class Member implements java.io.Serializable {
 		this.userEnrollTime = userEnrollTime;
 	}
 
+	public String getDomain() {
+		return domain;
+	}
+
+	public void setDomain(String domain) {
+		this.domain = domain;
+	}
+
+	public char getVerify() {
+		return verify;
+	}
+
+	public void setVerify(char verify) {
+		this.verify = verify;
+	}
+
+	public int getAttachCode() {
+		return attachCode;
+	}
+
+	public void setAttachCode(int attachCode) {
+		this.attachCode = attachCode;
+	}
+
+	public String getProjectName() {
+		return projectName;
+	}
+
+	public void setProjectName(String projectName) {
+		this.projectName = projectName;
+	}
+
+	public UserTeamList getUserTeamList() {
+		return userTeamList;
+	}
+
+	public void setUserTeamList(UserTeamList userTeamList) {
+		this.userTeamList = userTeamList;
+	}
+
+	public Attachment getAttachment() {
+		return attachment;
+	}
+
+	public void setAttachment(Attachment attachment) {
+		this.attachment = attachment;
+	}
+
+	public Project getProject() {
+		return project;
+	}
+
+	public void setProject(Project project) {
+		this.project = project;
+	}
+
+	public UserProjectList getUserProjectList() {
+		return userProjectList;
+	}
+
+	public void setUserProjectList(UserProjectList userProjectList) {
+		this.userProjectList = userProjectList;
+	}
+
+	public TaskHistory getTaskHistory() {
+		return taskHistory;
+	}
+
+	public void setTaskHistory(TaskHistory taskHistory) {
+		this.taskHistory = taskHistory;
+	}
+
+	public Bookmark getBookMark() {
+		return bookMark;
+	}
+
+	public void setBookMark(Bookmark bookMark) {
+		this.bookMark = bookMark;
+	}
+
+	public TaskList getTaskList() {
+		return taskList;
+	}
+
+	public void setTaskList(TaskList taskList) {
+		this.taskList = taskList;
+	}
+
 	@Override
 	public String toString() {
 		return "Member [userEmail=" + userEmail + ", userPwd=" + userPwd + ", userName=" + userName + ", userCode="
 				+ userCode + ", userPhone=" + userPhone + ", userCompName=" + userCompName + ", userCompDept="
 				+ userCompDept + ", userCompJob=" + userCompJob + ", userEnrollDate=" + userEnrollDate + ", userStatus="
-				+ userStatus + ", userManagerYn=" + userManagerYn + ", userEnrollTime=" + userEnrollTime + "]";
+				+ userStatus + ", userManagerYn=" + userManagerYn + ", userEnrollTime=" + userEnrollTime + ", domain="
+				+ domain + ", verify=" + verify + ", attachCode=" + attachCode + ", projectName=" + projectName
+				+ ", userTeamList=" + userTeamList + ", attachment=" + attachment + ", project=" + project
+				+ ", userProjectList=" + userProjectList + ", taskHistory=" + taskHistory + ", bookMark=" + bookMark
+				+ ", taskList=" + taskList + "]";
 	}
 
+	
+
+	
 }

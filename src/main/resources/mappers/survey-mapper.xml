@@ -4,14 +4,12 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="Survey">
 
-	<!-- SURVEY_CHOICE_LIST 테이블 -->
 	<resultMap type="com.stepup.agile.projectFeedback.model.vo.SurveyChoiceList" id="surveyChoiceListResultSet">
 		<id property="surveyQuesCode" column="SURVEY_QUES_CODE"/>
 		<result property="surveyChoiceNum" column="SURVEY_CHOICE_NUM"/>
 		<result property="surveyChoiceContent" column="SURVEY_CHOICE_CONTENT"/>
 	</resultMap>
 	
-	<!-- SURVEY_JOIN_LIST 테이블-->
 	<resultMap type="com.stepup.agile.projectFeedback.model.vo.SurveyJoinList" id="surveyJoinListResultSet">
 		<id property="surveyJoinCode" column="SURVEY_JOIN_CODE"/>
 		<result property="surveyJoinEmail" column="SURVEY_JOIN_EMAIL"/>
@@ -22,7 +20,6 @@
 		<result property="surveyCode" column="SURVEY_CODE"/>
 	</resultMap>
 	
-	<!-- SURVEY_LIST 테이블 -->
 	<resultMap type="com.stepup.agile.projectFeedback.model.vo.Survey" id="SurveyListResultSet">
 		<id property="surveyCode" column="SURVEY_CODE"/>
 		<result property="sprintCode" column="SPRINT_CODE"/>
@@ -35,7 +32,6 @@
 		<result property="surveyEndDate" column="SURVEY_END_DATE"/>
 	</resultMap>
 	
-	<!-- SURVEY_QUES_LIST 테이블-->
 	<resultMap type="com.stepup.agile.projectFeedback.model.vo.SurveyQuesList" id="surveyQuesListResultSet">
 		<id property="surveyQuesCode" column="SURVEY_QUES_CODE"/>
 		<result property="surveyQuesType" column="SURVEY_QUES_TYPE"/>

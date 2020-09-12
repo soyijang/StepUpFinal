@@ -76,7 +76,7 @@ body{
 }
 
 
-/* section 안쪽 오른쪽*/
+/* section 안쪽 오른쪽 mennubar 기준*/
 #content{
     padding: 20px;
     padding-top: 0;
@@ -86,8 +86,25 @@ body{
     box-sizing: border-box;
     float:left;
     position: relative;
-    transition: all ease 0.5s 0s;
-    
+/*     transition: all ease 0.5s 0s; */    
+}
+
+/* nav만 단독으로 사용하는 경우 이 id로 변경 */
+#content-nav-only{
+    padding: 6vw;
+    padding-top: 0;
+    padding-bottom: 0;
+    width: 100vw;
+/*     width: 86vw; */
+    height: 800px;
+/*     height: 843px; */
+    background-color: f9f9f9;
+    box-sizing: border-box;
+    float:left;
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;	
+/*     transition: all ease 0.5s 0s; */    
 }
 
 /* content 안쪽 상단 contentTitle(제목 영역)*/
@@ -126,4 +143,9 @@ body{
  #contentBox{ 
 
     margin-top: 20px;
+}
+
+#menubarWithBtn2{
+	width: 100vw;
+	height: 37px;
 }
