@@ -218,7 +218,7 @@
 				TO_CHAR(SYSDATE + 9/24, 'YYYY-MM-DD'), DEFAULT, DEFAULT,
 				TO_CHAR(SYSDATE + 9/24, 'hh24:mi:ss'))
 	</insert> -->
-	
+	<!-- 회원가입 -->
 	<insert id="insertMember" parameterType="Member">
 		INSERT INTO USER_INFO
 		VALUES (#{userEmail}, #{userPwd}, #{userName}, SEQ_USER.NEXTVAL, 
@@ -226,13 +226,13 @@
 				TO_CHAR(SYSDATE + 9/24, 'YYYY-MM-DD'), DEFAULT, DEFAULT,
 				TO_CHAR(SYSDATE + 9/24, 'hh24:mi:ss'), 'N')
 	</insert>
-	
+	<!-- 인증으로 변경 -->
 	<update id="verifyMember" parameterType="Member">
 		UPDATE USER_INFO 
 		   SET VERIFIED = 'Y'
 		 WHERE USER_EMAIL = #{userEmail}
 	</update>
-	
+	<!-- 인증된후 로그인 -->
 	<select id="loginVerify" resultMap="memberResultSet" parameterType="Member">
 		SELECT *
 		  FROM USER_INFO
@@ -262,6 +262,16 @@
 		WHERE USER_EMAIL = #{userEmail}
 		AND USER_STATUS = 'N'
 	</select>
+	<select id="userInfo" resultMap="memberResultSet" parameterType="Member">
+		SELECT *
+		  FROM USER_INFO
+		 WHERE USER_EMAIL = #{email, jdbcType=VARCHAR}
+		   AND USER_STATUS = 'N'
+	</select>
+	<update id="tempPwd" parameterType="Member">
+		UPDATE USER_INFO SET USER_PWD = #{userPwd}
+		WHERE USER_EMAIL = #{userEmail}
+	</update>
 	<!-- 팀원 조회 -->
 <!-- 	<select id="myTeamMemberList" resultMap="memberTeamSet" parameterType="Member">
 		SELECT *

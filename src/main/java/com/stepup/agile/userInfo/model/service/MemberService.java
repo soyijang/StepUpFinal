@@ -7,6 +7,7 @@ import java.util.Map;
 
 import javax.activation.CommandMap;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import com.stepup.agile.projectManage.model.vo.Project;
 import com.stepup.agile.projectTask.model.vo.Bookmark;
@@ -61,6 +62,12 @@ public interface MemberService {
 	int verifyMember(Member member);
 	//인증 후 로그인 확인
 	Member loginverify(String userEmail);
+	//입력받은 아이디 확인
+	Member userInfo(String email);
+	//임시비밀번호 db저장
+	/* int updatetempPwd(Member me); */
+
+	int tempPwd(Member member);
 
 	
 	

@@ -1,5 +1,6 @@
 package com.stepup.agile.userInfo.model.service;
 
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -7,6 +8,7 @@ import java.util.Map;
 
 import javax.activation.CommandMap;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,22 +28,22 @@ import com.stepup.agile.userInfo.model.vo.UserTeamList;
 
 @Service
 public class MemberServiceImpl implements MemberService{
-	
+
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 	@Autowired
 	private MemberDao md;
-	
+
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
 
 	@Override
 	public Member loginMember(Member m) throws LoginFailedException {
-		
+
 		Member loginUser = null;
-		
+
 		String encPassword = md.selectEncPassword(sqlSession, m);
-		
+
 		if(!passwordEncoder.matches(m.getUserPwd(), encPassword)) {
 			System.out.println(m.getUserPwd());
 			System.out.println(encPassword);
@@ -51,20 +53,20 @@ public class MemberServiceImpl implements MemberService{
 			loginUser = md.selectMember(sqlSession, m);
 			System.out.println(loginUser);
 		}
-		
+
 		return loginUser;
 	}
 
 	@Override
 	public int insertMember(Member m) {
-		
+
 		return md.insertMember(sqlSession, m);
 	}
 
 	@Override
 	public String selectUserProject(Member m) {
-		
-		
+
+
 		return md.selectUserProject(sqlSession, m);
 	}
 	//myInfo 팀원 리스트조회
@@ -146,34 +148,34 @@ public class MemberServiceImpl implements MemberService{
 	 * 
 	 * return md.selectThumbnail(sqlSession, attachCode); }
 	 */
-	
+
 	//비밀번호 변경
 	@Override
 	public Member changePwd(Member m, String pwdChange, String pwdOrigin) throws UpdateFailedException {
-		
+
 		System.out.println(pwdChange);
 		System.out.println(m);
 		System.out.println(m.getUserPwd());
 		System.out.println(pwdOrigin);
 		Member loginUser;
 		if(!passwordEncoder.matches(pwdOrigin, m.getUserPwd())) {
-			
+
 			throw new UpdateFailedException("비밀번호 변경 실패!");
 		} else {
-			
+
 			String newPwd = passwordEncoder.encode(pwdChange);
-			
+
 			HashMap<String, Object>map = new HashMap();
 			map.put("userPwd", newPwd);
 			map.put("userCode", m.getUserCode());
-			
+
 			int result = md.updatePwd(sqlSession, map);
 			System.out.println(result);
-			
+
 			loginUser = md.selectNewLogin(sqlSession, m.getUserCode());
-			
+
 		}
-		
+
 		return loginUser;
 	}
 	//회원탈퇴
@@ -197,23 +199,58 @@ public class MemberServiceImpl implements MemberService{
 	//인증
 	@Override
 	public int verifyMember(Member member) {
-		
+
 		return md.verifyMember(sqlSession, member);
 	}
+	//임시 비밀번호 전송
+	/*
+	 * @Override public void findPassword(HttpServletResponse response, Member m) {
+	 * 
+	 * response.setContentType("text/html;charset=utf-8");
+	 * 
+	 * PrintWriter out = response.getWriter(); // 아이디가 없으면
+	 * if(manager.check_id(m.getUserEmail()) == 0) { out.print("아이디가 없습니다.");
+	 * out.close();
+	 * 
+	 * // 가입에 사용한 이메일이 아니면 } else
+	 * if(!m.getUserEmail().equals(manager.login(m.getuseremail)){
+	 * out.print("잘못된 이메일 입니다."); out.close(); } else { // 임시 비밀번호 생성 String pw =
+	 * ""; for (int i = 0; i < 12; i++) { pw += (char) ((Math.random() * 26) + 97);
+	 * } member.setPw(pw); // 비밀번호 변경 manager.update_pw(member); // 비밀번호 변경 메일 발송
+	 * send_mail(member, "find_pw");
+	 * 
+	 * out.print("이메일로 임시 비밀번호를 발송하였습니다."); out.close(); } }
+	 */
+
 	//인증 후 로그인
 	@Override
 	public Member loginverify(String userEmail) {
 
 		return md.loginverify(sqlSession, userEmail);
 	}
+	//임시비번 필요한 유저정보
+	@Override
+	public Member userInfo(String email) {
+
+		return md.userInfo(sqlSession, email);
+	}
+	//임시비번 수정
+	/*
+	 * @Override public int updatetempPwd(Member me) {
+	 * 
+	 * return md.updatetempPwd(sqlSession, me); }
+	 */
+
+	@Override
+	public int tempPwd(Member member) {
+
+		return md.tempPwd(sqlSession, member);
+	}
 
 
 
-
-
-	
 
 }
 
 
-	
+
