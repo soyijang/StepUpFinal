@@ -37,6 +37,14 @@
 						<span id="cal_top_month"></span>
 						<a href="#" id="moveNextMonth"><span id="nextMonth" class="cal_tit"><img src="/agile/resources/icon/common/icon_right_chevron.png"></span></a>
 						<span class="goToday" onclick="initDate(); drawDays(); drawSche('A');">🌈TODAY</span>
+						
+						<!----------------- 설문임시버튼 ---------------->
+						<form action="surveyReply.sv" method="post">
+						<button type="submit">설문응답페이지이동</button>
+						<input type="hidden" value="2" name="surveyCode">
+						</form>
+						<!-- ----------------------------------- -->
+						
 						<div id="calendarbtn">
 							<div class="cal-func" onclick="drawSche('N')">공유되지않은 일정</div>
 							<div class="cal-func" onclick="drawSche('Y')">공유된 일정</div>

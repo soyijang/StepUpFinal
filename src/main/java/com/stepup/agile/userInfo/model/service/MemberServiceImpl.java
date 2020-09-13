@@ -80,13 +80,6 @@ public class MemberServiceImpl implements MemberService{
 		return md.insertJob(sqlSession, map);
 	}
 
-	@Override
-
-	public String selectUserProject(Member m) {
-		
-		
-		return md.selectUserProject(sqlSession, m);
-	}
 	public Member selectJob(int userCode) {
 
 		return md.selectJob(sqlSession, userCode);

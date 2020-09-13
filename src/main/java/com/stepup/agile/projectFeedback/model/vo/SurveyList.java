@@ -1,5 +1,9 @@
 package com.stepup.agile.projectFeedback.model.vo;
 
+import com.stepup.agile.projectBacklog.model.vo.Sprint;
+import com.stepup.agile.projectBacklog.model.vo.SprintHistory;
+import com.stepup.agile.userInfo.model.vo.Member;
+
 public class SurveyList implements java.io.Serializable{
 	
 	private int surveyCode;
@@ -11,13 +15,19 @@ public class SurveyList implements java.io.Serializable{
 	private String surveyStatus;
 	private String surveyStartDate;
 	private String surveyEndDate;
-
+	
+	private Member member;
+	private SurveyJoinList surveyJoinList;
+	private Sprint sprint;
+	private SprintHistory sprintHistory;
+	
 	public SurveyList() {
 		super();
 	}
 
 	public SurveyList(int surveyCode, int sprintCode, String surveyCreateDate, String surveyCreateTime,
-			String surveyName, String surveyIntro, String surveyStatus, String surveyStartDate, String surveyEndDate) {
+			String surveyName, String surveyIntro, String surveyStatus, String surveyStartDate, String surveyEndDate,
+			Member member, SurveyJoinList surveyJoinList, Sprint sprint, SprintHistory sprintHistory) {
 		super();
 		this.surveyCode = surveyCode;
 		this.sprintCode = sprintCode;
@@ -28,6 +38,10 @@ public class SurveyList implements java.io.Serializable{
 		this.surveyStatus = surveyStatus;
 		this.surveyStartDate = surveyStartDate;
 		this.surveyEndDate = surveyEndDate;
+		this.member = member;
+		this.surveyJoinList = surveyJoinList;
+		this.sprint = sprint;
+		this.sprintHistory = sprintHistory;
 	}
 
 	public int getSurveyCode() {
@@ -102,15 +116,46 @@ public class SurveyList implements java.io.Serializable{
 		this.surveyEndDate = surveyEndDate;
 	}
 
+	public Member getMember() {
+		return member;
+	}
+
+	public void setMember(Member member) {
+		this.member = member;
+	}
+
+	public SurveyJoinList getSurveyJoinList() {
+		return surveyJoinList;
+	}
+
+	public void setSurveyJoinList(SurveyJoinList surveyJoinList) {
+		this.surveyJoinList = surveyJoinList;
+	}
+
+	public Sprint getSprint() {
+		return sprint;
+	}
+
+	public void setSprint(Sprint sprint) {
+		this.sprint = sprint;
+	}
+
+	public SprintHistory getSprintHistory() {
+		return sprintHistory;
+	}
+
+	public void setSprintHistory(SprintHistory sprintHistory) {
+		this.sprintHistory = sprintHistory;
+	}
+
 	@Override
 	public String toString() {
 		return "SurveyList [surveyCode=" + surveyCode + ", sprintCode=" + sprintCode + ", surveyCreateDate="
 				+ surveyCreateDate + ", surveyCreateTime=" + surveyCreateTime + ", surveyName=" + surveyName
 				+ ", surveyIntro=" + surveyIntro + ", surveyStatus=" + surveyStatus + ", surveyStartDate="
-				+ surveyStartDate + ", surveyEndDate=" + surveyEndDate + "]";
+				+ surveyStartDate + ", surveyEndDate=" + surveyEndDate + ", member=" + member + ", surveyJoinList="
+				+ surveyJoinList + ", sprint=" + sprint + ", sprintHistory=" + sprintHistory + "]";
 	}
 
-	
-	
 	
 }

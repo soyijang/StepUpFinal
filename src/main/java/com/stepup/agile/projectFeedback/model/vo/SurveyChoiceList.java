@@ -6,15 +6,21 @@ public class SurveyChoiceList implements java.io.Serializable{
 	private int surveyChoiceNum;
 	private String surveyChoiceContent;
 	
+	private SurveyQuesList surveyQuesList;
+	private SurveyQuesMatch surveyQuesMatch;
+	
 	public SurveyChoiceList() {
 		super();
 	}
 
-	public SurveyChoiceList(int surveyQuesCode, int surveyChoiceNum, String surveyChoiceContent) {
+	public SurveyChoiceList(int surveyQuesCode, int surveyChoiceNum, String surveyChoiceContent,
+			SurveyQuesList surveyQuesList, SurveyQuesMatch surveyQuesMatch) {
 		super();
 		this.surveyQuesCode = surveyQuesCode;
 		this.surveyChoiceNum = surveyChoiceNum;
 		this.surveyChoiceContent = surveyChoiceContent;
+		this.surveyQuesList = surveyQuesList;
+		this.surveyQuesMatch = surveyQuesMatch;
 	}
 
 	public int getSurveyQuesCode() {
@@ -41,10 +47,29 @@ public class SurveyChoiceList implements java.io.Serializable{
 		this.surveyChoiceContent = surveyChoiceContent;
 	}
 
+	public SurveyQuesList getSurveyQuesList() {
+		return surveyQuesList;
+	}
+
+	public void setSurveyQuesList(SurveyQuesList surveyQuesList) {
+		this.surveyQuesList = surveyQuesList;
+	}
+
+	public SurveyQuesMatch getSurveyQuesMatch() {
+		return surveyQuesMatch;
+	}
+
+	public void setSurveyQuesMatch(SurveyQuesMatch surveyQuesMatch) {
+		this.surveyQuesMatch = surveyQuesMatch;
+	}
+
 	@Override
 	public String toString() {
 		return "SurveyChoiceList [surveyQuesCode=" + surveyQuesCode + ", surveyChoiceNum=" + surveyChoiceNum
-				+ ", surveyChoiceContent=" + surveyChoiceContent + "]";
+				+ ", surveyChoiceContent=" + surveyChoiceContent + ", surveyQuesList=" + surveyQuesList
+				+ ", surveyQuesMatch=" + surveyQuesMatch + "]";
 	}
+
+	
 	
 }

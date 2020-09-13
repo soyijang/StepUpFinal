@@ -6,8 +6,10 @@
 
 	<resultMap type="com.stepup.agile.projectFeedback.model.vo.SurveyChoiceList" id="surveyChoiceListResultSet">
 		<id property="surveyQuesCode" column="SURVEY_QUES_CODE"/>
-		<result property="surveyChoiceNum" column="SURVEY_CHOICE_NUM"/>
+		<id property="surveyChoiceNum" column="SURVEY_CHOICE_NUM"/>
 		<result property="surveyChoiceContent" column="SURVEY_CHOICE_CONTENT"/>
+		<collection property="surveyQuesList" resultMap="surveyQuesListResultSet"/>
+		<collection property="surveyQuesMatch" resultMap="SurveyQuesMatchResultSet"/>
 	</resultMap>
 	
 	<resultMap type="com.stepup.agile.projectFeedback.model.vo.SurveyJoinList" id="surveyJoinListResultSet">
@@ -20,7 +22,7 @@
 		<result property="surveyCode" column="SURVEY_CODE"/>
 	</resultMap>
 	
-	<resultMap type="com.stepup.agile.projectFeedback.model.vo.Survey" id="SurveyListResultSet">
+	<resultMap type="com.stepup.agile.projectFeedback.model.vo.SurveyList" id="SurveyListResultSet">
 		<id property="surveyCode" column="SURVEY_CODE"/>
 		<result property="sprintCode" column="SPRINT_CODE"/>
 		<result property="surveyCreateDate" column="SURVEY_CREATE_DATE"/>
@@ -30,6 +32,15 @@
 		<result property="surveyStatus" column="SURVEY_STATUS"/>
 		<result property="surveyStartDate" column="SURVEY_START_DATE"/>
 		<result property="surveyEndDate" column="SURVEY_END_DATE"/>
+		<collection property="member" resultMap="memberResultSet"/>
+		<collection property="surveyJoinList" resultMap="surveyJoinListResultSet"/>
+		<collection property="sprint" resultMap="sprintResultSet"/>
+		<collection property="sprintHistory" resultMap="sprintHistoryResultSet2"/>
+	</resultMap>
+	
+	<resultMap type="com.stepup.agile.projectFeedback.model.vo.SurveyQuesMatch" id="SurveyQuesMatchResultSet">
+		<result property="surveyQuesCode" column="SURVEY_QUES_CODE"/>
+		<result property="surveyCode" column="SURVEY_CODE"/>
 	</resultMap>
 	
 	<resultMap type="com.stepup.agile.projectFeedback.model.vo.SurveyQuesList" id="surveyQuesListResultSet">
@@ -38,11 +49,85 @@
 		<result property="surveyQuesName" column="SURVEY_QUES_NAME"/>
 		<result property="surveyQuesMust" column="SURVEY_QUES_MUST"/>
 		<result property="surveyQuesMulti" column="SURVEY_QUES_MULTI"/>
+
 	</resultMap>
 
+	<!-- collection용 -->
+	<!-- 사용자정보  -->
+	<resultMap type="com.stepup.agile.userInfo.model.vo.Member" id="memberResultSet">
+		<id property="userCode" column="USER_CODE"/>
+		<result property="userEmail" column="USER_EMAIL"/>
+		<result property="userPwd" column="USER_PWD"/>
+		<result property="userName" column="USER_NAME"/>
+		<result property="userPhone" column="USER_PHONE"/>
+		<result property="userCompName" column="USER_COMP_NAME"/>
+		<result property="userCompDept" column="USER_COMP_DEPT"/>
+		<result property="userCompJob" column="USER_COMP_JOB"/>
+		<result property="userEnrollDate" column="USER_ENROLL_DATE"/>
+		<result property="userStatus" column="USER_STATUS"/>
+		<result property="userManagerYn" column="USER_MANAGER_YN"/>
+		<result property="userEnrollTime" column="USER_ENROLL_TIME"/>
+	</resultMap>	
+	
+	<!-- SPRINT LIST 테이블 -->
+	<resultMap type="com.stepup.agile.projectBacklog.model.vo.Sprint" id="sprintResultSet">
+		<id property="sprintCode" column="SPRINT_CODE"/>
+		<result property="sprintCreateDate" column="SPRINT_CREATE_DATE"/>
+		<result property="sprintProjectCode" column="USER_PROJECT_CODE"/>
+		<result property="sprintCreateTime" column="SPRINT_CREATE_TIME"/>
+	</resultMap>
+
+	<!-- SPRINT_HISTORY 테이블-->	
+	<resultMap type="com.stepup.agile.projectBacklog.model.vo.SprintHistory" id="sprintHistoryResultSet2">
+		<id property="sprintHistCode" column="SPRINT_HIST_CODE"/>
+		<result property="sprintHistUpdateDate" column="SPRINT_HIST_UPDATE_DATE"/>
+		<result property="sprintName" column="SPRINT_NAME"/>
+		<result property="sprintType" column="SPRINT_TYPE"/>
+		<result property="sprintExpectPeriod" column="SPRINT_EXPECT_PERIOD"/>
+		<result property="sprintCode" column="SPRINT_CODE"/>
+		<result property="sprintHistUpdateTime" column="SPRINT_HIST_UPDATE_TIME"/>
+		<result property="sprintIntro" column="SPRINT_INTRO"/>
+		<result property="sprintStatus" column="SPRINT_STATUS"/>
+		<result property="sprintTaskCount" column="SPRINT_TASK_COUNT"/>
+		<result property="sprintTypeYn" column="SPRINT_TYPE_YN"/>
+	</resultMap>
+
+	<!-- selectSurveyOne : 설문대상인지 아닌지 조회해서 페이지 넘겨줌 ! -->
+	<select id="selectSurveyOne" resultMap="SurveyListResultSet" parameterType="Survey">
+		SELECT *
+		FROM SURVEY_LIST V
+		   , SPRINT_LIST P
+		   , (SELECT MAX(H.SPRINT_NAME) KEEP (DENSE_RANK LAST ORDER BY H.SPRINT_HIST_UPDATE_DATE, H.SPRINT_HIST_UPDATE_TIME) AS SPRINT_NAME
+		            , H.SPRINT_CODE
+		        FROM SPRINT_HISTORY H group by H.SPRINT_CODE) E
+		   , USER_INFO U
+		   , SURVEY_JOIN_LIST J
+		WHERE V.SPRINT_CODE = P.SPRINT_CODE
+		AND P.SPRINT_CODE = E.SPRINT_CODE
+		AND J.USER_CODE = U.USER_CODE
+		AND J.USER_CODE = #{userCode, jdbcType=NUMERIC}
+		AND V.SURVEY_CODE = #{surveyCode, jdbcType=NUMERIC}
+	</select>
+	
+	<select id="selectSurveyQues" resultMap="surveyChoiceListResultSet" parameterType="Survey">
+		SELECT *
+		FROM SURVEY_QUES_MATCH M
+		   , SURVEY_QUES_LIST L
+		   , SURVEY_CHOICE_LIST C
+		WHERE M.SURVEY_QUES_CODE = L.SURVEY_QUES_CODE
+		  AND L.SURVEY_QUES_CODE = C.SURVEY_QUES_CODE(+)
+		  AND M.SURVEY_CODE = #{surveyCode, jdbcType=NUMERIC}
+		  ORDER BY  M.SURVEY_QUES_CODE, C.SURVEY_CHOICE_NUM
+	</select>
+	
+	<!-- 답변넣기 -->
+	<insert id="insertSurveyReply" parameterType="Survey">
+		INSERT INTO SURVEY_REPLY_LIST 
+		VALUES(#{surveyQuesCode, jdbcType=VARCHAR},#{surveyJoinCode, jdbcType=VARCHAR},
+		#{surveyReplyContent, jdbcType=VARCHAR},SEQ_SURVEY_REPLY.NEXTVAL,
+		#{surveyCode, jdbcType=VARCHAR})
+	</insert>
 
 </mapper>
-
-
 
 
