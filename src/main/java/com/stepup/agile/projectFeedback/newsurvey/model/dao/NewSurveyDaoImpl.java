@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.stepup.agile.projectBacklog.model.vo.Sprint;
 import com.stepup.agile.projectBacklog.model.vo.SprintHistory;
+import com.stepup.agile.projectFeedback.model.vo.SurveyQuesList;
 import com.stepup.agile.userInfo.model.vo.Member;
 
 @Repository
@@ -26,6 +27,26 @@ public class NewSurveyDaoImpl implements NewSurveyDao{
 	@Override
 	public List<SprintHistory> selectSprintName(SqlSessionTemplate sqlSession, Map<String, Object> map2) {
 		return sqlSession.selectList("Sprint.selectSprintName", map2);
+	}
+
+	@Override
+	public int insertNewSurveyMatch(SqlSessionTemplate sqlSession, int insertSurveyList) {
+		return sqlSession.insert("Survey.insertNewSurveyMatch", insertSurveyList);
+	}
+
+	@Override
+	public int insertMultiplechoice(SqlSessionTemplate sqlSession, String multichoice) {
+		return sqlSession.insert("Survey.insertMultiplechoice", multichoice);
+	}
+
+	@Override
+	public int insertshortanswer(SqlSessionTemplate sqlSession, String shortanswer) {
+		return sqlSession.insert("Survey.insertshortanswer", shortanswer);
+	}
+
+	@Override
+	public int insertNewQues(SqlSessionTemplate sqlSession, SurveyQuesList str) {
+		return sqlSession.insert("Survey.insertNewQues", str);
 	}
 
 }

@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 
 import com.stepup.agile.projectBacklog.model.vo.Sprint;
 import com.stepup.agile.projectBacklog.model.vo.SprintHistory;
+import com.stepup.agile.projectFeedback.model.vo.SurveyQuesList;
 import com.stepup.agile.userInfo.model.vo.Member;
 
 public interface NewSurveyDao {
@@ -16,5 +17,13 @@ public interface NewSurveyDao {
 	List<Sprint> selectEndSprint(SqlSessionTemplate sqlSession, Member m);
 
 	List<SprintHistory> selectSprintName(SqlSessionTemplate sqlSession, Map<String, Object> map2);
+
+	int insertNewSurveyMatch(SqlSessionTemplate sqlSession, int insertSurveyList);
+
+	int insertMultiplechoice(SqlSessionTemplate sqlSession, String multichoice);
+
+	int insertshortanswer(SqlSessionTemplate sqlSession, String shortanswer);
+
+	int insertNewQues(SqlSessionTemplate sqlSession, SurveyQuesList str);
 
 }

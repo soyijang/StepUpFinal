@@ -1,5 +1,7 @@
 package com.stepup.agile.projectFeedback.model.vo;
 
+import java.util.List;
+
 import com.stepup.agile.projectBacklog.model.vo.Sprint;
 import com.stepup.agile.projectBacklog.model.vo.SprintHistory;
 import com.stepup.agile.userInfo.model.vo.Member;
@@ -25,24 +27,25 @@ public class SurveyList implements java.io.Serializable{
       super();
    }
 
-   public SurveyList(int surveyCode, int sprintCode, String surveyCreateDate, String surveyCreateTime,
-         String surveyName, String surveyIntro, String surveyStatus, String surveyStartDate, String surveyEndDate,
-         Member member, SurveyJoinList surveyJoinList, Sprint sprint, SprintHistory sprintHistory) {
-      super();
-      this.surveyCode = surveyCode;
-      this.sprintCode = sprintCode;
-      this.surveyCreateDate = surveyCreateDate;
-      this.surveyCreateTime = surveyCreateTime;
-      this.surveyName = surveyName;
-      this.surveyIntro = surveyIntro;
-      this.surveyStatus = surveyStatus;
-      this.surveyStartDate = surveyStartDate;
-      this.surveyEndDate = surveyEndDate;
-      this.member = member;
-      this.surveyJoinList = surveyJoinList;
-      this.sprint = sprint;
-      this.sprintHistory = sprintHistory;
-   }
+   public SurveyList(int surveyCode, int sprintCode, String surveyCreateDate, String surveyCreateTime, String surveyName,
+		String surveyIntro, String surveyStatus, String surveyStartDate, String surveyEndDate, Member member, SurveyJoinList surveyJoinList, Sprint sprint,
+		SprintHistory sprintHistory) {
+	super();
+	this.surveyCode = surveyCode;
+	this.sprintCode = sprintCode;
+	this.surveyCreateDate = surveyCreateDate;
+	this.surveyCreateTime = surveyCreateTime;
+	this.surveyName = surveyName;
+	this.surveyIntro = surveyIntro;
+	this.surveyStatus = surveyStatus;
+	this.surveyStartDate = surveyStartDate;
+	this.surveyEndDate = surveyEndDate;
+	this.member = member;
+	this.surveyJoinList = surveyJoinList;
+	this.sprint = sprint;
+	this.sprintHistory = sprintHistory;
+  }
+
 
    public int getSurveyCode() {
       return surveyCode;
@@ -148,14 +151,15 @@ public class SurveyList implements java.io.Serializable{
       this.sprintHistory = sprintHistory;
    }
 
-   @Override
-   public String toString() {
-      return "SurveyList [surveyCode=" + surveyCode + ", sprintCode=" + sprintCode + ", surveyCreateDate="
-            + surveyCreateDate + ", surveyCreateTime=" + surveyCreateTime + ", surveyName=" + surveyName
-            + ", surveyIntro=" + surveyIntro + ", surveyStatus=" + surveyStatus + ", surveyStartDate="
-            + surveyStartDate + ", surveyEndDate=" + surveyEndDate + ", member=" + member + ", surveyJoinList="
-            + surveyJoinList + ", sprint=" + sprint + ", sprintHistory=" + sprintHistory + "]";
-   }
+	@Override
+	public String toString() {
+		return "SurveyList [surveyCode=" + surveyCode + ", sprintCode=" + sprintCode + ", surveyCreateDate="
+				+ surveyCreateDate + ", surveyCreateTime=" + surveyCreateTime + ", surveyName=" + surveyName
+				+ ", surveyIntro=" + surveyIntro + ", surveyStatus=" + surveyStatus + ", surveyStartDate=" + surveyStartDate
+				+ ", surveyEndDate=" + surveyEndDate + ", member=" + member + ", surveyJoinList=" + surveyJoinList
+				+ ", sprint=" + sprint + ", sprintHistory=" + sprintHistory + "]";
+	}
+
 
    
 }

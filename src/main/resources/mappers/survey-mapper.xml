@@ -99,10 +99,35 @@
 	<insert id="insertSurvey" parameterType="SurveyList">
 		INSERT INTO SURVEY_LIST
 		VALUES (SEQ_SURVEY.NEXTVAL, #{sprintCode}, TO_CHAR(SYSDATE+9/24, 'YYYY-MM-DD'), TO_CHAR(SYSDATE+9/24, 'hh24:mi:ss'), #{surveyName}, #{surveyIntro}, 'Y', #{surveyStartDate}, #{surveyEndDate}, #{userCode})
-	
 	</insert>
 
-
+	<!-- <insert id="insertNewSurveyMatch" parameterType="SurveyList">
+		INSERT INTO SURVEY_QUES_MATCH
+		VALUES (SEQ_SURVEY_QUES.NEXTVAL, #{surveyCode});
+	</insert> -->
+	
+	<insert id="insertMultiplechoice" parameterType="SurveyList">
+		<selectKey keyProperty="surveyQuesCode" resultType="int" order="AFTER">
+	         SELECT SEQ_SURVEY_QUES.NEXTVAL FROM DUAL
+	      </selectKey>
+		INSERT INTO SURVEY_QUES_LIST
+		VALUES (SEQ_SURVEY_QUES.NEXTVAL, '01', '%'||#{multichoice}||'%', 'Y', 'Y')
+	</insert>
+	
+	<insert id="insertshortanswer" parameterType="SurveyList">
+		INSERT INTO SURVEY_QUES_LIST
+		VALUES (SEQ_SURVEY_QUES.NEXTVAL, '02', '%'||#{shortanswer}||'%', 'Y', 'N')
+	</insert>
+	
+	
+	<insert id="insertNewQues" parameterType="SurveyQuesList" >
+		<selectKey keyProperty="surveyQuesCode" resultType="int" order="AFTER">
+	         SELECT SEQ_SURVEY_QUES.CURRVAL FROM DUAL
+	     </selectKey>
+		INSERT INTO SURVEY_QUES_LIST
+		VALUES (SEQ_SURVEY_QUES.NEXTVAL, #{surveyQuesType}, #{surveyQuesName}, #{surveyQuesMust}, #{surveyQuesMulti, jdbcType=VARCHAR})
+	</insert>
+	
 </mapper>
 
 

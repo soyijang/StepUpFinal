@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.stepup.agile.projectBacklog.model.vo.Sprint;
 import com.stepup.agile.projectBacklog.model.vo.SprintHistory;
+import com.stepup.agile.projectFeedback.model.vo.SurveyQuesList;
 import com.stepup.agile.userInfo.model.vo.Member;
 
 public interface NewSurveyService {
@@ -14,5 +15,13 @@ public interface NewSurveyService {
 	List<Sprint> selectEndSprint(Member m);
 
 	List<SprintHistory> selectSprintName(Map<String, Object> map2);
+
+	int insertNewSurveyMatch(int insertSurveyList);
+
+	int insertMultiplechoice(String multichoice);
+
+	int insertshortanswer(String shortanswer);
+
+	int insertNewQues(SurveyQuesList str);
 
 }
