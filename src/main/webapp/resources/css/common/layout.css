@@ -4,6 +4,7 @@ body{
     height: 100vh;
     overflow-x: hidden;
     display: inline-block;
+
 }
 
 
@@ -86,7 +87,7 @@ body{
     box-sizing: border-box;
     float:left;
     position: relative;
-/*     transition: all ease 0.5s 0s; */    
+	transition: all ease 0.5s 0s;
 }
 
 /* nav만 단독으로 사용하는 경우 이 id로 변경 */
@@ -141,7 +142,6 @@ body{
 
 /* content 안쪽 하단 내용영역*/
  #contentBox{ 
-
     margin-top: 20px;
 }
 
