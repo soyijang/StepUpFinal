@@ -25,7 +25,16 @@
         		<tbody>
         		<tr>
         			<th id="logoArea"><a href="selectUserProject.me"><img alt="스탭업 홈으로 가기" src="/agile/resources/images/logo/logo_stepup_nav.png"></a></th>
-        			<th class="navIcon"><a href="showProjectMain.pj">Project<img src="/agile/resources/icon/common/icon_down_chevron_nav.png"></a></th>
+        			<!-- <th class="navIcon"><a href="showProjectMain.pj">Project<img src="/agile/resources/icon/common/icon_down_chevron_nav.png"></a></th> -->
+        			        			<th class="navIcon">
+		                 <div class="dropdown-project">
+		                    <p class="navIcon">Project<img src="/agile/resources/icon/common/icon_down_chevron_nav.png"></p>
+		                    <div class="dropdown-project-content">
+			                     <a href="showProjectMain.pj">Project</a>                  
+			                     <a href="selectTimeLine.pj">Timeline</a>                   
+		                    </div>
+		            	</div>
+                    </th>
         			<th class="navIcon"><a href="MyTaskList.mt">My Tasks<img src="/agile/resources/icon/common/icon_down_chevron_nav.png"></a></th>
         			<th class="navIcon"><a href="addTeam.tm">Team<img src="/agile/resources/icon/common/icon_down_chevron_nav.png"></a></th>
         			<th id = "searchArea"><input type="text" placeholder="Search or jump to ..."></th>
