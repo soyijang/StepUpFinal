@@ -1237,33 +1237,24 @@ $(document).on('click','#groupBySub', function(){
  				
  				//하위테스크 미진행 그려주기
  				for(var j = 0; j < subTaskList1.length; j++){
-					
+						
 						//각각의 테스크 박스의 클래스 안에 클래스명으로 고유 테스크 코드를 넣어준다.t + 테스크 코드 (숫자로 시작하면 안되서 t로 시작)
 						//테스크명은 기본적으로 이름 없는 테스크로 정해주고, 하단에서 테스크 관련 상세 정보를 표시할 때, 이름 정보가 있는 것들만 변경해준다. (테스크 생성시 이름이 필수적으로 생성되는 것이 아니라서)
-						cBoard.append("<div class='mini-box t" + mainTaskList3[i].taskCode + "' id='t" + mainTaskList3[i].taskCode + "' draggable='true'><input type='hidden' value='" + mainTaskList3[i].taskCode + "'/>"
-								+ "<div class='c-div1'><div class='c-div1-div1 nameBox'>" 
-								+ '이름 없는 테스크' + "</div><div class='dropdown c-div1-drop1'><div class='select'><span id='user-list'></span>"
+						siboard.append("<div class='mini-box t" + subTaskList1[i].taskCode + "' id='t" + subTaskList1[i].taskCode + "' draggable='true'><input type='hidden' value='" + subTaskList1[i].taskCode + "'/>"
+								+ "<div class='i-div1'><div class='i-div1-div1 nameBox'>" 
+								+ '이름 없는 테스크' + "</div><div class='dropdown i-div1-drop1'><div class='select'><span id='user-list'></span>"
 								+ "<i class='fa fa-chevron-left'></i></div><ul class='dropdown-menu'><li class='flagY'>"
 								+ '플래그 추가' + "</li><li class='labelAdd'>" 
 								+ '레이블 추가' + "</li><li class='changeUpperCategoty'>"
 					            + '상위항목 변경' + "</li><li class='issueLink'>" 
 					            + '이슈링크 복사' + "</li><li class='taskDelete'>"
-					            + '삭제' + "</li></ul></div></div><div class='c-div2 labelBox'></div><div class='c-div3'>"
-							    + "<div class='c-div3-inner-left'><div class='c-div3-div-type'>"
-							    + 'T' + "</div><div class='c-div3-div-tcode'>" 
-							    + 'TASK - ' + mainTaskList3[i].taskCode + "</div></div><div class='c-div3-inner-right'><span class='c-div3-span-per'>"
-							    + '2/4' + "</span><span class='c-div3-span-arrow important'></span><span class='c-div3-span-person'></span>"
+					            + '삭제' + "</li></ul></div></div><div class='i-div2 labelBox'></div><div class='i-div3'>"
+							    + "<div class='i-div3-inner-left'><div class='i-div3-div-type'>"
+							    + 'T' + "</div><div class='i-div3-div-tcode'>" 
+							    + 'TASK - ' + subTaskList1[i].taskCode + "</div></div><div class='i-div3-inner-right'><span class='i-div3-span-per'>"
+							    + '2/4' + "</span><span class='i-div3-span-arrow important'></span><span class='i-div3-span-person'></span>"
 							    + "</div></div></div></div>"
  						)
- 				 	}
- 					
- 					
- 					
- 					
- 					
- 					
- 					
- 					
  					
  					
  				}
