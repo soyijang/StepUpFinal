@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.stepup.agile.projectBacklog.model.vo.SprintHistory;
 import com.stepup.agile.projectManage.model.vo.Project;
 import com.stepup.agile.projectTask.model.vo.ReplyHistory;
 import com.stepup.agile.projectTask.model.vo.ReplyList;
@@ -101,11 +102,21 @@ public interface TaskService {
 	//테스크 리스트 조회 후 보드 메인 view로 이동(현재 진행중인 스프린트의 tasklist만 조회)
 	List<TaskHistory> selectTaskList(HashMap<String, Object> map);
  	//플래그 추가
-	int insertTaskHistoryFlagYes(int taskCode);
+	int insertTaskHistoryFlagYes(TaskHistory taskHistory);
  	//플래그 제거
-	int insertTaskHistoryFlagNo(int taskCode);
+	int insertTaskHistoryFlagNo(TaskHistory taskHistory);
 	//레이블 제거
-	int insertTaskHistoryLabelNo(int taskCode);
+	int insertTaskHistoryLabelNo(TaskHistory taskHistory);
 	//테스크 삭제
-	int insertTaskHistoryTaskDelete(int taskCode);
+	int insertTaskHistoryTaskDelete(TaskHistory taskHistory);
+	//레이블 리스트 조회(레이블 추가 기능에서 기존 레이블 실시간 조회후 리스트 보여주기)
+	List<TaskHistory> selectLabelList(Map<String, Object> map);
+	//레이블 추가	
+	int insertTaskHistoryLabelYes(TaskHistory taskHistory);
+	//특정 테스크의 최근 담당자 및 관리자 조회(taskHistory insert시 필요한 정보)	
+	TaskHistory selectTaskUserAndMaster(int taskCode);
+	//스프린트 리스트 실시간 조회 (현재 프로젝트 코드 기준으로 테스크 상위항목 변경 위해 조회해온다.)	
+	List<SprintHistory> selectSprintList(Map<String, Object> map);
+	//테스크 진행상태 변경 (드래그앤드롭 기능)
+	int insertTaskHistoryTaskProceeding(TaskHistory taskHistory);
 }

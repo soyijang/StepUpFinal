@@ -7,6 +7,7 @@ import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 
+import com.stepup.agile.projectBacklog.model.vo.SprintHistory;
 import com.stepup.agile.projectManage.model.vo.Project;
 import com.stepup.agile.projectTask.model.vo.ReplyHistory;
 import com.stepup.agile.projectTask.model.vo.ReplyList;
@@ -104,13 +105,23 @@ public interface TaskDao {
 	//테스크 리스트 조회 후 보드 메인 view로 이동(현재 진행중인 스프린트의 tasklist만 조회)
 	List<TaskHistory> selectTaskList(SqlSessionTemplate sqlSession, HashMap<String, Object> map);
  	//플래그 추가
-	int insertTaskHistoryFlagYes(SqlSessionTemplate sqlSession, int taskCode);
+	int insertTaskHistoryFlagYes(SqlSessionTemplate sqlSession, TaskHistory taskHistory);
  	//플래그 제거
-	int insertTaskHistoryFlagNo(SqlSessionTemplate sqlSession, int taskCode);
+	int insertTaskHistoryFlagNo(SqlSessionTemplate sqlSession, TaskHistory taskHistory);
 	//레이블 제거
-	int insertTaskHistoryLabelNo(SqlSessionTemplate sqlSession, int taskCode);
+	int insertTaskHistoryLabelNo(SqlSessionTemplate sqlSession, TaskHistory taskHistory);
 	//테스크 삭제
-	int insertTaskHistoryTaskDelete(SqlSessionTemplate sqlSession, int taskCode);
+	int insertTaskHistoryTaskDelete(SqlSessionTemplate sqlSession, TaskHistory taskHistory);
+	//레이블 리스트 조회(레이블 추가 기능에서 기존 레이블 실시간 조회후 리스트 보여주기)	
+	List<TaskHistory> selectLabelList(SqlSessionTemplate sqlSession, Map<String, Object> map);
+	//레이블 추가	
+	int insertTaskHistoryLabelYes(SqlSessionTemplate sqlSession, TaskHistory taskHistory);
+	//특정 테스크의 최근 담당자 및 관리자 조회(taskHistory insert시 필요한 정보)	
+	TaskHistory selectTaskUserAndMaster(SqlSessionTemplate sqlSession, int taskCode);
+	//스프린트 리스트 실시간 조회 (현재 프로젝트 코드 기준으로 테스크 상위항목 변경 위해 조회해온다.)	
+	List<SprintHistory> selectSprintList(SqlSessionTemplate sqlSession, Map<String, Object> map);
+	//테스크 진행상태 변경 (드래그앤드롭 기능)	
+	int insertTaskHistoryTaskProceeding(SqlSessionTemplate sqlSession, TaskHistory taskHistory);
 
 
 

@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.stepup.agile.projectBacklog.model.vo.SprintHistory;
 import com.stepup.agile.projectManage.model.vo.Project;
 import com.stepup.agile.projectTask.model.service.TaskService;
 import com.stepup.agile.projectTask.model.vo.ReplyHistory;
@@ -661,6 +662,8 @@ public class TaskController {
 	 			List<TaskHistory> mainTaskList = new ArrayList<TaskHistory>();//상위전체
 	 			List<TaskHistory> subTaskList = new ArrayList<TaskHistory>();//하위전체
 	 			List<TaskHistory> selectedTaskList = new ArrayList<TaskHistory>();//중복제거한 리스트(진행상태기준)
+	 			List<TaskHistory> selectedMainTaskList = new ArrayList<TaskHistory>();//중복제거한 리스트(진행상태기준)
+	 			List<TaskHistory> selectedSubTaskList = new ArrayList<TaskHistory>();//중복제거한 리스트(진행상태기준)
 	 			List<TaskHistory> mainTaskList1 = new ArrayList<TaskHistory>();//중복제거 상위미진행
 	 			List<TaskHistory> mainTaskList2= new ArrayList<TaskHistory>();//중복제거 상위진행중
 	 			List<TaskHistory> mainTaskList3 = new ArrayList<TaskHistory>();//중복제거 상위완료
@@ -696,7 +699,7 @@ public class TaskController {
 	 			for (int j = 0; j < selectedTaskList.size(); j++) {
 	 				
 	 				if (selectedTaskList.get(j).getTaskList().getTaskLevel().equals("상위")) {
-	 					
+	 					selectedMainTaskList.add(selectedTaskList.get(j));
 	 					//상위테스크 미진행, 진행, 완료 구분
 	 					if(selectedTaskList.get(j).getTaskCategoryCode().equals("I") && selectedTaskList.get(j).getTaskHistValue().equals("미진행")) {
 	 						mainTaskList1.add(selectedTaskList.get(j));
@@ -709,7 +712,7 @@ public class TaskController {
 	 					}
 	 					
 	 				} else if(selectedTaskList.get(j).getTaskList().getTaskLevel().equals("서브")){
-	 					
+	 					selectedSubTaskList.add(selectedTaskList.get(j));
 	 					//하위테스크 미진행, 진행, 완료 구분
 	 					if(selectedTaskList.get(j).getTaskCategoryCode().equals("I") && selectedTaskList.get(j).getTaskHistValue().equals("미진행")) {
 	 						subTaskList1.add(selectedTaskList.get(j));
@@ -729,6 +732,8 @@ public class TaskController {
 	 			System.out.println("상위테스크 원본 리스트 사이즈" + mainTaskList.size());
 	 			System.out.println("하위테스크 원본 리스트 사이즈" + subTaskList.size());
 	 			System.out.println("중복 제거 리스트 사이즈" + selectedTaskList.size());	 			
+	 			System.out.println("중복 제거 상위 리스트 사이즈" + selectedMainTaskList.size());	 			
+	 			System.out.println("중복 제거 하위 리스트 사이즈" + selectedSubTaskList.size());	 			
 	 			System.out.println("상위테스크 미진행 중복제거 사이즈: " + mainTaskList1.size());
 	 			System.out.println("상위테스크 진행중 중복제거 사이즈: " + mainTaskList2.size());
 	 			System.out.println("상위테스크 완료 중복제거 사이즈: " + mainTaskList3.size());
@@ -746,6 +751,8 @@ public class TaskController {
 	 			model.addAttribute("mainTaskList", JSONArray.fromObject(mainTaskList));
 	 			model.addAttribute("subTaskList", JSONArray.fromObject(subTaskList));
 	 			model.addAttribute("selectedTaskList", JSONArray.fromObject(selectedTaskList));
+	 			model.addAttribute("selectedMainTaskList", JSONArray.fromObject(selectedMainTaskList));
+	 			model.addAttribute("selectedSubTaskList", JSONArray.fromObject(selectedSubTaskList));
 	 			model.addAttribute("mainTaskList1", JSONArray.fromObject(mainTaskList1));
 	 			model.addAttribute("mainTaskList2", JSONArray.fromObject(mainTaskList2));
 	 			model.addAttribute("mainTaskList3", JSONArray.fromObject(mainTaskList3));
@@ -762,7 +769,13 @@ public class TaskController {
 	 	//플래그 추가
 	   @RequestMapping("insertTaskHistoryFlagYes.tk")
 	   public ModelAndView insertTaskHistoryFlagYes(ModelAndView mv, @ModelAttribute("loginUser") Member m, int taskCode) {
-		   int result = ts.insertTaskHistoryFlagYes(taskCode);
+		   //최근 담당자 정보 조회
+		   TaskHistory taskHistory;
+		   //테스크 코드를 이용하여 최신 history에서 마스터와 담당자 정보를 조회해온다.
+		   taskHistory = ts.selectTaskUserAndMaster(taskCode);			
+		   //insert시 필요한 정보 추가로 담아주기
+		   taskHistory.setTaskCode(taskCode);			   
+		   int result = ts.insertTaskHistoryFlagYes(taskHistory);
 		   System.out.println("플래그 추가 성공 : " + result);
 		   mv.addObject("result", result);
 		   mv.setViewName("jsonView");
@@ -772,7 +785,13 @@ public class TaskController {
 	 	//플래그 제거
 	   @RequestMapping("insertTaskHistoryFlagNo.tk")
 	   public ModelAndView insertTaskHistoryFlagNo(ModelAndView mv, @ModelAttribute("loginUser") Member m, int taskCode) {
-		   int result = ts.insertTaskHistoryFlagNo(taskCode);
+		   //최근 담당자 정보 조회
+		   TaskHistory taskHistory;
+		   //테스크 코드를 이용하여 최신 history에서 마스터와 담당자 정보를 조회해온다.
+		   taskHistory = ts.selectTaskUserAndMaster(taskCode);			
+		   //insert시 필요한 정보 추가로 담아주기
+		   taskHistory.setTaskCode(taskCode);		  
+		   int result = ts.insertTaskHistoryFlagNo(taskHistory);
 		   System.out.println("플래그 제거 성공 : " + result);
 		   mv.addObject("result", result);
 		   mv.setViewName("jsonView");
@@ -782,7 +801,13 @@ public class TaskController {
 	 	//레이블 제거
 	   @RequestMapping("insertTaskHistoryLabelNo.tk")
 	   public ModelAndView insertTaskHistoryLabelNo(ModelAndView mv, @ModelAttribute("loginUser") Member m, int taskCode) {
-		   int result = ts.insertTaskHistoryLabelNo(taskCode);
+		   //최근 담당자 정보 조회
+		   TaskHistory taskHistory;
+		   //테스크 코드를 이용하여 최신 history에서 마스터와 담당자 정보를 조회해온다.
+		   taskHistory = ts.selectTaskUserAndMaster(taskCode);			
+		   //insert시 필요한 정보 추가로 담아주기
+		   taskHistory.setTaskCode(taskCode);
+		   int result = ts.insertTaskHistoryLabelNo(taskHistory);
 		   System.out.println("레이블 제거 성공 : " + result);
 		   mv.addObject("result", result);
 		   mv.setViewName("jsonView");
@@ -794,12 +819,132 @@ public class TaskController {
 	   //테스크 삭제
 	   @RequestMapping("insertTaskHistoryTaskDelete.tk")
 	   public ModelAndView insertTaskHistoryTaskDelete(ModelAndView mv, @ModelAttribute("loginUser") Member m, int taskCode) {
-		   int result = ts.insertTaskHistoryTaskDelete(taskCode);
+		   //최근 담당자 정보 조회
+		   TaskHistory taskHistory;
+		   //테스크 코드를 이용하여 최신 history에서 마스터와 담당자 정보를 조회해온다.
+		   taskHistory = ts.selectTaskUserAndMaster(taskCode);			
+		   //insert시 필요한 정보 추가로 담아주기
+		   taskHistory.setTaskCode(taskCode);
+		   int result = ts.insertTaskHistoryTaskDelete(taskHistory);
 		   System.out.println("테스크 삭제 성공 : " + result);
 		   mv.addObject("result", result);
 		   mv.setViewName("jsonView");
 		   return mv;
 	   }	
+	   
+	   
+	   //레이블 리스트 조회(레이블 추가 기능에서 기존 레이블 실시간 조회후 리스트 보여주기)
+	   //ajax
+		@RequestMapping(value="selectLabelList.tk",method=RequestMethod.POST)
+		public ModelAndView selectLabelList(@ModelAttribute("loginUser") Member m, String searchLabel, int projectCode, ModelAndView mv) {
+			System.out.println("searchLabel : " + searchLabel +", projectCode : "+ projectCode + " m : " +  m);
+			//넘겨줄 정보 담기
+			Map<String, Object> map = new HashMap<String, Object>();
+			//검색어
+			map.put("taskHistValue", searchLabel);
+			//조회할 레이블 리스트들의 프로젝트 코드
+			map.put("projectCode", projectCode);
+			//유저 정보
+			map.put("userEmail", m.getUserEmail());
+			
+			//정보를 담아갈 taskHistory 리스트
+			List<TaskHistory> taskHistoryList;
+			taskHistoryList = ts.selectLabelList(map);
+			//레이블 리스트 잘 가져왔는지 조회하기
+			System.out.println("------레이블 리스트 확인------");
+			System.out.println("레이블 리스트 사이즈 : " + taskHistoryList.size());
+			for(int i = 0; i < taskHistoryList.size(); i++) {
+				System.out.println("레이블 리스트 순번 (" + i + ") : " + taskHistoryList.get(i).getTaskHistValue());
+			}
+			mv.addObject("taskHistoryList", taskHistoryList);
+			mv.setViewName("jsonView");
+			return mv;
+		}		   
+	   //레이블 추가
+		@RequestMapping("insertTaskHistoryLabelYes.tk")
+		public String insertTaskHistoryLabelYes(Model model, @ModelAttribute("loginUser") Member m, int labelTaskCode, String labelName) {
+			//변수 정리
+			int taskCode = labelTaskCode;
+			String taskHistValue = labelName;
+			
+			//최근 담당자 정보 조회
+			TaskHistory taskHistory;
+			//테스크 코드를 이용하여 최신 history에서 마스터와 담당자 정보를 조회해온다.
+		    taskHistory = ts.selectTaskUserAndMaster(taskCode);			
+			//insert시 필요한 정보 추가로 담아주기
+		    taskHistory.setTaskCode(taskCode);
+		    taskHistory.setTaskHistValue(taskHistValue);
+		    
+			//테스크 히스토리 테이블에 레이블 추가하기
+			int result = ts.insertTaskHistoryLabelYes(taskHistory);
+			System.out.println("레이블 추가 성공여부 : " + result);
+			//성공할 경우 다시 리스트 조회해서 테스크 보드 메인페이지로 이동
+			if(result > 0) {
+				return "redirect:showTaskBoardMain.tk";	
+			}else {
+				model.addAttribute("msg", "레이블 추가 실패!");
+				return "common/errorPage";
+			}
+		}			
+	   //특정 테스크의 최근 담당자 및 관리자 조회(taskHistory insert시 필요한 정보)
+	   @RequestMapping("selectTaskUserAndMaster.tk")
+		   public ModelAndView selectTaskUserAndMaster(ModelAndView mv, @ModelAttribute("loginUser") Member m, int taskCode) {
+		   TaskHistory taskHistory;
+		   //테스크 코드를 이용하여 최신 history에서 마스터와 담당자 정보를 조회해온다.
+		   taskHistory = ts.selectTaskUserAndMaster(taskCode);
+		   System.out.println("마스터, 유저 정보 : " + taskHistory);
+		   mv.addObject("taskHistory", taskHistory);
+		   mv.setViewName("jsonView");
+		   return mv;
+	   }
+	   //스프린트 리스트 실시간 조회 (현재 프로젝트 코드 기준으로 테스크 상위항목 변경 위해 조회해온다.)
+	   //ajax	   
+	   @RequestMapping(value="selectSprintList.tk",method=RequestMethod.POST)
+	   public ModelAndView selectSprintList(@ModelAttribute("loginUser") Member m, String sprintName, int projectCode, ModelAndView mv) {
+		   //파라미터 확인
+		   System.out.println("sprintName : " + sprintName +", projectCode : "+ projectCode + " m : " +  m);
+		   Map<String, Object> map = new HashMap<String, Object>();
+		   //검색어
+		   map.put("sprintName", sprintName);
+		   //조회할 레이블 리스트들의 프로젝트 코드
+		   map.put("projectCode", projectCode);	
+		   List<SprintHistory> sprintHistoryList;
+		   //정보 담아갈 객체
+		   sprintHistoryList = ts.selectSprintList(map);
+		   System.out.println("------스프린트 리스트 확인------");
+		   for(int i = 0; i < sprintHistoryList.size(); i++) {
+				System.out.println("(" + i + ") 스프린트 코드 : " + sprintHistoryList.get(i).getSprintCode() + ", 스프린트 명 : " + sprintHistoryList.get(i).getSprintName());
+		   }
+			mv.addObject("sprintHistoryList", sprintHistoryList);
+			mv.setViewName("jsonView");
+			return mv;
+	   }
+	   
+	   
+	   
+	   //테스크의 상위항목 변경 (현재 진행중인 스프린트에서 미진행 스프린트로 변경)
+		
+	   
+	   
+	   //테스크 진행상태 변경 (드래그앤드롭 기능)
+	   @RequestMapping(value="insertTaskHistoryTaskProceeding.tk",method=RequestMethod.POST)
+	   public ModelAndView insertTaskHistoryTaskProceeding(@ModelAttribute("loginUser") Member m, String taskHistValue, int taskCode, ModelAndView mv) {
+		   //파라미터 확인
+		   System.out.println("taskHistValue : " + taskHistValue +", taskCode : "+ taskCode + " m : " +  m);
+		   TaskHistory taskHistory;
+		   //테스크 코드를 이용하여 최신 history에서 마스터와 담당자 정보를 조회해온다.
+		   taskHistory = ts.selectTaskUserAndMaster(taskCode);
+		   System.out.println("마스터, 유저 정보 : " + taskHistory);
+		   //테스크 코드와 변경할 진행상태값도 객체에 넣어준다.
+		   taskHistory.setTaskCode(taskCode);
+		   taskHistory.setTaskHistValue(taskHistValue);
+		   int result = ts.insertTaskHistoryTaskProceeding(taskHistory);
+		   mv.addObject("result", result);
+		   mv.setViewName("jsonView");
+		   return mv;
+		   
+		   
+	   }
 	   
 	   
 	 //--------------------------------------------------------------------------------------------------------------------------------------------------

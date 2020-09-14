@@ -31,7 +31,6 @@ a{
 #contentBox1{
 	width: 100%;
 	height: 12%;
-	background: yellow;
 	padding:0;
 	margin: 0;
 	box-sizing: border-box;
@@ -44,10 +43,12 @@ a{
 	font-family: Noto Sans KR;
 	font-style: normal;
 	font-weight: 300;
-	font-size: 25px;
+	font-size: 17px;
 	letter-spacing: 0.1px;
 	box-sizing: border-box;
-	color: #000000;
+/* 	color: #000000; */
+	color: #6D6D6D;
+	font-weight: bold;
 }
 /* 스프린트 상세 설명 입력 */
 #contentBox1-subtitle{
@@ -60,6 +61,8 @@ a{
 	letter-spacing: 0.1px;
 	color: #6D6D6D;
 	box-sizing: border-box;
+	margin-top:-10px;
+	margin-bottom: 10px;
 }
 /* contentBox1-table 내부 css */
 #contentBox1-table{
@@ -78,57 +81,83 @@ a{
 	height: 100%;
 }
 /* 상단 버튼 들어있는 table td 설정 */
-#contentBox1-table td:nth-child(1){width: 25%}
+#contentBox1-table td:nth-child(1){width: 30%}
 #contentBox1-table td:nth-child(2){width: 10%}
 #contentBox1-table td:nth-child(3){width: 10%}
-#contentBox1-table td:nth-child(4){width: 25%}
+#contentBox1-table td:nth-child(4){width: 20%}
 #contentBox1-table td:nth-child(5){width: 10%}
 #contentBox1-table td:nth-child(6){width: 20%}
+
+/* 그룹화 기준 */
+#group-standard{
+	margin-left: 20%;
+}
+
 
 
 /* searchBox */
 #searchBox{
 	width: 170px;
-	height: 100%;	
+	height: 33px;	
 	background: #FBFBFB;
 	border: 2px solid #F4F4F4;
 	box-sizing: border-box;
 	border-radius: 8px;
 	display: inline-block;	
+	padding-top:1px;
+	box-sizing:border-box;
+	padding-bottom:1px;
+
 }
 #searchBox input{
-	height: 100%;	
-	font-size: 13px;
-	width: 80%;
-	vertical-align:middle;
+	height: 31px;	
+/* 	font-size: 13px; */
+	width: 100px;
 	box-sizing: border-box;
 	border-radius: 8px;
 	margin: 0;
 	padding: 0;
-	float: left;
+	float:left;
+	line-height:31px;
 	background: none;
+	margin-left: 10px;
 }
 /* 검색 박스 돋보기 아이콘 */
 #icon-searchicon{
-	width: 12%;
-	float: left;
-	vertical-align:middle;
+	width: 19px;
+	height: 19px;
+	float: right;
+	margin-top:6px;
 	box-sizing: border-box;
-	margin-top: 3%;
+	margin-right: 3px;
 }
 /* 
 
 /* 스프린트 완료 아이콘 */
 #sprint-finish {
-    width: 80%;
-    height: 100%;
-    background: #DD0351;
+/*  width: 100%;
+    height: 100%; */
+    width:132px;
+    height:32px;
+/*  background: #DD0351; 핑크*/
+/* 네이비 버튼  */
+    background: #FAFAFA;
     border-radius: 10px;
-    border: 0;
-    font-size: 12px;
-    color: white;
+    border: 0; 
+    font-size: 14px;
+    color: #6D6D6D;
+    line-height:30px;
+    box-sizing:border-box;
     text-align: center;
     cursor: pointer;
+    display: inline-block;
+    float: right;
+    margin-top:-30px;
+    margin-right: 93px;
+}
+#sprint-finish:hover{
+     background: #2B2B49;
+     color: white;	
 }
 
 /* board list 부분 css ------------------------------------ */
@@ -145,7 +174,6 @@ a{
 	width: 99%;
 	/* contentBox2 내부 비율 boardTitle 12% : board 88% */
 	height: 7%;
-	background: red;
 	display: inline-block;
 	margin:0;
 	padding: 0;
@@ -155,7 +183,7 @@ a{
 #incomplete-title, #proceeding-title{
 	margin-left:3%;
 	margin-right:3%;
-	width: 22%;
+	width: 21.85%;
 	font-family: Noto Sans KR;
 	font-style: normal;
 	font-weight: bold;
@@ -164,16 +192,17 @@ a{
 	align-items: center;
 	color: #000000;
 	background: #FAFAFA;
-	border-radius: 5px;
+	border-radius: 5px 5px 0 0;
 	height: 100%;
 	float: left;
 	box-sizing: border-box;
 	padding-left: 30px;
+	padding-top: 0.5%;
 }
 #complete-title{
 	margin-left:3%;
 	margin-right:3%;
-	width: 22%;
+	width: 21.89%;
 	font-family: Noto Sans KR;
 	font-style: normal;
 	font-weight: bold;
@@ -181,13 +210,13 @@ a{
 	line-height: 34px;
 	align-items: center;
 	color: #000000;
-	background: #FAFAFA;
-	border-radius: 5px;
+ 	background: #FAFAFA; 
+	border-radius: 5px 5px 0 0;
 	height: 100%;
 	float: left;
 	box-sizing: border-box;
 	padding-left: 30px;	
-	
+	padding-top: 0.5%;
 }
 
 #contentBox2-board{
@@ -196,8 +225,7 @@ a{
 	margin:0;
 	padding:0;
 	box-sizing:border-box;
-	background: purple;	
-	display: inline-block;
+/* 	display: inline-block; */
 	/* 흰 상자 늘어나서 꽉차면 스크롤바 생기게함 */
 	overflow-y:scroll;
     overflow-x:hidden;
@@ -241,7 +269,7 @@ a{
 #i-board, #p-board, #c-board{
 	min-height: 97%;
 	background: #FAFAFA;
-	border-radius: 5px;
+ 	border-radius: 0 0 5px 5px; 
 	float: left;
 	padding:0.5%;
 	box-sizing: border-box;
@@ -251,7 +279,8 @@ a{
 	align-items: center;
 }
 /* 흰색 mini 데이터 박스들 */
-.i-mini-box, .p-mini-box, .c-mini-box{
+/* .i-mini-box, .p-mini-box, .c-mini-box{ */
+.mini-box{
 	background: #FFFFFF;
 	box-shadow: 4px 3px 4px rgba(142, 142, 142, 0.35);
 	border-radius: 5px;
@@ -403,9 +432,144 @@ a{
 	width: 24px;
 }
 
-/***********************************************************************/
+/**상위 테스크 끝********************************************************************/
 
-/* 얇은 스크롤바 ***************************************************************/
+/**하위 테스크 시작********************************************************************/
+/* 상위 테스크 타이틀보여줄 상자 */
+.sTitle{
+	margin-left:3%;
+	margin-right:3%;
+	width: 78.1%;
+	font-family: Noto Sans KR;
+	font-style: normal;
+	font-size: 14px;
+	line-height: 34px;
+	align-items: center;
+	color: #000000;
+	background: #FAFAFA;
+	border-radius: 5px 5px 0 0;
+ 	height: 43px; 
+	box-sizing: border-box;
+	padding-left: 30px;
+	display: inline-block;
+	margin-top: 0.5%;
+	margin-bottom: 0.5%;
+	float: left;
+}
+
+/* s아이콘 상자 */
+.sicon{
+	float:left;
+	width: 17px;
+	height:17px;
+	background: #63BA3C;
+	border-radius: 3px;
+	box-sizing: border-box;
+	font-weight: bold;
+	color: white;
+	text-align: center;
+	font-size:12px;
+	line-height:17px;
+	display: inline-block;
+	margin-right: 4px;
+	margin-top:9px;	
+}
+.stcode{
+	float:left;
+/* 	width: 20% !important; */
+	font-family: Noto Sans KR;
+	font-style: normal;
+	font-weight: bold;
+	font-size: 15px;
+	letter-spacing: 0.1px;
+	color: #6D6D6D;
+	/* 글자 overflow 안되게 하기 */
+ 	height:100%;
+  	overflow: hidden;
+  	text-overflow: ellipsis; 
+  	/* 글자가 일정 크기 넘어가면 오른쪽이 생략됨 */
+  	direction: ltr;
+    white-space: nowrap;
+    margin-right: 10px;
+}
+.nameBox{
+	font-size: 16px;
+	margin-right: 7px;
+}
+/* 테스크 진행상태 아이콘 */
+.taskProceedingStatus{
+	
+}
+/* 미진행, 진행중, 완료 board */
+ .sboard{ 
+ 	height:100px;
+	background: #FAFAFA;
+ 	border-radius: 5px; 
+	float: left;
+	padding:0.5%;
+	box-sizing: border-box;
+	margin-left:3%;
+	margin-right:3%;
+	width: 22%;
+	align-items: center;
+}
+/* 진행상태 상자 css */
+.sGray{
+	background-color: rgb(223, 225, 230);
+    border-radius: 3px;
+    box-sizing: border-box;
+    color: rgb(66, 82, 110);
+    font-size: 11px;
+    font-weight: 700;
+    max-width: 100%;
+    text-transform: uppercase;
+    vertical-align: baseline;
+    margin-top:-2px;
+}
+.sNavy{
+	background-color: #2B2B49;
+    border-radius: 3px;
+    box-sizing: border-box;
+    color: white;
+    font-size: 11px;
+    font-weight: 700;
+    max-width: 100%;
+    text-transform: uppercase;
+    vertical-align: baseline;
+    margin-top:-2px;	
+}
+.sPink{
+ 	background-color: #dd0351; 
+    border-radius: 3px;
+    box-sizing: border-box;
+    color: white;
+    font-size: 11px;
+    font-weight: 700;
+    max-width: 100%;
+    text-transform: uppercase;
+    vertical-align: baseline;
+    margin-top:-2px;
+}
+/**하위 테스크 끝********************************************************************/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* 얇은 스크롤바 ---------------------------------------------------------------------------------*/
 /* 흰 상자 늘어나서 꽉차면 스크롤바 생기게함 */
 #contentBox2-board::-webkit-scrollbar{
 	width: 5px;
@@ -415,15 +579,14 @@ a{
 	background-color: #D9D9D9;
 	border-radius: 3px;
 }
-/***********************************************************************/
+/* 얇은 스크롤바 끝------------------------------------------------------------------------*/
 	
-/*상세 설정 드롭 다운 css -------------------------------------------- */
+/*상세 설정 드롭 다운 css ----------------------------------------------------------------------- */
  @charset "UTF-8";
  .dropdown {
     display: inline-block;
 /*  background-color: #ffffff; */
     background-color: #dd0351;
-    box-shadow: 0 0 2px #cccccc;
     transition: all .5s ease;
     position: relative;
     font-size: 14px;
@@ -504,16 +667,14 @@ a{
   .dropdown .dropdown-menu li:active {
       background-color: #FEF5F8;
   }
- /* 드롭 다운 css 원본-------------------------------------------- */
+ /* 상세 설정 드롭 다운 css----------------------------------------------------------------------- */
  
  
- 
- 
- /* 설정 상자 드롭 다운 CSS----------------------------------------- */
- /* 상위 드롭다운 상자 */
- <!--드롭다운 -->
-.dropdown2 {
-    width: 40px;
+ /* 그룹화 필터 드롭 다운 CSS-------------------------------------------------------------------- */
+.dropdown1 {
+    width: 130px;
+    height:30px;
+    line-height:30px;
     display: inline-block;
     background-color: #ffffff;
     box-shadow: 0 0 2px #cccccc;
@@ -521,52 +682,51 @@ a{
     position: relative;
     font-size: 14px;
     color: #474747;
-    height: 100%;
     text-align: center;
-    margin-right: 30px;
-    margin-left: 30px;
+    float:left;
     border-radius: 10px;
     border: 1px solid #dd0351;
   }
-  .dropdown2 .select2 {
+  .dropdown1 .select {
       cursor: pointer;
       display: block;
-      padding: 5px;
-      width:40px;
+      width: 130px;
+      box-sizing: border-box;
   }
-  .dropdown2 .select2 > i {
+   .dropdown1 .select > i {
       font-size: 13px;
       color: #888;
       cursor: pointer;
       transition: all .3s ease-in-out;
       float: right;
       line-height: 20px;
-  }
-  .dropdown2:hover {
+  } 
+  .dropdown1:hover {
       box-shadow: 0 0 4px #FEF5F8;
       text-decoration-color: #dd0351;
       background-color: #FEF5F8;
       border-color: #FEF5F8;
   }
-  .dropdown2:active {
+  .dropdown1:active {
       background-color: #FEF5F8;
   }
-  .dropdown2.active:hover,
-  .dropdown2.active {
+  .dropdown1.active:hover,
+  .dropdown1.active {
       box-shadow: 0 0 4px #FEF5F8;
       border-radius: 2px 2px 0 0;
       background-color: #f8f8f8;
   }
-  .dropdown2.active .select2 > i {
+  .dropdown1.active .select > i {
       transform: rotate(-90deg)
   }
-  .dropdown2 .dropdown-menu2 {
+   .dropdown1 .dropdown1-menu { 
       position: absolute;
       background-color: #fff;
-      width: 50px;
+      width: 100%;
       float: right;
-      margin-top: 1px;
-      box-shadow: 0 1px 2px#FEF5F8;
+      margin-right:50px;
+      margin-top: 2px;
+      box-shadow: 0 1px 2px #FEF5F8;
       border-radius: 10px;
       overflow: hidden;
       display: none;
@@ -574,23 +734,279 @@ a{
       overflow-y: auto;
       z-index: 9
   }
-  .dropdown2 .dropdown-menu2 li {
+  .dropdown1 .dropdown1-menu li {
       padding: 5px;
       transition: all .2s ease-in-out;
       cursor: pointer
   } 
-  .dropdown2 .dropdown-menu2 {
+  .dropdown1 .dropdown1-menu {
       padding: 0;
       list-style: none
   }
-  .dropdown2 .dropdown-menu2 li:hover {
+  .dropdown1 .dropdown1-menu li:hover {
       color: #dd0351;
       background-color: #FEF5F8;
   }
-  .dropdown2 .dropdown-menu2 li:active {
+  .dropdown1 .dropdown1-menu li:active {
       background-color: #FEF5F8;
   }
-  .dropdown2-area{
+/*   .dropdown1-area{
   	 width:40px;
+  } */
+ /* 설정 상자 드롭 다운 CSS 끝---------------------------------------------------------------------------- */
+ 
+ 
+ 
+ /* 레이블 추가 모달 시작----------------------------------------------------------------------- */	
+ .modalTable3{
+	width: 100%;
+	margin: 10% 6%;
+	box-sizing: border-box;
+}
+.modalTable3 tr, .modalTable3 tbody, .modalTable3 td{
+	width: 100%;
+	box-sizing: border-box;
+}
+.modal3 {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 2; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    box-sizing: border-box;
   }
- /* 설정 상자 드롭 다운 CSS 끝--------------------------------------- */
+.modalTable3 .btn-box{
+	margin-left: 100px;
+	width: 100%;
+} 
+  /* Modal Content/Box */
+.modal-content3 {
+    background-color: #fefefe;
+/*     margin: 15% auto; 15% from the top and centered */
+    margin-left:auto;
+    margin-right:auto;
+    margin-top: 300px; 
+    padding: 10px;
+    border: 1px solid #c4c4c4;
+    /* 모달창 크기 */
+/*     width: 45%;
+    height: 45%; */
+    height: 320px;
+    width: 500px;
+    z-index:1;
+    border-radius: 10px;
+    box-shadow: 0 0 4px #cccccc;
+    box-sizing: border-box;
+  }
+/* 저장, 닫기 버튼  */
+.modal3-ok, .modal3-close{
+	/* 모달 버튼 css */
+	margin-top: 13px;
+	margin-left: 10px;
+	margin-right: 10px;
+	/* 여기서 부터 공통 css */
+	font-size: 8px;
+	text-align: center;
+	float: left; 
+}
+/* 회색 상자 */
+/* .modalTable3 tr:nth-child(2) input{
+     width: 100%;
+     height: 28px;
+     border: 1px solid #D5D5D5;
+     border-radius: 5px;
+     background-image: url('searchicon.png');
+     background-size: 18px 18px;
+     background-repeat: no-repeat;
+     background-position: 95% center;
+     padding: 0;
+     box-sizing: border-box;
+}  */
+
+.modaltitle3{
+	margin-left: 40px;
+}
+
+
+/* 버튼 css */
+.rectangle6 {
+    background:#DD0351;
+    height: 30px;
+    width: 80px;
+    border-radius: 10px;
+    border: 0;
+    font-size: 9px;
+    color: white;
+    text-align: center;
+    cursor: pointer;     
+}
+.rectangle7 {
+    background:white;
+    height: 30px;
+    width: 80px;
+    border-radius: 10px;
+    border: 1px solid #DD0351;
+    font-size: 9px;
+    color:#DD0351;
+    text-align: center;     
+    cursor: pointer;     
+}
+
+/* 필수 입력 표시 빨간색 별 */
+.red-star{
+	color: red;
+	font-size: 13px;
+	display: inline;
+	margin-left: 5px;
+}
+
+#searchLabel{
+	width: 400px;
+	border-radius : 10px;
+	height: 50px;
+	background-color: lightgray;
+	color: white;
+	font-weight: normal;
+	padding-left: 30px;
+	box-sizing: border-box;
+}
+#searchLabelList{
+	width: 400px;
+}	
+#searchLabelList option{
+	width: 400px;
+	height: 50px;
+}
+#searchLabel:focus {
+	transition: all ease 1s 0s;
+	background-color: #DD0351;
+	font-weight: normal;
+}
+ /* 레이블 추가 모달 끝----------------------------------------------------------------------- */	
+ 
+ 
+ 
+ /* 상위 항목 변경 모달 시작----------------------------------------------------------------------- */	
+ .modalTable2{
+	width: 100%;
+	margin: 10% 6%;
+	box-sizing: border-box;
+}
+.modalTable2 tr, .modalTable2 tbody, .modalTable2 td{
+	width: 100%;
+	box-sizing: border-box;
+}
+.modal2 {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 2; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    box-sizing: border-box;
+  }
+.modalTable2 .btn-box{
+	margin-left: 100px;
+	width: 100%;
+} 
+  /* Modal Content/Box */
+.modal-content2 {
+    background-color: #fefefe;
+/*     margin: 15% auto; 15% from the top and centered */
+    margin-left:auto;
+    margin-right:auto;
+    margin-top: 300px; 
+    padding: 10px;
+    border: 1px solid #c4c4c4;
+    /* 모달창 크기 */
+/*     width: 45%;
+    height: 45%; */
+    height: 320px;
+    width: 500px;
+    z-index:1;
+    border-radius: 10px;
+    box-shadow: 0 0 4px #cccccc;
+    box-sizing: border-box;
+  }
+/* 저장, 닫기 버튼  */
+.modal2-ok, .modal2-close{
+	/* 모달 버튼 css */
+	margin-top: 13px;
+	margin-left: 10px;
+	margin-right: 10px;
+	/* 여기서 부터 공통 css */
+	font-size: 8px;
+	text-align: center;
+	float: left; 
+}
+
+.modaltitle2{
+	margin-left: 40px;
+}
+
+
+/* 버튼 css */
+.rectangle6 {
+    background:#DD0351;
+    height: 30px;
+    width: 80px;
+    border-radius: 10px;
+    border: 0;
+    font-size: 9px;
+    color: white;
+    text-align: center;
+    cursor: pointer;     
+}
+.rectangle7 {
+    background:white;
+    height: 30px;
+    width: 80px;
+    border-radius: 10px;
+    border: 1px solid #DD0351;
+    font-size: 9px;
+    color:#DD0351;
+    text-align: center;     
+    cursor: pointer;     
+}
+
+/* 필수 입력 표시 빨간색 별 */
+.red-star{
+	color: red;
+	font-size: 13px;
+	display: inline;
+	margin-left: 5px;
+}
+
+#searchSprint{
+	width: 400px;
+	border-radius : 10px;
+	height: 50px;
+	background-color: lightgray;
+	color: white;
+	font-weight: normal;
+	padding-left: 30px;
+	box-sizing: border-box;
+}
+#searchSprintList{
+	width: 400px;
+}	
+#searchSprintList option{
+	width: 400px;
+	height: 50px;
+}
+#searchSprint:focus {
+	transition: all ease 1s 0s;
+	background-color: #DD0351;
+	font-weight: normal;
+}
+ /* 상위 항목 변경 모달 끝----------------------------------------------------------------------- */	
+  
