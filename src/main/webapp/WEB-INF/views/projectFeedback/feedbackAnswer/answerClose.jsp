@@ -10,11 +10,10 @@
 <body>
  <script type="text/javascript">
  	var message = '${alertmsg}';
- 	var returnUrl= '${url}';
- 	console.log('알럿다녀감..' + message)
+ 	var jst= '${jst}';
  	alert(message);
- 	document.location.href = returnUrl;
- 	
+ 	self.opener=self;
+ 	window.close();
  </script>
 </body>
 </html>

@@ -18,7 +18,7 @@
 			
 		   		<div class="surveyInfo">
 					<h2 id="surveyName">${surveyOne.surveyName}</h2>
-					<p class="surveyIntro">${surveyOne.member.userName} 님 안녕하세요!</p>
+					<p class="surveyIntro">${surveyOne.surveyJoinList.surveyJoinName} 님 안녕하세요!</p>
 					<p class="surveyIntro">본 설문조사는 [ ${surveyOne.sprintHistory.sprintName} ] 과 관련한 설문조사입니다.</p><br>						
 					<p class="surveyIntro">${surveyOne.surveyIntro}</p><br>
 					<p class="surveyIntro" id="surveyDate">설문기간 : ${surveyOne.surveyStartDate} ~  ${surveyOne.surveyEndDate}</p>
@@ -62,8 +62,7 @@
 				}
 			}  
 		
-		$("#surveyReplyContent" + $(this).attr("name")).val(str);
-		
+			$("#surveyReplyContent" + $(this).attr("name")).val(str);
 		});
 		str="";
 		
@@ -122,7 +121,6 @@
 						}
 						
 						surveyContent += '</td></tr>';
-						
 						
 						//문항마다 숨겨진 input을 만들어서 결과값 넘겨줌.
  						surveyContent += '<input type="hidden" id="surveyCode'+ count +'" value="' + surveyCode + '">'
@@ -238,7 +236,8 @@
 			data : JSON.stringify(totData),
 			success : function(data) {
 				alert(data.alertmsg);
-				location.href="MyTaskList.mt";
+				self.opener=self;
+				window.close();
 			},
 			error : function () {
 				alert('설문제출에 실패하였습니다!');

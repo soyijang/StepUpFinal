@@ -249,6 +249,12 @@
 			<version>1.0.2</version>
 		</dependency>
 		
+		<!-- 소이 메일 -->
+		<dependency>
+			<groupId>javax.mail</groupId>
+			<artifactId>mail</artifactId>
+			<version>1.4.7</version>
+		</dependency>
 
 	</dependencies>
 	<build>

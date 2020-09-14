@@ -16,10 +16,10 @@
 		<id property="surveyJoinCode" column="SURVEY_JOIN_CODE"/>
 		<result property="surveyJoinEmail" column="SURVEY_JOIN_EMAIL"/>
 		<result property="surveyJoinReply" column="SURVEY_JOIN_REPLY"/>
-		<result property="userCode" column="USER_CODE"/>
 		<result property="surveyReplyDate" column="SURVEY_REPLY_DATE"/>
 		<result property="surveyReplyTime" column="SURVEY_REPLY_TIME"/>
 		<result property="surveyCode" column="SURVEY_CODE"/>
+		<result property="surveyJoinName" column="USER_NAME"/>
 	</resultMap>
 	
 	<resultMap type="com.stepup.agile.projectFeedback.model.vo.SurveyList" id="SurveyListResultSet">
@@ -100,12 +100,10 @@
 		   , (SELECT MAX(H.SPRINT_NAME) KEEP (DENSE_RANK LAST ORDER BY H.SPRINT_HIST_UPDATE_DATE, H.SPRINT_HIST_UPDATE_TIME) AS SPRINT_NAME
 		            , H.SPRINT_CODE
 		        FROM SPRINT_HISTORY H group by H.SPRINT_CODE) E
-		   , USER_INFO U
 		   , SURVEY_JOIN_LIST J
 		WHERE V.SPRINT_CODE = P.SPRINT_CODE
 		AND P.SPRINT_CODE = E.SPRINT_CODE
-		AND J.USER_CODE = U.USER_CODE
-		AND J.USER_CODE = #{userCode, jdbcType=NUMERIC}
+		AND J.SURVEY_JOIN_EMAIL = #{userEmail, jdbcType=VARCHAR}
 		AND V.SURVEY_CODE = #{surveyCode, jdbcType=NUMERIC}
 	</select>
 	
@@ -126,6 +124,24 @@
 		VALUES(#{surveyQuesCode, jdbcType=VARCHAR},#{surveyJoinCode, jdbcType=VARCHAR},
 		#{surveyReplyContent, jdbcType=VARCHAR},SEQ_SURVEY_REPLY.NEXTVAL,
 		#{surveyCode, jdbcType=VARCHAR})
+	</insert>
+	
+	<!-- 답변넣기 -->
+	<update id="updateJoinList" parameterType="Survey">
+		UPDATE SURVEY_JOIN_LIST
+		SET SURVEY_JOIN_REPLY = 'Y'
+		  , SURVEY_REPLY_DATE = TO_CHAR(SYSDATE + 9/24, 'YYYY-MM-DD')
+		  , SURVEY_REPLY_TIME = TO_CHAR(SYSDATE + 9/24, 'hh24:mi:ss')
+		WHERE SURVEY_JOIN_CODE = #{surveyJoinCode, jdbcType=VARCHAR}     
+	</update>
+	
+	
+	<!-- 대상자넣기 -->
+	<insert id="insertSurveyJoin" parameterType="Survey">
+		INSERT INTO SURVEY_JOIN_LIST 
+		VALUES(SEQ_SURVEY_JOIN.NEXTVAL, #{surveyJoinEmail, jdbcType=VARCHAR}, 
+		DEFAULT,NULL,NULL,#{surveyCode, jdbcType=NUMERIC}
+		,#{surveyJoinName, jdbcType=VARCHAR})
 	</insert>
 
 </mapper>
