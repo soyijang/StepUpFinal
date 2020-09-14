@@ -425,13 +425,24 @@ a{
 
 /* 담당자 프로필 사진 */
 .i-div3-span-person, .p-div3-span-person, .c-div3-span-person{
-	background-color: red;
+	color: white;
+	border: 2px solid #2B2B49;
     border-radius: 100%;
     display: flex;
     height: 24px;
 	width: 24px;
 }
 
+.taskPerson{
+	color: white;
+ 	background-color: #2B2B49; 
+    border-radius: 100%;
+    height: 24px;
+	width: 24px;
+	line-height:24px;
+	font-size: 10px;
+	text-align: center;
+}
 /**상위 테스크 끝********************************************************************/
 
 /**하위 테스크 시작********************************************************************/
@@ -1007,6 +1018,13 @@ a{
 	font-size: 13px;
 	display: inline;
 	margin-left: 5px;
+}
+
+.red-center{
+	color: red;
+	font-size: 13px;
+	margin-top: 250px;
+	text-align: center;
 }
 
 #searchLabel{

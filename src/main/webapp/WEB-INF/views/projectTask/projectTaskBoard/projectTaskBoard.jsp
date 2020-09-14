@@ -30,9 +30,9 @@
 				<table id="contentBox1-table">
 					<tr>
 						<td id="contentBox1-table-td1"><div id="searchBox"><input id="searchBoxInput" type="text"/><img id="icon-searchicon" src="/agile/resources/icon/common/icon_searchicon.png"></div></td>
-						<td id="contentBox1-table-td2">사람 추가</td>
+						<td id="contentBox1-table-td2"></td>
 						<td id="contentBox1-table-td3"><!-- <div id="sprint-finish">스프린트 완료</div> --></td>
-						<td id="contentBox1-table-td4"><div>검색색 필터</div></td>
+						<td id="contentBox1-table-td4"><div></div></td>
 						<td id="contentBox1-table-td5"><div id="group-standard">그룹화 기준</div></td>
 						<td id="contentBox1-table-td6">
 							<div class="dropdown1">
@@ -58,131 +58,19 @@
        							
 <!-- 미진행 보드 시작----------------------------------------------------------------------------------------------------------->	
 	       			<div id="i-board" class="dropzone">
-						<div class="i-mini-box flag-true">
-	       					<div class="i-div1">
-								<div class="i-div1-div1">테스크명 </div>
-								<div class="dropdown i-div1-drop1">
-							        <div class="select">
-							            <span id="user-list"></span>
-							            <i class="fa fa-chevron-left"></i>
-							        </div>
-							        <ul class="dropdown-menu">
-							          <li class="work">플래그 추가</li>
-							          <li class="rest">레이블 추가</li>
-							          <li class="travel1">상위항목 변경</li>
-							          <li class="travel3">삭제</li>
-							        </ul>
-								 </div>
-		       				</div>		
-		       				<div class="i-div2"></div>
-							<div class="i-div3">
-								<div class="i-div3-inner-left">
-									<div class="i-div3-div-type">T</div>
-									<span class="i-div3-span-tcode">코드입력</span>
-								</div>
-								<div class="i-div3-inner-right">
-									<span class="i-div3-span-per">2/4</span>
-									<span class="i-div3-span-arrow"><img class="icon_arrow_upward_red" src="/agile/resources/icon/common/icon_arrow_upward_red.png"></span>
-									<span class="i-div3-span-person"></span>
-								</div>
-							</div>
-	       				</div><div class="i-mini-box flag-true">
-	       					<div class="i-div1">
-								<div class="i-div1-div1">테스크명 </div>
-								<div class="dropdown i-div1-drop1">
-							        <div class="select">
-							            <span id="user-list"></span>
-							            <i class="fa fa-chevron-left"></i>
-							        </div>
-							        <ul class="dropdown-menu">
-							          <li class="work">플래그 추가</li>
-							          <li class="rest">레이블 추가</li>
-							          <li class="travel1">상위항목 변경</li>
-							          <li class="travel3">삭제</li>
-							        </ul>
-								 </div>
-		       				</div>		
-		       				<div class="i-div2"></div>
-							<div class="i-div3">
-								<div class="i-div3-inner-left">
-									<div class="i-div3-div-type">T</div>
-									<span class="i-div3-span-tcode">코드입력</span>
-								</div>
-								<div class="i-div3-inner-right">
-									<span class="i-div3-span-per">2/4</span>
-									<span class="i-div3-span-arrow"><img class="icon_arrow_upward_red" src="/agile/resources/icon/common/icon_arrow_upward_red.png"></span>
-									<span class="i-div3-span-person"></span>
-								</div>
-							</div>
-	       				</div>
+						<div class="red-center">진행중인 스프린트가 없습니다</div>
 	       			</div>
 <!-- 미진행 보드 끝----------------------------------------------------------------------------------------------------------->	
 	       			
 <!-- 진행 보드 시작----------------------------------------------------------------------------------------------------------->	
 	       			<div id="p-board" class="dropzone">
-						<div class="p-mini-box flag-true">
-	       					<div class="p-div1">
-								<div class="p-div1-div1">테스크명 </div>
-								<div class="dropdown p-div1-drop1">
-							        <div class="select">
-							            <span id="user-list"></span>
-							            <i class="fa fa-chevron-left"></i>
-							        </div>
-							        <ul class="dropdown-menu">
-							          <li class="work">플래그 추가</li>
-							          <li class="rest">레이블 추가</li>
-							          <li class="travel1">상위항목 변경</li>
-							          <li class="travel3">삭제</li>
-							        </ul>
-								 </div>
-		       				</div>		
-		       				<div class="p-div2"></div>
-							<div class="p-div3">
-								<div class="p-div3-inner-left">
-									<div class="p-div3-div-type">T</div>
-									<div class="p-div3-div-tcode">코드입력</div>
-								</div>
-								<div class="p-div3-inner-right">
-									<span class="p-div3-span-per">2/4</span>
-									<span class="p-div3-span-arrow"><img class="icon_arrow_upward_red" src="/agile/resources/icon/common/icon_arrow_upward_red.png"></span>
-									<span class="p-div3-span-person"></span>
-								</div>
-							</div>
-	       				</div>
+						<div class="red-center">진행중인 스프린트가 없습니다</div>
 	       			</div>
 <!-- 진행 보드 끝----------------------------------------------------------------------------------------------------------->	
 	        			
 <!-- 완료 보드 시작----------------------------------------------------------------------------------------------------------->	
 	       			<div id="c-board" class="dropzone">
-						<div class="c-mini-box flag-true">
-	       					<div class="c-div1">
-								<div class="c-div1-span1">테스크명 </div>
-								<div class="dropdown c-div1-drop1">
-							        <div class="select">
-							            <span id="user-list"></span>
-							            <i class="fa fa-chevron-left"></i>
-							        </div>
-							        <ul class="dropdown-menu">
-							          <li class="work">플래그 추가</li>
-							          <li class="rest">레이블 추가</li>
-							          <li class="travel1">상위항목 변경</li>
-							          <li class="travel3">삭제</li>
-							        </ul>
-								 </div>
-		       				</div>		
-		       				<div class="c-div2"></div>
-							<div class="c-div3">
-								<div class="c-div3-inner-left">
-									<div class="c-div3-div-type">T</div>
-									<div class="c-div3-div-tcode">코드입력</div>
-								</div>
-								<div class="c-div3-inner-right">
-									<span class="c-div3-span-per">2/4</span>
-									<span class="c-div3-span-arrow"><img class="icon_arrow_upward_red" src="/agile/resources/icon/common/icon_arrow_upward_red.png"></span>
-									<span class="c-div3-span-person"></span>
-								</div>
-							</div>
-	       				</div>
+						<div class="red-center">진행중인 스프린트가 없습니다</div>						
 	       			</div>
 <!-- 완료 보드 끝----------------------------------------------------------------------------------------------------------->	
        			</div>
@@ -298,6 +186,11 @@ var taskList = JSON.parse('${taskList}');
 console.log("전체 리스트")
 console.log(taskList);
 
+//팀원 리스트 리스트 출력
+var memberList = JSON.parse('${memberList}');
+console.log("전체 리스트")
+console.log(memberList);
+
 //전체 상위테스크 리스트
 var mainTaskList = JSON.parse('${mainTaskList}');
 console.log("전체 상위테스크 리스트")
@@ -348,6 +241,8 @@ console.log("중복제거 하위 테스크 완료");
 var subTaskList3 = JSON.parse('${subTaskList3}');
 console.log(subTaskList3); //완료
 
+
+
 //리스트에 있는 현재 진행중인 스프린트명과 스프린트 설명 view페이지에 넣어주기
 var sprintTitle =  $('#contentBox1-title');
 var sprintSubTitle = $('#contentBox1-subtitle');
@@ -362,7 +257,9 @@ sprintSubTitle.text(taskList[0].sprintHistory.sprintIntro);
 var projectTitle = $("#projectTitle2").find('b');
 projectTitle.text('');
 projectTitle.text(taskList[0].taskList.project.projectName);	    
-	    
+
+
+
 //task list 관련 코딩 끝--------------------------------------------------------------------------------------------------------------------------------------------
 
 
@@ -393,10 +290,34 @@ if(mainTaskList1 != null){
 			    + "<div class='i-div3-inner-left'><div class='i-div3-div-type'>"
 			    + 'T' + "</div><div class='i-div3-div-tcode'>" 
 			    + 'TASK - ' + mainTaskList1[i].taskCode + "</div></div><div class='i-div3-inner-right'><span class='i-div3-span-per'>"
-			    + '2/4' + "</span><span class='i-div3-span-arrow important'></span><span class='i-div3-span-person'></span>"
+			    + '' + "</span><span class='i-div3-span-arrow important'></span><span class='taskPerson'></span>"
 			    + "</div></div></div></div>"
 			    
 		)
+		//테스크 담당자 정보
+		var memberName = "";
+		for(var m = 0; m < memberList.length; m++){
+			if(memberList[m].userCode == mainTaskList1[i].userCode){
+				memberName = memberList[m].userName.substring(memberList[m].userName.length-2, memberList[m].userName.length);;
+			}
+		}
+		//이번에 그린 테스크 상자 정보 가져와서 담당자이름 넣어주기
+		$('.t' + mainTaskList1[i].taskCode).find('.taskPerson').text(memberName);
+		
+		
+		//테스크 카테고리에 최신 담당자 이름 있다면 변경해주기
+		for(var m = 0; m < mainTaskList.length; m++){
+			if(mainTaskList[m].taskCategoryCode == "L" && mainTaskList[m].taskCode == mainTaskList1[i].taskCode && mainTaskList[m].taskHistValue != ""){
+				memberName = mainTaskList[m].taskHistValue.substring(mainTaskList[m].taskHistValue.length-2, mainTaskList[m].taskHistValue.length);;
+			}
+		}
+		$('.t' + mainTaskList1[i].taskCode).find('.taskPerson').text(memberName);
+		
+		
+		
+		
+		
+		
  	} 
 }
 
@@ -423,9 +344,30 @@ if(mainTaskList2 != null){
 			    + "<div class='p-div3-inner-left'><div class='p-div3-div-type'>"
 			    + 'T' + "</div><div class='p-div3-div-tcode'>" 
 			    + 'TASK - ' + mainTaskList2[i].taskCode + "</div></div><div class='p-div3-inner-right'><span class='p-div3-span-per'>"
-			    + '2/4' + "</span><span class='p-div3-span-arrow important'></span><span class='p-div3-span-person'></span>"
+			    + '' + "</span><span class='p-div3-span-arrow important'></span><span class='taskPerson'></span>"
 			    + "</div></div></div></div>"
 		)
+		
+		//테스크 담당자 정보
+		var memberName = "";
+		for(var m = 0; m < memberList.length; m++){
+			if(memberList[m].userCode == mainTaskList2[i].userCode){
+				memberName = memberList[m].userName.substring(memberList[m].userName.length-2, memberList[m].userName.length);;
+			}
+		}
+		//이번에 그린 테스크 상자 정보 가져와서 담당자이름 넣어주기
+		$('.t' + mainTaskList2[i].taskCode).find('.taskPerson').text(memberName);
+		
+		
+		//테스크 카테고리에 최신 담당자 이름 있다면 변경해주기
+		for(var m = 0; m < mainTaskList.length; m++){
+			if(mainTaskList[m].taskCategoryCode == "L" && mainTaskList[m].taskCode == mainTaskList2[i].taskCode && mainTaskList[m].taskHistValue != ""){
+				memberName = mainTaskList[m].taskHistValue.substring(mainTaskList[m].taskHistValue.length-2, mainTaskList[m].taskHistValue.length);;
+			}
+		}
+		$('.t' + mainTaskList2[i].taskCode).find('.taskPerson').text(memberName);
+		
+		
  	} 
 }
 
@@ -452,9 +394,31 @@ if(mainTaskList3 != null){
 			    + "<div class='c-div3-inner-left'><div class='c-div3-div-type'>"
 			    + 'T' + "</div><div class='c-div3-div-tcode'>" 
 			    + 'TASK - ' + mainTaskList3[i].taskCode + "</div></div><div class='c-div3-inner-right'><span class='c-div3-span-per'>"
-			    + '2/4' + "</span><span class='c-div3-span-arrow important'></span><span class='c-div3-span-person'></span>"
+			    + '' + "</span><span class='c-div3-span-arrow important'></span><span class='taskPerson'></span>"
 			    + "</div></div></div></div>"
 		)
+		
+		
+		
+		//테스크 담당자 정보
+		var memberName = "";
+		for(var m = 0; m < memberList.length; m++){
+			if(memberList[m].userCode == mainTaskList3[i].userCode){
+				memberName = memberList[m].userName.substring(memberList[m].userName.length-2, memberList[m].userName.length);;
+			}
+		}
+		//이번에 그린 테스크 상자 정보 가져와서 담당자이름 넣어주기
+		$('.t' + mainTaskList3[i].taskCode).find('.taskPerson').text(memberName);
+		
+		
+		//테스크 카테고리에 최신 담당자 이름 있다면 변경해주기
+		for(var m = 0; m < mainTaskList.length; m++){
+			if(mainTaskList[m].taskCategoryCode == "L" && mainTaskList[m].taskCode == mainTaskList3[i].taskCode && mainTaskList[m].taskHistValue != ""){
+				memberName = mainTaskList[m].taskHistValue.substring(mainTaskList[m].taskHistValue.length-2, mainTaskList[m].taskHistValue.length);;
+			}
+		}
+		$('.t' + mainTaskList3[i].taskCode).find('.taskPerson').text(memberName);
+		
  	} 
 }
 
@@ -1145,7 +1109,12 @@ $(document).on('click','#formContentCheck2', function(){
 	//업데이트할 스프린트 정보 form에 담아주기
 	//입력해놓은 레이블 정보 #searchSprint input 상자의 값을 form에있는 #modal2SprintCode input 상자에 담는다.
 	//정확히 일치해야 등록 가능하도록 바꿔주기
-	$('#modal2SprintCode').val($('#searchSprint').val());
+	var end = $('#searchSprint').val().indexOf(":");
+	var start = $('#searchSprint').val().indexOf("-");
+	var sprintCode = $('#searchSprint').val().substring(start+2, end-1);
+	console.log("sprintCode 변경 : " + sprintCode);
+	
+	$('#modal2SprintCode').val(sprintCode);
 	
 	//만약 전송 버튼 클릭 시점에 form 안에 있는 레이블 정보가 비어있다면	
 	if($('#modal2SprintCode').val() == "") {
@@ -1187,6 +1156,20 @@ $(document).on('click','#groupByNone', function(){
 	location.href="showTaskBoardMain.tk";
 });
 
+//스프린트 완료버튼 클릭
+$(document).on('click','#sprint-finish', function(){
+	//하위 테스크가 모두 완료 상태이고, 
+	//상위테스크의 미진행 보드와, 진행중 보드에 테스크 상자가 없다면 모두 진행이완료된 것이기 때문에
+	//자식 요소의 길이가 0이면 자식요소가 없는 것이다.
+	//$("#p-board").children().length < 1
+	if((subTaskList1 == null || subTaskList1 == "") && (subTaskList2 == null || subTaskList2 == "")  && ($("#p-board").children().length < 1) && ($("#i-board").children().length < 1)){
+		var sprintCode = taskList[0].sprintHistory.sprintCode;
+		location.href="showSprintFinish.tk?code=" + sprintCode;
+	}else{
+		alert("진행중인 테스크가 있습니다");		
+		//스프린트 완료 버튼에 스프린트 코드 심기
+	}
+});
 
 </script>
 </html>

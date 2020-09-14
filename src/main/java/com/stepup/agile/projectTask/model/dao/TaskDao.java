@@ -127,6 +127,16 @@ public interface TaskDao {
 	int updateTaskListHeadTaskCode(SqlSessionTemplate sqlSession, TaskList taskList);
 	//사용자 팀코드 조회
 	UserTeamList selectUserTeamCode(SqlSessionTemplate sqlSession, Member m);
+	//팀 멤버 조회
+	List<Member> selectUserMemberList(SqlSessionTemplate sqlSession, int teamCode);
+	//팀코드 조회
+	int selectTeamCode(SqlSessionTemplate sqlSession, int userTeamCode);
+	//상위 항목 변경(테스크의 스프린트 변경)	
+	int updateTaskSprintCode(SqlSessionTemplate sqlSession, Map<String, Object> map);
+	//최신 스프린트 히스토리 조회	
+	SprintHistory selectRecentSprintHistory(SqlSessionTemplate sqlSession, int sprintCode);
+	//스프린트 종료
+	int insertSprintHistorySprintType(SqlSessionTemplate sqlSession, SprintHistory sprintHistory);
 	
 
 

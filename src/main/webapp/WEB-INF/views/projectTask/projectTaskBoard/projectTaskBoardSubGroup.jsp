@@ -24,16 +24,15 @@
        <div id="contentBox">
 			<div id="contentBox1">
 				<div id="contentBox1-title">스프린트명</div>
-				<div id="sprint-finish">스프린트 완료</div>
 				<div id="contentBox1-subtitle">스프린트 상세 설명</div>
 				<!-- 기본 기능 버튼 table -->
 				<table id="contentBox1-table">
 					<tr>
 						<td id="contentBox1-table-td1"><div id="searchBox"><input id="searchBoxInput" type="text"/><img id="icon-searchicon" src="/agile/resources/icon/common/icon_searchicon.png"></div></td>
-						<td id="contentBox1-table-td2">사람 추가</td>
+						<td id="contentBox1-table-td2"></td>
 						<td id="contentBox1-table-td3"><!-- <div id="sprint-finish">스프린트 완료</div> --></td>
-						<td id="contentBox1-table-td4"><div>검색색 필터</div></td>
-						<td id="contentBox1-table-td5"><div id="group-standard">그룹화 기준</div></td>
+						<td id="contentBox1-table-td4"><div></div></td>
+ 						<td id="contentBox1-table-td5"><div id="group-standard">그룹화 기준</div></td> 
 						<td id="contentBox1-table-td6">
 							<div class="dropdown1">
 						        <div class="select">
@@ -172,6 +171,11 @@ var taskList = JSON.parse('${taskList}');
 console.log("전체 리스트")
 console.log(taskList);
 
+//팀원 리스트 리스트 출력
+var memberList = JSON.parse('${memberList}');
+console.log("전체 리스트")
+console.log(memberList);
+
 //전체 상위테스크 리스트
 var mainTaskList = JSON.parse('${mainTaskList}');
 console.log("전체 상위테스크 리스트")
@@ -269,6 +273,12 @@ for(var i = 0; i < selectedMainTaskList.length; i++){
 		//기존 미진행 박스 안에 내용 지우기
 		//siboard.children().remove();
 
+		
+		
+		
+		
+		
+		
 	//하위테스크 미진행 그려주기------------------------------------------------------------------------------------------------------------------
 		if(subTaskList1 != null){
 			for(var j = 0; j < subTaskList1.length; j++){
@@ -295,9 +305,29 @@ for(var i = 0; i < selectedMainTaskList.length; i++){
 						    + "<div class='i-div3-inner-left'><div class='sicon'>"
 						    + 'S' + "</div><div class='i-div3-div-tcode'>" 
 						    + 'TASK - ' + subTaskList1[j].taskCode + "</div></div><div class='i-div3-inner-right'><span class='i-div3-span-per'>"
-						    + "</span><span class='i-div3-span-arrow important'></span><span class='i-div3-span-person'></span>"
+						    + "</span><span class='i-div3-span-arrow important'></span><span class='taskPerson'></span>"
 						    + "</div></div></div></div>"
 					)
+					
+					// 테스크 담당자 정보
+					var memberName = "";
+					for(var m = 0; m < memberList.length; m++){
+						if(memberList[m].userCode == subTaskList1[j].userCode){
+							memberName = memberList[m].userName.substring(memberList[m].userName.length-2, memberList[m].userName.length);;
+						}
+					}
+					//이번에 그린  테스크 상자 정보 가져와서 담당자이름 넣어주기
+					$('.t' + subTaskList1[j].taskCode).find('.taskPerson').text(memberName);
+					
+					
+					//테스크 카테고리에 최신 담당자 이름 있다면 변경해주기
+					for(var m = 0; m < subTaskList.length; m++){
+						if(subTaskList[m].taskCategoryCode == "L" && subTaskList[m].taskCode == subTaskList1[j].taskCode && subTaskList[m].taskHistValue != ""){
+							memberName = subTaskList[m].taskHistValue.substring(subTaskList[m].taskHistValue.length-2, subTaskList[m].taskHistValue.length);;
+						}
+					}
+					$('.t' + subTaskList1[j].taskCode).find('.taskPerson').text(memberName);
+					
 				}	
 			}
 		}
@@ -330,9 +360,30 @@ for(var i = 0; i < selectedMainTaskList.length; i++){
 					    + "<div class='p-div3-inner-left'><div class='sicon'>"
 					    + 'S' + "</div><div class='p-div3-div-tcode'>" 
 					    + 'TASK - ' + subTaskList2[k].taskCode + "</div></div><div class='p-div3-inner-right'><span class='p-div3-span-per'>"
-					    + "</span><span class='p-div3-span-arrow important'></span><span class='p-div3-span-person'></span>"
+					    + "</span><span class='p-div3-span-arrow important'></span><span class='taskPerson'></span>"
 					    + "</div></div></div></div>"
 				)
+				// 테스크 담당자 정보
+				var memberName = "";
+				for(var m = 0; m < memberList.length; m++){
+					if(memberList[m].userCode == subTaskList2[k].userCode){
+						memberName = memberList[m].userName.substring(memberList[m].userName.length-2, memberList[m].userName.length);;
+					}
+				}
+				//이번에 그린 테스크 상자 정보 가져와서 담당자이름 넣어주기
+				$('.t' + subTaskList2[k].taskCode).find('.taskPerson').text(memberName);
+				
+				
+				//테스크 카테고리에 최신 담당자 이름 있다면 변경해주기
+				for(var m = 0; m < subTaskList.length; m++){
+					if(subTaskList[m].taskCategoryCode == "L" && subTaskList[m].taskCode == subTaskList2[k].taskCode && subTaskList[m].taskHistValue != ""){
+						memberName = subTaskList[m].taskHistValue.substring(subTaskList[m].taskHistValue.length-2, subTaskList[m].taskHistValue.length);;
+					}
+				}
+				$('.t' + subTaskList2[k].taskCode).find('.taskPerson').text(memberName);
+				
+				
+				
 			}	
 		}
 	}
@@ -365,9 +416,31 @@ for(var i = 0; i < selectedMainTaskList.length; i++){
 					    + "<div class='c-div3-inner-left'><div class='sicon'>"
 					    + 'S' + "</div><div class='c-div3-div-tcode'>" 
 					    + 'TASK - ' + subTaskList3[l].taskCode + "</div></div><div class='c-div3-inner-right'><span class='c-div3-span-per'>"
-					    + "</span><span class='c-div3-span-arrow important'></span><span class='c-div3-span-person'></span>"
+					    + "</span><span class='c-div3-span-arrow important'></span><span class='taskPerson'></span>"
 					    + "</div></div></div></div>"
 				)
+				
+				//테스크 담당자 정보
+				var memberName = "";
+				for(var m = 0; m < memberList.length; m++){
+					if(memberList[m].userCode == subTaskList3[l].userCode){
+						memberName = memberList[m].userName.substring(memberList[m].userName.length-2, memberList[m].userName.length);;
+					}
+				}
+				//이번에 그린 테스크 상자 정보 가져와서 담당자이름 넣어주기
+				$('.t' + subTaskList3[l].taskCode).find('.taskPerson').text(memberName);
+				
+				
+				//테스크 카테고리에 최신 담당자 이름 있다면 변경해주기
+				for(var m = 0; m < subTaskList.length; m++){
+					if(subTaskList[m].taskCategoryCode == "L" && subTaskList[m].taskCode == subTaskList3[l].taskCode && subTaskList[m].taskHistValue != ""){
+						memberName = subTaskList[m].taskHistValue.substring(subTaskList[m].taskHistValue.length-2, subTaskList[m].taskHistValue.length);;
+					}
+				}
+				$('.t' + subTaskList3[l].taskCode).find('.taskPerson').text(memberName);
+				
+				
+				
 			}	
 		}
 	}
@@ -388,6 +461,12 @@ for(var i = 0; i < selectedMainTaskList.length; i++){
 		 $('#s' + selectedMainTaskList[i].taskCode).find('.wrapper').remove();
 	} */
 /* 만약 특정 메인 테스크에 관련 하위 테스크가 없다면 진행 상태 박스을 모두 제거해준다. 끝 */	
+ 
+ 
+
+	
+ 
+ 
  
  
  

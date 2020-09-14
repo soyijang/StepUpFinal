@@ -661,7 +661,7 @@ public class TaskController {
 	 		
 	 		if (taskList != null) {
 	 			//담아갈 리스트
-	 			
+
 	 			List<TaskHistory> mainTaskList = new ArrayList<TaskHistory>();//상위전체
 	 			List<TaskHistory> subTaskList = new ArrayList<TaskHistory>();//하위전체
 	 			List<TaskHistory> selectedTaskList = new ArrayList<TaskHistory>();//중복제거한 리스트(진행상태기준)
@@ -673,7 +673,6 @@ public class TaskController {
 	 			List<TaskHistory> subTaskList1 = new ArrayList<TaskHistory>();//중복제거 하위미진행
 	 			List<TaskHistory> subTaskList2 = new ArrayList<TaskHistory>();//중복제거 하위진행중
 	 			List<TaskHistory> subTaskList3 = new ArrayList<TaskHistory>();//중복제거 하위완료
-
 	 			//상위 하위 리스트 정리
 	 			for (int k = 0; k < taskList.size(); k++) {
 	 				if (taskList.get(k).getTaskList().getTaskLevel().equals("상위")) {
@@ -731,11 +730,27 @@ public class TaskController {
 	 				}
 	 			}
 	 			
+	 			//팀코드 조회
+	 			UserTeamList userTeamList;
+	 			userTeamList = ts.selectUserTeamCode(m);
+	 			System.out.println("유저 팀코드 " + userTeamList.getUserTeamCode());
+	 			int teamCode = ts.selectTeamCode(userTeamList.getUserTeamCode());
+	 			System.out.println("팀코드 : " + teamCode);
+	 			//팀 멤버 조회
+	 			List<Member> memberList = ts.selectUserMemberList(teamCode);
+	 			if(memberList != null) {
+	 				System.out.println("멤버 리스트 조회");
+	 				for(int i = 0; i < memberList.size(); i++) {
+ 					System.out.println(memberList.get(i).getUserName());
+	 				}
+	 			}
+	 			
+	 			
 	 			System.out.println("원본 리스트 사이즈" + taskList.size());
 	 			System.out.println("상위테스크 원본 리스트 사이즈" + mainTaskList.size());
 	 			System.out.println("하위테스크 원본 리스트 사이즈" + subTaskList.size());
 	 			System.out.println("중복 제거 리스트 사이즈" + selectedTaskList.size());	 			
-	 			System.out.println("중복 제거 상위 리스트 사이즈" + selectedMainTaskList.size());	 			
+	 			System.out.println("중복 제거 상위 리스트 사이즈" + selectedMainTaskList.size());	
 	 			System.out.println("중복 제거 하위 리스트 사이즈" + selectedSubTaskList.size());	 			
 	 			System.out.println("상위테스크 미진행 중복제거 사이즈: " + mainTaskList1.size());
 	 			System.out.println("상위테스크 진행중 중복제거 사이즈: " + mainTaskList2.size());
@@ -743,6 +758,8 @@ public class TaskController {
 	 			System.out.println("하위테스크 미진행 중복제거 사이즈: " + subTaskList1.size());
 	 			System.out.println("하위테스크 진행중 중복제거 사이즈: " + subTaskList2.size());
 	 			System.out.println("하위테스크 완료 중복제거 사이즈: " + subTaskList3.size());
+
+	 			
 	 			//model.addAttribute("taskList", taskList);
 	 			// 중복 제거한 테스크 정보
 	 			//-- model.addAttribute("selectedTaskList", selectedTaskList);
@@ -762,6 +779,7 @@ public class TaskController {
 	 			model.addAttribute("subTaskList1", JSONArray.fromObject(subTaskList1));
 	 			model.addAttribute("subTaskList2", JSONArray.fromObject(subTaskList2));
 	 			model.addAttribute("subTaskList3", JSONArray.fromObject(subTaskList3));
+	 			model.addAttribute("memberList", JSONArray.fromObject(memberList));
 	 			return "projectTask/projectTaskBoard/projectTaskBoard";
 	 		} else {
 	 			model.addAttribute("msg", "테스크 조회 실패!");
@@ -853,7 +871,20 @@ public class TaskController {
 	 					System.out.println("테스크 상위, 서브 분류 data 오류");
 	 				}
 	 			}
-	 			
+	 			//팀코드 조회
+	 			UserTeamList userTeamList;
+	 			userTeamList = ts.selectUserTeamCode(m);
+	 			System.out.println("유저 팀코드 " + userTeamList.getUserTeamCode());
+	 			int teamCode = ts.selectTeamCode(userTeamList.getUserTeamCode());
+	 			System.out.println("팀코드 : " + teamCode);
+	 			//팀 멤버 조회
+	 			List<Member> memberList = ts.selectUserMemberList(teamCode);
+	 			if(memberList != null) {
+	 				System.out.println("멤버 리스트 조회");
+	 				for(int i = 0; i < memberList.size(); i++) {
+ 					System.out.println(memberList.get(i).getUserName());
+	 				}
+	 			}
 	 			System.out.println("원본 리스트 사이즈" + taskList.size());
 	 			System.out.println("상위테스크 원본 리스트 사이즈" + mainTaskList.size());
 	 			System.out.println("하위테스크 원본 리스트 사이즈" + subTaskList.size());
@@ -885,6 +916,7 @@ public class TaskController {
 	 			model.addAttribute("subTaskList1", JSONArray.fromObject(subTaskList1));
 	 			model.addAttribute("subTaskList2", JSONArray.fromObject(subTaskList2));
 	 			model.addAttribute("subTaskList3", JSONArray.fromObject(subTaskList3));
+	 			model.addAttribute("memberList", JSONArray.fromObject(memberList));
 	 			return "projectTask/projectTaskBoard/projectTaskBoardSubGroup";
 	 		} else {
 	 			model.addAttribute("msg", "테스크 조회 실패!");
@@ -1052,10 +1084,6 @@ public class TaskController {
 			return mv;
 	   }
 	   
-	   //테스크의 상위항목 변경 (현재 진행중인 스프린트에서 미진행 스프린트로 변경)
-		
-	   
-	   
 	   //테스크 진행상태 변경 (드래그앤드롭 기능)
 	   @RequestMapping(value="insertTaskHistoryTaskProceeding.tk",method=RequestMethod.POST)
 	   public ModelAndView insertTaskHistoryTaskProceeding(@ModelAttribute("loginUser") Member m, String taskHistValue, int taskCode, ModelAndView mv) {
@@ -1085,6 +1113,42 @@ public class TaskController {
 		   return mv;
 	   }	   
 	   
+	   //테스크의 상위항목 변경 (현재 진행중인 스프린트에서 미진행 스프린트로 변경)
+	   @RequestMapping("updateTaskSprintCodeForm.tk")
+		   public String updateTaskSprintCode(Model model, @ModelAttribute("loginUser") Member m, int modal2SprintCode, int modal2TaskCode) {
+		   System.out.println(modal2SprintCode + ", " + modal2TaskCode);
+		   Map<String, Object> map = new HashMap<String, Object>();
+		   map.put("sprintCode", modal2SprintCode);
+		   map.put("taskCode", modal2TaskCode);
+		   int result = ts.updateTaskSprintCode(map);
+			if(result > 0) {
+				return "redirect:showTaskBoardMain.tk";	
+			}else {
+				model.addAttribute("msg", "상위항목 변경 실패!");
+				return "common/errorPage";
+			}
+	   }
+	   
+	   //스프린트 종료 : 최근 진행중인 1개를 종료한다.
+	   @RequestMapping("showSprintFinish.tk")
+		   public String insertSprintHistorySprintType(Model model, @ModelAttribute("loginUser") Member m, String code) {
+		   int result = 0;
+		   if(code != null) {
+			   int sprintCode = Integer.parseInt(code);
+			   //System.out.println(sprintCode);
+			   SprintHistory sprintHistory;
+			   sprintHistory = ts.selectRecentSprintHistory(sprintCode);
+			   System.out.println("histCode : " + sprintHistory.getSprintHistCode());
+			   result = ts.insertSprintHistorySprintType(sprintHistory);
+		   }   
+		   if(result > 0) {
+			    return "redirect:showTaskBoardMain.tk";	
+		   }else {
+			    model.addAttribute("msg", "스프린트 종료 실패!");
+				return "common/errorPage";  
+		   }
+		   
+	   }
 	 //--------------------------------------------------------------------------------------------------------------------------------------------------
 	   
 	   

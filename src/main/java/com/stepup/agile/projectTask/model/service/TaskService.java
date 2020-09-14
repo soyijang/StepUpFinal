@@ -124,4 +124,16 @@ public interface TaskService {
 	int updateTaskListHeadTaskCode(TaskList taskList);
 	//사용자 팀코드 조회
 	UserTeamList selectUserTeamCode(Member m);
+	//팀 멤버 조회
+	List<Member> selectUserMemberList(int teamCode);
+	//팀코드 조회
+	int selectTeamCode(int userTeamCode);
+	//상위 항목 변경(테스크의 스프린트 변경)
+	int updateTaskSprintCode(Map<String, Object> map);
+	//최신 스프린트 히스토리 조회
+	SprintHistory selectRecentSprintHistory(int sprintCode);
+	//스프린트 종료
+	int insertSprintHistorySprintType(SprintHistory sprintHistory);
+	
+	
 }

@@ -178,6 +178,7 @@
 	    <collection property="taskCategory" resultMap="TaskCategoryResultSet"/>
 	    <collection property="sprint" resultMap="sprintResultSet"/>
 	    <collection property="sprintHistory" resultMap="SprintHistoryResultSetMi"/>
+	    <collection property="member" resultMap="memberResultSet"/>
 	</resultMap>
 	
 	<!--taskList table -->	
@@ -209,8 +210,6 @@
 		<result property="sprintHistUpdateTime" column="SPRINT_HIST_UPDATE_TIME"/>
 		<result property="sprintIntro" column="SPRINT_INTRO"/>
 		<result property="sprintStatus" column="SPRINT_STATUS"/>
-		<result property="sprintTaskCount" column="SPRINT_TASK_COUNT"/>
-		<result property="sprintTypeYn" column="SPRINT_TYPE_YN"/>
 	</resultMap>
 	
 	<!-- team table -->	
@@ -934,11 +933,28 @@ WHERE TASK_CODE IN (SELECT TASK_CODE
 		                           FROM TASK_HISTORY
 		                          WHERE TASK_CODE = #{taskCode})
 	</select>	
+	
+	
+	<!-- 팀 멤버 조회 -->
+	<select id="selectUserMemberList" resultMap="memberResultSet" parameterType="int">
+		SELECT UI.USER_CODE, UI.USER_NAME
+		  FROM USER_INFO UI, USER_TEAM_LIST UTL
+		 WHERE UI.USER_CODE = UTL.USER_CODE
+		 AND UTL.TEAM_CODE = #{teamCode}
+	</select>	
+	
 	<!-- 하위 테스크 headTaskCode 업데이트  -->
 	<update id="updateTaskListHeadTaskCode" parameterType="TaskList">
 		UPDATE TASK_LIST SET HEAD_TASK_CODE = #{headTaskCode}
 		WHERE TASK_CODE = #{taskCode}
 	</update>
+	
+	<!-- 테스크의 상위 스프린트 변경  -->
+	<update id="updateTaskSprintCode" parameterType="hashMap">
+		UPDATE TASK_LIST SET SPRINT_CODE = #{sprintCode, jdbcType=INTEGER}
+		WHERE TASK_CODE = #{taskCode, jdbcType=INTEGER}
+	</update>
+		
 	<!-- 사용자 팀코드 조회 -->
 	 <select id="selectUserTeamCode" resultMap="UserTeamListResultSet" parameterType="Member">
           SELECT 
@@ -956,8 +972,28 @@ WHERE TASK_CODE IN (SELECT TASK_CODE
           WHERE RK = 1
    </select>
 	
+	<!-- 팀코드 조회 -->
+	 <select id="selectTeamCode" resultType="int" parameterType="int">
+          SELECT TEAM_CODE FROM USER_TEAM_LIST WHERE USER_TEAM_CODE = #{userTeamCode, jdbcType=INTEGER}
+   </select>
 	
-	
+	<!-- 최신 스프린트 히스토리 조회 -->
+	<select id="selectRecentSprintHistory" resultMap="SprintHistoryResultSetMi" parameterType="int">
+		  SELECT SPRINT_HIST_UPDATE_DATE,SPRINT_NAME,SPRINT_TYPE,SPRINT_EXPECT_PERIOD,SPRINT_HIST_CODE,SPRINT_CODE,SPRINT_HIST_UPDATE_TIME,SPRINT_INTRO,SPRINT_STATUS
+		  FROM SPRINT_HISTORY 
+		  WHERE SPRINT_CODE = #{sprintCode}
+		  AND SPRINT_HIST_CODE = (SELECT MAX(SPRINT_HIST_CODE) 
+		                            FROM SPRINT_HISTORY 
+		                            WHERE SPRINT_CODE = #{sprintCode})
+   </select>
+   
+   	<!-- 스프린트 종료  -->
+	<insert id="insertSprintHistorySprintType" parameterType="SprintHistory">
+		INSERT INTO SPRINT_HISTORY
+		VALUES(TO_CHAR(SYSDATE + 9/24, 'YYYY-MM-DD'), #{sprintName}, '03', #{sprintExpectPeriod}, SEQ_SPRINT_HIST.NEXTVAL, #{sprintCode}, TO_CHAR(SYSDATE + 9/24, 'hh24:mi:ss'),  #{sprintIntro}, DEFAULT)
+	</insert>
+   
+   
 	<!-- 스프린트 리스트 조회 -->
 	<select id="selectSprintList" resultMap="SprintHistoryResultSetMi" parameterType="hashMap">
 		SELECT SL.SPRINT_CODE, SH.SPRINT_NAME, SH.SPRINT_HIST_CODE
@@ -974,6 +1010,13 @@ WHERE TASK_CODE IN (SELECT TASK_CODE
 		                             WHERE RK = 1)
 		   AND SH.SPRINT_NAME LIKE '%' || #{sprintName, jdbcType=VARCHAR} || '%'
 		   AND UPL.USER_TEAM_CODE = #{userTeamCode, jdbcType = INTEGER }
+		   AND SL.SPRINT_CODE IN(SELECT SPRINT_CODE
+									FROM (SELECT SPRINT_CODE, SPRINT_HIST_CODE, SPRINT_TYPE,
+									       RANK() OVER(PARTITION BY SPRINT_CODE ORDER BY SPRINT_HIST_CODE DESC) AS RK
+									       FROM SPRINT_HISTORY)
+									WHERE RK = 1
+									AND SPRINT_TYPE = '01'
+		   )
 	</select>
 	
 	

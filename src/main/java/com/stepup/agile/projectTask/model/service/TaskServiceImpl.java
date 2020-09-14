@@ -355,7 +355,29 @@ public class TaskServiceImpl implements TaskService {
 	public UserTeamList selectUserTeamCode(Member m) {
 		return td.selectUserTeamCode(sqlSession, m);
 	}
-
-
-
+	//팀 멤버 조회
+	@Override
+	public List<Member> selectUserMemberList(int teamCode) {
+		return td.selectUserMemberList(sqlSession, teamCode);
+	}
+	//팀코드 조회
+	@Override
+	public int selectTeamCode(int userTeamCode) {
+		return td.selectTeamCode(sqlSession, userTeamCode);
+	}
+	//상위 항목 변경(테스크의 스프린트 변경)
+	@Override
+	public int updateTaskSprintCode(Map<String, Object> map) {
+		return td.updateTaskSprintCode(sqlSession, map);
+	}
+	//최신 스프린트 히스토리 조회
+	@Override
+	public SprintHistory selectRecentSprintHistory(int sprintCode) {
+		return td.selectRecentSprintHistory(sqlSession, sprintCode);
+	}
+	//스프린트 종료
+	@Override
+	public int insertSprintHistorySprintType(SprintHistory sprintHistory) {
+		return td.insertSprintHistorySprintType(sqlSession, sprintHistory);
+	}
 }

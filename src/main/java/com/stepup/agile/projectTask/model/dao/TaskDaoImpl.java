@@ -514,6 +514,29 @@ public class TaskDaoImpl implements TaskDao {
 	public UserTeamList selectUserTeamCode(SqlSessionTemplate sqlSession, Member m) {
 		return sqlSession.selectOne("Task.selectUserTeamCode", m);
 	}
-	
-	
+	//팀 멤버 조회	
+	@Override
+	public List<Member> selectUserMemberList(SqlSessionTemplate sqlSession, int teamCode) {
+		return sqlSession.selectList("Task.selectUserMemberList", teamCode);
+	}
+	//팀코드 조회
+	@Override
+	public int selectTeamCode(SqlSessionTemplate sqlSession, int userTeamCode) {
+		return sqlSession.selectOne("Task.selectTeamCode", userTeamCode);
+	}
+	//상위 항목 변경(테스크의 스프린트 변경)
+	@Override
+	public int updateTaskSprintCode(SqlSessionTemplate sqlSession, Map<String, Object> map) {
+		return sqlSession.update("Task.updateTaskSprintCode", map);
+	}
+	//최신 스프린트 히스토리 조회	
+	@Override
+	public SprintHistory selectRecentSprintHistory(SqlSessionTemplate sqlSession, int sprintCode) {
+		return sqlSession.selectOne("Task.selectRecentSprintHistory", sprintCode);
+	}
+	//스프린트 종료
+	@Override
+	public int insertSprintHistorySprintType(SqlSessionTemplate sqlSession, SprintHistory sprintHistory) {
+		return sqlSession.insert("Task.insertSprintHistorySprintType", sprintHistory);
+	}
 }
