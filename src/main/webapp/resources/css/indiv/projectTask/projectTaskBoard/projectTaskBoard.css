@@ -439,8 +439,15 @@ a{
 .outerBox{
 	display: inline-block;
 	width: 100%;
+	margin-top:5px;
+	margin-bottom:5px;
 }
-
+/* 안쪽 회색 상자 높이 동일하게 주기 위하여 wrapper로 감싼다. */
+.wrapper{
+	width: 100%;
+	/* flex 주면 하위 요소 높이 css 맞출 수 있다. */
+	display: flex;
+}
 /* 상위 테스크 타이틀보여줄 상자 */
 .sTitle{
 	margin-left:3%;
@@ -453,20 +460,30 @@ a{
 	align-items: center;
 	color: #000000;
 	background: #FAFAFA;
-	border-radius: 5px 5px 0 0;
- 	height: 43px; 
+	border-radius: 5px;
+ 	height: 38px; 
 	box-sizing: border-box;
 	padding-left: 30px;
 	display: inline-block;
-	margin-top: 0.5%;
 	float: left;
+	margin-bottom: 2px;
+	padding-top: 3px;
+	padding-bottom: 3px;
 }
-
+.sTitle:hover{
+	background: rgba(43, 43, 73, 0.5) !important;
+	cursor: pointer;
+}
+.sTitle:active{
+	background: rgba(43, 43, 73, 1) !important;
+	cursor: pointer;
+}
 /* s아이콘 상자 */
 .micon{
 	float:left;
 	width: 17px;
 	height:17px;
+	line-height:17px;
 	background: #63BA3C;
 	border-radius: 3px;
 	box-sizing: border-box;
@@ -474,11 +491,9 @@ a{
 	color: white;
 	text-align: center;
 	font-size:12px;
-	line-height:17px;
 	display: inline-block;
 	margin-right: 4px;
-	margin-top:9px;	
-	
+	margin-top: 10px;
 }
 
 .sicon{
@@ -495,7 +510,6 @@ a{
 	line-height:17px;
 	display: inline-block;
 	margin-right: 4px;
-	margin-top:9px;	
 	
 }
 .stcode{
@@ -508,25 +522,22 @@ a{
 	letter-spacing: 0.1px;
 	color: #6D6D6D;
 	/* 글자 overflow 안되게 하기 */
- 	height:100%;
-  	overflow: hidden;
-  	text-overflow: ellipsis; 
   	/* 글자가 일정 크기 넘어가면 오른쪽이 생략됨 */
-  	direction: ltr;
-    white-space: nowrap;
-/*     margin-right: 10px; */
+    margin-right: 14px;
+    line-height: 34px;
 }
 .nameBox{
 	font-size: 16px;
 	margin-right: 7px;
+	line-height: 34px;
 }
 /* 테스크 진행상태 아이콘 */
 .taskProceedingStatus{
 	
 }
 /* 미진행, 진행중, 완료 board */
- .sboard{ 
- 	height:auto;
+ .dropzone{ 
+/*  	height:auto;
 	background: #FAFAFA;
  	border-radius: 5px; 
 	float: left;
@@ -536,6 +547,17 @@ a{
 	margin-right:3%;
 	width: 22%;
 	display: inline-block;
+	align-items: center; */
+	
+	min-height: 75px;
+	background: #FAFAFA;
+ 	border-radius: 0 0 5px 5px; 
+	float: left;
+	padding:0.5%;
+	box-sizing: border-box;
+	margin-left:3%;
+	margin-right:3%;
+	width: 22%;
 	align-items: center;
 }
 /* 진행상태 상자 css */
@@ -549,7 +571,7 @@ a{
     max-width: 100%;
     text-transform: uppercase;
     vertical-align: baseline;
-    margin-top:-2px;
+    margin-top:-8px;
 }
 .sNavy{
 	background-color: #2B2B49;
@@ -561,7 +583,7 @@ a{
     max-width: 100%;
     text-transform: uppercase;
     vertical-align: baseline;
-    margin-top:-2px;	
+    margin-top:-8px;	
 }
 .sPink{
  	background-color: #dd0351; 
@@ -573,7 +595,7 @@ a{
     max-width: 100%;
     text-transform: uppercase;
     vertical-align: baseline;
-    margin-top:-2px;
+    margin-top:-8px;
 }
 /**하위 테스크 끝********************************************************************/
 
@@ -1046,7 +1068,7 @@ a{
 /*     margin: 15% auto; 15% from the top and centered */
     margin-left:auto;
     margin-right:auto;
-    margin-top: 300px; 
+    margin-top: 200px; 
     padding: 10px;
     border: 1px solid #c4c4c4;
     /* 모달창 크기 */

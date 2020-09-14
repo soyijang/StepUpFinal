@@ -782,10 +782,6 @@ if(mainTaskList != null){
 	});	
 
 	
-	
-	
-	
-	
 //3.테스크 상자 드롭다운 상세 기능 끝-----------------------------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------------------------------------------
 
@@ -943,10 +939,7 @@ document.addEventListener("drop", function(event) {
 			console.log("테스크 진행 상태 변경 오류");				
 		}
 	});
-    
-    
-    
-    
+
     
   }
 }, false);
@@ -1137,7 +1130,7 @@ function searchSprint(){
  				//반복문으로 option 태그에 리스트 담아주기
  				//코드도 함께 넣어주기!!!!!!!!!!!!!!!!!!!!!
  				for(var i = 0; i < data.sprintHistoryList.length; i++){
- 					searchSprintList.append("<option value ='" + data.sprintHistoryList[i].sprintName + "'>");
+ 					searchSprintList.append("<option value ='SPRINT - " + data.sprintHistoryList[i].sprintCode + " : " + data.sprintHistoryList[i].sprintName + "'>");
  				}
  			}, error: function(){
  				console.log("리스트 가져오기 실패");
@@ -1184,127 +1177,16 @@ $(document).on('blur','#searchBox', function(){
 /* 검색상자 focu시 이벤트 끝---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
 
 
-/* 그룹화 기준 : 하위 작업 시작-------------------------------------------------------------------------------------------------------------------------------------------- */
-/* 1. 그룹화 필터에 하위작업 버튼을 누르면 함수를 실행한다.*/
+/* 그룹화 필터에 하위작업 버튼을 누르면 하위 작업 페이지로 이동하는 함수를 실행한다.*/
 $(document).on('click','#groupBySub', function(){
-	//그룹화 버튼에 하위작업이라고 표시되어있으면 하위 작업 상세 내역 그려주기
-	if($('#groupbyCategory').text() == "하위작업" && selectedMainTaskList != null){
-		//테스크 진행 상자에 있는 테스크들을 모두 지운다.
-	    //$('.dropzone').children().remove();
-		$('#i-board').remove(); 
-		$('#p-board').remove(); 
-		$('#c-board').remove(); 
-
-
-		
-		//(1) 각 상위 테스크별 제목 상자를 만들어준다.
-		//리스트 길이만큼 반복
-		for(var i = 0; i < selectedMainTaskList.length; i++){
-			
-			//진행상태에 따른 css 색상 주기
-			var color = "";
-			if(selectedMainTaskList[i].taskHistValue == "미진행"){
-				color = "sGray";
-			}else if(selectedMainTaskList[i].taskHistValue == "진행중"){
-				color = "sNavy";
-			}else if(selectedMainTaskList[i].taskHistValue == "완료"){
-				color = "sPink";
-			}else{
-				console.log("상위 테스크 진행상태 데이터 입력오류");
-			}
-			
-			
-			//각각의 상위 테스크별 최상위 div에 s + 상위 테스크 코드를 붙여준다.
-			var sContentBox = $('#contentBox2-board');
- 			sContentBox.append("<div id='s" + selectedMainTaskList[i].taskCode + "' class='outerBox' ><div class='sTitle'><div></div><div class='micon'>T</div><div class='stcode'>" 
-				    + 'TASK - ' + selectedMainTaskList[i].taskCode + "</div><span class='nameBox'>" 
-					+ '이름 없는 테스크' + "</span><span class='taskProceedingStatus " + color + "'>" + selectedMainTaskList[i].taskHistValue + "</span>" 
-					+ "</div><div class='sboard siboard'></div><div class='sboard spboard'></div><div class='sboard scboard'></div></div>");
-				//기존 미진행 박스 안에 내용 지우기
-				//siboard.children().remove();
-
-				
- 			//하위 테스크 미진행 리스트 null 확인
- 			if(subTaskList1 != null){
- 				//하위테스크 미진행 그려주기------------------------------------------------------------------------------------------------------------------
- 				for(var j = 0; j < subTaskList1.length; j++){
-	
-					//하위 테크스 리스트에서 headTaskCode 정보가 현재 반복문 실행중인 상위 테스크 코드와 같은 것이 있다면 
-					if(subTaskList1[j].taskList.headTaskCode == selectedMainTaskList[i].taskCode){
-						
-						//현재 선택한 메인 테스크 outer 상자를 가져온다..			
-						var target = $('#s' + selectedMainTaskList[i].taskCode);
-						console.log("하위에 테스크 있음");
-					
-						//미진행이기 때문에 해당 target 바로 하위에있는 siboard보드에 그려줘야한다.
-						var targetSpecific = target.find('.siboard');
-						
-						//하위에 요소를 추가해준다.
-						//각각의 테스크 박스의 클래스 안에 클래스명으로 고유 테스크 코드를 넣어준다.t + 테스크 코드 (숫자로 시작하면 안되서 t로 시작)
-						//테스크명은 기본적으로 이름 없는 테스크로 정해주고, 하단에서 테스크 관련 상세 정보를 표시할 때, 이름 정보가 있는 것들만 변경해준다. (테스크 생성시 이름이 필수적으로 생성되는 것이 아니라서)
-						targetSpecific.append("<div class='mini-box t" + subTaskList1[j].taskCode + "' id='t" + subTaskList1[j].taskCode + "' draggable='true'><input type='hidden' value='" + subTaskList1[j].taskCode + "'/>"
-								+ "<div class='i-div1'><div class='i-div1-div1 nameBox'>" 
-								+ '이름 없는 테스크' + "</div><div class='dropdown2'><div class='select'><span id='user-list'></span>"
-								+ "</div><ul class='dropdown2-menu'><li class='flagY'>"
-								+ '플래그 추가' + "</li><li class='labelAdd'>" 
-								+ '레이블 추가' + "</li><li class='changeUpperCategoty'>"
-					            + '상위항목 변경' + "</li><li class='taskDelete'>"
-					            + '삭제' + "</li></ul></div></div><div class='i-div2 labelBox'></div><div class='i-div3'>"
-							    + "<div class='i-div3-inner-left'><div class='sicon'>"
-							    + 'S' + "</div><div class='i-div3-div-tcode'>" 
-							    + 'TASK - ' + subTaskList1[j].taskCode + "</div></div><div class='i-div3-inner-right'><span class='i-div3-span-per'>"
-							    + '2/4' + "</span><span class='i-div3-span-arrow important'></span><span class='i-div3-span-person'></span>"
-							    + "</div></div></div></div>"
- 						)
-					}	
- 					
- 				}
- 				//하위테스크 미진행 그려주기 끝------------------------------------------------------------------------------------------------------------------
- 				
- 			}
-		}
-		
-		
-		
-	}
+	location.href="showTaskBoardMainSubGroup.tk";
 });
 
-
-
-//만약 그룹화 기준을 하위작업에서 없음으로 초기화 할 시엔
-//테스크 보드 메인페이지 조회하는 컨트롤러로 보내서 현재 페이지를 다시 로딩한다.
+//만약 그룹화 기준을 하위작업에서 없음으로 초기화 할 시엔 테스크 보드 메인페이지 조회하는 컨트롤러로 보내서 페이지를 다시 로딩한다.
 $(document).on('click','#groupByNone', function(){
 	location.href="showTaskBoardMain.tk";
 });
-/* 그룹화 기준 : 하위 작업 끝 -------------------------------------------------------------------------------------------------------------------------------------------- */
 
-
-
-
-//하위 테스크 추가 설정 버튼 드롭다운 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-$(document).on('click','.dropdown2', function(){
-	$(this).attr('tabindex', 1).focus();
-	$(this).toggleClass('active');
-	$(this).find('.dropdown2-menu').slideToggle(300);
-});
-
-$(document).on('focusout','.dropdown2', function(){
-	$(this).removeClass('active');
-	$(this).find('.dropdown2-menu').slideUp(300);
-});
-
-/* li 태그 클래스 값 input에 담아주기  id > class로 변경 */
-$(document).on('click','.dropdown2 .dropdown2-menu li', function(){
-		/* $(this).parents('.dropdown').find('span').text($(this).text()); */
-		$(this).parents('.dropdown2').find('input').attr('value',$(this).attr('class'));
-});
-
-//선택 내용 글자 넣어주는 것 빼기
-$(document).on('click','.dropdown2-menu li', function(){
-		var input = '<strong>' + $(this).parents('.dropdown2').find('input').val() + '</strong>', msg = '<span class="msg">Hidden input value: ';
-		$('.msg').html(msg + input + '</span>');
-}); 
-//하위 테스크 추가설정 버튼 드롭다운 끝----------------------------------------------------------------------
 
 </script>
 </html>

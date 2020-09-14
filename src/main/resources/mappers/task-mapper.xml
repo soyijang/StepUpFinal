@@ -934,7 +934,31 @@ WHERE TASK_CODE IN (SELECT TASK_CODE
 		                           FROM TASK_HISTORY
 		                          WHERE TASK_CODE = #{taskCode})
 	</select>	
+	<!-- 하위 테스크 headTaskCode 업데이트  -->
+	<update id="updateTaskListHeadTaskCode" parameterType="TaskList">
+		UPDATE TASK_LIST SET HEAD_TASK_CODE = #{headTaskCode}
+		WHERE TASK_CODE = #{taskCode}
+	</update>
+	<!-- 사용자 팀코드 조회 -->
+	 <select id="selectUserTeamCode" resultMap="UserTeamListResultSet" parameterType="Member">
+          SELECT 
+                USER_CODE, USER_TEAM_CODE
+          FROM 
+                (SELECT 
+                    I.USER_CODE, T.USER_TEAM_CODE, T.USER_TEAM_DATE, T.USER_TEAM_TIME,
+                    RANK() OVER (PARTITION BY I.USER_CODE ORDER BY T.USER_TEAM_DATE DESC, T.USER_TEAM_TIME DESC) RK
+                  FROM USER_INFO I, USER_TEAM_LIST T
+                 WHERE T.USER_CODE = I.USER_CODE
+                   AND T.USER_TEAM_YN = 'Y'
+                 AND I.USER_STATUS = 'N'
+                   AND I.USER_EMAIL = #{userEmail, jdbcType=VARCHAR}
+            ORDER BY T.USER_TEAM_DATE DESC, T.USER_TEAM_TIME DESC)
+          WHERE RK = 1
+   </select>
 	
+	
+	
+	<!-- 스프린트 리스트 조회 -->
 	<select id="selectSprintList" resultMap="SprintHistoryResultSetMi" parameterType="hashMap">
 		SELECT SL.SPRINT_CODE, SH.SPRINT_NAME, SH.SPRINT_HIST_CODE
 		  FROM SPRINT_LIST SL, USER_PROJECT_LIST UPL, PROJECT_LIST PL, SPRINT_HISTORY SH
@@ -949,6 +973,7 @@ WHERE TASK_CODE IN (SELECT TASK_CODE
 		                                     )
 		                             WHERE RK = 1)
 		   AND SH.SPRINT_NAME LIKE '%' || #{sprintName, jdbcType=VARCHAR} || '%'
+		   AND UPL.USER_TEAM_CODE = #{userTeamCode, jdbcType = INTEGER }
 	</select>
 	
 	

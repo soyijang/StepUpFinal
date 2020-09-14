@@ -14,6 +14,7 @@ import com.stepup.agile.projectTask.model.vo.ReplyList;
 import com.stepup.agile.projectTask.model.vo.TaskHistory;
 import com.stepup.agile.projectTask.model.vo.TaskList;
 import com.stepup.agile.userInfo.model.vo.Member;
+import com.stepup.agile.userInfo.model.vo.UserTeamList;
 
 public interface TaskDao {
 	//1.Task생성
@@ -122,6 +123,11 @@ public interface TaskDao {
 	List<SprintHistory> selectSprintList(SqlSessionTemplate sqlSession, Map<String, Object> map);
 	//테스크 진행상태 변경 (드래그앤드롭 기능)	
 	int insertTaskHistoryTaskProceeding(SqlSessionTemplate sqlSession, TaskHistory taskHistory);
+	//하위 테스크 headTaskCode 업데이트 (드래그앤드롭 기능)		
+	int updateTaskListHeadTaskCode(SqlSessionTemplate sqlSession, TaskList taskList);
+	//사용자 팀코드 조회
+	UserTeamList selectUserTeamCode(SqlSessionTemplate sqlSession, Member m);
+	
 
 
 

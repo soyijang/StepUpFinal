@@ -15,6 +15,7 @@ import com.stepup.agile.projectTask.model.vo.ReplyList;
 import com.stepup.agile.projectTask.model.vo.TaskHistory;
 import com.stepup.agile.projectTask.model.vo.TaskList;
 import com.stepup.agile.userInfo.model.vo.Member;
+import com.stepup.agile.userInfo.model.vo.UserTeamList;
 
 @Repository	
 public class TaskDaoImpl implements TaskDao {
@@ -503,4 +504,16 @@ public class TaskDaoImpl implements TaskDao {
 	public int insertTaskHistoryTaskProceeding(SqlSessionTemplate sqlSession, TaskHistory taskHistory) {
 		return sqlSession.insert("Task.insertTaskHistoryTaskProceeding", taskHistory);
 	}
+	//하위 테스크 headTaskCode 업데이트 (드래그앤드롭 기능)			
+	@Override
+	public int updateTaskListHeadTaskCode(SqlSessionTemplate sqlSession, TaskList taskList) {
+		return sqlSession.update("Task.updateTaskListHeadTaskCode", taskList);
+	}
+	//사용자 팀코드 조회
+	@Override
+	public UserTeamList selectUserTeamCode(SqlSessionTemplate sqlSession, Member m) {
+		return sqlSession.selectOne("Task.selectUserTeamCode", m);
+	}
+	
+	
 }

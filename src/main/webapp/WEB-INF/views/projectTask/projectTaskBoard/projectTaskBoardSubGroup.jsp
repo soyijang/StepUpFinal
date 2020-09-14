@@ -37,7 +37,7 @@
 						<td id="contentBox1-table-td6">
 							<div class="dropdown1">
 						        <div class="select">
-						            <span id="groupbyCategory">없음</span>
+						            <span id="groupbyCategory">하위작업</span>
 						        </div>
 						        <ul class="dropdown1-menu">
 						          <li class="groupByNone" id="groupByNone">없음</li>
@@ -56,135 +56,9 @@
        			</div>
        			<div id="contentBox2-board">
        							
-<!-- 미진행 보드 시작----------------------------------------------------------------------------------------------------------->	
-	       			<div id="i-board" class="dropzone">
-						<div class="i-mini-box flag-true">
-	       					<div class="i-div1">
-								<div class="i-div1-div1">테스크명 </div>
-								<div class="dropdown i-div1-drop1">
-							        <div class="select">
-							            <span id="user-list"></span>
-							            <i class="fa fa-chevron-left"></i>
-							        </div>
-							        <ul class="dropdown-menu">
-							          <li class="work">플래그 추가</li>
-							          <li class="rest">레이블 추가</li>
-							          <li class="travel1">상위항목 변경</li>
-							          <li class="travel3">삭제</li>
-							        </ul>
-								 </div>
-		       				</div>		
-		       				<div class="i-div2"></div>
-							<div class="i-div3">
-								<div class="i-div3-inner-left">
-									<div class="i-div3-div-type">T</div>
-									<span class="i-div3-span-tcode">코드입력</span>
-								</div>
-								<div class="i-div3-inner-right">
-									<span class="i-div3-span-per">2/4</span>
-									<span class="i-div3-span-arrow"><img class="icon_arrow_upward_red" src="/agile/resources/icon/common/icon_arrow_upward_red.png"></span>
-									<span class="i-div3-span-person"></span>
-								</div>
-							</div>
-	       				</div><div class="i-mini-box flag-true">
-	       					<div class="i-div1">
-								<div class="i-div1-div1">테스크명 </div>
-								<div class="dropdown i-div1-drop1">
-							        <div class="select">
-							            <span id="user-list"></span>
-							            <i class="fa fa-chevron-left"></i>
-							        </div>
-							        <ul class="dropdown-menu">
-							          <li class="work">플래그 추가</li>
-							          <li class="rest">레이블 추가</li>
-							          <li class="travel1">상위항목 변경</li>
-							          <li class="travel3">삭제</li>
-							        </ul>
-								 </div>
-		       				</div>		
-		       				<div class="i-div2"></div>
-							<div class="i-div3">
-								<div class="i-div3-inner-left">
-									<div class="i-div3-div-type">T</div>
-									<span class="i-div3-span-tcode">코드입력</span>
-								</div>
-								<div class="i-div3-inner-right">
-									<span class="i-div3-span-per">2/4</span>
-									<span class="i-div3-span-arrow"><img class="icon_arrow_upward_red" src="/agile/resources/icon/common/icon_arrow_upward_red.png"></span>
-									<span class="i-div3-span-person"></span>
-								</div>
-							</div>
-	       				</div>
-	       			</div>
-<!-- 미진행 보드 끝----------------------------------------------------------------------------------------------------------->	
+<!-- 보드 내용 시작----------------------------------------------------------------------------------------------------------->	
 	       			
-<!-- 진행 보드 시작----------------------------------------------------------------------------------------------------------->	
-	       			<div id="p-board" class="dropzone">
-						<div class="p-mini-box flag-true">
-	       					<div class="p-div1">
-								<div class="p-div1-div1">테스크명 </div>
-								<div class="dropdown p-div1-drop1">
-							        <div class="select">
-							            <span id="user-list"></span>
-							            <i class="fa fa-chevron-left"></i>
-							        </div>
-							        <ul class="dropdown-menu">
-							          <li class="work">플래그 추가</li>
-							          <li class="rest">레이블 추가</li>
-							          <li class="travel1">상위항목 변경</li>
-							          <li class="travel3">삭제</li>
-							        </ul>
-								 </div>
-		       				</div>		
-		       				<div class="p-div2"></div>
-							<div class="p-div3">
-								<div class="p-div3-inner-left">
-									<div class="p-div3-div-type">T</div>
-									<div class="p-div3-div-tcode">코드입력</div>
-								</div>
-								<div class="p-div3-inner-right">
-									<span class="p-div3-span-per">2/4</span>
-									<span class="p-div3-span-arrow"><img class="icon_arrow_upward_red" src="/agile/resources/icon/common/icon_arrow_upward_red.png"></span>
-									<span class="p-div3-span-person"></span>
-								</div>
-							</div>
-	       				</div>
-	       			</div>
-<!-- 진행 보드 끝----------------------------------------------------------------------------------------------------------->	
-	        			
-<!-- 완료 보드 시작----------------------------------------------------------------------------------------------------------->	
-	       			<div id="c-board" class="dropzone">
-						<div class="c-mini-box flag-true">
-	       					<div class="c-div1">
-								<div class="c-div1-span1">테스크명 </div>
-								<div class="dropdown c-div1-drop1">
-							        <div class="select">
-							            <span id="user-list"></span>
-							            <i class="fa fa-chevron-left"></i>
-							        </div>
-							        <ul class="dropdown-menu">
-							          <li class="work">플래그 추가</li>
-							          <li class="rest">레이블 추가</li>
-							          <li class="travel1">상위항목 변경</li>
-							          <li class="travel3">삭제</li>
-							        </ul>
-								 </div>
-		       				</div>		
-		       				<div class="c-div2"></div>
-							<div class="c-div3">
-								<div class="c-div3-inner-left">
-									<div class="c-div3-div-type">T</div>
-									<div class="c-div3-div-tcode">코드입력</div>
-								</div>
-								<div class="c-div3-inner-right">
-									<span class="c-div3-span-per">2/4</span>
-									<span class="c-div3-span-arrow"><img class="icon_arrow_upward_red" src="/agile/resources/icon/common/icon_arrow_upward_red.png"></span>
-									<span class="c-div3-span-person"></span>
-								</div>
-							</div>
-	       				</div>
-	       			</div>
-<!-- 완료 보드 끝----------------------------------------------------------------------------------------------------------->	
+<!-- 보드 내용 끝 끝----------------------------------------------------------------------------------------------------------->	
        			</div>
        		</div>
 		</div>
@@ -366,112 +240,173 @@ projectTitle.text(taskList[0].taskList.project.projectName);
 //task list 관련 코딩 끝--------------------------------------------------------------------------------------------------------------------------------------------
 
 
-//----------------------------------------------------------------------------------------------------------------------------------
-//그룹화 기준 : 없음 (기본 화면)일 때  ----------------------------------------------------------------------------------------------------------
-//1.상위테스크 기본정보 입력-----------------------------------------------------------------------------------------------------------------
-//(1) 상위 테스크  : 미진행 (정보는 mainTaskList1에 담겨있다)
-if(mainTaskList1 != null){
+//하위 작업 기본 view-------------------------------------------------------------------------------------------------------------------------------------------- */
+//(1) 각 상위 테스크별 제목 상자를 만들어준다.
+//리스트 길이만큼 반복
+for(var i = 0; i < selectedMainTaskList.length; i++){
 	
-	//기존 미진행 박스 안에 내용 지우기
-	var iBoard = $('#i-board');
-	iBoard.children().remove();
+	//진행상태에 따른 css 색상 주기
+	var color = "";
+	if(selectedMainTaskList[i].taskHistValue == "미진행"){
+		color = "sGray";
+	}else if(selectedMainTaskList[i].taskHistValue == "진행중"){
+		color = "sNavy";
+	}else if(selectedMainTaskList[i].taskHistValue == "완료"){
+		color = "sPink";
+	}else{
+		console.log("상위 테스크 진행상태 데이터 입력오류");
+	}
 	
-	//리스트 길이만큼 반복
-	 for(var i = 0; i < mainTaskList1.length; i++){
+	
+	//각각의 상위 테스크별 최상위 div에 s + 상위 테스크 코드를 붙여준다.
+	var sContentBox = $('#contentBox2-board');
+		sContentBox.append("<div id='s" + selectedMainTaskList[i].taskCode + "' class='outerBox' ><div class='sTitle'><div></div><div class='micon'>T</div><div class='stcode'>" 
+		    + 'TASK - ' + selectedMainTaskList[i].taskCode + "</div><span class='nameBox'>" 
+			+ '이름 없는 테스크' + "</span><span class='taskProceedingStatus " + color + "'>" + selectedMainTaskList[i].taskHistValue + "</span>" 
+			+ "</div><div class='wrapper'><div class='dropzone' id='iboard" + selectedMainTaskList[i].taskCode + "' >" 
+			+ "</div><div class='dropzone' id='pboard" + selectedMainTaskList[i].taskCode + "' ></div>" 
+			+ "<div class='dropzone' id='cboard" + selectedMainTaskList[i].taskCode + "' ></div></div></div>");
+		//기존 미진행 박스 안에 내용 지우기
+		//siboard.children().remove();
+
+	//하위테스크 미진행 그려주기------------------------------------------------------------------------------------------------------------------
+		if(subTaskList1 != null){
+			for(var j = 0; j < subTaskList1.length; j++){
+
+			//하위 테크스 리스트에서 headTaskCode 정보가 현재 반복문 실행중인 상위 테스크 코드와 같은 것이 있다면 
+				if(subTaskList1[j].taskList.headTaskCode == selectedMainTaskList[i].taskCode){
+					
+					//현재 선택한 메인 테스크 outer 상자를 가져온다..			
+					var target1 = $('#s' + selectedMainTaskList[i].taskCode);
+					//console.log("하위에 테스크 있음");
+				
+					//미진행이기 때문에 해당 target 바로 하위에있는 siboard보드에 그려줘야한다.
+					var targetSpecific = target1.find('#iboard' + selectedMainTaskList[i].taskCode);
+					//하위에 요소를 추가해준다.
+					//각각의 테스크 박스의 클래스 안에 클래스명으로 고유 테스크 코드를 넣어준다.t + 테스크 코드 (숫자로 시작하면 안되서 t로 시작)
+					//테스크명은 기본적으로 이름 없는 테스크로 정해주고, 하단에서 테스크 관련 상세 정보를 표시할 때, 이름 정보가 있는 것들만 변경해준다. (테스크 생성시 이름이 필수적으로 생성되는 것이 아니라서)
+					targetSpecific.append("<div class='mini-box t" + subTaskList1[j].taskCode + "' id='t" + subTaskList1[j].taskCode + "' draggable='true'><input type='hidden' value='" + subTaskList1[j].taskCode + "'/>"
+							+ "<div class='i-div1'><div class='i-div1-div1 nameBox'>" 
+							+ '이름 없는 테스크' + "</div><div class='dropdown2'><div class='select'><span id='user-list'></span>"
+							+ "</div><ul class='dropdown2-menu'><li class='flagY'>"
+							+ '플래그 추가' + "</li><li class='labelAdd'>" 
+							+ '레이블 추가' + "</li><li class='taskDelete'>"
+				            + '삭제' + "</li></ul></div></div><div class='i-div2 labelBox'></div><div class='i-div3'>"
+						    + "<div class='i-div3-inner-left'><div class='sicon'>"
+						    + 'S' + "</div><div class='i-div3-div-tcode'>" 
+						    + 'TASK - ' + subTaskList1[j].taskCode + "</div></div><div class='i-div3-inner-right'><span class='i-div3-span-per'>"
+						    + "</span><span class='i-div3-span-arrow important'></span><span class='i-div3-span-person'></span>"
+						    + "</div></div></div></div>"
+					)
+				}	
+			}
+		}
+	//하위테스크 미진행 그려주기 끝------------------------------------------------------------------------------------------------------------------
 		
-		//각각의 테스크 박스의 클래스 안에 클래스명으로 고유 테스크 코드를 넣어준다.t + 테스크 코드 (숫자로 시작하면 안되서 t로 시작)
-		//테스크명은 기본적으로 이름 없는 테스크로 정해주고, 하단에서 테스크 관련 상세 정보를 표시할 때, 이름 정보가 있는 것들만 변경해준다. (테스크 생성시 이름이 필수적으로 생성되는 것이 아니라서)
-		//테스크 박스 하위에 input type=hidden을 만들어주고, 요소 값에 테스크 코드를 넣어준다.
-		iBoard.append("<div class='mini-box t" + mainTaskList1[i].taskCode + "' id='t" + mainTaskList1[i].taskCode + "' draggable='true'><input type='hidden' value='" + mainTaskList1[i].taskCode + "'/>"
-				+ "<div class='i-div1'><div class='i-div1-div1 nameBox'>" 
-				+ '이름 없는 테스크' + "</div><div class='dropdown i-div1-drop1'><div class='select'><span id='user-list'></span>"
-				+ "<i class='fa fa-chevron-left'></i></div><ul class='dropdown-menu'><li class='flagY'>"
-				+ '플래그 추가' + "</li><li class='labelAdd'>" 
-				+ '레이블 추가' + "</li><li class='changeUpperCategoty'>"
-	            + '상위항목 변경' + "</li><li class='taskDelete'>"
-	            + '삭제' + "</li></ul></div></div><div class='i-div2 labelBox'></div><div class='i-div3'>"
-			    + "<div class='i-div3-inner-left'><div class='i-div3-div-type'>"
-			    + 'T' + "</div><div class='i-div3-div-tcode'>" 
-			    + 'TASK - ' + mainTaskList1[i].taskCode + "</div></div><div class='i-div3-inner-right'><span class='i-div3-span-per'>"
-			    + '2/4' + "</span><span class='i-div3-span-arrow important'></span><span class='i-div3-span-person'></span>"
-			    + "</div></div></div></div>"
-			    
-		)
- 	} 
-}
+	//하위테스크 진행중 그려주기------------------------------------------------------------------------------------------------------------------
+	if(subTaskList2 != null){
+		for(var k = 0; k < subTaskList2.length; k++){
 
-//(2) 상위 테스크  : 진행중 (정보는 mainTaskList2에 담겨있다)
-if(mainTaskList2 != null){
-	
-	//기존 진행중 박스 안에 내용 지우기
-	var pBoard = $('#p-board');
-	pBoard.children().remove();
-	
-	//리스트 길이만큼 반복
-	 for(var i = 0; i < mainTaskList2.length; i++){
+		//하위 테크스 리스트에서 headTaskCode 정보가 현재 반복문 실행중인 상위 테스크 코드와 같은 것이 있다면 
+			if(subTaskList2[k].taskList.headTaskCode == selectedMainTaskList[i].taskCode){
+				
+				//현재 선택한 메인 테스크 outer 상자를 가져온다..			
+				var target2 = $('#s' + selectedMainTaskList[i].taskCode);
+				//console.log("하위에 테스크 있음");
+			
+				//진행중이기 때문에 해당 target 바로 하위에있는 piboard보드에 그려줘야한다.
+				var targetSpecific = target2.find('#pboard'+ selectedMainTaskList[i].taskCode);
+				
+				//하위에 요소를 추가해준다.
+				//각각의 테스크 박스의 클래스 안에 클래스명으로 고유 테스크 코드를 넣어준다.t + 테스크 코드 (숫자로 시작하면 안되서 t로 시작)
+				//테스크명은 기본적으로 이름 없는 테스크로 정해주고, 하단에서 테스크 관련 상세 정보를 표시할 때, 이름 정보가 있는 것들만 변경해준다. (테스크 생성시 이름이 필수적으로 생성되는 것이 아니라서)
+				targetSpecific.append("<div class='mini-box t" + subTaskList2[k].taskCode + "' id='t" + subTaskList2[k].taskCode + "' draggable='true'><input type='hidden' value='" + subTaskList2[k].taskCode + "'/>"
+						+ "<div class='p-div1'><div class='p-div1-div1 nameBox'>" 
+						+ '이름 없는 테스크' + "</div><div class='dropdown2'><div class='select'><span id='user-list'></span>"
+						+ "</div><ul class='dropdown2-menu'><li class='flagY'>"
+						+ '플래그 추가' + "</li><li class='labelAdd'>" 
+						+ '레이블 추가' + "</li><li class='taskDelete'>"
+			            + '삭제' + "</li></ul></div></div><div class='p-div2 labelBox'></div><div class='p-div3'>"
+					    + "<div class='p-div3-inner-left'><div class='sicon'>"
+					    + 'S' + "</div><div class='p-div3-div-tcode'>" 
+					    + 'TASK - ' + subTaskList2[k].taskCode + "</div></div><div class='p-div3-inner-right'><span class='p-div3-span-per'>"
+					    + "</span><span class='p-div3-span-arrow important'></span><span class='p-div3-span-person'></span>"
+					    + "</div></div></div></div>"
+				)
+			}	
+		}
+	}
+	//하위테스크 미진행 그려주기 끝------------------------------------------------------------------------------------------------------------------
 		
-		//각각의 테스크 박스의 클래스 안에 클래스명으로 고유 테스크 코드를 넣어준다.t + 테스크 코드 (숫자로 시작하면 안되서 t로 시작)
-		//테스크명은 기본적으로 이름 없는 테스크로 정해주고, 하단에서 테스크 관련 상세 정보를 표시할 때, 이름 정보가 있는 것들만 변경해준다. (테스크 생성시 이름이 필수적으로 생성되는 것이 아니라서)
-		pBoard.append("<div class='mini-box t" + mainTaskList2[i].taskCode + "' id='t" + mainTaskList2[i].taskCode + "' draggable='true'><input type='hidden' value='" + mainTaskList2[i].taskCode + "'/>"
-				+ "<div class='p-div1'><div class='p-div1-div1 nameBox'>" 
-				+ '이름 없는 테스크' + "</div><div class='dropdown p-div1-drop1'><div class='select'><span id='user-list'></span>"
-				+ "<i class='fa fa-chevron-left'></i></div><ul class='dropdown-menu'><li class='flagY'>"
-				+ '플래그 추가' + "</li><li class='labelAdd'>" 
-				+ '레이블 추가' + "</li><li class='changeUpperCategoty'>"
-	            + '상위항목 변경' + "</li><li class='taskDelete'>"
-	            + '삭제' + "</li></ul></div></div><div class='p-div2 labelBox'></div><div class='p-div3'>"
-			    + "<div class='p-div3-inner-left'><div class='p-div3-div-type'>"
-			    + 'T' + "</div><div class='p-div3-div-tcode'>" 
-			    + 'TASK - ' + mainTaskList2[i].taskCode + "</div></div><div class='p-div3-inner-right'><span class='p-div3-span-per'>"
-			    + '2/4' + "</span><span class='p-div3-span-arrow important'></span><span class='p-div3-span-person'></span>"
-			    + "</div></div></div></div>"
-		)
- 	} 
-}
+	//하위테스크 완료 그려주기------------------------------------------------------------------------------------------------------------------
+	if(subTaskList3 != null){
+		for(var l = 0; l < subTaskList3.length; l++){
 
-//(3) 상위 테스크  : 완료 (정보는 mainTaskList3에 담겨있다)
-if(mainTaskList3 != null){
+		//하위 테크스 리스트에서 headTaskCode 정보가 현재 반복문 실행중인 상위 테스크 코드와 같은 것이 있다면 
+			if(subTaskList3[l].taskList.headTaskCode == selectedMainTaskList[i].taskCode){
+				
+				//현재 선택한 메인 테스크 outer 상자를 가져온다..			
+				var target3 = $('#s' + selectedMainTaskList[i].taskCode);
+				//console.log("하위에 테스크 있음");
+			
+				//진행중이기 때문에 해당 target 바로 하위에있는 ciboard보드에 그려줘야한다.
+				var targetSpecific = target3.find('#cboard'+ selectedMainTaskList[i].taskCode);
+				
+				//하위에 요소를 추가해준다.
+				//각각의 테스크 박스의 클래스 안에 클래스명으로 고유 테스크 코드를 넣어준다.t + 테스크 코드 (숫자로 시작하면 안되서 t로 시작)
+				//테스크명은 기본적으로 이름 없는 테스크로 정해주고, 하단에서 테스크 관련 상세 정보를 표시할 때, 이름 정보가 있는 것들만 변경해준다. (테스크 생성시 이름이 필수적으로 생성되는 것이 아니라서)
+				targetSpecific.append("<div class='mini-box t" + subTaskList3[l].taskCode + "' id='t" + subTaskList3[l].taskCode + "' draggable='true'><input type='hidden' value='" + subTaskList3[l].taskCode + "'/>"
+						+ "<div class='c-div1'><div class='c-div1-div1 nameBox'>" 
+						+ '이름 없는 테스크' + "</div><div class='dropdown2'><div class='select'><span id='user-list'></span>"
+						+ "</div><ul class='dropdown2-menu'><li class='flagY'>"
+						+ '플래그 추가' + "</li><li class='labelAdd'>" 
+						+ '레이블 추가' + "</li><li class='taskDelete'>"
+			            + '삭제' + "</li></ul></div></div><div class='c-div2 labelBox'></div><div class='c-div3'>"
+					    + "<div class='c-div3-inner-left'><div class='sicon'>"
+					    + 'S' + "</div><div class='c-div3-div-tcode'>" 
+					    + 'TASK - ' + subTaskList3[l].taskCode + "</div></div><div class='c-div3-inner-right'><span class='c-div3-span-per'>"
+					    + "</span><span class='c-div3-span-arrow important'></span><span class='c-div3-span-person'></span>"
+					    + "</div></div></div></div>"
+				)
+			}	
+		}
+	}
 	
-	//기존 진행중 박스 안에 내용 지우기
-	var cBoard = $('#c-board');
-	cBoard.children().remove();
-	
-	//리스트 길이만큼 반복
-	 for(var i = 0; i < mainTaskList3.length; i++){
-		
-		//각각의 테스크 박스의 클래스 안에 클래스명으로 고유 테스크 코드를 넣어준다.t + 테스크 코드 (숫자로 시작하면 안되서 t로 시작)
-		//테스크명은 기본적으로 이름 없는 테스크로 정해주고, 하단에서 테스크 관련 상세 정보를 표시할 때, 이름 정보가 있는 것들만 변경해준다. (테스크 생성시 이름이 필수적으로 생성되는 것이 아니라서)
-		cBoard.append("<div class='mini-box t" + mainTaskList3[i].taskCode + "' id='t" + mainTaskList3[i].taskCode + "' draggable='true'><input type='hidden' value='" + mainTaskList3[i].taskCode + "'/>"
-				+ "<div class='c-div1'><div class='c-div1-div1 nameBox'>" 
-				+ '이름 없는 테스크' + "</div><div class='dropdown c-div1-drop1'><div class='select'><span id='user-list'></span>"
-				+ "<i class='fa fa-chevron-left'></i></div><ul class='dropdown-menu'><li class='flagY'>"
-				+ '플래그 추가' + "</li><li class='labelAdd'>" 
-				+ '레이블 추가' + "</li><li class='changeUpperCategoty'>"
-	            + '상위항목 변경' + "</li><li class='taskDelete'>"
-	            + '삭제' + "</li></ul></div></div><div class='c-div2 labelBox'></div><div class='c-div3'>"
-			    + "<div class='c-div3-inner-left'><div class='c-div3-div-type'>"
-			    + 'T' + "</div><div class='c-div3-div-tcode'>" 
-			    + 'TASK - ' + mainTaskList3[i].taskCode + "</div></div><div class='c-div3-inner-right'><span class='c-div3-span-per'>"
-			    + '2/4' + "</span><span class='c-div3-span-arrow important'></span><span class='c-div3-span-person'></span>"
-			    + "</div></div></div></div>"
-		)
- 	} 
+	/* 만약 특정 메인 테스크에 관련 하위 테스크가 없다면 진행 상태 박스을 모두 제거해준다. */	
+/* 	var cnt = 0;
+	for(var a = 0; a < selectedSubTaskList.length; a ++){
+		if(selectedMainTaskList[i].taskCode == selectedSubTaskList[a].taskList.headTaskCode){
+			//하위테스크에 현재 상위 테스크 코드가 있다면 cnt 증가시켜준다.
+			cnt += 1;
+		}
+	}
+	//하위 테스크 리스트에 현재 상위 테스크가 하나도 없는 경우
+	if(cnt == 0){
+		//회색 진행 상태 상자 없애준다.
+		//현재 선택한 메인 테스크 outer 상자를 오고	
+		//바로 하위에있는 siboard보드 찾아서 지워준다.
+		 $('#s' + selectedMainTaskList[i].taskCode).find('.wrapper').remove();
+	} */
+/* 만약 특정 메인 테스크에 관련 하위 테스크가 없다면 진행 상태 박스을 모두 제거해준다. 끝 */	
+ 
+ 
+ 
 }
+//하위 작업 기본 view 끝------------------------------------------------------------------------------------------------------------------
 
-//1.상위테스크 기본정보 입력 끝-----------------------------------------------------------------------------------------------------------------
 
-//2.상위테스크 세부 정보 입력 ------------------------------------------------------------------------------------------------------------------
-if(mainTaskList != null){
+//2.하위테스크 세부 정보 입력 ------------------------------------------------------------------------------------------------------------------
+if(subTaskList != null){
 	
 	//(1) 테스크명 가져오기 : 
-	//상위테스크 전체 리스트(mainTaskList)에서 테스크명 정보가 있는 경우에만 가져와서 뷰에 적용한다.
-	//상위테스크 전체 리스트에서 반복문으로  테스크 카테고리 코드가 J(테스크명 정보가 담긴 코드)인 행을 찾는다 
-	for(var i = 0; i < mainTaskList.length; i++){
+	//테스크명 정보가 있는 경우에만 가져와서 뷰에 적용한다.
+	//반복문으로  테스크 카테고리 코드가 J(테스크명 정보가 담긴 코드)인 행을 찾는다 
+	for(var i = 0; i < subTaskList.length; i++){
 		var taskCode1 = 0;
-		if(mainTaskList[i].taskCategoryCode == 'J'){
+		if(subTaskList[i].taskCategoryCode == 'J'){
 			
 			//테스크명 정보가 있는 행의 테스크 코드를 변수 taskCode1에 담는다.
-			taskCode1 = mainTaskList[i].taskCode;
+			taskCode1 = subTaskList[i].taskCode;
 			console.log("테스크명 표시할 테스크 코드 : " + taskCode1);
 			
 			//find()는 어떤 요소의 하위 요소 중 특정 요소를 찾을 때 사용한다.
@@ -480,11 +415,9 @@ if(mainTaskList != null){
 			//find를 이용하여 테스트코드와 일치하는 테스크 상자 요소를 찾아온다.
 			//각 테스크 상자의 class명에는 't+테스크코드' 식의 고유한 테스크 코드가 붙어있다.(위에서 append로 뷰 그릴 때 넣음)
 			var taskBox = $('#contentBox2-board').find( ".t" + taskCode1 ); 
-  		    //var name = $('#contentBox2-board').find( ".t3" );
-  		    
   		    //테스크 상자 안에 테스크명이 입력되는 요소를 찾고
   		    //<div class='nameBox'>이름 없는 테스크</div> 해당 요소 태그 사이에 이름을 넣어준다.
-  		    taskBox.find('.nameBox').text(mainTaskList[i].taskHistValue);
+  		    taskBox.find('.nameBox').text(subTaskList[i].taskHistValue);
 		}
 	}
 	
@@ -493,12 +426,12 @@ if(mainTaskList != null){
 	//상위테스크 전체 리스트(mainTaskList)에서 테스크우선순위(중요 표시) 정보가 있는 경우에만 가져와서 뷰에 적용한다.
 	//테스크우선순위(중요 표시)는 high, medium, low로 나뉘어지며 화살표 아이콘으로 뷰페이지에 보여진다.
 	//상위테스크 전체 리스트에서 반복문으로  테스크 카테고리 코드가 C(테스크우선순위 정보가 담긴 코드)인 행을 찾는다 
-	for(var i = 0; i < mainTaskList.length; i++){
+	for(var i = 0; i < subTaskList.length; i++){
 		var taskCode2 = 0;
-		if(mainTaskList[i].taskCategoryCode == 'C'){
+		if(subTaskList[i].taskCategoryCode == 'C'){
 			
 			//테스크우선순위(중요 표시) 정보가 있는 행의 테스크 코드를 변수 taskCode2에 담는다.
-			taskCode2 = mainTaskList[i].taskCode;
+			taskCode2 = subTaskList[i].taskCode;
 			console.log("테스크우선순위 표시할 테스크 코드 : " + taskCode2);
 			
 			//찾은 테스트코드와 일치하는 '상자'에 테스크우선순위 정보를 넣어줘야한다.
@@ -509,14 +442,13 @@ if(mainTaskList != null){
 		    //테스크 상자 안에 테스크우선순위 정보가 입력되는 요소를 찾고
 		    //<span class='important'>화살표 이미지 태그</span> 해당 요소 태그 사이에 중요도에 따른 화살표 이미지를 넣어준다.
             //중요도 확인
-            //중요도가 높음이면 빨간색 화살표
             //이미지의 경우 draggable 기본 값이 true라서 테스크 박스 드래그시 이미지가 따로 드래그 되는 현상이 발생하여
             //draggable false로 바꿔주고 테스크 박스와 함께 움직이도록 한다.
-            if(mainTaskList[i].taskHistValue == 'high'){
+            if(subTaskList[i].taskHistValue == 'high'){
                taskBox.find('.important').html("<img class='icon_arrow_upward_red' src='/agile/resources/icon/common/icon_arrow_upward_red.png' draggable='false'>");
-            }else if(mainTaskList[i].taskHistValue == 'medium'){
+            }else if(subTaskList[i].taskHistValue == 'medium'){
                taskBox.find('.important').html("<img class='icon_arrow_upward_red' src='/agile/resources/icon/common/icon_arrow_upward_orange.png' draggable='false'>");
-            }else if(mainTaskList[i].taskHistValue == 'low'){
+            }else if(subTaskList[i].taskHistValue == 'low'){
                taskBox.find('.important').html("<img class='icon_arrow_upward_red' src='/agile/resources/icon/common/icon_arrow_downward_green.png' draggable='false'>");
             }else{
             	console.log("테스크우선순위 데이터 잘못 입력함 DB 데이터 확인 필요, high, medium, low 외에 다른 값 있음")
@@ -528,12 +460,12 @@ if(mainTaskList != null){
 	//(3) 레이블 가져오기 : 
 	//레이블 전체 리스트(mainTaskList)에서 레이블 정보가 있는 경우에만 가져와서 뷰에 적용한다.
 	//상위테스크 전체 리스트에서 반복문으로  테스크 카테고리 코드가 N(레이블 정보가 담긴 코드)인 행을 찾는다 
-	for(var i = 0; i < mainTaskList.length; i++){
+	for(var i = 0; i < subTaskList.length; i++){
 		var taskCode3 = 0;
-		if(mainTaskList[i].taskCategoryCode == 'N'){
+		if(subTaskList[i].taskCategoryCode == 'N'){
 			
 			//레이블 정보가 있는 행의 테스크 코드를 변수 taskCode4에 담는다.
-			taskCode3 = mainTaskList[i].taskCode;
+			taskCode3 = subTaskList[i].taskCode;
 			console.log("레이블 표시할 테스크 코드 : " + taskCode3);
 			
 			//찾은 테스트코드와 일치하는 '상자'에 레이블 정보를 넣어줘야한다.
@@ -546,11 +478,11 @@ if(mainTaskList != null){
 			//조회해보면 null은 "" 빈 문자열로 조회된다.
 			//taskCategoryCode가 N이면서 레이블을 삭제하지 않는 경우에만 레이블을 표시해줘야 하므로
 			//if 조건을 달아준다.
-			if(mainTaskList[i].taskHistValue != ""){
+			if(subTaskList[i].taskHistValue != ""){
 	  		    //테스크 상자 안에 레이블이 입력되야하는 요소를 찾고
 	  		    //<div class='labelBox'></div> 해당 요소 태그 사이에 <span></span>태그 형태의 레이블을 넣어준다.
 	  		    //span 회색 배경 css 양쪽에 약간 여백 주기 위해 &nbsp; 추가함
-	  		    taskBox.find('.labelBox').html("<span class='label-css'>&nbsp;" + mainTaskList[i].taskHistValue + "&nbsp;</span>");
+	  		    taskBox.find('.labelBox').html("<span class='label-css'>&nbsp;" + subTaskList[i].taskHistValue + "&nbsp;</span>");
 		
 				//기본 드롭다운 상자는 플래그 추가, 레이블 추가, 상위항목 변경, 이슈링크 복사, 삭제로 구성되어있다.
 				//만약 해당 테스크에 레이블이 존재하여 레이블을 테스크 상자에 추가했다면,
@@ -574,12 +506,12 @@ if(mainTaskList != null){
 	//(4) 플래그여부 가져오기 : 
 	//플래그는 전체 리스트(mainTaskList)에서 플래그 정보가 있는 경우에만 가져와서 뷰에 적용한다.
 	//상위테스크 전체 리스트에서 반복문으로  테스크 카테고리 코드가 E(플래그 정보가 담긴 코드)인 행을 찾는다 
-	for(var i = 0; i < mainTaskList.length; i++){
+	for(var i = 0; i < subTaskList.length; i++){
 		var taskCode4 = 0;
-		if(mainTaskList[i].taskCategoryCode == 'E'){
+		if(subTaskList[i].taskCategoryCode == 'E'){
 			
 			//플래그 정보가 있는 행의 테스크 코드를 변수 taskCode3에 담는다.
-			taskCode4 = mainTaskList[i].taskCode;
+			taskCode4 = subTaskList[i].taskCode;
 			console.log("플래그여부 표시할 테스크 코드 : " + taskCode4);
 			
 			//찾은 테스트코드와 일치하는 '상자'에 플래그 정보를 넣어줘야한다.
@@ -589,7 +521,7 @@ if(mainTaskList != null){
 		    
 		    //플래그 정보가 있는경우 테스크 상자 class에 flag-true 클래스를 넣어준다.
 		    //플래그 정보가 'Y'인 경우에만 표시해준다. 카테고리 코드가 E여도 플래그 여부가 N인 경우도 있기 때문에 꼭 if 조건으로 확인
-		    if(mainTaskList[i].taskHistValue == 'Y'){
+		    if(subTaskList[i].taskHistValue == 'Y'){
 		    	//플래그css 적용가능한 클래스 속성을 부여한다.
 			    taskBox.addClass("flag-true");
 				//기본 드롭다운 상자는 플래그 추가, 레이블 추가, 상위항목 변경, 이슈링크 복사, 삭제로 구성되어있다.
@@ -610,15 +542,10 @@ if(mainTaskList != null){
 		    
 		}
 	}
-	
 	//(5) 하위테스크 진행 비율 가져오기 ( n/m )
-	
 }	
-	
-	
 
-
-//2.상위테스크 세부 정보 입력 끝-----------------------------------------------------------------------------------------------------------------
+//2.하위테스크 세부 정보 입력 끝-----------------------------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------------------------------------------
 
 
@@ -782,62 +709,53 @@ if(mainTaskList != null){
 	});	
 
 	
-	
-	
-	
-	
 //3.테스크 상자 드롭다운 상세 기능 끝-----------------------------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------------------------------------------
 
 
 //추가 설정 버튼 드롭다운 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-//마지막에 읽혀야 전체 작동
-$('.dropdown').click(function() {
+$(document).on('click','.dropdown', function(){
 	$(this).attr('tabindex', 1).focus();
 	$(this).toggleClass('active');
 	$(this).find('.dropdown-menu').slideToggle(300);
 });
 
-$('.dropdown').focusout(function() {
+$(document).on('focusout','.dropdown', function(){
 	$(this).removeClass('active');
 	$(this).find('.dropdown-menu').slideUp(300);
 });
 
 /* li 태그 클래스 값 input에 담아주기  id > class로 변경 */
-$('.dropdown .dropdown-menu li').click(
-	function() {
+$(document).on('click','.dropdown .dropdown-menu li', function(){
 		/* $(this).parents('.dropdown').find('span').text($(this).text()); */
 		$(this).parents('.dropdown').find('input').attr('value',$(this).attr('class'));
 });
 //선택 내용 글자 넣어주는 것 빼기
- $('.dropdown-menu li').click(function() {
+$(document).on('click','.dropdown-menu li', function(){
 		var input = '<strong>' + $(this).parents('.dropdown').find('input').val() + '</strong>', msg = '<span class="msg">Hidden input value: ';
 		$('.msg').html(msg + input + '</span>');
 }); 
 //추가 설정 버튼 드롭다운 끝----------------------------------------------------------------------
 
-
 //그룹화 버튼 드롭다운 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-//마지막에 읽혀야 전체 작동
-$('.dropdown1').click(function() {
+$(document).on('click','.dropdown1', function(){
 	$(this).attr('tabindex', 1).focus();
 	$(this).toggleClass('active');
 	$(this).find('.dropdown1-menu').slideToggle(300);
 });
 
-$('.dropdown1').focusout(function() {
+$(document).on('focusout','.dropdown1', function(){
 	$(this).removeClass('active');
 	$(this).find('.dropdown1-menu').slideUp(300);
 });
 
 /* li 태그 클래스 값 input에 담아주기  id > class로 변경 */
-$('.dropdown1 .dropdown1-menu li').click(
-	function() {
+$(document).on('click','.dropdown1 .dropdown1-menu li', function(){
 		$(this).parents('.dropdown1').find('span').text($(this).text());
 		$(this).parents('.dropdown1').find('input').attr('value',$(this).attr('class'));
 });
 //선택 내용 글자 넣어주는 것 빼기
- $('.dropdown1-menu li').click(function() {
+$(document).on('click','.dropdown1-menu li', function(){
 		var input = '<strong>' + $(this).parents('.dropdown1').find('input').val() + '</strong>', msg = '<span class="msg">Hidden input value: ';
 		$('.msg').html(msg + input + '</span>');
 }); 
@@ -860,6 +778,7 @@ var dragged;
 //드래그 시작시
 document.addEventListener("dragstart", function(event) {
   //현재 드래그 이벤트에서 드래그할 요소를 변수에 담는다
+  console.log("드래그 시작");
   dragged = event.target;
 }, false);
 
@@ -871,12 +790,14 @@ document.addEventListener("dragstart", function(event) {
 document.addEventListener("dragover", function(event) {
 	// 드롭을 허용하도록 prevetDefault() 호출
 	event.preventDefault();
+	console.log("드래그 오버");
 }, false);
 //드롭 대상영역 안으로 들어갔을 때 실행할 이벤트
 document.addEventListener("dragenter", function(event) {
 	// 요소를 드롭하려는 대상 위로 드래그했을 때 대상의 배경색 변경
 	if (event.target.className == "dropzone") {
-	  event.target.style.background = "#F0ACC4"; 
+		console.log("드래그 엔터");
+		event.target.style.background = "#F0ACC4"; 
 	  //약간 핑크색으로 변경, 플래그 색상 투명도 준것 때문에 테스크 상자 색상도 같이 변해서 핑크색 계열로 줌.
 	}
 }, false);
@@ -884,74 +805,118 @@ document.addEventListener("dragenter", function(event) {
 document.addEventListener("dragleave", function(event) {
   // 요소를 드래그하여 드롭하려던 대상으로부터 벗어났을 때 배경색 원래 색으로 리셋해준다.
   if (event.target.className == "dropzone") {
+	console.log("드래그 리브");  
 	event.target.style.background = ""; 
   }
 }, false);
+
+
+
+/* 드래그드롭 계속~~~~~~~~~~~ 안되서 요소 클릭하고 드롭 하는 것 확인함 */
+/* 드롭존에 클래스명 2개 이상 쓰면 드래그드롭 안됨 !!!! 주~~~~~~의~~~~~~할 것 */
+$("body").click(function(event){
+    console.log("무엇을 클릭했을 까요? " + event.target.id);
+});
+
+$(document).on('drop', function(event){
+    console.log("무엇을 드롭했을 까요? " + event.target.id);
+});
+
 
 //드롭시에 실행할 이벤트
 //드롭이 정상적으로 완료되면 task 진행상태를 변경하여 taskHistory에 taskHistvalue를 추가 하는 ajax를 실행한다.
 document.addEventListener("drop", function(event) {
   // 기본 액션을 막음 (링크 열기같은 것들)
-  event.preventDefault();
+	event.preventDefault();
+	//console.log("드롭1");  
   // 드래그한 요소를 드롭 대상으로 이동 후 드롭 성공
   // 드롭 영역에 드롭했을 경우에만 css 리셋 해주고 append 해준다.
-  if (event.target.className == "dropzone") {
-    event.target.style.background = "";
-    //드래그 대상에서 이동할 데이터 삭제
-    dragged.parentNode.removeChild( dragged );
-    //드롭 대상(현재 타겟)에 데이터 추가
-    event.target.appendChild( dragged );
-    //드롭 완료 후 이벤트 버블링을 막기 위해 호출           
-    event.stopPropagation();  
-	
-    //현재 드래그한 요소 dragged 테스크 상자에 담긴 테스크 코드를 가져온다.
-    //id 속성을 가져오는데, t+테스크 코드로 구성되어있기 때문에 앞에 t 문자를 제외해준 테스크 코드를 찾는다.
-    var str1 = dragged.getAttribute("id");
-    //시작위치,종료위치
-    var taskCode = str1.substring(1, str1.length);
-    console.log("드롭 다운으로 진행 상태 변경할 taskCode : " + taskCode);
-    //드롭하여 현재 위치해있는 진행상태 상자의 아이디를 가져온다.
-    //#i-board, #p-board, #c-board
-    //앞글자가 i면 미진행, p면 진행중, c면 완료이다.
-    var str2 = dragged.parentNode.getAttribute("id").substring(0, 1);
-    var taskHistValue;
-    if(str2 === "i"){
-    	taskHistValue = "미진행";
-    }else if(str2 === "p"){
-    	taskHistValue = "진행중";
-    }else if(str2 === "c"){
-    	taskHistValue = "완료";
-    }
-    console.log("드롭 다운으로 진행 상태 변경할 taskHistValue : " + taskHistValue);
-    
-	//ajax 시작
-	$.ajax({
-		url:"insertTaskHistoryTaskProceeding.tk",
-		type:"post",
-		dataType:"json",
-		data:{"taskCode" : taskCode, "taskHistValue" : taskHistValue},
-		success:function(data){
-			console.log(data);
-			console.log(data.result);
-			//insert 한 result 값이 1인 경우 테스크 진행 상태 변경 성공
-			if(data.result == 1){
-				console.log("테스크 진행 상태 변경 성공");
-			}else{
-				console.log("테스크 진행 상태 변경 실패");
+   if (event.target.className == "dropzone") {
+	  	//console.log("드롭2");  
+	    event.target.style.background = "";
+	    //드래그 대상에서 이동할 데이터 삭제
+		//console.log("실행");
+	    dragged.parentNode.removeChild( dragged );
+	    //드롭 대상(현재 타겟)에 데이터 추가
+	    event.target.appendChild( dragged );
+	    //드롭 완료 후 이벤트 버블링을 막기 위해 호출           
+	    event.stopPropagation();  
+	    //현재 드래그한 요소 dragged 테스크 상자에 담긴 테스크 코드를 가져온다.
+	    //id 속성을 가져오는데, t+테스크 코드로 구성되어있기 때문에 앞에 t 문자를 제외해준 테스크 코드를 찾는다.
+	    var str1 = dragged.getAttribute("id");
+	    //시작위치,종료위치
+	    var taskCode = str1.substring(1, str1.length);
+	    console.log("드롭 다운으로 진행 상태 변경할 taskCode : " + taskCode);
+	    //드롭하여 현재 위치해있는 진행상태 상자의 아이디를 가져온다.
+	    //#iboard + 테스크 코드, #pboard + 테스크 코드, #cboard + 테스크 코드
+	    //앞글자가 i면 미진행, p면 진행중, c면 완료이다.
+	    var str2 = dragged.parentNode.getAttribute("id").substring(0, 1);
+	    var taskHistValue ="";
+	    if(str2 === "i"){
+	    	taskHistValue = "미진행";
+	    }else if(str2 === "p"){
+	    	taskHistValue = "진행중";
+	    }else if(str2 === "c"){
+	    	taskHistValue = "완료";
+	    }
+	    console.log("드롭 다운으로 진행 상태 변경할 taskHistValue : " + taskHistValue);
+	    
+		//하위 테스크의 진행상태 테스크 히스토리 insert ajax 시작
+		$.ajax({
+			url:"insertTaskHistoryTaskProceeding.tk",
+			type:"post",
+			dataType:"json",
+			data:{"taskCode" : taskCode, "taskHistValue" : taskHistValue},
+			success:function(data){
+				console.log(data);
+				console.log(data.result);
+				//insert 한 result 값이 1인 경우 테스크 진행 상태 변경 성공
+				if(data.result == 1){
+					console.log("테스크 진행 상태 변경 성공");
+				}else{
+					console.log("테스크 진행 상태 변경 실패");
+				}
+			},error:function(){
+				console.log("테스크 진행 상태 변경 오류");				
 			}
-		},error:function(){
-			console.log("테스크 진행 상태 변경 오류");				
+		});
+		
+		//하위 테스크의 테스크 리스트 정보 중 헤드 테스트 코드 업데이트 ajax 시작 
+		//다른 상위 테스크 보드로 드래그 드롭하는 경우에만 변경해줌
+		//위치이동해서 현재 들어가있는 상위 테스크 아이디
+	 	var dropzoneId = event.target.parentNode.parentNode.getAttribute("id")
+		//console.log("위치이동해서 현재 들어가있는 상위 테스크 아이디 : " + dropzoneId);
+		//한자리문자 + 테스크 코드로 이루어져있어서 앞의 한글자 빼주고 테스크 코드 얻는다.
+	 	//드래드드롭 이벤트 이후 현재 소속되어있는 상위 테스크 코드
+		var headTaskCode = dropzoneId.substring(1, dropzoneId.length);
+		//만약 이 코드와 기존에 가지고있던 headTaskCode가 같다면 update해주지 않고,
+		//기존과 다르다면 하위 테스크의 headTaskCode를 업데이트 해준다.
+		//우선 기존 headTaskCode조회한다.
+		var i = 0;
+		for(var i = 0; i < selectedSubTaskList.length; i++){
+			if(selectedSubTaskList[i].taskCode == taskCode && selectedSubTaskList[i].taskList.headTaskCode != headTaskCode){
+				$.ajax({
+					url:"updateTaskListHeadTaskCode.tk",
+					type:"post",
+					dataType:"json",
+					data:{"taskCode" : taskCode, "headTaskCode" : headTaskCode},
+					success:function(data){
+						console.log(data);
+						console.log(data.result);
+						//insert 한 result 값이 1인 경우 테스크 진행 상태 변경 성공
+						if(data.result == 1){
+							console.log("headTaskCode 변경 성공");
+						}else{
+							console.log("headTaskCode 변경 실패");
+						}
+					},error:function(){
+						console.log("headTaskCode 변경 오류");				
+					}
+				});	
+			}
 		}
-	});
-    
-    
-    
-    
-    
-  }
+  	}
 }, false);
-
-
 
 /* 테스크 상자 드래그 앤 드롭 기능 끝-------------------------------------------------------------------------------------------------------------------------- */
 
@@ -1067,108 +1032,6 @@ $(document).on('click','#formContentCheck3', function(){
 /* 레이블 추가 관련 모달창 끝 ----------------------------------------------------------------------------------------------------------------*/
 
 
-
-/* 상위 항목 변경 관련 모달창 시작----------------------------------------------------------------------------------------------------------------*/
-//모달 안에서 검색 기능 구현하기 : 모달 열면서 모달에 값 주기, 모달에 있는 값 얻어서 Ajax로 검색하기
-//0.상위 항목 변경 모달창에서 닫기 버튼을 누르면 모달이 닫히도록 함수 실행
-/* function closeModal2() { */
-$(document).on('click','.modal2-close', function(){
- 		$("#myModal2").css('display','none');
- 		//닫기 버튼 클릭 후 모달 안에 있는 input 태그 값 초기화 해줌
- 		$('#searchSprint').val('');
- 		$('#modal2SprintCode').val('');
- 		$('#modal2TaskCode').val('');
- 		$('#modal2ProjectCode').val('');
- 		//모달의 제목부분 p태그 검색하여 초기화해줌
- 		$("#myModal2").find("p").text('');
- });
-
-//1.드롭 다운 메뉴에서 상위 항목 변경 버튼 클릭시 함수를 실행하여 모달을 열고,모달 열자마자 모달 안에있는 input type hidden에 필요한 정보를 담는다.
-$(document).on('click','.changeUpperCategoty', function(){
-     $("#myModal2").fadeIn(300); 
-     $("#myModal2").css('display','block');
-     // 클릭한 테스크 상자의 테스크 코드 가져오기
-     var taskCode = $(this).parent().parent().parent().parent().find('input').val();
-     
-     //제목 적어주기
-     //상위 항목 변경 모달창 제목 부분에 Task - "테스크코드 번호" 상위 항목 변경을 넣어준다.
-     $("#myModal2").find("p").text("TASK - " + taskCode + " 의 상위 항목 변경");
-	
-     //테스크 상자 하위에 있는 input type="hidden" id="modal2TaskCode"요소 값에 상위 스프린트를 변경할 테스크 코드 정보를 넣어준다.
-	//모달 열리자 마자 테스크 코드 정보 모달에 담아줌
-	var modal2TaskCode = $('#modal2TaskCode').val(taskCode);
-     
-     //테스크 상자 하위에 있는 input type="hidden" id="modal2ProjectCode"요소 값에 스프린트 리스트를 검색할 현재 프로젝트코드 정보를 넣어준다.
-	 $('#modal2ProjectCode').val(taskList[0].taskList.project.projectCode);
-     
-	});
- 
- 
-//2. 실시간 검색을 할 input 상자에 값을 입력하면 실행할 함수 작성한다. 함수에는  hidden input에 담겨있는 프로젝트 코드 값을 가져온다.
-function searchSprint(){
-	//프로젝트 코드 정보 가져오기, 모달 띄울 때 이미 넣어놓은 정보.
-	var projectCode = $('#modal2ProjectCode').val();
-     console.log("스프린트 리스트를 조회할 프로젝트 코드 : " + projectCode);
-   	//실시간 검색할 스프린트 값 가져오기(input 상자에 입력한 값)
- 	var sprintName = $("#searchSprint").val();
- 	console.log("input 상자에 입력한 스프린트명 : " + sprintName);
- 	$.ajax({
- 		url:"selectSprintList.tk",
- 		type:"post",
- 		dataType : "json",
- 		data: {
- 			"projectCode" : projectCode, //프로젝트 코드 정보
- 			"sprintName" : sprintName //실시간 검색할 스프린트 값
- 			}, 
- 		success: function(data){
- 				console.log("----- 리스트 조회 성공 ------");
-  				//date.리스트 명으로 컨트롤러에서 보낸 정보 받아옴
-  				 for(var i = 0; i < data.sprintHistoryList.length; i++){
-					console.log(i);  					 
-  					console.log(data.sprintHistoryList[i].sprintCode);
-  					console.log(data.sprintHistoryList[i].sprintName);
-  				}  
-  				
- 				//리스트 추가를 위해 datalist 상자 가져오기
-  				var searchSprintList = $('#searchSprintList');
- 				//기존에 있는 option 내용물 전부 지우기
- 				searchSprintList.children().remove();
- 				
- 				//반복문으로 option 태그에 리스트 담아주기
- 				//코드도 함께 넣어주기!!!!!!!!!!!!!!!!!!!!!
- 				for(var i = 0; i < data.sprintHistoryList.length; i++){
- 					searchSprintList.append("<option value ='" + data.sprintHistoryList[i].sprintName + "'>");
- 				}
- 			}, error: function(){
- 				console.log("리스트 가져오기 실패");
- 			}
- 		});
- }
- 
-//3.상위 스프린트 업데이트 폼 전송
-//전송 버튼 클릭시 함수 실행  
-//폼 전송 전에 등록할 정보를 확인 후에 조건에 맞을 경우에만 전송한다.
-$(document).on('click','#formContentCheck2', function(){
-	//업데이트할 스프린트 정보 form에 담아주기
-	//입력해놓은 레이블 정보 #searchSprint input 상자의 값을 form에있는 #modal2SprintCode input 상자에 담는다.
-	//정확히 일치해야 등록 가능하도록 바꿔주기
-	$('#modal2SprintCode').val($('#searchSprint').val());
-	
-	//만약 전송 버튼 클릭 시점에 form 안에 있는 레이블 정보가 비어있다면	
-	if($('#modal2SprintCode').val() == "") {
-        alert("등록할 내용을 입력해주세요");
-        //아래는 더이상 실행하지 않는다.
-        return false;
-	}else{
-	//전송할 폼의 이름은 LabelYesForm
-	//등록할 레이블 정보가 비어있지 않다면 폼을 전송하여 레이블을 추가한다.
-		$('#updateTaskSprintCodeForm').submit();
-	}
-});
-
-/* 레이블 추가 관련 모달창 끝 ----------------------------------------------------------------------------------------------------------------*/
-
-
 /* 검색상자 focus 이벤트 시작 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
 $(document).on('focus','#searchBox', function(){
  	$('#searchBox').css("width","250px");
@@ -1183,100 +1046,11 @@ $(document).on('blur','#searchBox', function(){
 
 /* 검색상자 focu시 이벤트 끝---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
 
-
-/* 그룹화 기준 : 하위 작업 시작-------------------------------------------------------------------------------------------------------------------------------------------- */
-/* 1. 그룹화 필터에 하위작업 버튼을 누르면 함수를 실행한다.*/
-$(document).on('click','#groupBySub', function(){
-	//그룹화 버튼에 하위작업이라고 표시되어있으면 하위 작업 상세 내역 그려주기
-	if($('#groupbyCategory').text() == "하위작업" && selectedMainTaskList != null){
-		//테스크 진행 상자에 있는 테스크들을 모두 지운다.
-	    //$('.dropzone').children().remove();
-		$('#i-board').remove(); 
-		$('#p-board').remove(); 
-		$('#c-board').remove(); 
-
-
 		
-		//(1) 각 상위 테스크별 제목 상자를 만들어준다.
-		//리스트 길이만큼 반복
-		for(var i = 0; i < selectedMainTaskList.length; i++){
-			
-			//진행상태에 따른 css 색상 주기
-			var color = "";
-			if(selectedMainTaskList[i].taskHistValue == "미진행"){
-				color = "sGray";
-			}else if(selectedMainTaskList[i].taskHistValue == "진행중"){
-				color = "sNavy";
-			}else if(selectedMainTaskList[i].taskHistValue == "완료"){
-				color = "sPink";
-			}else{
-				console.log("상위 테스크 진행상태 데이터 입력오류");
-			}
-			
-			
-			//각각의 상위 테스크별 최상위 div에 s + 상위 테스크 코드를 붙여준다.
-			var sContentBox = $('#contentBox2-board');
- 			sContentBox.append("<div id='s" + selectedMainTaskList[i].taskCode + "' class='outerBox' ><div class='sTitle'><div></div><div class='micon'>T</div><div class='stcode'>" 
-				    + 'TASK - ' + selectedMainTaskList[i].taskCode + "</div><span class='nameBox'>" 
-					+ '이름 없는 테스크' + "</span><span class='taskProceedingStatus " + color + "'>" + selectedMainTaskList[i].taskHistValue + "</span>" 
-					+ "</div><div class='sboard siboard'></div><div class='sboard spboard'></div><div class='sboard scboard'></div></div>");
-				//기존 미진행 박스 안에 내용 지우기
-				//siboard.children().remove();
 
-				
- 			//하위 테스크 미진행 리스트 null 확인
- 			if(subTaskList1 != null){
- 				//하위테스크 미진행 그려주기------------------------------------------------------------------------------------------------------------------
- 				for(var j = 0; j < subTaskList1.length; j++){
 	
-					//하위 테크스 리스트에서 headTaskCode 정보가 현재 반복문 실행중인 상위 테스크 코드와 같은 것이 있다면 
-					if(subTaskList1[j].taskList.headTaskCode == selectedMainTaskList[i].taskCode){
-						
-						//현재 선택한 메인 테스크 outer 상자를 가져온다..			
-						var target = $('#s' + selectedMainTaskList[i].taskCode);
-						console.log("하위에 테스크 있음");
-					
-						//미진행이기 때문에 해당 target 바로 하위에있는 siboard보드에 그려줘야한다.
-						var targetSpecific = target.find('.siboard');
-						
-						//하위에 요소를 추가해준다.
-						//각각의 테스크 박스의 클래스 안에 클래스명으로 고유 테스크 코드를 넣어준다.t + 테스크 코드 (숫자로 시작하면 안되서 t로 시작)
-						//테스크명은 기본적으로 이름 없는 테스크로 정해주고, 하단에서 테스크 관련 상세 정보를 표시할 때, 이름 정보가 있는 것들만 변경해준다. (테스크 생성시 이름이 필수적으로 생성되는 것이 아니라서)
-						targetSpecific.append("<div class='mini-box t" + subTaskList1[j].taskCode + "' id='t" + subTaskList1[j].taskCode + "' draggable='true'><input type='hidden' value='" + subTaskList1[j].taskCode + "'/>"
-								+ "<div class='i-div1'><div class='i-div1-div1 nameBox'>" 
-								+ '이름 없는 테스크' + "</div><div class='dropdown2'><div class='select'><span id='user-list'></span>"
-								+ "</div><ul class='dropdown2-menu'><li class='flagY'>"
-								+ '플래그 추가' + "</li><li class='labelAdd'>" 
-								+ '레이블 추가' + "</li><li class='changeUpperCategoty'>"
-					            + '상위항목 변경' + "</li><li class='taskDelete'>"
-					            + '삭제' + "</li></ul></div></div><div class='i-div2 labelBox'></div><div class='i-div3'>"
-							    + "<div class='i-div3-inner-left'><div class='sicon'>"
-							    + 'S' + "</div><div class='i-div3-div-tcode'>" 
-							    + 'TASK - ' + subTaskList1[j].taskCode + "</div></div><div class='i-div3-inner-right'><span class='i-div3-span-per'>"
-							    + '2/4' + "</span><span class='i-div3-span-arrow important'></span><span class='i-div3-span-person'></span>"
-							    + "</div></div></div></div>"
- 						)
-					}	
- 					
- 				}
- 				//하위테스크 미진행 그려주기 끝------------------------------------------------------------------------------------------------------------------
- 				
- 			}
-		}
-		
-		
-		
-	}
-});
-
-
-
-//만약 그룹화 기준을 하위작업에서 없음으로 초기화 할 시엔
-//테스크 보드 메인페이지 조회하는 컨트롤러로 보내서 현재 페이지를 다시 로딩한다.
-$(document).on('click','#groupByNone', function(){
-	location.href="showTaskBoardMain.tk";
-});
-/* 그룹화 기준 : 하위 작업 끝 -------------------------------------------------------------------------------------------------------------------------------------------- */
+	
+	
 
 
 
@@ -1305,6 +1079,43 @@ $(document).on('click','.dropdown2-menu li', function(){
 		$('.msg').html(msg + input + '</span>');
 }); 
 //하위 테스크 추가설정 버튼 드롭다운 끝----------------------------------------------------------------------
+
+
+/* 그룹화 필터에 하위작업 버튼을 누르면 하위 작업 페이지로 이동하는 함수를 실행한다.*/
+$(document).on('click','#groupBySub', function(){
+	location.href="showTaskBoardMainSubGroup.tk";
+});
+
+//만약 그룹화 기준을 하위작업에서 없음으로 초기화 할 시엔
+//테스크 보드 메인페이지 조회하는 컨트롤러로 보내서 현재 페이지를 다시 로딩한다.
+$(document).on('click','#groupByNone', function(){
+	location.href="showTaskBoardMain.tk";
+});
+/* 그룹화 기준 : 하위 작업 끝 -------------------------------------------------------------------------------------------------------------------------------------------- */
+
+
+//display의 상태를 확인하여 보여줄지 감출지 선택할 수 있다.
+/* 상위 테스크 타이틀바 클릭시 해당 상위 테스크의 하위 테스크 목록 안보이게 하기 */
+$(document).on('click','.sTitle', function(event){
+	//이벤트 요소의 상위 요소를 가져온다.
+	var outerBoxId= event.target.parentNode.getAttribute("id");
+
+	//숨길 요소를 찾는다.
+	//.css("display") == "none" 안보이는 상태인지 조건으로 확인한다.
+	if($('#' + outerBoxId + ' .wrapper').css("display") == "none"){
+		//클릭한 타이틀바의 상위 요소인 .outerBox의 고유 id 가져와서, 그 아이디 하위에 있는 wrapper 보여준다.
+		$('#' + outerBoxId + ' .wrapper').show();
+		//현재 클릭한 이벤트의 스타일 리셋해주기
+		event.target.style.background = ""; 
+	//반대의 경우
+	}else{
+		$('#' + outerBoxId + ' .wrapper').hide();
+		//숨기기 이벤트 실행한 타이틀바는 색상 변경해줌
+		//현재 클릭한 이벤트의 스타일 변경
+		event.target.style.background = "rgba(43, 43, 73, 0.2)";
+	}
+});
+
 
 </script>
 </html>

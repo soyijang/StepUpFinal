@@ -17,6 +17,7 @@ import com.stepup.agile.projectTask.model.vo.ReplyList;
 import com.stepup.agile.projectTask.model.vo.TaskHistory;
 import com.stepup.agile.projectTask.model.vo.TaskList;
 import com.stepup.agile.userInfo.model.vo.Member;
+import com.stepup.agile.userInfo.model.vo.UserTeamList;
 
 @Service
 public class TaskServiceImpl implements TaskService {
@@ -344,7 +345,16 @@ public class TaskServiceImpl implements TaskService {
 	public int insertTaskHistoryTaskProceeding(TaskHistory taskHistory) {
 		return td.insertTaskHistoryTaskProceeding(sqlSession, taskHistory);
 	}
-	
+	//하위 테스크 headTaskCode 업데이트 (드래그앤드롭 기능)	
+	@Override
+	public int updateTaskListHeadTaskCode(TaskList taskList) {
+		return td.updateTaskListHeadTaskCode(sqlSession, taskList);
+	}
+	//사용자 팀코드 조회
+	@Override
+	public UserTeamList selectUserTeamCode(Member m) {
+		return td.selectUserTeamCode(sqlSession, m);
+	}
 
 
 
