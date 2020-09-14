@@ -259,6 +259,9 @@
              }
 		});
 	} */
+	
+	/* var message = '${msg}';
+	alert(message); */
 </script>
 </body>
 </html>

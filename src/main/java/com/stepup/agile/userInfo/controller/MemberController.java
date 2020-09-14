@@ -2,6 +2,7 @@ package com.stepup.agile.userInfo.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.List;
@@ -292,11 +293,11 @@ public class MemberController {
 
 	//회원탈퇴
 	@RequestMapping("getOut.me")
-	public ModelAndView getOut(ModelAndView mv, @ModelAttribute("loginUser") Member m, String checkPwd) {
+	public String getOut(ModelAndView mv, @ModelAttribute("loginUser") Member m, String checkPwd) {
 
 		int result = ms.getout(m);
 
-		return mv;
+		return "redirect:userInfo/loginOut/login";
 	}
 	//배경화면 변경
 	@RequestMapping("makebackImage.me")
@@ -430,7 +431,7 @@ public class MemberController {
 	}
 
 	@RequestMapping("login.me")
-	public String loginCheck(Model model, Member m) {
+	public String loginCheck(Model model, Member m, HttpServletResponse response) throws IOException {
 		System.out.println("로그인 인증 처리...");
 
 		Member loginUser;
@@ -441,14 +442,24 @@ public class MemberController {
 			if(loginUser.getVerified().equals("Y")) {
 
 				model.addAttribute("loginUser", loginUser);
+				
 				return "common/menubar";		
 			} else {
+				response.setCharacterEncoding("UTF-8");
+				response.setContentType("text/html; charset=UTF-8");
+
+				PrintWriter out = response.getWriter();
+
+				out.println("<script>alert('메일 인증이 필요합니다.'); location.href='http://localhost:8001/agile';</script>");
+				 
+				out.flush();
+				
 				return "userInfo/loginOut/login";
 			}
 
 		} catch (LoginFailedException e) {
 			model.addAttribute("msg", e.getMessage());
-
+			 
 			return "common/errorPage";
 		}
 	}

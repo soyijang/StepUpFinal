@@ -76,7 +76,7 @@
         }
         #emailAddress {
         	width:400px;
-        	margin-top:40px;
+        	margin-left:100px;
         }
         hr {
             width: 450px;
