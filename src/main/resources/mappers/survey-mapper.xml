@@ -132,7 +132,12 @@
 	
 	<insert id="insertNewChoice" parameterType="SurveyChoiceList">
 		INSERT INTO SURVEY_CHOICE_LIST
-		VALUES (#{surveyQuesCode}, #{surveyChoiceNum}, #{surveyChoiceContent});
+		VALUES (#{surveyQuesCode}, #{surveyChoiceNum}, #{surveyChoiceContent})
+	</insert>
+	
+	<insert id="insertQuesMatch">
+		INSERT INTO SURVEY_QUES_MATCH
+		VALUES (#{surveyQuesCode}, #{surveyCode})
 	</insert>
 	
 </mapper>

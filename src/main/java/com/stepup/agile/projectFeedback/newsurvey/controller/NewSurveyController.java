@@ -2,8 +2,11 @@ package com.stepup.agile.projectFeedback.newsurvey.controller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -117,16 +120,31 @@ public class NewSurveyController {
 	@ResponseBody
 	public ModelAndView insertNewChoice(Model model, @ModelAttribute("loginUser") Member m, ModelAndView mv,
 			@RequestBody SurveyChoiceList ChoiceList) {
-		
-		
+		Map<String, Object>map = new HashMap<String, Object>();
+		Set<Integer> set = new HashSet<>();
+		int result = 0;
+		int quesMatch = 0;
+		int cnt = 1;
+		int surveyCode = 0;
+		int temp = 0;
 		
 		for(SurveyChoiceList str : ChoiceList.getSurveyChoiceVOLists()) {
-			int result = ns.insertNewChoice(str);
-	         System.out.println(str);
+			result = ns.insertNewChoice(str);
+	        System.out.println("리스트 : " + str);
+	        map = new HashMap<String, Object>();
+	        map.put("surveyCode", str.getSurveyCode());
+	        if((cnt > 1) && (str.getSurveyQuesCode() != temp)) {
+	        	map.put("surveyQuesCode", str.getSurveyQuesCode());
+	        	quesMatch = ns.insertQuesMatch(map);
+	        	temp = str.getSurveyQuesCode();
+	        } else if(cnt == 1) {
+	        	temp = str.getSurveyQuesCode();
+	        	map.put("surveyQuesCode", str.getSurveyQuesCode());
+	        	quesMatch = ns.insertQuesMatch(map);
+	        }
+	        cnt++;
 	    }
-		
-		
-		
+
 		mv.setViewName("jsonView");
 		
 		return mv;

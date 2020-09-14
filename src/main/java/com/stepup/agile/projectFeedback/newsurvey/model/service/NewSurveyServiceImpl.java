@@ -1,7 +1,9 @@
 package com.stepup.agile.projectFeedback.newsurvey.model.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,6 +59,11 @@ public class NewSurveyServiceImpl implements NewSurveyService{
 	@Override
 	public int insertNewChoice(SurveyChoiceList str) {
 		return nd.insertNewChoice(sqlSession, str);
+	}
+
+	@Override
+	public int insertQuesMatch(Map<String, Object> map) {
+		return nd.insertQuesMatch(sqlSession, map);
 	}
 
 

@@ -7,6 +7,7 @@ public class SurveyChoiceList implements java.io.Serializable{
 	private int surveyQuesCode;
 	private int surveyChoiceNum;
 	private String surveyChoiceContent;
+	private int surveyCode;
 	
 	private List<SurveyChoiceList> surveyChoiceVOLists = null;
 	
@@ -14,12 +15,13 @@ public class SurveyChoiceList implements java.io.Serializable{
 		super();
 	}
 
-	public SurveyChoiceList(int surveyQuesCode, int surveyChoiceNum, String surveyChoiceContent,
+	public SurveyChoiceList(int surveyQuesCode, int surveyChoiceNum, String surveyChoiceContent, int surveyCode,
 			List<SurveyChoiceList> surveyChoiceVOLists) {
 		super();
 		this.surveyQuesCode = surveyQuesCode;
 		this.surveyChoiceNum = surveyChoiceNum;
 		this.surveyChoiceContent = surveyChoiceContent;
+		this.surveyCode = surveyCode;
 		this.surveyChoiceVOLists = surveyChoiceVOLists;
 	}
 
@@ -54,11 +56,21 @@ public class SurveyChoiceList implements java.io.Serializable{
 	public void setSurveyChoiceVOLists(List<SurveyChoiceList> surveyChoiceVOLists) {
 		this.surveyChoiceVOLists = surveyChoiceVOLists;
 	}
+	
+
+	public int getSurveyCode() {
+		return surveyCode;
+	}
+
+	public void setSurveyCode(int surveyCode) {
+		this.surveyCode = surveyCode;
+	}
 
 	@Override
 	public String toString() {
 		return "SurveyChoiceList [surveyQuesCode=" + surveyQuesCode + ", surveyChoiceNum=" + surveyChoiceNum
-				+ ", surveyChoiceContent=" + surveyChoiceContent + ", surveyChoiceVOLists=" + surveyChoiceVOLists + "]";
+				+ ", surveyChoiceContent=" + surveyChoiceContent + ", surveyCode=" + surveyCode
+				+ ", surveyChoiceVOLists=" + surveyChoiceVOLists + "]";
 	}
 
 }

@@ -1,7 +1,9 @@
 package com.stepup.agile.projectFeedback.newsurvey.model.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import com.stepup.agile.projectBacklog.model.vo.Sprint;
 import com.stepup.agile.projectBacklog.model.vo.SprintHistory;
@@ -25,4 +27,6 @@ public interface NewSurveyService {
 	int selectSurvey(Member m);
 
 	int insertNewChoice(SurveyChoiceList str);
+
+	int insertQuesMatch(Map<String, Object> map);
 }

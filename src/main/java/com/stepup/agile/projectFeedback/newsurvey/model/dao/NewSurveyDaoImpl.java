@@ -1,7 +1,9 @@
 package com.stepup.agile.projectFeedback.newsurvey.model.dao;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
@@ -50,5 +52,11 @@ public class NewSurveyDaoImpl implements NewSurveyDao{
 	public int insertNewChoice(SqlSessionTemplate sqlSession, SurveyChoiceList str) {
 		return sqlSession.insert("Survey.insertNewChoice", str);
 	}
+
+	@Override
+	public int insertQuesMatch(SqlSessionTemplate sqlSession, Map<String, Object> map) {
+		return sqlSession.insert("Survey.insertQuesMatch", map);
+	}
+
 
 }
