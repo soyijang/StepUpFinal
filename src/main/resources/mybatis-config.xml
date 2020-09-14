@@ -21,6 +21,7 @@
         <typeAlias type="com.stepup.agile.userInfo.model.vo.Attachment" alias="attachment"/>
         <typeAlias type="com.stepup.agile.projectFeedback.model.vo.SurveyList" alias="SurveyList"/>
         <typeAlias type="com.stepup.agile.projectFeedback.model.vo.SurveyQuesList" alias="SurveyQuesList"/>
+        <typeAlias type="com.stepup.agile.projectFeedback.model.vo.SurveyChoiceList" alias="SurveyChoiceList"/>
 	</typeAliases>
 	
  	<mappers>

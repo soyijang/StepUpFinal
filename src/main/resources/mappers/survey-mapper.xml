@@ -106,19 +106,6 @@
 		VALUES (SEQ_SURVEY_QUES.NEXTVAL, #{surveyCode});
 	</insert> -->
 	
-	<insert id="insertMultiplechoice" parameterType="SurveyList">
-		<selectKey keyProperty="surveyQuesCode" resultType="int" order="AFTER">
-	         SELECT SEQ_SURVEY_QUES.NEXTVAL FROM DUAL
-	      </selectKey>
-		INSERT INTO SURVEY_QUES_LIST
-		VALUES (SEQ_SURVEY_QUES.NEXTVAL, '01', '%'||#{multichoice}||'%', 'Y', 'Y')
-	</insert>
-	
-	<insert id="insertshortanswer" parameterType="SurveyList">
-		INSERT INTO SURVEY_QUES_LIST
-		VALUES (SEQ_SURVEY_QUES.NEXTVAL, '02', '%'||#{shortanswer}||'%', 'Y', 'N')
-	</insert>
-	
 	
 	<insert id="insertNewQues" parameterType="SurveyQuesList" >
 		<selectKey keyProperty="surveyQuesCode" resultType="int" order="AFTER">
@@ -126,6 +113,26 @@
 	     </selectKey>
 		INSERT INTO SURVEY_QUES_LIST
 		VALUES (SEQ_SURVEY_QUES.NEXTVAL, #{surveyQuesType}, #{surveyQuesName}, #{surveyQuesMust}, #{surveyQuesMulti, jdbcType=VARCHAR})
+	</insert>
+	
+	<select id="selectSurvey" resultType="int">
+	 	SELECT MAX(S.SURVEY_CODE) KEEP (DENSE_RANK LAST ORDER BY S.SURVEY_CREATE_DATE, S.SURVEY_CREATE_TIME) AS SURVEY_CODE
+		  FROM SURVEY_LIST S
+		     , USER_INFO I
+		     , USER_TEAM_LIST T
+		     , USER_PROJECT_LIST P
+		     , SPRINT_LIST SP
+		 WHERE I.USER_CODE = T.USER_CODE
+		   AND T.USER_TEAM_CODE = P.USER_TEAM_CODE
+		   AND P.USER_PROJECT_CODE = SP.USER_PROJECT_CODE
+		   AND SP.SPRINT_CODE = S.SPRINT_CODE
+		   AND I.USER_CODE = #{userCode}
+		   AND S.SURVEY_STATUS = 'Y'
+	</select>
+	
+	<insert id="insertNewChoice" parameterType="SurveyChoiceList">
+		INSERT INTO SURVEY_CHOICE_LIST
+		VALUES (#{surveyQuesCode}, #{surveyChoiceNum}, #{surveyChoiceContent});
 	</insert>
 	
 </mapper>

@@ -7,6 +7,8 @@ import org.mybatis.spring.SqlSessionTemplate;
 
 import com.stepup.agile.projectBacklog.model.vo.Sprint;
 import com.stepup.agile.projectBacklog.model.vo.SprintHistory;
+import com.stepup.agile.projectFeedback.model.vo.SurveyChoiceList;
+import com.stepup.agile.projectFeedback.model.vo.SurveyList;
 import com.stepup.agile.projectFeedback.model.vo.SurveyQuesList;
 import com.stepup.agile.userInfo.model.vo.Member;
 
@@ -20,10 +22,10 @@ public interface NewSurveyDao {
 
 	int insertNewSurveyMatch(SqlSessionTemplate sqlSession, int insertSurveyList);
 
-	int insertMultiplechoice(SqlSessionTemplate sqlSession, String multichoice);
-
-	int insertshortanswer(SqlSessionTemplate sqlSession, String shortanswer);
-
 	int insertNewQues(SqlSessionTemplate sqlSession, SurveyQuesList str);
+
+	int selectSurvey(SqlSessionTemplate sqlSession, Member m);
+
+	int insertNewChoice(SqlSessionTemplate sqlSession, SurveyChoiceList str);
 
 }

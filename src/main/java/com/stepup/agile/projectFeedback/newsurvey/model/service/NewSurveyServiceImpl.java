@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 
 import com.stepup.agile.projectBacklog.model.vo.Sprint;
 import com.stepup.agile.projectBacklog.model.vo.SprintHistory;
+import com.stepup.agile.projectFeedback.model.vo.SurveyChoiceList;
+import com.stepup.agile.projectFeedback.model.vo.SurveyList;
 import com.stepup.agile.projectFeedback.model.vo.SurveyQuesList;
 import com.stepup.agile.projectFeedback.newsurvey.model.dao.NewSurveyDao;
 import com.stepup.agile.userInfo.model.vo.Member;
@@ -43,18 +45,19 @@ public class NewSurveyServiceImpl implements NewSurveyService{
 	}
 
 	@Override
-	public int insertMultiplechoice(String multichoice) {
-		return nd.insertMultiplechoice(sqlSession, multichoice);
-	}
-
-	@Override
-	public int insertshortanswer(String shortanswer) {
-		return nd.insertshortanswer(sqlSession, shortanswer);
-	}
-
-	@Override
 	public int insertNewQues(SurveyQuesList str) {
 		return nd.insertNewQues(sqlSession, str);
 	}
+
+	@Override
+	public int selectSurvey(Member m) {
+		return nd.selectSurvey(sqlSession, m);
+	}
+
+	@Override
+	public int insertNewChoice(SurveyChoiceList str) {
+		return nd.insertNewChoice(sqlSession, str);
+	}
+
 
 }

@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.collections.map.HashedMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +17,8 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.stepup.agile.projectBacklog.model.vo.Sprint;
+import com.stepup.agile.projectFeedback.model.vo.SurveyChoiceList;
+import com.stepup.agile.projectFeedback.model.vo.SurveyList;
 import com.stepup.agile.projectFeedback.model.vo.SurveyQuesList;
 import com.stepup.agile.projectFeedback.newsurvey.model.service.NewSurveyService;
 import com.stepup.agile.userInfo.model.vo.Member;
@@ -73,7 +74,9 @@ public class NewSurveyController {
 	@RequestMapping("selectSurvey.sv")
 	public String selectSurvey(Model model, @ModelAttribute("loginUser") Member m) {
 		//최신 설문지 코드 조회
-		
+		int selectSurvey = 0;
+		selectSurvey = ns.selectSurvey(m);
+		model.addAttribute("surveyCode", selectSurvey);
 		
 		return "projectFeedback/newsurvey";
 	}
@@ -112,7 +115,19 @@ public class NewSurveyController {
 	
 	@RequestMapping(value="/insertNewChoice.sv", method = RequestMethod.POST)
 	@ResponseBody
-	public ModelAndView insertNewChoice(Model model, @ModelAttribute("loginUser") Member m, ModelAndView mv) {
+	public ModelAndView insertNewChoice(Model model, @ModelAttribute("loginUser") Member m, ModelAndView mv,
+			@RequestBody SurveyChoiceList ChoiceList) {
+		
+		
+		
+		for(SurveyChoiceList str : ChoiceList.getSurveyChoiceVOLists()) {
+			int result = ns.insertNewChoice(str);
+	         System.out.println(str);
+	    }
+		
+		
+		
+		mv.setViewName("jsonView");
 		
 		return mv;
 	}

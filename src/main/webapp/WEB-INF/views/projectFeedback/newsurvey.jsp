@@ -364,6 +364,7 @@ textarea {
                         <button class="newQuestionBtn" id="newQueBtn">+</button>
                         <p class="AddnewQuestion" id="AddNewQue">질문 추가</p>
                    </div>
+                   <input type="hidden" value="${ surveyCode }" id="surveyCode">
                    <br>
                    <br>
                    <div class="newQuestion2" id="send">
@@ -399,14 +400,16 @@ textarea {
 		
 	var num2 = 1;
 	var cnt = 1;
+	var count = 0;
+	
 	//질문추가
 	$(document).on('click', "#AddNewQue", function addNewQue(){
-		
+		count++;
 		cnt++;
 		num2++;
 		$('div#survey-form-area').append('<div id="survey-number">질문 '+ (cnt-1) + '</div>'
 			+	'<div id="survey-form'+ cnt + '"class="survey-form"><div id="survey-title">'
-			+		'<input type="text" placeholder="객관식질문을 입력하세요" class="input1" id="QueTypeChoice' + (cnt+1) + '" name="ga">'
+			+		'<input type="text" placeholder="질문을 입력하세요" class="input1" id="QueTypeChoice' + (cnt+1) + '" name="ga">'
 			+		'<input type="hidden" name="surveyQuesType" style="display:none;" value="01" id="QueType' + (cnt+1) + '">'
 			+		'<div class="dropdown" style="width:90px;">'
 			+	        '<div class="select">'
@@ -422,7 +425,7 @@ textarea {
 			+	'</div>'
 			+	'<div id="survey-cont' + cnt + '">'
  		 	+		'<div class="Multiple" id="multiple' + cnt + '">'
-			+		'<input id="radio-2" name="radio" type="checkbox"><input type="text" placeholder="옵션을 입력하세요" class="input1" id="setinput' + cnt + '" name="ga"><br>'
+			+		'<input type="hidden" value=' + (num2-1) + '"><input type="text" placeholder="옵션을 입력하세요" class="input1" id="setinput' + cnt + '" name="0"><br>'
 			+		'</div>'
 		    +		'<div class="newOption" id="newOption' + num2 + '">'
 			+		'<button class="newOptionBtn" id="newOptBtn' + num2 + '">+</button>'
@@ -441,7 +444,7 @@ textarea {
 		
 		console.log ($("#multi3").val());
 		//$('div#survey-cont' + cnt).append()
-		
+		console.log("코드 : " + $('#surveyCode').val());
 		
 	});
 	
@@ -456,7 +459,6 @@ textarea {
 	var surveyform = "";
 	$(document).on('click', '.AddnewOption', function(event){
 		//var optionid = $('.AddnewOption').prop('id');
-		
 		var typeid = event.target;
 		var parent = typeid.parentElement;
 		//survey-cont
@@ -467,7 +469,6 @@ textarea {
 		
 		var child1 = parent2.id;
 		console.log("surveyCont : " + child1);
-		
 		$('<br>').remove();
 		$('div').remove('#newOption'+num2);
 		$('button').remove('#newOptionBtn'+num2);
@@ -475,7 +476,7 @@ textarea {
 		$('div').remove('#multi-must-chek-area'+num2);
 		$('div').remove('#optionIconArea'+num2);
 		num2++;
-		$('#'+child1).append('<div class="Multiple" id="multiple'+ num2 + '"><input id="radio-2" name="radio" type="checkbox"><input type="text" placeholder="옵션을 입력하세요" class="input1" id="setinput' + num2 +'" name=""></div>'
+		$('#'+child1).append('<div class="Multiple" id="multiple'+ num2 + '"><input type="hidden" value=' + (num2-1) + '"><input type="text" placeholder="옵션을 입력하세요" class="input1" id="setinput' + num2 +'" name="0"></div>'
 			  + '<div class="newOption" id="newOption' + num2 + '">'
 			  + '<button class="newOptionBtn" id="newOptBtn' + num2 + '">+</button>'
    			  + '<p class="AddnewOption" id="AddNewOption' + num2 + '">옵션 추가</p>'
@@ -493,7 +494,6 @@ textarea {
 		console.log(num);
 		
 		$('#'+child2).css("height", num);
-		
 	});
 	
 	//주관식
@@ -517,7 +517,6 @@ textarea {
 		console.log(pid);
 		
 		console.log("child1 : " + child1);
-		
 		$("#"+child1).children().remove();
 		$("#"+child1).append(
 				'<div id="multi-must-chek-area' + (num2-1) + '" class="multi-must-chek-area">'
@@ -530,6 +529,7 @@ textarea {
 		
 		$("#"+child4).val("02");
 		$("#"+pid).css("height","100px");
+		
 	});
 	
 	//객관식
@@ -550,9 +550,8 @@ textarea {
 		var pid = parent4.id;
 		console.log(pid);
 		console.log("child1 : " + child1);
-		
 		$("#"+child1).children().remove();
-		$("#"+child1).append('<div class="Multiple" id="multiple'+ num2 + '"><input id="radio-2" name="radio" type="checkbox"><input type="text" placeholder="옵션을 입력하세요" class="input1" id="setinput' + num2 +'" name=""></div>'
+		$("#"+child1).append('<div class="Multiple" id="multiple'+ num2 + '"><input type="hidden" value=' + (num2-1) + '"><input type="text" placeholder="옵션을 입력하세요" class="input1" id="setinput' + num2 +'" name="0"></div>'
 				  + '<div class="newOption" id="newOption' + num2 + '">'
 				  + '<button class="newOptionBtn" id="newOptBtn' + num2 + '">+</button>'
 	   			  + '<p class="AddnewOption" id="AddNewOption' + num2 + '">옵션 추가</p>'
@@ -567,7 +566,7 @@ textarea {
 					+ '</div>');
 		$("#"+child4).val("01");
 		$("#"+pid).css("height","150px");
-
+		
 	});
 
 
@@ -609,20 +608,65 @@ textarea {
 			success: function(data){
 				console.log(data.result);
 				
-				var choiceNumber = data.result;
+				var choiceNumber;
+				choiceNumber = data.result;
+				console.log("chNumber: " + choiceNumber);
 				
-				/*  $.ajax({
+				var que = [];
+				for(prop in data.result)  {
+					  console.log(prop + " : "  + data.result[prop]);
+					  que += data.result[prop];
+					  que += ",";
+				}
+				
+				/* for(var i=0; i<data.result.size; i++)  {
+					  console.log(i + " : "  + data.result[i]);
+					  que += data.result[i];
+					  que += ",";
+				} */
+				
+				console.log(que);
+				
+				var queArr = que.split(",");
+					  console.log(queArr);
+				
+			    var totData2 = new Object();
+				var dataList2 = new Array();
+			    
+			    var oplength = [];
+				for(i=2; i < (cnt+1); i++){
+					if((queArr[i-2] != "") && (queArr[i-2] != null)){
+			    	$("#QueTypeChoice"+(i+1)).attr("name", queArr[i-2]);
+			    	$($("#QueTypeChoice"+(i+1)).parent().parent().children().children().children("input.input1").attr("name", queArr[i-2]));
+					}
+				}
+			    
+				var QuesCodeList1 = new Array();
+			    for(var i=2; i < (num2+1); i++){
+			    	var data2 = new Object();
+			    	 data2["surveyQuesCode"] = $('#setinput' + i).attr('name');
+			         data2["surveyChoiceNum"] = $('#setinput' + i).val();
+			         data2["surveyChoiceContent"] = $('#setinput' + i).val();
+				        	 
+			         dataList2.push(data2);
+			    }
+			    
+			      //dataList를 voList객체로 다시한번 넣어줌. (totData는 객체로 선언, dataList는 Array로 선언)
+			      totData2["surveyChoiceVOLists"] = dataList2;
+			      console.log(totData2);
+			      
+				  $.ajax({
 					url:"insertNewChoice.sv",
 					type:"post",
-					data: 
+					data: JSON.stringify(totData2),
 					contentType:'application/json',
 					dataType : "json",
 					success: function(data){
-						
+						console.log("성공");
 					},error:function(data){
 						console.log("실패");
 					}
-				}); */
+				});
 				
 			},error:function(data){
 				console.log("실패");
