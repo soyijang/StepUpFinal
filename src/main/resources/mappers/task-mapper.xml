@@ -189,6 +189,7 @@
 		<result property="taskCreateTime" column="TASK_CREATE_TIME"/>
 		<result property="taskMaster" column="TASK_MASTER"/>
 		<result property="taskUser" column="TASK_USER"/>
+		<result property="headTaskCode" column="HEAD_TASK_CODE"/>
 		<collection property="member" resultMap="memberResultSet"/>
 		<collection property="team" resultMap="TeamResultSetMi"/>
 	    <collection property="userTeamList" resultMap="UserTeamListResultSet"/>

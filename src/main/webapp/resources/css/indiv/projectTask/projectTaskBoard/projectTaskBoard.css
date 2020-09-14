@@ -435,6 +435,12 @@ a{
 /**상위 테스크 끝********************************************************************/
 
 /**하위 테스크 시작********************************************************************/
+/* 상위 테스크 타이틀 및 하위테스크 상자 감사는 div */
+.outerBox{
+	display: inline-block;
+	width: 100%;
+}
+
 /* 상위 테스크 타이틀보여줄 상자 */
 .sTitle{
 	margin-left:3%;
@@ -453,12 +459,11 @@ a{
 	padding-left: 30px;
 	display: inline-block;
 	margin-top: 0.5%;
-	margin-bottom: 0.5%;
 	float: left;
 }
 
 /* s아이콘 상자 */
-.sicon{
+.micon{
 	float:left;
 	width: 17px;
 	height:17px;
@@ -473,6 +478,25 @@ a{
 	display: inline-block;
 	margin-right: 4px;
 	margin-top:9px;	
+	
+}
+
+.sicon{
+	float:left;
+	width: 17px;
+	height:17px;
+	background: #52B1E9;
+	border-radius: 3px;
+	box-sizing: border-box;
+	font-weight: bold;
+	color: white;
+	text-align: center;
+	font-size:12px;
+	line-height:17px;
+	display: inline-block;
+	margin-right: 4px;
+	margin-top:9px;	
+	
 }
 .stcode{
 	float:left;
@@ -490,7 +514,7 @@ a{
   	/* 글자가 일정 크기 넘어가면 오른쪽이 생략됨 */
   	direction: ltr;
     white-space: nowrap;
-    margin-right: 10px;
+/*     margin-right: 10px; */
 }
 .nameBox{
 	font-size: 16px;
@@ -502,7 +526,7 @@ a{
 }
 /* 미진행, 진행중, 완료 board */
  .sboard{ 
- 	height:100px;
+ 	height:auto;
 	background: #FAFAFA;
  	border-radius: 5px; 
 	float: left;
@@ -511,6 +535,7 @@ a{
 	margin-left:3%;
 	margin-right:3%;
 	width: 22%;
+	display: inline-block;
 	align-items: center;
 }
 /* 진행상태 상자 css */
@@ -668,6 +693,103 @@ a{
       background-color: #FEF5F8;
   }
  /* 상세 설정 드롭 다운 css----------------------------------------------------------------------- */
+ 
+ /* 하위 그룹 상세 설정 드롭 다운 css ----------------------------------------------------------------------- */
+ .dropdown2 {
+ 	width: 10px;
+    height: 10px; 
+	float: right;
+	padding:0;
+	margin:0;
+	box-sizing: border-box;
+    font-weight: normal;
+    display: inline-block;
+/*  background-color: #ffffff; */
+    background-color: #dd0351;
+    transition: all .5s ease;
+    position: relative;
+    font-size: 14px;
+    color: #474747;
+    text-align: center;
+/*     border-radius: 10px; */
+    border-radius: 221.5px; 
+    border: 1px solid #dd0351;
+    float: right;
+
+  }
+  .dropdown2 .select {
+      cursor: pointer;
+      display: block;
+      padding: 5px;
+      box-sizing: border-box;
+  }
+  .dropdown2 .select > i {
+      font-size: 13px;
+      color: #888;
+      cursor: pointer;
+      transition: all .3s ease-in-out;
+      float: right;
+      line-height: 20px
+  }
+  .dropdown2:hover {
+      box-shadow: 0 0 4px #FEF5F8;
+      text-decoration-color: #dd0351;
+      background-color: #FEF5F8;
+      border-color: #FEF5F8;
+  }
+  .dropdown2:active {
+      background-color: #FEF5F8;
+  }
+  .dropdown2.active:hover,
+  .dropdown2.active {
+      box-shadow: 0 0 4px #FEF5F8;
+      border-radius: 2px 2px 0 0;
+      background-color: #f8f8f8;
+  }
+  .dropdown2.active .select > i {
+      transform: rotate(-90deg)
+  }
+  .dropdown2 .dropdown2-menu {
+      position: absolute;
+      background-color: #fff;
+      width: 100%;
+      left: 0;
+      margin-top: 1px;
+      box-shadow: 0 1px 2px#FEF5F8;
+      border-radius: 10px;
+       overflow: hidden; 
+      display: none;
+      /* 메뉴 드롭 상자의 최대 높이 */
+      max-height: 300px;
+      overflow-y: auto;
+      z-index: 9;
+      /* select 박스 위치 옆으로 옮기기 */
+      margin-left: -1200%;
+      box-sizing: border-box;
+  }
+  .dropdown2 .dropdown2-menu li {
+      padding: 5px;
+      transition: all .2s ease-in-out;
+      cursor: pointer
+  } 
+  .dropdown2 .dropdown2-menu {
+      padding: 0;
+      list-style: none;
+      width: 1300%;
+      /* 스크롤 안생기게 하기 */
+      overflow: hidden;
+  }
+  .dropdown2 .dropdown2-menu li:hover {
+      color: #dd0351;
+      background-color: #FEF5F8;
+  }
+  .dropdown2 .dropdown2-menu li:active {
+      background-color: #FEF5F8;
+  }
+ /*하위 그룹  상세 설정 드롭 다운 css----------------------------------------------------------------------- */
+ 
+ 
+ 
  
  
  /* 그룹화 필터 드롭 다운 CSS-------------------------------------------------------------------- */
