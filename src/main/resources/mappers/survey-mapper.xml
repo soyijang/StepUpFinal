@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="Survey">
+<mapper namespace="SurveyList">
 
 	<resultMap type="com.stepup.agile.projectFeedback.model.vo.SurveyChoiceList" id="surveyChoiceListResultSet">
 		<id property="surveyQuesCode" column="SURVEY_QUES_CODE"/>
@@ -20,17 +20,61 @@
 		<result property="surveyCode" column="SURVEY_CODE"/>
 	</resultMap>
 	
-	<resultMap type="com.stepup.agile.projectFeedback.model.vo.Survey" id="SurveyListResultSet">
-		<id property="surveyCode" column="SURVEY_CODE"/>
-		<result property="sprintCode" column="SPRINT_CODE"/>
-		<result property="surveyCreateDate" column="SURVEY_CREATE_DATE"/>
-		<result property="surveyCreateTime" column="SURVEY_CREATE_TIME"/>
-		<result property="surveyName" column="SURVEY_NAME"/>
-		<result property="surveyIntro" column="SURVEY_INTRO"/>
-		<result property="surveyStatus" column="SURVEY_STATUS"/>
-		<result property="surveyStartDate" column="SURVEY_START_DATE"/>
-		<result property="surveyEndDate" column="SURVEY_END_DATE"/>
-	</resultMap>
+	 <resultMap type="com.stepup.agile.projectFeedback.model.vo.SurveyList" id="SurveyListResultSet">
+      <id property="surveyCode" column="SURVEY_CODE"/>
+      <result property="sprintCode" column="SPRINT_CODE"/>
+      <result property="surveyCreateDate" column="SURVEY_CREATE_DATE"/>
+      <result property="surveyCreateTime" column="SURVEY_CREATE_TIME"/>
+      <result property="surveyName" column="SURVEY_NAME"/>
+      <result property="surveyIntro" column="SURVEY_INTRO"/>
+      <result property="surveyStatus" column="SURVEY_STATUS"/>
+      <result property="surveyStartDate" column="SURVEY_START_DATE"/>
+      <result property="surveyEndDate" column="SURVEY_END_DATE"/>
+      <collection property="member" resultMap="memberResultSet"/>
+      <collection property="surveyJoinList" resultMap="surveyJoinListResultSet"/>
+      <collection property="sprint" resultMap="sprintResultSet"/>
+      <collection property="sprintHistory" resultMap="sprintHistoryResultSet2"/>
+   </resultMap>
+   
+      <!-- collection용 -->
+   <!-- 사용자정보  -->
+   <resultMap type="com.stepup.agile.userInfo.model.vo.Member" id="memberResultSet">
+      <id property="userCode" column="USER_CODE"/>
+      <result property="userEmail" column="USER_EMAIL"/>
+      <result property="userPwd" column="USER_PWD"/>
+      <result property="userName" column="USER_NAME"/>
+      <result property="userPhone" column="USER_PHONE"/>
+      <result property="userCompName" column="USER_COMP_NAME"/>
+      <result property="userCompDept" column="USER_COMP_DEPT"/>
+      <result property="userCompJob" column="USER_COMP_JOB"/>
+      <result property="userEnrollDate" column="USER_ENROLL_DATE"/>
+      <result property="userStatus" column="USER_STATUS"/>
+      <result property="userManagerYn" column="USER_MANAGER_YN"/>
+      <result property="userEnrollTime" column="USER_ENROLL_TIME"/>
+   </resultMap>   
+   
+   <!-- SPRINT LIST 테이블 -->
+   <resultMap type="com.stepup.agile.projectBacklog.model.vo.Sprint" id="sprintResultSet">
+      <id property="sprintCode" column="SPRINT_CODE"/>
+      <result property="sprintCreateDate" column="SPRINT_CREATE_DATE"/>
+      <result property="sprintProjectCode" column="USER_PROJECT_CODE"/>
+      <result property="sprintCreateTime" column="SPRINT_CREATE_TIME"/>
+   </resultMap>
+
+   <!-- SPRINT_HISTORY 테이블-->   
+   <resultMap type="com.stepup.agile.projectBacklog.model.vo.SprintHistory" id="sprintHistoryResultSet2">
+      <id property="sprintHistCode" column="SPRINT_HIST_CODE"/>
+      <result property="sprintHistUpdateDate" column="SPRINT_HIST_UPDATE_DATE"/>
+      <result property="sprintName" column="SPRINT_NAME"/>
+      <result property="sprintType" column="SPRINT_TYPE"/>
+      <result property="sprintExpectPeriod" column="SPRINT_EXPECT_PERIOD"/>
+      <result property="sprintCode" column="SPRINT_CODE"/>
+      <result property="sprintHistUpdateTime" column="SPRINT_HIST_UPDATE_TIME"/>
+      <result property="sprintIntro" column="SPRINT_INTRO"/>
+      <result property="sprintStatus" column="SPRINT_STATUS"/>
+      <result property="sprintTaskCount" column="SPRINT_TASK_COUNT"/>
+      <result property="sprintTypeYn" column="SPRINT_TYPE_YN"/>
+   </resultMap>
 	
 	<resultMap type="com.stepup.agile.projectFeedback.model.vo.SurveyQuesList" id="surveyQuesListResultSet">
 		<id property="surveyQuesCode" column="SURVEY_QUES_CODE"/>
@@ -39,7 +83,45 @@
 		<result property="surveyQuesMust" column="SURVEY_QUES_MUST"/>
 		<result property="surveyQuesMulti" column="SURVEY_QUES_MULTI"/>
 	</resultMap>
+	
+	<resultMap type="com.stepup.agile.userInfo.model.vo.UserTeamList" id="UserTeamListResultSet">
+		<id property="userTeamCode" column="USER_TEAM_CODE"/>
+		<result property="userTeamDate" column="USER_TEAM_DATE"/>
+		<result property="userTeamYn" column="USER_TEAM_YN"/>
+		<result property="userCode" column="USER_CODE"/>
+		<result property="teamCode" column="TEAM_CODE"/>
+		<result property="userTeamTime" column="USER_TEAM_TIME"/>
+	</resultMap>
+	<resultMap type="com.stepup.agile.userInfo.model.vo.UserProjectList" id="UserProjectListResultSet">
+		<id property="userProjectCode" column="USER_PROJECT_CODE"/>
+		<result property="userProjectUpdateDate" column="USER_PROJECT_UPDATE_DATE"/>
+		<result property="userProjectUpdateTime" column="USER_PROJECT_UPDATE_TIME"/>
+		<result property="userProjectStatus" column="USER_PROJECT_STATUS"/>
+		<result property="projectCode" column="PROJECT_CODE"/>
+		<result property="userTeamCode" column="USER_TEAM_CODE"/>
+		<result property="userProjectAuthority" column="USER_PROJECT_AUTHORITY"/>
+	</resultMap>
 
+
+	<select id="selectSurveyList" resultMap="SurveyListResultSet" parameterType="SurveyList">
+		SELECT SURVEY_NAME
+			  ,SURVEY_CREATE_DATE
+	  FROM SURVEY_LIST S
+	     , USER_INFO I
+	     , USER_TEAM_LIST T
+	     , USER_PROJECT_LIST P
+	     , SPRINT_LIST SP
+	 WHERE I.USER_CODE = T.USER_CODE
+	   AND T.USER_TEAM_CODE = P.USER_TEAM_CODE
+	   AND P.USER_PROJECT_CODE = SP.USER_PROJECT_CODE
+	   AND SP.SPRINT_CODE = S.SPRINT_CODE
+	   AND I.USER_CODE = 14
+	</select> 
+	
+	<delete id="deleteSurvey" parameterType="com.stepup.agile.projectFeedback.model.vo.SurveyList">
+		DELETE FROM SURVEY_LIST WHERE SURVEY_CODE = #{surveyCode};
+	
+	</delete>
 
 </mapper>
 
