@@ -13,12 +13,12 @@ public class SurveyDaoImpl implements SurveyDao{
 
 	@Override
 	public List<SurveyList> selectSurvey(SqlSessionTemplate sqlSession, Member m) {
-		return sqlSession.selectList("SurveyList.selectSurveyList",m);
+		return sqlSession.selectList("Survey.selectSurveyList",m);
 	}
 
 	@Override
 	public int deleteSurvey(SqlSessionTemplate sqlSession, int surveyCode) {
-		return sqlSession.delete("SurveyList.deleteSurvey",surveyCode);
+		return sqlSession.delete("Survey.deleteSurvey",surveyCode);
 	}
 
 
