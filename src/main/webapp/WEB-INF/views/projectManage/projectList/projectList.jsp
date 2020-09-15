@@ -37,25 +37,60 @@
 				<div id="contentBox1-content">
 					<table id="contentBox1-content-table">
 						<tr>
-							<!-- 프로젝트 리스트 -->
-							<c:forEach var="item" items="${selectedProjectHistoryList}" begin="0" end="3" step="1" varStatus="status">
-								<td>
-									<div class="contentBox1-content-table-tr-td" id="project-top-list-code${item.project.projectCode}"
-									onclick="projectClick(${item.project.projectCode})">
-										<div class="left-padding-gray${status.index}">
-											<div class="project-name">
-												${item.project.projectName}
-											</div>
-											<div class="project-participants">
-												참여인원<div class="pink-btn">${item.project.projectParticipantCnt}</div>
-											</div>
-											<div class="project-progress-rate">
-												진행률 <div class="pink-btn">${item.project.projectProceedingRate}%</div>
+							<c:if test="${not empty selectedProjectHistoryList}">
+								<c:if test="${fn:length(selectedProjectHistoryList)>3}">
+								<!-- 프로젝트 리스트 -->
+								<c:forEach var="item" items="${selectedProjectHistoryList}" begin="0" end="3" step="1" varStatus="status">
+									<td>
+										<div class="contentBox1-content-table-tr-td" id="project-top-list-code${item.project.projectCode}"
+										onclick="projectClick(${item.project.projectCode})">
+											<div class="left-padding-gray${status.index}">
+												<div class="project-name">
+													${item.project.projectName}
+												</div>
+												<div class="project-participants">
+													참여인원<div class="pink-btn">${item.project.projectParticipantCnt}</div>
+												</div>
+												<div class="project-progress-rate">
+													진행률 <div class="pink-btn">${item.project.projectProceedingRate}%</div>
+												</div>
 											</div>
 										</div>
-									</div>
-								</td>
-							</c:forEach>	
+									</td>
+								</c:forEach>
+								</c:if>	
+							</c:if>
+							<c:if test="${not empty selectedProjectHistoryList}">
+									<td>
+										<div class="red-star">진행중인 프로젝트가 없습니다</div>
+									</td>							
+							</c:if>
+							
+							<c:if test="${not empty selectedProjectHistoryList}">
+								<c:if test="${fn:length(selectedProjectHistoryList) < 3}">
+								<c:forEach var="item" items="${selectedProjectHistoryList}" begin="0" end="${fn:length(selectedProjectHistoryList)}" step="1" varStatus="status">
+									<td>
+										<div class="contentBox1-content-table-tr-td" id="project-top-list-code${item.project.projectCode}"
+										onclick="projectClick(${item.project.projectCode})">
+											<div class="left-padding-gray${status.index}">
+												<div class="project-name">
+													${item.project.projectName}
+												</div>
+												<div class="project-participants">
+													참여인원<div class="pink-btn">${item.project.projectParticipantCnt}</div>
+												</div>
+												<div class="project-progress-rate">
+													진행률 <div class="pink-btn">${item.project.projectProceedingRate}%</div>
+												</div>
+											</div>
+										</div>
+									</td>
+								</c:forEach>	
+								</c:if>					
+							</c:if>
+							
+							
+							
 							<!-- 프로젝트 추가 -->
 							<td>
 								<div class="contentBox1-content-table-tr-td pointer createBtn">
@@ -74,7 +109,7 @@
        			<span id="contentBox2-title">전체 프로젝트 목록</span>
        			<div id="contentBox2-btn" class="createBtn">
        				<div class="icon_file_plus">
-       					<img id="icon_file_plus" src="/agile/resources/icon/common/icon_file_plus.png">
+     				<img id="icon_file_plus" src="/agile/resources/icon/common/icon_file_plus.png">
        				</div>
        				새 프로젝트 추가
        			</div>
@@ -101,7 +136,8 @@
 							<!-- 프로젝트 관련정보 반복문 -->
 							<!-- begin, end, step 생략시 collection 크기만큼 반복  -->
 							<!-- < var="item2" items="${selectedProjectHistoryList}" varStatus="status"> -->
-							<c:forEach var="i" begin="0" end="${fn:length(selectedProjectHistoryList)-1}">
+							<c:if test="${not empty selectedProjectHistoryList}">
+							<c:forEach var="i" begin="0" end="${fn:length(selectedProjectHistoryList)}">
 								<tr>
 									<td id="project-list-code${selectedProjectHistoryList.get(i).project.projectCode}"
 									onclick="projectClick(${selectedProjectHistoryList.get(i).project.projectCode})">
@@ -139,15 +175,17 @@
 										${selectedProjectHistoryList.get(i).projectEndDate}
 										<input type="hidden" class="projectEndDate" value="${selectedProjectHistoryList.get(i).projectEndDate}">
 										<input type="hidden" class="projectEndTime" value="${selectedProjectHistoryList.get(i).projectEndTime}">
+									</td>
 									<td>
 								            <!--  <div class="incompleteBox">미완료 ${item.projectHistory.projectStartDate} - ${item.projectHistory.projectEndDate}</div> -->
 								            <!-- <div class="incompleteBox">미진행</div>  -->
 								            <!-- <div class="completeBox">완료</div> -->
-								        <div class="projectIngStatus"></div>
+								     		   <div class="projectIngStatus"></div>
 <!-- 								        <div class="proceedingBox">진행중</div> -->
 									</td>
 									<!-- 프로젝트 마스터 -->
 									<td>
+									<c:if test="${not empty userProjectList}">
 										<c:forEach var="k" begin="0" end="${fn:length(userProjectList)-1}">
 											<c:if test="${userProjectList.get(k).project.projectCode == selectedProjectHistoryList.get(i).project.projectCode && userProjectList.get(k).userProjectAuthority == '01'}">
 												<!-- 권한 확인한 후 01번 마스터 권한인 경우에만 이름 두자리만 가져오기 -->
@@ -157,7 +195,7 @@
 												</div> 
 											</c:if>
 										</c:forEach>										
-										
+									</c:if>	
 										
 										
 										
@@ -177,10 +215,11 @@
 										</div>
 									</td>	 
 								</tr>
-							</c:forEach>	
+							</c:forEach>
+							</c:if>	
 						</tbody>
 					</table>
-					<div></div>
+					</div>
 				</div>
        		</div>
        </div>

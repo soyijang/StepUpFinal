@@ -474,7 +474,7 @@ public class MemberController {
 
       Member m = new Member();
       m.setUserEmail(email);
-      m.setUserPhone(콜);
+      m.setUserPhone(phone);
 
       mv.addObject("member", m);
       mv.setViewName("jsonView");
