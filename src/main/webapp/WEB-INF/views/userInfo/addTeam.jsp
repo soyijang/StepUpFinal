@@ -199,7 +199,7 @@ mark {
             margin-left: 20px;
             margin-top: 20px;
         }
-  
+
 
 </style>
 </head>
@@ -271,39 +271,44 @@ mark {
 					    <!-- 모달창 종료 -->
 					    
 					    
-					    <!-- sendEmail modal 시작-->
+					    <!-- 팀원추가 modal 시작-->
 					     <!-- The Modal -->
-					   <form action="send.tm" method="get">
 					    <div id="myModal2" class="modal2">
 					      <!-- Modal content -->
 					      <div class="modal-content2">
-					        <p align="left" class ="modaltitle" style="font-size:30px;">사람추가</p>
-					        <table align="center" class="modalTable2">
-					          <div id="addPerson">
-						        <p>gmail.com의 누군가가 누락되었습니까?</p>
-						        <p>해당 사용자의 이메일을 아래에 추가하십시요.</p>
-						        <p>- 권한이 허용되면 추가하겠습니다. 그렇지 않으면 담당자가
-						            해당 관리자에게 요청을 보내겠습니다.</p>
-						        
-						        <div id="emailInsert"><input type="text" placeholder="이메일 주소 추가"></div>
-						        <div id="emailInsert"><input type="text" placeholder="이메일 주소 추가"></div>
-						        <div id="emailInsert"><input type="text" placeholder="이메일 주소 추가"></div>
-						
-						        <div id="addInvite" style="text-align: left;">
+		
+			            <div class="teamInsert">
+			            	<div style="text-align: left;">
+			                <h4>팀원 초대</h4>
+			                <select id="addUserTeam" name="addUserTeam">
+						        <option value="none">=== 귀하의 팀 ===</option>
+						        <c:forEach var="teamList" items="${ teamList }">
+								<option value="${ teamList.teamName }">${ teamList.teamName }</option>
+								</c:forEach>
+							</select>
+							<select id="addUserName" name="addUserName">
+						        <option value="none">=== 함께한 작업자 ===</option>
+						        <c:forEach var="teamUserName" items="${ teamUserName }">
+								<option value="${ teamUserName.userName }">${ teamUserName.userName }</option>
+								</c:forEach>
+							</select>
+			                <pre>귀하의 팀을 선택해 주세요.</pre>
+			                <div id="emailInsert"><input type="text" placeholder="이메일 주소 추가"></div>
+						        <div id="addInvite" style="text-align: left; font-size: 12px;">
 						            + 초대추가
 						        </div>
-						
-						    </div>
-					        </table>
-					        <button class="submit">보내기</button>
-					        <button class="close">취소</button>
+						       
+			                </div>
+			                <div id="btn">
+			                    <button class="submit">메일 보내기</button> 
+			                    <button class="close">취소</button> 
+			                </div>
+			            </div> 
 					      </div>
-					    
 					    </div>
-										    
-					    </form>
+					    <!-- 팀원추가 modal 종료-->
 					    
-					    <!-- sendEmail modal 종료-->
+					   
 					    
 					</div>
 					<!--팀원 추가 버튼영역 종료-->

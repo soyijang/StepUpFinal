@@ -9,6 +9,8 @@
 <title>Insert title here</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/common/nav.js"></script>
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/common/issueType.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/common/font.css">
 <style>
 	.@import url(http://fonts.googleapis.com/earlyaccess/notosanskr.css);
 @font-face {font-family: 'Noto Sans KR';font-style: normal;font-weight: 100;src: url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Thin.woff2) format('woff2'),url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Thin.woff) format('woff'),url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Thin.otf) format('opentype');}
@@ -106,7 +108,7 @@ body{
     border: 1px solid #6D6D6D;
     background: #c4c4c44f;
     margin: 30px;
-    margin-top: 60px;;
+    margin-top: 60px;
 }
 #projectSurveyInsert {
     text-align: center;
@@ -155,7 +157,7 @@ mark {
 #surveyAnswer {
     border: 1px solid #6D6D6D;
     width: 185px;
-    height: 220px;
+    height: 270px;
     margin: 30px;
     text-align: center;
     display: inline-block;
@@ -280,11 +282,83 @@ mark {
   		color: white;
   		border-radius: 5px;
   }
+ .surveydropdown {
+    display: inline-block;
+    background-color: white;
+    box-shadow: 0 0 2px #cccccc;
+    transition: all .5s ease;
+    position: relative;
+    font-size: 14px;
+    color: #474747;
+    height: 100%;
+    text-align: center;
+  }
+
+  .surveydropdown .select {
+      cursor: pointer;
+      width:36px;
+  }
+  .surveydropdown .select > i {
+      font-size: 13px;
+      color: #888;
+      cursor: pointer;
+      transition: all .3s ease-in-out;
+      float: right;
+      line-height: 20px;
+  }
+  .dropdown:hover {
+      box-shadow: 0 0 4px #FEF5F8;
+      text-decoration-color: #dd0351;
+      background-color: #2B2B49;
+  }
+  .surveydropdown:active {
+      background-color: #FEF5F8;
+      
+  }
+  .surveydropdown.active:hover,
+  .surveydropdown.active {
+      box-shadow: 0 0 4px #FEF5F8;
+      background-color: #2B2B49;
+  }
+  .surveydropdown.active .select > i {
+      transform: rotate(-90deg);
+  }
+  .surveydropdown .surveydropdown-menu {
+      position: absolute;
+      background-color: none;
+      width: 100px;
+      left: 0;
+      margin-top: 1px;
+      box-shadow: 0 1px 2px#FEF5F8;
+      overflow: hidden;
+      display: none;
+      max-height: 144px;
+      overflow-y: auto;
+      z-index: 9;
+  }
+  .surveydropdown .surveydropdown-menu li {
+      padding: 5px;
+      transition: all .2s ease-in-out;
+      cursor: pointer;
+  } 
+  .surveydropdown .surveydropdown-menu {
+      padding: 0;
+      list-style: none;
+  }
+  .surveydropdown .surveydropdown-menu li:hover {
+      color: #dd0351;
+      background-color: #FEF5F8;
+  }
+  .surveydropdown .surveydropdown-menu li:active {
+      background-color: #FEF5F8;
+  }
+
 </style>
 
 
 </head>
 <body>
+<c:set var="contextPath" value="${ pageContext.servletContext.contextPath }" scope="application"/>
  	<%@ include file="../common/menubar.jsp" %>
             <div id="content">  
                 <!-- 상단 프로젝트 제목 및 메뉴 이름 영역 -->
@@ -357,51 +431,70 @@ mark {
                     <br><br>
                     <div id="btn">
                         <button id="question">질문&nbsp;&nbsp;<mark></mark></button>&nbsp;
-                        <button id="answer">응답&nbsp;&nbsp;<mark>3</mark></button>
+                        <button id="answer">응답&nbsp;&nbsp;
+		<c:if test="${ fn:length(surveyList) ne 0 }">
+                        <mark><c:out value="${ fn:length(surveyList) }"/></mark>
+                         </c:if>
+		</button>
                     </div>
                     <hr><br>
 
-                    <div id="surveyAnswerList">
+                      <div id="surveyAnswerList">
+                        <c:if test="${ fn:length(surveyList) ne 0 }">
+                           <c:forEach var="i" begin="0" end="${ fn:length(surveyList)-1 }">
                     <div id="surveyAnswer">
                         <div id="surveyImage">
-                            <img src="Frame 3.png">
+                            <img src="resources/icon/common/icon_survey.png">
                         </div>
-                        <div id="surveyList">
-                            프로젝트 설문지
-                            2020.08.21
-                            <button id="surveyUpdate"><img src="icon_more verticalicon.png" style="width: 20px;"></button>
+                        <div id="surveyList" style="display: inline-block;">
+                              <p><c:out value="${ surveyList[i].surveyName }"/>
+                              <p style="display: inline-block;"><c:out value="${ surveyList[i].surveyCreateDate }"/></p>
+                            <button class="surveyUpdate" style="display: inline-block; border: 0px; background: none;">
+                            
+                           <div class="surveydropdown">
+                    <div class="select">
+                        <img src="resources/icon/common/icon_more verticalicon.png" style="width: 20px;">                    
+               <i class="fa fa-chevron-left"></i>
+                    </div>
+                    <ul class="surveydropdown-menu">
+                     <!--  <li id="update"><a href="">이름바꾸기</a></li> -->
+                      <li id="update"><a href="">수정하기</a></li>
+                      <li id="delete"><a href="delete.sv">삭제하기</a></li>
+                    </ul>
+                  </div>
+                        </button>    
                         </div>
                     </div>
-                   <!--  <div id="surveyAnswer">
-                        <div id="surveyImage">
-                            <img src="Frame 3.png">
-                        </div>
-                        <div id="surveyList">
-                            프로젝트 설문지
-                            2020.08.21
-                            <button id="surveyUpdate"><img src="icon_more verticalicon.png" style="width: 20px;"></button>
-                        </div>
-                    </div>
-                    <div id="surveyAnswer">
-                        <div id="surveyImage">
-                            <img src="Frame 3.png">
-                        </div>
-                        <div id="surveyList">
-                            프로젝트 설문지
-                            2020.08.21
-                            <button id="surveyUpdate"><img src="icon_more verticalicon.png" style="width: 20px;"></button>
-                        </div>
-                    </div> -->
-                    </div>
+                           </c:forEach>
+                            </c:if>
                     
-
-
-
-
-
-                </div>
+                    </div>
+                  </div>
             </div>
-<script>
+
+	<script>
+	 $('.surveyUpdate').click(function() {
+                     $(this).attr('tabindex', 1).focus();
+                     $(this).toggleClass('active');
+                     $(this).find('.surveydropdown-menu').slideToggle(300);
+                  });
+                  
+                  $('.surveyUpdate').focusout(function() {
+                     $(this).removeClass('active');
+                     $(this).find('.surveydropdown-menu').slideUp(300);
+                  });
+                  
+                  $('.surveyUpdate .surveydropdown-menu li').click(
+                     function() {
+                        $(this).parents('.surveyUpdate').find('span').text($(this).text());
+                        $(this).parents('.surveyUpdate').find('input').attr('value',$(this).attr('id'));
+                  });
+                  
+                  $('.surveydropdown-menu li').click(function() {
+                        var input = '<strong>' + $(this).parents('.surveyUpdate').find('input').val() + '</strong>', msg = '<span class="msg">Hidden input value: ';
+                        $('.msg').html(msg + input + '</span>');
+                  });     
+
 	// Get the modal
 	var modal = document.getElementById("myModal");
 	

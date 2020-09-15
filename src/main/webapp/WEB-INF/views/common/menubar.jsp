@@ -92,6 +92,7 @@
 	                    <tr><td class="menuIcon"><img src="/agile/resources/icon/common/icon_crosshair.png"> </td><td id="Issues" class="menu"><a href="selectBugTask.tk">Issues</a></td></tr>
 	                    <tr><td class="menuIcon"><img src="/agile/resources/icon/common/icon_feedbackform.png"> </td><td id="FeedbackForm" class="menu"><a href="selectEndSprint.sv">Feedback Form</a></td></tr>
 	                    <tr><td class="menuIcon"><img src="/agile/resources/icon/common/icon_users.png"> </td><td id="StandUpMeeting" class="menu"><a href="showStandUpMeeting.mt">Stand Up Meeting</a></td></tr>
+
 	                    </tbody>
 	                </table>
 	            </div>
