@@ -1,5 +1,7 @@
 package com.stepup.agile.projectFeedback.model.vo;
 
+import java.util.List;
+
 public class SurveyQuesList implements java.io.Serializable{
 	
 	private int surveyQuesCode;
@@ -8,18 +10,30 @@ public class SurveyQuesList implements java.io.Serializable{
 	private String surveyQuesMust;
 	private String surveyQuesMulti;
 	
+	private List<SurveyQuesList> surveyNewVOLists = null;
+	
 	public SurveyQuesList() {
 		super();
 	}
 
 	public SurveyQuesList(int surveyQuesCode, String surveyQuesType, String surveyQuesName, String surveyQuesMust,
-			String surveyQuesMulti) {
+			String surveyQuesMulti, List<SurveyQuesList> surveyNewVOLists) {
 		super();
 		this.surveyQuesCode = surveyQuesCode;
 		this.surveyQuesType = surveyQuesType;
 		this.surveyQuesName = surveyQuesName;
 		this.surveyQuesMust = surveyQuesMust;
 		this.surveyQuesMulti = surveyQuesMulti;
+		this.surveyNewVOLists = surveyNewVOLists;
+	}
+
+
+	public List<SurveyQuesList> getSurveyNewVOLists() {
+		return surveyNewVOLists;
+	}
+
+	public void setSurveyNewVOLists(List<SurveyQuesList> surveyNewVOLists) {
+		this.surveyNewVOLists = surveyNewVOLists;
 	}
 
 	public int getSurveyQuesCode() {
@@ -66,9 +80,7 @@ public class SurveyQuesList implements java.io.Serializable{
 	public String toString() {
 		return "SurveyQuesList [surveyQuesCode=" + surveyQuesCode + ", surveyQuesType=" + surveyQuesType
 				+ ", surveyQuesName=" + surveyQuesName + ", surveyQuesMust=" + surveyQuesMust + ", surveyQuesMulti="
-				+ surveyQuesMulti + "]";
+				+ surveyQuesMulti + ", surveyNewVOLists=" + surveyNewVOLists + "]";
 	}
-	
-	
-	
+
 }
