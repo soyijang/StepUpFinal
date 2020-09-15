@@ -404,16 +404,45 @@
 					console.log(startMonth);
 					console.log(startDate);
 					
+					if(startMonth == '01'){
+						startMonth = 'Jan';
+					} else if(startMonth == '02'){
+						startMonth = 'Feb';
+					} else if(startMonth == '03'){
+						startMonth = 'Mar';
+					} else if(startMonth == '04'){
+						startMonth = 'Apr';
+					} else if(startMonth == '05'){
+						startMonth = 'May';
+					} else if(startMonth == '06'){
+						startMonth = 'Jun';
+					} else if(startMonth == '07'){
+						startMonth = 'Jul';
+					} else if(startMonth == '08'){
+						startMonth = 'Aug';
+					} else if(startMonth == '09'){
+						startMonth = 'Sep';
+					} else if(startMonth == '10'){
+						startMonth = 'Oct';
+					} else if(startMonth == '11'){
+						startMonth = 'Nov';
+					} else if(startMonth == '12'){
+						startMonth = 'Dec';
+					}
+					
+					console.log(mon2);
 					//시작일자 캘린더에 넣어주기
 					//console.log($('#cal-day'+j).text());
 					for(var j=0; j<7; j++){
-						if(thisWeek[j] == startDate){
-							console.log("thisweek : " + thisWeek[j]);
-						    var myTaskscontents = ('<ol class="circle"><li>' + data.myTasks[i].myTaskscontents + '</li>');
-						    
-							console.log(myTaskscontents);
-							$tdSche.eq(j).append(myTaskscontents);
-							break;
+						if(mon2 == startMonth){
+							if(thisWeek[j] == startDate){
+								console.log("thisweek : " + thisWeek[j]);
+							    var myTaskscontents = ('<ol class="circle"><li>' + data.myTasks[i].myTaskscontents + '</li>');
+							    
+								console.log(myTaskscontents);
+								$tdSche.eq(j).append(myTaskscontents);
+								break;
+							}
 						}
 					}
 				}

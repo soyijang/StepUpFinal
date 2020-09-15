@@ -135,16 +135,138 @@
    </resultMap>
    
 	<resultMap id="selectAlertRset" type="com.stepup.agile.userInfo.model.vo.AlertList">
-      <id property="alertCode" column="ALERT_CODE"/>
-      <result property="alertCheckYn" column="ALERT_CHECK_YN"/>
-      <result property="alertCategory" column="ALERT_CATEGORY"/>
-      <result property="alertHistoryCode" column="ALERT_HISTORY_CODE"/>
-       <collection property="projectHistory" resultMap="ProjectHistoryResultSet"/>
-       <collection property="member" resultMap="MemberResultSet"/>
-       <collection property="userTeamList" resultMap="UserTeamListResultSet"/>
-       <collection property="userProjectList" resultMap="UserProjectListResultSet"/>
-      <collection property="project" resultMap="ProjectResultSet"/>
-   </resultMap>	
+		<id property="alertCode" column="ALERT_CODE"/>
+		<result property="alertCheckYn" column="ALERT_CHECK_YN"/>
+		<result property="alertCategory" column="ALERT_CATEGORY"/>
+		<result property="alertHistoryCode" column="ALERT_HISTORY_CODE"/>
+    	<collection property="projectHistory" resultMap="ProjectHistoryResultSet"/>
+    	<collection property="member" resultMap="MemberResultSet"/>
+    	<collection property="userTeamList" resultMap="UserTeamListResultSet"/>
+    	<collection property="userProjectList" resultMap="UserProjectListResultSet"/>
+		<collection property="project" resultMap="ProjectResultSet"/>
+	</resultMap>
+	
+	
+	<select id="selectUserProject" resultMap="selectUserPJRset" parameterType="Project">
+	 	SELECT *
+	    FROM (SELECT J.PROJECT_NAME, RANK() OVER (PARTITION BY H.PROJECT_CODE ORDER BY H.PROJECT_HIST_DATE DESC, H.PROJECT_HIST_TIME DESC) RK
+         FROM USER_INFO I,
+              USER_TEAM_LIST T,
+              USER_PROJECT_LIST P,
+              PROJECT_LIST J,
+              PROJECT_HISTORY H
+        WHERE I.USER_CODE = T.USER_CODE
+          AND T.USER_TEAM_YN = 'Y' 
+          AND T.USER_TEAM_CODE = P.USER_TEAM_CODE
+          AND P.PROJECT_CODE = J.PROJECT_CODE
+          AND J.PROJECT_CODE = H.PROJECT_CODE 
+          AND H.PROJECT_STATUS = 'N'
+          AND I.USER_EMAIL = #{userEmail}
+          AND TO_CHAR(SYSDATE, 'YYYY-MM-DD') <![CDATA[<=]]> H.PROJECT_END_DATE AND TO_CHAR(SYSDATE, 'YYYY-MM-DD') <![CDATA[>=]]> H.PROJECT_START_DATE
+          AND H.PROJECT_HIST_CODE IN (
+          SELECT PROJECT_HIST_CODE
+  FROM (SELECT H.PROJECT_CODE,H.PROJECT_HIST_CODE, RANK() OVER (PARTITION BY H.PROJECT_CODE ORDER BY H.PROJECT_HIST_DATE DESC, H.PROJECT_HIST_TIME DESC) RK
+         FROM USER_INFO I,
+              USER_TEAM_LIST T,
+              USER_PROJECT_LIST P,
+              PROJECT_LIST J,
+              PROJECT_HISTORY H
+        WHERE I.USER_CODE  = T.USER_CODE
+          AND T.USER_TEAM_YN = 'Y' 
+          AND T.USER_TEAM_CODE = P.USER_TEAM_CODE
+          AND P.PROJECT_CODE = J.PROJECT_CODE
+          AND J.PROJECT_CODE = H.PROJECT_CODE 
+          AND H.PROJECT_STATUS = 'N'
+          AND I.USER_EMAIL = #{userEmail}
+        )
+    WHERE RK = 1)) A
+	    LEFT JOIN (SELECT COUNT(TASK_HIST_VALUE) AS TASKCNT, PROJECT_NAME
+	          FROM (SELECT TK.TASK_CODE, PS.PROJECT_NAME
+	                     , MAX(TS.TASK_HIST_VALUE) KEEP (DENSE_RANK LAST ORDER BY TS.TASK_HIST_UPDATE_DATE, TS.TASK_HIST_UPDATE_TIME) AS TASK_HIST_VALUE
+	                  FROM USER_INFO I,
+	                       USER_TEAM_LIST T,
+	                       USER_PROJECT_LIST P,
+	                       SPRINT_LIST S,
+	                       TASK_LIST TK,
+	                       TASK_HISTORY TS,
+	                       PROJECT_LIST PS,
+	                       PROJECT_HISTORY PH
+	                 WHERE I.USER_CODE = T.USER_CODE
+	                   AND T.USER_TEAM_CODE = P.USER_TEAM_CODE
+	                   AND P.USER_PROJECT_CODE = S.USER_PROJECT_CODE
+	                   AND P.PROJECT_CODE = PS.PROJECT_CODE
+	                   AND PS.PROJECT_CODE = PH.PROJECT_CODE
+	                   AND S.SPRINT_CODE = TK.SPRINT_CODE
+	                   AND TK.TASK_CODE = TS.TASK_CODE
+	                   AND I.USER_CODE = #{userCode}
+	                   AND TS.TASK_CATEGORY_CODE = 'I'
+	                   AND TO_CHAR(SYSDATE, 'YYYY-MM-DD') <![CDATA[<=]]> PH.PROJECT_END_DATE AND TO_CHAR(SYSDATE, 'YYYY-MM-DD') <![CDATA[>=]]> PH.PROJECT_START_DATE
+	              GROUP BY TK.TASK_CODE, TS.TASK_CATEGORY_CODE, PS.PROJECT_NAME)
+	          WHERE TASK_HIST_VALUE LIKE '%미진행%'
+	          GROUP BY PROJECT_NAME) B                         
+	    ON (A.PROJECT_NAME = B.PROJECT_NAME)
+	</select>
+	
+	<select id="selectUserProject2" resultMap="selectUserPJRset" parameterType="Project">
+	 	SELECT *
+	    FROM (SELECT J.PROJECT_NAME, RANK() OVER (PARTITION BY H.PROJECT_CODE ORDER BY H.PROJECT_HIST_DATE DESC, H.PROJECT_HIST_TIME DESC) RK
+         FROM USER_INFO I,
+              USER_TEAM_LIST T,
+              USER_PROJECT_LIST P,
+              PROJECT_LIST J,
+              PROJECT_HISTORY H
+        WHERE I.USER_CODE = T.USER_CODE
+          AND T.USER_TEAM_YN = 'Y' 
+          AND T.USER_TEAM_CODE = P.USER_TEAM_CODE
+          AND P.PROJECT_CODE = J.PROJECT_CODE
+          AND J.PROJECT_CODE = H.PROJECT_CODE 
+          AND H.PROJECT_STATUS = 'N'
+          AND I.USER_EMAIL = #{userEmail}
+          AND TO_CHAR(SYSDATE, 'YYYY-MM-DD') <![CDATA[<=]]> H.PROJECT_END_DATE AND TO_CHAR(SYSDATE, 'YYYY-MM-DD') <![CDATA[>=]]> H.PROJECT_START_DATE
+          AND H.PROJECT_HIST_CODE IN (
+          SELECT PROJECT_HIST_CODE
+  FROM (SELECT H.PROJECT_CODE,H.PROJECT_HIST_CODE, RANK() OVER (PARTITION BY H.PROJECT_CODE ORDER BY H.PROJECT_HIST_DATE DESC, H.PROJECT_HIST_TIME DESC) RK
+         FROM USER_INFO I,
+              USER_TEAM_LIST T,
+              USER_PROJECT_LIST P,
+              PROJECT_LIST J,
+              PROJECT_HISTORY H
+        WHERE I.USER_CODE  = T.USER_CODE
+          AND T.USER_TEAM_YN = 'Y' 
+          AND T.USER_TEAM_CODE = P.USER_TEAM_CODE
+          AND P.PROJECT_CODE = J.PROJECT_CODE
+          AND J.PROJECT_CODE = H.PROJECT_CODE 
+          AND H.PROJECT_STATUS = 'N'
+          AND I.USER_EMAIL = #{userEmail}
+        )
+    WHERE RK = 1)) A
+	    LEFT JOIN (SELECT COUNT(TASK_HIST_VALUE) AS TASKCNT, PROJECT_NAME
+	          FROM (SELECT TK.TASK_CODE, PS.PROJECT_NAME
+	                     , MAX(TS.TASK_HIST_VALUE) KEEP (DENSE_RANK LAST ORDER BY TS.TASK_HIST_UPDATE_DATE, TS.TASK_HIST_UPDATE_TIME) AS TASK_HIST_VALUE
+	                  FROM USER_INFO I,
+	                       USER_TEAM_LIST T,
+	                       USER_PROJECT_LIST P,
+	                       SPRINT_LIST S,
+	                       TASK_LIST TK,
+	                       TASK_HISTORY TS,
+	                       PROJECT_LIST PS,
+	                       PROJECT_HISTORY PH
+	                 WHERE I.USER_CODE = T.USER_CODE
+	                   AND T.USER_TEAM_CODE = P.USER_TEAM_CODE
+	                   AND P.USER_PROJECT_CODE = S.USER_PROJECT_CODE
+	                   AND P.PROJECT_CODE = PS.PROJECT_CODE
+	                   AND PS.PROJECT_CODE = PH.PROJECT_CODE
+	                   AND S.SPRINT_CODE = TK.SPRINT_CODE
+	                   AND TK.TASK_CODE = TS.TASK_CODE
+	                   AND I.USER_CODE = #{userCode}
+	                   AND TS.TASK_CATEGORY_CODE = 'I'
+	                   AND TO_CHAR(SYSDATE, 'YYYY-MM-DD') <![CDATA[<=]]> PH.PROJECT_END_DATE AND TO_CHAR(SYSDATE, 'YYYY-MM-DD') <![CDATA[>=]]> PH.PROJECT_START_DATE
+	              GROUP BY TK.TASK_CODE, TS.TASK_CATEGORY_CODE, PS.PROJECT_NAME)
+	          WHERE TASK_HIST_VALUE LIKE '%진행중%'
+	          GROUP BY PROJECT_NAME) B                         
+	    ON (A.PROJECT_NAME = B.PROJECT_NAME)
+	</select>
+
 
    <select id="selectUserProject" resultMap="selectUserPJRset" parameterType="Project">
        SELECT *
