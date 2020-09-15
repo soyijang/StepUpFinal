@@ -10,6 +10,7 @@ import com.stepup.agile.userInfo.model.vo.Member;
 import com.stepup.agile.userMyTasks.model.dao.MyTasksStandupMeetingDao;
 import com.stepup.agile.userMyTasks.model.vo.Rss;
 import com.stepup.agile.userMyTasks.model.vo.RssHistory;
+import com.stepup.agile.userMyTasks.model.vo.MyTask;
 
 @Service
 public class MyTasksStandupMeetingServiceImpl implements MyTasksStandupMeetingService{
@@ -29,6 +30,11 @@ public class MyTasksStandupMeetingServiceImpl implements MyTasksStandupMeetingSe
 		return smd.updateRss(sqlSession, rssHistory);
 	}
 	
+	//공유 일정 가져오기	
+	@Override
+	public List<MyTask> selectMytaskShareList(int projectCode) {
+		return smd.selectMytaskShareList(sqlSession, projectCode);
+	}
 	
 	
 }
