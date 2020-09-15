@@ -26,6 +26,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.stepup.agile.projectTask.model.service.TaskService;
+import com.stepup.agile.projectTask.model.vo.Bookmark;
 import com.stepup.agile.projectTask.model.vo.ReplyHistory;
 import com.stepup.agile.projectTask.model.vo.ReplyList;
 import com.stepup.agile.projectTask.model.vo.TaskHistory;
@@ -509,7 +510,8 @@ public class TaskController {
 	public ModelAndView DeleteCloneTask(ModelAndView mv, @ModelAttribute("loginUser") Member m, int taskCode) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("taskCode", taskCode);
-
+		map.put("userCode", m.getUserCode());
+		
 		int deleteClone = ts.deleteCloneTask(map);
 
 		if(deleteClone > 0) {
@@ -521,9 +523,60 @@ public class TaskController {
 		}
 
 	}
+	//16.BugMode
+	@RequestMapping("bugMode.pj")
+	public ModelAndView bugMode(ModelAndView mv, @ModelAttribute("loginUser") Member m, int taskCode) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("taskCode", taskCode);
 
+		int result = ts.insertBug(map);
 
+		if(result > 0) {
+			mv.setViewName("jsonView");
+			return mv;
+		} else {
+			System.out.println("에러..");
+			return mv;
+		}
 
+	}
+	//17.bookmark 
+	@RequestMapping("checkBookmark.pj")
+	public ModelAndView checkBookmark(ModelAndView mv, @ModelAttribute("loginUser") Member m, int taskCode) {
+		/*
+		 * HashMap<String, Object> map = new HashMap<String, Object>();
+		 * map.put("taskCode", taskCode); map.put("userCode", m.getUserCode());
+		 */
+		
+		Bookmark bookmark = new Bookmark();
+		bookmark.setUserCode(m.getUserCode());
+		bookmark.setTaskCode(taskCode);
+
+		int bookmarkCode = ts.checkBookmark(bookmark);
+
+		mv.addObject("bookmarkCode", bookmarkCode);
+		mv.setViewName("jsonView");
+		
+		return mv;
+	}
+	
+	//18.북마크취소
+	@RequestMapping("cancelBookmark.pj")
+	public ModelAndView cancelBookmark(ModelAndView mv, @ModelAttribute("loginUser") Member m, int taskCode, int bookmarkCode) {
+		/*
+		 * HashMap<String, Object> map = new HashMap<String, Object>();
+		 * map.put("taskCode", taskCode); map.put("userCode", m.getUserCode());
+		 */
+
+		int result = ts.delteBookmark(bookmarkCode);
+
+		mv.addObject("bookmarkCode", bookmarkCode);
+		mv.setViewName("jsonView");
+		
+		return mv;
+	}
+	
+	
 
 	//BugTask
 	@RequestMapping("selectBugTask.tk")

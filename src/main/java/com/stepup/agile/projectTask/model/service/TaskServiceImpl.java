@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.stepup.agile.projectManage.model.vo.Project;
 import com.stepup.agile.projectTask.model.dao.TaskDao;
+import com.stepup.agile.projectTask.model.vo.Bookmark;
 import com.stepup.agile.projectTask.model.vo.ReplyHistory;
 import com.stepup.agile.projectTask.model.vo.ReplyList;
 import com.stepup.agile.projectTask.model.vo.TaskHistory;
@@ -246,6 +247,25 @@ public class TaskServiceImpl implements TaskService {
 
 		return td.deleteClonTask(sqlSession, map);
 	}
+	//15.버그모드
+	@Override
+	public int insertBug(HashMap<String, Object> map) {
+
+		return td.insertBug(sqlSession, map);
+	}
+	//16.북마크추가
+	@Override
+	public int checkBookmark(Bookmark bookmark) {
+
+		return td.checkBookmark(sqlSession, bookmark);
+	}
+	//17.북마크취소
+	@Override
+	public int delteBookmark(int bookmarkCode) {
+
+		return td.deleteBookmark(sqlSession, bookmarkCode);
+	}
+	
 	
 	//Bug
 	@Override
@@ -290,6 +310,9 @@ public class TaskServiceImpl implements TaskService {
 	public List<TaskHistory> searchBug(HashMap<String, Object> map) {
 		return td.searchBug(sqlSession, map);
 	}
+
+
+
 
 
 

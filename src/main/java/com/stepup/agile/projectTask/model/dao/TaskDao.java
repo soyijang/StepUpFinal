@@ -8,6 +8,7 @@ import java.util.Map;
 import org.mybatis.spring.SqlSessionTemplate;
 
 import com.stepup.agile.projectManage.model.vo.Project;
+import com.stepup.agile.projectTask.model.vo.Bookmark;
 import com.stepup.agile.projectTask.model.vo.ReplyHistory;
 import com.stepup.agile.projectTask.model.vo.ReplyList;
 import com.stepup.agile.projectTask.model.vo.TaskHistory;
@@ -80,7 +81,12 @@ public interface TaskDao {
 	int insertClonTask2(SqlSessionTemplate sqlSession, HashMap<String, Object> map2);
 	//14.삭제 이벤트
 	int deleteClonTask(SqlSessionTemplate sqlSession, HashMap<String, Object> map);
-	
+	//15.버그모드
+	int insertBug(SqlSessionTemplate sqlSession, HashMap<String, Object> map);
+	//16.북마크추가
+	int checkBookmark(SqlSessionTemplate sqlSession, Bookmark bookmark);
+	//17.북마크취소
+	int deleteBookmark(SqlSessionTemplate sqlSession, int bookmarkCode);
 	
 	//Bug
 	List<TaskHistory> selectUserTask(SqlSessionTemplate sqlSession, Member m);
@@ -98,6 +104,9 @@ public interface TaskDao {
 	int deleteCloneBug(SqlSessionTemplate sqlSession, HashMap<String, Object> map);
 
 	List<TaskHistory> searchBug(SqlSessionTemplate sqlSession, HashMap<String, Object> map);
+
+
+
 
 	
 
