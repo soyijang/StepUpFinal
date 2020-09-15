@@ -11,20 +11,90 @@
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/indiv/projectTask/mainTask/taskDetail.css">
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/indiv/projectTask/mainTask/taskDropdown.css">
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/indiv/projectTask/mainTask/tap.css">
+<style type="text/css">
+input[type="checkbox"] { 
+	display: none; 
+} 
+.label__on-off { 
+	overflow: hidden; 
+	position: relative; 
+	display: inline-block; 
+	width: 58px; 
+	height: 26px; 
+	-webkit-border-radius: 13px; 
+	-moz-border-radius: 13px; 
+	border-radius: 13px; 
+	background-color: #ed4956; 
+	color: #fff; 
+	font-weight: bold; 
+	cursor: pointer; 
+	-webkit-transition: all .3s; 
+	-moz-transition: all 
+	.3s; -ms-transition: all .3s; 
+	-o-transition: all .3s; transition: all .3s; 
+} 
+.label__on-off > * { 
+	vertical-align: middle; 
+	-webkit-transition: all .3s; 
+	-moz-transition: all .3s; 
+	-ms-transition: all .3s; 
+	-o-transition: all .3s; 
+	transition: all .3s; 
+	font-size: 14px; 
+} 
+.label__on-off .marble { 
+	position: absolute; 
+	top: 1px; 
+	left: 1px; 
+	display: block; 
+	width: 24px; 
+	height: 24px; 
+	background-color: #fff; 
+	-webkit-border-radius: 50%; 
+	-moz-border-radius: 50%; 
+	border-radius: 50%; 
+	-webkit-box-shadow: 0 0 10px rgba(0, 0, 0, .3); 
+	-moz-box-shadow: 0 0 10px rgba(0, 0, 0, .3); 
+	box-shadow: 0 0 10px rgba(0, 0, 0, .3); 
+} 
+.label__on-off .on { 
+	display: none; padding-left: 12px; 
+} 
+.label__on-off .off { 
+	padding-left: 30px; line-height: 25px; 
+} 
+.input__on-off:checked + .label__on-off { 
+	background-color: #0bba82; 
+} 
+.input__on-off:checked + .label__on-off .on {
+	display: inline-block; 
+} 
+.input__on-off:checked + .label__on-off .off { 
+	display: none; 
+} 
+.input__on-off:checked + .label__on-off .marble { 
+	left: 33px; 
+}
+    
+</style>
 </head>
 <body>
-   <!-- <button onclick="" class="searchBtn" id="apply">모달창</button> -->
+    <!-- <button onclick="" class="searchBtn" id="apply">모달창</button> -->
     <!-- Trigger/Open The Modal -->
+	<!-- <form action="updateTitle.pj" method="post"> -->
     <!-- The Modal -->
     <div id="taskDetailModal"  class="taskmodal">
       <!-- Modal content -->
       <div class="taskmodal-content">
-      	 <input type="hidden" name="taskCode" id="taskCode" value="">
-         <div class="projectList" id="project"><div id="storyicon"></div><p id="sprintName" value=""></p></div><div class="projectList">/</div>
+      	 <input type="text" name="taskCode" id="taskCode" value="">
+         <div class="projectList" id="project"><div id="storyicon"></div><p id="sprintName"></p></div><div class="projectList">/</div>
          <div class="projectList" id="story"><div id="taskicon"></div>TEST<p id="taskCode" value=""></p></div>
+         <!-- <div class='toggleBG'>
+		    <button class='toggleFG'></button>
+		</div> -->
          <div id="cancel"><img src="/agile/resources/icon/common/icon_x.png" class="taskclose"></div>
-         <div id="additional" style="margin-right:50px; margin-top:5px; border:none; ">
-         	<div class="taskdropdown2">
+         <div><!-- <img src="/agile/resources/icon/common/icon_more horizontalicon.png" id="additional"> -->
+         	<div class="taskdropdown2" style="float:right; margin:0 auto;">
                     <div class="select">
                           <span id="user-list"><img src="/agile/resources/icon/common/icon_more horizontalicon.png" id="add"></span>
                       <i class="fa fa-chevron-left"></i>
@@ -38,19 +108,45 @@
                     </ul>
                   </div>
          </div>
-         <div><img src="/agile/resources/icon/common/icon_shareicon.png" id="share"></div>
-         <div><!-- <label id="count">1번</label> --><img src="/agile/resources/icon/common/icon_bookmarkicon.png" id="bookmark" value=""></div>
+         <!-- <div><img src="/agile/resources/icon/common/icon_shareicon.png" id="share"></div> -->
+        <div><!-- <label id="count">1번</label> --> <!--   <img src="/agile/resources/icon/common/icon_bookmarkicon.png" id="bookmark" onclick="bookMark()"> -->
+         <input type="checkbox" name="keep_signed" id="keeplogin" value="Y" style="display:none"/>
+		  <label for="keeplogin" title="{$lang->keep_signed}" class="check_img">
+			<img src="/agile/resources/icon/common/icon_bookmarkicon.png" onClick="autologin(this);" id="bookmark"/>
+			<input type="hidden" name="bookmarkCode" id="bookmarkCode" value="">
+		  </label>
+         <!-- <input type="checkbox" name="keep_signed" id="keeplogin" value="Y" style="display:none"/>
+		  <label for="keeplogin" title="{$lang->keep_signed}" class="check_img">
+			<img src="./images/off.gif" onClick="autologin(this);" id="bookmark">
+		  </label> -->
+	<input type="checkbox" id="switch1" name="switch1" class="input__on-off"> 
+        	<label for="switch1" class="label__on-off"> 
+        	<span class="marble"></span> 
+        	<span class="on">on</span> 
+        	<span id="bugMode" class="off" onclick="bugMode()">off</span> 
+        	</label>
+
+         
+         <div class="taskdropdown" style="float:right">
+                    <div class="select">
+                          <span id="not-start" value="not-start">미진행</span>
+                      <i class="fa fa-chevron-left"></i>
+                    </div>
+                    <ul class="taskdropdown-menu" id="taskdropdown-menu">
+                      <li class="taskStatus" id="work" value="work" onclick="taskStatus1()">진행중</li>
+                      <li class="taskStatus" id="done" value="done" onclick="taskStatus2()">완료</li>
+                    </ul>
+                  </div>
+         </div>
         <p align="left" class ="taskmodaltitle"><input type="text" placeholder="제목을 입력하세요" style="font-size:20px;" id="titleName" onkeyup="enterkey();" name="taskTitle" value=""></p>
         <input type="hidden" name="taskCategoryCode" id="taskCategoryCode" value="J">
         <input type="hidden" name="taskCode" id="taskCode" value="">
         <div id="leftContent">
-        <table align="center" class="taskmodalTable"><!--  class="modal-dialog" -->
+        <table align="center" class="taskmodalTable" style="width:100%;">
             <tr>
                <td>
                <button id="attachment"><img src = "/agile/resources/icon/common/icon_clip.png"><label class="subBtn">첨부</label></button>
-               <input type="file" name="upload" multiple="true" id="fileArea">
-               <button id="uploadBtn" value="">업로드</button>
-             <!--   <button id="subtask"><img src = "/agile/resources/icon/common/icon_copyicon.png"><label class="subBtn">하위 테스크 생성</label></button> -->
+               <button id="subtask"><img src = "/agile/resources/icon/common/icon_copyicon.png"><label class="subBtn">하위 테스크 생성</label></button>
                </td>
             </tr>
             <tr>
@@ -69,77 +165,66 @@
                <button class="intBtn" onclick="updateDescipt()">Save</button></td>
             </tr>
             <div>
-            <tr id="subTaskBox">
-               <td>하위 테스크</td>
+            <tr id="subTaskBox" style="display:none;">
+               <td id="subTaskBoxTitle">하위 테스크</td>
             </tr>
-            <table id="replySelect"><thead></thead><tbody></tbody></table>
-            <tr id="subTaskText"> 
-               <td><input tyep="text" name="subTaskTitle" id="subTaskTitle" placeholder="무엇을해야합니까?" value=""></td>
+           <!--  <tr id="subTaskSelectTable"> -->
             </tr>
-            <tr id="subTaskBtn">
+            <tr id="subTaskText" style="display:none;">
+               <td><input tyep="text" name="subTaskTitle" id="subTaskTitle" placeholder="무엇을해야합니까?" value="" style="margin:0 auto;"></td>
                <td>
-               <jsp:include page="../subTask/subTask.jsp"/>
-               <button id="subTaskCan" class="subTaskBtn">취소</button>
-               <button id="subTaskMake"class="subTaskBtn" onclick="insertSubTask()">만들기</button>
+			   <button id="subTaskMake"class="subTaskBtn" style="margin:0 auto;" onclick="insertSubTask()">만들기</button>               
+               <button id="subTaskCan" class="subTaskBtn" style="margin:0 auto;">취소</button>
                </td>
                <input type="hidden" name="subTaskCode" id="subTaskCode" value=""> 
-               <input type="hidden" name="taskCategoryCode" id="taskCategoryCode2" value="J">           
-            </tr><!-- 
-            <tr>
-               <td >활동</td>
+               <input type="hidden" name="taskCategoryCode" id="taskCategoryCode" value="J"> 
+            </tr>
+           <!--  <tr id="subTaskBtn" style="display:none;">
+               <td>
+			   <button id="subTaskMake"class="subTaskBtn" style="margin:0 auto;" onclick="insertSubTask()">만들기</button>               
+               <button id="subTaskCan" class="subTaskBtn" style="margin:0 auto;">취소</button>
+               </td>
+               <input type="hidden" name="subTaskCode" id="subTaskCode" value=""> 
+               <input type="hidden" name="taskCategoryCode" id="taskCategoryCode" value="J">           
             </tr> -->
+           <!--  <tr>
+               <td id="activity" class="label">활동</td>
+            </tr> -->
+            <tr>
+               <td colspan="4" class="label">활동 : 
+               <button class="activity"><label>댓글</label></button>
+               <button class="activity"><label>기록</label></button>
+               <button class="activity"><label>작업로그</label></button>
+               </td>
+            </tr>
+            <table id="replySelectTable"><thead></thead><tbody></tbody></table>
+            <tr>
+               <td colspan="4"><div class="profile" id="user"></div><div id="userName" value=""><%-- <label><c:out value="${ sessionScope.loginUser.userName }"/></label> --%></div>
+               <input type="text" placeholder="댓글추가...." id="replyContents" value="">
+               <button id="replyBtn" class="replyBtn" style="display:none;" onclick="insertReply()">등록</button>
+               <button id="replyBtnCan" class="replyBtn" style="display:none;">취소</button></td>
+               <input type="hidden" name="taskCategoryCode2" id="taskCategoryCode2" value="K">
+            </tr>
         </table>
-        	<div id="activity" class="label">활동</div>
-        	<div class="container">
- 
-		        <ul class="tabs">
-		          <li id="replyTab" class="tab-link current" data-tab="tab-1">댓글</li>
-		          <li class="tab-link" data-tab="tab-2">기록</li>
-		          <li class="tab-link" data-tab="tab-3">작업로그</li>
-		        </ul>
-		       
-		        <div id="tab-1" class="tab-content current">
-		        	<table id="replySelectTable"><thead></thead><tbody></tbody></table>
-		        </div>
-		        	<div class="profile" id="user"></div><label><c:out value="${ sessionScope.loginUser.userName }"/></label>
-		               <input type="text" placeholder="댓글추가...." id="replyContents" value="">
-		               <button id="replyBtn" class="replyBtn" onclick="insertReply()">등록</button>
-		               <button id="replyBtnCan" class="replyBtn" >취소</button>
-		               <input type="hidden" name="taskCategoryCode3" id="taskCategoryCode3" value="K">
-		               <input type="hidden" id="replyHistCode">
-		        	
-		        
-		        <div id="tab-2" class="tab-content">
-		        	<div>기</div>
-		        	<div>록</div>
-		        </div>
-		        
-		        <div id="tab-3" class="tab-content">
-		      		<div>활</div>
-		        	<div>동</div>
-		         </div>
-		       
-		      </div>
-        
         </div>
        
        
        <!-------------------- 오른쪽 ----------------------------->
         <div id="detail">
            <table>
-           	  <tr>
-           	  	<div class="taskdropdown">
+           	  <!-- <tr> -->
+           	  	<!-- <div class="taskdropdown">
                     <div class="select">
-                          <span id="not-start" value="not-start">미진행 v</span>
+                          <span id="not-start" value="not-start">미진행</span>
                       <i class="fa fa-chevron-left"></i>
                     </div>
                     <ul class="taskdropdown-menu" id="taskdropdown-menu">
                       <li class="taskStatus" id="work" value="work" onclick="taskStatus1()">진행중</li>
                       <li class="taskStatus" id="done" value="done" onclick="taskStatus2()">완료</li>
                     </ul>
-                  </div>
-                  </td>
-           	  </tr>
+                  </div> -->
+                 <!--  </td>
+           	  </tr> -->
               <tr>
                  <td><label>담당자</label></td>
               </tr>
@@ -242,7 +327,7 @@
                 <td><hr></td>
              </tr>
              <tr>
-                <td>생성됨</td><td id="makeDate" value=""></td><td id="makeTime" value=""></td>
+                <td>생성됨<div id="makeDate" value=""></div><div id="makeTime" value=""></div></td>
              </tr>
              <tr>
                 <td>2초전 업데이트</td>
@@ -374,7 +459,7 @@
    });
    
    //댓글 버튼 나오기
-   $('#reply').click(function(){
+   $('#replyContents').click(function(){
 	   $('.replyBtn').toggle();
    });
    
@@ -514,9 +599,64 @@
 		alert("오늘 날짜보다 이전 날짜입니다.");
 		document.frmWork.txtHpDate.value = "";
 	} */
+        
+/*   $('#bookmark').on({ 
+	   'click': function() { 
+	   var src = ($(this).attr('src') === '/agile/resources/icon/common/icon_bookmarkicon.png') 
+	   ? '/agile/resources/icon/common/bookmark.png' 
+	   : '/agile/resources/icon/common/icon_bookmarkicon.png'; 
+	   $(this).attr('src', src); 
+	   } 
+   });*/
+   
+/* 	$(document).on('click', '.toggleBG', function () {
+	    var toggleBG = $(this);
+	    var toggleFG = $(this).find('.toggleFG');
+	    var left = toggleFG.css('left');
+	    if(left == '40px') {
+	        toggleBG.css('background', '#CCCCCC');
+	        toggleActionStart(toggleFG, 'TO_LEFT');
+	    }else if(left == '0px') {
+	        toggleBG.css('background', '#DD0351');
+	        toggleActionStart(toggleFG, 'TO_RIGHT');
+	    }
+	}); */
+   
+	$('#bugMode').click(function(){
+		$('#taskicon').attr('src', '/agile/resources/icon/common/icon_fillround.png');
+	});
 	
- 
+	function autologin(img) {
+        if(img.checked) {
+            img.checked = false;
+            img.src="/agile/resources/icon/common/icon_bookmarkicon.png"
+            img.on("click", checkBookmark);
+        } else {
+            img.checked = true;
+            img.src="/agile/resources/icon/common/bookmark.png"
+            img.on("click", cancelBookmark);
+        }
+   }
+	
 	 
+/* 	// 토글 버튼 이동 모션 함수
+	function toggleActionStart(toggleBtn, LR) {
+	    // 0.01초 단위로 실행
+	    var intervalID = setInterval(
+	        function() {
+	            // 버튼 이동
+	            var left = parseInt(toggleBtn.css('left'));
+	            left += (LR == 'TO_RIGHT') ? 5 : -5;
+	            if(left >= 0 && left <= 40) {
+	                left += 'px';
+	                toggleBtn.css('left', left);
+	            }
+	        }, 10);
+	    setTimeout(function(){
+	        clearInterval(intervalID);
+	    }, 201);
+	}
+	 */
     //TASK_LIST 생성 후 TASK 모달로 연결
 	 function createTask() {
 			var sprintCode = $('#sendSprintCode').val();
@@ -659,8 +799,10 @@
     			console.log("성공!")
      			console.log(data);
     			
- 				var $replySelect = $("#replySelect tbody");
- 				$replySelect.html('');
+ 				/* var $replySelect = $("#replySelect tbody"); */subTaskBox
+ 				/* var $taskSelect = $("#taskmodalTable > tbody > tr"); */
+ 				var $taskSelect = $("#subTaskBox tr");
+ 				/* $replySelect.html(''); */
  				
  				for(var i = 0; i<data.history.length; i++) {
 
@@ -679,7 +821,8 @@
  					$tr.append($teskNumTd);
  					$tr.append($titleTd);
  					
- 					$replySelect.append($tr);
+ 					/* taskSelect.eq(6).append($tr); */
+ 					taskSelect.append($img).append($testNumTd).append($titleTd);
  					
  					$('#subTaskLink').click(function(){
  						$('#taskDetailModal').css('display','none');
@@ -775,7 +918,7 @@
      	});
      	
      	return false;
-   }
+    }
    
    //4-1.댓글 수정
    function updateReply(replyCode, memberCode) {
@@ -1339,8 +1482,8 @@
     	return false;
     }
     
-   //북마크
-   /*  function bookmark(){
+   //북마크 추가
+     function bookmark(){
   	   
     	var taskCode = $('#taskCode').val();
     	console.log(taskCode);
@@ -1355,8 +1498,8 @@
     		success: function(data){
     			console.log("성공!");
     			console.log(data);
-    			var bookmark = $('#bookmark');
-    			bookmark.src="/agile/resources/icon/common/icon_bookmarkfull.jpg";
+    			/* var bookmark = $('#bookmark');
+    			bookmark.src="/agile/resources/icon/common/icon_bookmarkfull.jpg"; */
  
      		},
     		error:function(){
@@ -1371,10 +1514,109 @@
     	});
     	
     	return false;
-    } */
-    
-   //파일업로드
-	
+    } 
+   
+   //버그모드
+   var img = $("#taskicon");
+     function bugMode(){
+    	   
+     	var taskCode = $('#taskCode').val();
+     	console.log(taskCode);
+     	
+     	$.ajax({
+     		type:"post",
+     		url:"bugMode.pj",
+     		dataType : "json",
+     		data: {
+     			"taskCode": taskCode
+     		},
+     		success: function(data){
+     			console.log("성공!");
+     			console.log(data);
+	     			/* $('#taskicon').attr("src", )
+	     			var taskicon = $('#taskicon'); */
+	     			img.attr("src", "/agile/resources/icon/common/icon_fillround.png");
+     			/* taskicon.src="/agile/resources/icon/common/icon_fillround.png"; */
+  
+      		},
+     		error:function(){
+     			console.log("에러!");
+     		},
+     		beforeSend : function(){
+                 $('.wrap-loading').removeClass('display-none');
+             },
+             complete : function(){
+                 $('.wrap-loading').addClass('display-none');
+              }
+     	});
+     	
+     	return false;
+     } 
+     
+   //북마크 
+     function checkBookmark(){
+  	   
+      	var taskCode = $('#taskCode').val();
+      	console.log(taskCode);
+      	
+      	$.ajax({
+      		type:"post",
+      		url:"checkBookmark.pj",
+      		dataType : "json",
+      		data: {
+      			"taskCode": taskCode
+      		},
+      		success: function(data){
+      			console.log("성공!");
+      			console.log(data);
+       		},
+      		error:function(){
+      			console.log("에러!");
+      		},
+      		beforeSend : function(){
+                  $('.wrap-loading').removeClass('display-none');
+              },
+              complete : function(){
+                  $('.wrap-loading').addClass('display-none');
+               }
+      	});
+      	
+      	return false;
+      }
+   
+   
+   //북마크 제거 
+     function cancelBookmark(){
+    	   
+     	var taskCode = $('#taskCode').val();
+     	var bookmarkCode = $('#bookmarkCode').val();
+     	console.log(taskCode);
+     	
+     	$.ajax({
+     		type:"post",
+     		url:"bookmark.pj",
+     		dataType : "json",
+     		data: {
+     			"taskCode": taskCode,
+     			"bookmarkCode":bookmarkCode
+     		},
+     		success: function(data){
+     			console.log("성공!");
+     			console.log(data);
+      		},
+     		error:function(){
+     			console.log("에러!");
+     		},
+     		beforeSend : function(){
+                 $('.wrap-loading').removeClass('display-none');
+             },
+             complete : function(){
+                 $('.wrap-loading').addClass('display-none');
+              }
+     	});
+     	
+     	return false;
+     }  
     
    //복제 클릭 이벤트
 	$(document).on("click","#clone-task",function(){
@@ -1453,6 +1695,8 @@
 	        }
 		});
 	});
+
+	
 
 </script>
 </body>

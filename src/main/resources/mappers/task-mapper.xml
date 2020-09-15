@@ -476,7 +476,7 @@
 	
 	<!-- 13.복제 이벤트 -->
 	<insert id="insertCloneTask" parameterType="com.stepup.agile.projectTask.model.vo.TaskList">
-		<selectKey keyProperty="taskCode" resultType="int" order="AFTER">
+		<selectKey keyProperty="taskCode" resultType="int" order="BEFORE">
 	         SELECT SEQ_TASK.NEXTVAL FROM DUAL
 	      </selectKey>
 		INSERT INTO TASK_LIST
@@ -551,7 +551,11 @@
 		DELETE FROM TASK_LIST
          WHERE TASK_CODE = #{taskCode}
 	</delete>
-	
+	<!-- 15.버그모드 -->
+	<insert id="insertBug" parameterType="com.stepup.agile.projectTask.model.vo.TaskHistory">
+		INSERT INTO TASK_HISTORY (TASK_HIST_UPDATE_DATE, TASK_HIST_UPDATE_TIME, TASK_CODE, TASK_HIST_CODE, MASTER_CODE, USER_CODE, TASK_HIST_VALUE, TASK_CATEGORY_CODE)
+		VALUES(TO_CHAR(SYSDATE + 9/24, 'YYYY-MM-DD'), TO_CHAR(SYSDATE + 9/24, 'hh24:mi:ss'), #{taskCode, jdbcType=INTEGER}, SEQ_TASK_HIST.NEXTVAL, DEFAULT, #{userCode, jdbcType=VARCHAR}, 'Y', 'G')
+	</insert>
 	
 	
 	

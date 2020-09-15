@@ -7,13 +7,14 @@
     transition: all .5s ease;
     position: relative;
     font-size: 14px;
-    color: #474747;
-    height: 100%;
+    color: #474747;/* 
+    height: 100%; */
     text-align: center;
     margin-right: 30px;/* 
     margin-left: 30px; */
     border-radius: 10px;
     border: 1px solid #dd0351;
+    float:right;
   }
   .taskdropdown .select {
       cursor: pointer;
@@ -85,7 +86,7 @@
     font-size: 14px;
     height:20px;
     text-align: center;
-    margin-right: 70px;/* 
+   /*  margin-right: 70px; *//* 
     margin-left: 30px; */
     border-radius: 10px;
     margin-top:-5px;

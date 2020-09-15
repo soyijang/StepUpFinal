@@ -378,8 +378,28 @@ public class TaskDaoImpl implements TaskDao {
 
 		return sqlSession.delete("Task.deleteCloneTask", map);
 	}
+	//15.버그모드
+	@Override
+	public int insertBug(SqlSessionTemplate sqlSession, HashMap<String, Object> map) {
 
-	
+		return sqlSession.insert("Task.insertBug", map);
+	}
+	//16.북마크추가
+	@Override
+	public int checkBookmark(SqlSessionTemplate sqlSession, Bookmark bookmark) {
+		
+		sqlSession.insert("Bookmark.checkBookmark", bookmark);
+		
+		int bookmarkCode = bookmark.getBookmarkCode();
+		
+		return bookmarkCode;
+	}
+	//17.북마크취소
+	@Override
+	public int deleteBookmark(SqlSessionTemplate sqlSession, int bookmarkCode) {
+
+		return sqlSession.delete("Bookmark.deleteBookmark", bookmarkCode);
+	}
 	
 	
 	//Bug
@@ -540,4 +560,6 @@ public class TaskDaoImpl implements TaskDao {
 	public int insertSprintHistorySprintType(SqlSessionTemplate sqlSession, SprintHistory sprintHistory) {
 		return sqlSession.insert("Task.insertSprintHistorySprintType", sprintHistory);
 	}
+
+
 }

@@ -249,6 +249,25 @@ public class TaskServiceImpl implements TaskService {
 
 		return td.deleteClonTask(sqlSession, map);
 	}
+	//15.버그모드
+	@Override
+	public int insertBug(HashMap<String, Object> map) {
+
+		return td.insertBug(sqlSession, map);
+	}
+	//16.북마크추가
+	@Override
+	public int checkBookmark(Bookmark bookmark) {
+
+		return td.checkBookmark(sqlSession, bookmark);
+	}
+	//17.북마크취소
+	@Override
+	public int delteBookmark(int bookmarkCode) {
+
+		return td.deleteBookmark(sqlSession, bookmarkCode);
+	}
+	
 	
 	
 	//Bug
@@ -382,4 +401,7 @@ public class TaskServiceImpl implements TaskService {
 	public int insertSprintHistorySprintType(SprintHistory sprintHistory) {
 		return td.insertSprintHistorySprintType(sqlSession, sprintHistory);
 	}
+
+
+
 }

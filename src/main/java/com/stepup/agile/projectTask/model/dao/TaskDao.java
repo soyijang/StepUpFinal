@@ -83,7 +83,12 @@ public interface TaskDao {
 	int insertClonTask2(SqlSessionTemplate sqlSession, HashMap<String, Object> map2);
 	//14.삭제 이벤트
 	int deleteClonTask(SqlSessionTemplate sqlSession, HashMap<String, Object> map);
-	
+	//15.버그모드
+	int insertBug(SqlSessionTemplate sqlSession, HashMap<String, Object> map);
+	//16.북마크추가
+	int checkBookmark(SqlSessionTemplate sqlSession, Bookmark bookmark);
+	//17.북마크취소
+	int deleteBookmark(SqlSessionTemplate sqlSession, int bookmarkCode);
 
 	
 	//Bug
@@ -102,6 +107,7 @@ public interface TaskDao {
 	int deleteCloneBug(SqlSessionTemplate sqlSession, HashMap<String, Object> map);
 
 	List<TaskHistory> searchBug(SqlSessionTemplate sqlSession, HashMap<String, Object> map);
+
 
 
 	//miso Kim's task ------------------------------------------------------------------------------------

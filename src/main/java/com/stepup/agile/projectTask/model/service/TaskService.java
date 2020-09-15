@@ -81,6 +81,12 @@ public interface TaskService {
 	int insertCloneTask2(HashMap<String, Object> map2);
 	//14.삭제 이벤트
 	int deleteCloneTask(HashMap<String, Object> map);
+	//15.버그모드
+	int insertBug(HashMap<String, Object> map);
+	//16.북마크추가
+	int checkBookmark(Bookmark bookmark);
+	//17.북마크취소
+	int delteBookmark(int bookmarkCode);
 
 	
 	//Bug
@@ -99,6 +105,31 @@ public interface TaskService {
 	int deleteCloneBug(HashMap<String, Object> map);
 
 	List<TaskHistory> searchBug(HashMap<String, Object> map);
+
+	
+	
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+
+
+	
+	
+	
+
 	
 	//miso Kim's task ------------------------------------------------------------------------------------
 	//테스크 리스트 조회 후 보드 메인 view로 이동(현재 진행중인 스프린트의 tasklist만 조회)
