@@ -527,6 +527,8 @@ public class TaskController {
 		   
 		   List<TaskHistory> bglist = ts.selectBugTask(m);
 		   
+		   System.out.println(bglist);
+		   
 		   model.addAttribute("bgList", bglist);
 		  
 		   return "projectTask/bug/bug";
