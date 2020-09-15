@@ -117,6 +117,17 @@
 
 	</resultMap>
 	
+	<resultMap id="selectAlertRset" type="com.stepup.agile.userInfo.model.vo.AlertList">
+		<id property="alertCode" column="ALERT_CODE"/>
+		<result property="alertCheckYn" column="ALERT_CHECK_YN"/>
+		<result property="alertCategory" column="ALERT_CATEGORY"/>
+		<result property="alertHistoryCode" column="ALERT_HISTORY_CODE"/>
+    	<collection property="projectHistory" resultMap="ProjectHistoryResultSet"/>
+    	<collection property="member" resultMap="MemberResultSet"/>
+    	<collection property="userTeamList" resultMap="UserTeamListResultSet"/>
+    	<collection property="userProjectList" resultMap="UserProjectListResultSet"/>
+		<collection property="project" resultMap="ProjectResultSet"/>
+	</resultMap>
 	
 	
 	<select id="selectUserProject" resultMap="selectUserPJRset" parameterType="Project">
@@ -398,6 +409,25 @@
                                          )                                      
            ORDER BY PH.PROJECT_START_DATE DESC, PH.PROJECT_START_TIME, J.PROJECT_NAME ASC
    </select>
-   
 	
+	<select id="selectProjectAlert" resultType="int">
+		SELECT COUNT(*)
+		  FROM ALERT_LIST
+		 WHERE ALERT_HISTORY_CODE IN (SELECT PROJECT_HIST_CODE
+					  FROM (SELECT H.PROJECT_CODE, J.PROJECT_NAME, H.PROJECT_HIST_CODE, RANK() OVER (PARTITION BY H.PROJECT_CODE ORDER BY H.PROJECT_HIST_DATE DESC, H.PROJECT_HIST_TIME DESC) RK
+					         FROM USER_INFO I,
+					              USER_TEAM_LIST T,
+					              USER_PROJECT_LIST P,
+					              PROJECT_LIST J,
+					              PROJECT_HISTORY H
+					        WHERE I.USER_CODE  = T.USER_CODE
+					          AND T.USER_TEAM_YN = 'Y' 
+					          AND T.USER_TEAM_CODE = P.USER_TEAM_CODE
+					          AND P.PROJECT_CODE = J.PROJECT_CODE
+					          AND J.PROJECT_CODE = H.PROJECT_CODE 
+					          AND H.PROJECT_STATUS = 'N'
+					          AND I.USER_EMAIL = #{userEmail}
+					        )
+					    WHERE RK = 1)
+	</select>
 </mapper>

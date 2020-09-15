@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.stepup.agile.projectManage.model.vo.Project;
 import com.stepup.agile.projectManage.model.vo.ProjectHistory;
+import com.stepup.agile.userInfo.model.vo.AlertList;
 import com.stepup.agile.userInfo.model.vo.Member;
 import com.stepup.agile.userInfo.model.vo.UserProjectList;
 import com.stepup.agile.userInfo.model.vo.UserTeamList;
@@ -38,6 +39,8 @@ public interface ProjectService {
 
 	//프로젝트 수정
 	int updateProjectOne(ProjectHistory projectHistory);
+
+	int selectAlert(Member m);
 	
 	
 }

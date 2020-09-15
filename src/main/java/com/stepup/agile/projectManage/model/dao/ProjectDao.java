@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 
 import com.stepup.agile.projectManage.model.vo.Project;
 import com.stepup.agile.projectManage.model.vo.ProjectHistory;
+import com.stepup.agile.userInfo.model.vo.AlertList;
 import com.stepup.agile.userInfo.model.vo.Member;
 import com.stepup.agile.userInfo.model.vo.UserProjectList;
 import com.stepup.agile.userInfo.model.vo.UserTeamList;
@@ -40,6 +41,8 @@ public interface ProjectDao {
 
 	//프로젝트 수정
 	int updateProjectOne(SqlSessionTemplate sqlSession, ProjectHistory projectHistory);
+
+	int selectAlert(SqlSessionTemplate sqlSession, Member m);
 
 	
 	

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.stepup.agile.projectManage.model.vo.Project;
 import com.stepup.agile.projectManage.model.vo.ProjectHistory;
+import com.stepup.agile.userInfo.model.vo.AlertList;
 import com.stepup.agile.userInfo.model.vo.Member;
 import com.stepup.agile.userInfo.model.vo.UserProjectList;
 import com.stepup.agile.userInfo.model.vo.UserTeamList;
@@ -74,6 +75,11 @@ public class ProjectDaoImpl implements ProjectDao{
 	@Override
 	public int updateProjectOne(SqlSessionTemplate sqlSession, ProjectHistory projectHistory) {
 		return sqlSession.insert("Project.insertProjectHistory", projectHistory);
+	}
+
+	@Override
+	public int selectAlert(SqlSessionTemplate sqlSession, Member m) {
+		return sqlSession.selectOne("Project.selectProjectAlert", m);
 	}
 	
 

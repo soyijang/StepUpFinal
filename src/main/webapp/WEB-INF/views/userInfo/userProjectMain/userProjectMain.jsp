@@ -81,25 +81,15 @@
 	                         <div id="alm-cont">
 	                         	<table class="alm-tb" style="cellpadding:30px; width:100%;">
 	                         		<tr>
-	                         			<th colspan="2" style="font-weight:100; text-align: left;">2020년 8월</th>
-	                         			
+	                         			<th colspan="2" style="font-weight:100; text-align: left;">프로젝트💾</th>
 	                         		</tr>
+	                         		
+	                         		<c:forEach var="j" begin="0" end="${ alertList-5 }">
 	                         		<tr>
-	                         			<th colspan="2"></th>
+	                         			<td style="border-bottom:1px solid #E8E8E8; font-weight:300; width:20%; text-align: center;"></td>
+	                         			<td style="border-bottom:1px solid #E8E8E8; font-weight:300;">프로젝트가 업데이트 되었습니다.🔔</td>
 	                         		</tr>
-	                         		<tr>
-	                         			<th colspan="2"></th>
-	                         		</tr>
-	                         		<tr>
-	                         			<th colspan="2"></th>
-	                         		</tr>
-	                         		<tr>
-	                         			<th colspan="2"></th>
-	                         		</tr>
-	                         		<tr>
-	                         			<td style="border-bottom:1px solid #E8E8E8; font-weight:300; width:20%; text-align: center;">심다윤</td>
-	                         			<td style="border-bottom:1px solid #E8E8E8; font-weight:300;">얼른 하고싶다..</td>
-	                         		</tr>
+	                         		</c:forEach>
 	                         	</table>
 	                         </div>
 	                     </div>

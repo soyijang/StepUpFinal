@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.stepup.agile.projectManage.model.dao.ProjectDao;
 import com.stepup.agile.projectManage.model.vo.Project;
 import com.stepup.agile.projectManage.model.vo.ProjectHistory;
+import com.stepup.agile.userInfo.model.vo.AlertList;
 import com.stepup.agile.userInfo.model.vo.Member;
 import com.stepup.agile.userInfo.model.vo.UserProjectList;
 import com.stepup.agile.userInfo.model.vo.UserTeamList;
@@ -80,6 +81,11 @@ public class ProjectServiceImpl implements ProjectService{
 	@Override
 	public int updateTimeline(HashMap<String, Object> map) {
 		return pd.updateTimeline(sqlSession, map);
+	}
+
+	@Override
+	public int selectAlert(Member m) {
+		return pd.selectAlert(sqlSession, m);
 	}
 
 
