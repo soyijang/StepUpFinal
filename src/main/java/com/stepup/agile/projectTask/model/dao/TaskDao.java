@@ -7,6 +7,7 @@ import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 
+import com.stepup.agile.projectBacklog.model.vo.SprintHistory;
 import com.stepup.agile.projectManage.model.vo.Project;
 import com.stepup.agile.projectTask.model.vo.Bookmark;
 import com.stepup.agile.projectTask.model.vo.ReplyHistory;
@@ -14,6 +15,7 @@ import com.stepup.agile.projectTask.model.vo.ReplyList;
 import com.stepup.agile.projectTask.model.vo.TaskHistory;
 import com.stepup.agile.projectTask.model.vo.TaskList;
 import com.stepup.agile.userInfo.model.vo.Member;
+import com.stepup.agile.userInfo.model.vo.UserTeamList;
 
 public interface TaskDao {
 	//1.Task생성
@@ -105,6 +107,39 @@ public interface TaskDao {
 	//miso Kim's task ------------------------------------------------------------------------------------
 	//테스크 리스트 조회 후 보드 메인 view로 이동(현재 진행중인 스프린트의 tasklist만 조회)
 	List<TaskHistory> selectTaskList(SqlSessionTemplate sqlSession, HashMap<String, Object> map);
+ 	//플래그 추가
+	int insertTaskHistoryFlagYes(SqlSessionTemplate sqlSession, TaskHistory taskHistory);
+ 	//플래그 제거
+	int insertTaskHistoryFlagNo(SqlSessionTemplate sqlSession, TaskHistory taskHistory);
+	//레이블 제거
+	int insertTaskHistoryLabelNo(SqlSessionTemplate sqlSession, TaskHistory taskHistory);
+	//테스크 삭제
+	int insertTaskHistoryTaskDelete(SqlSessionTemplate sqlSession, TaskHistory taskHistory);
+	//레이블 리스트 조회(레이블 추가 기능에서 기존 레이블 실시간 조회후 리스트 보여주기)	
+	List<TaskHistory> selectLabelList(SqlSessionTemplate sqlSession, Map<String, Object> map);
+	//레이블 추가	
+	int insertTaskHistoryLabelYes(SqlSessionTemplate sqlSession, TaskHistory taskHistory);
+	//특정 테스크의 최근 담당자 및 관리자 조회(taskHistory insert시 필요한 정보)	
+	TaskHistory selectTaskUserAndMaster(SqlSessionTemplate sqlSession, int taskCode);
+	//스프린트 리스트 실시간 조회 (현재 프로젝트 코드 기준으로 테스크 상위항목 변경 위해 조회해온다.)	
+	List<SprintHistory> selectSprintList(SqlSessionTemplate sqlSession, Map<String, Object> map);
+	//테스크 진행상태 변경 (드래그앤드롭 기능)	
+	int insertTaskHistoryTaskProceeding(SqlSessionTemplate sqlSession, TaskHistory taskHistory);
+	//하위 테스크 headTaskCode 업데이트 (드래그앤드롭 기능)		
+	int updateTaskListHeadTaskCode(SqlSessionTemplate sqlSession, TaskList taskList);
+	//사용자 팀코드 조회
+	UserTeamList selectUserTeamCode(SqlSessionTemplate sqlSession, Member m);
+	//팀 멤버 조회
+	List<Member> selectUserMemberList(SqlSessionTemplate sqlSession, int teamCode);
+	//팀코드 조회
+	int selectTeamCode(SqlSessionTemplate sqlSession, int userTeamCode);
+	//상위 항목 변경(테스크의 스프린트 변경)	
+	int updateTaskSprintCode(SqlSessionTemplate sqlSession, Map<String, Object> map);
+	//최신 스프린트 히스토리 조회	
+	SprintHistory selectRecentSprintHistory(SqlSessionTemplate sqlSession, int sprintCode);
+	//스프린트 종료
+	int insertSprintHistorySprintType(SqlSessionTemplate sqlSession, SprintHistory sprintHistory);
+	
 
 
 

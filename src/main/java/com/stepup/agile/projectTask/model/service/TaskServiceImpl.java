@@ -9,6 +9,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.stepup.agile.projectBacklog.model.vo.SprintHistory;
 import com.stepup.agile.projectManage.model.vo.Project;
 import com.stepup.agile.projectTask.model.dao.TaskDao;
 import com.stepup.agile.projectTask.model.vo.Bookmark;
@@ -17,6 +18,7 @@ import com.stepup.agile.projectTask.model.vo.ReplyList;
 import com.stepup.agile.projectTask.model.vo.TaskHistory;
 import com.stepup.agile.projectTask.model.vo.TaskList;
 import com.stepup.agile.userInfo.model.vo.Member;
+import com.stepup.agile.userInfo.model.vo.UserTeamList;
 
 @Service
 public class TaskServiceImpl implements TaskService {
@@ -300,25 +302,84 @@ public class TaskServiceImpl implements TaskService {
 	public List<TaskHistory> selectTaskList(HashMap<String, Object> map) {
 		return td.selectTaskList(sqlSession, map);
 	}
-
-
-
-	
-
-
-
-
-
-
-
-
-
-
-
-	
-	
-	
-
-
-
+ 	//플래그 추가
+	@Override
+	public int insertTaskHistoryFlagYes(TaskHistory taskHistory) {
+		return td.insertTaskHistoryFlagYes(sqlSession, taskHistory);
+	}
+ 	//플래그 제거
+	@Override
+	public int insertTaskHistoryFlagNo(TaskHistory taskHistory) {
+		return td.insertTaskHistoryFlagNo(sqlSession, taskHistory);
+	}
+	//레이블 제거
+	@Override
+	public int insertTaskHistoryLabelNo(TaskHistory taskHistory) {
+		return td.insertTaskHistoryLabelNo(sqlSession, taskHistory);
+	}
+	//테스크 삭제
+	@Override
+	public int insertTaskHistoryTaskDelete(TaskHistory taskHistory) {
+		return td.insertTaskHistoryTaskDelete(sqlSession, taskHistory);
+	}
+	//레이블 리스트 조회(레이블 추가 기능에서 기존 레이블 실시간 조회후 리스트 보여주기)
+	@Override
+	public List<TaskHistory> selectLabelList(Map<String, Object> map) {
+		return td.selectLabelList(sqlSession, map);
+	}
+	//레이블 추가
+	@Override
+	public int insertTaskHistoryLabelYes(TaskHistory taskHistory) {
+		return td.insertTaskHistoryLabelYes(sqlSession, taskHistory);
+	}
+	//특정 테스크의 최근 담당자 및 관리자 조회(taskHistory insert시 필요한 정보)
+	@Override
+	public TaskHistory selectTaskUserAndMaster(int taskCode) {
+		return td.selectTaskUserAndMaster(sqlSession, taskCode);
+	}
+	//스프린트 리스트 실시간 조회 (현재 프로젝트 코드 기준으로 테스크 상위항목 변경 위해 조회해온다.)	
+	@Override
+	public List<SprintHistory> selectSprintList(Map<String, Object> map) {
+		return td.selectSprintList(sqlSession, map);
+	}
+	//테스크 진행상태 변경 (드래그앤드롭 기능)
+	@Override
+	public int insertTaskHistoryTaskProceeding(TaskHistory taskHistory) {
+		return td.insertTaskHistoryTaskProceeding(sqlSession, taskHistory);
+	}
+	//하위 테스크 headTaskCode 업데이트 (드래그앤드롭 기능)	
+	@Override
+	public int updateTaskListHeadTaskCode(TaskList taskList) {
+		return td.updateTaskListHeadTaskCode(sqlSession, taskList);
+	}
+	//사용자 팀코드 조회
+	@Override
+	public UserTeamList selectUserTeamCode(Member m) {
+		return td.selectUserTeamCode(sqlSession, m);
+	}
+	//팀 멤버 조회
+	@Override
+	public List<Member> selectUserMemberList(int teamCode) {
+		return td.selectUserMemberList(sqlSession, teamCode);
+	}
+	//팀코드 조회
+	@Override
+	public int selectTeamCode(int userTeamCode) {
+		return td.selectTeamCode(sqlSession, userTeamCode);
+	}
+	//상위 항목 변경(테스크의 스프린트 변경)
+	@Override
+	public int updateTaskSprintCode(Map<String, Object> map) {
+		return td.updateTaskSprintCode(sqlSession, map);
+	}
+	//최신 스프린트 히스토리 조회
+	@Override
+	public SprintHistory selectRecentSprintHistory(int sprintCode) {
+		return td.selectRecentSprintHistory(sqlSession, sprintCode);
+	}
+	//스프린트 종료
+	@Override
+	public int insertSprintHistorySprintType(SprintHistory sprintHistory) {
+		return td.insertSprintHistorySprintType(sqlSession, sprintHistory);
+	}
 }

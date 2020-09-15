@@ -176,6 +176,9 @@
 		<result property="taskCategoryCode" column="TASK_CATEGORY_CODE"/>
 	    <collection property="taskList" resultMap="TaskListResultSetMi"/>
 	    <collection property="taskCategory" resultMap="TaskCategoryResultSet"/>
+	    <collection property="sprint" resultMap="sprintResultSet"/>
+	    <collection property="sprintHistory" resultMap="SprintHistoryResultSetMi"/>
+	    <collection property="member" resultMap="memberResultSet"/>
 	</resultMap>
 	
 	<!--taskList table -->	
@@ -187,6 +190,7 @@
 		<result property="taskCreateTime" column="TASK_CREATE_TIME"/>
 		<result property="taskMaster" column="TASK_MASTER"/>
 		<result property="taskUser" column="TASK_USER"/>
+		<result property="headTaskCode" column="HEAD_TASK_CODE"/>
 		<collection property="member" resultMap="memberResultSet"/>
 		<collection property="team" resultMap="TeamResultSetMi"/>
 	    <collection property="userTeamList" resultMap="UserTeamListResultSet"/>
@@ -206,8 +210,6 @@
 		<result property="sprintHistUpdateTime" column="SPRINT_HIST_UPDATE_TIME"/>
 		<result property="sprintIntro" column="SPRINT_INTRO"/>
 		<result property="sprintStatus" column="SPRINT_STATUS"/>
-		<result property="sprintTaskCount" column="SPRINT_TASK_COUNT"/>
-		<result property="sprintTypeYn" column="SPRINT_TYPE_YN"/>
 	</resultMap>
 	
 	<!-- team table -->	
@@ -800,15 +802,15 @@ WHERE I.USER_CODE = T.USER_CODE
 	
 	<!-- misoKim -->
 	<select id="selectTaskList" resultMap="TaskHistoryResultSetMi" parameterType="hashMap">
-		SELECT UI.USER_EMAIL, UI.USER_NAME, UI.USER_CODE, 
-			UTL.USER_TEAM_DATE, UTL.USER_TEAM_TIME, UTL.USER_TEAM_CODE, UTL.TEAM_CODE,
+		SELECT  
+			UTL.USER_TEAM_CODE, UTL.TEAM_CODE,
 			T.TEAM_NAME, 
 			UPL.USER_PROJECT_CODE, UPL.PROJECT_CODE, UPL.USER_PROJECT_AUTHORITY,
 			PL.PROJECT_NAME,
 			SL.SPRINT_CODE,
 			SH.SPRINT_HIST_CODE, SH.SPRINT_NAME, SH.SPRINT_TYPE, SH.SPRINT_INTRO, SH.SPRINT_EXPECT_PERIOD,
-			TL.TASK_CODE, TL.TASK_LEVEL, TL.TASK_MASTER, TL.TASK_USER, TL.HEAD_TASK_CODE,
-			TH.TASK_HIST_CODE, TH.TASK_HIST_VALUE, TH.TASK_CATEGORY_CODE, 
+			TL.TASK_CODE, TL.TASK_LEVEL, TL.HEAD_TASK_CODE,
+			TH.TASK_HIST_CODE, TH.TASK_HIST_VALUE, TH.TASK_CATEGORY_CODE, TH.USER_CODE, TH.MASTER_CODE,
 			TC.TASK_CATEGORY_NAME
 		FROM USER_INFO UI, USER_TEAM_LIST UTL, TEAM T, USER_PROJECT_LIST UPL, PROJECT_LIST PL, SPRINT_LIST SL, SPRINT_HISTORY SH, TASK_LIST TL, TASK_HISTORY TH, TASK_CATEGORY TC
 		WHERE UI.USER_CODE = UTL.USER_CODE 
@@ -889,14 +891,247 @@ WHERE I.USER_CODE = T.USER_CODE
 		AND SL.SPRINT_CODE = TL.SPRINT_CODE
 		AND TL.TASK_CODE = TH.TASK_CODE (+)
 		AND TH.TASK_CATEGORY_CODE = TC.TASK_CATEGORY_CODE
-		AND TH.TASK_HIST_CODE IN (SELECT TASK_HIST_CODE 
-		                           FROM(SELECT TH.TASK_CODE, TH.TASK_HIST_UPDATE_DATE, TH.TASK_HIST_UPDATE_TIME, TH.TASK_HIST_CODE, TH.MASTER_CODE, TH.USER_CODE, TH.TASK_HIST_VALUE, 
-		                                       TC.TASK_CATEGORY_CODE, TC.TASK_CATEGORY_NAME, 
-		                                       RANK() OVER(PARTITION BY TH.TASK_CODE, TC.TASK_CATEGORY_CODE  ORDER BY TH.TASK_HIST_UPDATE_DATE DESC, TH.TASK_HIST_UPDATE_TIME DESC) AS TASK_LATEST_RK
-		                                  FROM TASK_HISTORY TH, TASK_CATEGORY TC WHERE TH.TASK_CATEGORY_CODE = TC.TASK_CATEGORY_CODE)
-		                          WHERE TASK_LATEST_RK = 1
-		                        )
+		AND TH.TASK_HIST_CODE IN (SELECT TASK_HIST_CODE
+                           FROM(SELECT TH.TASK_CODE,TH.TASK_CATEGORY_CODE, TH.TASK_HIST_UPDATE_DATE, TH.TASK_HIST_UPDATE_TIME, TH.TASK_HIST_CODE, TH.MASTER_CODE, TH.USER_CODE, TH.TASK_HIST_VALUE, 
+                                       TC.TASK_CATEGORY_NAME, 
+                                       RANK() OVER(PARTITION BY TH.TASK_CODE, TH.TASK_CATEGORY_CODE  ORDER BY TH.TASK_HIST_CODE DESC) AS TASK_LATEST_RK
+                                  FROM TASK_HISTORY TH, TASK_CATEGORY TC WHERE TH.TASK_CATEGORY_CODE = TC.TASK_CATEGORY_CODE)
+                          WHERE TASK_LATEST_RK = 1
+                        )
 		AND UI.USER_EMAIL = #{userEmail, jdbcType=VARCHAR}
-		ORDER BY TL.TASK_CODE
+		AND TL.TASK_CODE NOT IN  (SELECT DISTINCT TL.TASK_CODE 
+                            FROM TASK_LIST TL , TASK_HISTORY TH, TASK_CATEGORY TC 
+                            WHERE TL.TASK_CODE = TH.TASK_CODE 
+                            AND TH.TASK_CATEGORY_CODE = TC.TASK_CATEGORY_CODE
+                            AND (TH.TASK_CATEGORY_CODE = 'G' OR TH.TASK_CATEGORY_CODE = 'F'))
+		ORDER BY TL.TASK_CODE, CASE WHEN TH.TASK_CATEGORY_CODE IN ('I') THEN 0 ELSE 1 END, TH.TASK_CATEGORY_CODE
 	</select>
+	
+	<!-- 플래그 추가  -->
+	<insert id="insertTaskHistoryFlagYes" parameterType="TaskHistory">
+		INSERT INTO TASK_HISTORY
+		VALUES(TO_CHAR(SYSDATE + 9/24, 'YYYY-MM-DD'), TO_CHAR(SYSDATE + 9/24, 'hh24:mi:ss'), #{taskCode}, SEQ_TASK_HIST.NEXTVAL, #{masterCode},  #{userCode}, 'Y', 'E')
+	</insert>
+	<!-- 플래그 제거  -->
+	<insert id="insertTaskHistoryFlagNo" parameterType="TaskHistory">
+		INSERT INTO TASK_HISTORY
+		VALUES(TO_CHAR(SYSDATE + 9/24, 'YYYY-MM-DD'), TO_CHAR(SYSDATE + 9/24, 'hh24:mi:ss'), #{taskCode}, SEQ_TASK_HIST.NEXTVAL, #{masterCode},  #{userCode}, 'N', 'E')
+	</insert>
+	<!-- 레이블 제거  -->
+	<insert id="insertTaskHistoryLabelNo" parameterType="TaskHistory">
+		INSERT INTO TASK_HISTORY
+		VALUES(TO_CHAR(SYSDATE + 9/24, 'YYYY-MM-DD'), TO_CHAR(SYSDATE + 9/24, 'hh24:mi:ss'), #{taskCode}, SEQ_TASK_HIST.NEXTVAL, #{masterCode},  #{userCode}, NULL, 'N')
+	</insert>	
+	<!-- 레이블 추가  -->
+	<insert id="insertTaskHistoryLabelYes" parameterType="TaskHistory">
+		INSERT INTO TASK_HISTORY
+		VALUES(TO_CHAR(SYSDATE + 9/24, 'YYYY-MM-DD'), TO_CHAR(SYSDATE + 9/24, 'hh24:mi:ss'), #{taskCode}, SEQ_TASK_HIST.NEXTVAL, #{masterCode},  #{userCode}, #{taskHistValue}, 'N')
+	</insert>	
+	<!-- 테스크 제거  -->
+	<insert id="insertTaskHistoryTaskDelete" parameterType="TaskHistory">
+		INSERT INTO TASK_HISTORY
+		VALUES(TO_CHAR(SYSDATE + 9/24, 'YYYY-MM-DD'), TO_CHAR(SYSDATE + 9/24, 'hh24:mi:ss'), #{taskCode}, SEQ_TASK_HIST.NEXTVAL, #{masterCode},  #{userCode}, 'Y', 'F')
+	</insert>
+	<!-- 테스크 진행상태 변경  -->
+	<insert id="insertTaskHistoryTaskProceeding" parameterType="TaskHistory">
+		INSERT INTO TASK_HISTORY
+		VALUES(TO_CHAR(SYSDATE + 9/24, 'YYYY-MM-DD'), TO_CHAR(SYSDATE + 9/24, 'hh24:mi:ss'), #{taskCode}, SEQ_TASK_HIST.NEXTVAL, #{masterCode},  #{userCode}, #{taskHistValue}, 'I')
+	</insert>
+	<!-- 테스크 최근 담당자 및 관리자 조회 -->
+	<select id="selectTaskUserAndMaster" resultMap="TaskHistoryResultSetMi" parameterType="int">
+		SELECT MASTER_CODE, USER_CODE
+		  FROM TASK_HISTORY
+		 WHERE TASK_HIST_CODE = (SELECT MAX(TASK_HIST_CODE)
+		                           FROM TASK_HISTORY
+		                          WHERE TASK_CODE = #{taskCode})
+	</select>	
+	
+	
+	<!-- 팀 멤버 조회 -->
+	<select id="selectUserMemberList" resultMap="memberResultSet" parameterType="int">
+		SELECT UI.USER_CODE, UI.USER_NAME
+		  FROM USER_INFO UI, USER_TEAM_LIST UTL
+		 WHERE UI.USER_CODE = UTL.USER_CODE
+		 AND UTL.TEAM_CODE = #{teamCode}
+	</select>	
+	
+	<!-- 하위 테스크 headTaskCode 업데이트  -->
+	<update id="updateTaskListHeadTaskCode" parameterType="TaskList">
+		UPDATE TASK_LIST SET HEAD_TASK_CODE = #{headTaskCode}
+		WHERE TASK_CODE = #{taskCode}
+	</update>
+	
+	<!-- 테스크의 상위 스프린트 변경  -->
+	<update id="updateTaskSprintCode" parameterType="hashMap">
+		UPDATE TASK_LIST SET SPRINT_CODE = #{sprintCode, jdbcType=INTEGER}
+		WHERE TASK_CODE = #{taskCode, jdbcType=INTEGER}
+	</update>
+		
+	<!-- 사용자 팀코드 조회 -->
+	 <select id="selectUserTeamCode" resultMap="UserTeamListResultSet" parameterType="Member">
+          SELECT 
+                USER_CODE, USER_TEAM_CODE
+          FROM 
+                (SELECT 
+                    I.USER_CODE, T.USER_TEAM_CODE, T.USER_TEAM_DATE, T.USER_TEAM_TIME,
+                    RANK() OVER (PARTITION BY I.USER_CODE ORDER BY T.USER_TEAM_DATE DESC, T.USER_TEAM_TIME DESC) RK
+                  FROM USER_INFO I, USER_TEAM_LIST T
+                 WHERE T.USER_CODE = I.USER_CODE
+                   AND T.USER_TEAM_YN = 'Y'
+                 AND I.USER_STATUS = 'N'
+                   AND I.USER_EMAIL = #{userEmail, jdbcType=VARCHAR}
+            ORDER BY T.USER_TEAM_DATE DESC, T.USER_TEAM_TIME DESC)
+          WHERE RK = 1
+   </select>
+	
+	<!-- 팀코드 조회 -->
+	 <select id="selectTeamCode" resultType="int" parameterType="int">
+          SELECT TEAM_CODE FROM USER_TEAM_LIST WHERE USER_TEAM_CODE = #{userTeamCode, jdbcType=INTEGER}
+   </select>
+	
+	<!-- 최신 스프린트 히스토리 조회 -->
+	<select id="selectRecentSprintHistory" resultMap="SprintHistoryResultSetMi" parameterType="int">
+		  SELECT SPRINT_HIST_UPDATE_DATE,SPRINT_NAME,SPRINT_TYPE,SPRINT_EXPECT_PERIOD,SPRINT_HIST_CODE,SPRINT_CODE,SPRINT_HIST_UPDATE_TIME,SPRINT_INTRO,SPRINT_STATUS
+		  FROM SPRINT_HISTORY 
+		  WHERE SPRINT_CODE = #{sprintCode}
+		  AND SPRINT_HIST_CODE = (SELECT MAX(SPRINT_HIST_CODE) 
+		                            FROM SPRINT_HISTORY 
+		                            WHERE SPRINT_CODE = #{sprintCode})
+   </select>
+   
+   	<!-- 스프린트 종료  -->
+	<insert id="insertSprintHistorySprintType" parameterType="SprintHistory">
+		INSERT INTO SPRINT_HISTORY
+		VALUES(TO_CHAR(SYSDATE + 9/24, 'YYYY-MM-DD'), #{sprintName}, '03', #{sprintExpectPeriod}, SEQ_SPRINT_HIST.NEXTVAL, #{sprintCode}, TO_CHAR(SYSDATE + 9/24, 'hh24:mi:ss'),  #{sprintIntro}, DEFAULT)
+	</insert>
+   
+   
+	<!-- 스프린트 리스트 조회 -->
+	<select id="selectSprintList" resultMap="SprintHistoryResultSetMi" parameterType="hashMap">
+		SELECT SL.SPRINT_CODE, SH.SPRINT_NAME, SH.SPRINT_HIST_CODE
+		  FROM SPRINT_LIST SL, USER_PROJECT_LIST UPL, PROJECT_LIST PL, SPRINT_HISTORY SH
+		 WHERE SL.USER_PROJECT_CODE = UPL.USER_PROJECT_CODE
+		   AND UPL.PROJECT_CODE = PL.PROJECT_CODE
+		   AND SL.SPRINT_CODE = SH.SPRINT_CODE
+		   AND UPL.PROJECT_CODE = #{projectCode, jdbcType = INTEGER }
+		   AND SH.SPRINT_HIST_CODE IN (SELECT SPRINT_HIST_CODE
+		                              FROM (SELECT SPRINT_CODE, SPRINT_HIST_CODE, SPRINT_NAME, 
+		                                    RANK() OVER(PARTITION BY SPRINT_CODE ORDER BY SPRINT_HIST_CODE DESC) AS RK
+		                                    FROM SPRINT_HISTORY
+		                                     )
+		                             WHERE RK = 1)
+		   AND SH.SPRINT_NAME LIKE '%' || #{sprintName, jdbcType=VARCHAR} || '%'
+		   AND UPL.USER_TEAM_CODE = #{userTeamCode, jdbcType = INTEGER }
+		   AND SL.SPRINT_CODE IN(SELECT SPRINT_CODE
+									FROM (SELECT SPRINT_CODE, SPRINT_HIST_CODE, SPRINT_TYPE,
+									       RANK() OVER(PARTITION BY SPRINT_CODE ORDER BY SPRINT_HIST_CODE DESC) AS RK
+									       FROM SPRINT_HISTORY)
+									WHERE RK = 1
+									AND SPRINT_TYPE = '01'
+		   )
+	</select>
+	
+	
+	
+	<!-- 레이블 리스트 실시간 검색 조회 -->
+	<select id="selectLabelList" resultMap="TaskHistoryResultSetMi" parameterType="hashMap">	
+		SELECT  
+		TH.TASK_HIST_VALUE
+		FROM USER_INFO UI, USER_TEAM_LIST UTL, TEAM T, USER_PROJECT_LIST UPL, PROJECT_LIST PL, SPRINT_LIST SL, SPRINT_HISTORY SH, TASK_LIST TL, TASK_HISTORY TH, TASK_CATEGORY TC
+		WHERE UI.USER_CODE = UTL.USER_CODE 
+		AND UTL.TEAM_CODE = T.TEAM_CODE 
+		AND UTL.USER_TEAM_YN = 'Y' 
+		AND UTL.USER_TEAM_CODE = (SELECT MAX(UTL1.USER_TEAM_CODE)
+		                            FROM USER_INFO UI1, USER_TEAM_LIST UTL1
+		                           WHERE UI1.USER_CODE = UTL1.USER_CODE 
+		                             AND UTL1.USER_TEAM_YN = 'Y' 
+		                             AND UI1.USER_EMAIL = #{userEmail, jdbcType=VARCHAR}
+		                          )
+		AND UTL.USER_TEAM_CODE(+) = UPL.USER_TEAM_CODE
+		AND UPL.USER_PROJECT_CODE IN (SELECT USER_PROJECT_CODE
+		                               FROM(SELECT
+		                                    UI.USER_EMAIL, UPL.USER_PROJECT_CODE, UPL.PROJECT_CODE, UPL.USER_PROJECT_STATUS,
+		                                      RANK() OVER(PARTITION BY UPL.PROJECT_CODE ORDER BY UPL.USER_PROJECT_CODE DESC) AS RK
+		                                      FROM USER_INFO UI, USER_TEAM_LIST UTL, TEAM T, USER_PROJECT_LIST UPL
+		                                     WHERE UI.USER_CODE = UTL.USER_CODE 
+		                                       AND UTL.TEAM_CODE = T.TEAM_CODE
+		                                       AND UTL.USER_TEAM_YN = 'Y' 
+		                                       AND UTL.USER_TEAM_CODE = (SELECT MAX(UTL1.USER_TEAM_CODE) 
+		                                                                   FROM USER_INFO UI1, USER_TEAM_LIST UTL1
+		                                                                  WHERE UI1.USER_CODE = UTL1.USER_CODE 
+		                                                                    AND UTL1.USER_TEAM_YN = 'Y' 
+		                                                                    AND UI1.USER_EMAIL = #{userEmail, jdbcType=VARCHAR}
+		                                                                 )
+		                                      AND UTL.USER_TEAM_CODE(+) = UPL.USER_TEAM_CODE                  
+		                                      AND UI.USER_EMAIL = #{userEmail, jdbcType=VARCHAR})
+		                              WHERE RK = 1
+		                              AND USER_PROJECT_STATUS = 'Y')
+		AND UPL.PROJECT_CODE = PL.PROJECT_CODE 
+		AND PL.PROJECT_CODE = #{projectCode, jdbcType=INTEGER}
+		AND UPL.USER_PROJECT_CODE = SL.USER_PROJECT_CODE 
+		AND SL.SPRINT_CODE = SH.SPRINT_CODE
+		AND SH.SPRINT_HIST_CODE = (SELECT SPRINT_HIST_CODE
+		                            FROM (SELECT 
+		                                  SH.SPRINT_CODE, SH.SPRINT_HIST_UPDATE_DATE, SH.SPRINT_HIST_UPDATE_TIME, SH.SPRINT_TYPE, SH.SPRINT_HIST_CODE,
+		                                   RANK() OVER(PARTITION BY SH.SPRINT_CODE ORDER BY SH.SPRINT_HIST_UPDATE_DATE DESC, SH.SPRINT_HIST_UPDATE_TIME DESC ) AS SHRK
+		                                    FROM USER_INFO UI, USER_TEAM_LIST UTL, TEAM T, USER_PROJECT_LIST UPL, PROJECT_LIST PL, SPRINT_LIST SL, SPRINT_HISTORY SH
+		                                   WHERE UI.USER_CODE = UTL.USER_CODE 
+		                                     AND UTL.TEAM_CODE = T.TEAM_CODE 
+		                                     AND UTL.USER_TEAM_YN = 'Y' 
+		                                     AND UTL.USER_TEAM_CODE = (SELECT MAX(UTL1.USER_TEAM_CODE) 
+		                                                                 FROM USER_INFO UI1, USER_TEAM_LIST UTL1
+		                                                                WHERE UI1.USER_CODE = UTL1.USER_CODE 
+		                                                                  AND UTL1.USER_TEAM_YN = 'Y' 
+		                                                                  AND UI1.USER_EMAIL = #{userEmail, jdbcType=VARCHAR}
+		                                                               )
+		                                    AND UTL.USER_TEAM_CODE(+) = UPL.USER_TEAM_CODE
+		                                    AND UPL.USER_PROJECT_CODE IN (SELECT USER_PROJECT_CODE
+		                                                                    FROM(SELECT
+		                                                                         UI.USER_EMAIL, UPL.USER_PROJECT_CODE, UPL.PROJECT_CODE, UPL.USER_PROJECT_STATUS,
+		                                                                           RANK() OVER(PARTITION BY UPL.PROJECT_CODE ORDER BY UPL.USER_PROJECT_CODE DESC) AS RK
+		                                                                           FROM USER_INFO UI, USER_TEAM_LIST UTL, TEAM T, USER_PROJECT_LIST UPL
+		                                                                          WHERE UI.USER_CODE = UTL.USER_CODE 
+		                                                                            AND UTL.TEAM_CODE = T.TEAM_CODE 
+		                                                                            AND UTL.USER_TEAM_YN = 'Y' 
+		                                                                            AND UTL.USER_TEAM_CODE = (SELECT MAX(UTL1.USER_TEAM_CODE) 
+		                                                                                                        FROM USER_INFO UI1, USER_TEAM_LIST UTL1
+		                                                                                                       WHERE UI1.USER_CODE = UTL1.USER_CODE 
+		                                                                                                         AND UTL1.USER_TEAM_YN = 'Y' 
+		                                                                                                         AND UI1.USER_EMAIL = #{userEmail, jdbcType=VARCHAR}
+		                                                                                                      )
+		                                                                           AND UTL.USER_TEAM_CODE(+) = UPL.USER_TEAM_CODE                  
+		                                                                           AND UI.USER_EMAIL = #{userEmail, jdbcType=VARCHAR})
+		                                                                   WHERE RK = 1
+		                                                                   AND USER_PROJECT_STATUS = 'Y')
+		                                   AND UPL.PROJECT_CODE = PL.PROJECT_CODE 
+		                                   AND PL.PROJECT_CODE = #{projectCode, jdbcType=INTEGER}
+		                                   AND UPL.USER_PROJECT_CODE = SL.USER_PROJECT_CODE 
+		                                   AND SL.SPRINT_CODE = SH.SPRINT_CODE
+		                                   AND SH.SPRINT_STATUS = 'N'
+		                                   AND UI.USER_EMAIL = #{userEmail, jdbcType=VARCHAR}
+		                                 )
+		                            WHERE SPRINT_TYPE = '02'
+		                              AND SHRK = 1
+		                          )
+		AND SL.SPRINT_CODE = TL.SPRINT_CODE
+		AND TL.TASK_CODE = TH.TASK_CODE (+)
+		AND TH.TASK_CATEGORY_CODE = TC.TASK_CATEGORY_CODE
+		AND TH.TASK_HIST_CODE IN (SELECT TASK_HIST_CODE
+                           FROM(SELECT TH.TASK_CODE,TH.TASK_CATEGORY_CODE, TH.TASK_HIST_UPDATE_DATE, TH.TASK_HIST_UPDATE_TIME, TH.TASK_HIST_CODE, TH.MASTER_CODE, TH.USER_CODE, TH.TASK_HIST_VALUE, 
+                                       TC.TASK_CATEGORY_NAME, 
+                                       RANK() OVER(PARTITION BY TH.TASK_CODE, TH.TASK_CATEGORY_CODE  ORDER BY TH.TASK_HIST_CODE DESC) AS TASK_LATEST_RK
+                                  FROM TASK_HISTORY TH, TASK_CATEGORY TC WHERE TH.TASK_CATEGORY_CODE = TC.TASK_CATEGORY_CODE)
+                          WHERE TASK_LATEST_RK = 1
+                        )
+		AND UI.USER_EMAIL = #{userEmail, jdbcType=VARCHAR}
+		AND TL.TASK_CODE NOT IN  (SELECT DISTINCT TL.TASK_CODE 
+                            FROM TASK_LIST TL , TASK_HISTORY TH, TASK_CATEGORY TC 
+                            WHERE TL.TASK_CODE = TH.TASK_CODE 
+                            AND TH.TASK_CATEGORY_CODE = TC.TASK_CATEGORY_CODE
+                            AND (TH.TASK_CATEGORY_CODE = 'G' OR TH.TASK_CATEGORY_CODE = 'F'))
+        AND TH.TASK_CATEGORY_CODE = 'N'
+        AND TH.TASK_HIST_VALUE LIKE '%'|| #{taskHistValue, jdbcType=VARCHAR} ||'%'              
+		ORDER BY TL.TASK_CODE, CASE WHEN TH.TASK_CATEGORY_CODE IN ('I') THEN 0 ELSE 1 END, TH.TASK_CATEGORY_CODE
+	</select>
+	
 </mapper>
