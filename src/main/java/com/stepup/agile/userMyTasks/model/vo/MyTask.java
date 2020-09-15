@@ -1,103 +1,197 @@
 package com.stepup.agile.userMyTasks.model.vo;
 
+import com.stepup.agile.projectManage.model.vo.Project;
+import com.stepup.agile.userInfo.model.vo.Member;
+import com.stepup.agile.userInfo.model.vo.UserProjectList;
+import com.stepup.agile.userInfo.model.vo.UserTeamList;
+
 public class MyTask implements java.io.Serializable{
 	
 	private int myTasksCode;
-	private String contents;
-	private String startDate;
-	private String startTime;
-	private String endDate;
-	private String endTime;
-	private String enrollDate;
-	private String enrollTime;
+	private String myTaskscontents;
+	private String myTasksstartDate;
+	private String myTasksstartTime;
+	private String myTasksendDate;
+	private String myTasksendTime;
+	private String myTasksenrollDate;
+	private String myTasksenrollTime;
 	private int userProjectCode;
 	private String myTasksShareYN;
+	private String myTasksTodoYN;
+	
+	
+	private UserProjectList userProjectList;
+	private UserTeamList userTeamList;
+	private Member member;
+	private Project project;
+	private MyTaskShare myTaskShare;
+	
 	public MyTask() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public MyTask(int myTasksCode, String contents, String startDate, String startTime, String endDate,
-			String endTime, String enrollDate, String enrollTime, int userProjectCode, String myTasksShareYN) {
+
+	public MyTask(int myTasksCode, String myTaskscontents, String myTasksstartDate, String myTasksstartTime,
+			String myTasksendDate, String myTasksendTime, String myTasksenrollDate, String myTasksenrollTime,
+			int userProjectCode, String myTasksShareYN, String myTasksTodoYN, UserProjectList userProjectList,
+			UserTeamList userTeamList, Member member, Project project, MyTaskShare myTaskShare) {
 		super();
 		this.myTasksCode = myTasksCode;
-		this.contents = contents;
-		this.startDate = startDate;
-		this.startTime = startTime;
-		this.endDate = endDate;
-		this.endTime = endTime;
-		this.enrollDate = enrollDate;
-		this.enrollTime = enrollTime;
+		this.myTaskscontents = myTaskscontents;
+		this.myTasksstartDate = myTasksstartDate;
+		this.myTasksstartTime = myTasksstartTime;
+		this.myTasksendDate = myTasksendDate;
+		this.myTasksendTime = myTasksendTime;
+		this.myTasksenrollDate = myTasksenrollDate;
+		this.myTasksenrollTime = myTasksenrollTime;
 		this.userProjectCode = userProjectCode;
 		this.myTasksShareYN = myTasksShareYN;
+		this.myTasksTodoYN = myTasksTodoYN;
+		this.userProjectList = userProjectList;
+		this.userTeamList = userTeamList;
+		this.member = member;
+		this.project = project;
+		this.myTaskShare = myTaskShare;
 	}
+
 	public int getMyTasksCode() {
 		return myTasksCode;
 	}
+
 	public void setMyTasksCode(int myTasksCode) {
 		this.myTasksCode = myTasksCode;
 	}
-	public String getContents() {
-		return contents;
+
+	public String getMyTaskscontents() {
+		return myTaskscontents;
 	}
-	public void setContents(String contents) {
-		this.contents = contents;
+
+	public void setMyTaskscontents(String myTaskscontents) {
+		this.myTaskscontents = myTaskscontents;
 	}
-	public String getStartDate() {
-		return startDate;
+
+	public String getMyTasksstartDate() {
+		return myTasksstartDate;
 	}
-	public void setStartDate(String startDate) {
-		this.startDate = startDate;
+
+	public void setMyTasksstartDate(String myTasksstartDate) {
+		this.myTasksstartDate = myTasksstartDate;
 	}
-	public String getStartTime() {
-		return startTime;
+
+	public String getMyTasksstartTime() {
+		return myTasksstartTime;
 	}
-	public void setStartTime(String startTime) {
-		this.startTime = startTime;
+
+	public void setMyTasksstartTime(String myTasksstartTime) {
+		this.myTasksstartTime = myTasksstartTime;
 	}
-	public String getEndDate() {
-		return endDate;
+
+	public String getMyTasksendDate() {
+		return myTasksendDate;
 	}
-	public void setEndDate(String endDate) {
-		this.endDate = endDate;
+
+	public void setMyTasksendDate(String myTasksendDate) {
+		this.myTasksendDate = myTasksendDate;
 	}
-	public String getEndTime() {
-		return endTime;
+
+	public String getMyTasksendTime() {
+		return myTasksendTime;
 	}
-	public void setEndTime(String endTime) {
-		this.endTime = endTime;
+
+	public void setMyTasksendTime(String myTasksendTime) {
+		this.myTasksendTime = myTasksendTime;
 	}
-	public String getEnrollDate() {
-		return enrollDate;
+
+	public String getMyTasksenrollDate() {
+		return myTasksenrollDate;
 	}
-	public void setEnrollDate(String enrollDate) {
-		this.enrollDate = enrollDate;
+
+	public void setMyTasksenrollDate(String myTasksenrollDate) {
+		this.myTasksenrollDate = myTasksenrollDate;
 	}
-	public String getEnrollTime() {
-		return enrollTime;
+
+	public String getMyTasksenrollTime() {
+		return myTasksenrollTime;
 	}
-	public void setEnrollTime(String enrollTime) {
-		this.enrollTime = enrollTime;
+
+	public void setMyTasksenrollTime(String myTasksenrollTime) {
+		this.myTasksenrollTime = myTasksenrollTime;
 	}
+
 	public int getUserProjectCode() {
 		return userProjectCode;
 	}
+
 	public void setUserProjectCode(int userProjectCode) {
 		this.userProjectCode = userProjectCode;
 	}
+
 	public String getMyTasksShareYN() {
 		return myTasksShareYN;
 	}
+
 	public void setMyTasksShareYN(String myTasksShareYN) {
 		this.myTasksShareYN = myTasksShareYN;
 	}
+
+	public String getMyTasksTodoYN() {
+		return myTasksTodoYN;
+	}
+
+	public void setMyTasksTodoYN(String myTasksTodoYN) {
+		this.myTasksTodoYN = myTasksTodoYN;
+	}
+
+	public UserProjectList getUserProjectList() {
+		return userProjectList;
+	}
+
+	public void setUserProjectList(UserProjectList userProjectList) {
+		this.userProjectList = userProjectList;
+	}
+
+	public UserTeamList getUserTeamList() {
+		return userTeamList;
+	}
+
+	public void setUserTeamList(UserTeamList userTeamList) {
+		this.userTeamList = userTeamList;
+	}
+
+	public Member getMember() {
+		return member;
+	}
+
+	public void setMember(Member member) {
+		this.member = member;
+	}
+
+	public Project getProject() {
+		return project;
+	}
+
+	public void setProject(Project project) {
+		this.project = project;
+	}
+
+	public MyTaskShare getMyTaskShare() {
+		return myTaskShare;
+	}
+
+	public void setMyTaskShare(MyTaskShare myTaskShare) {
+		this.myTaskShare = myTaskShare;
+	}
+
 	@Override
 	public String toString() {
-		return "MyTasksVo [myTasksCode=" + myTasksCode + ", contents=" + contents + ", startDate=" + startDate
-				+ ", startTime=" + startTime + ", endDate=" + endDate + ", endTime=" + endTime + ", enrollDate="
-				+ enrollDate + ", enrollTime=" + enrollTime + ", userProjectCode=" + userProjectCode
-				+ ", myTasksShareYN=" + myTasksShareYN + "]";
+		return "MyTask [myTasksCode=" + myTasksCode + ", myTaskscontents=" + myTaskscontents + ", myTasksstartDate="
+				+ myTasksstartDate + ", myTasksstartTime=" + myTasksstartTime + ", myTasksendDate=" + myTasksendDate
+				+ ", myTasksendTime=" + myTasksendTime + ", myTasksenrollDate=" + myTasksenrollDate
+				+ ", myTasksenrollTime=" + myTasksenrollTime + ", userProjectCode=" + userProjectCode
+				+ ", myTasksShareYN=" + myTasksShareYN + ", myTasksTodoYN=" + myTasksTodoYN + ", userProjectList="
+				+ userProjectList + ", userTeamList=" + userTeamList + ", member=" + member + ", project=" + project
+				+ ", myTaskShare=" + myTaskShare + "]";
 	}
-	
-	
+
 	
 }

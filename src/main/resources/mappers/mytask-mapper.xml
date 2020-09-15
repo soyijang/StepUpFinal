@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="MyTask">
+
+	<resultMap type="com.stepup.agile.userMyTasks.model.vo.MyTask" id="myTaskResultSet">
+		<id property="myTasksCode" column="MYTASKS_CODE"/>	
+		<result property="myTaskscontents" column="MYTASKS_CONTENTS"/>
+		<result property="myTasksstartDate" column="MYTASKS_START_DATE"/>
+		<result property="myTasksstartTime" column="MYTASKS_START_TIME"/>
+		<result property="myTasksendDate" column="MYTASKS_END_DATE"/>
+		<result property="myTasksendTime" column="MYTASKS_END_TIME"/>
+		<result property="myTasksenrollDate" column="MYTASKS_ENROLL_DATE"/>
+		<result property="myTasksenrollTime" column="MYTASKS_ENROLL_TIME"/>
+		<result property="userProjectCode" column="USER_PROJECT_CODE"/>
+		<result property="myTasksShareYN" column="MYTASKS_SHARE_YN"/>
+		<result property="myTasksTodoYN" column="MYTASKS_TODO_YN"/>
+		<collection property="userProjectList" resultMap="UserProjectListResultSet"/>
+		<collection property="userTeamList" resultMap="UserTeamListResultSet"/>
+		<collection property="member" resultMap="memberResultSet"/>
+		<collection property="project" resultMap="projectResultSet"/>
+		<collection property="myTaskShare" resultMap="myTaskShareResultSet"/>
+	</resultMap>
+
+	<resultMap type="com.stepup.agile.userMyTasks.model.vo.MyTaskShare" id="myTaskShareResultSet">
+		<id property="mytasksShareCode" column="MYTASKS_SHARE_CODE"/>	
+		<result property="mytasksShareType" column="MYTASKS_SHARE_TYPE"/>
+		<result property="mytasksShareDate" column="MYTASKS_SHARE_DATE"/>
+		<result property="myTasksShareTime" column="MYTASKS_SHARE_TIME"/>
+		<result property="myTasksCode" column="MYTASKS_CODE"/>
+	</resultMap>
+
+	<!-- Project멤버매칭 테이블 -->
+	<resultMap type="com.stepup.agile.userInfo.model.vo.UserProjectList" id="UserProjectListResultSet">
+		<id property="userProjectCode" column="USER_PROJECT_CODE"/>
+		<result property="projectCode" column="PROJECT_CODE"/>
+		<result property="userProjectUpdateDate" column="USER_PROJECT_UPDATE_DATE"/>
+		<result property="userProjectUpdateTime" column="USER_PROJECT_UPDATE_TIME"/>
+		<result property="userProjectStatus" column="USER_PROJECT_STATUS"/>
+		<result property="userTeamCode" column="USER_TEAM_CODE"/>
+		<result property="userProjectAuthority" column="USER_PROJECT_AUTHORITY"/>
+	</resultMap>
+	
+
+	<resultMap type="com.stepup.agile.userInfo.model.vo.UserTeamList" id="UserTeamListResultSet">
+		<id property="userTeamCode" column="USER_TEAM_CODE"/>
+		<result property="teamCode" column="TEAM_CODE"/>
+		<result property="userTeamDate" column="USER_TEAM_DATE"/>
+		<result property="userTeamYn" column="USER_TEAM_YN"/>
+		<result property="userCode" column="USER_CODE"/>
+		<result property="userTeamTime" column="USER_TEAM_TIME"/>
+	</resultMap>
+	
+	<!-- 사용자정보  -->
+	<resultMap type="com.stepup.agile.userInfo.model.vo.Member" id="memberResultSet">
+		<id property="userCode" column="USER_CODE"/>
+		<result property="userEmail" column="USER_EMAIL"/>
+		<result property="userPwd" column="USER_PWD"/>
+		<result property="userName" column="USER_NAME"/>
+		<result property="userPhone" column="USER_PHONE"/>
+		<result property="userCompName" column="USER_COMP_NAME"/>
+		<result property="userCompDept" column="USER_COMP_DEPT"/>
+		<result property="userCompJob" column="USER_COMP_JOB"/>
+		<result property="userEnrollDate" column="USER_ENROLL_DATE"/>
+		<result property="userStatus" column="USER_STATUS"/>
+		<result property="userManagerYn" column="USER_MANAGER_YN"/>
+		<result property="userEnrollTime" column="USER_ENROLL_TIME"/>
+	</resultMap>	
+
+<!-- Project_List 테이블 -->
+	<resultMap type="com.stepup.agile.projectManage.model.vo.Project" id="projectResultSet">
+		<id property="projectCode" column="PROJECT_CODE"/>
+		<result property="projectName" column="PROJECT_NAME"/>
+		<result property="createDate" column="PROJECT_CREATE_DATE"/>
+		<result property="createTime" column="PROJECT_CREATE_TIME"/>
+	</resultMap>
+	
+
+	<select id="selectTaskList" resultMap="myTaskResultSet" parameterType="MyTask">
+		SELECT *
+		FROM MYTASKS_LIST M
+		   , USER_PROJECT_LIST P
+		   , USER_TEAM_LIST T
+		   , USER_INFO I
+		   , PROJECT_LIST J
+		WHERE I.USER_CODE = T.USER_CODE
+		  AND T.USER_TEAM_CODE = P.USER_TEAM_CODE
+		  AND P.USER_PROJECT_CODE = M.USER_PROJECT_CODE
+		  AND P.PROJECT_CODE = J.PROJECT_CODE
+		  AND I.USER_EMAIL = #{userEmail, jdbcType=VARCHAR}
+		 ORDER BY MYTASKS_START_DATE, MYTASKS_START_TIME, MYTASKS_TODO_YN
+	</select>
+	
+	<update id="updateMyTaskYN" parameterType="MyTask">
+		UPDATE MYTASKS_LIST
+		SET MYTASKS_TODO_YN = #{myTasksTodoYN, jdbcType=VARCHAR}
+		  , MYTASKS_END_DATE = TO_CHAR(SYSDATE + 9/24, 'YYYY-MM-DD')
+	      , MYTASKS_END_TIME = TO_CHAR(SYSDATE + 9/24, 'hh24:mi:ss')
+		WHERE MYTASKS_CODE = #{myTasksCode, jdbcType=NUMERIC}
+	</update>
+	
+	<update id="updateMyTask" parameterType="MyTask">
+		UPDATE MYTASKS_LIST
+		SET MYTASKS_CONTENTS = #{myTaskscontents, jdbcType=VARCHAR}
+	      , MYTASKS_START_DATE = #{myTasksstartDate, jdbcType=VARCHAR}
+	      , MYTASKS_START_TIME = #{myTasksstartTime, jdbcType=VARCHAR}
+		WHERE MYTASKS_CODE = #{myTasksCode, jdbcType=NUMERIC}
+	</update>
+	
+	<insert id="insertMyTask" parameterType="MyTask">
+		INSERT INTO MYTASKS_LIST VALUES(SEQ_MYTASKS.NEXTVAL, 
+		#{myTaskscontents, jdbcType=VARCHAR}, #{myTasksstartDate, jdbcType=VARCHAR}, #{myTasksstartTime, jdbcType=VARCHAR}, TO_CHAR(SYSDATE, 'YYYY-MM-DD'), TO_CHAR(SYSDATE + 9/24, 'hh24:mi:ss'), 
+		TO_CHAR(SYSDATE + 9/24, 'YYYY-MM-DD'), TO_CHAR(SYSDATE + 9/24, 'hh24:mi:ss'), #{userProjectCode, jdbcType=NUMERIC}, DEFAULT, 'N')
+	</insert>
+	
+	<delete id="deleteMyTask" parameterType="MyTask">
+		DELETE FROM MYTASKS_LIST
+		WHERE MYTASKS_CODE = #{myTasksCode, jdbcType=NUMERIC}
+	</delete>
+	
+	<select id="selectShareMyTasks" resultMap="myTaskResultSet" parameterType="MyTask">
+		SELECT *
+		FROM MYTASKS_LIST M
+		   , USER_PROJECT_LIST P
+		   , USER_TEAM_LIST T
+		   , USER_INFO I
+		   , PROJECT_LIST J
+           , MYTASKS_SHARE_LIST S
+		WHERE I.USER_CODE = T.USER_CODE
+		  AND T.USER_TEAM_CODE = P.USER_TEAM_CODE
+		  AND P.USER_PROJECT_CODE = M.USER_PROJECT_CODE
+		  AND P.PROJECT_CODE = J.PROJECT_CODE
+          AND M.MYTASKS_CODE = S.MYTASKS_CODE 
+		  AND I.USER_EMAIL = #{userEmail, jdbcType=VARCHAR}
+          AND MYTASKS_SHARE_YN = 'Y'
+		 ORDER BY MYTASKS_START_DATE, MYTASKS_START_TIME, MYTASKS_TODO_YN
+	</select>
+	
+	<insert id="insertShareMyTask" parameterType="MyTaskShare">
+		INSERT INTO MYTASKS_SHARE_LIST VALUES(SEQ_MYTASKS_SHARE.NEXTVAL, 
+		#{mytasksShareType, jdbcType=VARCHAR},TO_CHAR(SYSDATE + 9/24, 'YYYY-MM-DD'), TO_CHAR(SYSDATE + 9/24, 'hh24:mi:ss'), #{myTasksCode, jdbcType=NUMERIC})
+	</insert>	
+	
+	<!-- miso -->
+	<select id="selectMytaskShareList" resultMap="myTaskResultSet" parameterType="int">
+		SELECT *
+		  FROM USER_PROJECT_LIST UPL, MYTASKS_LIST ML, MYTASKS_SHARE_LIST MSL
+		 WHERE UPL.USER_PROJECT_CODE = ML.USER_PROJECT_CODE
+		   AND ML.MYTASKS_CODE = MSL.MYTASKS_CODE
+		   AND UPL.PROJECT_CODE = #{projectCode}
+		   ORDER BY MSL.MYTASKS_SHARE_DATE DESC
+	</select>
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

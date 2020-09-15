@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="Rss">
+
+	<resultMap type="com.stepup.agile.userMyTasks.model.vo.RssHistory" id="rssHistoryResultSet">
+		<id property="rssCode" column="RSS_CODE"/>
+		<result property="rssModifyDate" column="RSS_MODIFY_DATE"/>
+		<result property="rssModifyTime" column="RSS_MODIFY_TIME"/>
+		<result property="rssModifyNickname" column="RSS_MODIFY_NICKNAME"/>
+		<result property="rssModifyKeyword" column="RSS_MODIFY_KEYWORD"/>
+		<result property="rssModifyUrl" column="RSS_MODIFY_URL"/>
+		<result property="rssModifySite" column="RSS_MODIFY_SITE"/>
+		<result property="rssProjectCode" column="RSS_PROJECT_CODE"/>
+		<collection property="userProjectList" resultMap="UserProjectListResultSet"/>
+		<collection property="userTeamList" resultMap="UserTeamListResultSet"/>
+	</resultMap>
+
+	<resultMap type="com.stepup.agile.userInfo.model.vo.UserProjectList" id="UserProjectListResultSet">
+		<id property="userProjectCode" column="USER_PROJECT_CODE"/>
+		<result property="projectCode" column="PROJECT_CODE"/>
+		<result property="userProjectUpdateDate" column="USER_PROJECT_UPDATE_DATE"/>
+		<result property="userProjectUpdateTime" column="USER_PROJECT_UPDATE_TIME"/>
+		<result property="userProjectStatus" column="USER_PROJECT_STATUS"/>
+		<result property="userTeamCode" column="USER_TEAM_CODE"/>
+		<result property="userProjectAuthority" column="USER_PROJECT_AUTHORITY"/>
+	</resultMap>
+	
+
+	<resultMap type="com.stepup.agile.userInfo.model.vo.UserTeamList" id="UserTeamListResultSet">
+		<id property="userTeamCode" column="USER_TEAM_CODE"/>
+		<result property="teamCode" column="TEAM_CODE"/>
+		<result property="userTeamDate" column="USER_TEAM_DATE"/>
+		<result property="userTeamYn" column="USER_TEAM_YN"/>
+		<result property="userCode" column="USER_CODE"/>
+		<result property="userTeamTime" column="USER_TEAM_TIME"/>
+	</resultMap> 
+	
+	
+	<select id="selectRssList" resultMap="rssHistoryResultSet" parameterType="Rss">
+		SELECT *
+		FROM RSS_HISTORY R
+		   , USER_PROJECT_LIST P 
+		   , USER_TEAM_LIST T
+		WHERE R.RSS_PROJECT_CODE = P.PROJECT_CODE
+		  AND p.user_team_code = T.USER_TEAM_CODE
+		  AND t.user_code = #{userCode, jdbcType=NUMERIC}
+	</select>
+	
+	<update id="updateRss" parameterType="Rss">
+		UPDATE RSS_HISTORY
+		SET RSS_MODIFY_DATE = TO_CHAR(SYSDATE + 9/24, 'YYYY-MM-DD')
+	      , RSS_MODIFY_TIME = TO_CHAR(SYSDATE + 9/24, 'hh24:mi:ss')
+	      , RSS_MODIFY_NICKNAME = #{rssModifyNickname, jdbcType=VARCHAR}
+	      , RSS_MODIFY_KEYWORD = #{rssModifyKeyword, jdbcType=VARCHAR}
+	      , RSS_MODIFY_URL = #{rssModifyUrl, jdbcType=VARCHAR}
+	      , RSS_MODIFY_SITE = #{rssModifySite, jdbcType=VARCHAR}
+		WHERE RSS_PROJECT_CODE = #{rssProjectCode, jdbcType=NUMERIC}
+	</update>
+	
+
+</mapper>

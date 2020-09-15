@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Reply">
+
+	<resultMap type="com.stepup.agile.projectTask.model.vo.ReplyList" id="replyListResultSet">
+		<id property="replyCode" column="REPLY_CODE"/>
+		<result property="userCode" column="USER_CODE"/>
+		<result property="taskCode" column="TASK_CODE"/>
+		<result property="replyStatus" column="REPLY_STATUS"/>
+	</resultMap>
+	
+	<resultMap type="com.stepup.agile.projectTask.model.vo.ReplyHistory" id="replyHistoryResultSet">
+		<id property="replyCode" column="REPLY_CODE"/>
+		<result property="replyUpdateDate" column="REPLY_UPDATE_DATE"/>
+		<result property="replyUpdateTime" column="REPLY_UPDATE_TIME"/>
+		<result property="replyContents" column="REPLY_CONTENTS"/>
+		<result property="replyType" column="REPLY_TYPE"/>
+		<result property="replyHistCode" column="REPLY_HIST_CODE"/>
+	</resultMap>
+	
+</mapper>

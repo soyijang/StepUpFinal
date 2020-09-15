@@ -1,0 +1,369 @@
+@charset "UTF-8";
+.@import url(http://fonts.googleapis.com/earlyaccess/notosanskr.css);
+@font-face {font-family: 'Noto Sans KR';font-style: normal;font-weight: 100;src: url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Thin.woff2) format('woff2'),url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Thin.woff) format('woff'),url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Thin.otf) format('opentype');}
+
+
+
+@font-face {font-family: 'Noto Sans KR';font-style: normal;font-weight: 300;src: url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Light.woff2) format('woff2'),url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Light.woff) format('woff'),url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Light.otf) format('opentype');}
+
+
+
+@font-face {font-family: 'Noto Sans KR';font-style: normal;font-weight: 400;src: url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Regular.woff2) format('woff2'),url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Regular.woff) format('woff'),url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Regular.otf) format('opentype');}
+
+
+
+@font-face {font-family: 'Noto Sans KR';font-style: normal;font-weight: 500;src: url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Medium.woff2) format('woff2'),url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Medium.woff) format('woff'),url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Medium.otf) format('opentype');}
+
+
+
+@font-face {font-family: 'Noto Sans KR';font-style: normal;font-weight: 700;src: url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Bold.woff2) format('woff2'),url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Bold.woff) format('woff'),url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Bold.otf) format('opentype');}
+
+
+
+@font-face {font-family: 'Noto Sans KR';font-style: normal;font-weight: 900;src: url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Black.woff2) format('woff2'),url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Black.woff) format('woff'),url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Black.otf) format('opentype');}
+ body{
+    font-family: "Noto Sans KR";
+ }
+#content{
+    width: 1440px;
+    height: 900px;
+    background-color: white;
+    box-sizing: border-box;
+}
+#main-cont-area{
+	width: 70%;
+	height: 100%;
+	display: inline-block;
+	float: left;
+	margin: 0 auto;
+}
+#calendar-area{
+ 	width:30%;
+	height:100%;
+	display: inline-block;
+}
+#status-area{
+	width: 100%;
+	height:16%;
+}
+#pj-alm-area{
+	width: 43%;
+	height:80%;
+	display: inline-block;
+	float: left;
+}
+#task-cht-area{
+	width: 53%;
+	height:80%;
+	display: inline-block;
+	margin-left: 7px;
+}
+#pro-cont-area{
+	border: 1px solid #E8E8E8;
+	border-radius: 8px;
+	width: 100%;
+	height:50%;
+	margin-right: 4px;
+	background-color: white;
+}
+#alm-cont-area{
+	margin-right: 10px;
+	margin-top: 10px;
+	border: 1px solid #E8E8E8;
+	border-radius: 8px;
+	width: 100%;
+	height:50%;
+	background-color: white;
+}
+#task-cont-area{
+	margin-right: 10px;
+	border: 1px solid #E8E8E8;
+	border-radius: 8px;
+	width: 100%;
+	height:50%;
+	background-color: white;
+}
+#cht-cont-area{
+	margin-top: 10px;
+	border: 1px solid #E8E8E8;
+	border-radius: 8px;
+	width: 100%;
+	height:50%;
+	background-color: white;
+}
+#pro-cont-title{
+	border-bottom: 1px solid #E8E8E8;
+	width:97%;
+	height:10%;
+	padding-left: 10px;
+}
+#cal-area{
+	margin-left: 30px;
+	width: 80%;
+	height:97%;
+	border: 1px solid #E8E8E8;
+	border-radius: 8px;
+	background-color: white;
+	box-shadow: 11px 17px 9px -7px rgba(179, 179, 179, 0.25);
+}
+#project{
+	text-align: left;
+	font-size: 18px;
+	font-weight: 600;
+}
+#pro-cont{
+	width:100%;
+	height:85%;
+}
+#alm-cont-title{
+	border-bottom: 1px solid #E8E8E8;
+	width:97%;
+	height:10%;
+	padding-left: 10px;
+}
+#alm-cont{
+	width:100%;
+	height:85%;
+}
+#alarm{
+	text-align: left;
+	font-size: 18px;
+	font-weight: 600;
+}
+#cht-cont{
+	width:100%;
+	height:85%;
+}
+#cht-cont-title{
+	border-bottom: 1px solid #E8E8E8;
+	width:98%;
+	height:10%;
+	padding-left: 10px;
+}
+#chart{
+	text-align: left;
+	font-size: 18px;
+	font-weight: 600;
+}
+#task-cont-title{
+	border-bottom: 1px solid #E8E8E8;
+	width:98%;
+	height:10%;
+	padding-left: 10px;
+}
+#task-cont{
+	width:100%;
+	height:85%;
+}
+#task{
+	text-align: left;
+	font-size: 18px;
+	font-weight: 600;
+}
+#cal-cont{
+	width:100%;
+	height:80%;
+}
+#not-task{
+	border-radius: 5px;
+	margin-left: 20px;
+	border: 1px solid #E8E8E8;
+	display: inline-block;
+	width:20%;
+	height:70%;
+	box-shadow: 11px 17px 9px -7px rgba(179, 179, 179, 0.25);
+	font-weight: 400;
+	background-color: white;
+}
+#task-ing{
+	border-radius: 5px;
+	margin-left: 30px;
+	border: 1px solid #E8E8E8;
+	display: inline-block;
+	width:20%;
+	height:70%;
+	box-shadow: 11px 17px 9px -7px rgba(179, 179, 179, 0.25);
+	font-weight: 400;
+	background-color: white;
+}
+#com-task{
+	border-radius: 5px;
+	margin-left: 30px;
+	border: 1px solid #E8E8E8;
+	display: inline-block;
+	width:20%;
+	height:70%;
+	box-shadow: 11px 17px 9px -7px rgba(179, 179, 179, 0.25);
+	font-weight: 400;
+	background-color: white;
+}
+#tot-task{
+	border-radius: 5px;
+	margin-left: 30px;
+	border: 1px solid #E8E8E8;
+	display: inline-block;
+	width:20%;
+	height:70%;
+	font-weight: 400;
+	box-shadow: 11px 17px 9px -7px rgba(179, 179, 179, 0.25);
+	background-color: white;
+}
+.status{
+	margin-left: 20px;
+	margin-top: 4px;
+	width:100%;
+	height:30%;
+	display: inline-block;
+	font-size: 25px;
+	font-weight: 600;
+}
+.ing{
+	width:100%;
+	margin-top: 25px;
+	margin-left: 20px;
+}
+
+
+#n-tk{
+	color:#C4C4C4;
+}
+#tk-ing{
+	color:#DD0351;
+}
+#co-tk{
+	color:#2B2B49;
+}
+#to-tk{
+	color: black;
+}
+
+<!-- 차트 -->
+#cht{
+	display: inline-block;
+	float: left;
+}
+.pie-chart1 {
+   margin-top: 40px;
+   margin-left: 40px;
+   display:inline-block;
+   position: relative;
+   width: 180px;
+   height: 180px;
+   border-radius: 50%;
+   transition: 0.3s;
+}
+span.center{
+   position: absolute;
+   width:140px; 
+   height: 140px;
+   background :#fff;
+   border-radius: 50%;
+   top: 20px;
+   left:20px;
+}
+#to-ch{
+	margin-left: 45px;
+	margin-bottom: 15px;
+	font-size: 30px;
+}
+#to-ch-ti{
+	margin-bottom: 50px;
+	margin-left: 40px;
+}
+#cht-st{
+	display: inline-block;
+	height:80%;
+	width:40%;
+}
+.cht-tt{
+	margin-bottom: 40px;
+	color:  #565656;
+}
+#no-ch, #ing-ch, #com-ch{
+	display: inline-block;
+	margin-left: 30px;
+}
+#no-ch-to, #ing-ch-to{
+	margin-left: 60px;
+}
+#com-ch-to{
+	margin-left: 76px;
+}
+
+#pr{
+	margin-left: 10px;
+	width: 90%;
+	height: 40%;
+	border: 1px solid #E8E8E8;
+}
+#tb_wrap{
+	position:relative;
+    width:100%;
+    margin:10px 2px;
+    height:100%;
+}
+#pro-cont::-webkit-scrollbar, #task-cont::-webkit-scrollbar, #alm-cont::-webkit-scrollbar {
+	width: 5px;
+	padding-top: 10px;
+}
+#pro-cont::-webkit-scrollbar-thumb, #task-cont::-webkit-scrollbar-thumb, #alm-cont::-webkit-scrollbar-thumb {
+	background-color: #D9D9D9;
+	border-radius: 3px;
+}
+#pro-cont, #task-cont, #alm-cont{
+    max-height:250px;
+    overflow-y:scroll;
+}
+
+#pro-list{
+	border: 1px solid #E8E8E8;
+	border-radius: 9px;
+	margin-top: 5px;
+	padding: 5px;
+}
+#task-list{
+	border: 1px solid #E8E8E8;
+	border-radius: 9px;
+	margin-top: 5px;
+	padding: 5px;
+}
+.ing-bor{
+	width: 80px;
+	height: 24px;
+	background-color:#FEF4E5;
+	border-radius: 10px;
+    text-align: center;
+    color: #ECC8A2;
+}
+.com-bor{
+	width: 80px;
+	height: 24px;
+	background-color:#F3F8FD;
+	border-radius: 10px;
+    text-align: center;
+    color: #B7BBDE;
+}
+.cal-schedule{
+	
+}
+#chartdiv {
+  width: 100%;
+  height: 400px;
+}
+ol.circle {
+   list-style: none;
+   counter-reset: item;
+   border-radius: 7px;
+   width:200px;
+   font-size: 15px;
+   background-color: #FFF2F2;
+ }
+
+ol.circle > li{
+   counter-increment: item;
+   margin-bottom: 5px;
+ }
+
+ol.circle > li:before {
+    
+ }

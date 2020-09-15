@@ -1,0 +1,269 @@
+
+ body{
+ 	font-family: 'Noto Sans KR';
+ }
+
+	.calendar{
+		width: 75%;
+		margin-top: 15px;
+		float: left;
+	}
+
+	#cal-tr > th{
+		text-align: left;
+	
+	}
+	.cal-schedule{
+		font-size: small;
+	}
+	
+	.cal_top{
+		text-align: left;
+		font-size: x-large;
+	}
+	
+	.all_cal-func{
+		width: 75%;
+	}
+	
+	#calendarbtn{
+		float: right;
+		margin-left: 20px;
+		width: 500px;
+	}
+
+	.cal-func{
+		margin: 5px;
+		height: 30px;
+		width: 130px;
+		vertical-align: middle;
+		float: right;
+		text-align: center;
+		line-height: 30px;
+		font-size: small;
+		border-radius: 10px;
+		color: #DD0351;
+		background: #f9f9f9;
+		transition: all ease 0.3s 0s;
+	}
+	
+	.goToday{
+		padding : 8px;
+		height: 30px;
+		width: 80px;
+		vertical-align: middle;
+		text-align: center;
+		line-height: 30px;
+		font-size: small;
+		border-radius: 10px;
+		color: BLACK;
+		background: #f9f9f9;
+		transition: all ease 0.3s 0s;
+	}
+	
+	.goToday:hover{
+		font-weight: bold;
+		background: #DD0351;
+		color: #f9f9f9;
+	}
+	.cal-func:hover{
+		font-weight: bold;
+		background: #DD0351;
+		color: #f9f9f9;
+	}
+	
+	#prevMonth > img , #nextMonth > img {
+		width: 30px;
+		height: 30px;
+		vertical-align: middle;
+	}
+	
+	/* 우측 체크리스트 */
+	.checkList{
+		float: right;
+		margin-right: 40px;
+	}
+
+	#toDoList{
+		width: 250px;
+		height: 329px;
+		background-color: #FAFAFA;
+		border-radius: 20px;
+		text-overflow:ellipsis;
+		overflow:hidden;
+		white-space:nowrap;
+		
+	}
+	
+	#sharedList{
+		margin-top: 10px;
+		width: 250px;
+		height: 329px;
+		background-color: #FAFAFA;
+		border-radius: 20px;
+	}
+
+	#todayDay{
+		font-style: normal;
+		font-weight: bolder;
+		font-size: 18px;
+		line-height: 21px;
+		
+	}
+
+	#tadayDate{
+		font-style: normal;
+		font-weight: normal;
+		font-size: 12px;
+		line-height: 14px;
+	}
+
+	.checkListToday {
+		padding-top : 20px;
+		padding-left: 20px;
+		width: 200px;
+		overflow:hidden;
+		text-align: left;
+		
+	}
+
+	.checkListToday > p {
+		font-size: 12px;
+		line-height: 10px;	
+		color: #DD0351;
+		font-weight: bold;
+	}
+
+	.checkListTodayTable {
+		padding-left: 20px;
+		padding-right: 20px;
+		width: 240px;
+		table-layout: fixed;
+	}
+
+
+	.toDoCheckBox{
+		width: 20px;
+
+	}
+
+	.toDoToday {
+		font-size: 13px;
+		width: 135px;
+		text-overflow:ellipsis; 
+		overflow:hidden; 
+		white-space:nowrap;
+
+	}
+	.shareTableTd {
+		font-size: 13px;
+		width: 135px;
+		text-overflow:ellipsis; 
+		overflow:hidden; 
+		white-space:nowrap;
+
+	}
+
+	#plusMyTask{
+		width: 40px;
+		height: 40px;
+		margin-left: auto;
+		border: 0;
+		outline: 0;
+		background: transparent;
+		cursor: pointer;
+	}
+	
+	#plusMyTaskDiv{
+	    text-align: center;
+	    margin-top: 5px; 
+		cursor: pointer;
+	}
+	
+	#checkListTodayTableDiv{
+		height: 170px;
+		max-height: 170px;
+		width: 230px;
+		max-width : 230px;
+		text-overflow:ellipsis; 
+		overflow-y:scroll; 
+		overflow-x:hidden; 
+		white-space:nowrap;
+	}
+	   
+      .wrap-loading{ /*화면 전체를 어둡게*/
+          position: fixed;
+          left:0;
+          right:0;
+          top:0;
+          bottom:0;
+          background: rgba(0,0,0,0.2); /*not in ie */
+          filter: progid:DXImageTransform.Microsoft.Gradient(startColorstr='#20000000', endColorstr='#20000000');    /* ie */
+      }
+      
+      .wrap-loading div{ /*로딩 이미지*/
+          position: fixed;
+          top:50%;
+          left:50%;
+          margin-left: -21px;
+          margin-top: -21px;
+      }
+      
+      .wrap-loading div > img {
+         width: 20%;
+         height: 20%;
+      }
+      
+      .display-none{ /*감추기*/
+          display:none;
+       }
+      
+      #cal-daytr > td{
+      	vertical-align: top;
+      }
+      
+      #cal-daytr {
+      	
+      }
+		.moreTd{
+			background:#ebebeb;
+            border-radius: 5px;
+            border: 0;
+            font-size: 13px;
+            font-weight : bolder;
+            color: black;
+            text-align: center;
+            vertical-align: middle;  
+            height : 13px;
+            line-height: 13px;
+		}
+		
+		
+		  .updateInput{
+	    	float:left;
+    		width: 270px;
+    		border-radius : 5px;
+    		height: 35px;
+    		background-color: lightgray;
+    		color: black;
+    		font-weight: normal;
+    		padding-left: 10px;
+    		margin-left: 20px;
+    		
+	    }
+	    
+	     .updateInput:focus {
+    		transition: all ease 0.3s 0s;
+    		background-color: #DD0351;
+    		color: white;
+    		font-weight: normal;
+    	}
+    	
+    	#allTasks{
+    		font-size: 9px;
+    		float: right;
+    		width: 50px;
+    		margin-top: 5px;
+    		cursor: pointer;
+    	}
+      
