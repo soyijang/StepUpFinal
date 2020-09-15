@@ -7,7 +7,7 @@ import com.stepup.agile.userInfo.model.vo.Member;
 
 public interface SurveyService {
 
-	List<SurveyList> selectSurvey(SurveyList sl);
+	List<SurveyList> selectSurvey(Member m);
 
 	int deleteSurvey(int surveyCode);
 

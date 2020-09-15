@@ -205,7 +205,7 @@
       AND T.USER_TEAM_CODE = P.USER_TEAM_CODE
       AND P.USER_PROJECT_CODE = SP.USER_PROJECT_CODE
       AND SP.SPRINT_CODE = S.SPRINT_CODE
-      AND I.USER_CODE = 14
+      AND I.USER_CODE = #{userCode}
    </select> 
    
    <delete id="deleteSurvey" parameterType="com.stepup.agile.projectFeedback.model.vo.SurveyList">

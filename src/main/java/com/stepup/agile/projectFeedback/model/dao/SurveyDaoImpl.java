@@ -12,8 +12,8 @@ import com.stepup.agile.userInfo.model.vo.Member;
 public class SurveyDaoImpl implements SurveyDao{
 
 	@Override
-	public List<SurveyList> selectSurvey(SqlSessionTemplate sqlSession, SurveyList sl) {
-		return sqlSession.selectList("SurveyList.selectSurveyList",sl);
+	public List<SurveyList> selectSurvey(SqlSessionTemplate sqlSession, Member m) {
+		return sqlSession.selectList("SurveyList.selectSurveyList",m);
 	}
 
 	@Override

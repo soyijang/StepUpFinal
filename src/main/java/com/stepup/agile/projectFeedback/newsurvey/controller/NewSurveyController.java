@@ -3,7 +3,6 @@ package com.stepup.agile.projectFeedback.newsurvey.controller;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -20,6 +19,8 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.stepup.agile.projectBacklog.model.vo.Sprint;
+import com.stepup.agile.projectBacklog.model.vo.SprintHistory;
+import com.stepup.agile.projectFeedback.model.service.SurveyService;
 import com.stepup.agile.projectFeedback.model.vo.SurveyChoiceList;
 import com.stepup.agile.projectFeedback.model.vo.SurveyList;
 import com.stepup.agile.projectFeedback.model.vo.SurveyQuesList;
@@ -29,7 +30,9 @@ import com.stepup.agile.userInfo.model.vo.Member;
 @SessionAttributes("loginUser")
 @Controller
 public class NewSurveyController {
-
+	@Autowired
+	private SurveyService ss;
+	
 	@Autowired
 	private NewSurveyService ns;
 	
@@ -38,36 +41,50 @@ public class NewSurveyController {
 		List<Sprint> endSprintList = new ArrayList<Sprint>();
 		endSprintList = ns.selectEndSprint(m);
 		
+		  List<SurveyList> surveyList = null;
+	      
+	      try {
+	         surveyList = ss.selectSurvey(m);
+	         model.addAttribute("surveyList",surveyList);
+	         model.addAttribute("endSprintList", endSprintList);
+	         return "projectFeedback/survey";
+	      } catch(Exception e) { 
+	         
+	    	 
+	         e.printStackTrace();
+	         return "projectFeedback/survey";
+	      }
+
+	      
 		
-		model.addAttribute("endSprintList", endSprintList);
 		
-		return "projectFeedback/survey";
+		
 	}
 	
 	
 	@RequestMapping("newSurvey.sv")
 	public ModelAndView newSurvey(Model model, @ModelAttribute("loginUser") Member m, ModelAndView mv, String surveyName, String surveyIntro, String surveyStartDate, String surveyEndDate, String sprintName) {
 		
-//		List<SprintHistory> selectSprintName = new ArrayList<SprintHistory>();
-//		Map<String, Object> map2= new HashMap<String, Object>();
-//		String sName = sprintName.trim();
-//		
-//		map2.put("userEmail", m.getUserEmail());
-//		map2.put("sprintName", sName);
-//		
-//		selectSprintName = ns.selectSprintName(map2);
-//		System.out.println("스프린트 코드 : " + selectSprintName.get(0).getSprint().getSprintCode());
-//		
-//		Map<String, Object> map = new HashMap<String, Object>();
-//		System.out.println("userCode :" + m.getUserCode());
-//		map.put("userCode", m.getUserCode());
-//		map.put("surveyName", surveyName);
-//		map.put("surveyIntro", surveyIntro);
-//		map.put("surveyStartDate", surveyStartDate);
-//		map.put("surveyEndDate", surveyEndDate);
-//		map.put("sprintCode", selectSprintName.get(0).getSprint().getSprintCode());
-//		
-//		int insertSurveyList = ns.insertNewSurvey(map);
+		List<SprintHistory> selectSprintName = new ArrayList<SprintHistory>();
+		Map<String, Object> map2= new HashMap<String, Object>();
+		String sName = sprintName.trim();
+		
+		map2.put("userEmail", m.getUserEmail());
+		map2.put("sprintName", sName);
+		
+		selectSprintName = ns.selectSprintName(map2);
+		System.out.println("스프린트 코드 : " + selectSprintName.get(0).getSprint().getSprintCode());
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		System.out.println("userCode :" + m.getUserCode());
+		map.put("userCode", m.getUserCode());
+		map.put("surveyName", surveyName);
+		map.put("surveyIntro", surveyIntro);
+		map.put("surveyStartDate", surveyStartDate);
+		map.put("surveyEndDate", surveyEndDate);
+		map.put("sprintCode", selectSprintName.get(0).getSprint().getSprintCode());
+		
+		int insertSurveyList = ns.insertNewSurvey(map);
 
 		mv.setViewName("jsonView");
 		

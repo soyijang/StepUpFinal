@@ -9,7 +9,7 @@ import com.stepup.agile.userInfo.model.vo.Member;
 
 public interface SurveyDao {
 
-	List<SurveyList> selectSurvey(SqlSessionTemplate sqlSession, SurveyList sl);
+	List<SurveyList> selectSurvey(SqlSessionTemplate sqlSession, Member m);
 
 	int deleteSurvey(SqlSessionTemplate sqlSession, int surveyCode);
 

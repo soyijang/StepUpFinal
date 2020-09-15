@@ -20,8 +20,8 @@ public class SurveyServiceImpl implements SurveyService{
 	private SurveyDao sd;
 
 	@Override
-	public List<SurveyList> selectSurvey(SurveyList sl) {
-		return sd.selectSurvey(sqlSession, sl);
+	public List<SurveyList> selectSurvey(Member m) {
+		return sd.selectSurvey(sqlSession, m);
 	}
 
 	@Override
