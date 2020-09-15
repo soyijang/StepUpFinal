@@ -66,6 +66,18 @@ public interface MemberDao {
 	/*
 	 * Attachment selectBackImg(SqlSessionTemplate sqlSession, int attachCode);
 	 */
+
+	//메일인증
+	int verifyMember(SqlSessionTemplate sqlSession, Member member);
+	//인증 후 로그인
+	Member loginverify(SqlSessionTemplate sqlSession, String userEmail);
+	//임시비밀번호 생성시 정보찾기
+	Member userInfo(SqlSessionTemplate sqlSession, String email);
+	//임시비밀번호 db저장
+	/* int updatetempPwd(SqlSessionTemplate sqlSession, Member me); */
+
+	int tempPwd(SqlSessionTemplate sqlSession, Member member);
+
 	
 
 	
