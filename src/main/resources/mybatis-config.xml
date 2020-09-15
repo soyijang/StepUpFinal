@@ -20,6 +20,7 @@
         <typeAlias type="com.stepup.agile.userInfo.model.vo.UserProjectList" alias="userProjectList"/>
         <typeAlias type="com.stepup.agile.userInfo.model.vo.Attachment" alias="attachment"/>
         <typeAlias type="com.stepup.agile.projectTask.model.vo.Bookmark" alias="bookMark"/>
+        <typeAlias type="com.stepup.agile.projectFeedback.model.vo.SurveyList" alias="Survey"/>
 	</typeAliases>
 	
  	<mappers>
@@ -31,6 +32,7 @@
 		<mapper resource="mappers/team-mapper.xml"/>
 		<mapper resource="mappers/reply-mapper.xml"/>
 		<mapper resource="mappers/bookmark-mapper.xml"/>
+		<mapper resource="mappers/survey-mapper.xml"/>
  	</mappers>
 	
 	

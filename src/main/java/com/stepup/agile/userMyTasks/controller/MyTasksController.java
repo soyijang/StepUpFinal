@@ -164,7 +164,7 @@ public class MyTasksController {
 	
 	// 공유 테스크 추가용
 	@RequestMapping("share.mt")
-	public String insertShareMyTask(Model model, MyTaskShare mytask) {
+	public String insertShareMyTask(Model model, @ModelAttribute("loginUser") Member m, MyTaskShare mytask) {
 		
 		int result = 0;
 		result = ts.insertShareMyTask(mytask);

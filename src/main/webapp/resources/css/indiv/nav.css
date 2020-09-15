@@ -134,6 +134,7 @@
     	}
     	
     	#menubarHide{
+    		transition: all ease 0.5s 0s;
     	    position: relative;
 		    top: 300px;
 		    left: -25px;

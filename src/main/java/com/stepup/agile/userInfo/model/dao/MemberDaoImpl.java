@@ -174,10 +174,4 @@ public class MemberDaoImpl implements MemberDao {
 
 	
 
-	@Override
-	public String selectUserProject(SqlSessionTemplate sqlSession, Member m) {
-		
-		return sqlSession.selectOne("Member.selectUserProject");
-	}
-
 }
