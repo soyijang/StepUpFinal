@@ -552,5 +552,6 @@ public class MemberController {
 		System.out.println("리바이즈 됐나요?"+result);
 		return "userInfo/memberJoin/mailForm";
 	}
+	
 
 }
