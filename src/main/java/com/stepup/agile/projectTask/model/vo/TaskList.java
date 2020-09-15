@@ -129,6 +129,30 @@ public class TaskList implements java.io.Serializable{
 		this.member = member;
 	}
 
+	public Team getTeam() {
+		return team;
+	}
+
+	public void setTeam(Team team) {
+		this.team = team;
+	}
+
+	public UserTeamList getUserTeamList() {
+		return userTeamList;
+	}
+
+	public void setUserTeamList(UserTeamList userTeamList) {
+		this.userTeamList = userTeamList;
+	}
+
+	public UserProjectList getUserProjectList() {
+		return userProjectList;
+	}
+
+	public void setUserProjectList(UserProjectList userProjectList) {
+		this.userProjectList = userProjectList;
+	}
+
 	public Project getProject() {
 		return project;
 	}
@@ -193,14 +217,14 @@ public class TaskList implements java.io.Serializable{
 		this.taskCategory = taskCategory;
 	}
 
-	
 	@Override
 	public String toString() {
 		return "TaskList [taskCode=" + taskCode + ", taskCreateDate=" + taskCreateDate + ", taskLevel=" + taskLevel
 				+ ", sprintCode=" + sprintCode + ", taskCreateTime=" + taskCreateTime + ", taskMaster=" + taskMaster
-				+ ", taskUser=" + taskUser + ", member=" + member + ", team=" + team + ", userTeamList=" + userTeamList
-				+ ", userProjectList=" + userProjectList + ", project=" + project + ", projectHistory=" + projectHistory
-				+ ", sprint=" + sprint + ", sprintHistory=" + sprintHistory + ", taskCategory=" + taskCategory + "]";
+				+ ", taskUser=" + taskUser + ", headTaskCode=" + headTaskCode + ", member=" + member + ", team=" + team
+				+ ", userTeamList=" + userTeamList + ", userProjectList=" + userProjectList + ", project=" + project
+				+ ", projectHistory=" + projectHistory + ", sprint=" + sprint + ", sprintHistory=" + sprintHistory
+				+ ", taskCategory=" + taskCategory + "]";
 	}
 
 

@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.stepup.agile.projectManage.model.vo.Project;
+import com.stepup.agile.projectTask.model.vo.Bookmark;
 import com.stepup.agile.projectTask.model.vo.ReplyHistory;
 import com.stepup.agile.projectTask.model.vo.ReplyList;
 import com.stepup.agile.projectTask.model.vo.TaskHistory;
@@ -78,7 +79,7 @@ public interface TaskService {
 	int insertCloneTask2(HashMap<String, Object> map2);
 	//14.삭제 이벤트
 	int deleteCloneTask(HashMap<String, Object> map);
-	
+
 	
 	//Bug
 	List<TaskHistory> selectUserTask(Member m);

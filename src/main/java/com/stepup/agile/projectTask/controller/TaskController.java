@@ -19,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.stepup.agile.projectManage.model.vo.Project;
 import com.stepup.agile.projectTask.model.service.TaskService;
+import com.stepup.agile.projectTask.model.vo.Bookmark;
 import com.stepup.agile.projectTask.model.vo.ReplyHistory;
 import com.stepup.agile.projectTask.model.vo.ReplyList;
 import com.stepup.agile.projectTask.model.vo.TaskHistory;
@@ -517,7 +518,7 @@ public class TaskController {
 
 	}
 
-
+	
 
 
 	//BugTask

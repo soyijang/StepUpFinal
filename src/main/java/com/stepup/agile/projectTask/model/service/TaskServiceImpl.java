@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.stepup.agile.projectManage.model.vo.Project;
 import com.stepup.agile.projectTask.model.dao.TaskDao;
+import com.stepup.agile.projectTask.model.vo.Bookmark;
 import com.stepup.agile.projectTask.model.vo.ReplyHistory;
 import com.stepup.agile.projectTask.model.vo.ReplyList;
 import com.stepup.agile.projectTask.model.vo.TaskHistory;
@@ -246,6 +247,7 @@ public class TaskServiceImpl implements TaskService {
 
 		return td.deleteClonTask(sqlSession, map);
 	}
+	
 	
 	//Bug
 	@Override

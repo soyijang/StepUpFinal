@@ -1,6 +1,9 @@
 package com.stepup.agile.userInfo.model.vo;
 
 import com.stepup.agile.projectManage.model.vo.Project;
+import com.stepup.agile.projectTask.model.vo.Bookmark;
+import com.stepup.agile.projectTask.model.vo.TaskHistory;
+import com.stepup.agile.projectTask.model.vo.TaskList;
 
 public class Member implements java.io.Serializable {
 	private String userEmail;
@@ -23,13 +26,18 @@ public class Member implements java.io.Serializable {
 	private Attachment attachment;
 	private Project project;
 	private UserProjectList userProjectList;
+
+	private TaskHistory taskHistory;
+	private Bookmark bookMark;
+	private TaskList taskList;
 	
 	public Member() {}
 
 	public Member(String userEmail, String userPwd, String userName, int userCode, String userPhone,
 			String userCompName, String userCompDept, String userCompJob, String userEnrollDate, String userStatus,
 			String userManagerYn, String userEnrollTime, int attachCode, String projectName, UserTeamList userTeamList,
-			Attachment attachment, Project project, UserProjectList userProjectList) {
+			Attachment attachment, Project project, UserProjectList userProjectList, TaskHistory taskHistory,
+			Bookmark bookMark, TaskList taskList) {
 		super();
 		this.userEmail = userEmail;
 		this.userPwd = userPwd;
@@ -49,6 +57,9 @@ public class Member implements java.io.Serializable {
 		this.attachment = attachment;
 		this.project = project;
 		this.userProjectList = userProjectList;
+		this.taskHistory = taskHistory;
+		this.bookMark = bookMark;
+		this.taskList = taskList;
 	}
 
 	public String getUserEmail() {
@@ -195,6 +206,30 @@ public class Member implements java.io.Serializable {
 		this.userProjectList = userProjectList;
 	}
 
+	public TaskHistory getTaskHistory() {
+		return taskHistory;
+	}
+
+	public void setTaskHistory(TaskHistory taskHistory) {
+		this.taskHistory = taskHistory;
+	}
+
+	public Bookmark getBookMark() {
+		return bookMark;
+	}
+
+	public void setBookMark(Bookmark bookMark) {
+		this.bookMark = bookMark;
+	}
+
+	public TaskList getTaskList() {
+		return taskList;
+	}
+
+	public void setTaskList(TaskList taskList) {
+		this.taskList = taskList;
+	}
+
 	@Override
 	public String toString() {
 		return "Member [userEmail=" + userEmail + ", userPwd=" + userPwd + ", userName=" + userName + ", userCode="
@@ -202,8 +237,10 @@ public class Member implements java.io.Serializable {
 				+ userCompDept + ", userCompJob=" + userCompJob + ", userEnrollDate=" + userEnrollDate + ", userStatus="
 				+ userStatus + ", userManagerYn=" + userManagerYn + ", userEnrollTime=" + userEnrollTime
 				+ ", attachCode=" + attachCode + ", projectName=" + projectName + ", userTeamList=" + userTeamList
-				+ ", attachment=" + attachment + ", project=" + project + ", userProjectList=" + userProjectList + "]";
+				+ ", attachment=" + attachment + ", project=" + project + ", userProjectList=" + userProjectList
+				+ ", taskHistory=" + taskHistory + ", bookMark=" + bookMark + ", taskList=" + taskList + "]";
 	}
 
+	
 	
 }

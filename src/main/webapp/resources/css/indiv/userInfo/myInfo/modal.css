@@ -1,0 +1,173 @@
+.modalTable{
+	width: 1000px;
+	margin: 20px;
+	
+  }
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 2; /* Sit on top */
+    left: 0;
+    top: 0 ;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.3); /* Black w/ opacity */
+  }
+  
+  /* Modal Content/Box */
+.modal-content {
+    background-color: #fefefe;
+    margin: 10% auto; /* 15% from the top and centered */
+    padding: 10px;
+    border: 1px solid #c4c4c4;
+    width: 40%; /* Could be more or less, depending on screen size */
+    z-index:1;
+    border-radius: 10px;
+    box-shadow: 0 0 4px #cccccc;
+  }
+  
+  .modaltitle{
+ 	font-size:30px;
+ 	margin-left: 20px;
+ }
+  
+  .modalTable{
+  	font-size: small;
+  }
+  
+ .modalButtonArea{
+ 	margin:30px;
+ 	text-align: center;
+ }
+ .cancelBtn {
+ 		text-align: center;
+    	display: inline-block;
+    	vertical-align: middle;
+    	line-height: 30px;
+ 	}
+ 	
+  tbody {
+  	font-size : 17px;
+  }
+  #pwd-change {
+  	width:200px;
+  }
+  .backBtn {
+ 		text-align: center;
+    	display: inline-block;
+    	vertical-align: middle;
+    	line-height: 30px;
+ 	}
+.outmodalTable{
+	width: 1000px;
+	margin: 20px;
+	
+  }
+.outmodal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 2; /* Sit on top */
+    left: 0;
+    top: 0 ;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.3); /* Black w/ opacity */
+  }
+  
+  /* Modal Content/Box */
+.outmodal-content {
+    background-color: #fefefe;
+    margin: 10% auto; /* 15% from the top and centered */
+    padding: 10px;
+    border: 1px solid #c4c4c4;
+    width: 40%; /* Could be more or less, depending on screen size */
+    z-index:1;
+    border-radius: 10px;
+    box-shadow: 0 0 4px #cccccc;
+  }
+  
+  .outmodaltitle{
+ 	font-size:30px;
+ 	margin-left: 20px;
+ }
+  
+  .outmodalTable{
+  	font-size: small;
+  }
+  
+ .outmodalButtonArea{
+ 	margin:30px;
+ 	text-align: center;
+ }
+ 
+ .backMain {
+ 		text-align: center;
+    	display: inline-block;
+    	vertical-align: middle;
+    	line-height: 30px;
+ 	}
+.bookmodalTable{
+	width: 1000px;
+	margin: 20px;
+	
+  }
+.bookmodal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 2; /* Sit on top */
+    left: 0;
+    top: 0 ;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.3); /* Black w/ opacity */
+  }
+  
+  /* Modal Content/Box */
+.bookmodal-content {
+    background-color: #fefefe;
+    margin: 10% auto; /* 15% from the top and centered */
+    padding: 10px;
+    border: 1px solid #c4c4c4;
+    width: 50%; /* Could be more or less, depending on screen size */
+    z-index:1;
+    border-radius: 10px;
+    box-shadow: 0 0 4px #cccccc;
+  }
+  
+  .bookmodaltitle{
+ 	font-size:30px;
+ 	margin-left: 20px;
+ }
+  
+  .bookmodalTable{
+  	font-size: small;
+  }
+  
+ .bookmodalButtonArea{
+ 	margin:30px;
+ 	text-align: center;
+ }/* 
+ 
+ .bookback {
+ 		text-align: center;
+    	display: inline-block;
+    	line-height: 30px;
+    	
+ 	} */
+ .bookback {
+ 	background:#DD0351;
+            height: 30px;
+            width: 80px;
+            border-radius: 10px;
+            border: 0;
+            font-size: 8px;
+            color: white;
+            text-align: center; 
+            vertical-align: middle;
+ 	}

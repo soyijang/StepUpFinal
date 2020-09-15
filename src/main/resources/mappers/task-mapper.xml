@@ -224,9 +224,6 @@
 		<result property="createTime" column="PROJECT_CREATE_TIME"/>
 	</resultMap>
 	
-	
-	
-	
 	<!-- 1.Task생성 -->
 	<insert id="createTask" parameterType="com.stepup.agile.projectTask.model.vo.TaskList">
 		<selectKey keyProperty="taskCode" resultType="int" order="BEFORE">
@@ -552,6 +549,7 @@
 		DELETE FROM TASK_LIST
          WHERE TASK_CODE = #{taskCode}
 	</delete>
+	
 	
 	
 	
