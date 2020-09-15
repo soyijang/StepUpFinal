@@ -338,7 +338,7 @@
 			SELECT SEQ_TASK_HIST.NEXTVAL FROM DUAL
 		</selectKey>
 		INSERT INTO TASK_HISTORY(TASK_HIST_UPDATE_DATE, TASK_HIST_UPDATE_TIME,TASK_CODE, TASK_HIST_CODE, MASTER_CODE, USER_CODE, TASK_HIST_VALUE, TASK_CATEGORY_CODE)
-		VALUES (TO_CHAR(SYSDATE + 9/24, 'YYYY-MM-DD'), TO_CHAR(SYSDATE + 9/24, 'hh24:mi:ss'), #{taskCode}, #{taskHistCode}, #{masterCode}, #{userCode, jdbcType=INTEGER}, #{taskHistValue, jdbcType=VARCHAR}, 'L')
+		VALUES (TO_CHAR(SYSDATE + 9/24, 'YYYY-MM-DD'), TO_CHAR(SYSDATE + 9/24, 'hh24:mi:ss'), #{taskCode}, #{taskHistCode}, DEFAULT, #{userCode, jdbcType=INTEGER}, #{taskHistValue, jdbcType=VARCHAR}, 'L')
 	</insert>
 <!-- <update id="updateTaskList" parameterType="com.stepup.agile.projectTask.model.vo.TaskList">
 		UPDATE TASK_LIST SET(USER_CODE)
@@ -364,7 +364,7 @@
 			SELECT SEQ_TASK_HIST.NEXTVAL FROM DUAL
 		</selectKey>
 		INSERT INTO TASK_HISTORY(TASK_HIST_UPDATE_DATE, TASK_HIST_UPDATE_TIME,TASK_CODE, TASK_HIST_CODE, MASTER_CODE, USER_CODE, TASK_HIST_VALUE, TASK_CATEGORY_CODE)
-		VALUES (TO_CHAR(SYSDATE + 9/24, 'YYYY-MM-DD'), TO_CHAR(SYSDATE + 9/24, 'hh24:mi:ss'), #{taskCode}, #{taskHistCode}, #{masterCode}, default, #{memberName, jdbcType=VARCHAR}, 'L')
+		VALUES (TO_CHAR(SYSDATE + 9/24, 'YYYY-MM-DD'), TO_CHAR(SYSDATE + 9/24, 'hh24:mi:ss'), #{taskCode}, #{taskHistCode}, #{masterCode, jdbcType=INTEGER}, default, #{memberName, jdbcType=VARCHAR}, 'L')
 	</insert>
 	<update id="updateTaskList2" parameterType="com.stepup.agile.projectTask.model.vo.TaskList">
 		UPDATE TASK_LIST SET TASK_MASTER = #{masterCode}
