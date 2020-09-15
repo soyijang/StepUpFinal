@@ -2,6 +2,7 @@ package com.stepup.agile.projectManage.model.dao;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
@@ -74,6 +75,26 @@ public class ProjectDaoImpl implements ProjectDao{
 	@Override
 	public int updateProjectOne(SqlSessionTemplate sqlSession, ProjectHistory projectHistory) {
 		return sqlSession.insert("Project.insertProjectHistory", projectHistory);
+	}
+
+	//프로젝트 멤버 추가를 위한 팀원 검색
+	@Override
+	//public List<Member> searchTeamMember(SqlSessionTemplate sqlSession, Map<String, Object> map) {
+	public List<Member> searchTeamMember(SqlSessionTemplate sqlSession, Member m) {
+		//return sqlSession.selectList("Project.searchTeamMember", map);
+		return sqlSession.selectList("Project.searchTeamMember", m);
+	}
+
+	//프로젝트 멤버 추가
+	@Override
+	public int insertUserProjectMember(SqlSessionTemplate sqlSession, Map<String, Object> map) {
+		return sqlSession.insert("Project.insertUserProjectMember", map);
+	}
+
+	//중복으로 추가되지 않도록 유저프로젝트 소속 여부 확인해보기
+	@Override
+	public UserProjectList checkBelongTo(SqlSessionTemplate sqlSession, Map<String, Object> map) {
+		return sqlSession.selectOne("Project.checkBelongTo", map);
 	}
 	
 
