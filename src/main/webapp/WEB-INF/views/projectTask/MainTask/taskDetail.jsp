@@ -157,7 +157,7 @@ input[type="checkbox"] {
             </tr>
             <tr id="htmlBox" style="display:none;">
                <td><textarea id="summernote" name="summernote" rows="10" cols="150" style="display:none;"></textarea></td>
-               </div><input type="hidden" name="summerContent" id="summerContent">
+               <!-- </div> --><input type="hidden" name="summerContent" id="summerContent">
                <input type="hidden" name="taskCategoryCode1" id="taskCategoryCode1" value="H">
             </tr>
             <tr id="htmlBtn" style="display:none;">
@@ -317,8 +317,8 @@ input[type="checkbox"] {
                       <li id="low" value="low" onclick="taskProperty3();"><label style="color:#03A500"><img src="/agile/resources/icon/common/icon_arrow_downward_green.png" style="width:20px; height:20px; float:left;">Low</label></li>
                     </ul>
                   </div>
-                 </td>
                 <input type="hidden" name="taskCategoryCode10" id="taskCategoryCode10" value="C">
+                 </td>
              </tr>
              <tr>
                 <td></td>
@@ -374,7 +374,7 @@ input[type="checkbox"] {
                     <div id="expect-left" class="leftTime">예상 소요시간 : </div>
                     <div id="leftTime" class="leftTime">남은시간 : </div>
                 </div>
-                    <div><label id="expect-left-modal" class="takenTime"><label id="left-modal" class="takenTime"></div>
+                    <div><label id="expect-left-modal" class="takenTime"></label><label id="left-modal" class="takenTime"></label></div>
             </div>
             <div>
                 <div id="startDate">시작한날짜 : </div>
@@ -1019,10 +1019,10 @@ input[type="checkbox"] {
 			   for(var i = 0; i<data.list.length; i++) {
 				   memberCode = data.list[i].userCode;
 				   memberName = data.list[i].userName;
-				   giveUserName = '""' + memberName + '""';
+				   giveUserName = '"' + memberName + '"';
 				   
 				   var $li = $("<li>");
-				   var $userName = $("<li onclick='updateUser(" + memberCode + "," + giveUserName + ")';>").text(data.list[i].userName);
+				   var $userName = $("<li onclick='updateUser(" + memberCode + "," + giveUserName + ");'>").text(data.list[i].userName);
 				   
 				   $li.append($userName);
 				   $teamlist.append($li);
@@ -1107,7 +1107,7 @@ input[type="checkbox"] {
 	 				UserName = '"' + pplName +'"';
  					
  					var $li = $("<li>");
- 					var $userName = $("<li onclick='updateMaster(" + pplCode + "," + UserName + ");'>").text(data.list[i].userName);
+ 					var $userName = $("<li onclick='updateMaster(" + pplCode + "," + UserName + ")';>").text(data.list[i].userName);
  					$li.append($userName);
  					
  					$teamlist.append($li);
@@ -1143,7 +1143,7 @@ input[type="checkbox"] {
  						$.ajax({
  								url:"updateMaster.pj",
  								type:"post",
- 								async: false,
+ 							/*	async: false,*/
  								data:{
  									  'Code' : Code,
  									  'Name' : Name,
@@ -1195,6 +1195,7 @@ input[type="checkbox"] {
     		},
     		error:function(){
     			console.log("에러!");
+    			console.log(data);
     		},
     		beforeSend : function(){
                 $('.wrap-loading').removeClass('display-none');
