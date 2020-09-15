@@ -146,6 +146,7 @@
 		    AND S.SPRINT_CODE = H.SPRINT_CODE
 		    AND P.PROJECT_CODE = J.PROJECT_CODE
 		    AND I.USER_EMAIL = #{userEmail, jdbcType=VARCHAR}
+		    AND P.PROJECT_CODE = #{projectCode, jdbcType=NUMERIC}
             AND H.SPRINT_STATUS = 'N'
 		  GROUP BY H.SPRINT_CODE , J.PROJECT_NAME, P.USER_PROJECT_CODE
           ORDER BY H.SPRINT_CODE)A
@@ -168,7 +169,7 @@
 
 	<insert id="insertSprint" parameterType="Sprint">
 		INSERT INTO SPRINT_LIST 
-		VALUES(SEQ_SPRINT.NEXTVAL, TO_CHAR(SYSDATE + 9/24, 'YYYY-MM-DD'), #{userProjectCode, jdbcType=INTEGER}, TO_CHAR(SYSDATE + 9/24, 'hh24:mi:ss'))
+		VALUES(SEQ_SPRINT.NEXTVAL, TO_CHAR(SYSDATE + 9/24, 'YYYY-MM-DD'), #{userProjectCode, jdbcType=NUMERIC}, TO_CHAR(SYSDATE + 9/24, 'hh24:mi:ss'))
 	</insert>
 	
 	<select id="selectSprintOne" resultMap="sprintHistoryResultSet" parameterType="Sprint">

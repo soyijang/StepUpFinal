@@ -94,6 +94,7 @@ public class ProjectController {
 			//model.addAttribute("userProjectList", userProjectList);
 			//중복 제거한 프로젝트 정보
 			//model.addAttribute("selectedProjectHistoryList", selectedProjectHistoryList);
+			System.out.println(userProjectList);
 			model.addAttribute("userProjectList", JSONArray.fromObject(userProjectList));
 			model.addAttribute("selectedProjectHistoryList", JSONArray.fromObject(selectedProjectHistoryList));
 			return "projectManage/projectList/projectList";

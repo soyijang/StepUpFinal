@@ -41,9 +41,20 @@
 								<c:if test="${fn:length(selectedProjectHistoryList)>3}">
 								<!-- 프로젝트 리스트 -->
 								<c:forEach var="item" items="${selectedProjectHistoryList}" begin="0" end="3" step="1" varStatus="status">
+									
+									<c:if test="${not empty userProjectList}">
+										<c:forEach var="k" begin="0" end="${fn:length(userProjectList)-1}">
+											<c:if test="${userProjectList.get(k).project.projectCode == selectedProjectHistoryList.get(i).project.projectCode}">
+												<c:set var="userProjectCodeSave" value="${userProjectList.get(k).userProjectCode}" />
+											</c:if>
+										</c:forEach>										
+									</c:if>	
+							
+									
+									
 									<td>
 										<div class="contentBox1-content-table-tr-td" id="project-top-list-code${item.project.projectCode}"
-										onclick="projectClick(${item.project.projectCode})">
+										onclick="projectClick(${item.project.projectCode},${userProjectCodeSave} )">
 											<div class="left-padding-gray${status.index}">
 												<div class="project-name">
 													${item.project.projectName}
@@ -60,7 +71,7 @@
 								</c:forEach>
 								</c:if>	
 							</c:if>
-							<c:if test="${not empty selectedProjectHistoryList}">
+							<c:if test="${empty selectedProjectHistoryList}">
 									<td>
 										<div class="red-star">진행중인 프로젝트가 없습니다</div>
 									</td>							
@@ -69,9 +80,19 @@
 							<c:if test="${not empty selectedProjectHistoryList}">
 								<c:if test="${fn:length(selectedProjectHistoryList) < 3}">
 								<c:forEach var="item" items="${selectedProjectHistoryList}" begin="0" end="${fn:length(selectedProjectHistoryList)}" step="1" varStatus="status">
+								
+									<c:if test="${not empty userProjectList}">
+										<c:forEach var="k" begin="0" end="${fn:length(userProjectList)-1}">
+											<c:if test="${userProjectList.get(k).project.projectCode == selectedProjectHistoryList.get(i).project.projectCode}">
+												<c:set var="userProjectCodeSave" value="${userProjectList.get(k).userProjectCode}" />
+											</c:if>
+										</c:forEach>										
+									</c:if>	
+								
+								
 									<td>
 										<div class="contentBox1-content-table-tr-td" id="project-top-list-code${item.project.projectCode}"
-										onclick="projectClick(${item.project.projectCode})">
+										onclick="projectClick(${item.project.projectCode}, ${userProjectCodeSave})">
 											<div class="left-padding-gray${status.index}">
 												<div class="project-name">
 													${item.project.projectName}
@@ -137,10 +158,20 @@
 							<!-- begin, end, step 생략시 collection 크기만큼 반복  -->
 							<!-- < var="item2" items="${selectedProjectHistoryList}" varStatus="status"> -->
 							<c:if test="${not empty selectedProjectHistoryList}">
-							<c:forEach var="i" begin="0" end="${fn:length(selectedProjectHistoryList)}">
+							<c:forEach var="i" begin="0" end="${fn:length(selectedProjectHistoryList)-1}">
+							
+									<c:if test="${not empty userProjectList}">
+										<c:forEach var="k" begin="0" end="${fn:length(userProjectList)-1}">
+											<c:if test="${userProjectList.get(k).project.projectCode == selectedProjectHistoryList.get(i).project.projectCode}">
+												<c:set var="userProjectCodeSave" value="${userProjectList.get(k).userProjectCode}" />
+											</c:if>
+										</c:forEach>										
+									</c:if>	
+							
+							
 								<tr>
 									<td id="project-list-code${selectedProjectHistoryList.get(i).project.projectCode}"
-									onclick="projectClick(${selectedProjectHistoryList.get(i).project.projectCode})">
+									onclick="projectClick(${selectedProjectHistoryList.get(i).project.projectCode}, ${userProjectCodeSave})">
 										<div>
 											${selectedProjectHistoryList.get(i).project.projectName}
 											<input type="hidden" class="miPojectCode${i}" value="${selectedProjectHistoryList.get(i).project.projectCode}">
@@ -223,7 +254,6 @@
 				</div>
        		</div>
        </div>
-    </div>
     
 <!-- 모달창 관련 html ------------------------------------------------------->
 
@@ -407,11 +437,20 @@
 	</div>
  </div>
 
- 
+<form action="showSprintMain.st" method="post" id="sendProjectCode2">
+	 <div>
+	 	<input type="hidden" id="sendProjectCode" name="projectCode" value="">
+	 	<input type="hidden" id="sendUserProjectCode" name="userProjectCode" value="">
+	 </div>
+</form>
  
 <!-- 프로젝트 멤버 초대 모달-------------------------------------------------------->
 
 <script>
+var userProjectList = JSON.parse('${userProjectList}');
+var selectedProjectHistoryList = JSON.parse('${selectedProjectHistoryList}');
+console.log(userProjectList);
+console.log(selectedProjectHistoryList);
 //추가 설정 버튼 드롭다운 ------------------------------------------------------------------------------------------------------------------------------------------
 $('.dropdown').click(function() {
 	$(this).attr('tabindex', 1).focus();
@@ -731,27 +770,33 @@ function searchTeam(){
 /* 오늘 날짜 계산 하여 프로젝트 진행상태 계산  --------------------------------------------*/	
 
 /* 클릭한 프로젝트 코드 받아서 페이지 넘겨주기 ----------------------------------------------------*/	
- function projectClick(c) {
+ function projectClick(c, d) {
 	//클릭한 프로젝트의 코드 
 	var projectCode2 = c;
+	var projectCode3 = d;
+	$('#sendProjectCode').val(projectCode2);
+	$('#sendUserProjectCode').val(projectCode3);
+	$('#sendProjectCode2').submit();
+	
 	//클릭한 것 출력
 	console.log(projectCode2);	
-/* 	$.ajax({
+/*  	$.ajax({
 		type: "post",
-		url: "showTaskBoard.tb",
+		url: "showSprintMain.st",
 		data : {
 			projectCode : projectCode
 		},
 		dataType: 'json',
 		success : function(data) {
 			
+			location.href="showSprintMain.st"; 
 		},
 		error : function(data) {
-			
+			alert('스프린트 조회에 실패하였습니다!');
 		} 
-	}); */
+	});  */
 	
-	 location.href="showTaskBoardMain.tk"; 
+	 
 }
 
 

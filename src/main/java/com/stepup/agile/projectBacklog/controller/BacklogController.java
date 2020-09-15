@@ -1,6 +1,7 @@
 package com.stepup.agile.projectBacklog.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -27,13 +28,17 @@ public class BacklogController {
 	
 //	스프린트 목록조회용
 	@RequestMapping("showSprintMain.st")
-	public String selectSprint(Model model, @ModelAttribute("loginUser") Member m) {
+	public String selectSprint(Model model, @ModelAttribute("loginUser") Member m, int projectCode, int userProjectCode) {
 		
 		//스프린트 목록부터 조회
 		List<Sprint> sprintList;
-		sprintList = bs.selectSprint(m);
-		model.addAttribute("sprintList", sprintList);
+		sprintList = bs.selectSprint(m, projectCode);
+		model.addAttribute("projectCodeNew", projectCode);
+		model.addAttribute("userProjectCodeNew", userProjectCode);
 		
+		System.out.println("스프린트목록 넘어올때 projectCode : " + projectCode);
+		System.out.println("스프린트목록 넘어올때 userProjectCode : " + userProjectCode);
+		System.out.println(sprintList);
 		return "projectBacklog/projactBacklog";
 		
 	}
@@ -55,6 +60,7 @@ public class BacklogController {
 	@RequestMapping("insert.st")
 	public String insertSprint(Model model, @RequestParam(value="userProjectCode",required=false) int userProjectCode) {
 		
+		System.out.println("스프린트 생성할때 userProjectCode : " + userProjectCode);
 		int result = bs.insertSprint(userProjectCode);
 		
 		if(result>0) {
