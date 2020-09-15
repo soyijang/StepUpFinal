@@ -20,6 +20,7 @@ import com.stepup.agile.projectTask.model.service.TaskService;
 import com.stepup.agile.projectTask.model.vo.TaskHistory;
 import com.stepup.agile.projectTask.model.vo.TaskList;
 import com.stepup.agile.userInfo.model.service.MemberService;
+import com.stepup.agile.userInfo.model.vo.AlertList;
 import com.stepup.agile.userInfo.model.vo.Member;
 import com.stepup.agile.userMyTasks.model.service.MyTasksService;
 import com.stepup.agile.userMyTasks.model.vo.MyTask;
@@ -42,7 +43,7 @@ public class ProjectMainController {
 	@RequestMapping("selectUserProject.me")
 	public String selectUserProject(@ModelAttribute("loginUser") Member m, Model model, Project p) {
 	
-		
+		int alertList = ps.selectAlert(m);
 		
 		List<Project> pjName = ps.selectUserProject(m);
 		List<Project> pjName2 = ps.selectUserProject2(m);
@@ -82,6 +83,7 @@ public class ProjectMainController {
 	System.out.println(ingTaskCnt);
 	System.out.println(comTaskCnt);
 		
+	model.addAttribute("alertList", alertList);
 	model.addAttribute("pjList", pjName);
 	model.addAttribute("pjList2", pjName2);
 	model.addAttribute("taskList", taskList);
@@ -108,5 +110,6 @@ public class ProjectMainController {
 		
 		return mv;
 	}
+	
 
 }

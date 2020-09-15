@@ -22,6 +22,7 @@ public interface ProjectDao {
 
 	int updateTimeline(SqlSessionTemplate sqlSession, HashMap<String, Object> map);
 	
+	int selectAlert(SqlSessionTemplate sqlSession, Member m);
 	///////////////////////////////////////////////////////////////////////////////////
 	
 	//프로젝트 메인페이지로 포워딩 (해당 멤버의 project list 조회 후 view 이동) 	
