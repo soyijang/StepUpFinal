@@ -22,7 +22,7 @@ public class MyTasksStandupMeetingDaoImpl implements MyTasksStandupMeetingDao{
 	@Override
 	public int updateRss(SqlSessionTemplate sqlSession, RssHistory rssHistory) {
 		return sqlSession.update("Rss.updateRss", rssHistory);
-
+	}
 	//공유 일정 가져오기	
 	@Override
 	public List<MyTask> selectMytaskShareList(SqlSessionTemplate sqlSession, int projectCode) {
