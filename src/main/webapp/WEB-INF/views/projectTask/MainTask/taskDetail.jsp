@@ -86,9 +86,9 @@ input[type="checkbox"] {
     <div id="taskDetailModal"  class="taskmodal">
       <!-- Modal content -->
       <div class="taskmodal-content">
-      	 <input type="text" name="taskCode" id="taskCode" value="">
+			<input type="hidden" name="taskCode" id="taskCode" value="">
          <div class="projectList" id="project"><div id="storyicon"></div><p id="sprintName"></p></div><div class="projectList">/</div>
-         <div class="projectList" id="story"><div id="taskicon"></div>TEST<p id="taskCode" value=""></p></div>
+         <div class="projectList" id="story"><div id="taskicon"></div>TEST<p id="taskCode" name="taskCode" value=""></p></div>
          <!-- <div class='toggleBG'>
 		    <button class='toggleFG'></button>
 		</div> -->
@@ -140,7 +140,7 @@ input[type="checkbox"] {
          </div>
         <p align="left" class ="taskmodaltitle"><input type="text" placeholder="제목을 입력하세요" style="font-size:20px;" id="titleName" onkeyup="enterkey();" name="taskTitle" value=""></p>
         <input type="hidden" name="taskCategoryCode" id="taskCategoryCode" value="J">
-        <input type="hidden" name="taskCode" id="taskCode" value="">
+  <!--       <input type="hidden" name="taskCode" id="taskCode" value=""> -->
         <div id="leftContent">
         <table align="center" class="taskmodalTable" style="width:100%;">
             <tr>
@@ -200,7 +200,7 @@ input[type="checkbox"] {
             <table id="replySelectTable"><thead></thead><tbody></tbody></table>
             <tr>
                <td colspan="4"><div class="profile" id="user"></div><div id="userName" value=""><%-- <label><c:out value="${ sessionScope.loginUser.userName }"/></label> --%></div>
-               <input type="text" placeholder="댓글추가...." id="replyContents" value="">
+               <input type="text" placeholder="댓글추가...." name="replyContents" id="replyContents" value="">
                <button id="replyBtn" class="replyBtn" style="display:none;" onclick="insertReply()">등록</button>
                <button id="replyBtnCan" class="replyBtn" style="display:none;">취소</button></td>
                <input type="hidden" name="taskCategoryCode2" id="taskCategoryCode2" value="K">
@@ -853,11 +853,9 @@ input[type="checkbox"] {
      function insertReply() {
   		var reply = $('#replyContents').val();
   		var taskCode = $('#taskCode').val();
-  		var taskCategoryCode = $('#taskCategoryCode3').val();
 
   		console.log(reply);
   		console.log(taskCode);
-  		console.log(taskCategoryCode);
      	
      	$.ajax({
      		type:"post",
@@ -865,16 +863,14 @@ input[type="checkbox"] {
      		dataType : "json",
      		processData: false,
      		data: {
-     			"reply": reply,
-     			"taskCode": taskCode,
-     			"taskCategoryCode": taskCategoryCode
+     			reply: reply,
+     			taskCode : taskCode
      		},
      		success: function(data){
-     			console.log("성공!")
+     			console.log("성공!");
      			console.log(data);
      			
      			console.log(data.replyHistory[0].replyList.replyCode);
-     			
      			
  				var $replySelectTable = $("#replySelectTable tbody");
  				$replySelectTable.html('');
