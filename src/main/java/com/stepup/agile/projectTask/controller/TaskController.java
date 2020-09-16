@@ -30,12 +30,14 @@ import com.stepup.agile.userInfo.model.vo.UserTeamList;
 
 import net.sf.json.JSONArray;
 
-@SessionAttributes("loginUser")
+@SessionAttributes({"loginUser", "projectCodeNew"})
 @Controller
 public class TaskController {
 	@Autowired
 	private TaskService ts;
 
+	private int temp =0;
+	
 	//Task생성
 	@RequestMapping(value="/createTask.pj", method = RequestMethod.POST)
 	@ResponseBody 
@@ -149,11 +151,10 @@ public class TaskController {
 	//4.댓글 생성
 	@RequestMapping(value="/insertReply.pj", method = RequestMethod.POST, produces = "application/text; charset=utf8")
 	public ModelAndView insertReply(ModelAndView mv, @ModelAttribute("loginUser") Member m, ReplyList replyList, ReplyHistory history,
-			@RequestParam(value="taskCode", required=false)int taskCode, String reply) {
+							int taskCode, String reply, String taskCategoryCode) {
 
 		replyList.setUserCode(m.getUserCode());
-		replyList.setTaskCode(taskCode);
-		System.out.println(replyList);
+		System.out.println(reply);
 		int replyCode = ts.insertReply(replyList);
 		
 		history.setReplyCode(replyCode);
@@ -704,13 +705,14 @@ public class TaskController {
 
 	 //테스크 리스트 조회 후 보드 메인 view로 이동(현재 진행중인 스프린트의 tasklist만 조회)
 	 	@RequestMapping("showTaskBoardMain.tk")
-	 	public String selectTaskList(Locale locale, Model model, @ModelAttribute("loginUser") Member m, Project p) {
+	 	public String selectTaskList(Locale locale, Model model, @ModelAttribute("loginUser") Member m,
+	 			@ModelAttribute("projectCodeNew") int projectCode) {
 	 		// hashmap에 쿼리문 조건에 사용할 사용자 정보(email)과 프로젝트 코드 담기
 	 		HashMap<String, Object> map = new HashMap<String, Object>();
 	 		// 프로젝트 받아오고 나서 수정하기
-	 		// map.put("projectCode", p.getProjectCode());
+	 		 map.put("projectCode", projectCode);
 	 		map.put("userEmail", m.getUserEmail());
-
+	 		temp=projectCode;
 	 		// taskHistory vo 기준으로 data return 받기 (resultSet 데이터별 고유 값이 taskHistoryCode라서)
 	 		List<TaskHistory> taskList;//전체리스트
 	 		taskList = ts.selectTaskList(map);
@@ -1096,7 +1098,7 @@ public class TaskController {
 			//System.out.println("레이블 추가 성공여부 : " + result);
 			//성공할 경우 다시 리스트 조회해서 테스크 보드 메인페이지로 이동
 			if(result > 0) {
-				return "redirect:showTaskBoardMain.tk";	
+				return "redirect:showTaskBoardMain.tk?projectCode=" + temp;	
 			}else {
 				model.addAttribute("msg", "레이블 추가 실패!");
 				return "common/errorPage";
@@ -1178,7 +1180,7 @@ public class TaskController {
 		   map.put("taskCode", modal2TaskCode);
 		   int result = ts.updateTaskSprintCode(map);
 			if(result > 0) {
-				return "redirect:showTaskBoardMain.tk";	
+				return "redirect:showTaskBoardMain.tk?projectCode=" + temp;	
 			}else {
 				model.addAttribute("msg", "상위항목 변경 실패!");
 				return "common/errorPage";
@@ -1198,7 +1200,7 @@ public class TaskController {
 			   result = ts.insertSprintHistorySprintType(sprintHistory);
 		   }   
 		   if(result > 0) {
-			    return "redirect:showTaskBoardMain.tk";	
+			   return "redirect:showTaskBoardMain.tk?projectCode=" + temp;	
 		   }else {
 			    model.addAttribute("msg", "스프린트 종료 실패!");
 				return "common/errorPage";  

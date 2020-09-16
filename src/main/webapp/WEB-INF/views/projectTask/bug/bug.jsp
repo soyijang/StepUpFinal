@@ -251,17 +251,14 @@
 		div2 += '<div id="bug-issue-title">' + bugtitle + '</div>';
 		$("#bgtitle-td").html(div2);
 		
-		bcode = bugUserName.split("-");
-		console.log("bcode : " + bcode);
-		var bcode2 = bcode[1];
-		console.log("bcode2: " + bcode2);
+		bcode = bugcode.substring(4, 7);
 		
 		var values = [];
 		
 		$.ajax({
 			url:"selectBugCont.tk",
 			type:"post",
-			data:{"tCode" : bcode2},
+			data:{"tCode" : bcode},
 			dataType : "json",
 			success: function(data){
 				
