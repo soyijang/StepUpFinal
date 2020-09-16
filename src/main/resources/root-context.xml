@@ -44,5 +44,23 @@
 		<aop:pointcut expression="execution(* com.stpup.agile..*ServiceImpl.*(..))" id="serviceMethod"/>
 		<aop:advisor advice-ref="txAdvice" pointcut-ref="serviceMethod" id="transactionAdvisor"/>
 	</aop:config>
+	
+	<bean id="mailSender" class = "org.springframework.mail.javamail.JavaMailSenderImpl">
+      <property name="port" value="587" />
+      <property name="username" value="stepup9180@gmail.com" />
+      <property name="password" value="agile0918" />
+   
+      <property name="javaMailProperties">
+         <props>
+         	   <prop key="mail.smtp.host">smtp.gmail.com</prop>
+               <prop key="mail.transport.protocol">smtp</prop>
+               <prop key="mail.smtp.auth">true</prop>
+               <prop key="mail.smtp.starttls.enable">true</prop>
+               <prop key="mail.debug">true</prop>
+         </props>
+      </property>
+    </bean>
+	
+	
 		
 </beans>
