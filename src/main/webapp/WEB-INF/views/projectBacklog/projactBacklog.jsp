@@ -170,11 +170,12 @@
 					<div class="sprintclose" id="rectangle7">취소</div>
 				</div>
 				<c:if test="${not empty sprintList}">
-				<input style="display: none" name="userProjectCode"
-					value="${ userProjectCodeNew }">
+				<input style="display: none" name="userProjectCode" value="${ userProjectCodeNew }">
+				<input style="display: none" name="projectCode" value="${projectCodeNew}">
 					</c:if>
 				<c:if test="${empty sprintList}">
-				<input style="display: none" name="userProjectCode" id="please" value="${userProjectCodeNew}">
+				<input style="display: none" name="userProjectCode" value="${userProjectCodeNew}">
+				<input style="display: none" name="projectCode" value="${projectCodeNew}">
 					</c:if>
 			</div>
 		</div>
@@ -223,6 +224,14 @@
 					</c:if>
 			</div>
 		</div>
+		<c:if test="${not empty sprintList}">
+				<input style="display: none" name="userProjectCode" value="${ userProjectCodeNew }">
+				<input style="display: none" name="projectCode" value="${projectCodeNew}">
+		</c:if>
+				<c:if test="${empty sprintList}">
+				<input style="display: none" name="userProjectCode" value="${userProjectCodeNew}">
+				<input style="display: none" name="projectCode" value="${projectCodeNew}">
+		</c:if>
 	</form>
 	
 	<!-- 스프린트종료 모달창 -->
@@ -256,6 +265,15 @@
 				</c:if>
 			</div>
 		</div>
+		
+		<c:if test="${not empty sprintList}">
+				<input style="display: none" name="userProjectCode" value="${ userProjectCodeNew }">
+				<input style="display: none" name="projectCode" value="${projectCodeNew}">
+					</c:if>
+				<c:if test="${empty sprintList}">
+				<input style="display: none" name="userProjectCode" value="${userProjectCodeNew}">
+				<input style="display: none" name="projectCode" value="${projectCodeNew}">
+					</c:if>
 	</form>
 	
 	<!-- 스프린트시작 모달창 -->
@@ -288,6 +306,15 @@
 				</c:if>
 			</div>
 		</div>
+		
+		<c:if test="${not empty sprintList}">
+				<input style="display: none" name="userProjectCode" value="${ userProjectCodeNew }">
+				<input style="display: none" name="projectCode" value="${projectCodeNew}">
+					</c:if>
+				<c:if test="${empty sprintList}">
+				<input style="display: none" name="userProjectCode" value="${userProjectCodeNew}">
+				<input style="display: none" name="projectCode" value="${projectCodeNew}">
+					</c:if>
 	</form>
 	
 	<!--  Task 종료 모달창 -->
@@ -310,6 +337,15 @@
 				<input type="hidden" id="updateTaskCode" name="taskCode" value="">
 			</div>
 		</div>
+		
+		<c:if test="${not empty sprintList}">
+				<input style="display: none" name="userProjectCode" value="${ userProjectCodeNew }">
+				<input style="display: none" name="projectCode" value="${projectCodeNew}">
+					</c:if>
+				<c:if test="${empty sprintList}">
+				<input style="display: none" name="userProjectCode" value="${userProjectCodeNew}">
+				<input style="display: none" name="projectCode" value="${projectCodeNew}">
+					</c:if>
 	</form>
 	
 	<div class="wrap-loading display-none">
@@ -321,9 +357,11 @@
 	
 	var temp = $('#clickName').val();
 	var temp2 =  $('#clickSprintCode').val();
+	console.log("temp들어갓니? " + temp );
+	console.log("temp2들어갓니? " + temp2 );
+	
 	window.onload = function () {
 		
-		console.log($('#please').val());
 		if(temp!=null && temp2 !=null){
 			tbodyClick(temp2,temp);
 		}

@@ -26,6 +26,8 @@ public class BacklogController {
 	@Autowired
 	private BacklogService bs;
 	
+	private int temp = 0;
+	
 //	스프린트 목록조회용
 	@RequestMapping("showSprintMain.st")
 	public String selectSprint(Model model, @ModelAttribute("loginUser") Member m, int projectCode, int userProjectCode) {
@@ -34,10 +36,26 @@ public class BacklogController {
 		List<Sprint> sprintList;
 		sprintList = bs.selectSprint(m, projectCode);
 		model.addAttribute("projectCodeNew", projectCode);
-		model.addAttribute("userProjectCodeNew", userProjectCode);
 		
-		System.out.println("스프린트목록 넘어올때 projectCode : " + projectCode);
-		System.out.println("스프린트목록 넘어올때 userProjectCode : " + userProjectCode);
+		temp = projectCode;
+		
+		model.addAttribute("userProjectCodeNew", userProjectCode);
+		model.addAttribute("sprintList", sprintList);
+		System.out.println(sprintList);
+		return "projectBacklog/projactBacklog";
+		
+	}
+	
+//	스프린트 목록조회용
+	@RequestMapping("showSprintMain2.st")
+	public String selectSprint2(Model model, @ModelAttribute("loginUser") Member m) {
+		
+		//스프린트 목록부터 조회
+		List<Sprint> sprintList;
+		
+		sprintList = bs.selectSprint(m, temp);
+		model.addAttribute("sprintList", sprintList);
+		
 		System.out.println(sprintList);
 		return "projectBacklog/projactBacklog";
 		
@@ -58,13 +76,17 @@ public class BacklogController {
 	
 //	스프린트 추가용
 	@RequestMapping("insert.st")
-	public String insertSprint(Model model, @RequestParam(value="userProjectCode",required=false) int userProjectCode) {
+	public String insertSprint(Model model, @RequestParam(value="userProjectCode",required=false) int userProjectCode,
+			 @RequestParam(value="projectCode",required=false) int projectCode) {
 		
-		System.out.println("스프린트 생성할때 userProjectCode : " + userProjectCode);
 		int result = bs.insertSprint(userProjectCode);
+		System.out.println("스프린트 생성할때 userProjectCode : " + userProjectCode);
 		
 		if(result>0) {
-			return "redirect:showSprintMain.st";
+			
+			System.out.println("스프린트 추가성공! main으로 가라");
+			//return "redirect:showSprintMain.st?projectCode="+projectCode+"&userProjectCode="+userProjectCode ;
+			return "redirect:showSprintMain2.st";
 		}else {
 			model.addAttribute("msg", "스프린트 생성을 실패하였습니다!");
 			return "common/errorPage";
@@ -92,7 +114,7 @@ public class BacklogController {
 		int result = bs.updateSprint(sprintHistory);
 		
 		if(result>0) {
-			return "redirect:showSprintMain.st";
+			return "redirect:showSprintMain2.st";
 		}else {
 			model.addAttribute("msg", "스프린트 생성을 실패하였습니다!");
 			return "common/errorPage";
@@ -107,10 +129,10 @@ public class BacklogController {
 		int result = bs.updateFinish(sprintHistory);
 		
 		if(result == 1) {
-			return "redirect:showSprintMain.st";
+			return "redirect:showSprintMain2.st";
 		}if(result == 2) {
 			model.addAttribute("alertmsg", "아직 진행중이거나 미진행한 Task가 존재합니다! 모든 Task를 종료 후에 스프린트를 종료해주세요.");
-			model.addAttribute("url", "showSprintMain.st");
+			model.addAttribute("url", "showSprintMain2.st");
 			return "common/alert";
 		}else {
 			model.addAttribute("msg", "스프린트 종료를 실패하였습니다!");
@@ -126,10 +148,10 @@ public class BacklogController {
 		int result = bs.updateStart(sprintHistory);
 		
 		if(result == 1) {
-			return "redirect:showSprintMain.st";
+			return "redirect:showSprintMain2.st";
 		}if(result == 2) {
 			model.addAttribute("alertmsg", "이미 진행중인 스프린트가 존재합니다! 종료 후에 시작해주세요.");
-			model.addAttribute("url", "showSprintMain.st");
+			model.addAttribute("url", "showSprintMain2.st");
 			return "common/alert";
 		}else {
 			model.addAttribute("msg", "스프린트 시작를 실패하였습니다!");
@@ -144,7 +166,7 @@ public class BacklogController {
 		int result = bs.updateTask(taskCode);
 		
 		if(result>0) {
-			return "redirect:showSprintMain.st";
+			return "redirect:showSprintMain2.st";
 		}else {
 			model.addAttribute("msg", "테스크 종료처리를 실패하였습니다!");
 			return "common/errorPage";
