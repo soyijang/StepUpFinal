@@ -297,8 +297,21 @@ body{
   	display: inline-block;
   }
   #user-pro-lit{
+  	height: 35px;
+   width: 35px;
+   float: right;
+   margin-right: -8px;
+/*    margin-right: -10px; */
+   border-radius: 221.5px;
+   box-sizing: border-box;
+   font-size: 13px;
+   border: 2px solid #d2d2d2;
+/*    border: 2px solid #F3F3F3; */
+   text-align: center;
+   line-height: 35px;
   	margin-bottom: 4px;
   	float: right;
+  	background: #ffb1009c;
   }
   #bugicon{
   	margin-top: 10px;
@@ -389,13 +402,22 @@ body{
 	width:70%;
 	height:100%;
 	display: inline-block;
+	margin-left: 40px;
 }
 #re-show-pro{
 	margin-left:38px;
-	width:10%;
-	height:100%;
+	height: 38px;
+    width: 38px;
 	display: inline-block;
 	float: left;
+	border: 2px solid #d2d2d2;
+	margin-right: -8px;
+	background: #ffb1009c;
+	font-size: 13px;
+	box-sizing: border-box;
+	border-radius: 221.5px;
+	padding-left: 5px;
+    padding-top: 6px;
 }
 #re-name-date-area{
 	width: 100%;

@@ -41,7 +41,7 @@
                          </div>
                          <div id="tb_wrap">
                          <div id="pro-cont">
-                        <%--  <c:if test="${ not empty pjList }"> --%>
+                         
                          <c:forEach var="i" items="${ pjList }" varStatus="status">
                          <div id="pro-list">
                          	<table class="tb" style=" width:100%";>
@@ -70,7 +70,6 @@
                             </table>
                             </div>
 	                            </c:forEach>
-	                            <%-- </c:if> --%>
                          </div>
                          </div>
                       </div>
@@ -84,14 +83,13 @@
 	                         		<tr>
 	                         			<th colspan="2" style="font-weight:100; text-align: left;">프로젝트💾</th>
 	                         		</tr>
-	                         		<%-- <c:if test="${ alertList ne null}">
-	                         		<c:forEach var="j" begin="0" end="${ alertList-5 }"> --%>
+	                         		
+	                         		<c:forEach var="j" begin="0" end="${ alertList-5 }">
 	                         		<tr>
 	                         			<td style="border-bottom:1px solid #E8E8E8; font-weight:300; width:20%; text-align: center;"></td>
 	                         			<td style="border-bottom:1px solid #E8E8E8; font-weight:300;">프로젝트가 업데이트 되었습니다.🔔</td>
 	                         		</tr>
-	                         		<%-- </c:forEach>
-	                         		</c:if> --%>
+	                         		</c:forEach>
 	                         	</table>
 	                         </div>
 	                     </div>

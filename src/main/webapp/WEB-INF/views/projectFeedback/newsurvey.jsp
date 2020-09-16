@@ -1,131 +1,46 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/common/nav.js"></script>
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/common/dropdown.css">
 
 <style>
-                           
+.@import url(http://fonts.googleapis.com/earlyaccess/notosanskr.css);
+@font-face {font-family: 'Noto Sans KR';font-style: normal;font-weight: 100;src: url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Thin.woff2) format('woff2'),url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Thin.woff) format('woff'),url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Thin.otf) format('opentype');}
+
+
+
+@font-face {font-family: 'Noto Sans KR';font-style: normal;font-weight: 300;src: url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Light.woff2) format('woff2'),url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Light.woff) format('woff'),url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Light.otf) format('opentype');}
+
+
+
+@font-face {font-family: 'Noto Sans KR';font-style: normal;font-weight: 400;src: url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Regular.woff2) format('woff2'),url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Regular.woff) format('woff'),url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Regular.otf) format('opentype');}
+
+
+
+@font-face {font-family: 'Noto Sans KR';font-style: normal;font-weight: 500;src: url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Medium.woff2) format('woff2'),url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Medium.woff) format('woff'),url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Medium.otf) format('opentype');}
+
+
+
+@font-face {font-family: 'Noto Sans KR';font-style: normal;font-weight: 700;src: url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Bold.woff2) format('woff2'),url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Bold.woff) format('woff'),url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Bold.otf) format('opentype');}
+
+
+
+@font-face {font-family: 'Noto Sans KR';font-style: normal;font-weight: 900;src: url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Black.woff2) format('woff2'),url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Black.woff) format('woff'),url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Black.otf) format('opentype');}
 body{
     margin: 0;
     /* 현재 창 높이의 100% */
     height: 100vh;
+    font-family: "Noto Sans KR";
 }
 
-/* 전체 wrapper */
-#wrapper{
-    display: table;
-    margin-left: auto;
-    margin-right: auto;
-    height: 100vh;
-}
-
-/* 상단 네브바 영역 레이아웃 */
-#navbar{
-    height: 57px;
-    /* 현재 창의 폭  */
-    width: 100vw;
-    background-color: #2B2B49;   
-}
-
-/* 네브바 아래 전체 section(본문영역) 레이아웃 */
-#section{
-    height: 843px;
-
-}
-
-/* section(본문영역) 안쪽 왼쪽 메뉴바*/
-#menubar{
-    width: 12vw;
-    height: 843px;
-    background-color: #F9F9F9;
-    float: left;
-}
-
-/* 메뉴바 상단 Box */
-#menubarTitleBox{
-    height: 12%;
-    width: 100%;
-    text-align: center;
-}
-
-/* 메뉴바 Project명 입력 부분 */
-#projectTitle{
-    height: 100%;
-}
-
-/* 메뉴바 하단 리스트 부분 */
-#menubarList{
-    padding: 10px;
-    box-sizing: border-box;
-    height: 88%;
-    width: 100%;
-    display: inline-block;
-    text-align:center;
-}
-
-/* 메뉴 목록 공통 css 적용 */
-.menu{
-    height: 55px;
-    width: 100%;
-    text-align: left;
-    font-family: Montserrat;
-    font-style: normal;
-    font-weight: 500;
-    font-size: 14px;
-    line-height: 18px;
-    letter-spacing: 0.1px;
-    color: #000000;
-}
-
-/* section 안쪽 오른쪽*/
-#content{
-    width: 88vw;
-    height: 843px;
-    background-color: white;
-    float: left;
-    box-sizing: border-box;
-    padding: 30px 40px; 
-}
-
-/* content 안쪽 상단 contentTitle(제목 영역)*/
-#contentTitle{
-    background-color:  white;
-    height: 60px;
-
-}
-
-/* content 안쪽 contentTitle(제목영역) Project 이름 부분 */
-#projectTitle2{
-    font-family: Noto Sans KR;
-    font-style: normal;
-    font-weight: 300;
-    font-size: 13px;
-    line-height: 17px;
-    align-items: center;
-    letter-spacing: 0.1px;
-    color: #6D6D6D;
-}
-
-/* content 안쪽 contentTitle(제목영역) 메뉴명 부분 */
-#menuTitle{
-    font-family: Noto Sans KR;
-    font-style: normal;
-    font-weight: 300;
-    font-size: 17px;
-    line-height: 17px;
-    align-items: center;
-    letter-spacing: 0.1px;
-    color: #000000;
-}
-
-/* content 안쪽 하단 내용영역*/
-#contentBox{
-    background-color: white;
-    height:700px;
-}
 #projectSurvey {
     background: white;
     border: 1px solid #6D6D6D;
@@ -149,30 +64,26 @@ body{
     left: 30%;
 }
 #surveyInsert {
-    border: 1px solid #6D6D6D;
-    border-left: 10px solid #6D6D6D;
-    border-top-left-radius: 10px;
-    border-bottom-left-radius: 10px;
     width: 550px;
     height: 200px;
+    border: 1px solid #C4C4C4;
+    border-radius: 5px;
 }
 .surveyBtn {
+	 width: 60px;
      margin-left: 10px;
+     border-top: 1px solid #C4C4C4;
+     border-left: 1px solid #C4C4C4;
+     border-right: 1px solid #C4C4C4;
+     border-radius: 5px;
 }
 #surveyInsertBox {
     width: 400px;
     height: 25px;
-    background: #6d6d6d23;
-    border-bottom: 3px solid #6D6D6D;
     font-size: 13px;
     margin-top: 3%;
     margin-left: 3%;
     display: inline-block;
-}
-input[type=radio] {
-    border: 0px;
-    width: 7px;
-    height: 7px;
 }
 .option {
     font-size: 13px;
@@ -189,19 +100,20 @@ input[type=radio] {
     height: 15px;
 }
 #optionIconArea {
-    border-left: 1px solid black;
     display: inline-block;
     margin-right: 10px;
+    width: 200px;
 }
 label {
     font-size: 13px;
 }
 input[type=checkbox] {
-    width: 8px;
-    height: 8px;
+    width: 14px;
+    height: 14px;
 }
 #questionType {
    display: inline-block;
+   width:90px;
 }
 .questionType {
     margin-left: 13px;
@@ -217,18 +129,15 @@ input[type=checkbox] {
     color: white;
     margin-top: 0;
 }
-#newQuestion {
+.newQuestion {
     border: 1px solid #6d6d6d4d;
     border-radius: 10px;
     width: 110px;
     height: 40px;
     text-align: center;
     display: inline-block;
-    margin-left: 80%;
-    margin-top: 3%;
-    margin-bottom: 1%;
 }
-#newQuestion p {
+.newQuestion p {
     display: inline-block;
     font-size: 13px;
     margin: 0;
@@ -247,107 +156,535 @@ input[type=checkbox] {
     margin-top:35%;
     margin-left: 25%;
 }
+#content{
+    width: 1440px;
+    height: 900px;
+    background-color: white;
+    box-sizing: border-box;
+}
+.surveyTitle{
+	height: 30px;
+	border: 1px solid #C4C4C4;
+	border-radius: 5px;
+}
+#form-area{
+	float:left;
+	display: inline-block;
+	width: 80%;
+	height: 100%;
+}
+#send-area{
+	display: inline-block;
+	width: 20%;
+	height: 100%;
+}
+#contentBox2{
+	width: 100%;
+    margin-top: 20px;
+    height: 88%;
+}
+#survey-form-area{
+	max-height:700px;
+    overflow-y:scroll;
+    width: 800px;
+}
+#survey-form-wrap{
+	width: 70%;
+	height:100%;
+	margin:0 auto;
+	border-radius: 5px;
+	padding-top: 10px;
+}
+.survey-form{
+	width: 650px;
+	height:150px;
+	margin: 0 auto;
+	border: 1px solid #e2e2e2c4;
+	border-left: 10px solid #dd0351;
+	border-radius: 5px;
+	background-color: white;
+	padding: 30px;
+	box-shadow: 11px 17px 9px -7px rgba(179, 179, 179, 0.25);
+}
+#survey-form-area::-webkit-scrollbar{
+	width: 5px;
+	padding-top: 10px;
+}
+#survey-form-area::-webkit-scrollbar-thumb{
+	background-color: #D9D9D9;
+	border-radius: 3px;
+}
+#survey-num{
+	display: inline-block;
+	width: 5px;
+	height: 20px;
+	background: #DD0351;
+}
+#survey-number{
+	width: 50px;
+	height: 30px;
+	display: inline-block;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+	margin-left: 128px;
+	text-align: center;
+	background-color: #dd0351;
+	color: white;
+	cursor: pointer;
+}
 
-
+.input1{
+	border: 1px solid #efefef;
+	height: 30px;
+	width: 450px;
+	border-radius: 5px;
+}
+.input2{
+	border: 1px solid #efefef;
+	height: 30px;
+	width: 200px;
+	border-radius: 5px;
+}
+.Multiple{
+	margin-top: 10px;
+}
+textarea {
+	border: 1px solid #efefef;
+	border-radius: 5px;
+}
+.AddNewOption, #AddNewQue{
+	cursor: pointer;
+}
+.newOption{
+	border: 1px solid #6d6d6d4d;
+    border-radius: 10px;
+    width: 110px;
+    height: 40px;
+    text-align: center;
+    display: inline-block;
+    margin-top: 30px;
+}
+.newOption p{
+	display: inline-block;
+    font-size: 13px;
+    margin: 0;
+    margin-top: 9%;
+    cursor: pointer;
+}
+.newOptionBtn{
+	background: #DD0351;
+    border: 0px;
+    outline: 0px;
+    border-radius: 50%;
+    text-align: center;
+    color: white;
+    margin-top: 0;
+}
+#send-survey{
+	cursor: pointer;
+}
+.newQuestion2{
+	border: 1px solid #6d6d6d4d;
+    border-radius: 10px;
+    width: 110px;
+    height: 40px;
+    text-align: center;
+    display: inline-block;
+}
+.newQuestion2 p{
+	display: inline-block;
+    font-size: 13px;
+    margin: 0;
+    margin-top: 9%;
+}
+.AddnewQuestion{
+	cursor: pointer;
+}
+.multi-must-chek-area{
+	margin-left: 440px;
+	width: 200px;
+	text-align: right;
+}
     </style>
 </head>
 <body>
-
-
-
-
-
-    <div id="wrapper">
-        <!-- nav바 영역 -->
-        <div id="navbar">navbar</div>
-        <!-- nav바 하단 영역 -->
-        <div id="section">
-            <!-- 왼쪽 메뉴바 영역 -->
-            <div id="menubar">
-                <table id="menubarTitleBox">
-                    <tr><td id="projectTitle"> 여기에 프로젝트명</td></tr>
-                </table>
-                <table id="menubarList">
-                    <tr><td class="menuIcon">icon</td><td id="ProjectTimeline" class="menu">Project Timedivne</td></tr>
-                    <tr><td class="menuIcon">icon</td><td id="SprintBacklog" class="menu">Sprint Backlog</td></tr>
-                    <tr><td class="menuIcon">icon</td><td id="TaskBoard" class="menu">Task Board</td></tr>
-                    <tr><td class="menuIcon">icon</td><td id="Issues" class="menu">Issues</td></tr>
-                    <tr><td class="menuIcon">icon</td><td id="FeedbackForm" class="menu">Feedback Form</td></tr>
-                    <tr><td class="menuIcon">icon</td><td id="StandUpMeeting" class="menu">Stand Up Meeting</td></tr>
-                </table>
-            </div>
+<%@ include file="../common/menubar.jsp" %>
             <div id="content">  
                 <!-- 상단 프로젝트 제목 및 메뉴 이름 영역 -->
                 <div id="contentTitle">
                     <div id="projectTitle2">Form / IT WORKS!</div>
                     <div id="menuTitle">피드백</div>
                 </div>
-                <div id="contentBox">
-                    <div id="projectSurvey">
-                        <hr class="projectSurveyHr">
-                        <p class="projectSurveyP">프로젝트 설문지</p>
-                    </div>
-
-                   <div id="newQuestion">
-                        <button class="newQuestionBtn">+</button>
-                        <p>질문추가</p>
-                   </div>
-
-                    <!--질문 작성 테이블-->
-                    <div id="surveyInsertArea">
-                        <button class="surveyBtn">질문 1</button>
-                        <div id="surveyInsert">
-                            <div id="surveyInsertBox">
-                                질문 타이틀
-                            </div>
-                            <div id="questionType">
-                                <select class="questionType">
-                                    <option>객관식 질문</option>
-                                    <option>주관식 질문</option>
-                                </select>
-                            </div>
-
-                            <div id="optionArea">
-                                <input type="radio" value="옵션1" id="optionRadioBtn">
-                                <label class="option">옵션1</label>
-                            </div>
-                            <div id="optionArea">
-                                <input type="radio" value="옵션1" id="optionRadioBtn">
-                                <label class="option">옵션2</label>
-                            </div>
-                            <div id="optionArea">
-                                <input type="radio" value="옵션1" id="optionRadioBtn">
-                                <label class="option">옵션 추가</label>
-                            </div>
-                            
-                            <br>
-                            <hr>
-                            <div id="iconArea">
-                                <img src="delete 2icon_trash.png">&nbsp;&nbsp;
-                                <div id="optionIconArea">
+                <div id="contentBox2">
+                <div id="form-area">
+                <div id="survey-form-wrap">
+					<div id="survey-form-area">
+					<!-- <div id="survey-number">질문 1</div> -->
+						<!-- <div id="survey-form1" class="survey-form">
+							<div id="survey-title">
+								<input type="text" placeholder="객관식질문을 입력하세요" class="input1" id="QueText1" name="ga">
+								<input type="text" placeholder="주관식질문을 입력하세요" class="input2" id="QueText2" name="ju" style="display: none;">
+								<div class="dropdown" style="width:90px;">
+							        <div class="select">
+							              <span id="survey-type-filter1" class="survey-type-filter">질문 유형</span>
+							          <i class="fa fa-chevron-left"></i>
+							        </div>
+							        <ul class="dropdown-menu">
+							          <li id="all">질문 유형</li>
+							          <li class="survey-type1">객관식 질문</li>
+							          <li class="survey-type2">주관식 질문</li>
+							        </ul>
+						      </div>
+							</div>
+							<div id="survey-cont1">
+								<div class="Multiple" id="multi1">
+								<input id="radio-2" name="radio" type="checkbox"><input type="text" placeholder="옵션을 입력하세요" class="input1" id="setinput1" name="ga">
+								</div>
+								<div class="newOption" id="newOption1">
+									 <button class="newOptionBtn" id="newOptBtn1">+</button>
+                        			 <p class="AddnewOption" id="AddNewOption1">옵션 추가</p>
+								</div>
+								
+							</div>
+							<div id="multi-must-chek-area1">
+								<div id="optionIconArea">
                                     &nbsp;&nbsp;
-                                    <input type="checkbox" >
+                                    <input type="checkbox" id="must1" name="check">
                                     <label>필수</label>
-                                    <input type="checkbox" >
+                                    <input type="checkbox" id="multi1" name="check">
                                     <label>복수선택</label>
                                 </div>
-                            </div>
-                        </div>
-
-                    </div>                
-
-                    <div id="sendBtn">
-                        <img src="mailsend.png">
-                        <img src="delete 2icon_trash.png">
-                    </div>
-
-
-                   
-
+							</div>
+						</div> -->
+					</div>
+					</div>
+				</div>
+				<div id="send-area">
+					 <div class="newQuestion2" id="newQue">
+                        <button class="newQuestionBtn" id="newQueBtn">+</button>
+                        <p class="AddnewQuestion" id="AddNewQue">질문 추가</p>
+                   </div>
+                   <input type="hidden" value="${ surveyCode }" id="surveyCode">
+                   <br>
+                   <br>
+                   <div class="newQuestion2" id="send">
+                        <p class="Survey-send" id="send-survey">📧설문 저장</p>
+                   </div>
+                   <br>
+                   <br>
+                   <div class="newQuestion2" id="send2">
+                        <p class="Survey-send2" id="send-survey2">📧설문 전송</p>
+                   </div>
+				</div>
                 </div>
             </div>
-        </div> 
-    </div>       
-    
 </body>
+<script>
+	$(document).on('click', '.dropdown', function(){
+		$(this).attr('tabindex', 1).focus();
+		$(this).toggleClass('active');
+		$(this).find('.dropdown-menu').slideToggle(300);
+	});
+	
+	$(document).on('focusout', '.dropdown', function(){
+		$(this).removeClass('active');
+		$(this).find('.dropdown-menu').slideUp(300);
+	});
+		
+	$(document).on('click', '.dropdown .dropdown-menu li', function(){
+		$(this).parents('.dropdown').find('span').text($(this).text());
+		$(this).parents('.dropdown').find('input').attr('value',$(this).attr('id'));
+	});
+	
+	$(document).on('click', '.dropdown-menu li', function(){
+		var input = '<strong>' + $(this).parents('.dropdown').find('input').val() + '</strong>', msg = '<span class="msg">Hidden input value: ';
+		$('.msg').html(msg + input + '</span>');
+	});
+	
+		
+		
+	var num2 = 1;
+	var cnt = 1;
+	var count = 0;
+	
+	//질문추가
+	$(document).on('click', "#AddNewQue", function addNewQue(){
+		cnt++;
+		num2++;
+		$('div#survey-form-area').append('<div id="survey-number">질문 '+ (cnt-1) + '</div>'
+			+	'<div id="survey-form'+ cnt + '"class="survey-form"><div id="survey-title">'
+			+		'<input type="text" placeholder="질문을 입력하세요" class="input1" id="QueTypeChoice' + (cnt+1) + '" name="ga">'
+			+		'<input type="hidden" name="surveyQuesType" style="display:none;" value="01" id="QueType' + (cnt+1) + '">'
+			+		'<div class="dropdown" style="width:90px;">'
+			+	        '<div class="select">'
+			+	              '<span id="survey-type-filter' + cnt + '" class="survey-type-filter">질문 유형</span>'
+			+	          '<i class="fa fa-chevron-left"></i>'
+			+	        '</div>'
+			+	        '<ul class="dropdown-menu">'
+			+	          '<li id="all">질문 유형</li>'
+			+	          '<li class="survey-type1">객관식 질문</li>'
+			+	          '<li class="survey-type2">주관식 질문</li>'
+			+	        '</ul>'
+			+      '</div>'
+			+	'</div>'
+			+	'<div id="survey-cont' + cnt + '">'
+ 		 	+		'<div class="Multiple" id="multiple' + cnt + '">'
+			+		'<input type="hidden" value=' + count + '"><input type="text" placeholder="옵션을 입력하세요(ex)1. 스텝업)" class="input1" id="setinput' + cnt + '" name="0"><br>'
+			+		'</div>'
+		    +		'<div class="newOption" id="newOption' + num2 + '">'
+			+		'<button class="newOptionBtn" id="newOptBtn' + num2 + '">+</button>'
+	        +		'<p class="AddnewOption" id="AddNewOption' + num2 + '">옵션 추가</p>'
+			+		'</div>'
+			+ '<div id="multi-must-chek-area' + num2 + '" class="multi-must-chek-area">'
+			+ '<div id="optionIconArea' + num2 + '" class="optionIconArea">&nbsp;&nbsp;'
+            + '<input type="checkbox" id="must' + (cnt+1) + '" name="check" value="N" clsss="mustChk">'
+            + '<label>필수</label>'
+            + '<input type="checkbox" id="multi' + (cnt+1) + '" name="check" value="N" class="multiChk">'
+            + '<label>복수선택</label>'
+        	+ '</div>'
+			+ '</div>'
+			+'</div>'
+			+'</div>');
+		
+		console.log ($("#multi3").val());
+		//$('div#survey-cont' + cnt).append()
+		console.log("코드 : " + $('#surveyCode').val());
+		
+	});
+	
+	
+	//옵션 추가
+	var num = 150;
+	
+
+	var optionid = "";
+	var chkbox = "";
+	var surveyCont = "";
+	var surveyform = "";
+	$(document).on('click', '.AddnewOption', function(event){
+		//var optionid = $('.AddnewOption').prop('id');
+		var typeid = event.target;
+		var parent = typeid.parentElement;
+		//survey-cont
+		var parent2 = parent.parentElement;
+		var parent3 = parent2.parentElement;
+		
+		var child2 = parent3.id;
+		
+		var child1 = parent2.id;
+		console.log("surveyCont : " + child1);
+		$('<br>').remove();
+		$('div').remove('#newOption'+num2);
+		$('button').remove('#newOptionBtn'+num2);
+		$('p').remove('#AddnewOption'+num2);
+		$('div').remove('#multi-must-chek-area'+num2);
+		$('div').remove('#optionIconArea'+num2);
+		count++;
+		num2++;
+		$('#'+child1).append('<div class="Multiple" id="multiple'+ num2 + '"><input type="hidden" value=' + count + '"><input type="text" placeholder="옵션을 입력하세요" class="input1" id="setinput' + num2 +'" name="0"></div>'
+			  + '<div class="newOption" id="newOption' + num2 + '">'
+			  + '<button class="newOptionBtn" id="newOptBtn' + num2 + '">+</button>'
+   			  + '<p class="AddnewOption" id="AddNewOption' + num2 + '">옵션 추가</p>'
+			  + '<div id="multi-must-chek-area' + num2 + '" class="multi-must-chek-area">'
+				+ '<div id="optionIconArea' + num2 + '" class="optionIconArea">&nbsp;&nbsp;'
+	            + '<input type="checkbox" id="must' + (cnt+1) + '" name="check" value="N" clsss="mustChk">'
+	            + '<label>필수</label>'
+	            + '<input type="checkbox" id="multi' + (cnt+1) + '" name="check" value="N" class="multiChk">'
+	            + '<label>복수선택</label>'
+	        	+ '</div>'
+				+ '</div>'
+				+ '</div>');
+		
+		num += 35;
+		console.log(num);
+		
+		$('#'+child2).css("height", num);
+	});
+	
+	//주관식
+	$(document).on('click', '.survey-type2', function(event){
+		num = 150;
+		var typeid = event.target;
+		var parent = typeid.parentElement;
+		var parent2 = parent.parentElement;
+		var parent3 = parent2.parentElement;
+		//survey-form id
+		var parent4 = parent3.parentElement;
+		console.log(parent4);
+		
+		//객관식
+		var child3 = parent4.children[0].children[0].id;
+		//주관식
+		var child4 = parent4.children[0].children[1].id;
+		
+		var child1 = parent4.children[1].id;
+		var pid = parent4.id;
+		console.log(pid);
+		
+		console.log("child1 : " + child1);
+		$("#"+child1).children().remove();
+		$("#"+child1).append(
+				'<div id="multi-must-chek-area' + (num2-1) + '" class="multi-must-chek-area">'
+				+ '<div id="optionIconArea' + (num2-1) + '" class="optionIconArea">&nbsp;&nbsp;'
+	            + '<input type="checkbox" id="must' + (cnt+1) + '" name="check" value="N" clsss="mustChk">'
+	            + '<label>필수</label>'
+	            + '<input type="hidden" id="multi' + (cnt+1) + '" name="check" value="N" clsss="mustChk">'
+	        	+ '</div>'
+				+ '</div>');
+		
+		$("#"+child4).val("02");
+		$("#"+pid).css("height","100px");
+		
+	});
+	
+	//객관식
+	$(document).on('click', '.survey-type1', function(){
+		num = 150;
+		var typeid = event.target;
+		var parent = typeid.parentElement;
+		var parent2 = parent.parentElement;
+		var parent3 = parent2.parentElement;
+		//survey-form id
+		var parent4 = parent3.parentElement;
+		//객관식
+		var child3 = parent4.children[0].children[0].id;
+		//주관식
+		var child4 = parent4.children[0].children[1].id;
+		
+		var child1 = parent4.children[1].id;
+		var pid = parent4.id;
+		console.log(pid);
+		console.log("child1 : " + child1);
+		$("#"+child1).children().remove();
+		$("#"+child1).append('<div class="Multiple" id="multiple'+ num2 + '"><input type="hidden" value=' + count + '"><input type="text" placeholder="옵션을 입력하세요(ex)1. 스텝업)" class="input1" id="setinput' + num2 +'" name="0"></div>'
+				  + '<div class="newOption" id="newOption' + num2 + '">'
+				  + '<button class="newOptionBtn" id="newOptBtn' + num2 + '">+</button>'
+	   			  + '<p class="AddnewOption" id="AddNewOption' + num2 + '">옵션 추가</p>'
+				  + '</div>'
+					+ '<div id="multi-must-chek-area' + num2 + '" class="multi-must-chek-area">'
+					+ '<div id="optionIconArea' + num2 + '" class="optionIconArea">&nbsp;&nbsp;'
+		            + '<input type="checkbox" id="must' + (cnt+1) + '" name="check" value="N" clsss="mustChk">'
+		            + '<label>필수</label>'
+		            + '<input type="checkbox" id="multi' + (cnt+1) + '" name="check" value="N" clsss="multiChk">'
+		            + '<label>복수선택</label>'
+		        	+ '</div>'
+					+ '</div>');
+		$("#"+child4).val("01");
+		$("#"+pid).css("height","150px");
+		
+	});
+
+
+	$(document).on('click', '#send-survey', function(){
+		 //totData는 객체로 선언, dataList는 Array로 선언
+	      var totData = new Object();
+	      var dataList = new Array();
+	      
+	      console.log("cnt : " + cnt);
+	      //문항별로 data라는 객체에 값을 넣고 각 data객체들을 dataList에 push해줌
+	      for(var i=3; i < (cnt+2); i++){
+	    	 if($("#must"+i).prop("checked")){
+	    		 $("#must"+i).val("Y");
+	    		 console.log("dd");
+	    	 }
+	    	 if($("#multi"+i).prop("checked")){
+	    		 $("#multi"+i).val("Y");
+	    	 }
+	         var data = new Object();
+	         data["surveyQuesName"] = $('#QueTypeChoice' + i).val();
+	         data["surveyQuesType"] = $('#QueType' + i).val();
+	         data["surveyQuesMust"] = $('#must' + i).val();
+	         data["surveyQuesMulti"] = $('#multi' + i).val();
+	         dataList.push(data);
+	      }
+	      
+	      //dataList를 voList객체로 다시한번 넣어줌. (totData는 객체로 선언, dataList는 Array로 선언)
+	      totData["surveyNewVOLists"] = dataList;
+	      console.log(totData);
+
+	      //var json_data = JSON.stringify(totData);
+	      
+		$.ajax({
+			url:"insertNewSurvey.sv",
+			type:"post",
+			data: JSON.stringify(totData),
+			contentType:'application/json',
+			dataType : "json",
+			success: function(data){
+				console.log(data.result);
+				
+				var choiceNumber;
+				choiceNumber = data.result;
+				console.log("chNumber: " + choiceNumber);
+				
+				var que = [];
+				for(prop in data.result)  {
+					  console.log(prop + " : "  + data.result[prop]);
+					  que += data.result[prop];
+					  que += ",";
+				}
+				console.log(que);
+				
+				/* for(var i=0; i<data.result.size; i++)  {
+					  console.log(i + " : "  + data.result[i]);
+					  que += data.result[i];
+					  que += ",";
+				} */
+				
+				//설문지 코드 가져오기
+				var surveyCode = $('#surveyCode').val();
+				
+				
+				var queArr = que.split(",");
+					  console.log(queArr);
+				
+			    var totData2 = new Object();
+				var dataList2 = new Array();
+			    
+			    var oplength = [];
+				for(i=2; i < (cnt+1); i++){
+					if((queArr[i-2] != "") && (queArr[i-2] != null)){
+			    	$("#QueTypeChoice"+(i+1)).attr("name", queArr[i-2]);
+			    	$($("#QueTypeChoice"+(i+1)).parent().parent().children().children().children("input.input1").attr("name", queArr[i-2]));
+					}
+				}
+			    
+				var QuesCodeList1 = new Array();
+			    for(var i=2; i < (num2+1); i++){
+			    	var data2 = new Object();
+			    	 data2["surveyQuesCode"] = Number($('#setinput' + i).attr('name'));
+			         data2["surveyChoiceNum"] = Number($('#setinput' + i).val().substr(0,1));
+			         data2["surveyChoiceContent"] = $('#setinput' + i).val().slice(3);
+			         data2["surveyCode"] = $('#surveyCode').val();
+				        	 
+			         dataList2.push(data2);
+			    }
+			    
+			    var ChoiceList = JSON.stringify(totData2);
+			    
+			      //dataList를 voList객체로 다시한번 넣어줌. (totData는 객체로 선언, dataList는 Array로 선언)
+			      totData2["surveyChoiceVOLists"] = dataList2;
+			      console.log(totData2);
+			      
+				  $.ajax({
+					url:"insertNewChoice.sv",
+					type:"post",
+					data: JSON.stringify(totData2),
+					contentType:'application/json',
+					dataType : "json",
+					success: function(data){
+						console.log("성공");
+					},error:function(data){
+						console.log("실패");
+					}
+				});
+				
+			},error:function(data){
+				console.log("실패");
+			}
+		});
+		
+	});
+
+</script>
 </html>

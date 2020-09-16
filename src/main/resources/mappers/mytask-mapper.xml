@@ -142,6 +142,15 @@
 		#{mytasksShareType, jdbcType=VARCHAR},TO_CHAR(SYSDATE + 9/24, 'YYYY-MM-DD'), TO_CHAR(SYSDATE + 9/24, 'hh24:mi:ss'), #{myTasksCode, jdbcType=NUMERIC})
 	</insert>	
 	
+	<!-- miso -->
+	<select id="selectMytaskShareList" resultMap="myTaskResultSet" parameterType="int">
+		SELECT *
+		  FROM USER_PROJECT_LIST UPL, MYTASKS_LIST ML, MYTASKS_SHARE_LIST MSL
+		 WHERE UPL.USER_PROJECT_CODE = ML.USER_PROJECT_CODE
+		   AND ML.MYTASKS_CODE = MSL.MYTASKS_CODE
+		   AND UPL.PROJECT_CODE = #{projectCode}
+		   ORDER BY MSL.MYTASKS_SHARE_DATE DESC
+	</select>
 	
 </mapper>
 

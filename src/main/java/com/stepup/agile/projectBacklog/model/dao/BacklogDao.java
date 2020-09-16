@@ -11,7 +11,7 @@ import com.stepup.agile.userInfo.model.vo.Member;
 
 public interface BacklogDao {
 
-	List<Sprint> selectSprint(SqlSessionTemplate sqlSession, Member m);
+	List<Sprint> selectSprint(SqlSessionTemplate sqlSession, Member m, int projectCode);
 
 	int insertSprint(SqlSessionTemplate sqlSession, int userProjectCode);
 
@@ -28,5 +28,5 @@ public interface BacklogDao {
 	int updateTask(SqlSessionTemplate sqlSession, int taskCode);
 
 	List<Sprint> searchSprint(SqlSessionTemplate sqlSession, Member m, String sprintName);
-	
+
 }

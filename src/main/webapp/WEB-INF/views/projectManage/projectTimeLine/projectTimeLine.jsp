@@ -25,8 +25,8 @@
 }
 	</style>
 <body>
-	<%@ include file="../../common/menubar.jsp" %>
-            <div id="content">
+	<%@ include file="../../common/nav.jsp" %>
+            <div id="content-nav-only">
                 <!-- 상단 프로젝트 제목 및 메뉴 이름 영역 -->
                 <div id="contentTitle">
                     <div id="projectTitle2"></div>
@@ -120,7 +120,9 @@
 				$("#projectTitle2").append(div);
 				
 				var values;
-				values = data.ProjectList;
+				if(data.ProjectList.length != 0){
+					values = data.ProjectList;
+				
 				
 				console.log(data.ProjectList);
 				
@@ -250,7 +252,7 @@
 						var MINUTE = 'minute';
 						var SECOND = 'second';
 						var MILLISECOND = 'millisecond';
-					  
+				}	  
 				
 			},
 			error:function(){

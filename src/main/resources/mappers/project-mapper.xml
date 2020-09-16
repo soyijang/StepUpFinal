@@ -5,118 +5,135 @@
 
 <mapper namespace="Project">
 
-	<!-- Project_List 테이블 -->
-	<resultMap type="com.stepup.agile.projectManage.model.vo.Project" id="ProjectResultSet">
-		<id property="projectCode" column="PROJECT_CODE"/>
-		<result property="projectName" column="PROJECT_NAME"/>
-		<result property="createDate" column="PROJECT_CREATE_DATE"/>
-		<result property="createTime" column="PROJECT_CREATE_TIME"/>
-		<result property="projectProceedingRate" column="PROJECT_PROCEEDING_RATE"/>
-		<result property="projectParticipantCnt" column="PROJECT_PARTICIPANT_CNT"/>
-		<result property="sprintTypeA" column="SPRINT_TYPE_A"/>
-		<result property="sprintTypeB" column="SPRINT_TYPE_B"/>
-		<result property="sprintTypeC" column="SPRINT_TYPE_C"/>
-	</resultMap>
-	
-	<resultMap type="com.stepup.agile.projectManage.model.vo.Project" id="projectResultSet">
-		<id property="projectCode" column="PROJECT_CODE"/>
-		<result property="projectName" column="PROJECT_NAME"/>
-		<result property="createDate" column="PROJECT_CREATE_DATE"/>
-		<result property="createTime" column="PROJECT_CREATE_TIME"/>
-		<collection property="userProjectList" resultMap="UserProjectListResultSet"/>
-		<collection property="userTeamList" resultMap="UserTeamListResultSet"/>
-		<collection property="member" resultMap="memberResultSet"/>
-		<collection property="projectHistory" resultMap="projectHistoryResultSet"/>
-		<collection property="team" resultMap="TeamResultSet"/>
-	</resultMap>
-	
-	<!-- 사용자정보  -->
-	<resultMap type="com.stepup.agile.userInfo.model.vo.Member" id="MemberResultSet">
-		<id property="userCode" column="USER_CODE"/>
-		<result property="userEmail" column="USER_EMAIL"/>
-		<result property="userPwd" column="USER_PWD"/>
-		<result property="userName" column="USER_NAME"/>
-		<result property="userPhone" column="USER_PHONE"/>
-		<result property="userCompName" column="USER_COMP_NAME"/>
-		<result property="userCompDept" column="USER_COMP_DEPT"/>
-		<result property="userCompJob" column="USER_COMP_JOB"/>
-		<result property="userEnrollDate" column="USER_ENROLL_DATE"/>
-		<result property="userStatus" column="USER_STATUS"/>
-		<result property="userManagerYn" column="USER_MANAGER_YN"/>
-		<result property="userEnrollTime" column="USER_ENROLL_TIME"/>
-	</resultMap>
-	
-	<!-- 팀소속이력관리 -->
-	<resultMap type="com.stepup.agile.userInfo.model.vo.UserTeamList" id="UserTeamListResultSet">
-		<id property="userTeamCode" column="USER_TEAM_CODE"/>
-		<result property="userTeamDate" column="USER_TEAM_DATE"/>
-		<result property="userTeamYn" column="USER_TEAM_YN"/>
-		<result property="userCode" column="USER_CODE"/>
-		<result property="teamCode" column="TEAM_CODE"/>
-		<result property="userTeamTime" column="USER_TEAM_TIME"/>
-	</resultMap>
+   <!-- Project_List 테이블 -->
+   <resultMap type="com.stepup.agile.projectManage.model.vo.Project" id="ProjectResultSet">
+      <id property="projectCode" column="PROJECT_CODE"/>
+      <result property="projectName" column="PROJECT_NAME"/>
+      <result property="createDate" column="PROJECT_CREATE_DATE"/>
+      <result property="createTime" column="PROJECT_CREATE_TIME"/>
+      <result property="projectProceedingRate" column="PROJECT_PROCEEDING_RATE"/>
+      <result property="projectParticipantCnt" column="PROJECT_PARTICIPANT_CNT"/>
+      <result property="sprintTypeA" column="SPRINT_TYPE_A"/>
+      <result property="sprintTypeB" column="SPRINT_TYPE_B"/>
+      <result property="sprintTypeC" column="SPRINT_TYPE_C"/>
+   </resultMap>
+   
+   <resultMap type="com.stepup.agile.projectManage.model.vo.Project" id="projectResultSet">
+      <id property="projectCode" column="PROJECT_CODE"/>
+      <result property="projectName" column="PROJECT_NAME"/>
+      <result property="createDate" column="PROJECT_CREATE_DATE"/>
+      <result property="createTime" column="PROJECT_CREATE_TIME"/>
+      <collection property="userProjectList" resultMap="UserProjectListResultSet"/>
+      <collection property="userTeamList" resultMap="UserTeamListResultSet"/>
+      <collection property="member" resultMap="memberResultSet"/>
+      <collection property="projectHistory" resultMap="projectHistoryResultSet"/>
+      <collection property="team" resultMap="TeamResultSet"/>
+   </resultMap>
+   
+   <!-- 사용자정보  -->
+   <resultMap type="com.stepup.agile.userInfo.model.vo.Member" id="MemberResultSet">
+      <id property="userCode" column="USER_CODE"/>
+      <result property="userEmail" column="USER_EMAIL"/>
+      <result property="userPwd" column="USER_PWD"/>
+      <result property="userName" column="USER_NAME"/>
+      <result property="userPhone" column="USER_PHONE"/>
+      <result property="userCompName" column="USER_COMP_NAME"/>
+      <result property="userCompDept" column="USER_COMP_DEPT"/>
+      <result property="userCompJob" column="USER_COMP_JOB"/>
+      <result property="userEnrollDate" column="USER_ENROLL_DATE"/>
+      <result property="userStatus" column="USER_STATUS"/>
+      <result property="userManagerYn" column="USER_MANAGER_YN"/>
+      <result property="userEnrollTime" column="USER_ENROLL_TIME"/>
+   </resultMap>
+   
+   <!-- 팀소속이력관리 -->
+   <resultMap type="com.stepup.agile.userInfo.model.vo.UserTeamList" id="UserTeamListResultSet">
+      <id property="userTeamCode" column="USER_TEAM_CODE"/>
+      <result property="userTeamDate" column="USER_TEAM_DATE"/>
+      <result property="userTeamYn" column="USER_TEAM_YN"/>
+      <result property="userCode" column="USER_CODE"/>
+      <result property="teamCode" column="TEAM_CODE"/>
+      <result property="userTeamTime" column="USER_TEAM_TIME"/>
+   </resultMap>
 
-	<!-- 팀코드-팀명 -->
-	<resultMap type="com.stepup.agile.userInfo.model.vo.Team" id="TeamResultSet">
-		<id property="teamCode" column="TEAM_CODE"/>
-		<result property="teamName" column="TEAM_NAME"/>
-	</resultMap>
-	
-	<!-- 사용자 프로젝트 소속 -->
-	<resultMap type="com.stepup.agile.userInfo.model.vo.UserProjectList" id="UserProjectListResultSet">
-		<id property="userProjectCode" column="USER_PROJECT_CODE"/>
-		<result property="userProjectUpdateDate" column="USER_PROJECT_UPDATE_DATE"/>
-		<result property="userProjectUpdateTime" column="USER_PROJECT_UPDATE_TIME"/>
-		<result property="userProjectStatus" column="USER_PROJECT_STATUS"/>
-		<result property="projectCode" column="PROJECT_CODE"/>
-		<result property="userTeamCode" column="USER_TEAM_CODE"/>
-		<result property="userProjectAuthority" column="USER_PROJECT_AUTHORITY"/>
-	</resultMap>
-	
-	<resultMap type="com.stepup.agile.userInfo.model.vo.UserProjectList" id="UserProjectListResultSet2">
-		<id property="userProjectCode" column="USER_PROJECT_CODE"/>
-		<result property="userProjectUpdateDate" column="USER_PROJECT_UPDATE_DATE"/>
-		<result property="userProjectUpdateTime" column="USER_PROJECT_UPDATE_TIME"/>
-		<result property="userProjectStatus" column="USER_PROJECT_STATUS"/>
-		<result property="projectCode" column="PROJECT_CODE"/>
-		<result property="userTeamCode" column="USER_TEAM_CODE"/>
-		<result property="userProjectAuthority" column="USER_PROJECT_AUTHORITY"/>
-		<collection property="userTeamList" resultMap="UserTeamListResultSet"/>
-		<collection property="member" resultMap="MemberResultSet"/>
-		<collection property="projectHistory" resultMap="ProjectHistoryResultSet"/>
-		<collection property="project" resultMap="ProjectResultSet"/>
-	</resultMap>
-	
-	<!-- 프로젝트 히스토리 -->
-	<resultMap type="com.stepup.agile.projectManage.model.vo.ProjectHistory" id="ProjectHistoryResultSet">
-		<id property="projectHistCode" column="PROJECT_HIST_CODE"/>
-		<result property="projectHistDate" column="PROJECT_HIST_DATE"/>
-		<result property="projectStatus" column="PROJECT_STATUS"/>
-		<result property="projectStartDate" column="PROJECT_START_DATE"/>
-		<result property="projectEndDate" column="PROJECT_END_DATE"/>
-		<result property="projectCode" column="PROJECT_CODE"/>
-		<result property="projectHistTime" column="PROJECT_HIST_TIME"/>
-		<result property="projectIntro" column="PROJECT_INTRO"/>
-		<result property="projectStartTime" column="PROJECT_START_TIME"/>
-		<result property="projectEndTime" column="PROJECT_END_TIME"/>
-		<collection property="project" resultMap="ProjectResultSet"/>
-	</resultMap>
+   <!-- 팀코드-팀명 -->
+   <resultMap type="com.stepup.agile.userInfo.model.vo.Team" id="TeamResultSet">
+      <id property="teamCode" column="TEAM_CODE"/>
+      <result property="teamName" column="TEAM_NAME"/>
+   </resultMap>
+   
+   <!-- 사용자 프로젝트 소속 -->
+   <resultMap type="com.stepup.agile.userInfo.model.vo.UserProjectList" id="UserProjectListResultSet">
+      <id property="userProjectCode" column="USER_PROJECT_CODE"/>
+      <result property="userProjectUpdateDate" column="USER_PROJECT_UPDATE_DATE"/>
+      <result property="userProjectUpdateTime" column="USER_PROJECT_UPDATE_TIME"/>
+      <result property="userProjectStatus" column="USER_PROJECT_STATUS"/>
+      <result property="projectCode" column="PROJECT_CODE"/>
+      <result property="userTeamCode" column="USER_TEAM_CODE"/>
+      <result property="userProjectAuthority" column="USER_PROJECT_AUTHORITY"/>
+   </resultMap>
+   <!-- 사용자 프로젝트 소속 2-->
+   <resultMap type="com.stepup.agile.userInfo.model.vo.UserProjectList" id="UserProjectListResultSet2">
+      <id property="userProjectCode" column="USER_PROJECT_CODE"/>
+      <result property="userProjectUpdateDate" column="USER_PROJECT_UPDATE_DATE"/>
+      <result property="userProjectUpdateTime" column="USER_PROJECT_UPDATE_TIME"/>
+      <result property="userProjectStatus" column="USER_PROJECT_STATUS"/>
+      <result property="projectCode" column="PROJECT_CODE"/>
+      <result property="userTeamCode" column="USER_TEAM_CODE"/>
+      <result property="userProjectAuthority" column="USER_PROJECT_AUTHORITY"/>
+      <collection property="userTeamList" resultMap="UserTeamListResultSet"/>
+      <collection property="member" resultMap="MemberResultSet"/>
+      <collection property="projectHistory" resultMap="ProjectHistoryResultSet"/>
+      <collection property="project" resultMap="ProjectResultSet"/>
+   </resultMap>
+   
+   <!-- 프로젝트 히스토리 -->
+   <resultMap type="com.stepup.agile.projectManage.model.vo.ProjectHistory" id="ProjectHistoryResultSet">
+      <id property="projectHistCode" column="PROJECT_HIST_CODE"/>
+      <result property="projectHistDate" column="PROJECT_HIST_DATE"/>
+      <result property="projectStatus" column="PROJECT_STATUS"/>
+      <result property="projectStartDate" column="PROJECT_START_DATE"/>
+      <result property="projectEndDate" column="PROJECT_END_DATE"/>
+      <result property="projectCode" column="PROJECT_CODE"/>
+      <result property="projectHistTime" column="PROJECT_HIST_TIME"/>
+      <result property="projectIntro" column="PROJECT_INTRO"/>
+      <result property="projectStartTime" column="PROJECT_START_TIME"/>
+      <result property="projectEndTime" column="PROJECT_END_TIME"/>
+      <collection property="project" resultMap="ProjectResultSet"/>
+   </resultMap>
 
 
 
-	<resultMap id="selectUserPJRset" type="com.stepup.agile.projectManage.model.vo.Project">
-		<id property="projectCode" column="PROJECT_CODE"/>
-		<result property="projectName" column="PROJECT_NAME"/>
-		<result property="createDate" column="PROJECT_CREATE_DATE"/>
-		<result property="createTime" column="PROJECT_CREATE_TIME"/>
-		<result property="taskCnt" column="TASKCNT"/>
-    	<collection property="projectHistory" resultMap="ProjectHistoryResultSet"/>
-    	<collection property="member" resultMap="MemberResultSet"/>
-    	<collection property="userTeamList" resultMap="UserTeamListResultSet"/>
-    	<collection property="userProjectList" resultMap="UserProjectListResultSet"/>
+   <resultMap id="selectUserPJRset" type="com.stepup.agile.projectManage.model.vo.Project">
+      <id property="projectCode" column="PROJECT_CODE"/>
+      <result property="projectName" column="PROJECT_NAME"/>
+      <result property="createDate" column="PROJECT_CREATE_DATE"/>
+      <result property="createTime" column="PROJECT_CREATE_TIME"/>
+      <result property="taskCnt" column="TASKCNT"/>
+       <collection property="projectHistory" resultMap="ProjectHistoryResultSet"/>
+       <collection property="member" resultMap="MemberResultSet"/>
+       <collection property="userTeamList" resultMap="UserTeamListResultSet"/>
+       <collection property="userProjectList" resultMap="UserProjectListResultSet"/>
 
-	</resultMap>
-	
+   </resultMap>
+   
+   <!-- 사용자정보 2 -->
+   <resultMap type="com.stepup.agile.userInfo.model.vo.Member" id="MemberResultSet2">
+      <id property="userCode" column="USER_CODE"/>
+      <result property="userEmail" column="USER_EMAIL"/>
+      <result property="userPwd" column="USER_PWD"/>
+      <result property="userName" column="USER_NAME"/>
+      <result property="userPhone" column="USER_PHONE"/>
+      <result property="userCompName" column="USER_COMP_NAME"/>
+      <result property="userCompDept" column="USER_COMP_DEPT"/>
+      <result property="userCompJob" column="USER_COMP_JOB"/>
+      <result property="userEnrollDate" column="USER_ENROLL_DATE"/>
+      <result property="userStatus" column="USER_STATUS"/>
+      <result property="userManagerYn" column="USER_MANAGER_YN"/>
+      <result property="userEnrollTime" column="USER_ENROLL_TIME"/>
+      <collection property="userTeamList" resultMap="UserTeamListResultSet"/>
+   </resultMap>
+   
 	<resultMap id="selectAlertRset" type="com.stepup.agile.userInfo.model.vo.AlertList">
 		<id property="alertCode" column="ALERT_CODE"/>
 		<result property="alertCheckYn" column="ALERT_CHECK_YN"/>
@@ -250,8 +267,9 @@
 	    ON (A.PROJECT_NAME = B.PROJECT_NAME)
 	</select>
 
-	<select id="selectTimelineProject" resultMap="selectUserPJRset" parameterType="ProjectHistory">
-	SELECT H.PROJECT_HIST_DATE, H.PROJECT_STATUS,  J.PROJECT_NAME, H.PROJECT_START_DATE, H.PROJECT_END_DATE, H.PROJECT_CODE, H.PROJECT_INTRO, H.PROJECT_START_TIME, H.PROJECT_END_TIME, RANK() OVER (PARTITION BY H.PROJECT_CODE ORDER BY H.PROJECT_HIST_DATE DESC, H.PROJECT_HIST_TIME DESC) RK
+
+   <select id="selectTimelineProject" resultMap="selectUserPJRset" parameterType="ProjectHistory">
+   SELECT H.PROJECT_HIST_DATE, H.PROJECT_STATUS,  J.PROJECT_NAME, H.PROJECT_START_DATE, H.PROJECT_END_DATE, H.PROJECT_CODE, H.PROJECT_INTRO, H.PROJECT_START_TIME, H.PROJECT_END_TIME, RANK() OVER (PARTITION BY H.PROJECT_CODE ORDER BY H.PROJECT_HIST_DATE DESC, H.PROJECT_HIST_TIME DESC) RK
          FROM USER_INFO I,
               USER_TEAM_LIST T,
               USER_PROJECT_LIST P,
@@ -281,46 +299,67 @@
           AND I.USER_EMAIL = #{userEmail}
         )
     WHERE RK = 1)
-	</select>
-	
-	<insert id="updateTimeline" parameterType="ProjectHistory">
-		INSERT INTO PROJECT_HISTORY
-			VALUES (SEQ_PROJECT_HIST.NEXTVAL, TO_CHAR(SYSDATE + 9/24, 'YYYY-MM-DD'), 'N', #{startDate}, #{endDate},
-			(SELECT H.PROJECT_CODE
-			         FROM USER_INFO I,
-			              USER_TEAM_LIST T,
-			              USER_PROJECT_LIST P,
-			              PROJECT_LIST J,
-			              PROJECT_HISTORY H
-			        WHERE I.USER_CODE = T.USER_CODE
-			          AND T.USER_TEAM_YN = 'Y' 
-			          AND T.USER_TEAM_CODE = P.USER_TEAM_CODE
-			          AND P.PROJECT_CODE = J.PROJECT_CODE
-			          AND J.PROJECT_CODE = H.PROJECT_CODE 
-			          AND H.PROJECT_STATUS = 'N'
-			          AND I.USER_EMAIL = #{userEmail}
-			          AND H.PROJECT_HIST_CODE = (
-			          SELECT PROJECT_HIST_CODE
-			  FROM (SELECT H.PROJECT_CODE,H.PROJECT_HIST_CODE, RANK() OVER (PARTITION BY H.PROJECT_CODE ORDER BY H.PROJECT_HIST_DATE DESC, H.PROJECT_HIST_TIME DESC) RK
-			         FROM USER_INFO I,
-			              USER_TEAM_LIST T,
-			              USER_PROJECT_LIST P,
-			              PROJECT_LIST J,
-			              PROJECT_HISTORY H
-			        WHERE I.USER_CODE  = T.USER_CODE
-			          AND T.USER_TEAM_YN = 'Y' 
-			          AND T.USER_TEAM_CODE = P.USER_TEAM_CODE
-			          AND P.PROJECT_CODE = J.PROJECT_CODE
-			          AND J.PROJECT_CODE = H.PROJECT_CODE 
-			          AND H.PROJECT_STATUS = 'N'
-			          AND I.USER_EMAIL = #{userEmail}
-			          AND J.PROJECT_NAME = #{projectName}
-			        )
-			    WHERE RK = 1))
-			,  TO_CHAR(SYSDATE + 9/24, 'hh24:mi:ss'), #{intro}, #{startTime}, #{endTime})
-	</insert>
-	
-	   <!-- miso1 -->
+   </select>
+   
+   <insert id="updateTimeline" parameterType="ProjectHistory">
+      INSERT INTO PROJECT_HISTORY
+         VALUES (SEQ_PROJECT_HIST.NEXTVAL, TO_CHAR(SYSDATE + 9/24, 'YYYY-MM-DD'), 'N', #{startDate}, #{endDate},
+         (SELECT H.PROJECT_CODE
+                  FROM USER_INFO I,
+                       USER_TEAM_LIST T,
+                       USER_PROJECT_LIST P,
+                       PROJECT_LIST J,
+                       PROJECT_HISTORY H
+                 WHERE I.USER_CODE = T.USER_CODE
+                   AND T.USER_TEAM_YN = 'Y' 
+                   AND T.USER_TEAM_CODE = P.USER_TEAM_CODE
+                   AND P.PROJECT_CODE = J.PROJECT_CODE
+                   AND J.PROJECT_CODE = H.PROJECT_CODE 
+                   AND H.PROJECT_STATUS = 'N'
+                   AND I.USER_EMAIL = #{userEmail}
+                   AND H.PROJECT_HIST_CODE = (
+                   SELECT PROJECT_HIST_CODE
+           FROM (SELECT H.PROJECT_CODE,H.PROJECT_HIST_CODE, RANK() OVER (PARTITION BY H.PROJECT_CODE ORDER BY H.PROJECT_HIST_DATE DESC, H.PROJECT_HIST_TIME DESC) RK
+                  FROM USER_INFO I,
+                       USER_TEAM_LIST T,
+                       USER_PROJECT_LIST P,
+                       PROJECT_LIST J,
+                       PROJECT_HISTORY H
+                 WHERE I.USER_CODE  = T.USER_CODE
+                   AND T.USER_TEAM_YN = 'Y' 
+                   AND T.USER_TEAM_CODE = P.USER_TEAM_CODE
+                   AND P.PROJECT_CODE = J.PROJECT_CODE
+                   AND J.PROJECT_CODE = H.PROJECT_CODE 
+                   AND H.PROJECT_STATUS = 'N'
+                   AND I.USER_EMAIL = #{userEmail}
+                   AND J.PROJECT_NAME = #{projectName}
+                 )
+             WHERE RK = 1))
+         ,  TO_CHAR(SYSDATE + 9/24, 'hh24:mi:ss'), #{intro}, #{startTime}, #{endTime})
+   </insert>
+   
+	<select id="selectProjectAlert" resultType="int">
+      SELECT COUNT(*)
+        FROM ALERT_LIST
+       WHERE ALERT_HISTORY_CODE IN (SELECT PROJECT_HIST_CODE
+                 FROM (SELECT H.PROJECT_CODE, J.PROJECT_NAME, H.PROJECT_HIST_CODE, RANK() OVER (PARTITION BY H.PROJECT_CODE ORDER BY H.PROJECT_HIST_DATE DESC, H.PROJECT_HIST_TIME DESC) RK
+                        FROM USER_INFO I,
+                             USER_TEAM_LIST T,
+                             USER_PROJECT_LIST P,
+                             PROJECT_LIST J,
+                             PROJECT_HISTORY H
+                       WHERE I.USER_CODE  = T.USER_CODE
+                         AND T.USER_TEAM_YN = 'Y' 
+                         AND T.USER_TEAM_CODE = P.USER_TEAM_CODE
+                         AND P.PROJECT_CODE = J.PROJECT_CODE
+                         AND J.PROJECT_CODE = H.PROJECT_CODE 
+                         AND H.PROJECT_STATUS = 'N'
+                         AND I.USER_EMAIL = #{userEmail}
+                       )
+                   WHERE RK = 1)
+   </select>
+
+      <!-- miso1 -->
    <!-- Project Insert -->
    <insert id="insertProject2" parameterType="Project">
       INSERT INTO PROJECT_LIST
@@ -360,17 +399,22 @@
           WHERE RK = 1
    </select>
 
+   <!-- master -->
    <!-- Insert UserProjectList after Insert Project -->
    <insert id="insertUserProjectOne" parameterType="Project">
-      INSERT INTO PROJECT_HISTORY
-      VALUES (SEQ_PROJECT_HIST.NEXTVAL, TO_CHAR(SYSDATE + 9/24, 'YYYY-MM-DD'),'N',#{projectStartDate},#{projectEndDate},#{projectCode},TO_CHAR(SYSDATE + 9/24, 'hh24:mi:ss'),
-            #{projectIntro}, #{projectStartTime},#{projectEndTime})
+      INSERT INTO USER_PROJECT_LIST
+      VALUES (#{projectCode}, TO_CHAR(SYSDATE + 9/24, 'YYYY-MM-DD'),TO_CHAR(SYSDATE + 9/24, 'hh24:mi:ss'),DEFAULT,SEQ_USER_PROJECT.NEXTVAL,#{userTeamList.userTeamCode}, '01')
+   </insert>
+   <!-- member -->
+      <insert id="insertUserProjectMember" parameterType="hashMap">
+      INSERT INTO USER_PROJECT_LIST
+      VALUES (#{projectCode}, TO_CHAR(SYSDATE + 9/24, 'YYYY-MM-DD'),TO_CHAR(SYSDATE + 9/24, 'hh24:mi:ss'),DEFAULT,SEQ_USER_PROJECT.NEXTVAL,#{userTeamCode}, '02')
    </insert>
    
 
    <!-- ProjectList Select -->
-   <select id="selectProjectList" resultMap="UserProjectListResultSet2" parameterType="UserProjectList">
-      SELECT 
+   <select id="selectProjectList" resultMap="UserProjectListResultSet2" parameterType="userProjectList">
+            SELECT 
           I.USER_CODE, I.USER_NAME,
           J.PROJECT_CODE, J.PROJECT_NAME,
           T.USER_TEAM_CODE,
@@ -399,7 +443,7 @@
                                                           AND P.PROJECT_CODE = J.PROJECT_CODE
                                                           AND J.PROJECT_CODE = H.PROJECT_CODE 
                                                           AND H.PROJECT_STATUS = 'N'
-                                                          AND I.USER_EMAIL = #{userEmail, jdbcType=VARCHAR})
+                                                          AND I.USER_EMAIL =#{userEmail, jdbcType=VARCHAR})
                         ) 
                   WHERE LATEST = 1
                  )
@@ -407,11 +451,29 @@
             ) TY
           WHERE T.USER_TEAM_CODE = P.USER_TEAM_CODE
           AND P.PROJECT_CODE = J.PROJECT_CODE 
-            AND TY.PROJECT_CODE(+) = P.PROJECT_CODE
+        AND TY.PROJECT_CODE(+) = P.PROJECT_CODE
           AND J.PROJECT_CODE = PH.PROJECT_CODE
           AND I.USER_CODE  = T.USER_CODE
           AND T.USER_TEAM_YN = 'Y'
           AND P.USER_PROJECT_STATUS = 'Y'
+          AND I.USER_CODE IN (SELECT UI.USER_CODE
+                                FROM USER_INFO UI, USER_TEAM_LIST UTL
+                                WHERE UI.USER_CODE = UTL.USER_CODE
+                                AND UTL.USER_TEAM_CODE IN (SELECT MAX(UTL.USER_TEAM_CODE)
+                                                            FROM USER_TEAM_LIST UTL, USER_INFO UI
+                                                            WHERE UI.USER_CODE = UTL.USER_CODE 
+                                                            GROUP BY UI.USER_CODE, UI.USER_NAME)
+                                AND UTL.USER_TEAM_YN = 'Y'
+                                AND UTL.TEAM_CODE = (SELECT UTL.TEAM_CODE 
+                                                        FROM USER_INFO UI, USER_TEAM_LIST UTL
+                                                        WHERE UI.USER_CODE = UTL.USER_CODE 
+                                                        AND UTL.USER_TEAM_CODE = (SELECT MAX(UTL1.USER_TEAM_CODE) 
+                                                                                    FROM USER_INFO UI1, USER_TEAM_LIST UTL1
+                                                                                   WHERE UI1.USER_CODE = UTL1.USER_CODE 
+                                                                                     AND UI1.USER_EMAIL = #{userEmail, jdbcType=VARCHAR}
+                                                                                     AND UTL1.USER_TEAM_YN = 'Y')
+                                                        AND UI.USER_EMAIL = #{userEmail, jdbcType=VARCHAR})
+                               )
           AND J.PROJECT_CODE IN (SELECT J.PROJECT_CODE
                                    FROM USER_INFO I,
                                         USER_TEAM_LIST T,
@@ -424,7 +486,7 @@
                                     AND P.PROJECT_CODE = J.PROJECT_CODE
                                     AND J.PROJECT_CODE = H.PROJECT_CODE 
                                     AND H.PROJECT_STATUS = 'N'
-                                    AND I.USER_EMAIL = #{userEmail, jdbcType=VARCHAR})
+                                    AND I.USER_EMAIL =#{userEmail, jdbcType=VARCHAR})
              AND PH.PROJECT_HIST_CODE IN (SELECT PROJECT_HIST_CODE
                                               FROM (SELECT H.PROJECT_CODE,H.PROJECT_HIST_CODE, RANK() OVER (PARTITION BY H.PROJECT_CODE ORDER BY H.PROJECT_HIST_DATE DESC, H.PROJECT_HIST_TIME DESC) RK
                                                      FROM USER_INFO I,
@@ -438,30 +500,37 @@
                                                       AND P.PROJECT_CODE = J.PROJECT_CODE
                                                       AND J.PROJECT_CODE = H.PROJECT_CODE 
                                                       AND H.PROJECT_STATUS = 'N'
-                                                      AND I.USER_EMAIL = #{userEmail, jdbcType=VARCHAR})
+                                                      AND I.USER_EMAIL =#{userEmail, jdbcType=VARCHAR})
                                               WHERE RK = 1
                                          )                                      
-           ORDER BY PH.PROJECT_START_DATE DESC, PH.PROJECT_START_TIME, J.PROJECT_NAME ASC
+           ORDER BY PH.PROJECT_START_DATE DESC, PH.PROJECT_START_TIME DESC, J.PROJECT_NAME ASC, I.USER_NAME ASC
    </select>
-	
-	<select id="selectProjectAlert" resultType="int">
-		SELECT COUNT(*)
-		  FROM ALERT_LIST
-		 WHERE ALERT_HISTORY_CODE IN (SELECT PROJECT_HIST_CODE
-					  FROM (SELECT H.PROJECT_CODE, J.PROJECT_NAME, H.PROJECT_HIST_CODE, RANK() OVER (PARTITION BY H.PROJECT_CODE ORDER BY H.PROJECT_HIST_DATE DESC, H.PROJECT_HIST_TIME DESC) RK
-					         FROM USER_INFO I,
-					              USER_TEAM_LIST T,
-					              USER_PROJECT_LIST P,
-					              PROJECT_LIST J,
-					              PROJECT_HISTORY H
-					        WHERE I.USER_CODE  = T.USER_CODE
-					          AND T.USER_TEAM_YN = 'Y' 
-					          AND T.USER_TEAM_CODE = P.USER_TEAM_CODE
-					          AND P.PROJECT_CODE = J.PROJECT_CODE
-					          AND J.PROJECT_CODE = H.PROJECT_CODE 
-					          AND H.PROJECT_STATUS = 'N'
-					          AND I.USER_EMAIL = #{userEmail}
-					        )
-					    WHERE RK = 1)
-	</select>
+   
+   <select id="searchTeamMember" resultMap="MemberResultSet2" parameterType="Member">
+      SELECT UI.USER_CODE, UI.USER_NAME, UTL.USER_TEAM_CODE
+         FROM USER_INFO UI, USER_TEAM_LIST UTL
+         WHERE UI.USER_CODE = UTL.USER_CODE
+         AND UTL.USER_TEAM_CODE IN (SELECT MAX(UTL.USER_TEAM_CODE)
+                                     FROM USER_TEAM_LIST UTL, USER_INFO UI
+                                     WHERE UI.USER_CODE = UTL.USER_CODE 
+                                     GROUP BY UI.USER_CODE, UI.USER_NAME)
+         AND UTL.USER_TEAM_YN = 'Y' 
+         AND UTL.TEAM_CODE = (SELECT UTL.TEAM_CODE 
+                                 FROM USER_INFO UI, USER_TEAM_LIST UTL
+                                 WHERE UI.USER_CODE = UTL.USER_CODE 
+                                 AND UTL.USER_TEAM_CODE = (SELECT MAX(UTL1.USER_TEAM_CODE) 
+                                                             FROM USER_INFO UI1, USER_TEAM_LIST UTL1
+                                                            WHERE UI1.USER_CODE = UTL1.USER_CODE 
+                                                              AND UI1.USER_EMAIL = #{userEmail, jdbcType=VARCHAR}                                        
+                                                              AND UTL1.USER_TEAM_YN = 'Y')
+                                 AND UI.USER_EMAIL = #{userEmail, jdbcType=VARCHAR})
+      AND UI.USER_NAME LIKE '%'|| #{userName, jdbcType=VARCHAR} ||'%'
+   </select>
+   <select id="checkBelongTo" resultMap="UserProjectListResultSet2" parameterType="hashMap">
+      SELECT *
+        FROM USER_PROJECT_LIST
+       WHERE PROJECT_CODE = #{projectCode, jdbcType=VARCHAR}
+         AND USER_TEAM_CODE = #{userTeamCode, jdbcType=VARCHAR}
+         AND USER_PROJECT_STATUS = 'Y'
+   </select>
 </mapper>

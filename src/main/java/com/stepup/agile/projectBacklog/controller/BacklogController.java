@@ -2,6 +2,8 @@ package com.stepup.agile.projectBacklog.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,7 +20,7 @@ import com.stepup.agile.projectBacklog.model.vo.SprintHistory;
 import com.stepup.agile.projectTask.model.vo.TaskHistory;
 import com.stepup.agile.userInfo.model.vo.Member;
 
-@SessionAttributes("loginUser")
+@SessionAttributes({"loginUser", "projectCodeNew", "userProjectCodeNew"})
 @Controller
 public class BacklogController {
 	
@@ -27,13 +29,13 @@ public class BacklogController {
 	
 //	스프린트 목록조회용
 	@RequestMapping("showSprintMain.st")
-	public String selectSprint(Model model, @ModelAttribute("loginUser") Member m) {
-		
+	public String selectSprint(Model model, @ModelAttribute("loginUser") Member m,
+			@ModelAttribute("projectCodeNew") int projectCode, @ModelAttribute("userProjectCodeNew") int userProjectCode) {
 		//스프린트 목록부터 조회
 		List<Sprint> sprintList;
-		sprintList = bs.selectSprint(m);
-		model.addAttribute("sprintList", sprintList);
+		sprintList = bs.selectSprint(m, projectCode);
 		
+		model.addAttribute("sprintList", sprintList);
 		return "projectBacklog/projactBacklog";
 		
 	}
@@ -52,12 +54,16 @@ public class BacklogController {
 	}
 	
 //	스프린트 추가용
-	@RequestMapping("insert.st")
-	public String insertSprint(Model model, @RequestParam(value="userProjectCode",required=false) int userProjectCode) {
+	@RequestMapping(value="insert.st",method=RequestMethod.POST)
+	public String insertSprint(Model model, 
+			@ModelAttribute("projectCodeNew") int projectCode, @ModelAttribute("userProjectCodeNew") int userProjectCode) {
 		
 		int result = bs.insertSprint(userProjectCode);
+		System.out.println("스프린트 생성할때 userProjectCode : " + userProjectCode);
 		
 		if(result>0) {
+			
+			System.out.println("스프린트 추가성공! main으로 가라");
 			return "redirect:showSprintMain.st";
 		}else {
 			model.addAttribute("msg", "스프린트 생성을 실패하였습니다!");
@@ -131,7 +137,7 @@ public class BacklogController {
 		}
 	}
 	
-//	스프린트 추가용
+//	테스크종료
 	@RequestMapping("finishTask.st")
 	public String insertTask(Model model, @RequestParam(value="taskCode",required=false) int taskCode) {
 		

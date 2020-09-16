@@ -1,27 +1,31 @@
 package com.stepup.agile.projectFeedback.model.vo;
 
+import java.util.List;
+
 public class SurveyReplyList implements java.io.Serializable{
 	
 	private int surveyQuesCode;
 	private int surveyJoinCode;
 	private String surveyReplyContent;
-	private int surveyChoiceNum;
 	private int surveyReplyCode;
 	private int surveyCode;
+	
+	private List<SurveyReplyList> surveyReplyVOLists = null;
 	
 	public SurveyReplyList() {
 		super();
 	}
 
-	public SurveyReplyList(int surveyQuesCode, int surveyJoinCode, String surveyReplyContent, int surveyChoiceNum,
-			int surveyReplyCode, int surveyCode) {
+	
+	public SurveyReplyList(int surveyQuesCode, int surveyJoinCode, String surveyReplyContent, int surveyReplyCode,
+			int surveyCode, List<SurveyReplyList> surveyReplyVOLists) {
 		super();
 		this.surveyQuesCode = surveyQuesCode;
 		this.surveyJoinCode = surveyJoinCode;
 		this.surveyReplyContent = surveyReplyContent;
-		this.surveyChoiceNum = surveyChoiceNum;
 		this.surveyReplyCode = surveyReplyCode;
 		this.surveyCode = surveyCode;
+		this.surveyReplyVOLists = surveyReplyVOLists;
 	}
 
 	public int getSurveyQuesCode() {
@@ -48,14 +52,6 @@ public class SurveyReplyList implements java.io.Serializable{
 		this.surveyReplyContent = surveyReplyContent;
 	}
 
-	public int getSurveyChoiceNum() {
-		return surveyChoiceNum;
-	}
-
-	public void setSurveyChoiceNum(int surveyChoiceNum) {
-		this.surveyChoiceNum = surveyChoiceNum;
-	}
-
 	public int getSurveyReplyCode() {
 		return surveyReplyCode;
 	}
@@ -72,12 +68,21 @@ public class SurveyReplyList implements java.io.Serializable{
 		this.surveyCode = surveyCode;
 	}
 
+	public List<SurveyReplyList> getSurveyReplyVOLists() {
+		return surveyReplyVOLists;
+	}
+
+	public void setSurveyReplyVOLists(List<SurveyReplyList> surveyReplyVOLists) {
+		this.surveyReplyVOLists = surveyReplyVOLists;
+	}
+
 	@Override
 	public String toString() {
 		return "SurveyReplyList [surveyQuesCode=" + surveyQuesCode + ", surveyJoinCode=" + surveyJoinCode
-				+ ", surveyReplyContent=" + surveyReplyContent + ", surveyChoiceNum=" + surveyChoiceNum
-				+ ", surveyReplyCode=" + surveyReplyCode + ", surveyCode=" + surveyCode + "]";
+				+ ", surveyReplyContent=" + surveyReplyContent + ", surveyReplyCode=" + surveyReplyCode
+				+ ", surveyCode=" + surveyCode + ", surveyReplyVOLists=" + surveyReplyVOLists + "]";
 	}
+
 	
 
 } 

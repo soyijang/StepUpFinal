@@ -22,9 +22,9 @@ public class BacklogServiceImpl implements BacklogService{
 	private BacklogDao bd;
 	
 	@Override
-	public List<Sprint> selectSprint(Member m) {
+	public List<Sprint> selectSprint(Member m, int projectCode) {
 		
-		return bd.selectSprint(sqlSession, m);
+		return bd.selectSprint(sqlSession, m, projectCode);
 	}
 
 	@Override

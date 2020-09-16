@@ -14,6 +14,7 @@
  	console.log('알럿다녀감..' + message)
  	alert(message);
  	document.location.href = returnUrl;
+ 	
  </script>
 </body>
 </html>
