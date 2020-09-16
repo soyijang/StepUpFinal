@@ -154,7 +154,9 @@
 	     </table>
 	</div>
  </div>	
-	
+<!-- 로딩 --> 
+<div class="wrap-loading display-none"><div>
+<img src="/agile/resources/icon/common/icon_loading.gif"/></div></div>    	
 <!-- 상위 항목 변경 모달 끝----------------------------------------------------------------------------------------------------------->	
 		
 	
@@ -274,6 +276,29 @@ for(var i = 0; i < selectedMainTaskList.length; i++){
 		//siboard.children().remove();
 
 		
+	//테스크명 가져오기 : 
+	//테스크명 정보가 있는 경우에만 가져와서 뷰에 적용한다.
+	//반복문으로  테스크 카테고리 코드가 J(테스크명 정보가 담긴 코드)인 행을 찾는다 
+	for(var p = 0; p < mainTaskList.length; p++){
+		var taskCode11 = 0;
+		if(mainTaskList[p].taskCategoryCode == 'J'){
+			
+			//테스크명 정보가 있는 행의 테스크 코드를 변수 taskCode11에 담는다.
+			taskCode11 = mainTaskList[p].taskCode;
+			console.log("테스크명 표시할 테스크 코드 : " + taskCode11);
+			
+			//find()는 어떤 요소의 하위 요소 중 특정 요소를 찾을 때 사용한다.
+			//테스크명 정보를 가진 테스크코드(taskCode1)를 찾아놓았다.
+			//테스트코드와 일치하는 '상자'에 테스크 명을 넣어줘야한다.
+			//find를 이용하여 테스트코드와 일치하는 테스크 상자 요소를 찾아온다.
+			//각 테스크 상자의 class명에는 't+테스크코드' 식의 고유한 테스크 코드가 붙어있다.(위에서 append로 뷰 그릴 때 넣음)
+			var taskBox = $('#contentBox2-board').find( "#s" + taskCode11 ); 
+  		    //테스크 상자 안에 테스크명이 입력되는 요소를 찾고
+  		    //<div class='nameBox'>이름 없는 테스크</div> 해당 요소 태그 사이에 이름을 넣어준다.
+  		    taskBox.find('.nameBox').text(mainTaskList[p].taskHistValue);
+		}
+	}
+		
 		
 		
 		
@@ -299,7 +324,7 @@ for(var i = 0; i < selectedMainTaskList.length; i++){
 							+ "<div class='i-div1'><div class='i-div1-div1 nameBox'>" 
 							+ '이름 없는 테스크' + "</div><div class='dropdown2'><div class='select'><span id='user-list'></span>"
 							+ "</div><ul class='dropdown2-menu'><li class='flagY'>"
-							+ '플래그 추가' + "</li><li class='labelAdd'>" 
+							+ '북마크 추가' + "</li><li class='labelAdd'>" 
 							+ '레이블 추가' + "</li><li class='taskDelete'>"
 				            + '삭제' + "</li></ul></div></div><div class='i-div2 labelBox'></div><div class='i-div3'>"
 						    + "<div class='i-div3-inner-left'><div class='sicon'>"
@@ -354,7 +379,7 @@ for(var i = 0; i < selectedMainTaskList.length; i++){
 						+ "<div class='p-div1'><div class='p-div1-div1 nameBox'>" 
 						+ '이름 없는 테스크' + "</div><div class='dropdown2'><div class='select'><span id='user-list'></span>"
 						+ "</div><ul class='dropdown2-menu'><li class='flagY'>"
-						+ '플래그 추가' + "</li><li class='labelAdd'>" 
+						+ '북마크 추가' + "</li><li class='labelAdd'>" 
 						+ '레이블 추가' + "</li><li class='taskDelete'>"
 			            + '삭제' + "</li></ul></div></div><div class='p-div2 labelBox'></div><div class='p-div3'>"
 					    + "<div class='p-div3-inner-left'><div class='sicon'>"
@@ -410,7 +435,7 @@ for(var i = 0; i < selectedMainTaskList.length; i++){
 						+ "<div class='c-div1'><div class='c-div1-div1 nameBox'>" 
 						+ '이름 없는 테스크' + "</div><div class='dropdown2'><div class='select'><span id='user-list'></span>"
 						+ "</div><ul class='dropdown2-menu'><li class='flagY'>"
-						+ '플래그 추가' + "</li><li class='labelAdd'>" 
+						+ '북마크 추가' + "</li><li class='labelAdd'>" 
 						+ '레이블 추가' + "</li><li class='taskDelete'>"
 			            + '삭제' + "</li></ul></div></div><div class='c-div2 labelBox'></div><div class='c-div3'>"
 					    + "<div class='c-div3-inner-left'><div class='sicon'>"
@@ -461,11 +486,6 @@ for(var i = 0; i < selectedMainTaskList.length; i++){
 		 $('#s' + selectedMainTaskList[i].taskCode).find('.wrapper').remove();
 	} */
 /* 만약 특정 메인 테스크에 관련 하위 테스크가 없다면 진행 상태 박스을 모두 제거해준다. 끝 */	
- 
- 
-
-	
- 
  
  
  
@@ -563,7 +583,7 @@ if(subTaskList != null){
 	  		    //span 회색 배경 css 양쪽에 약간 여백 주기 위해 &nbsp; 추가함
 	  		    taskBox.find('.labelBox').html("<span class='label-css'>&nbsp;" + subTaskList[i].taskHistValue + "&nbsp;</span>");
 		
-				//기본 드롭다운 상자는 플래그 추가, 레이블 추가, 상위항목 변경, 이슈링크 복사, 삭제로 구성되어있다.
+				//기본 드롭다운 상자는 북마크 추가, 레이블 추가, 상위항목 변경, 이슈링크 복사, 삭제로 구성되어있다.
 				//만약 해당 테스크에 레이블이 존재하여 레이블을 테스크 상자에 추가했다면,
 				//테스크 상자 상세 설정에 있는 레이블 추가 기능을 레이블 제거 기능으로 바꾸어줘야한다. (추가가 이미 되었으니, 제거할 수 있어야 하기 때문에)
 				//현재 테스크 상자의 하위 드롭다운리스트 중에서 레이블 추가기능 <li>태그 요소를 가져온다. 
@@ -583,30 +603,30 @@ if(subTaskList != null){
 	
 	
 	//(4) 플래그여부 가져오기 : 
-	//플래그는 전체 리스트(mainTaskList)에서 플래그 정보가 있는 경우에만 가져와서 뷰에 적용한다.
-	//상위테스크 전체 리스트에서 반복문으로  테스크 카테고리 코드가 E(플래그 정보가 담긴 코드)인 행을 찾는다 
+	//플래그는 전체 리스트(mainTaskList)에서 북마크 정보가 있는 경우에만 가져와서 뷰에 적용한다.
+	//상위테스크 전체 리스트에서 반복문으로  테스크 카테고리 코드가 E(북마크 정보가 담긴 코드)인 행을 찾는다 
 	for(var i = 0; i < subTaskList.length; i++){
 		var taskCode4 = 0;
 		if(subTaskList[i].taskCategoryCode == 'E'){
 			
-			//플래그 정보가 있는 행의 테스크 코드를 변수 taskCode3에 담는다.
+			//북마크 정보가 있는 행의 테스크 코드를 변수 taskCode3에 담는다.
 			taskCode4 = subTaskList[i].taskCode;
 			console.log("플래그여부 표시할 테스크 코드 : " + taskCode4);
 			
-			//찾은 테스트코드와 일치하는 '상자'에 플래그 정보를 넣어줘야한다.
+			//찾은 테스트코드와 일치하는 '상자'에 북마크 정보를 넣어줘야한다.
 			//find를 이용하여 테스트코드와 일치하는 테스크 상자 요소를 찾아온다.
 			//각 테스크 상자의 class명에는 't+테스크코드' 식의 고유한 테스크 코드가 붙어있다.(위에서 append로 뷰 그릴 때 넣음)
 			var taskBox = $('#contentBox2-board').find( ".t" + taskCode4 ); 
 		    
-		    //플래그 정보가 있는경우 테스크 상자 class에 flag-true 클래스를 넣어준다.
-		    //플래그 정보가 'Y'인 경우에만 표시해준다. 카테고리 코드가 E여도 플래그 여부가 N인 경우도 있기 때문에 꼭 if 조건으로 확인
+		    //북마크 정보가 있는경우 테스크 상자 class에 flag-true 클래스를 넣어준다.
+		    //북마크 정보가 'Y'인 경우에만 표시해준다. 카테고리 코드가 E여도 북마크 여부가 N인 경우도 있기 때문에 꼭 if 조건으로 확인
 		    if(subTaskList[i].taskHistValue == 'Y'){
 		    	//플래그css 적용가능한 클래스 속성을 부여한다.
 			    taskBox.addClass("flag-true");
-				//기본 드롭다운 상자는 플래그 추가, 레이블 추가, 상위항목 변경, 이슈링크 복사, 삭제로 구성되어있다.
+				//기본 드롭다운 상자는 북마크 추가, 레이블 추가, 상위항목 변경, 이슈링크 복사, 삭제로 구성되어있다.
 				//만약 해당 테스크에 플래그가 존재하여 플래그를 테스크 상자에 추가했다면,
-				//테스크 상자 상세 설정에 있는 플래그 추가 기능을 플래그 제거 기능으로 바꾸어줘야한다. (추가가 이미 되었으니, 제거할 수 있어야 하기 때문에)
-				//현재 테스크 상자의 하위 드롭다운리스트 중에서 플래그 추가기능 <li>태그 요소를 가져온다. 
+				//테스크 상자 상세 설정에 있는 북마크 추가 기능을 북마크 제거 기능으로 바꾸어줘야한다. (추가가 이미 되었으니, 제거할 수 있어야 하기 때문에)
+				//현재 테스크 상자의 하위 드롭다운리스트 중에서 북마크 추가기능 <li>태그 요소를 가져온다. 
 				var flag = taskBox.find('.flagY');
 				//클래스 변경의 경우 attr 메소드를 활용한다.
 				//예시 $(this).attr('class','변경할 클래스이름');
@@ -615,8 +635,8 @@ if(subTaskList != null){
 				//$(this).removeClass("클래스이름");
 				flag.attr('class', 'flagN');
 				
-				//<li></li>태그 안의 내용도 플래그 추가에서 플래그 삭제로 변경해준다.
-				flag.text("플래그 제거");
+				//<li></li>태그 안의 내용도 북마크 추가에서 북마크 삭제로 변경해준다.
+				flag.text("북마크 제거");
 		    }
 		    
 		}
@@ -631,8 +651,8 @@ if(subTaskList != null){
 
 //----------------------------------------------------------------------------------------------------------------------------------
 //3.테스크 상자 드롭다운 상세 기능 시작-----------------------------------------------------------------------------------------------------------------
-	//(1) 플래그 추가 기능 :
-	//드롭다운 리스트에서 플래그 추가버튼을 클릭하면  실행
+	//(1) 북마크 추가 기능 :
+	//드롭다운 리스트에서 북마크 추가버튼을 클릭하면  실행
 	//클릭 이벤트로는 ajax 보낸 후 한번밖에 진행이 안되서 document on으로 변경함
 	$(document).on('click', '.flagY', function(){
 	//$('.flagY').click(function(){
@@ -641,7 +661,7 @@ if(subTaskList != null){
 		//테스크 상자 하위에 있는 input type="hidden"요소 값에 담긴 테스크 코드를 가져온다.
 		var taskCode = $(this).parent().parent().parent().parent().find('input').val();
 		//코드 출력
-		console.log("플래그 추가할 테스크 코드 " + taskCode);
+		console.log("북마크 추가할 테스크 코드 " + taskCode);
 		//ajax 시작
 		$.ajax({
 			url:"insertTaskHistoryFlagYes.tk",
@@ -652,29 +672,34 @@ if(subTaskList != null){
 				console.log(data);
 				//객체 값 꺼낼때 data. 으로 꺼낸다.
 				console.log(data.result);
-				//insert 한 result 값이 1인 경우 플래그 추가 성공
+				//insert 한 result 값이 1인 경우 북마크 추가 성공
 				if(data.result == 1){
-					console.log("플래그 추가 성공");
-					//플래그 추가를 한 테스크 상자 요소를 찾는다.
+					console.log("북마크 추가 성공");
+					//북마크 추가를 한 테스크 상자 요소를 찾는다.
 					var taskBox = $('#contentBox2-board').find( ".t" + taskCode );
 			    	//플래그css 적용가능한 클래스 속성을 부여한다.
 				    taskBox.addClass("flag-true");
-					//드롭다운 리스트에 있는 플래그 추가 기능을 플래그 삭제 기능으로 바꾼다.
+					//드롭다운 리스트에 있는 북마크 추가 기능을 북마크 삭제 기능으로 바꾼다.
 					var flag = taskBox.find('.flagY');
 					flag.attr('class', 'flagN');
-					//<li></li>태그 안의 내용도 플래그 추가에서 플래그 삭제로 변경해준다.
-					flag.text("플래그 제거");
+					//<li></li>태그 안의 내용도 북마크 추가에서 북마크 삭제로 변경해준다.
+					flag.text("북마크 제거");
 				}else{
-					console.log("플래그 추가 실패");
+					console.log("북마크 추가 실패");
 				}
 			},error:function(){
-				console.log("플래그 추가 시도 오류");				
-			}
+				console.log("북마크 추가 시도 오류");				
+			},beforeSend : function(){
+	            $('.wrap-loading').removeClass('display-none');
+	        },
+	        complete : function(){
+	                $('.wrap-loading').addClass('display-none');
+	        }
 		});
 	});	
 	
-	//(2) 플래그 제거 기능 :
-	//드롭다운 리스트에서 플래그 제거버튼을 클릭하면  실행
+	//(2) 북마크 제거 기능 :
+	//드롭다운 리스트에서 북마크 제거버튼을 클릭하면  실행
 	//클릭 이벤트로는 ajax 보낸 후 한번밖에 진행이 안되서 document on으로 변경함
 	$(document).on('click','.flagN', function(){
 	//$('.flagN').click(function(){
@@ -683,7 +708,7 @@ if(subTaskList != null){
 		//테스크 상자 하위에 있는 input type="hidden"요소 값에 담긴 테스크 코드를 가져온다.
 		var taskCode = $(this).parent().parent().parent().parent().find('input').val();
 		//코드 출력
-		console.log("플래그 삭제할 테스크 코드 " + taskCode);
+		console.log("북마크 삭제할 테스크 코드 " + taskCode);
 		//ajax 시작
 		$.ajax({
 			url:"insertTaskHistoryFlagNo.tk",
@@ -693,24 +718,29 @@ if(subTaskList != null){
 			success:function(data){
 				console.log(data);
 				console.log(data.result);
-				//insert 한 result 값이 1인 경우 플래그 제거 성공
+				//insert 한 result 값이 1인 경우 북마크 제거 성공
 				if(data.result == 1){
-					console.log("플래그 제거 성공");
-					//플래그 제거 한 테스크 상자 요소를 찾는다.
+					console.log("북마크 제거 성공");
+					//북마크 제거 한 테스크 상자 요소를 찾는다.
 					var taskBox = $('#contentBox2-board').find( ".t" + taskCode );
 			    	//플래그css 적용가능한 클래스 속성을 제거한다.
 				    taskBox.removeClass("flag-true");
-					//드롭다운 리스트에 있는 플래그 제거 기능을 플래그 추가 기능으로 바꾼다.
+					//드롭다운 리스트에 있는 북마크 제거 기능을 북마크 추가 기능으로 바꾼다.
 					var flag = taskBox.find('.flagN');
 					flag.attr('class', 'flagY');
-					//<li></li>태그 안의 내용도 플래그 추가에서 플래그 추가로 변경해준다.
-					flag.text("플래그 추가");
+					//<li></li>태그 안의 내용도 북마크 추가에서 북마크 추가로 변경해준다.
+					flag.text("북마크 추가");
 				}else{
-					console.log("플래그 제거 실패");
+					console.log("북마크 제거 실패");
 				}
 			},error:function(){
-				console.log("플래그 제거 시도 오류");				
-			}
+				console.log("북마크 제거 시도 오류");				
+			},beforeSend : function(){
+	            $('.wrap-loading').removeClass('display-none');
+	        },
+	        complete : function(){
+	                $('.wrap-loading').addClass('display-none');
+	        }
 		});
 	});					
 
@@ -749,7 +779,12 @@ if(subTaskList != null){
 				}
 			},error:function(){
 				console.log("레이블 제거 시도 오류");				
-			}
+			},beforeSend : function(){
+	            $('.wrap-loading').removeClass('display-none');
+	        },
+	        complete : function(){
+	                $('.wrap-loading').addClass('display-none');
+	        }
 		});
 	});			
 
@@ -783,7 +818,12 @@ if(subTaskList != null){
 				}
 			},error:function(){
 				console.log("테스크 삭제 시도 오류");				
-			}
+			},beforeSend : function(){
+	            $('.wrap-loading').removeClass('display-none');
+	        },
+	        complete : function(){
+	                $('.wrap-loading').addClass('display-none');
+	        }
 		});
 	});	
 
@@ -877,7 +917,7 @@ document.addEventListener("dragenter", function(event) {
 	if (event.target.className == "dropzone") {
 		console.log("드래그 엔터");
 		event.target.style.background = "#F0ACC4"; 
-	  //약간 핑크색으로 변경, 플래그 색상 투명도 준것 때문에 테스크 상자 색상도 같이 변해서 핑크색 계열로 줌.
+	  //약간 핑크색으로 변경, 북마크 색상 투명도 준것 때문에 테스크 상자 색상도 같이 변해서 핑크색 계열로 줌.
 	}
 }, false);
 //드롭 대상 영역에서 벗어났을 때 실행할 이벤트
@@ -957,7 +997,12 @@ document.addEventListener("drop", function(event) {
 				}
 			},error:function(){
 				console.log("테스크 진행 상태 변경 오류");				
-			}
+			},beforeSend : function(){
+	            $('.wrap-loading').removeClass('display-none');
+	        },
+	        complete : function(){
+	                $('.wrap-loading').addClass('display-none');
+	        }
 		});
 		
 		//하위 테스크의 테스크 리스트 정보 중 헤드 테스트 코드 업데이트 ajax 시작 
@@ -990,7 +1035,12 @@ document.addEventListener("drop", function(event) {
 						}
 					},error:function(){
 						console.log("headTaskCode 변경 오류");				
-					}
+					},beforeSend : function(){
+			            $('.wrap-loading').removeClass('display-none');
+			        },
+			        complete : function(){
+			                $('.wrap-loading').addClass('display-none');
+			        }
 				});	
 			}
 		}
@@ -1083,7 +1133,12 @@ function searchLabel(){
  				}
  			}, error: function(){
  				console.log("리스트 가져오기 실패");
- 			}
+ 			},beforeSend : function(){
+ 	            $('.wrap-loading').removeClass('display-none');
+ 	        },
+ 	        complete : function(){
+ 	                $('.wrap-loading').addClass('display-none');
+ 	        }
  		});
  }
  
