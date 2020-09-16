@@ -437,11 +437,11 @@
 	</div>
  </div>
 
-<form action="showSprintMain.st" method="post" id="sendProjectCode2">
-	 <div>
+<form action="sessionSave.st" method="post" id="sendProjectCode2">
+	  <div>
 	 	<input type="hidden" id="sendProjectCode" name="projectCode" value="">
 	 	<input type="hidden" id="sendUserProjectCode" name="userProjectCode" value="">
-	 </div>
+	 </div> 
 </form>
  
 <!-- 프로젝트 멤버 초대 모달-------------------------------------------------------->
@@ -776,6 +776,7 @@ function searchTeam(){
 	var projectCode3 = d;
 	$('#sendProjectCode').val(projectCode2);
 	$('#sendUserProjectCode').val(projectCode3);
+
 	$('#sendProjectCode2').submit();
 	
 	//클릭한 것 출력

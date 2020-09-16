@@ -280,7 +280,7 @@ public class MemberController {
          System.out.println(m);
 
          status.setComplete();
-
+         
          return "userInfo/loginOut/login";
 
       } catch (UpdateFailedException e) {
@@ -427,7 +427,7 @@ public class MemberController {
       System.out.println(loginUser);
       model.addAttribute("loginUser", loginUser);
 
-      return "common/menubar";
+      return "redirect:showProjectMain.pj";
    }
 
    @RequestMapping("login.me")
@@ -443,7 +443,7 @@ public class MemberController {
 
             model.addAttribute("loginUser", loginUser);
             
-            return "common/menubar";      
+            return "redirect:showProjectMain.pj"; 
          } else {
             response.setCharacterEncoding("UTF-8");
             response.setContentType("text/html; charset=UTF-8");

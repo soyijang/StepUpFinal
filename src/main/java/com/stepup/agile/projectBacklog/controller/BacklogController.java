@@ -1,7 +1,8 @@
 package com.stepup.agile.projectBacklog.controller;
 
 import java.util.List;
-import java.util.Map;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,7 +20,7 @@ import com.stepup.agile.projectBacklog.model.vo.SprintHistory;
 import com.stepup.agile.projectTask.model.vo.TaskHistory;
 import com.stepup.agile.userInfo.model.vo.Member;
 
-@SessionAttributes("loginUser")
+@SessionAttributes({"loginUser", "projectCodeNew", "userProjectCodeNew"})
 @Controller
 public class BacklogController {
 	
@@ -30,18 +31,14 @@ public class BacklogController {
 	
 //	스프린트 목록조회용
 	@RequestMapping("showSprintMain.st")
-	public String selectSprint(Model model, @ModelAttribute("loginUser") Member m, int projectCode, int userProjectCode) {
-		
+	public String selectSprint(Model model, @ModelAttribute("loginUser") Member m,
+			@ModelAttribute("projectCodeNew") int projectCode, @ModelAttribute("userProjectCodeNew") int userProjectCode) {
 		//스프린트 목록부터 조회
 		List<Sprint> sprintList;
 		sprintList = bs.selectSprint(m, projectCode);
-		model.addAttribute("projectCodeNew", projectCode);
-		
 		temp = projectCode;
 		
-		model.addAttribute("userProjectCodeNew", userProjectCode);
 		model.addAttribute("sprintList", sprintList);
-		System.out.println(sprintList);
 		return "projectBacklog/projactBacklog";
 		
 	}
