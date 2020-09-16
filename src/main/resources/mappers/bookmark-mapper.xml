@@ -6,12 +6,27 @@
 <mapper namespace="Bookmark">
 
 
-	<resultMap type="com.stepup.agile.projectManage.model.vo.Project" id="projectResultSet">
+	<resultMap type="com.stepup.agile.projectTask.model.vo.Bookmark" id="bookmarkResultSet">
 		<id property="bookmarkCode" column="BOOKMARK_CODE"/>
 		<result property="userCode" column="USER_CODE"/>
 		<result property="taskCode" column="TASK_CODE"/>
 		<result property="bookmarkDate" column="BOOKMARK_DATE"/>
 		<result property="bookmarkTime" column="BOOKMARK_TIME"/>
 	</resultMap>
+	
+	<!-- 16.북마크추가 -->
+	<insert id="checkBookmark" parameterType="com.stepup.agile.projectTask.model.vo.Bookmark">
+		<selectKey keyProperty="bookmarkCode" resultType="int" order="BEFORE">
+	         SELECT SEQ_BOOKMARK.NEXTVAL FROM DUAL
+	      </selectKey>
+		INSERT INTO BOOKMARK_LIST (BOOKMARK_CODE, USER_CODE, TASK_CODE, BOOKMARK_DATE, BOOKMARK_TIME)
+		VALUES(SEQ_BOOKMARK.NEXTVAL, #{userCode, jdbcType=VARCHAR}, #{taskCode, jdbcType=INTEGER}, TO_CHAR(SYSDATE + 9/24, 'YYYY-MM-DD'), TO_CHAR(SYSDATE + 9/24, 'hh24:mi:ss'))
+	</insert>
+	
+	<!-- 17.북마크취소 -->
+	<delete id="deleteBookmark" parameterType="com.stepup.agile.projectTask.model.vo.Bookmark">
+		DELETE BOOKMARK_LIST
+		WHERE BOOKMARK_CODE = #{bookmarkCode, jdbcType=INTEGER}
+	</delete>
 
 </mapper>

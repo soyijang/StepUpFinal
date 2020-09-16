@@ -1,8 +1,12 @@
-.taskmodalTable{
-      width: 65%;
+   .taskmodalTable{
+      width: 100%;
       float:left;
       margin-left: 15px;
-      margin-top:-5px;
+    /*   margin-top:-5px; *//* 
+      height: 100%; 
+      overflow-y: auto; */
+       max-height: calc(100vh - 210px);
+         overflow-y: auto;
      }
    .taskmodal {
        display: none; /* Hidden by default */
@@ -12,7 +16,7 @@
        top: 0;
        width: 100%; /* Full width */
        height: 100%; /* Full height */
-       overflow: auto; /* Enable scroll if needed */
+       overflow-y: initial !important; /* Enable scroll if needed */
        background-color: rgb(0,0,0); /* Fallback color */
        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
      }
@@ -28,7 +32,9 @@
        border-radius: 10px;
        box-shadow: 0 0 4px #cccccc;
        height: 60%;
-       padding-top:20px;
+       padding-top:20px;/* 
+       max-height: calc(100vh - 210px);
+         overflow-y: auto; */
      }
    .taskmodaltitle {
       margin-left:15px;
@@ -47,7 +53,8 @@
       width:20px;
       height:20px;
       float:right;
-      padding-right:15px;
+      padding-right:15px;/* 
+      margin-top:-20px; */
    }
    #attachment {
       background:#C4C4C4;
@@ -105,29 +112,36 @@
         float:left;
         margin-right:10px;
         margin-top:9px;
+        float:left;
+   }
+   #userName {
+        float:left;
    }
    #reply {
       margin-top:10px;
       height:20px;
-      width:300px;
+      width:240px;
    }
    #bookmark {
       width:20px;
       height:20px;
       float:right;
-      padding-right:5px;
+      padding-right:5px;/* 
+      margin-top:-20px; */
    }
    #share {
       width:20px;
       height:20px;
       float:right;
-      padding-right:15px;
+      padding-right:-5px;
+      margin-top:-20px;
    }
    #additional {
       width:20px;
       height:20px;
       float:right;
-      padding-right:15px;
+      margin-right:30px;
+      margin-top:-20px;
    }
    #count {
       padding-right:15px;
@@ -135,22 +149,21 @@
       font-size:14px;
    }
    #detail {
-      float:left;
       width:30%;
-      margin-top:-25px;
-      margin-left:20px;
       font-size:11px;
+      float:left;
+      margin-top:-50px;
    }
    .worker{
       margin-top:15px;
       border: 0;
-        outline: 0;
-        font-size:11px;
+      outline: 0;
+      font-size:11px;
    }
    .detailprofile {
       background:#C4C4C4;
-        height: 30px;
-        width: 30px;
+        height: 25px;
+        width: 25px;
         border-radius: 50%;
         border: 0;
         font-size: 8px;
@@ -158,11 +171,9 @@
         text-align: center;
         float:left;
         margin-right:10px;
-        margin-top:5px;
+        margin-top:-3px;
    }
    .dinput {
-      border: 0;
-        outline: 0;
         font-size:11px;
    }
    .rTitle {
@@ -208,6 +219,7 @@
     }
     #activity {
        padding-top:15px;
+       padding-left:20px;
     }
     .intBtn {
        background:white;
@@ -226,12 +238,164 @@
        outline:none;
     }
     .modalButtonArea {
-    	margin:30px;
-    	text-align: center;
- 	}
- 	.taskCancel {
- 		text-align: center;
-    	display: inline-block;
-    	vertical-align: middle;
-    	line-height: 30px;
- 	}
+       margin:30px;
+       text-align: center;
+    }
+    .taskCancel {
+       text-align: center;
+       display: inline-block;
+       vertical-align: middle;
+       line-height: 30px;
+    }
+    body {
+      font-family : 'Noto Sans KR';
+   }
+    .wrap-loading{ /*화면 전체를 어둡게*/
+          position: fixed;
+          left:0;
+          right:0;
+          top:0;
+          bottom:0;
+          background: rgba(0,0,0,0.2); /*not in ie */
+          filter: progid:DXImageTransform.Microsoft.Gradient(startColorstr='#20000000', endColorstr='#20000000');    /* ie */
+      }
+      
+      .wrap-loading div{ /*로딩 이미지*/
+          position: fixed;
+          top:50%;
+          left:50%;
+          margin-left: -21px;
+          margin-top: -21px;
+      }
+      
+      .wrap-loading div > img {
+         width: 20%;
+         height: 20%;
+      }
+      
+      .display-none{ /*감추기*/
+          display:none;
+       }
+       .taskMake{
+             background:#DD0351;
+            height: 30px;
+            width: 80px;
+            border-radius: 10px;
+            border: 0;
+            font-size: 8px;
+            color: white;
+            text-align: center;
+       }
+        #replyBtn {
+            background:#DD0351;
+            height: 30px;
+            width: 50px;
+            border-radius: 10px;
+            border: 0;
+            font-size: 8px;
+            color: white;
+            text-align: center;
+        }
+        #replyBtnCan {
+            background:white;
+            height: 30px;
+            width: 50px;
+            border-radius: 10px;
+            border: 1px solid #DD0351;
+            font-size: 8px;
+            color:#DD0351;
+            text-align: center;
+        }
+        #subTaskMake {
+           background:#DD0351;
+            height: 30px;
+            width: 50px;
+            border-radius: 10px;
+            border: 0;
+            font-size: 8px;
+            color: white;
+            text-align: center; 
+         /*    margin-top:124px; */
+        }
+        #subTaskCan {
+           background:white;
+            height: 30px;
+            width: 50px;
+            border-radius: 10px;
+            border: 1px solid #DD0351;
+            font-size: 8px;
+            color:#DD0351;
+            text-align: center;
+            /* float:left; */
+            /* margin-top:-10px; */
+        }
+        #taskmodalTable {
+           float:left;
+        }
+        #subTaskBox {
+           margin-top:10px;
+        }
+        #leftContent {
+           overflow-y:auto;
+           width:480px;
+           height:450px;
+           float:left;
+        }/* 
+        #subTaskTitle {
+           margin-left:-285px;
+           margin-top:130px;
+        } */
+/*         #replySelect{
+           float:left;
+           margin-top:10px;
+        } */
+.switch{
+   position:relative;
+   display: inline-block;
+   width:60px;
+   height:34px;   
+}
+.switch input {
+   opacity: 0;
+   width: 0;
+   height: 0;
+}
+.slider {
+   position:absolute;
+   cursor:pointer;
+   top:0;
+   left:0;
+   right:0;
+   bottom:0;
+   background-color:#ccc;
+   -webkit-transition:.4s;
+   transition:.4s;
+}
+.slider:before {
+   position:absolute;
+   content: "";
+   height:26px;
+   width:26px;
+   left:4px;
+   bottom:4px;
+   background-color:white;
+   -webkit-transition:.4s;
+   transition:.4s;
+}
+input:checked + .slider {
+   background-color:#DD0531;
+}
+input:focs + .slider {
+   box-shadow: 0 0 1px #DD0531;
+}
+input:checked + .slider:before {
+   -webkit-transition:translateX(26px);
+   -ms-transform:translateX(26px);
+   transform: translateX(26px);
+}
+.slider.round{
+   border-radius:34px;
+}
+.slider.round:before {
+   border-radius:50%;
+}

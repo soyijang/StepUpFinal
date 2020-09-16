@@ -9,7 +9,7 @@ import com.stepup.agile.userInfo.model.vo.Member;
 
 public interface BacklogService {
 
-	List<Sprint> selectSprint(Member m);
+	List<Sprint> selectSprint(Member m, int projectCode);
 
 	int insertSprint(int userProjectCode);
 
@@ -26,5 +26,5 @@ public interface BacklogService {
 	int updateTask(int taskCode);
 
 	List<Sprint> searchSprint(Member m, String sprintName);
-	
+
 }
