@@ -122,10 +122,11 @@ public class TaskController {
 	//3.Sub-Task 생성
 	@RequestMapping(value="/insertSubTask.pj",method = RequestMethod.POST, produces = "application/text; charset=utf8")
 	public ModelAndView insertSubTask(ModelAndView mv, @ModelAttribute("loginUser") Member m, TaskList t, TaskHistory th,
-											int headTaskCode, String subTaskTitle,String taskCategoryCode) {
+											int sprintCode,int headTaskCode, String subTaskTitle,String taskCategoryCode) {
 
 		t.setTaskUser(m.getUserCode());
 		t.setHeadTaskCode(headTaskCode);
+		t.setSprintCode(sprintCode);
 		int subTaskCode = ts.createSubTask(t);
 
 		th.setTaskHistValue(subTaskTitle);
@@ -579,9 +580,14 @@ public class TaskController {
 
 	//BugTask
 	@RequestMapping("selectBugTask.tk")
-	   public String selectBugTask(Model model, @ModelAttribute("loginUser") Member m) {
+	   public String selectBugTask(Model model, @ModelAttribute("loginUser") Member m,
+			   @ModelAttribute("projectCodeNew") int projectCode) {
 		   
-		   List<TaskHistory> bglist = ts.selectBugTask(m);
+			HashMap<String, Object> map = new HashMap<String, Object>();
+			map.put("userCode", m.getUserCode());
+			map.put("projectCode", projectCode);
+		   
+		   List<TaskHistory> bglist = ts.selectBugTask(map);
 		   
 		   System.out.println(bglist);
 		   
@@ -673,17 +679,22 @@ public class TaskController {
 		   
 	   }
 	   @RequestMapping("searchBug.tk")
-	   public ModelAndView searchBug(ModelAndView mv, @ModelAttribute("loginUser") Member m, String taskHistValue) {
+	   public ModelAndView searchBug(ModelAndView mv, @ModelAttribute("loginUser") Member m, 
+			   String taskHistValue, @ModelAttribute("projectCodeNew") int projectCode) {
 		   HashMap<String, Object> map = new HashMap<String, Object>();
 		   map.put("taskCont", taskHistValue);
+		   map.put("projectCode", projectCode);
 		   map.put("userCode", m.getUserCode());
 		   System.out.println(map.get("userCode"));
 		   System.out.println(map.get("taskCont"));
 		   List<TaskHistory> searchBugList1 = new ArrayList<TaskHistory>();
 		   List<TaskHistory> searchBugList2 = new ArrayList<TaskHistory>();
-		   
+			   
+			HashMap<String, Object> map2 = new HashMap<String, Object>();
+			map2.put("userCode", m.getUserCode());
+			map2.put("projectCode", projectCode);
 		   if(taskHistValue.equals("")) {
-			   searchBugList1 = ts.selectBugTask(m);
+			   searchBugList1 = ts.selectBugTask(map2);
 			   mv.addObject("searchBugList1", searchBugList1);
 			   mv.setViewName("jsonView");
 			   

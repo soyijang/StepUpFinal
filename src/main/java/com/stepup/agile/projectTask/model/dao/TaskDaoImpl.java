@@ -419,9 +419,9 @@ public class TaskDaoImpl implements TaskDao {
 	}
 
 	@Override
-	public List<TaskHistory> selectBugTask(SqlSessionTemplate sqlSession, Member m) {
+	public List<TaskHistory> selectBugTask(SqlSessionTemplate sqlSession, HashMap<String, Object> map) {
 		
-		return sqlSession.selectList("Task.selectBugTask", m);
+		return sqlSession.selectList("Task.selectBugTask", map);
 	}
 
 	@Override

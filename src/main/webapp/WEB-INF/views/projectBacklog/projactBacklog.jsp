@@ -485,7 +485,7 @@
 									//같은 taskCode끼리 묶어서
 									for(var i = 0; i<taskCode.length; i++){
 										//꺼내서 행 구분하는 작업
-											var taskName = '미지정';
+											var taskName = '이름없는 테스크';
 											var realTime = '미지정';
 											var expectTime = '미지정';
 											var point = '미지정';
@@ -494,6 +494,7 @@
 											var deleteyn = 'N';
 											var statusButton = 'taskStatus3';
 											var userCode ;
+											var taskUser = '미지정';
 								
 										for(var j = 0; j<data.sprintTaskList.length; j++){
 											//taskCode같으면 한 행으로 나오게!
@@ -520,15 +521,17 @@
 												case 'D' : point = data.sprintTaskList[j].taskHistValue; break;
 												case 'F' : deleteyn = data.sprintTaskList[j].taskHistValue; break;
 												case 'G' : bug = data.sprintTaskList[j].taskHistValue; break;
+												case 'L' : taskUser =  data.sprintTaskList[j].taskHistValue; break;
 												} 
 											}
 										}
 										
+										
 										var givetaskName = '"' + taskName +'"';
 										addPostPart2.prepend(
 										"<tr><td class='taskCode'>"+ taskCode[i]+ "</td><td class='taskName'>" + taskName + "</td><td class='realTime'>" + realTime + "</td><td class='expectTime'>" + expectTime + "</td><td class='storyPoint'>" + 
-											point + "</td><td><span class='" +  statusButton + "'>" +  taskStatus + "</td><td class='person'>" + userCode 
-											+ "</td><td class='more2'><div class='dropdown'><div class='select'><span id='more'>...</span><i class='fa fa-chevron-left'></i>"+
+											point + "</td><td><span class='" +  statusButton + "'>" +  taskStatus + "</td><td class='person'><div class='participant'>" + taskUser 
+											+ "</div></td><td class='more2'><div class='dropdown'><div class='select'><span id='more'>...</span><i class='fa fa-chevron-left'></i>"+
 					                    "</div><ul class='dropdown-menu'><li id='taskFinish' onclick='taskFinish(" + taskCode[i] + "," + givetaskName + ");'>종료</li><li id='taskUpdate'>수정</li><li id='taskDelete'>삭제</li></ul></div></td></tr>"
 					                    
 										);

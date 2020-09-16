@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.stepup.agile.userInfo.model.vo.Member;
@@ -17,7 +18,7 @@ import com.stepup.agile.userInfo.model.vo.Member;
 public class SessionController {
 
 	
-	@RequestMapping("sessionSave.st")
+	@RequestMapping(value="sessionSave.st",method=RequestMethod.POST)
 	public String selectSprint(Model model, HttpSession session, @ModelAttribute("loginUser") Member m, int projectCode, int userProjectCode) {
 		 
 		session.setAttribute("userProjectCodeNew",userProjectCode);

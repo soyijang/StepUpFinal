@@ -32,7 +32,6 @@ public class TaskList implements java.io.Serializable{
 	
 	public TaskList() {}
 
-	
 	public TaskList(int taskCode, String taskCreateDate, String taskLevel, int sprintCode, String taskCreateTime,
 			int taskMaster, int taskUser, int headTaskCode, Member member, Team team, UserTeamList userTeamList,
 			UserProjectList userProjectList, Project project, ProjectHistory projectHistory, Sprint sprint,
@@ -169,51 +168,27 @@ public class TaskList implements java.io.Serializable{
 		this.projectHistory = projectHistory;
 	}
 
-	protected Team getTeam() {
-		return team;
-	}
-
-	protected void setTeam(Team team) {
-		this.team = team;
-	}
-
-	protected UserTeamList getUserTeamList() {
-		return userTeamList;
-	}
-
-	protected void setUserTeamList(UserTeamList userTeamList) {
-		this.userTeamList = userTeamList;
-	}
-
-	protected UserProjectList getUserProjectList() {
-		return userProjectList;
-	}
-
-	protected void setUserProjectList(UserProjectList userProjectList) {
-		this.userProjectList = userProjectList;
-	}
-
-	protected Sprint getSprint() {
+	public Sprint getSprint() {
 		return sprint;
 	}
 
-	protected void setSprint(Sprint sprint) {
+	public void setSprint(Sprint sprint) {
 		this.sprint = sprint;
 	}
 
-	protected SprintHistory getSprintHistory() {
+	public SprintHistory getSprintHistory() {
 		return sprintHistory;
 	}
 
-	protected void setSprintHistory(SprintHistory sprintHistory) {
+	public void setSprintHistory(SprintHistory sprintHistory) {
 		this.sprintHistory = sprintHistory;
 	}
 
-	protected TaskCategory getTaskCategory() {
+	public TaskCategory getTaskCategory() {
 		return taskCategory;
 	}
 
-	protected void setTaskCategory(TaskCategory taskCategory) {
+	public void setTaskCategory(TaskCategory taskCategory) {
 		this.taskCategory = taskCategory;
 	}
 
@@ -227,5 +202,5 @@ public class TaskList implements java.io.Serializable{
 				+ ", taskCategory=" + taskCategory + "]";
 	}
 
-
+	
 }

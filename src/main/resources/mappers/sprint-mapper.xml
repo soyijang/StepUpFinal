@@ -245,6 +245,11 @@
 		   FROM TASK_HISTORY H
 		   JOIN TASK_LIST L ON (H.TASK_CODE = L.TASK_CODE)
 		  WHERE L.SPRINT_CODE = #{sprintCode, jdbcType=NUMERIC}
+           AND L.TASK_CODE NOT IN  (SELECT DISTINCT TL.TASK_CODE 
+                            FROM TASK_LIST TL , TASK_HISTORY TH, TASK_CATEGORY TC 
+                            WHERE TL.TASK_CODE = TH.TASK_CODE 
+                            AND TH.TASK_CATEGORY_CODE = TC.TASK_CATEGORY_CODE
+                            AND ( TH.TASK_CATEGORY_CODE = 'F'))      		  
            AND H.TASK_HIST_CODE IN (SELECT TASK_HIST_CODE
                            FROM(SELECT TH.TASK_CODE,TH.TASK_CATEGORY_CODE, TH.TASK_HIST_UPDATE_DATE, TH.TASK_HIST_UPDATE_TIME, TH.TASK_HIST_CODE, TH.MASTER_CODE, TH.USER_CODE, TH.TASK_HIST_VALUE, 
                                        TC.TASK_CATEGORY_NAME, 
@@ -252,6 +257,7 @@
                                   FROM TASK_HISTORY TH, TASK_CATEGORY TC WHERE TH.TASK_CATEGORY_CODE = TC.TASK_CATEGORY_CODE)
                           WHERE TASK_LATEST_RK = 1)
 		  GROUP BY H.TASK_CATEGORY_CODE, L.TASK_CODE, H.USER_CODE, H.MASTER_CODE
+		  ORDER BY TASK_CODE
 	</select>
 	
 	<insert id="updateSprint" parameterType="Sprint">

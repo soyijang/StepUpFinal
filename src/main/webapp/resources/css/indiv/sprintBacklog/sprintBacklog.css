@@ -439,3 +439,23 @@
   position: relative;
   display: block;
 }
+
+
+.participant{
+	height: 35px;
+	width: 35px;
+	text-align : center;
+	border-radius: 221.5px;
+	box-sizing: border-box;
+	font-size: 11px;
+	border: 2px solid ;
+	text-align: center;
+	line-height: 35px;
+	margin-left: 15px;
+	background-color: #DD0351;
+	color: white;
+}
+
+.person{
+	text-align: center;
+}

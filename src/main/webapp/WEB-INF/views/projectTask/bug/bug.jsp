@@ -22,7 +22,7 @@
     <div id="content" class="click-area">
         <!-- 상단 프로젝트 제목 및 메뉴 이름 영역 -->
         <div id="contentTitle">
-            <div id="projectTitle2">프로젝트 / 너무졸려요</div>
+            <div id="projectTitle2">프로젝트 / ${bgList.get(i).projectName}</div>
             <div id="menuTitle">이슈 게시판</div>
         </div>
         <div id="contentBox">
@@ -219,6 +219,7 @@
 	var taskMaster;
 	var headCode;
 	var bugUserName = "";
+	var bcode2 = "";
 	
 	$(document).on("click",".bug-list-detail",function(){
 			a = $(this).text();
@@ -237,6 +238,10 @@
 			
 			bugtitle = str.substring(start+1, end);
 			console.log(bugtitle);
+			
+			bcode2 = bugUserName.split("-");
+			console.log(bcode2);
+			bcode2 = bcode2[1];
 			
 		});
 
@@ -258,7 +263,7 @@
 		$.ajax({
 			url:"selectBugCont.tk",
 			type:"post",
-			data:{"tCode" : bcode},
+			data:{"tCode" : bcode2},
 			dataType : "json",
 			success: function(data){
 				
@@ -382,7 +387,7 @@
 		$.ajax({
 			url:"insertCloneBug.tk",
 			type:"post",
-			data:{"tCode" : bcode, "bugtitle": bugtitle, "sprintCode":sprintCode, "bugCont":bugCont, "taskLevel":tLevel, "taskMaster":taskMaster, "headTaskCode" :headCode},
+			data:{"tCode" : bcode2, "bugtitle": bugtitle, "sprintCode":sprintCode, "bugCont":bugCont, "taskLevel":tLevel, "taskMaster":taskMaster, "headTaskCode" :headCode},
 			dataType : "json",
 			success: function(data){
 				location.href="selectBugTask.tk";
@@ -405,7 +410,7 @@
 		$.ajax({
 			url:"deleteCloneBug.tk",
 			type:"post",
-			data:{"tCode" : bcode},
+			data:{"tCode" : bcode2},
 			dataType : "json",
 			success: function(data){
 				location.href="selectBugTask.tk";
@@ -649,7 +654,7 @@
 	
 	//필터링 서브 테스크 검색 이벤트
 	$(document).on('click', '#tk-sublevel', function(){
-		$.ajax({
+		$.ajax({ 
 			url:"searchBug.tk",
 			type:"post",
 			data:{"taskHistValue" : searchBug},
@@ -732,7 +737,7 @@
 	           dataType : "json",
 	           data: {
 	              "replyContents": content,
-	              "taskCode": bcode
+	              "taskCode": bcode2
 	           }, success:function(data){
 	        	      var replyArr = data.replyHistory;
 	        	      console.log(replyArr);
