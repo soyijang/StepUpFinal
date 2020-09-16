@@ -15,7 +15,7 @@
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/indiv/sprintBacklog/dropdown.css">
 
 </head>
-<body onload="tbodyClick(${sprintList.get(0).sprintCode},'${ sprintList.get(0).sprintName }')">
+<body >
 	<c:set var="contextPath"
 		value="${ pageContext.servletContext.contextPath }"
 		scope="application" />
@@ -24,8 +24,12 @@
 	<div id="content">
 		<!-- 상단 프로젝트 제목 및 메뉴 이름 영역 -->
 		<div id="contentTitle">
-			<div id="projectTitle2">프로젝트백로그 /<b id="projectName">
-				<c:out value="${ sprintList.get(0).project.projectName }" /></b>
+			<div id="projectTitle2">프로젝트백로그 /
+			<c:if test="${not empty sprintList}">
+			<input type="hidden" id="clickName" value="${sprintList.get(0).sprintName }">
+			<input type="hidden" id="clickSprintCode" value="${sprintList.get(0).sprintCode}">
+			<b id="projectName"><c:out value="${ sprintList.get(0).project.projectName }" /></b>
+			</c:if>
 			</div>
 			<div id="menuTitle">ProjectBacklog</div>
 		</div>
@@ -54,6 +58,7 @@
 				<!-- 진행중인 목록 -->
 				<div id="sprintList" class="sprintListIng">
 					<table id="sprintListIngTable">
+						<c:if test="${not empty sprintList}">
 						<c:forEach var="i" begin="0" end="${fn:length(sprintList)-1}">
 							<tbody class="sprinttbody" id="tbody${sprintList.get(i).sprintCode}"
 								onclick="tbodyClick(${sprintList.get(i).sprintCode},'${ sprintList.get(i).sprintName }')">
@@ -71,12 +76,14 @@
 								</c:if>
 							</tbody>
 						</c:forEach>
+						</c:if>
 					</table>
 				</div>
 				
 				<!-- 종료된 목록 -->
 				<div id="sprintList" class="sprintListFin" style="display: none;">
 					<table id="sprintListFinTable">
+						<c:if test="${not empty sprintList}">
 						<c:forEach var="i" begin="0" end="${fn:length(sprintList)-1}">
 							<tbody class="sprinttbody" id="tbody${sprintList.get(i).sprintCode}"
 								onclick="tbodyClick(${sprintList.get(i).sprintCode},'${ sprintList.get(i).sprintName }')">
@@ -94,6 +101,7 @@
 								</c:if>
 							</tbody>
 						</c:forEach>
+						</c:if>
 					</table>
 				</div>
 				<button class="SprintButtonArea" id="sprintapply">새 스프린트 생성</button>
@@ -146,10 +154,12 @@
 				<p align="left" class="modaltitle">🎁 새 스프린트 생성</p>
 				<table align="center" class="modalTable">
 					<tbody>
+						<c:if test="${not empty sprintList}">
 						<tr>
 							<td><b>[<c:out value="${ sprintList.get(0).project.projectName }" />]
 							</b>(프로젝트)에 새로운 스프린트를 추가하시겠습니까?</td>
 						</tr>
+						</c:if>
 						<tr>
 							<td>※초기 스프린트명은 스프린트 코드로 자동지정됩니다.</td>
 						</tr>
@@ -159,8 +169,14 @@
 					<button class="rectangle6" type="submit">저장</button>
 					<div class="sprintclose" id="rectangle7">취소</div>
 				</div>
-				<input style="display: none" name="userProjectCode"
-					value="${ sprintList.get(0).userProjectList.userProjectCode }">
+				<c:if test="${not empty sprintList}">
+				<input style="display: none" name="userProjectCode" value="${ userProjectCodeNew }">
+				<input style="display: none" name="projectCode" value="${projectCodeNew}">
+					</c:if>
+				<c:if test="${empty sprintList}">
+				<input style="display: none" name="userProjectCode" value="${userProjectCodeNew}">
+				<input style="display: none" name="projectCode" value="${projectCodeNew}">
+					</c:if>
 			</div>
 		</div>
 	</form>
@@ -201,10 +217,21 @@
 					<button class="rectangle6" type="submit">저장</button>
 					<div class="sprintupdateclose" id="rectangle7">취소</div>
 				</div>
+				
+				<c:if test="${not empty sprintList}">
 				<input style="display: none" name="userProjectCode"
 					value="${ sprintList.get(0).userProjectList.userProjectCode }">
+					</c:if>
 			</div>
 		</div>
+		<c:if test="${not empty sprintList}">
+				<input style="display: none" name="userProjectCode" value="${ userProjectCodeNew }">
+				<input style="display: none" name="projectCode" value="${projectCodeNew}">
+		</c:if>
+				<c:if test="${empty sprintList}">
+				<input style="display: none" name="userProjectCode" value="${userProjectCodeNew}">
+				<input style="display: none" name="projectCode" value="${projectCodeNew}">
+		</c:if>
 	</form>
 	
 	<!-- 스프린트종료 모달창 -->
@@ -233,9 +260,20 @@
 				<input type="hidden" class="updateInput updateSprintStart" name="sprintHistUpdateTime" value="" >
 				<input type="hidden" class="updateInput updateSprintExpect" name="sprintExpectPeriod" value="" >
 				<input type="hidden" class="updateInput updateSprintIntro" name="sprintIntro" value="" >
+				<c:if test="${not empty sprintList}">
 				<input type="hidden" name="userProjectCode" value="${ sprintList.get(0).userProjectList.userProjectCode }">
+				</c:if>
 			</div>
 		</div>
+		
+		<c:if test="${not empty sprintList}">
+				<input style="display: none" name="userProjectCode" value="${ userProjectCodeNew }">
+				<input style="display: none" name="projectCode" value="${projectCodeNew}">
+					</c:if>
+				<c:if test="${empty sprintList}">
+				<input style="display: none" name="userProjectCode" value="${userProjectCodeNew}">
+				<input style="display: none" name="projectCode" value="${projectCodeNew}">
+					</c:if>
 	</form>
 	
 	<!-- 스프린트시작 모달창 -->
@@ -263,9 +301,20 @@
 				<input type="hidden" class="updateInput updateSprintStart" name="sprintHistUpdateTime" value="" >
 				<input type="hidden" class="updateInput updateSprintExpect" name="sprintExpectPeriod" value="" >
 				<input type="hidden" class="updateInput updateSprintIntro" name="sprintIntro" value="" >
+				<c:if test="${not empty sprintList}">
 				<input type="hidden" name="userProjectCode" value="${ sprintList.get(0).userProjectList.userProjectCode }">
+				</c:if>
 			</div>
 		</div>
+		
+		<c:if test="${not empty sprintList}">
+				<input style="display: none" name="userProjectCode" value="${ userProjectCodeNew }">
+				<input style="display: none" name="projectCode" value="${projectCodeNew}">
+					</c:if>
+				<c:if test="${empty sprintList}">
+				<input style="display: none" name="userProjectCode" value="${userProjectCodeNew}">
+				<input style="display: none" name="projectCode" value="${projectCodeNew}">
+					</c:if>
 	</form>
 	
 	<!--  Task 종료 모달창 -->
@@ -288,6 +337,15 @@
 				<input type="hidden" id="updateTaskCode" name="taskCode" value="">
 			</div>
 		</div>
+		
+		<c:if test="${not empty sprintList}">
+				<input style="display: none" name="userProjectCode" value="${ userProjectCodeNew }">
+				<input style="display: none" name="projectCode" value="${projectCodeNew}">
+					</c:if>
+				<c:if test="${empty sprintList}">
+				<input style="display: none" name="userProjectCode" value="${userProjectCodeNew}">
+				<input style="display: none" name="projectCode" value="${projectCodeNew}">
+					</c:if>
 	</form>
 	
 	<div class="wrap-loading display-none">
@@ -295,8 +353,20 @@
 	</div>   
 	
 
-<script type="text/javascript">	
+<script type="text/javascript">
 	
+	var temp = $('#clickName').val();
+	var temp2 =  $('#clickSprintCode').val();
+	console.log("temp들어갓니? " + temp );
+	console.log("temp2들어갓니? " + temp2 );
+	
+	window.onload = function () {
+		
+		if(temp!=null && temp2 !=null){
+			tbodyClick(temp2,temp);
+		}
+	}
+
 	function tbodyClick(i, name) {
 		
 		/* 선택된 스프린트 코드 및 정보 알려주고 ajax에 넘겨주기 */

@@ -120,7 +120,9 @@
 				$("#projectTitle2").append(div);
 				
 				var values;
-				values = data.ProjectList;
+				if(data.ProjectList.length != 0){
+					values = data.ProjectList;
+				
 				
 				console.log(data.ProjectList);
 				
@@ -250,7 +252,7 @@
 						var MINUTE = 'minute';
 						var SECOND = 'second';
 						var MILLISECOND = 'millisecond';
-					  
+				}	  
 				
 			},
 			error:function(){

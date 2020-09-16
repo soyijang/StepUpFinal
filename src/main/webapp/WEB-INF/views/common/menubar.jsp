@@ -87,8 +87,8 @@
 	                <table id="menubarList">
 	                	<tbody>
 	                    <tr><td class="menuIcon"><img src="/agile/resources/icon/common/icon_layouticon.png"> </td><td id="ProjectTimeline" class="menu"><a href = "selectTimeLine.pj">Project Timeline</a></td></tr>
-	                    <tr><td class="menuIcon"><img src="/agile/resources/icon/common/icon_gifticon.png"> </td><td id="SprintBacklog" class="menu"><a href = "showSprintMain.st">Sprint Backlog</a></td></tr>
-	                    <tr><td class="menuIcon"><img src="/agile/resources/icon/common/icon_trelloicon.png"> </td><td id="TaskBoard" class="menu"><a href = "showTaskBoardMain.tk">Task Board</a></td></tr>
+	                    <tr><td class="menuIcon"><img src="/agile/resources/icon/common/icon_gifticon.png"> </td><td id="SprintBacklog" class="menu">Sprint Backlog</td></tr>
+	                    <tr><td class="menuIcon"><img src="/agile/resources/icon/common/icon_trelloicon.png"> </td><td id="TaskBoard" class="menu">Task Board</td></tr>
 	                    <tr><td class="menuIcon"><img src="/agile/resources/icon/common/icon_crosshair.png"> </td><td id="Issues" class="menu"><a href="selectBugTask.tk">Issues</a></td></tr>
 	                    <tr><td class="menuIcon"><img src="/agile/resources/icon/common/icon_feedbackform.png"> </td><td id="FeedbackForm" class="menu"><a href="selectEndSprint.sv">Feedback Form</a></td></tr>
 	                    <tr><td class="menuIcon"><img src="/agile/resources/icon/common/icon_users.png"> </td><td id="StandUpMeeting" class="menu"><a href="showStandUpMeeting.mt">Stand Up Meeting</a></td></tr>
@@ -100,7 +100,41 @@
 	        </div>
         </div>
         
+				<input style="display: none" id="userProjectCode" name="userProjectCode" value="${sessionScope.userProjectCodeNew }">
+				<input style="display: none" id="projectCode" name="projectCode" value="${sessionScope.projectCodeNew}">
+        
 <script>
+
+	//메뉴바에서 스프린트 백로그보내기
+	$('#SprintBacklog').click(function () {
+		
+		var userProjectCode = $('#userProjectCode').val();
+		var projectCode = $('#projectCode').val();
+		
+		location.href = ('showSprintMain.st');
+	})
+	
+	//메뉴바에서 보드 보내기
+	$('#TaskBoard').click(function () {
+		
+		var projectCode = $('#projectCode').val();
+		
+		location.href = ('showTaskBoardMain.tk');
+	})
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	$('.myInfodropdown').click(function() {
 		$(this).attr('tabindex', 1).focus();
 		$(this).toggleClass('active');
