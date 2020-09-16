@@ -1,3 +1,7 @@
+
+ body{
+ 	font-family: 'Noto Sans KR';
+ }
 /* 하단 contentBox 영역 */
 #contentBox{
 	height: 88%;
@@ -186,7 +190,8 @@
 	vertical-align: middle;		
 }
 #today-box-wrapper{
-	width: 380px;	
+	margin-left: 80px;
+	width: 330px;	
 	display: inline-block;
 }
 /* 오늘자 날짜 상자 */
@@ -215,3 +220,140 @@
 .today-box-td{
 	width: 380px;
 }
+
+
+/* rss이미지 */
+#rssBtn> img{
+	line-height: 16px;
+	vertical-align:middle;
+}
+
+#rssBtn{
+	width: 165px;
+	background-color: #DD0351;
+	font-weight: bold;
+	color: white;
+	border-radius: 5px;
+	text-align: center;
+	cursor: pointer;
+	margin-right: 10px;
+}
+
+.rsslistout > td > input {
+	text-align: center;
+	width: 100%;
+}
+
+     .wrap-loading{ /*화면 전체를 어둡게*/
+          position: fixed;
+          left:0;
+          right:0;
+          top:0;
+          bottom:0;
+          background: rgba(0,0,0,0.2); /*not in ie */
+          filter: progid:DXImageTransform.Microsoft.Gradient(startColorstr='#20000000', endColorstr='#20000000');    /* ie */
+      }
+      
+      .wrap-loading div{ /*로딩 이미지*/
+          position: fixed;
+          top:50%;
+          left:50%;
+          margin-left: -21px;
+          margin-top: -21px;
+      }
+      
+      .wrap-loading div > img {
+         width: 20%;
+         height: 20%;
+      }
+
+      
+      .display-none{ /*감추기*/
+          display:none;
+       }
+       
+   /* rss컨텐츠박스들 */   
+   	
+   	#rssbox{
+   		height: 100%;
+   		overflow: scroll;
+   	}
+   	
+    .rssCountentImg{
+    	width: 100px;
+    	height: 150px;
+    }
+    
+    
+	.rssContent > *{
+		word-break:break-all;
+	}
+	
+	.rssContent{
+   		width: 40%;
+   		height: 170px;
+   		margin: 30px;
+   		display: inline-block;
+   		font-size: small;
+		overflow: hidden;
+	}
+	
+	.rssimg{
+    	width: 30%;
+    	height : 90%;
+	}    
+	
+	.rssauthor{
+		width: 30px;
+	}
+       
+	.rsstitle{
+		max-width : 55%;
+		width: 55%;
+    	height : 20%;
+	    overflow: inherit;
+		font-size: medium;
+		font-weight: bold;
+		word-break:break-all;
+		overflow: hidden;
+		text-overflow: ellipsis;
+   	    white-space: nowrap;
+	}
+	.rssdescription{
+    	height : 70%;
+		width: 70%;
+		word-break:break-all;
+  	 	overflow: hidden;
+	}
+	
+	.rsspubdate{
+    	height : 10%;
+	}
+
+		  .updateInput{
+	    	float:left;
+    		border-radius : 5px;
+    		height: 35px;
+    		background-color: lightgray;
+    		color: black;
+    		font-weight: normal;
+    		margin-right: 50px;
+    		
+    		
+	    }
+	    
+	     .updateInput:focus {
+    		transition: all ease 0.3s 0s;
+    		background-color: #DD0351;
+    		color: white;
+    		font-weight: normal;
+    	}
+
+
+
+
+
+
+
+
+

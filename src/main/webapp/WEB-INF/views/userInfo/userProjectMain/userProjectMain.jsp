@@ -81,25 +81,15 @@
 	                         <div id="alm-cont">
 	                         	<table class="alm-tb" style="cellpadding:30px; width:100%;">
 	                         		<tr>
-	                         			<th colspan="2" style="font-weight:100; text-align: left;">2020년 8월</th>
-	                         			
+	                         			<th colspan="2" style="font-weight:100; text-align: left;">프로젝트💾</th>
 	                         		</tr>
+	                         		
+	                         		<c:forEach var="j" begin="0" end="${ alertList-5 }">
 	                         		<tr>
-	                         			<th colspan="2"></th>
+	                         			<td style="border-bottom:1px solid #E8E8E8; font-weight:300; width:20%; text-align: center;"></td>
+	                         			<td style="border-bottom:1px solid #E8E8E8; font-weight:300;">프로젝트가 업데이트 되었습니다.🔔</td>
 	                         		</tr>
-	                         		<tr>
-	                         			<th colspan="2"></th>
-	                         		</tr>
-	                         		<tr>
-	                         			<th colspan="2"></th>
-	                         		</tr>
-	                         		<tr>
-	                         			<th colspan="2"></th>
-	                         		</tr>
-	                         		<tr>
-	                         			<td style="border-bottom:1px solid #E8E8E8; font-weight:300; width:20%; text-align: center;">심다윤</td>
-	                         			<td style="border-bottom:1px solid #E8E8E8; font-weight:300;">얼른 하고싶다..</td>
-	                         		</tr>
+	                         		</c:forEach>
 	                         	</table>
 	                         </div>
 	                     </div>
@@ -159,8 +149,8 @@
                                <div class="pie-chart1"><span class="center"><p id="to-ch">${ nonTaskCnt + ingTaskCnt + comTaskCnt }</p><p id="to-ch-ti">전체업무</p></span></div>
                                 <div id="cht-st">
 	                               <div id="no-ch" class="cht-tt"><img src="/agile/resources/images/indiv/main/userInfo/userProjectMain/img_non_task.png" width="10px;" height="10px;"> 미진행</div><span id="no-ch-to">${ nonTaskCnt }</span><br>
-		                           <div id="ing-ch" class="cht-tt"><img src="/agile/resources/images/indiv/main/userInfo/userProjectMain/img_ing_task.png" width="10px;" height="10px;"> 진행중 </div><span id="ing-ch-to">${ ingTaskCnt }</span><br>
-		                           <div id="com-ch" class="cht-tt"><img src="/agile/resources/images/indiv/main/userInfo/userProjectMain/img_com_task.png" width="10px;" height="10px;"> 완료</div><span id="com-ch-to">${ comTaskCnt }</span>
+		                           <div id="ing-ch" class="cht-tt"><img src="/agile/resources/images/indiv/main/userInfo/userProjectMain/img_com_task.png" width="10px;" height="10px;"> 진행중 </div><span id="ing-ch-to">${ ingTaskCnt }</span><br>
+		                           <div id="com-ch" class="cht-tt"><img src="/agile/resources/images/indiv/main/userInfo/userProjectMain/img_ing_task.png" width="10px;" height="10px;"> 완료</div><span id="com-ch-to">${ comTaskCnt }</span>
 	                           </div>
                             </div>
                            <!--  <script src="https://www.amcharts.com/lib/4/core.js"></script>
@@ -346,7 +336,7 @@
 				
 			    setTableHTML+='<table width="100%;">';
 			    setTableHTML+='<thead>';
-			    setTableHTML+='<tr><th class="th-title" style="font-size: 27px;" colspan="2">Calendar</th>';
+			    setTableHTML+='<tr><th class="th-title" style="font-size: 27px;" colspan="2">Calendar📆</th>';
 			    setTableHTML+='<tr><td colspan="2" style="text-align:center;">' + day + ", " + mon2 + '</td></tr>';
 			    setTableHTML+='</thead>';
 			    setTableHTML+='<tbody style="padding: 20px;">';
@@ -354,7 +344,7 @@
 			    for(var i=0;i<7;i++){
 			        setTableHTML+='<tr style="font-size: 12px;">';
 			        setTableHTML+='<td width="60px" height="100px">';
-			        setTableHTML+= '<div id="cal-day'+ j + '" style="display:inline-block;">' + thisWeek[i] + '</div>';
+			        setTableHTML+= '<div id="cal-day" style="display:inline-block;">' + thisWeek[i] + '</div>';
 			        setTableHTML+='<br>';
 				     	
 				        if(today == 0) {
@@ -400,32 +390,61 @@
 			    //firstDay = new Date(year,mon-1,1);
 		        //lastDay = new Date(year,mon,0);
 			    var temp;
-						//for(var j=0; j<7; j++){
 				for(var i=0; i<data.myTasks.length; i++){
 					
-					if(data.myTasks[i].myTasksShareYN != temp){
-						
-						var startDateArr = data.myTasks[i].myTasksstartDate.split('-');
-						var startYear = startDateArr[0];
-						var startMonth = startDateArr[1];
-						var startDate = startDateArr[2];
-						
-						console.log(startYear);
-						console.log(startMonth);
-						console.log(startDate);
-						
-						//시작일자 캘린더에 넣어주기
-						//console.log($('#cal-day'+j).text());
-							if($('#cal-day').html() == startDate){
-							    var myTaskscontents = ('<li>' + data.myTasks[i].myTaskscontents + '</li>');
+					if (data.myTasks[i].myTasksShareYN == temp)
+						continue;
+					
+					var startDateArr = data.myTasks[i].myTasksstartDate.split('-');
+					var startYear = startDateArr[0];
+					var startMonth = startDateArr[1];
+					var startDate = startDateArr[2];
+					
+					console.log(startYear);
+					console.log(startMonth);
+					console.log(startDate);
+					
+					if(startMonth == '01'){
+						startMonth = 'Jan';
+					} else if(startMonth == '02'){
+						startMonth = 'Feb';
+					} else if(startMonth == '03'){
+						startMonth = 'Mar';
+					} else if(startMonth == '04'){
+						startMonth = 'Apr';
+					} else if(startMonth == '05'){
+						startMonth = 'May';
+					} else if(startMonth == '06'){
+						startMonth = 'Jun';
+					} else if(startMonth == '07'){
+						startMonth = 'Jul';
+					} else if(startMonth == '08'){
+						startMonth = 'Aug';
+					} else if(startMonth == '09'){
+						startMonth = 'Sep';
+					} else if(startMonth == '10'){
+						startMonth = 'Oct';
+					} else if(startMonth == '11'){
+						startMonth = 'Nov';
+					} else if(startMonth == '12'){
+						startMonth = 'Dec';
+					}
+					
+					console.log(mon2);
+					//시작일자 캘린더에 넣어주기
+					//console.log($('#cal-day'+j).text());
+					for(var j=0; j<7; j++){
+						if(mon2 == startMonth){
+							if(thisWeek[j] == startDate){
+								console.log("thisweek : " + thisWeek[j]);
+							    var myTaskscontents = ('<ol class="circle"><li>' + data.myTasks[i].myTaskscontents + '</li>');
 							    
 								console.log(myTaskscontents);
-								$tdSche.append(myTaskscontents);
+								$tdSche.eq(j).append(myTaskscontents);
+								break;
 							}
-						 
 						}
-					//}
-					
+					}
 				}
 			    
 			    
@@ -449,49 +468,16 @@
     var ing2 = Math.round((ing/tot)*100);
     var com2 = Math.round((com/tot)*100);
 	
-	$(window).ready(function(){
-    
-    
-  /*   var max = 0;
-	var mid = 0;
-	var min = 0;
-	
-	  max = (num1>num2)&&(num1>num3)?num1:(num3>num2?num3:num2);
-      //num1이 num2보다 큰지 비교,num1이 num3보다 큰지 비교 둘 다 참이면 num1이 가장크다. 
-      min = (num2>num1)&&(num3>num1)?num1:(num2>num3?num3:num2);
-      //num2이 num1보다 큰지 비교,num3이 num1보다 큰지 비교해서 num1이 제일 작으면 저장 아니면 뒤의 수식 수행
-      mid = (num1>num2)?((num1>num3)?((num2>num3)?num2:num3):num1):((num2>num3)?((num1>num3)?num1:num3):num2);
-	
-      console.log(max);
-      console.log(mid);
-      console.log(min); */
-    
-    var func1 = setInterval(function(){
-	    	color1(non2);
-	 		color2(ing2);
-	 		color3(com2);
-		},10);
-    
-	});
+    $(window).ready(function(){
+        var func1 = setInterval(function(){
+    		color4(non2, non2+ing2, non2+ing2+com2);
+        });
+    });
 
-	
-	function color1(non2){
+	function color4(p1, p2, p3){
 	    $(".pie-chart1").css({
-	        "background":"conic-gradient(#C4C4C4 0% "+0+"%, #ffffff "+non2+"% 100%)"
+	        "background":"conic-gradient(#C4C4C4 0 "+p1+"%, #DD0351 0 "+p2+"%, #2B2B49 0 "+p3+"%)"
 	        });
-	    
-	}
-	function color2(ing2){
-	    $(".pie-chart1").css({
-	        "background":"conic-gradient(#C4C4C4 0% 25%, #DD0351 25% "+non2+"%, #ffffff "+ing2+"% 100%)"
-	        });
-	     
-	}
-	function color3(com2){
-	    $(".pie-chart1").css({
-	        "background":"conic-gradient(#C4C4C4 0% 25%, #DD0351 25% 70%, #2B2B49 70% "+non2+ing2+"%, #ffffff "+com2+"% 100%)"
-	        });
-	     
 	}
 	
 </script>

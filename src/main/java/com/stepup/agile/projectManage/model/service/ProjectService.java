@@ -3,6 +3,7 @@ package com.stepup.agile.projectManage.model.service;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.stepup.agile.projectManage.model.vo.Project;
 import com.stepup.agile.projectManage.model.vo.ProjectHistory;
@@ -19,6 +20,8 @@ public interface ProjectService {
 	List<ProjectHistory> selectTimelineProject(Member m);
 
 	int updateTimeline(HashMap<String, Object> map);
+
+	int selectAlert(Member m);
 	///////////////////////////////////////////////////////////////////////////////////
 
 	//프로젝트 메인페이지로 포워딩 (해당 멤버의 project list 조회 후 view 이동) 
@@ -38,6 +41,16 @@ public interface ProjectService {
 
 	//프로젝트 수정
 	int updateProjectOne(ProjectHistory projectHistory);
+
+	//프로젝트 멤버 추가를 위한 팀원 검색
+	List<Member> searchTeamMember(Member m);
+
+	//프로젝트 멤버 추가
+	int insertUserProjectMember(Map<String, Object> map);
+
+	//중복으로 추가되지 않도록 유저프로젝트 소속 여부 확인해보기
+	UserProjectList checkBelongTo(Map<String, Object> map);
 	
 	
 }
+

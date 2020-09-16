@@ -1,11 +1,11 @@
 package com.stepup.agile.userMyTasks.model.service;
 
-import java.util.List;
+import java.util.List; 
 
 import com.stepup.agile.userInfo.model.vo.Member;
 import com.stepup.agile.userMyTasks.model.vo.MyTask;
 import com.stepup.agile.userMyTasks.model.vo.MyTaskShare;
-
+ 
 public interface MyTasksService {
 
 	List<MyTask> selectTaskList(Member m);

@@ -5,12 +5,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.stepup.agile.projectBacklog.model.vo.SprintHistory;
 import com.stepup.agile.projectManage.model.vo.Project;
+import com.stepup.agile.projectTask.model.vo.Bookmark;
 import com.stepup.agile.projectTask.model.vo.ReplyHistory;
 import com.stepup.agile.projectTask.model.vo.ReplyList;
 import com.stepup.agile.projectTask.model.vo.TaskHistory;
 import com.stepup.agile.projectTask.model.vo.TaskList;
 import com.stepup.agile.userInfo.model.vo.Member;
+import com.stepup.agile.userInfo.model.vo.UserTeamList;
 
 public interface TaskService {
 	//1.Task생성
@@ -78,14 +81,20 @@ public interface TaskService {
 	int insertCloneTask2(HashMap<String, Object> map2);
 	//14.삭제 이벤트
 	int deleteCloneTask(HashMap<String, Object> map);
-	
+	//15.버그모드
+	int insertBug(HashMap<String, Object> map);
+	//16.북마크추가
+	int checkBookmark(Bookmark bookmark);
+	//17.북마크취소
+	int delteBookmark(int bookmarkCode);
+
 	
 	//Bug
 	List<TaskHistory> selectUserTask(Member m);
 	
 	String selectPjNonTask(Map<String, Object> map);
 	
-	List<TaskHistory> selectBugTask(Member m);
+	List<TaskHistory> selectBugTask(HashMap<String, Object> map);
 
 	List<TaskList> selectBugCont(HashMap<String, Object> map);
 
@@ -96,8 +105,67 @@ public interface TaskService {
 	int deleteCloneBug(HashMap<String, Object> map);
 
 	List<TaskHistory> searchBug(HashMap<String, Object> map);
+
+	
+	
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+
+
+	
+	
+	
+
 	
 	//miso Kim's task ------------------------------------------------------------------------------------
 	//테스크 리스트 조회 후 보드 메인 view로 이동(현재 진행중인 스프린트의 tasklist만 조회)
 	List<TaskHistory> selectTaskList(HashMap<String, Object> map);
+ 	//플래그 추가
+	int insertTaskHistoryFlagYes(TaskHistory taskHistory);
+ 	//플래그 제거
+	int insertTaskHistoryFlagNo(TaskHistory taskHistory);
+	//레이블 제거
+	int insertTaskHistoryLabelNo(TaskHistory taskHistory);
+	//테스크 삭제
+	int insertTaskHistoryTaskDelete(TaskHistory taskHistory);
+	//레이블 리스트 조회(레이블 추가 기능에서 기존 레이블 실시간 조회후 리스트 보여주기)
+	List<TaskHistory> selectLabelList(Map<String, Object> map);
+	//레이블 추가	
+	int insertTaskHistoryLabelYes(TaskHistory taskHistory);
+	//특정 테스크의 최근 담당자 및 관리자 조회(taskHistory insert시 필요한 정보)	
+	TaskHistory selectTaskUserAndMaster(int taskCode);
+	//스프린트 리스트 실시간 조회 (현재 프로젝트 코드 기준으로 테스크 상위항목 변경 위해 조회해온다.)	
+	List<SprintHistory> selectSprintList(Map<String, Object> map);
+	//테스크 진행상태 변경 (드래그앤드롭 기능)
+	int insertTaskHistoryTaskProceeding(TaskHistory taskHistory);
+	//하위 테스크 headTaskCode 업데이트 (드래그앤드롭 기능)	
+	int updateTaskListHeadTaskCode(TaskList taskList);
+	//사용자 팀코드 조회
+	UserTeamList selectUserTeamCode(Member m);
+	//팀 멤버 조회
+	List<Member> selectUserMemberList(int teamCode);
+	//팀코드 조회
+	int selectTeamCode(int userTeamCode);
+	//상위 항목 변경(테스크의 스프린트 변경)
+	int updateTaskSprintCode(Map<String, Object> map);
+	//최신 스프린트 히스토리 조회
+	SprintHistory selectRecentSprintHistory(int sprintCode);
+	//스프린트 종료
+	int insertSprintHistorySprintType(SprintHistory sprintHistory);
+	
+	
 }
