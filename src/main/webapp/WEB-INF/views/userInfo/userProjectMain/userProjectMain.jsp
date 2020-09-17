@@ -13,8 +13,8 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/common/nav.js"></script>
 <body>
 	<body>
-   <%@ include file="../../common/menubar.jsp" %>
-            <div id="content">
+   <%@ include file="../../common/nav.jsp" %>
+            <div id="content-nav-only">
                 <div id="main-cont-area">
                    <div id="status-area">
                       <div id="not-task">

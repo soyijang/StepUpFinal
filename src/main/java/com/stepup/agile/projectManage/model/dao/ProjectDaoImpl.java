@@ -46,6 +46,7 @@ public class ProjectDaoImpl implements ProjectDao{
 		return sqlSession.selectOne("Project.selectProjectAlert", m);
 	}
 	
+																									
 	@Override
 	public int selectSprintAlert(SqlSessionTemplate sqlSession, Member m) {
 		return sqlSession.selectOne("Project.selectSprintAlert", m);
@@ -111,10 +112,6 @@ public class ProjectDaoImpl implements ProjectDao{
 		return sqlSession.selectOne("Project.checkBelongTo", map);
 
 	}
-
-	
-	
-
 
 
 }

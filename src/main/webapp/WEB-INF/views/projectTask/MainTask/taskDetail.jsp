@@ -296,7 +296,7 @@ input[type="checkbox"] {
                 <td class="rTitle">시간추적</td>
              </tr>
              <tr>
-                <td><img src = "/agile/resources/icon/common/icon_clock.png"></td>
+                 <td><img src = "/agile/resources/icon/common/icon_clock.png"></td>
              <!--    <td><a href = "javascript:void(0)" 
                 onclick = "document.getElementById('light').style.display='block';document.getElementById('fade').style.display='block'">여기</a></td>  -->
                 <input type="hidden" name="taskCategoryCode9" id="taskCategoryCode9" value="B">
@@ -363,26 +363,32 @@ input[type="checkbox"] {
    <!-- 시간 추적 -->
       <div id="light" class="white_content">
          <div id="header">
-                <h3>시간 추적</h3>
-                <div class="result"><img src = "/agile/resources/icon/common/icon_clock.png" id="clockImg"></div>
-                <div><label id="graph">그래프</label></div>
-                <div class="timeSet"><input type="text"></div><div class="timeSet"><input type="text"></div>
+                <h3><img src = "/agile/resources/icon/common/icon_clock.png" id="clockImg">시간 추적</h3>
+               <!--  <div class="result"><img src = "/agile/resources/icon/common/icon_clock.png" id="clockImg"></div> -->
+                <!-- <div><label id="graph">그래프</label></div> -->
+               <!--  <div class="timeSet"><input type="text"></div><div class="timeSet"><input type="text"></div> -->
+
                
             </div>
             <div id="medium">
+            	<div>
+                	<div id="startDate" value="">시작한날짜 : </div>
+            	</div> 
                 <div id="during">
-                    <div id="expect-left" class="leftTime">예상 소요시간 : </div>
-                    <div id="leftTime" class="leftTime">남은시간 : </div>
+                    <div id="expect-left" class="leftTime" value="">예상 종료 시간 : </div>
                 </div>
-                    <div><label id="expect-left-modal" class="takenTime"></label><label id="left-modal" class="takenTime"></label></div>
+                 <div id="last" style="height:30px;">
+                 	<div id="leftTime" class="leftTime" value="" style="margin:0;">남은시간 : </div>
+                 </div>
+                    <!-- <div><label id="expect-left-modal" class="takenTime"></label><label id="left-modal" class="takenTime"></label></div> -->
             </div>
-            <div>
-                <div id="startDate">시작한날짜 : </div>
-             </div>    
-            <div><button id="rectangle6">저장</button></div>
-            <div><button id="rectangle7">
-      <a href = "javascript:void(0)" onclick = "document.getElementById('light').style.display='none';document.getElementById('fade').style.display='none'">닫기</a></button></div>
+       <div id="Btns" style="height:30px;">        
+            <div><button id="rectangle6" style="float:left; margin-left:120px;">저장</button></div>
+            <div><button id="rectangle7" style="float:left; margin-left:10px;">
+     		<a href = "javascript:void(0)" onclick = "document.getElementById('light').style.display='none';document.getElementById('fade').style.display='none'">닫기</a></button></div>
         <div id="fade" class="black_overlay"></div>
+        </div>
+
      </div>   
      
    <!-- 로딩중 -->
@@ -560,7 +566,9 @@ input[type="checkbox"] {
       });
    });
    
-    //예상시간 정규표현식
+
+    /*//예상시간 정규표현식
+
     function parse (str) {
                      // validate year as 4 digits, month as 01-12, and day as 01-31 
                      if ((str = str.match (/^(\d{4})(0[1-9]|1[0-2])(0[1-9]|[12]\d|3[01])$/))) {
@@ -573,9 +581,11 @@ input[type="checkbox"] {
                         alert("20200918의 패턴으로 작성해주세요")
                      }
                      return str;
-              }
+
+              }*/
     
     
+
    //input type text에서 엔터치면 실행되는 함수
    function enterkey() {
       if(window.event.keyCode == 13){
@@ -584,9 +594,11 @@ input[type="checkbox"] {
    }
    
     //날짜 변경
-    $(function(){
+
+/*     $(function(){
        $('#expectText').datepicker({ dateFormat: 'YYYY- mm-dd' });   
-    });
+    }); */
+
 /*   var expectText = document.frmWork.txtHpDate.value;
    var dateSplit = inputDate.split("-");
    
@@ -621,11 +633,13 @@ input[type="checkbox"] {
            toggleActionStart(toggleFG, 'TO_RIGHT');
        }
    }); */
+
    
    $('#bugMode').click(function(){
       $('#taskicon').attr('src', '/agile/resources/icon/common/icon_fillround.png');
    });
    
+
    function autologin(img) {
         if(img.checked) {
             img.checked = false;
@@ -824,7 +838,10 @@ input[type="checkbox"] {
                 $tr.append($titleTd);
                 
                 /* taskSelect.eq(6).append($tr); */
-                taskSelect.append($img).append($testNumTd).append($titleTd);
+
+               /* taskSelect.append($img).append($testNumTd).append($titleTd);*/
+               taskSelect.append($tr);
+
                 
                 $('#subTaskLink').click(function(){
                    $('#taskDetailModal').css('display','none');
@@ -1244,7 +1261,11 @@ input[type="checkbox"] {
    //9.최초예상 선택
     function insertExpect(){
 
+<<<<<<< HEAD
        var expectText = $('#expectText').datepicker({ dateFormat: 'YYYY- mm-dd' }).val();
+=======
+       var expectText = $('#expectText').val();
+>>>>>>> origin/feature/15/taskdetail
        var taskCode = $('#taskCode').val();
        var taskCategoryCode = $('#taskCategoryCode8').val();
        console.log(taskCode);
@@ -1281,7 +1302,25 @@ input[type="checkbox"] {
        
        return false;
     }   
+<<<<<<< HEAD
    //10.시간추적 선택
+=======
+   //10.남은시간 계산
+   $(function(){
+	   var start = $('#startDate').val();
+	   var expectEnd = $('#expect-left').val();
+		   
+/*	   var leftTime = $('#leftTime').val(expectEnd - start);*/
+		
+		var dateS = new Date(start);
+		var dateE = new Date(expectEnd);			
+		var hm = (dateE.getTime() - dateS.getTime())/24/60/60/1000;
+		
+		$('#leftTime').val(hm);
+/*		document.getElementById("#leftTime").value = hm;*/
+   });
+   
+>>>>>>> origin/feature/15/taskdetail
          
    //11.우선순위 선택
    function taskProperty1(){
@@ -1418,8 +1457,13 @@ input[type="checkbox"] {
           success: function(data){
              console.log("성공!");
              console.log(data.taskHistory.taskHistUpdateDate);
+<<<<<<< HEAD
              $('#startDate').append(data.taskHistory.taskHistUpdateDate).append(data.taskHistory.taskHistUpdateTime);
             
+=======
+             $('#startDate').append(data.taskHistory.taskHistUpdateDate);
+             $('#startDate').val(data.taskHistory.taskHistUpdateDate);
+>>>>>>> origin/feature/15/taskdetail
              var str = $('#expect-left').text();
               
              

@@ -358,7 +358,7 @@
                        )
                    WHERE RK = 1)
    </select>
-   
+
    <select id="selectSprintAlert" resultType="int">
    		SELECT COUNT(*)
         FROM ALERT_LIST
@@ -383,6 +383,7 @@
                        )
                    WHERE RK = 1)
    </select>
+
 
       <!-- miso1 -->
    <!-- Project Insert -->

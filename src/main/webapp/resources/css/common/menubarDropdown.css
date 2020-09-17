@@ -1,28 +1,38 @@
-@charset "UTF-8";
+
  .myInfodropdown {
-    width: 150px; 
+    width: 70px; 
     display: inline-block;
     background-color: #2B2B49;
-    box-shadow: 0 0 2px #cccccc;
     transition: all .5s ease;
     position: relative;
     font-size: 14px;
     color: #474747;
-    height: 100%;
+    height: 20px;
     text-align: center;
+    border: 0px;
+    outline: none;
+    margin-top: -5px;
   /*  margin-right: 30px;
     margin-left: 30px;
     border-radius: 10px;
     border: 1px solid #dd0351;*/
   }
+  
+  #downIcon{
+  	margin-bottom: 7px;
+  }
+  
+  .profileArea{
+  	width: 20px;
+  }
+  
   .myInfodropdown-menu {
   	width:200px;
   } 
   .myInfodropdown .select {
       cursor: pointer;
       display: block;
-      padding: 5px;
-      width:36px;
+      width:70px;
   }
   .myInfodropdown .select > i {
       font-size: 13px;
@@ -43,7 +53,6 @@
   }
   .myInfodropdown.active:hover,
   .myInfodropdown.active {
-      box-shadow: 0 0 4px #FEF5F8;
       border-radius: 2px 2px 0 0;
       background-color: #2B2B49;
   }
@@ -64,14 +73,20 @@
       overflow-y: auto;
       z-index: 9
   }
-  .myInfodropdown .myInfodropdown-menu li {
-      padding: 5px;
+  .myInfodropdown .myInfodropdown-menu li{
       transition: all .2s ease-in-out;
       cursor: pointer
+  }
+  
+  .myInfodropdown-menu li {
+      padding: 5px;
   } 
+  
   .myInfodropdown .myInfodropdown-menu {
       padding: 0;
-      list-style: none
+      list-style: none;
+      width: 200%;
+      margin-left: -120%;
   }
   .myInfodropdown .myInfodropdown-menu li:hover {
       color: #dd0351;

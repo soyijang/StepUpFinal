@@ -22,7 +22,7 @@
     <div id="content" class="click-area">
         <!-- 상단 프로젝트 제목 및 메뉴 이름 영역 -->
         <div id="contentTitle">
-            <div id="projectTitle2">프로젝트 / ${bgList.get(i).projectName}</div>
+            <div id="projectTitle2"><a href="showProjectMain.pj">🚀내 프로젝트 </a> / ${bgList.get(i).projectName}</div>
             <div id="menuTitle">이슈 게시판</div>
         </div>
         <div id="contentBox">
@@ -61,19 +61,19 @@
 			<div id="bug-detail-area">
 				<div id="bug-detail">
 					<div id="bg-num">
-						<div id="bugicon" style="margin-left: 30px; margin-top:25px;"></div>&nbsp;&nbsp;BUG-
+						<!-- <div id="bugicon" style="margin-left: 30px; margin-top:25px;"></div>&nbsp;&nbsp; -->
 					</div>
 					<div id="bg-detail-title">
 						<table width="100%" id="bg-tb-title">
 						<tbody id="bg-tbody">
 							<tr>
-								<td id="bgtitle-td"><div id="bug-issue-title">제목</div></td>
+								<td id="bgtitle-td"><div id="bug-issue-title"></div></td>
 								<td style="text-align:right;"><!-- <img src="/agile/resources/images/profile/dayoon_202008152056.png"> --></td>
 								<td>
 									<div class="dropdown2-area">
 									<div class="dropdown2">
 								        <div class="select2">
-								              <button class="clone-delete-btn" style="display: none;" id="clone-deleteBtn"><img src="/agile/resources/icon/common/icon_more%20horizontalicon.png" width="20px;" height="20px;"></button>
+								              <button class="clone-delete-btn" id="clone-deleteBtn"><img src="/agile/resources/icon/common/icon_more%20horizontalicon.png" width="20px;" height="20px;"></button>
 								          <i class="fa fa-chevron-left"></i>
 								        </div>
 								        <ul class="dropdown-menu2">
@@ -92,7 +92,7 @@
 						</table>
 					</div>
 					<div id="bg-detail">
-						<div id="detail-ex">설명</div>
+						<!-- <div id="detail-ex">설명</div> -->
 						<div id="detail-cont"></div>
 					</div>
 					<div id="re-show-area-wrap">
@@ -212,7 +212,6 @@
 	var bcode;
 	var bugYN;
 	var bugStatus;
-	var bugCont;
 	var sprintCode = "";
 	var taskLevel = "";
 	var tLevel;
@@ -245,35 +244,33 @@
 			
 		});
 
-	
-	//버그리스트 누르면 상세 영역에 버그제목하고 코드가져오기
-	$(document).on("click", ".bug-list-detail", function(){
-		var showBtn = $("#clone-deleteBtn").show();  
+	//첫 화면 올때 첫번째 버그의 제목, 스프린트 버그, 테스크 코드, 버그 설명 등 가져오기
+	window.onload = function(){
+		var a = $("#bug-code-list1").text();
+		console.log(a);
+		var bugCodeId3 = a.split("-");
+		var realBugCode = bugCodeId3[1];
+		console.log("아이디4 : " + realBugCode);
+		realBugCode = realBugCode.trim();
 		
-		var showReply = $("#re-ed-show").show();
-		
-		var div2 = "";
-		div2 += '<div id="bug-issue-title">' + bugtitle + '</div>';
-		$("#bgtitle-td").html(div2);
-		
-		bcode = bugcode.substring(4, 7);
-		
-		var values = [];
+		var b = $("#bug-ti-list").text();
+		var realBugName = b;
 		
 		$.ajax({
 			url:"selectBugCont.tk",
 			type:"post",
-			data:{"tCode" : bcode2},
+			data:{"tCode" : realBugCode},
 			dataType : "json",
 			success: function(data){
-				
-				
 				values = data.bgContList;
 				var sCode = [];
 				console.log(data.bgContList);
 				 var bgList = $.each(values, function(index, value){
 					 if(value.taskCategoryCode == "H"){
-						bugCont = value.taskHistValue;
+						if(value.taskHistValue != ""){
+							bugCont = value.taskHistValue;
+							console.log("bugCont1 : " + value.taskHistValue);
+						}
 					} else if(value.taskCategoryCode == "J"){
 						bugTitle = value.taskHistValue;
 					} else if(value.taskCategoryCode == "G"){
@@ -294,6 +291,9 @@
 	      	      var updateDate = [];
 	      	      var replyCont = [];
 	      	      var cnt = 0;
+	      	      
+	      	      console.log("버그 설명 : " +bugCont);
+	      	      console.log("버그 설명 : " +bugCont);
 	      	      
 				 if(replyArr != null){
 	      	      var replyList = $.each(replyArr, function(index, value){
@@ -331,9 +331,168 @@
 					console.log(sprintCode);
 					
 				 var div3 = "";
-				 div3 += bugCont + '</div>';
-					$("#detail-cont").html(div3);
+				 
+				 if(bugCont == ""){
+					 bugCont = "설명을 입력하세요";
 					
+				 } 
+				 
+				 div3 += '<div id="detail-ex">설명</div><div id="detail-cont">' + bugCont + '</div>';
+				 $("#bg-detail").html(div3);
+				 
+				 
+				 var div10 = "";
+				 
+				 div10 += realBugName + '</div>';
+				 $("#bug-issue-title").html(div10);
+				 
+				 
+				 
+				var div4 = "";
+				if(bugStatus == "완료"){
+					div4 += '<img src="/agile/resources/images/indiv/main/projectTask/bug/img_bug_com_status.png" width="70px;" height="20px;"></div>';
+				} else if(bugStatus == "미진행"){
+					div4 += '<img src="/agile/resources/images/indiv/main/projectTask/bug/img_bug_non_status.png" width="70px;" height="20px;"></div>';
+				} else if(bugStatus == "진행중"){
+					div4 += '<img src="/agile/resources/images/indiv/main/projectTask/bug/img_bug_ing_status.png" width="70px;" height="20px;"></div>';
+				}
+				$("#bug-status").html(div4);	
+				 
+				var div = "";
+				div += '<div id="epicicon" style="margin-left:30px; margin-top:25px; display:inline-block;"></div> SPRINT-' + sprintCode + ' /' + '<div id="bugicon" style="margin-left: 10px; margin-top:25px;">&nbsp;&nbsp;</div> BUG - ' + realBugCode;
+				$("#bg-num").html(div);
+				
+				
+				$("#re-ed-show").show();
+				
+				
+				if(replyArr.length > 0){
+      	        var replyuserNameArr = replyuserName.split(",");
+				var updateDateArr = updateDate.split(",");
+				var replyContArr = replyCont.split(",");
+				
+				$("div#re-show-area").remove();
+				  for(var i = 0; i < replyuserNameArr.length-1; i++){
+					$("#re-show-area-wrap").append('<div id="re-show-area">'
+					+ '<div id="re-show-pro">' + replyuserNameArr[i].slice(-2) + '</div><div id="re-show-cont">'	 
+					+ '<div id="re-name-date-area"><div id="re-name">' + replyuserNameArr[i]
+					+  '</div><div id="re-date">' + updateDateArr[i] + '</div></div> <div id="re-show-cont-area">'
+					+ replyContArr[i] + '</div></div></div>'
+					 );
+				} 
+			} else {
+				$("div#re-show-area").remove();
+			}
+      	      
+			}, error: function(data){
+			},
+			 beforeSend : function(){
+                $('.wrap-loading').removeClass('display-none');
+            },
+             complete : function(){
+                   $('.wrap-loading').addClass('display-none');
+            }
+		})
+	};
+	
+	
+	//버그리스트 누르면 상세 영역에 버그제목하고 코드가져오기
+	$(document).on("click", ".bug-list-detail", function(){
+		var showBtn = $("#clone-deleteBtn").show();  
+		
+		var showReply = $("#re-ed-show").show();
+		
+		var div2 = "";
+		div2 += '<div id="bug-issue-title">' + bugtitle + '</div>';
+		$("#bgtitle-td").html(div2);
+		
+		bcode = bugcode.substring(4, 7);
+		var bugCont = "";
+		var values = [];
+		
+		$.ajax({
+			url:"selectBugCont.tk",
+			type:"post",
+			data:{"tCode" : bcode2},
+			dataType : "json",
+			success: function(data){
+				
+				
+				values = data.bgContList;
+				var sCode = [];
+				console.log(data.bgContList);
+				 var bgList = $.each(values, function(index, value){
+					 if(value.taskCategoryCode == "H"){
+						if(value.taskHistValue != ""){
+							bugCont = value.taskHistValue;
+							console.log("bugCont1 : " + value.taskHistValue);
+						}
+					} else if(value.taskCategoryCode == "J"){
+						bugTitle = value.taskHistValue;
+					} else if(value.taskCategoryCode == "G"){
+						bugYN = value.taskHistValue;
+					} else if(value.taskCategoryCode == "I"){
+						bugStatus = value.taskHistValue;
+					}
+					  sCode = value.sprint;
+					  taskLevel = value.taskList;
+					  
+					  uName = value.member;
+					  
+					});
+				 
+				 var replyArr = data.replyHistory;
+	      	      var thumbnail = [];
+	      	      var replyuserName = [];
+	      	      var updateDate = [];
+	      	      var replyCont = [];
+	      	      var cnt = 0;
+	      	
+	      	      
+				 if(replyArr != null){
+	      	      var replyList = $.each(replyArr, function(index, value){
+	      	    	      cnt++;
+		        		  //thumbnail += (data.replyHistory.attachment.thumbnailPath);
+		        		  //if(cnt != index){
+		        		  //  thumbnail += ", ";
+		        		  //}
+		        		  replyuserName += (value.member.userName);
+		        		  if(cnt != index){
+		        			  replyuserName += ", ";
+		        		  }
+		        		  updateDate += (value.replyUpdateDate);
+		        		  if(cnt != index){
+		        			  updateDate += ", ";
+		        		  }
+		        		  replyCont += (value.replyContents);
+		        		  if(cnt != index){
+		        			  replyCont += ", ";
+		        		  }
+		        	  });
+				 }
+				 	console.log(replyList);
+	      	      	
+				 	console.log("버그 진행 : " + bugStatus);
+				 	
+				 	tLevel = taskLevel.taskLevel;
+				 	taskMaster = taskLevel.taskMaster;
+				 	headCode = taskLevel.headTaskCode;
+				 	console.log("테스크레벨 : " + tLevel);
+				 	console.log("테스크마스터 : " + taskMaster);
+				 	console.log("헤드테스크코드 : " + headCode);
+				 	
+				 	sprintCode = sCode.sprintCode;
+					console.log(sprintCode);
+					
+				 var div3 = "";
+				 
+				 if(bugCont == ""){
+					 bugCont = "설명을 입력하세요";
+				 } 
+				 
+				 div3 += bugCont + '</div>';
+				 $("#detail-cont").html(div3);
+				 
 				var div4 = "";
 				if(bugStatus == "완료"){
 					div4 += '<img src="/agile/resources/images/indiv/main/projectTask/bug/img_bug_com_status.png" width="70px;" height="20px;"></div>';
@@ -594,7 +753,7 @@
 			data:{"taskHistValue" : searchBug},
 			dataType : "json",
 			success: function(data){
-				
+				if(!data.searchBugList1){
 				var searchArr2 = data.searchBugList1;
 				var searchBugTitle =[];
 				var searchBugContent;
@@ -639,6 +798,7 @@
 					 );
 				} 
 					
+			}
 			},
 			error: function(data){
 				console.log("실패");
@@ -660,6 +820,7 @@
 			data:{"taskHistValue" : searchBug},
 			dataType : "json",
 			success: function(data){
+				if(!data.searchBugList1){
 				var searchArr2 = data.searchBugList1;
 				var searchBugTitle2 =[];
 				var searchBugContent;
@@ -708,7 +869,7 @@
 					 );
 				} 
 				 
-					
+				}	
 			},
 			error: function(data){
 				console.log("실패");

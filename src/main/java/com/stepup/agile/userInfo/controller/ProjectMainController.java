@@ -45,6 +45,7 @@ public class ProjectMainController {
 	
 		int alertList = ps.selectAlert(m);
 		int alertList2 = ps.selectSprintAlert(m);
+
 		
 		List<Project> pjName = ps.selectUserProject(m);
 		List<Project> pjName2 = ps.selectUserProject2(m);
@@ -84,6 +85,7 @@ public class ProjectMainController {
 	System.out.println(ingTaskCnt);
 	System.out.println(comTaskCnt);
 		
+
 	model.addAttribute("alertList2", alertList2);
 	model.addAttribute("alertList", alertList);
 	model.addAttribute("pjList", pjName);

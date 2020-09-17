@@ -50,10 +50,13 @@
             display: inline-block;
             float: left;
             margin-left: 20px;
+
         }
+/* 
         #leftTime {
             margin-left: 130px;
-        }
+        } */
+
         #during{
             height: 30px;
         }

@@ -14,8 +14,8 @@
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/indiv/userInfo/myInfo/myInfo.css">
 </head>
 <body>
-	<%@ include file="../../common/menubar.jsp"%>
-	<div id="content" style="padding: 0px; padding-top: -20px">
+	<%@ include file="../../common/nav.jsp"%>
+	<div id="content-nav-only" style="padding: 0px; padding-top: -20px">
 		<!-- 배경화면 입력 -->
 		<form action="makebackImage.me" method="post" enctype="multipart/form-data">
 		<input type="file" name="picture" multiple="true" id="backInput" value="">
