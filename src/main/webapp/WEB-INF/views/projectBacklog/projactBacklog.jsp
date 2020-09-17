@@ -459,6 +459,7 @@
 								var taskFinish = 0;	
 								var taskIng = 0;
 								var taskTotal = 0;
+								var pointAverage = 0;
 							
 								if(data.sprintTaskList.length > 0){
 									var taskCode = [];
@@ -474,6 +475,15 @@
 											count++;
 										}
 									}
+									
+									//포인트구하기
+									for(var i = 0 ; i<data.sprintTaskList.length-1; i++){
+										if(data.sprintTaskList[i].taskCategoryCode== 'D'){
+											pointAverage += Number(data.sprintTaskList[i].taskHistValue);
+										}
+									}
+									pointAverage = (pointAverage/data.sprintTaskList.length) ;
+									$('.pointAverage').html(Math.ceil(pointAverage)+'pts');
 									
 									//같은 taskCode끼리 묶어서
 									for(var i = 0; i<taskCode.length; i++){
