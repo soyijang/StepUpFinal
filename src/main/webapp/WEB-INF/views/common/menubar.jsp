@@ -26,7 +26,7 @@
         		<tr>
         			<th id="logoArea"><a href="selectUserProject.me"><img alt="스탭업 홈으로 가기" src="/agile/resources/images/logo/logo_stepup_nav.png"></a></th>
         			<!-- <th class="navIcon"><a href="showProjectMain.pj">Project<img src="/agile/resources/icon/common/icon_down_chevron_nav.png"></a></th> -->
-        			        			<th class="navIcon">
+        			<th class="navIcon">
 		                 <div class="dropdown-project">
 		                    <p class="navIcon">Project<img src="/agile/resources/icon/common/icon_down_chevron_nav.png"></p>
 		                    <div class="dropdown-project-content">
@@ -57,20 +57,19 @@
         				</div>
         			</th>
         			<th class="profileArea navRightIcon">
+        			<div class="myInfodropdown">
         				
-        				<div class="myInfodropdown">
-                    <div class="select">
-                         <img id="profile" class="clone-delete-btn" src="/agile/resources/icon/common/icon_user.png">                    
-					<i class="fa fa-chevron-left"></i>
-                    </div>
-                    <ul class="myInfodropdown-menu">
-                      <li id="user"><c:out value="${ sessionScope.loginUser.userName }"/></li>
-                      <li id="work"><a href="profile.me">프로필설정</a></li>
-                      <li id="rest">피드백 보내기</li>
-                      <li id="travel"><a href="logout.me">로그아웃</a></li>
-                    </ul>
-                  </div>
-        				<img src="/agile/resources/icon/common/icon_down_chevron_nav.png">
+	                    <div class="select">
+	                        <img id="profile" src="/agile/resources/icon/common/icon_user.png">                    
+	        				<img id="downIcon" src="/agile/resources/icon/common/icon_down_chevron_nav.png">
+	                    </div>
+	                    <ul class="myInfodropdown-menu">
+	                      <li id="user"><c:out value="${ sessionScope.loginUser.userName }"/></li>
+	                      <li id="work"><a href="profile.me">프로필설정</a></li>
+	                      <li id="rest">피드백 보내기</li>
+	                      <li id="travel"><a href="logout.me">로그아웃</a></li>
+	                    </ul>
+               	   </div>
         			</th>
         		</tr>
         		</tbody>

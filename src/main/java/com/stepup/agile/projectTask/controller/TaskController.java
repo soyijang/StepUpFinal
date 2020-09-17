@@ -768,7 +768,6 @@ public class TaskController {
 
 	 			// 상위 하위 테스크 구분
 	 			for (int j = 0; j < selectedTaskList.size(); j++) {
-	 				head
 	 				if (selectedTaskList.get(j).getTaskList().getTaskLevel().equals("상위")) {
 	 					selectedMainTaskList.add(selectedTaskList.get(j));
 	 					//상위테스크 미진행, 진행, 완료 구분
