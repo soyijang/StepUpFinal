@@ -169,14 +169,6 @@
 					<button class="rectangle6" type="submit">저장</button>
 					<div class="sprintclose" id="rectangle7">취소</div>
 				</div>
-				<c:if test="${not empty sprintList}">
-				<input style="display: none" name="userProjectCode" value="${ userProjectCodeNew }">
-				<input style="display: none" name="projectCode" value="${projectCodeNew}">
-					</c:if>
-				<c:if test="${empty sprintList}">
-				<input style="display: none" name="userProjectCode" value="${userProjectCodeNew}">
-				<input style="display: none" name="projectCode" value="${projectCodeNew}">
-					</c:if>
 			</div>
 		</div>
 	</form>
@@ -224,14 +216,6 @@
 					</c:if>
 			</div>
 		</div>
-		<c:if test="${not empty sprintList}">
-				<input style="display: none" name="userProjectCode" value="${ userProjectCodeNew }">
-				<input style="display: none" name="projectCode" value="${projectCodeNew}">
-		</c:if>
-				<c:if test="${empty sprintList}">
-				<input style="display: none" name="userProjectCode" value="${userProjectCodeNew}">
-				<input style="display: none" name="projectCode" value="${projectCodeNew}">
-		</c:if>
 	</form>
 	
 	<!-- 스프린트종료 모달창 -->
@@ -265,15 +249,6 @@
 				</c:if>
 			</div>
 		</div>
-		
-		<c:if test="${not empty sprintList}">
-				<input style="display: none" name="userProjectCode" value="${ userProjectCodeNew }">
-				<input style="display: none" name="projectCode" value="${projectCodeNew}">
-					</c:if>
-				<c:if test="${empty sprintList}">
-				<input style="display: none" name="userProjectCode" value="${userProjectCodeNew}">
-				<input style="display: none" name="projectCode" value="${projectCodeNew}">
-					</c:if>
 	</form>
 	
 	<!-- 스프린트시작 모달창 -->
@@ -306,15 +281,6 @@
 				</c:if>
 			</div>
 		</div>
-		
-		<c:if test="${not empty sprintList}">
-				<input style="display: none" name="userProjectCode" value="${ userProjectCodeNew }">
-				<input style="display: none" name="projectCode" value="${projectCodeNew}">
-					</c:if>
-				<c:if test="${empty sprintList}">
-				<input style="display: none" name="userProjectCode" value="${userProjectCodeNew}">
-				<input style="display: none" name="projectCode" value="${projectCodeNew}">
-					</c:if>
 	</form>
 	
 	<!--  Task 종료 모달창 -->
@@ -337,16 +303,32 @@
 				<input type="hidden" id="updateTaskCode" name="taskCode" value="">
 			</div>
 		</div>
-		
-		<c:if test="${not empty sprintList}">
-				<input style="display: none" name="userProjectCode" value="${ userProjectCodeNew }">
-				<input style="display: none" name="projectCode" value="${projectCodeNew}">
-					</c:if>
-				<c:if test="${empty sprintList}">
-				<input style="display: none" name="userProjectCode" value="${userProjectCodeNew}">
-				<input style="display: none" name="projectCode" value="${projectCodeNew}">
-					</c:if>
 	</form>
+	
+	
+	<!--  Task 삭제 모달창 -->
+	<form action="insertTaskHistoryTaskDelete2.tk" method="post">
+		<div id="deleteTaskModal" class="modal">
+			<div class="modal-content">
+				<p align="left" class="modaltitle">🎃 Task 삭제</p>
+				<table align="center" class="modalTable">
+					<tbody>
+						<tr>
+							<td><span id="deleteTask" name="deleteTask"></span></td>
+						</tr>
+					</tbody>
+				</table>
+				<div class="modalButtonArea">
+					<button class="rectangle6" type="submit">저장</button>
+					<div class="deleteTaskClose" id="rectangle7">취소</div>
+				</div>
+				<!-- 데이터넘기기용영역 -->
+				<input type="hidden" id="deleteTaskCode" name="taskCode" value="">
+			</div>
+		</div>
+	</form>
+	
+	
 	
 	<div class="wrap-loading display-none">
    		<div><img src="/agile/resources/icon/common/icon_loading.gif"/></div>
@@ -532,7 +514,7 @@
 										"<tr><td class='taskCode'>"+ taskCode[i]+ "</td><td class='taskName'>" + taskName + "</td><td class='realTime'>" + realTime + "</td><td class='expectTime'>" + expectTime + "</td><td class='storyPoint'>" + 
 											point + "</td><td><span class='" +  statusButton + "'>" +  taskStatus + "</td><td class='person'><div class='participant'>" + taskUser 
 											+ "</div></td><td class='more2'><div class='dropdown'><div class='select'><span id='more'>...</span><i class='fa fa-chevron-left'></i>"+
-					                    "</div><ul class='dropdown-menu'><li id='taskFinish' onclick='taskFinish(" + taskCode[i] + "," + givetaskName + ");'>종료</li><li id='taskUpdate'>수정</li><li id='taskDelete'>삭제</li></ul></div></td></tr>"
+					                    "</div><ul class='dropdown-menu'><li id='taskFinish' onclick='taskFinish(" + taskCode[i] + "," + givetaskName + ");'>종료</li><li id='taskUpdate'>수정</li><li id='taskDelete' onclick='taskDelete("+taskCode[i] +"," + givetaskName +");'>삭제</li></ul></div></td></tr>"
 					                    
 										);
 									}
@@ -610,6 +592,25 @@
 	span5.onclick = function() {
 	    $(finishTaskModal).css('display','none');
 	}
+	
+	
+	/* 테스크삭제 */
+	var deleteTaskModal = document.getElementById("deleteTaskModal");
+    var span6 = document.getElementsByClassName("deleteTaskClose")[0];
+    
+	function taskDelete(taskCode, taskName) {
+		var taskCode = taskCode;
+		var taskName = taskName;
+		
+		$('#deleteTaskCode').val(taskCode);
+		$('#deleteTask').html('<b>' + taskName + '</b> Task를 종료 하시겠습니까?');
+		$(deleteTaskModal).css('display','block');
+	}
+	span6.onclick = function() {
+	    $(deleteTaskModal).css('display','none');
+	}
+	
+	
 	
 </script>
 

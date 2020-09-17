@@ -33,9 +33,8 @@
 		                    </div>
 		            	</div>
                     </th>
-        			<th class="navIcon"><a href="">My Tasks<img src="/agile/resources/icon/common/icon_down_chevron_nav.png"></a></th>
-        			<th class="navIcon"><a href="">Team<img src="/agile/resources/icon/common/icon_down_chevron_nav.png"></a></th>
-        			<th id = "searchArea"><input type="text" placeholder="Search or jump to ..."></th>
+         			<th class="navIcon"><a href="MyTaskList.mt">My Tasks<img src="/agile/resources/icon/common/icon_down_chevron_nav.png"></a></th>
+        			<th class="navIcon"><a href="addTeam.tm">Team<img src="/agile/resources/icon/common/icon_down_chevron_nav.png"></a></th>        			<th id = "searchArea"><input type="text" placeholder="Search or jump to ..."></th>
         			<th class="navRightIcon">
 	        			<div>
 	        				<img src="/agile/resources/icon/common/icon_nav_rss_white.png">

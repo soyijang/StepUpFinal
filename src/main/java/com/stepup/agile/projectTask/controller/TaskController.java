@@ -858,11 +858,12 @@ public class TaskController {
 	 	
 		 //테스크 리스트 조회 후 보드 메인 페이지 중 하위 작업 페이지로 이동(현재 진행중인 스프린트의 tasklist만 조회)
 	 	@RequestMapping("showTaskBoardMainSubGroup.tk")
-	 	public String selectTaskList2(Locale locale, Model model, @ModelAttribute("loginUser") Member m, Project p) {
+	 	public String selectTaskList2(Locale locale, Model model,
+	 			@ModelAttribute("loginUser") Member m, @ModelAttribute("projectCodeNew") int projectCode) {
 	 		// hashmap에 쿼리문 조건에 사용할 사용자 정보(email)과 프로젝트 코드 담기
 	 		HashMap<String, Object> map = new HashMap<String, Object>();
 	 		// 프로젝트 받아오고 나서 수정하기
-	 		// map.put("projectCode", p.getProjectCode());
+	 	    map.put("projectCode", projectCode);
 	 		map.put("userEmail", m.getUserEmail());
 
 	 		// taskHistory vo 기준으로 data return 받기 (resultSet 데이터별 고유 값이 taskHistoryCode라서)
@@ -1059,6 +1060,20 @@ public class TaskController {
 		   mv.addObject("result", result);
 		   mv.setViewName("jsonView");
 		   return mv;
+	   }	
+	   
+	   //테스크 삭제
+	   @RequestMapping("insertTaskHistoryTaskDelete2.tk")
+	   public String insertTaskHistoryTaskDelete2(Model model, @ModelAttribute("loginUser") Member m, int taskCode) {
+		   //최근 담당자 정보 조회
+		   TaskHistory taskHistory;
+		   //테스크 코드를 이용하여 최신 history에서 마스터와 담당자 정보를 조회해온다.
+		   taskHistory = ts.selectTaskUserAndMaster(taskCode);			
+		   //insert시 필요한 정보 추가로 담아주기
+		   taskHistory.setTaskCode(taskCode);
+		   int result = ts.insertTaskHistoryTaskDelete(taskHistory);
+		   
+		   return "redirect:showSprintMain.st";
 	   }	
 	   
 	   

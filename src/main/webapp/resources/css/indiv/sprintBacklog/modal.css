@@ -69,6 +69,12 @@
  	vertical-align: middle;
  	line-height: 30px;
  }
+ .deleteTaskClose {
+ 	text-align: center;
+ 	display: inline-block;
+ 	vertical-align: middle;
+ 	line-height: 30px;
+ }
  .updateStartClose {
  	text-align: center;
  	display: inline-block;
