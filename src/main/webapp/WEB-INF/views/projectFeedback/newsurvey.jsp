@@ -383,7 +383,6 @@ textarea {
 				        
     <!-- -------------------------------------------------------------------------------------------------- -->           	
     <!-- 설문 초대 모달창-->
-	<form action="mailSender.sv" method="post">
 		<div id="sendSurvey" class="modal">
 			<div class="modal-content mytaskDeletecontent">
 				<p align="left" class="modaltitle">📬 설문 전송</p>
@@ -407,10 +406,9 @@ textarea {
 					<button class="rectangle6" onclick="startAdd()" type="button">보내기</button>
 					<div class="surveyClose" id="rectangle7">취소</div>
 				</div>
-				<input type="hidden" id="surveyCode" class="" value="2"> 
+				<input type="hidden" id="surveyCode2" class="" value="${surveyCode}"> 
 			</div>
 		</div>
-	</form>
 	
 	<script type="text/javascript">
 		
@@ -455,7 +453,7 @@ textarea {
 				var data = new Object();
 				data["surveyJoinEmail"] = $('#userEmail' + i).val();
 				data["surveyJoinReply"] = 'N';
-				data["surveyCode"] = $('#surveyCode').val();
+				data["surveyCode"] = $('#surveyCode2').val();
 				data["surveyJoinName"] = $('#userName' + i).val();
 				dataList2.push(data);
 			}
@@ -752,7 +750,7 @@ textarea {
 				
 				//설문지 코드 가져오기
 				var surveyCode = $('#surveyCode').val();
-				
+				/* $('surveyCode2').val(surveyCode); */
 				
 				var queArr = que.split(",");
 					  console.log(queArr);

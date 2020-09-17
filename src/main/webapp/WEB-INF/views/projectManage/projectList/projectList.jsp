@@ -41,19 +41,19 @@
                         <!-- 프로젝트 리스트 -->
                         <c:forEach var="item" items="${selectedProjectHistoryList}" begin="0" end="3" step="1" varStatus="status">
                            
-                           <c:if test="${not empty userProjectList}">
+  <%--                          <c:if test="${not empty userProjectList}">
                               <c:forEach var="k" begin="0" end="${fn:length(userProjectList)-1}">
                                  <c:if test="${userProjectList.get(k).project.projectCode == selectedProjectHistoryList.get(i).project.projectCode}">
                                     <c:set var="userProjectCodeSave" value="${userProjectList.get(k).userProjectCode}" />
                                  </c:if>
                               </c:forEach>                              
                            </c:if>   
-                     
+                      --%>
                            
                            
                            <td>
                               <div class="contentBox1-content-table-tr-td" id="project-top-list-code${item.project.projectCode}"
-                              onclick="projectClick(${item.project.projectCode},${userProjectCodeSave},'${item.project.projectName}')">
+                              onclick="projectClick(${item.project.projectCode},${sessionScope.userProjectCodeNew},'${item.project.projectName}')">
                                  <div class="left-padding-gray${status.index}">
                                     <div class="project-name">
                                        ${item.project.projectName}
@@ -79,19 +79,19 @@
                      <c:if test="${not empty selectedProjectHistoryList}">
                         <c:if test="${fn:length(selectedProjectHistoryList) < 3}">
                         <c:forEach var="item" items="${selectedProjectHistoryList}" begin="0" end="${fn:length(selectedProjectHistoryList)}" step="1" varStatus="status">
-                        
+                     <%--    
                            <c:if test="${not empty userProjectList}">
                               <c:forEach var="k" begin="0" end="${fn:length(userProjectList)-1}">
                                  <c:if test="${userProjectList.get(k).project.projectCode == selectedProjectHistoryList.get(i).project.projectCode}">
                                     <c:set var="userProjectCodeSave" value="${userProjectList.get(k).userProjectCode}" />
                                  </c:if>
                               </c:forEach>                              
-                           </c:if>   
+                           </c:if>    --%>
                         
                         
                            <td>
                               <div class="contentBox1-content-table-tr-td" id="project-top-list-code${item.project.projectCode}"
-                              onclick="projectClick(${item.project.projectCode}, ${userProjectCodeSave}, '${item.project.projectName}')">
+                              onclick="projectClick(${item.project.projectCode}, ${sessionScope.userProjectCodeNew}, '${item.project.projectName}')">
                                  <div class="left-padding-gray${status.index}">
                                     <div class="project-name">
                                        ${item.project.projectName}

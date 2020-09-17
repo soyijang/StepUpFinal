@@ -24,7 +24,7 @@
         	<table class="navContent">
         		<tbody>
         		<tr>
-        			<th id="logoArea"><a href="selectUserProject.me"><img alt="스탭업 홈으로 가기" src="/agile/resources/images/logo/logo_stepup_nav.png"></a></th>
+        			<th id="logoArea"><a href="loginSecond.me"><img alt="스탭업 홈으로 가기" src="/agile/resources/images/logo/logo_stepup_nav.png"></a></th>
         			<!-- <th class="navIcon"><a href="showProjectMain.pj">Project<img src="/agile/resources/icon/common/icon_down_chevron_nav.png"></a></th> -->
         			<th class="navIcon">
 		                 <div class="dropdown-project">
