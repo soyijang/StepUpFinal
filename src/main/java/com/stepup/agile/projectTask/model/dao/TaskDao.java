@@ -137,11 +137,9 @@ public interface TaskDao {
 	SprintHistory selectRecentSprintHistory(SqlSessionTemplate sqlSession, int sprintCode);
 	//스프린트 종료
 	int insertSprintHistorySprintType(SqlSessionTemplate sqlSession, SprintHistory sprintHistory);
-	//하위 테스트 스프린트 업데이트
-	int updateSubList(SqlSessionTemplate sqlSession, Map<String, Object> map);
 	
-
-
+   //하위 테스트 스프린트 업데이트
+   int updateSubList(SqlSessionTemplate sqlSession, Map<String, Object> map);
 
 
 

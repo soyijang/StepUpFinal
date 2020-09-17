@@ -955,11 +955,11 @@ WHERE TASK_CODE IN (SELECT TASK_CODE
 		WHERE HEAD_TASK_CODE = #{headTaskCode, jdbcType=INTEGER}
 	</update>
 	
-	<!-- 테스크의 상위 스프린트 변경  -->
-	<update id="updateTaskSprintCode" parameterType="hashMap">
-		UPDATE TASK_LIST SET SPRINT_CODE = #{sprintCode, jdbcType=INTEGER}
-		WHERE TASK_CODE = #{taskCode, jdbcType=INTEGER}
-	</update>
+   <!-- 테스크의 상위 스프린트 변경  -->
+   <update id="updateTaskSprintCode" parameterType="hashMap">
+      UPDATE TASK_LIST SET SPRINT_CODE = #{sprintCode, jdbcType=INTEGER}
+      WHERE TASK_CODE = #{taskCode, jdbcType=INTEGER}
+   </update>
 		
 	<!-- 사용자 팀코드 조회 -->
 	 <select id="selectUserTeamCode" resultMap="UserTeamListResultSet" parameterType="Member">

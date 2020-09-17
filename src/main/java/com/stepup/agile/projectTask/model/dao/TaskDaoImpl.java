@@ -539,9 +539,9 @@ public class TaskDaoImpl implements TaskDao {
 	public int insertSprintHistorySprintType(SqlSessionTemplate sqlSession, SprintHistory sprintHistory) {
 		return sqlSession.insert("Task.insertSprintHistorySprintType", sprintHistory);
 	}
-	//하위 테스트 스프린트 업데이트
-	@Override
-	public int updateSubList(SqlSessionTemplate sqlSession, Map<String, Object> map) {
-		return sqlSession.update("Task.updateSubList", map);
-	}
+   //하위 테스트 스프린트 업데이트
+   @Override
+   public int updateSubList(SqlSessionTemplate sqlSession, Map<String, Object> map) {
+      return sqlSession.update("Task.updateSubList", map);
+   }
 }
