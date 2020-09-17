@@ -21,8 +21,8 @@ public class MyTasksStandupMeetingServiceImpl implements MyTasksStandupMeetingSe
 	private MyTasksStandupMeetingDao smd;
 
 	@Override
-	public List<Rss> selectRssList(Member m) {
-		return smd.selectRssList(sqlSession, m);
+	public List<Rss> selectRssList(Member m, int projectCode) {
+		return smd.selectRssList(sqlSession, m, projectCode);
 	}
 
 	@Override

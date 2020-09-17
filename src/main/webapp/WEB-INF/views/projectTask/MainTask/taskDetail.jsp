@@ -340,8 +340,7 @@ input[type="checkbox"] {
             <table align="center" class="modalTable">
                <tbody>
                   <tr>
-                     <td>[<b id="sprintName" value=""></b>]
-                     (스프린트)에 새로운 테스크를 추가하시겠습니까?</td>
+                     <td><b id="sprintName" class="givenName"></b> 스프린트에 새로운 테스크를 추가하시겠습니까?</td>
                   </tr>
                   <tr>
                      <td>※초기 테스크명은 테스크 코드로 자동지정됩니다.</td>

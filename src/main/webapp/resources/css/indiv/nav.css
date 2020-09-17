@@ -170,7 +170,7 @@ a{
     		outline: 0;
     		background: transparent;
     		cursor: pointer;
-    		z-index: 1234;
+    		z-index: 3;
 		}
 		
 		#menubarWithBtn{

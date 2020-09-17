@@ -10,7 +10,7 @@ import com.stepup.agile.userMyTasks.model.vo.MyTask;
 
 public interface MyTasksStandupMeetingService {
 
-	List<Rss> selectRssList(Member m);
+	List<Rss> selectRssList(Member m, int projectCode);
 
 	int updateRss(RssHistory rssHistory);
 

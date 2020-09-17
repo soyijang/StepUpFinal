@@ -39,13 +39,13 @@
 	
 	
 	<select id="selectRssList" resultMap="rssHistoryResultSet" parameterType="Rss">
-		SELECT *
+        SELECT *
 		FROM RSS_HISTORY R
 		   , USER_PROJECT_LIST P 
 		   , USER_TEAM_LIST T
 		WHERE R.RSS_PROJECT_CODE = P.PROJECT_CODE
 		  AND p.user_team_code = T.USER_TEAM_CODE
-		  AND t.user_code = #{userCode, jdbcType=NUMERIC}
+		  AND P.PROJECT_CODE = #{projectCode, jdbcType=NUMERIC}
 	</select>
 	
 	<update id="updateRss" parameterType="Rss">

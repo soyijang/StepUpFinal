@@ -12,8 +12,6 @@ import com.stepup.agile.userMyTasks.model.vo.MyTask;
 
 public interface MyTasksStandupMeetingDao {
 
-	List<Rss> selectRssList(SqlSessionTemplate sqlSession, Member m);
-
 	int updateRss(SqlSessionTemplate sqlSession, RssHistory rssHistory);
 
 	//공유 일정 가져오기	
@@ -21,5 +19,7 @@ public interface MyTasksStandupMeetingDao {
 
 	//rss추가
 	int insertRss(SqlSessionTemplate sqlSession, RssHistory rssHistory);
+
+	List<Rss> selectRssList(SqlSessionTemplate sqlSession, Member m, int projectCode);
 
 }

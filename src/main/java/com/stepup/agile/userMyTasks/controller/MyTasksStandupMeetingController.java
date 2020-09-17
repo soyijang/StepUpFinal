@@ -33,7 +33,7 @@ public class MyTasksStandupMeetingController {
       //--------------------rss목록 가져오기--------------------------------
       
          List<Rss> rssList;
-         rssList = sms.selectRssList(m);
+         rssList = sms.selectRssList(m, projectCode);
          model.addAttribute("rssList", rssList);      
          
       //---------------------------------------------------------------
