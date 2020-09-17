@@ -98,12 +98,14 @@ public class SurveyReplyController {
 	public ModelAndView mailSender(ModelAndView mv, @RequestBody SurveyJoinList joinList) 
 			throws AddressException, MessagingException {
 		
+		int size = 0;
 		String host = "smtp.gmail.com"; 
 		final String username = "stepup9180@gmail.com"; 
 		final String password = "agile0918"; 
 		int port=465; 
 		System.out.println("joinList:" + joinList.getSurveyJoinVOList());
 		for(SurveyJoinList str : joinList.getSurveyJoinVOList()) {
+			size++;
 			int result = rs.insertSurveyJoin(str);
 	
 			//메일발송
@@ -143,6 +145,7 @@ public class SurveyReplyController {
 			Transport.send(mimeMessage);
 		}
 		
+		mv.addObject("size", size);
 		mv.setViewName("jsonView");
 		
 		return mv;
