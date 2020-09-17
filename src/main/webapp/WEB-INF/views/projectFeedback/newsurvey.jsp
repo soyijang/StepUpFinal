@@ -2,6 +2,8 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>    
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,7 +12,8 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/common/nav.js"></script>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/common/dropdown.css">
-
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/indiv/sprintBacklog/modal.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/indiv/sprintBacklog/button.css">
 <style>
 .@import url(http://fonts.googleapis.com/earlyaccess/notosanskr.css);
 @font-face {font-family: 'Noto Sans KR';font-style: normal;font-weight: 100;src: url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Thin.woff2) format('woff2'),url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Thin.woff) format('woff'),url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Thin.otf) format('opentype');}
@@ -373,9 +376,125 @@ textarea {
                    <br>
                    <br>
                    <div class="newQuestion2" id="send2">
-                        <p class="Survey-send2" id="send-survey2">📧설문 전송</p>
+                        <p class="Survey-send2" onclick="surveySend();" id="send-survey2">📧설문 전송</p>
                    </div>
 				</div>
+				
+				        
+    <!-- -------------------------------------------------------------------------------------------------- -->           	
+    <!-- 설문 초대 모달창-->
+	<form action="mailSender.sv" method="post">
+		<div id="sendSurvey" class="modal">
+			<div class="modal-content mytaskDeletecontent">
+				<p align="left" class="modaltitle">📬 설문 전송</p>
+				<p class="modalcontent">※ 설문 발송 대상 메일과 성함을 입력해주세요.</p>
+				<table align="center" class="MyTaskDeleteModalTable">
+					<thead align="center">
+						<tr align="center">
+							<td><b>이름</b></td>
+							<td><b>이메일</b></td>
+						</tr>
+					</thead>	
+					<tbody id="surveyPersonAdd">
+						<tr>
+							<td><input type="text" class="surveyInput2" value="" id="userName1" autocomplete="off"></td>
+							<td><input type="text" class="surveyInput1" value="" id="userEmail1" autocomplete="off"></td>
+						</tr>	
+					</tbody>
+				</table>
+				<div class="modalButtonArea">
+					<div class="surveyAddBtn" id="rectangle7">추가</div>
+					<button class="rectangle6" onclick="startAdd()" type="button">보내기</button>
+					<div class="surveyClose" id="rectangle7">취소</div>
+				</div>
+				<input type="hidden" id="surveyCode" class="" value="2"> 
+			</div>
+		</div>
+	</form>
+	
+	<script type="text/javascript">
+		
+		//보내기모달열기
+	    function surveySend() {
+	    	$('#sendSurvey').fadeIn(300); 
+	    	$('#sendSurvey').css('display','block');
+		}
+		
+		//카운팅용	
+		var cnt = 1;
+		
+		//닫기누르면 창 닫으면서 안에 추가되어있던것들 리셋
+	    $(document).on('click', '.surveyClose', function(){
+	    	$('#sendSurvey').css('display','none');
+	    	$('#surveyPersonAdd').children().remove();
+	    	$('#surveyPersonAdd').append('<tr>'
+					+'<td><input type="text" class="surveyInput2" value="" id="userName' + cnt + '" autocomplete="off"></td>'
+					+'<td><input type="text" class="surveyInput1" value="" id="userEmail' + cnt + '" autocomplete="off"></td>'
+					+'</tr>');
+	    });	
+		
+		//추가하기
+	    $(document).on('click', '.surveyAddBtn', function(){
+	    	cnt++;
+	    	console.log('cnt : ' + cnt);
+	    	$('#surveyPersonAdd').append('<tr>'
+				+'<td><input type="text" class="surveyInput2" value="" id="userName' + cnt + '" autocomplete="off"></td>'
+				+'<td><input type="text" class="surveyInput1" value="" id="userEmail' + cnt + '" autocomplete="off"></td>'
+				+'</tr>');
+	    });	
+		
+		function startAdd() {
+			
+			//입력된 내용가져오기
+			//totData는 객체로 선언, dataList는 Array로 선언
+			var totData2 = new Object();
+			var dataList2 = new Array();
+			
+			//사람별로 data라는 객체에 값을 넣고 각 data객체들을 dataList에 push해줌
+			for(var i=1; i<cnt+1; i++){
+				var data = new Object();
+				data["surveyJoinEmail"] = $('#userEmail' + i).val();
+				data["surveyJoinReply"] = 'N';
+				data["surveyCode"] = $('#surveyCode').val();
+				data["surveyJoinName"] = $('#userName' + i).val();
+				dataList2.push(data);
+			}
+			
+			//dataList를 voList객체로 다시한번 넣어줌. (totData는 객체로 선언, dataList는 Array로 선언)
+			totData2["surveyJoinVOList"] = dataList2;
+			console.log(totData2);
+			//메일발송하기
+		     $.ajax({
+		    	type : 'post',
+				url: "mailSender.sv",
+				contentType:'application/json',
+				dataType: 'json',
+				data : JSON.stringify(totData2),
+				success : function(data) {  
+					alert('총 ' + data.size + '명에게 설문지 전송을 성공적으로 완료하였습니다!');
+				},
+				error : function () {
+					console.log('설문대상자 추가실패!');
+				},
+				beforeSend : function(){
+			        $('.wrap-loading').removeClass('display-none');
+					document.getElementsByClassName("surveyClose")[0].click();
+				},
+				complete : function(){
+				    $('.wrap-loading').addClass('display-none');
+				}
+	  	    }); 
+			
+		}
+	</script>
+    <!-- -------------------------------------------------------------------------------------------------- -->   
+     
+				
+				
+				
+				
+				
+				
                 </div>
             </div>
 </body>

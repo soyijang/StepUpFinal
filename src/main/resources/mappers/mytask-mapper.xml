@@ -169,14 +169,16 @@
 	</select>
 	
 	<!-- miso -->
-	<select id="selectMytaskShareList" resultMap="myTaskResultSet" parameterType="int">
-		SELECT *
-		  FROM USER_PROJECT_LIST UPL, MYTASKS_LIST ML, MYTASKS_SHARE_LIST MSL
-		 WHERE UPL.USER_PROJECT_CODE = ML.USER_PROJECT_CODE
-		   AND ML.MYTASKS_CODE = MSL.MYTASKS_CODE
-		   AND UPL.PROJECT_CODE = #{projectCode}
-		   ORDER BY MSL.MYTASKS_SHARE_DATE DESC
-	</select>
+   <select id="selectMytaskShareList" resultMap="myTaskResultSet" parameterType="int">
+      SELECT *
+        FROM USER_PROJECT_LIST UPL, MYTASKS_LIST ML, MYTASKS_SHARE_LIST MSL,USER_TEAM_LIST UTL, USER_INFO UI
+       WHERE UPL.USER_PROJECT_CODE = ML.USER_PROJECT_CODE
+         AND ML.MYTASKS_CODE = MSL.MYTASKS_CODE
+           AND UPL.USER_TEAM_CODE = UTL.USER_TEAM_CODE
+           AND UTL.USER_CODE = UI.USER_CODE
+         AND UPL.PROJECT_CODE = #{projectCode}
+         ORDER BY MSL.MYTASKS_SHARE_DATE DESC
+   </select>
 	
 	
 </mapper>

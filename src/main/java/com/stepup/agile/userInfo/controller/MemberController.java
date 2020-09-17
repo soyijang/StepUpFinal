@@ -443,7 +443,7 @@ public class MemberController {
 
             model.addAttribute("loginUser", loginUser);
             
-            return "redirect:showProjectMain.pj"; 
+            return "redirect:loginSecond.me"; 
          } else {
             response.setCharacterEncoding("UTF-8");
             response.setContentType("text/html; charset=UTF-8");

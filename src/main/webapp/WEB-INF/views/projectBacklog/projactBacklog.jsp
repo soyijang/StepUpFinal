@@ -430,7 +430,7 @@
 					addPostPart.prepend(
 						"<div id='sprintInfoNon'><div id='" + sprintType2 + "'>" + data.sprint.sprintCode + "</div><div id='sprintInfomation'><table><tbody><tr><td>스프린트명 : " +
 						data.sprint.sprintName + "</td></tr><tr><td>스프린트 시작일 :" +  data.sprint.sprint.sprintCreateDate  + " / 예상소요시간 : " + data.sprint.sprintExpectPeriod + 
-						"m<td></tr></tbody></table></div><div id='sprintCounting'><table><tbody><tr><td><span class='pointAverage'>pts</span></td><td>미완료</td><td><span class='tasknonFinish'>0</span></td><td>완료</td><td><span class='taskFinish'>1</span></td><td>진행중</td><td><span class='taskIng'>1</span></td><td class='taskTotal'>총 2개</td></tr></tbody></table></div>"+
+						"m<td></tr></tbody></table></div><div id='sprintCounting'><table><tbody><tr><td><span class='pointAverage'>0pts</span></td><td>미완료</td><td><span class='tasknonFinish'>0</span></td><td>완료</td><td><span class='taskFinish'>1</span></td><td>진행중</td><td><span class='taskIng'>1</span></td><td class='taskTotal'>총 2개</td></tr></tbody></table></div>"+
 						"</div><div id='sprintIntro'>스프린트 설명 : " + data.sprint.sprintIntro + "</div>"
 					);
 					

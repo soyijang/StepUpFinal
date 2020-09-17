@@ -25,13 +25,13 @@
 				<c:out value="${ myTaskList.get(0).member.userName }" /></b>님 오늘도 화이팅!</div>
             <div id="menuTitle">개인일정관리</div>
         </div>
-        
-    <!-- -------------------------------------------------------------------------------------------------- -->           	
-    <!-- 설문 초대 모달창-->
+<!--         
+    --------------------------------------------------------------------------------------------------           	
+    설문 초대 모달창
 	<form action="mailSender.sv" method="post">
 		<div id="sendSurvey" class="modal">
 			<div class="modal-content mytaskDeletecontent">
-				<p align="left" class="modaltitle">📬 설문 발송</p>
+				<p align="left" class="modaltitle">📬 설문 전송</p>
 				<p class="modalcontent">※ 설문 발송 대상 메일과 성함을 입력해주세요.</p>
 				<table align="center" class="MyTaskDeleteModalTable">
 					<thead align="center">
@@ -132,8 +132,8 @@
 			
 		}
 	</script>
-    <!-- -------------------------------------------------------------------------------------------------- -->   
-     
+    --------------------------------------------------------------------------------------------------   
+      -->
         <!-- 캘린더영역 -->
         <div id="contentBox">
 			<div id="calendar">			

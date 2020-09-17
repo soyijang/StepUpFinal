@@ -369,7 +369,11 @@ if(selectMytaskShareList.length > 0){
          if($('#yearNow' + j).val() == mytasksShareDateY && $('#monthNow' + j).val() == mytasksShareDateM &&
             $('#dayNow' + j).val() == mytasksShareDateD && mytasksShareType =='01'){
                var target = $('.i' + j);
-               target.append("<div class='one'>" + '* ' + selectMytaskShareList[i].myTaskscontents + "</div>")
+               target.append("<div class='one tooltip'>" + "<c>" + "* " + "</c>" + selectMytaskShareList[i].myTaskscontents + "<span class='tooltiptext'>" + selectMytaskShareList[i].member.userName + "님의 공유 일정 공유 내용" + "<br>" 
+                      + "일정 시작일 : " + selectMytaskShareList[i].myTasksstartDate + "<br>"
+                      + "일정 종료일 : " + selectMytaskShareList[i].myTasksendDate + "<br>"
+                      + "일정 내용 : " + selectMytaskShareList[i].myTaskscontents
+                      + "</span></div>");
          }
       }
       
@@ -377,7 +381,11 @@ if(selectMytaskShareList.length > 0){
          if($('#yearNow' + j).val() == mytasksShareDateY && $('#monthNow' + j).val() == mytasksShareDateM &&
             $('#dayNow' + j).val() == mytasksShareDateD && mytasksShareType =='02'){
                var target = $('.p' + j);
-               target.append("<div class='one'>" + '* ' + selectMytaskShareList[i].myTaskscontents + "</div>")
+               target.append("<div class='one tooltip'>" + "<c>" + "* " + "</c>" + selectMytaskShareList[i].myTaskscontents + "<span class='tooltiptext'>" + selectMytaskShareList[i].member.userName + "님의 공유 일정 공유 내용" + "<br>" 
+                      + "일정 시작일 : " + selectMytaskShareList[i].myTasksstartDate + "<br>"
+                      + "일정 종료일 : " + selectMytaskShareList[i].myTasksendDate + "<br>"
+                      + "일정 내용 : " + selectMytaskShareList[i].myTaskscontents
+                      + "</span></div>");
          }
       }      
       
@@ -386,7 +394,11 @@ if(selectMytaskShareList.length > 0){
          if($('#yearNow' + j).val() == mytasksShareDateY && $('#monthNow' + j).val() == mytasksShareDateM &&
             $('#dayNow' + j).val() == mytasksShareDateD && mytasksShareType =='03'){
                var target = $('.c' + j);
-               target.append("<div class='one'>" + '* ' + selectMytaskShareList[i].myTaskscontents + "</div>")
+               target.append("<div class='one tooltip'>" + "<c>" + "* " + "</c>" + selectMytaskShareList[i].myTaskscontents + "<span class='tooltiptext'>" + selectMytaskShareList[i].member.userName + "님의 공유 일정 공유 내용" + "<br>" 
+               + "일정 시작일 : " + selectMytaskShareList[i].myTasksstartDate + "<br>"
+               + "일정 종료일 : " + selectMytaskShareList[i].myTasksendDate + "<br>"
+               + "일정 내용 : " + selectMytaskShareList[i].myTaskscontents
+               + "</span></div>");
          }
       }   
       
@@ -445,7 +457,11 @@ $(document).on('click','#icon_double_left_chevron', function(){
             if($('#yearNow' + j).val() == mytasksShareDateY && $('#monthNow' + j).val() == mytasksShareDateM &&
                $('#dayNow' + j).val() == mytasksShareDateD && mytasksShareType =='01'){
                   var target = $('.i' + j);
-                  target.append("<div class='one'>" + '* ' + selectMytaskShareList[i].myTaskscontents + "</div>")
+                  target.append("<div class='one tooltip'>" + "<c>" + "* " + "</c>" + selectMytaskShareList[i].myTaskscontents + "<span class='tooltiptext'>" + selectMytaskShareList[i].member.userName + "님의 공유 일정 공유 내용" + "<br>" 
+                         + "일정 시작일 : " + selectMytaskShareList[i].myTasksstartDate + "<br>"
+                         + "일정 종료일 : " + selectMytaskShareList[i].myTasksendDate + "<br>"
+                         + "일정 내용 : " + selectMytaskShareList[i].myTaskscontents
+                         + "</span></div>");
             }
          }
          
@@ -453,7 +469,11 @@ $(document).on('click','#icon_double_left_chevron', function(){
             if($('#yearNow' + j).val() == mytasksShareDateY && $('#monthNow' + j).val() == mytasksShareDateM &&
                $('#dayNow' + j).val() == mytasksShareDateD && mytasksShareType =='02'){
                   var target = $('.p' + j);
-                  target.append("<div class='one'>" + '* ' + selectMytaskShareList[i].myTaskscontents + "</div>")
+                  target.append("<div class='one tooltip'>" + "<c>" + "* " + "</c>" + selectMytaskShareList[i].myTaskscontents + "<span class='tooltiptext'>" + selectMytaskShareList[i].member.userName + "님의 공유 일정 공유 내용" + "<br>" 
+                         + "일정 시작일 : " + selectMytaskShareList[i].myTasksstartDate + "<br>"
+                         + "일정 종료일 : " + selectMytaskShareList[i].myTasksendDate + "<br>"
+                         + "일정 내용 : " + selectMytaskShareList[i].myTaskscontents
+                         + "</span></div>");
             }
          }      
          
@@ -462,7 +482,11 @@ $(document).on('click','#icon_double_left_chevron', function(){
             if($('#yearNow' + j).val() == mytasksShareDateY && $('#monthNow' + j).val() == mytasksShareDateM &&
                $('#dayNow' + j).val() == mytasksShareDateD && mytasksShareType =='03'){
                   var target = $('.c' + j);
-                  target.append("<div class='one'>" + '* ' + selectMytaskShareList[i].myTaskscontents + "</div>")
+                  target.append("<div class='one tooltip'>" + "<c>" + "* " + "</c>" + selectMytaskShareList[i].myTaskscontents + "<span class='tooltiptext'>" + selectMytaskShareList[i].member.userName + "님의 공유 일정 공유 내용" + "<br>" 
+                         + "일정 시작일 : " + selectMytaskShareList[i].myTasksstartDate + "<br>"
+                         + "일정 종료일 : " + selectMytaskShareList[i].myTasksendDate + "<br>"
+                         + "일정 내용 : " + selectMytaskShareList[i].myTaskscontents
+                         + "</span></div>");
             }
          }   
       }
@@ -520,7 +544,11 @@ $(document).on('click','#icon_double-right_chevron', function(){
             if($('#yearNow' + j).val() == mytasksShareDateY && $('#monthNow' + j).val() == mytasksShareDateM &&
                $('#dayNow' + j).val() == mytasksShareDateD && mytasksShareType =='01'){
                   var target = $('.i' + j);
-                  target.append("<div class='one'>"+ '* '  + selectMytaskShareList[i].myTaskscontents + "</div>")
+                  target.append("<div class='one tooltip'>" + "<c>" + "* " + "</c>" + selectMytaskShareList[i].myTaskscontents + "<span class='tooltiptext'>" + selectMytaskShareList[i].member.userName + "님의 공유 일정 공유 내용" + "<br>" 
+                         + "일정 시작일 : " + selectMytaskShareList[i].myTasksstartDate + "<br>"
+                         + "일정 종료일 : " + selectMytaskShareList[i].myTasksendDate + "<br>"
+                         + "일정 내용 : " + selectMytaskShareList[i].myTaskscontents
+                         + "</span></div>");
             }
          }
          
@@ -528,7 +556,11 @@ $(document).on('click','#icon_double-right_chevron', function(){
             if($('#yearNow' + j).val() == mytasksShareDateY && $('#monthNow' + j).val() == mytasksShareDateM &&
                $('#dayNow' + j).val() == mytasksShareDateD && mytasksShareType =='02'){
                   var target = $('.p' + j);
-                  target.append("<div class='one'>" + '* ' + selectMytaskShareList[i].myTaskscontents + "</div>")
+                  target.append("<div class='one tooltip'>" + "<c>" + "* " + "</c>" + selectMytaskShareList[i].myTaskscontents + "<span class='tooltiptext'>" + selectMytaskShareList[i].member.userName + "님의 공유 일정 공유 내용" + "<br>" 
+                         + "일정 시작일 : " + selectMytaskShareList[i].myTasksstartDate + "<br>"
+                         + "일정 종료일 : " + selectMytaskShareList[i].myTasksendDate + "<br>"
+                         + "일정 내용 : " + selectMytaskShareList[i].myTaskscontents
+                         + "</span></div>");
             }
          }      
          
@@ -537,7 +569,11 @@ $(document).on('click','#icon_double-right_chevron', function(){
             if($('#yearNow' + j).val() == mytasksShareDateY && $('#monthNow' + j).val() == mytasksShareDateM &&
                $('#dayNow' + j).val() == mytasksShareDateD && mytasksShareType =='03'){
                   var target = $('.c' + j);
-                  target.append("<div class='one'>" + '* ' + selectMytaskShareList[i].myTaskscontents + "</div>")
+                  target.append("<div class='one tooltip'>" + "<c>" + "* " + "</c>" + selectMytaskShareList[i].myTaskscontents + "<span class='tooltiptext'>" + selectMytaskShareList[i].member.userName + "님의 공유 일정 공유 내용" + "<br>" 
+                         + "일정 시작일 : " + selectMytaskShareList[i].myTasksstartDate + "<br>"
+                         + "일정 종료일 : " + selectMytaskShareList[i].myTasksendDate + "<br>"
+                         + "일정 내용 : " + selectMytaskShareList[i].myTaskscontents
+                         + "</span></div>");
             }
          }   
          
@@ -549,7 +585,6 @@ $(document).on('click','#icon_double-right_chevron', function(){
 
 
 </script>
-
 
 
 </html>
