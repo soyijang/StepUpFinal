@@ -22,7 +22,7 @@
     <div id="content" class="click-area">
         <!-- 상단 프로젝트 제목 및 메뉴 이름 영역 -->
         <div id="contentTitle">
-            <div id="projectTitle2">프로젝트 / ${bgList.get(i).projectName}</div>
+            <div id="projectTitle2"><a href="showProjectMain.pj">🚀내 프로젝트 </a> / ${bgList.get(i).projectName}</div>
             <div id="menuTitle">이슈 게시판</div>
         </div>
         <div id="contentBox">

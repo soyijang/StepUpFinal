@@ -16,7 +16,7 @@
    <div id="content">
        <!-- 상단 프로젝트 제목 및 메뉴 이름 영역 -->
        <div id="contentTitle">
-           <div id="projectTitle2"><a href="showProjectMain.pj">프로젝트 </a>/ <b>이름땡땡땡!!</b></div>
+           <div id="projectTitle2"><a href="showProjectMain.pj">🚀내 프로젝트 </a>/ <e>이름땡땡땡!!</e></div>
            <div id="menuTitle">Task Board</div>
        </div>
 
@@ -256,7 +256,7 @@ sprintTitle.text(taskList[0].sprintHistory.sprintName);
 sprintSubTitle.text(taskList[0].sprintHistory.sprintIntro);
 
 //프로젝트명 변경
-var projectTitle = $("#projectTitle2").find('b');
+var projectTitle = $("#projectTitle2").find('e');
 projectTitle.text('');
 projectTitle.text(taskList[0].taskList.project.projectName);       
 

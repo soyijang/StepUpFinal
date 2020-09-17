@@ -30,6 +30,7 @@
 		                 <div class="dropdown-project">
 		                    <p class="navIcon">Project<img src="/agile/resources/icon/common/icon_down_chevron_nav.png"></p>
 		                    <div class="dropdown-project-content">
+		                    	<a href="selectUserProject.me">Dash Board</a>   
 			                     <a href="showProjectMain.pj">Project</a>                  
 			                     <a href="selectTimeLine.pj">Timeline</a>                   
 		                    </div>
@@ -67,9 +68,7 @@
 	        				<img id="downIcon" src="/agile/resources/icon/common/icon_down_chevron_nav.png">
 	                    </div>
 	                    <ul class="myInfodropdown-menu">
-	                      <li id="user"><c:out value="${ sessionScope.loginUser.userName }"/></li>
 	                      <li id="work"><a href="profile.me">프로필설정</a></li>
-	                      <li id="rest">피드백 보내기</li>
 	                      <li id="travel"><a href="logout.me">로그아웃</a></li>
 	                    </ul>
                	   </div>

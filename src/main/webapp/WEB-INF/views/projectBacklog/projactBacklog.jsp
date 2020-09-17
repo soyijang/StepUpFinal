@@ -24,11 +24,11 @@
 	<div id="content">
 		<!-- 상단 프로젝트 제목 및 메뉴 이름 영역 -->
 		<div id="contentTitle">
-			<div id="projectTitle2">프로젝트백로그 /
+			<div id="projectTitle2"><a href="showProjectMain.pj">🚀내 프로젝트 </a> /
 			<c:if test="${not empty sprintList}">
 			<input type="hidden" id="clickName" value="${sprintList.get(0).sprintName }">
 			<input type="hidden" id="clickSprintCode" value="${sprintList.get(0).sprintCode}">
-			<b id="projectName"><c:out value="${ sprintList.get(0).project.projectName }" /></b>
+			<c id="projectName"><c:out value="${ sprintList.get(0).project.projectName }" /></c>
 			</c:if>
 			</div>
 			<div id="menuTitle">ProjectBacklog</div>

@@ -25,7 +25,6 @@
    
        <!-- 상단 프로젝트 제목 및 메뉴 이름 영역 -->
        <div id="contentTitle">
-           <div id="projectTitle2">프로젝트 / 이름땡땡땡!!</div>
            <div id="menuTitle">전체 프로젝트</div>
        </div>
 
@@ -54,7 +53,7 @@
 									
 									<td>
 										<div class="contentBox1-content-table-tr-td" id="project-top-list-code${item.project.projectCode}"
-										onclick="projectClick(${item.project.projectCode},${userProjectCodeSave} )">
+										onclick="projectClick(${item.project.projectCode},${userProjectCodeSave},'${item.project.projectName}')">
 											<div class="left-padding-gray${status.index}">
 												<div class="project-name">
 													${item.project.projectName}
@@ -92,7 +91,7 @@
 								
 									<td>
 										<div class="contentBox1-content-table-tr-td" id="project-top-list-code${item.project.projectCode}"
-										onclick="projectClick(${item.project.projectCode}, ${userProjectCodeSave})">
+										onclick="projectClick(${item.project.projectCode}, ${userProjectCodeSave}, '${item.project.projectName}')">
 											<div class="left-padding-gray${status.index}">
 												<div class="project-name">
 													${item.project.projectName}
@@ -171,7 +170,7 @@
 							
 								<tr>
 									<td id="project-list-code${selectedProjectHistoryList.get(i).project.projectCode}"
-									onclick="projectClick(${selectedProjectHistoryList.get(i).project.projectCode}, ${userProjectCodeSave})">
+									onclick="projectClick(${selectedProjectHistoryList.get(i).project.projectCode}, ${userProjectCodeSave}, '${selectedProjectHistoryList.get(i).project.projectName}')">
 										<div>
 											${selectedProjectHistoryList.get(i).project.projectName}
 											<input type="hidden" class="miPojectCode${i}" value="${selectedProjectHistoryList.get(i).project.projectCode}">
@@ -441,6 +440,7 @@
 	  <div>
 	 	<input type="hidden" id="sendProjectCode" name="projectCode" value="">
 	 	<input type="hidden" id="sendUserProjectCode" name="userProjectCode" value="">
+	 	<input type="hidden" id="sendUserProjectName" name="projectName" value="">
 	 </div> 
 </form>
  
@@ -770,13 +770,14 @@ function searchTeam(){
 /* 오늘 날짜 계산 하여 프로젝트 진행상태 계산  --------------------------------------------*/	
 
 /* 클릭한 프로젝트 코드 받아서 페이지 넘겨주기 ----------------------------------------------------*/	
- function projectClick(c, d) {
+ function projectClick(c, d, e) {
 	//클릭한 프로젝트의 코드 
 	var projectCode2 = c;
 	var projectCode3 = d;
+	var projectName = String(e);
 	$('#sendProjectCode').val(projectCode2);
 	$('#sendUserProjectCode').val(projectCode3);
-
+	$('#sendUserProjectName').val(projectName);
 	$('#sendProjectCode2').submit();
 	
 	//클릭한 것 출력

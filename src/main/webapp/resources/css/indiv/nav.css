@@ -1,3 +1,9 @@
+a{
+	text-decoration: none;
+	color:black;
+	cursor: pointer;
+}
+
 	.navContent{
     		height : 60px;
     		vertical-align: middle; 
@@ -145,6 +151,10 @@
     		width: 25px;
     		margin-left: 15px;
     	}
+    	
+    	.menu{
+    		cursor: pointer;
+    	}
     
     	#menubarList > tbody :hover{
     		transition: all ease 0.5s 0s;
@@ -160,6 +170,7 @@
     		outline: 0;
     		background: transparent;
     		cursor: pointer;
+    		z-index: 1234;
 		}
 		
 		#menubarWithBtn{
@@ -183,6 +194,8 @@
         margin-top : -5px;
         border-bottom-right-radius: 10px;
         border-bottom-left-radius: 10px;
+        width: 150px;
+	    margin-left: -40px;
       }
       
       .dropdown-project-content a {

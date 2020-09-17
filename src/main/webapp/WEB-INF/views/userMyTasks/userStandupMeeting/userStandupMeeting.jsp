@@ -24,7 +24,7 @@
    <div id="content">
        <!-- 상단 프로젝트 제목 및 메뉴 이름 영역 -->
        <div id="contentTitle">
-           <div id="projectTitle2">프로젝트 / 이름땡땡땡!!</div>
+           <div id="projectTitle2"><a href="showProjectMain.pj">🚀내 프로젝트 </a>  / <c:out value="${ sessionScope.projectName }"/></div>
            <div id="menuTitle">Stand Up Meeting</div>
        </div>
 

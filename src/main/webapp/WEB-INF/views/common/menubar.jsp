@@ -30,6 +30,7 @@
 		                 <div class="dropdown-project">
 		                    <p class="navIcon">Project<img src="/agile/resources/icon/common/icon_down_chevron_nav.png"></p>
 		                    <div class="dropdown-project-content">
+			                     <a href="selectUserProject.me">Dash Board</a>                  
 			                     <a href="showProjectMain.pj">Project</a>                  
 			                     <a href="selectTimeLine.pj">Timeline</a>                   
 		                    </div>
@@ -64,9 +65,7 @@
 	        				<img id="downIcon" src="/agile/resources/icon/common/icon_down_chevron_nav.png">
 	                    </div>
 	                    <ul class="myInfodropdown-menu">
-	                      <li id="user"><c:out value="${ sessionScope.loginUser.userName }"/></li>
 	                      <li id="work"><a href="profile.me">프로필설정</a></li>
-	                      <li id="rest">피드백 보내기</li>
 	                      <li id="travel"><a href="logout.me">로그아웃</a></li>
 	                    </ul>
                	   </div>
@@ -81,11 +80,10 @@
             <div id="menubarWithBtn">
 	            <div id="menubar" class="">
 	                <table id="menubarTitleBox">
-	                    <tr><td id="projectTitle"><c:out value="${ sessionScope.loginUser.userName }님 환영합니다."/></td></tr>
+	                    <tr><td id="projectTitle"><c:out value="${ sessionScope.loginUser.userName }"/>님의<br><b><c:out value="${ sessionScope.projectName }"/></b></td></tr>
 	                </table>
 	                <table id="menubarList">
 	                	<tbody>
-	                    <tr><td class="menuIcon"><img src="/agile/resources/icon/common/icon_layouticon.png"> </td><td id="ProjectTimeline" class="menu"><a href = "selectTimeLine.pj">Project Timeline</a></td></tr>
 	                    <tr><td class="menuIcon"><img src="/agile/resources/icon/common/icon_gifticon.png"> </td><td id="SprintBacklog" class="menu">Sprint Backlog</td></tr>
 	                    <tr><td class="menuIcon"><img src="/agile/resources/icon/common/icon_trelloicon.png"> </td><td id="TaskBoard" class="menu">Task Board</td></tr>
 	                    <tr><td class="menuIcon"><img src="/agile/resources/icon/common/icon_crosshair.png"> </td><td id="Issues" class="menu"><a href="selectBugTask.tk">Issues</a></td></tr>

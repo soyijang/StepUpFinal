@@ -17,8 +17,8 @@
 
 </head>
 <body>
-    <%@ include file="../../common/menubar.jsp" %>
-    <div id="content">
+    <%@ include file="../../common/nav.jsp" %>
+    <div id="content-nav-only">
         <!-- 상단 프로젝트 제목 및 메뉴 이름 영역 -->
         <div id="contentTitle">
             <div id="projectTitle2"><b id="projectName">
