@@ -48,7 +48,7 @@
                          		<tbody>
                          		
 	                             <tr>
-	                            	<td rowspan="2" style=" width:50px;"><img src="/agile/resources/images/profile/dayoon_202008152056.png"></td>
+	                            	<td rowspan="2" style=" width:50px;"><img src="/agile/resources/images/logo/logo_gray_stepup.png" width="30px;" height="30px;"></td>
 	                            	<td rowspan="2" style=" width:170px;"><div name="projectName">${ i.projectName }</div></td>
 	                            	<td style=" width:140px; background-color:#2B2B49; border-radius:7px; color:white;">진행중 테스크</td>
 	                            	<td style=" width:30px; ">${ pjList2[status.index].taskCnt }</td>
@@ -84,13 +84,13 @@
 	                         			<th colspan="2" style="font-weight:100; text-align: left; height:60px;">프로젝트💾</th>
 	                         		</tr>
 	                         		<tr>
-	                         			<td colspan="2" style="border-bottom:1px solid #E8E8E8; font-weight:300; text-align: center;">최근 프로젝트가 ${ alertList }번 업데이트 되었습니다.🔔</td>
+	                         			<td colspan="2" style="font-weight:300; text-align: center;">최근 프로젝트가 ${ alertList }번 업데이트 되었습니다.🔔</td>
 	                         		</tr>
 	                         		<tr>
 	                         			<th colspan="2" style="font-weight:100; text-align: left; height:60px;">스프린트🎿</th>
 	                         		</tr>
 	                         		<tr>
-	                         			<td colspan="2" style="border-bottom:1px solid #E8E8E8; font-weight:300; text-align: center;">최근 스프린트가 ${ alertList2 }번 업데이트 되었습니다.🔔</td>
+	                         			<td colspan="2" style="font-weight:300; text-align: center;">최근 스프린트가 ${ alertList2 }번 업데이트 되었습니다.🔔</td>
 	                         		</tr>
 	                         	</table>
 	                         </div>
