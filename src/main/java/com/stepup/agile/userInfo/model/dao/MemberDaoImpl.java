@@ -75,14 +75,12 @@ public class MemberDaoImpl implements MemberDao {
 		return sqlSession.selectList("Member.myProjectList", userCode);
 	}
 
-
 	// MyInfo 북마크조회
 	@Override
 	public List<TaskHistory> selectBookmark(SqlSessionTemplate sqlSession, HashMap<String, Object> map) {
 
 		return sqlSession.selectList("Member.selectBookmark", map);
 	}
-
 
 	// 썸네일조회
 	@Override
@@ -111,14 +109,12 @@ public class MemberDaoImpl implements MemberDao {
 		return sqlSession.selectOne("Member.selectJob", userCode);
 	}
 
-
 	// 부서등록
 	@Override
 	public int insertDept(SqlSessionTemplate sqlSession, HashMap<String, Object> map) {
 
 		return sqlSession.update("Member.insertDept", map);
 	}
-
 
 	@Override
 	public Member selectDept(SqlSessionTemplate sqlSession, int userCode) {
@@ -226,67 +222,5 @@ public class MemberDaoImpl implements MemberDao {
 
 		return sqlSession.update("Member.tempPwd", member);
 	}
-	//회사등록
-	@Override
-	public int insertCom(SqlSessionTemplate sqlSession, HashMap<String, Object> map) {
-		
-		return sqlSession.update("Member.insertCom", map);
-	}
-	@Override
-	public Member selectCom(SqlSessionTemplate sqlSession, int userCode) {
-		
-		return sqlSession.selectOne("Member.selectCom", userCode);
-	}
-	//썸네일 등록
-	@Override
-	public int insertThumbnail(SqlSessionTemplate sqlSession, Attachment attachment) {
-		
-		sqlSession.insert("Member.insertThumbnail", attachment);
-		
-		int attachCode = attachment.getAttachCode();
-		System.out.println("썸네일" + attachCode);
-		return attachCode;
-	}
-	//비밀번호 변경
-	@Override
-	public int updatePwd(SqlSessionTemplate sqlSession, HashMap<String, Object> map) {
-
-		return sqlSession.update("Member.updatePwd", map);
-	}
-	@Override
-	public Member selectNewLogin(SqlSessionTemplate sqlSession, int userCode) {
-
-		return sqlSession.selectOne("Member.selectNewLogin", userCode);
-	}
-	//회원탈퇴
-	@Override
-	public int getout(SqlSessionTemplate sqlSession, Member m) {
-
-		return sqlSession.delete("Member.getout", m);
-	}
-	//배경 등록
-	@Override
-	public int insertBackImg(SqlSessionTemplate sqlSession, Attachment attachment) {
-		
-		sqlSession.insert("Member.insertBackImg", attachment);
-		
-		int attachCode = attachment.getAttachCode();
-		System.out.println(attachCode);
-		return attachCode; 
-	}
-	//배경 조회
-	/*
-	 * @Override public Attachment selectBackImg(SqlSessionTemplate sqlSession, int
-	 * attachCode) {
-	 * 
-	 * return sqlSession.selectOne("Member.selectBackImg", attachCode); }
-	 */
-
-
-
-
-
-
-	
 
 }

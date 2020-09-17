@@ -113,6 +113,7 @@
 		<result property="userCode" column="USER_CODE"/>
 		<result property="taskHistValue" column="TASK_HIST_VALUE"/>
 		<result property="taskCategoryCode" column="TASK_CATEGORY_CODE"/>
+		<result property="projectName" column="PROJECT_NAME"/>
 		<collection property="member" resultMap="memberResultSet"/>
 	    <collection property="userTeamList" resultMap="UserTeamListResultSet"/>
 	    <collection property="userProjectList" resultMap="UserProjectListResultSet"/>
@@ -281,7 +282,7 @@
 			SELECT SEQ_TASK_HIST.NEXTVAL FROM DUAL
 		</selectKey>
 		INSERT INTO TASK_HISTORY(TASK_HIST_UPDATE_DATE, TASK_HIST_UPDATE_TIME,TASK_CODE, TASK_HIST_CODE, MASTER_CODE, USER_CODE, TASK_HIST_VALUE, TASK_CATEGORY_CODE)
-		VALUES (TO_CHAR(SYSDATE + 9/24, 'YYYY-MM-DD'), TO_CHAR(SYSDATE + 9/24, 'hh24:mi:ss'), #{taskCode}, #{taskHistCode}, #{masterCode}, #{userCode}, #{taskHistValue, jdbcType=VARCHAR}, #{taskCategoryCode, jdbcType=VARCHAR})
+		VALUES (TO_CHAR(SYSDATE + 9/24, 'YYYY-MM-DD'), TO_CHAR(SYSDATE + 9/24, 'hh24:mi:ss'), #{taskCode}, #{taskHistCode}, #{masterCode}, #{userCode}, #{taskHistValue, jdbcType=VARCHAR}, 'J')
 	</insert>
 	
 	<select id="selectSubTitle" parameterType="com.stepup.agile.projectTask.model.vo.TaskHistory" resultMap="subTaskHistoryResultSet">
@@ -311,7 +312,7 @@
 		SELECT *
 		  FROM REPLY_HISTORY H JOIN REPLY_LIST R ON (R.REPLY_CODE = H.REPLY_CODE)
 		  JOIN USER_INFO U ON(U.USER_CODE = R.USER_CODE)
-		  JOIN ATTACH_FILE A ON (A.USER_CODE = U.USER_CODE)
+		  LEFT JOIN ATTACH_FILE A ON (A.USER_CODE = U.USER_CODE)
 		 WHERE R.TASK_CODE = #{taskCode, jdbcType=INTEGER}
 		   AND H.REPLY_TYPE = 1 AND R.REPLY_STATUS = 'N'
 	</select>
@@ -364,7 +365,7 @@
 			SELECT SEQ_TASK_HIST.NEXTVAL FROM DUAL
 		</selectKey>
 		INSERT INTO TASK_HISTORY(TASK_HIST_UPDATE_DATE, TASK_HIST_UPDATE_TIME,TASK_CODE, TASK_HIST_CODE, MASTER_CODE, USER_CODE, TASK_HIST_VALUE, TASK_CATEGORY_CODE)
-		VALUES (TO_CHAR(SYSDATE + 9/24, 'YYYY-MM-DD'), TO_CHAR(SYSDATE + 9/24, 'hh24:mi:ss'), #{taskCode}, #{taskHistCode}, #{masterCode, jdbcType=INTEGER}, default, #{memberName, jdbcType=VARCHAR}, 'L')
+		VALUES (TO_CHAR(SYSDATE + 9/24, 'YYYY-MM-DD'), TO_CHAR(SYSDATE + 9/24, 'hh24:mi:ss'), #{taskCode}, #{taskHistCode}, #{masterCode, jdbcType=INTEGER}, default, #{memberName, jdbcType=VARCHAR}, 'M')
 	</insert>
 	<update id="updateTaskList2" parameterType="com.stepup.agile.projectTask.model.vo.TaskList">
 		UPDATE TASK_LIST SET TASK_MASTER = #{masterCode}
@@ -614,21 +615,24 @@
 	</select>
 	
 	<select id="selectBugTask" resultMap="selectUserTaskRSet" parameterType="com.stepup.agile.projectTask.model.vo.TaskHistory">
-		 SELECT TK.TASK_CODE, S.SPRINT_CODE, TK.TASK_LEVEL, I.USER_NAME
+		 SELECT TK.TASK_CODE, S.SPRINT_CODE, TK.TASK_LEVEL, I.USER_NAME, L.PROJECT_NAME
 		      , MAX(TS.TASK_HIST_VALUE) KEEP (DENSE_RANK LAST ORDER BY TS.TASK_HIST_UPDATE_DATE, TS.TASK_HIST_UPDATE_TIME) AS TASK_HIST_VALUE
 		   FROM USER_INFO I,
 				USER_TEAM_LIST T,
 				USER_PROJECT_LIST P,
 		        SPRINT_LIST S,
 				TASK_LIST TK,
-				TASK_HISTORY TS
+				TASK_HISTORY TS,
+                PROJECT_LIST L
 		  WHERE I.USER_CODE = T.USER_CODE
 				   AND T.USER_TEAM_CODE = P.USER_TEAM_CODE
 				   AND P.USER_PROJECT_CODE = S.USER_PROJECT_CODE
 				   AND S.SPRINT_CODE = TK.SPRINT_CODE
 				   AND TK.TASK_CODE = TS.TASK_CODE
+                   AND P.PROJECT_CODE = L.PROJECT_CODE
 				   AND I.USER_CODE = #{userCode}
 		           AND TS.TASK_CATEGORY_CODE = 'J'
+                   AND P.PROJECT_CODE = #{projectCode}
 		           AND TS.TASK_CODE IN (SELECT TASK_CODE AS 버그있는애들
 		            FROM (SELECT TK.TASK_CODE
 		               , MAX(TS.TASK_HIST_VALUE) KEEP (DENSE_RANK LAST ORDER BY TS.TASK_HIST_UPDATE_DATE, TS.TASK_HIST_UPDATE_TIME) AS TASK_HIST_VALUE
@@ -647,7 +651,7 @@
 		                   AND TS.TASK_CATEGORY_CODE = 'G'
 		          GROUP BY TK.TASK_CODE, TS.TASK_CATEGORY_CODE
 		          ORDER BY TK.TASK_CODE)
-		          WHERE TASK_HIST_VALUE = 'Y') GROUP BY TK.TASK_CODE, S.SPRINT_CODE, TK.TASK_LEVEL, I.USER_NAME
+		          WHERE TASK_HIST_VALUE = 'Y') GROUP BY TK.TASK_CODE, S.SPRINT_CODE, TK.TASK_LEVEL, I.USER_NAME, L.PROJECT_NAME
 	</select>
 	
 	<select id="selectBugCont" resultMap="selectUserTaskRSet" parameterType="com.stepup.agile.projectTask.model.vo.TaskHistory">
@@ -736,6 +740,7 @@
 		                   AND I.USER_CODE = #{userCode}
 		                   AND TS.TASK_CATEGORY_CODE = 'G'
                             AND PH.PROJECT_STATUS = 'N'
+                            AND PL.PROJECT_CODE = #{projectCode}
                             AND TS.TASK_CATEGORY_CODE IS NOT NULL
 		          GROUP BY TK.TASK_CODE, TS.TASK_CATEGORY_CODE
 		          ORDER BY TK.TASK_CODE)
@@ -795,6 +800,7 @@ WHERE I.USER_CODE = T.USER_CODE
 		                   AND I.USER_CODE = #{userCode}
 		                   AND TS.TASK_CATEGORY_CODE = 'G'
                             AND PH.PROJECT_STATUS = 'N'
+                            AND PL.PROJECT_CODE = #{projectCode}
                             AND TS.TASK_CATEGORY_CODE IS NOT NULL
 		          GROUP BY TK.TASK_CODE, TS.TASK_CATEGORY_CODE
 		          ORDER BY TK.TASK_CODE)
@@ -846,7 +852,7 @@ WHERE I.USER_CODE = T.USER_CODE
 		                              WHERE RK = 1
 		                              AND USER_PROJECT_STATUS = 'Y')
 		AND UPL.PROJECT_CODE = PL.PROJECT_CODE 
-		AND PL.PROJECT_CODE = 2 
+		AND PL.PROJECT_CODE = #{projectCode}
 		AND UPL.USER_PROJECT_CODE = SL.USER_PROJECT_CODE 
 		AND SL.SPRINT_CODE = SH.SPRINT_CODE
 		AND SH.SPRINT_HIST_CODE = (SELECT SPRINT_HIST_CODE
@@ -883,7 +889,7 @@ WHERE I.USER_CODE = T.USER_CODE
 		                                                                   WHERE RK = 1
 		                                                                   AND USER_PROJECT_STATUS = 'Y')
 		                                   AND UPL.PROJECT_CODE = PL.PROJECT_CODE 
-		                                   AND PL.PROJECT_CODE = 2 
+		                                   AND PL.PROJECT_CODE = #{projectCode}
 		                                   AND UPL.USER_PROJECT_CODE = SL.USER_PROJECT_CODE 
 		                                   AND SL.SPRINT_CODE = SH.SPRINT_CODE
 		                                   AND SH.SPRINT_STATUS = 'N'

@@ -94,7 +94,7 @@ public interface TaskService {
 	
 	String selectPjNonTask(Map<String, Object> map);
 	
-	List<TaskHistory> selectBugTask(Member m);
+	List<TaskHistory> selectBugTask(HashMap<String, Object> map);
 
 	List<TaskList> selectBugCont(HashMap<String, Object> map);
 

@@ -128,7 +128,7 @@
 	
 	
 	<select id="selectSprint" resultMap="sprintHistoryResultSet" parameterType="Sprint">
-         SELECT *    
+<!--          SELECT *    
     FROM(SELECT H.SPRINT_CODE
 		    , J.PROJECT_NAME
 		    , P.USER_PROJECT_CODE
@@ -146,6 +146,7 @@
 		    AND S.SPRINT_CODE = H.SPRINT_CODE
 		    AND P.PROJECT_CODE = J.PROJECT_CODE
 		    AND I.USER_EMAIL = #{userEmail, jdbcType=VARCHAR}
+		    AND P.PROJECT_CODE = #{projectCode, jdbcType=NUMERIC}
             AND H.SPRINT_STATUS = 'N'
 		  GROUP BY H.SPRINT_CODE , J.PROJECT_NAME, P.USER_PROJECT_CODE
           ORDER BY H.SPRINT_CODE)A
@@ -164,11 +165,56 @@
               WHERE TASK_CATEGORY_CODE='I' group by SPRINT_CODE) B
         ON (A.SPRINT_CODE = B.SPRINT_CODE)
         ORDER BY DECODE(SPRINT_TYPE, '02', 1, '01', 2, '03', 3),1
+        
+         -->
+    SELECT *    
+    FROM(SELECT H.SPRINT_CODE
+		    , J.PROJECT_NAME
+		    , P.USER_PROJECT_CODE
+            , MAX(H.SPRINT_NAME) KEEP (DENSE_RANK LAST ORDER BY H.SPRINT_HIST_UPDATE_DATE, H.SPRINT_HIST_UPDATE_TIME) AS SPRINT_NAME
+            , MAX(H.SPRINT_TYPE) KEEP (DENSE_RANK LAST ORDER BY H.SPRINT_HIST_UPDATE_DATE, H.SPRINT_HIST_UPDATE_TIME) AS SPRINT_TYPE
+		  FROM SPRINT_HISTORY H,
+               USER_INFO I,
+		       USER_TEAM_LIST T ,
+		       USER_PROJECT_LIST P,
+		       SPRINT_LIST S ,
+		       PROJECT_LIST J
+		  WHERE I.USER_CODE = T.USER_CODE
+		    AND T.USER_TEAM_CODE = P.USER_TEAM_CODE
+		    AND P.USER_PROJECT_CODE =  S.USER_PROJECT_CODE
+		    AND S.SPRINT_CODE = H.SPRINT_CODE
+		    AND P.PROJECT_CODE = J.PROJECT_CODE
+		    AND I.USER_EMAIL = #{userEmail, jdbcType=VARCHAR}
+		    AND P.PROJECT_CODE = #{projectCode, jdbcType=NUMERIC}
+            AND H.SPRINT_STATUS = 'N'
+		  GROUP BY H.SPRINT_CODE , J.PROJECT_NAME, P.USER_PROJECT_CODE
+          ORDER BY H.SPRINT_CODE)A
+          LEFT JOIN ( 
+               SELECT ROUND(COUNT(DECODE(TASK_HIST_VALUE, '완료', 1))/COUNT(*)*100 , 0) AS SPRINT_TASK_COUNT
+               ,SPRINT_CODE
+                 FROM (
+                  SELECT L.TASK_CODE,L.SPRINT_CODE
+                      , MAX(H.TASK_HIST_VALUE) KEEP (DENSE_RANK LAST ORDER BY H.TASK_HIST_UPDATE_DATE, H.TASK_HIST_UPDATE_TIME) AS TASK_HIST_VALUE
+                      , H.TASK_CATEGORY_CODE 
+                      , H.USER_CODE
+                      , H.MASTER_CODE
+                   FROM TASK_HISTORY H
+                   JOIN TASK_LIST L ON (H.TASK_CODE = L.TASK_CODE)
+                   WHERE H.TASK_HIST_CODE IN (SELECT TASK_HIST_CODE
+                           FROM(SELECT TH.TASK_CODE,TH.TASK_CATEGORY_CODE, TH.TASK_HIST_UPDATE_DATE, TH.TASK_HIST_UPDATE_TIME, TH.TASK_HIST_CODE, TH.MASTER_CODE, TH.USER_CODE, TH.TASK_HIST_VALUE, 
+                                       TC.TASK_CATEGORY_NAME, 
+                                       RANK() OVER(PARTITION BY TH.TASK_CODE, TH.TASK_CATEGORY_CODE  ORDER BY TH.TASK_HIST_CODE DESC) AS TASK_LATEST_RK
+                                  FROM TASK_HISTORY TH, TASK_CATEGORY TC WHERE TH.TASK_CATEGORY_CODE = TC.TASK_CATEGORY_CODE)
+                          WHERE TASK_LATEST_RK = 1)
+                  GROUP BY L.TASK_CODE, H.TASK_CATEGORY_CODE, H.USER_CODE, H.MASTER_CODE, L.SPRINT_CODE)
+              WHERE TASK_CATEGORY_CODE='I' group by SPRINT_CODE) B
+        ON (A.SPRINT_CODE = B.SPRINT_CODE)
+        ORDER BY DECODE(SPRINT_TYPE, '02', 1, '01', 2, '03', 3),1
 	</select>
 
 	<insert id="insertSprint" parameterType="Sprint">
 		INSERT INTO SPRINT_LIST 
-		VALUES(SEQ_SPRINT.NEXTVAL, TO_CHAR(SYSDATE + 9/24, 'YYYY-MM-DD'), #{userProjectCode, jdbcType=INTEGER}, TO_CHAR(SYSDATE + 9/24, 'hh24:mi:ss'))
+		VALUES(SEQ_SPRINT.NEXTVAL, TO_CHAR(SYSDATE + 9/24, 'YYYY-MM-DD'), #{userProjectCode, jdbcType=NUMERIC}, TO_CHAR(SYSDATE + 9/24, 'hh24:mi:ss'))
 	</insert>
 	
 	<select id="selectSprintOne" resultMap="sprintHistoryResultSet" parameterType="Sprint">
@@ -191,7 +237,7 @@
 	</select>
 	
 	<select id="selectSprintTask" resultMap="TaskHistoryResultSet" parameterType="TaskHistory">
-	     SELECT L.TASK_CODE
+		 SELECT L.TASK_CODE
 		      , MAX(H.TASK_HIST_VALUE) KEEP (DENSE_RANK LAST ORDER BY H.TASK_HIST_UPDATE_DATE, H.TASK_HIST_UPDATE_TIME) AS TASK_HIST_VALUE
 		      , H.TASK_CATEGORY_CODE 
 		      , H.USER_CODE
@@ -199,7 +245,19 @@
 		   FROM TASK_HISTORY H
 		   JOIN TASK_LIST L ON (H.TASK_CODE = L.TASK_CODE)
 		  WHERE L.SPRINT_CODE = #{sprintCode, jdbcType=NUMERIC}
-		  GROUP BY L.TASK_CODE, H.TASK_CATEGORY_CODE, H.USER_CODE, H.MASTER_CODE
+           AND L.TASK_CODE NOT IN  (SELECT DISTINCT TL.TASK_CODE 
+                            FROM TASK_LIST TL , TASK_HISTORY TH, TASK_CATEGORY TC 
+                            WHERE TL.TASK_CODE = TH.TASK_CODE 
+                            AND TH.TASK_CATEGORY_CODE = TC.TASK_CATEGORY_CODE
+                            AND ( TH.TASK_CATEGORY_CODE = 'F'))      		  
+           AND H.TASK_HIST_CODE IN (SELECT TASK_HIST_CODE
+                           FROM(SELECT TH.TASK_CODE,TH.TASK_CATEGORY_CODE, TH.TASK_HIST_UPDATE_DATE, TH.TASK_HIST_UPDATE_TIME, TH.TASK_HIST_CODE, TH.MASTER_CODE, TH.USER_CODE, TH.TASK_HIST_VALUE, 
+                                       TC.TASK_CATEGORY_NAME, 
+                                       RANK() OVER(PARTITION BY TH.TASK_CODE, TH.TASK_CATEGORY_CODE  ORDER BY TH.TASK_HIST_CODE DESC) AS TASK_LATEST_RK
+                                  FROM TASK_HISTORY TH, TASK_CATEGORY TC WHERE TH.TASK_CATEGORY_CODE = TC.TASK_CATEGORY_CODE)
+                          WHERE TASK_LATEST_RK = 1)
+		  GROUP BY H.TASK_CATEGORY_CODE, L.TASK_CODE, H.USER_CODE, H.MASTER_CODE
+		  ORDER BY TASK_CODE
 	</select>
 	
 	<insert id="updateSprint" parameterType="Sprint">
@@ -251,9 +309,19 @@
 	</select>
 	
 	<insert id="updateTask" parameterType="TaskHistory">
-		 INSERT INTO TASK_HISTORY  
+		        INSERT INTO TASK_HISTORY  
 		 VALUES(TO_CHAR(SYSDATE + 9/24, 'YYYY-MM-DD'), TO_CHAR(SYSDATE + 9/24, 'hh24:mi:ss'),
-		 #{taskCode, jdbcType=NUMERIC}, SEQ_TASK_HIST.NEXTVAL, 7, 14, '완료', 'I')
+		#{taskCode, jdbcType=NUMERIC}, SEQ_TASK_HIST.NEXTVAL, 
+          (SELECT MASTER_CODE
+		  FROM TASK_HISTORY
+		 WHERE TASK_HIST_CODE = (SELECT MAX(TASK_HIST_CODE)
+		                           FROM TASK_HISTORY
+		                          WHERE TASK_CODE = #{taskCode, jdbcType=NUMERIC})),
+          (SELECT USER_CODE
+		  FROM TASK_HISTORY
+		 WHERE TASK_HIST_CODE = (SELECT MAX(TASK_HIST_CODE)
+		                           FROM TASK_HISTORY
+		                          WHERE TASK_CODE = #{taskCode, jdbcType=NUMERIC})), '완료', 'I')
 	</insert>
 	
 	<select id="searchSprint" resultMap="sprintHistoryResultSet" parameterType="Sprint">

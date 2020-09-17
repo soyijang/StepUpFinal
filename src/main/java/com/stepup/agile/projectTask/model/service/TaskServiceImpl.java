@@ -283,8 +283,8 @@ public class TaskServiceImpl implements TaskService {
 
 	
 	@Override
-	public List<TaskHistory> selectBugTask(Member m) {
-		return td.selectBugTask(sqlSession, m);
+	public List<TaskHistory> selectBugTask(HashMap<String, Object> map) {
+		return td.selectBugTask(sqlSession, map);
 	}
 
 

@@ -96,7 +96,7 @@ public interface TaskDao {
 	
 	String selectPjNonTask(SqlSessionTemplate sqlSession, Map<String, Object> map);
 
-	List<TaskHistory> selectBugTask(SqlSessionTemplate sqlSession, Member m);
+	List<TaskHistory> selectBugTask(SqlSessionTemplate sqlSession, HashMap<String, Object> map);
 
 	List<TaskList> selectBugCont(SqlSessionTemplate sqlSession, HashMap<String, Object> map);
 
