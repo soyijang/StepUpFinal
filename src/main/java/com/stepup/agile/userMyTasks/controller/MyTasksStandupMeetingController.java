@@ -18,36 +18,36 @@ import com.stepup.agile.userMyTasks.model.vo.MyTask;
 import net.sf.json.JSONArray;
 
 
-@SessionAttributes("loginUser")
+@SessionAttributes({"loginUser", "projectCodeNew"})
 @Controller
 public class MyTasksStandupMeetingController {
-	@Autowired
-	private MyTasksStandupMeetingService sms;
-	
+   @Autowired
+   private MyTasksStandupMeetingService sms;
+   
 
-	// 프로젝트 메인페이지로 포워딩 (해당 멤버의 project list 조회 후 view 이동)
-	@RequestMapping("showStandUpMeeting.mt")
-	public String selectProject(Model model, @ModelAttribute("loginUser") Member m) {
+   // 프로젝트 메인페이지로 포워딩 (해당 멤버의 project list 조회 후 view 이동)
+   @RequestMapping("showStandUpMeeting.mt")
+   public String selectProject(Model model, @ModelAttribute("loginUser") Member m
+         ,@ModelAttribute("projectCodeNew") int projectCode) {
 
-		//--------------------rss목록 가져오기--------------------------------
-			
-			List<Rss> rssList;
-			rssList = sms.selectRssList(m);
-			model.addAttribute("rssList", rssList);		
-			
-		//---------------------------------------------------------------
-		
-			//특정 프로젝트 기준으로 가져온다.
-		int projectCode = 2;
-		List<MyTask> selectMytaskShareList;
-		selectMytaskShareList = sms.selectMytaskShareList(projectCode);
-		for(int i = 0; i < selectMytaskShareList.size(); i++) {
-			
-			System.out.println(i + "번째  : " + selectMytaskShareList.get(i));
-		}
-		model.addAttribute("selectMytaskShareList", JSONArray.fromObject(selectMytaskShareList));
-		return "userMyTasks/userStandupMeeting/userStandupMeeting";
-		
+      //--------------------rss목록 가져오기--------------------------------
+      
+         List<Rss> rssList;
+         rssList = sms.selectRssList(m);
+         model.addAttribute("rssList", rssList);      
+         
+      //---------------------------------------------------------------
+      
+         //특정 프로젝트 기준으로 가져온다.
+      List<MyTask> selectMytaskShareList;
+      selectMytaskShareList = sms.selectMytaskShareList(projectCode);
+      for(int i = 0; i < selectMytaskShareList.size(); i++) {
+         
+         System.out.println(i + "번째  : " + selectMytaskShareList.get(i));
+      }
+      model.addAttribute("selectMytaskShareList", JSONArray.fromObject(selectMytaskShareList));
+      return "userMyTasks/userStandupMeeting/userStandupMeeting";
+      
 
-	}
+   }
 }

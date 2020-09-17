@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import com.stepup.agile.userInfo.model.vo.Member;
 import com.stepup.agile.userMyTasks.model.vo.MyTask;
 import com.stepup.agile.userMyTasks.model.vo.MyTaskShare;
+import com.stepup.agile.userMyTasks.model.vo.UserProject;
 
 @Repository
 public class MyTasksDaoImpl implements MyTasksDao {
@@ -54,6 +55,23 @@ public class MyTasksDaoImpl implements MyTasksDao {
 	@Override
 	public int insertShareMyTask(SqlSessionTemplate sqlSession, MyTaskShare mytask) {
 		return sqlSession.insert("MyTask.insertShareMyTask", mytask);
+	}
+
+	@Override
+	public List<UserProject> selectUserProjectCode(SqlSessionTemplate sqlSession, Member m) {
+		return sqlSession.selectList("MyTask.selectUserProjectCode", m);
+	}
+
+	@Override
+	public int updateMyTaskShareNum(SqlSessionTemplate sqlSession, Member m,
+			int myTasksCode, int userProjectCode) {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("userEmail",  m.getUserEmail());
+		map.put("userProjectCode",  userProjectCode);
+		map.put("myTasksCode",  myTasksCode);
+		
+		return sqlSession.update("MyTask.updateMyTaskShareNum", map);
 	}
 
 }

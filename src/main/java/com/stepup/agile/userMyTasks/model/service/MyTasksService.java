@@ -1,10 +1,12 @@
 package com.stepup.agile.userMyTasks.model.service;
 
-import java.util.List; 
+import java.util.List;
+import java.util.Map;
 
 import com.stepup.agile.userInfo.model.vo.Member;
 import com.stepup.agile.userMyTasks.model.vo.MyTask;
 import com.stepup.agile.userMyTasks.model.vo.MyTaskShare;
+import com.stepup.agile.userMyTasks.model.vo.UserProject;
  
 public interface MyTasksService {
 
@@ -21,6 +23,10 @@ public interface MyTasksService {
 	List<MyTask> selectShareMyTasks(Member m);
 
 	int insertShareMyTask(MyTaskShare mytask);
+
+	List<UserProject> selectUserProjectCode(Member m);
+
+	int updateMyTaskShareNum(Member m, int myTasksCode, int userProjectCode);
 
 	
 }

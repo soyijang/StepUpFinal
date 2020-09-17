@@ -1,40 +1,47 @@
 body{
     margin:0;
+    padding:0;
     box-sizing:border-box;
-    overflow-x: hidden;
+    width: 100vw;
+    height: auto;
 }
+
+#stepup-logo{
+   height: 60px;
+}
+
+a{
+   text-decoration: none;
+   color: black;
+}
+
+
 header{
     height: 120px;
-    width: 100vmax;
+    width: 100%;
     display: inline-block;
 }
+
 #head-wrapper{
-	margin-left:auto;
-	margin-right:auto;
+   margin-left:auto;
+   margin-right:auto;
     height: 70px;
-    width: 1250px;
+    width: 100%;
     margin-top:30px;
-
-}
-#header-left{
-    float: left;
-    width: 800px;
-    height: 100%;
-}
-#stepup-logo{
-	height: 60px;
+    border-bottom: 1px solid #D9D9D9;
+    margin-bottom: 20px;
 }
 
-#header-middle{
-  	float: left;
-    width: 170px;
-    height: 100%;
+#header-left, #header-right{
+   float: left;
+   display: inline-block;
+   height: 100%;
 }
-#header-right{
-    float: left;
-    width: 170px;
-    height: 100%;
-}
+#header-left{ width: 70%; box-sizing: border-box; padding-left: 10%;   }
+#header-right{ width: 30%; }
+
+
+
 .loginBtn{
    width:170px;
    height:50px;
@@ -45,9 +52,13 @@ header{
    font-weight: normal;
    font-size: 20px;
    color: #000000;
+   display: inline-block;
+   float: left;
 }
 .joinBtn{
    width:170px;
+   display: inline-block;
+   float: left;
    height:50px;
    line-height:50px;
    text-align:center;
@@ -64,57 +75,53 @@ header{
    float: left;
 }
 
+
 /* 투명 배경, 핑크색 테두리 버튼 */
 .contactBtn{
-	width:170px;
-	height:50px;
-	border: 1px solid #DD0351;
-	box-sizing: border-box;
-	border-radius: 8px;	
-	font-family: Noto Sans KR;
-	font-style: normal;
-	font-weight: 600;
-	font-size: 20px;
-	line-height: 45px;
-	align-items: center;
-	text-align: center;
-	letter-spacing: 0.2px;
-	color: #DD0351;
-	display: inline-block;
-	float: left;
-	margin-left: 30px;
+   width:170px;
+   height:50px;
+   border: 1px solid #DD0351;
+   box-sizing: border-box;
+   border-radius: 8px;   
+   font-family: Noto Sans KR;
+   font-style: normal;
+   font-weight: 600;
+   font-size: 20px;
+   line-height: 45px;
+   align-items: center;
+   text-align: center;
+   letter-spacing: 0.2px;
+   color: #DD0351;
+   display: inline-block;
+   float: left;
+   margin-left: 30px;
 }
 
 
-/* 메인 페이지 header 아래 line */
-#mainPage-header-line{
-    border: 1px solid #D9D9D9;
-    margin-bottom: 20px;
-}
 
 #mainPage-section1{
-    width: 100vmax;
+    width: 100%;
     height: 600px;
     background: #FCF8F9;
     display: inline-block;
 }
 
 .section-wrapper1{
-	margin-left: auto;
-	margin-right: auto;
-	height: 100%;
-	width: 1320px;	
+   margin-left: auto;
+   margin-right: auto;
+   width: 90%;   
+   height: 100%;
 }
 .section-wrapper21{
-	height: 500px;
-	display: block;
-	
+   height: 700px;
+   display: block;
+   
 }
 .section-wrapper22{
-	margin-left: auto;
-	margin-right: auto;
-	height: 100%;
-	width: 1400px;
+   margin-left: auto;
+   margin-right: auto;
+   height: 100%;
+   width: 100%;
 }
 
 #section1-article1, #section1-article2{
@@ -126,9 +133,10 @@ header{
 
 /* 최상단 배너 글자 박스 */
 #section1-article1{
-	padding-top: 100px;
-	box-sizing: border-box;	
-	width: 800px;
+   padding-top: 100px;
+   box-sizing: border-box;   
+   width: 55%;
+   display: inline-block;
 }
 
 #section1-article1-title1{
@@ -151,24 +159,31 @@ header{
 }
 
 #section1-article1-btn{
-	margin-top: 35px;
-	
+   margin-top: 35px;
+   
 }
 
 /* 애자일 이미지 박스 */
 #section1-article2{
-	width:512px;
-	padding-top: 40px;
-	box-sizing: border-box;
+   width:35%;
+   padding-top: 40px;
+   box-sizing: border-box;
 }
 /* 애자일 이미지 크기 */
 #img_mainAgile{
-	width: 512px;
+   width: 450px;
 }
 
+
+/* ----------------------------------------- */
+
+
+
+
+
 #mainPage-section2{
-    width: 100vmax;
-    height: 670px;
+    width: 100%;
+    height: 800px;
     background: white;
     display: inline-block;
 }
@@ -186,7 +201,7 @@ header{
 }
 
 #mainRedBox{
-    width: 100vmax;
+    width: 100%;
     height: 127px;
     background: #DD0351;
     padding-left: 50px;
@@ -196,7 +211,7 @@ header{
 }
 
 #mainRedBoxText{
-	font-family: Noto Sans KR;
+   font-family: Noto Sans KR;
     font-style: normal;
     font-weight: bold;
     font-size: 40px;
@@ -206,33 +221,61 @@ header{
     width: 500px;
     height: 100%;
 }
-
+.footer-client{
+   text-align: center;
+}
 /* 기능 click 가능한 부분 */
 #clickMeImg{
-	margin-right:230px;
-	width: 750px;
-	height: 465px;
-	background: orange;
-	float: right;
-	margin-top: -60px;
+   margin-left: 20%;
 }
 
 
-
-
-/* 기능 상세 소개 */
-#mainPage-section3{
-    width: 100vmax;
-    height: 3500px;
-    background: white;
+#gif{
+   margin-top: -2%;
+   width: 70%;
+   float: right;
+   margin-right: 3%;
 }
+
+/* ------------------------------------   */
+
+footer{
+    margin: 0;
+    width: 100%;
+    background: #670025;
+    color: white;
+    display: inline-block;
+    height: 150px;
+    box-sizing:border-box;
+}
+
+#footer-left{
+    float: left;
+    width: 80%;
+}
+#footer-right{
+    float: left;
+    width: 20%;
+    text-align:left;
+    padding: 20px;
+    box-sizing: border-box;
+
+}
+.ft{
+   margin-left: auto;
+   margin-right: auto;
+   width:70%;
+   height:100%;
+}
+
+
 
 /* article 기본 font css */
 .title1{
    font-family: Noto Sans KR;
    font-style: normal;
    font-weight: bold;
-   font-size: 45px;
+   font-size: 35px;
    line-height: 85px;
    color: #DD0351;
    
@@ -241,118 +284,41 @@ header{
    font-family: Noto Sans KR;
    font-style: normal;
    font-weight: bold;
-   font-size: 45px;
+   font-size: 35px;
    line-height: 60px;
    color: #000000;
 }
+.img_timeline, #img_board,#img_feedbackForm{
+   margin-left: 5%;
+}
+ #img_standupMeeting{
+ margin-left: 19%;
+ }
 
-/* 타임라인 기능 소개 article size*/
-#section3-article1{
-   background: #FCF8F9;
-   height: 600px;
-   padding-left: 200px;
-   padding-top: 150px;
-   box-sizing: border-box;
+.aaa, .ccc, .eee, .ggg{
+   margin-left: 5%;
 }
-#section3-article2{
-   background: red;
-   height: 950px;
-   padding-left: 200px;
-   padding-top: 70px;
-   box-sizing: border-box;
+.bbb, .fff, .ddd{
+   float: right;
+   margin-right: 5%;
+   
 }
-#section3-article3{
-   background: blue;
-   height: 250px;
-   padding-left: 200px;
-   box-sizing: border-box;
+.bbb, .ddd{
+   margin-top:-10%;
 }
-#section3-article4{
-   background: yellowgreen;
-   height: 550px;
-   padding-left: 200px;
-   padding-top: 100px;
-   box-sizing: border-box;
-}
-#section3-article5{
-   background: lightgreen;
-   height: 550px;
-   padding-left: 200px;
-   box-sizing: border-box;
-}
-
-/* 기능 설명 박스 왼쪽 */
-.article-title-box{
-   float:left;
-}
-
-/* 기능 설명 박스 오른쪽 */
-.article-title-box2{
-    display: inline-block;
-    float:right;
-	margin-right: 100px;
-}
-
-/* board 기능 설명 박스 */
-.boardSection{
-	margin-top: 90px;
-	margin-bottom: 110px;
-}
-
-
-/* issue 기능 설명 박스 */
-.issueSection{
-	margin-left: 250px;
-	margin-top: 30px;
-}
-
-
-
-/* 기능 소개 부분 이미지 */
-#img_timeline{
-   display: inline-block;
-   float:right;
-   margin-top:-220px;
-   margin-right:190px; 
-}
-.img_timeline{
-   display: inline-block;
-}
-
-#img_board{
-	float:left;
-	margin-top: 60px;
-	
-}
-
 #img_standupMeeting{
-	float: right;
-	margin-right: 130px;
-	margin-top: -150px;
-	
-}
-.standUpMeetingSection{
-	margin-top: -200px;
+   margin-right: -80px;
 }
 
-.feedbackForm{
-	margin-top: 30px;
-}
-
-
-
-/* 자주묻는 질문 영역 */
-#mainPage-section4{
-    width: 100vmax;
-    height: 477px;
-    background: #C4C4C4;
+.ggg{
+   margin-bottom: 40px;
 }
 
 #mainPage-section5{
-    padding: 120px;
+    padding: 50px;
     box-sizing: border-box;
-    width: 100vmax;
-    height: 550px;
+    width: 100%;
+    height: 250px;
     background: #DD0351;
     font-family: Noto Sans KR;
     font-style: normal;
@@ -361,25 +327,4 @@ header{
     text-align: center;
     letter-spacing: 0.1px;
     color: #FFFFFF;
-}
-footer{
-    margin: 0;
-    background: #670025;
-    color: white;
-    display: inline-block;
-    height: 150px;
-    width: 100vmax;
-    box-sizing:border-box;
-    padding-left: 400px;
-}
-
-#footer-left{
-    float: left;
-}
-#footer-right{
-    float: left;
-    text-align:left;
-    padding: 20px;
-    box-sizing: border-box;
-
 }

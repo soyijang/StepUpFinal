@@ -26,9 +26,12 @@
 		<div id="contentTitle">
 			<div id="projectTitle2"><a href="showProjectMain.pj">🚀내 프로젝트 </a> /
 			<c:if test="${not empty sprintList}">
-			<input type="hidden" id="clickName" value="${sprintList.get(0).sprintName }">
-			<input type="hidden" id="clickSprintCode" value="${sprintList.get(0).sprintCode}">
-			<c id="projectName"><c:out value="${ sprintList.get(0).project.projectName }" /></c>
+				<input type="hidden" id="clickName" value="${sprintList.get(0).sprintName }">
+				<input type="hidden" id="clickSprintCode" value="${sprintList.get(0).sprintCode}">
+				<c id="projectName"><c:out value="${ sprintList.get(0).project.projectName }" /></c>
+			</c:if>
+			<c:if test="${empty sprintList}">
+				<c:out value="${ sessionScope.projectName }"/>
 			</c:if>
 			</div>
 			<div id="menuTitle">ProjectBacklog</div>
@@ -77,6 +80,9 @@
 							</tbody>
 						</c:forEach>
 						</c:if>
+						<c:if test="${empty sprintList}">
+							<p style="font-size: small;"><br><br><c:out value="${ sessionScope.projectName }"/> 프로젝트에 <br>진행중인 스프린트가 없습니다!</p>
+						</c:if>
 					</table>
 				</div>
 				
@@ -113,6 +119,7 @@
 			 
 				<jsp:include page="../projectTask/MainTask/taskDetail.jsp"/>
 				
+				<c:if test="${not empty sprintList}">
 				<div class="taskButtonArea">
 					<button class='taskapply' id='rectangle5' style='width: 100px;'>Task 추가</button>
 					<button id='rectangle5' class='updatebtn' style='width: 100px;'>스프린트 편집</button> 
@@ -139,10 +146,14 @@
 						</thead>
 						
 						<!-- 테스크리스트 주입장소 -->
-						<tbody id="addTaskList"></tbody>
+						<tbody id="addTaskList">
+						</tbody>
 					</table>
 				</div>
-				
+				</c:if>
+				<c:if test="${empty sprintList}">
+					<img src="/agile/resources/images/indiv/main/mainpage/img_timeline3.jpg" style="width:500px; height:350px; margin-left:130px; margin-top:100px;">
+				</c:if>
 			</div>
 		</div>
 	</div>
@@ -245,7 +256,7 @@
 				<input type="hidden" class="updateInput updateSprintExpect" name="sprintExpectPeriod" value="" >
 				<input type="hidden" class="updateInput updateSprintIntro" name="sprintIntro" value="" >
 				<c:if test="${not empty sprintList}">
-				<input type="hidden" name="userProjectCode" value="${ sprintList.get(0).userProjectList.userProjectCode }">
+					<input type="hidden" name="userProjectCode" value="${ sprintList.get(0).userProjectList.userProjectCode }">
 				</c:if>
 			</div>
 		</div>
@@ -419,7 +430,7 @@
 					addPostPart.prepend(
 						"<div id='sprintInfoNon'><div id='" + sprintType2 + "'>" + data.sprint.sprintCode + "</div><div id='sprintInfomation'><table><tbody><tr><td>스프린트명 : " +
 						data.sprint.sprintName + "</td></tr><tr><td>스프린트 시작일 :" +  data.sprint.sprint.sprintCreateDate  + " / 예상소요시간 : " + data.sprint.sprintExpectPeriod + 
-						"m<td></tr></tbody></table></div><div id='sprintCounting'><table><tbody><tr><td><span class='pointAverage'>pts</span></td><td>미완료</td><td><span class='tasknonFinish'>0</span></td><td>완료</td><td><span class='taskFinish'>1</span></td><td>진행중</td><td><span class='taskIng'>1</span></td><td class='taskTotal'>총 2개</td></tr></tbody></table></div>"+
+						"m<td></tr></tbody></table></div><div id='sprintCounting'><table><tbody><tr><td><span class='pointAverage'>0pts</span></td><td>미완료</td><td><span class='tasknonFinish'>0</span></td><td>완료</td><td><span class='taskFinish'>1</span></td><td>진행중</td><td><span class='taskIng'>1</span></td><td class='taskTotal'>총 2개</td></tr></tbody></table></div>"+
 						"</div><div id='sprintIntro'>스프린트 설명 : " + data.sprint.sprintIntro + "</div>"
 					);
 					
@@ -448,6 +459,7 @@
 								var taskFinish = 0;	
 								var taskIng = 0;
 								var taskTotal = 0;
+								var pointAverage = 0;
 							
 								if(data.sprintTaskList.length > 0){
 									var taskCode = [];
@@ -463,6 +475,15 @@
 											count++;
 										}
 									}
+									
+									//포인트구하기
+									for(var i = 0 ; i<data.sprintTaskList.length-1; i++){
+										if(data.sprintTaskList[i].taskCategoryCode== 'D'){
+											pointAverage += Number(data.sprintTaskList[i].taskHistValue);
+										}
+									}
+									pointAverage = (pointAverage/data.sprintTaskList.length) ;
+									$('.pointAverage').html(Math.ceil(pointAverage)+'pts');
 									
 									//같은 taskCode끼리 묶어서
 									for(var i = 0; i<taskCode.length; i++){

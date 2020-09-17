@@ -166,6 +166,7 @@ public interface TaskService {
 	SprintHistory selectRecentSprintHistory(int sprintCode);
 	//스프린트 종료
 	int insertSprintHistorySprintType(SprintHistory sprintHistory);
-	
+   //하위 테스트 스프린트 업데이트
+   int updateSubList(Map<String, Object> map);
 	
 }

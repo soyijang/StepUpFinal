@@ -36,6 +36,7 @@ public class BacklogController {
 		sprintList = bs.selectSprint(m, projectCode);
 		
 		model.addAttribute("sprintList", sprintList);
+		System.out.println("sprintList :" + sprintList);
 		return "projectBacklog/projactBacklog";
 		
 	}

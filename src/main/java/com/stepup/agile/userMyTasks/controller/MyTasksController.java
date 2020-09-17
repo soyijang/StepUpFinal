@@ -17,6 +17,7 @@ import com.stepup.agile.userInfo.model.vo.Member;
 import com.stepup.agile.userMyTasks.model.service.MyTasksService;
 import com.stepup.agile.userMyTasks.model.vo.MyTask;
 import com.stepup.agile.userMyTasks.model.vo.MyTaskShare;
+import com.stepup.agile.userMyTasks.model.vo.UserProject;
 
 @SessionAttributes("loginUser")
 @Controller
@@ -59,6 +60,11 @@ public class MyTasksController {
 			}
 		}
 		model.addAttribute("future",future);
+		
+		//유저프로젝트코드조회
+		List<UserProject> userProject;
+		userProject = ts.selectUserProjectCode(m);
+		model.addAttribute("userProjectSelect", userProject);		
 		
 		return "userMyTasks/userMyCalendar/userCalendarMain";
 	}
@@ -164,8 +170,14 @@ public class MyTasksController {
 	
 	// 공유 테스크 추가용
 	@RequestMapping("share.mt")
-	public String insertShareMyTask(Model model, @ModelAttribute("loginUser") Member m, MyTaskShare mytask) {
+	public String insertShareMyTask(Model model, @ModelAttribute("loginUser") Member m,
+			MyTaskShare mytask, int userProjectCode, int myTasksCode) {
 		
+		//공유테스크의 유저프로젝트코드 변경
+		int result1 = 0;
+		result1= ts.updateMyTaskShareNum(m, myTasksCode, userProjectCode);
+		
+		//공유테이블에 추가
 		int result = 0;
 		result = ts.insertShareMyTask(mytask);
 		

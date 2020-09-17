@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 
+import com.stepup.agile.projectFeedback.model.vo.SurveyJoinList;
 import com.stepup.agile.userInfo.model.vo.Member;
 import com.stepup.agile.userInfo.model.vo.Team;
 
@@ -19,6 +20,9 @@ public interface TeamDao {
 	int insertTeam(SqlSessionTemplate sqlSession, Map<String,Object> t)throws Exception ;
 	
 	int insertTeamList(SqlSessionTemplate sqlSession, Map<String,Object> t)throws Exception ;
+
+	int insertTeamJoin(SqlSessionTemplate sqlSession, Member str);
+
 	
 	
 }

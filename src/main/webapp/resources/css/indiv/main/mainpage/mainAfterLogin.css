@@ -1,0 +1,341 @@
+body{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    width: 100vw;
+    height: auto;
+}
+
+#stepup-logo{
+   height: 60px;
+}
+
+a{
+   text-decoration: none;
+   color: white;
+}
+
+
+header{
+    height: 120px;
+    width: 100%;
+    display: inline-block;
+    background: #2B2B49;
+}
+
+#head-wrapper{
+   margin-left:auto;
+   margin-right:auto;
+    height: 70px;
+    width: 100%;
+    margin-top:30px;
+    margin-bottom: 20px;
+}
+
+#header-left, #header-right{
+   float: left;
+   display: inline-block;
+   height: 100%;
+}
+#header-left{ width: 70%; box-sizing: border-box; padding-left: 10%;   }
+#header-right{ width: 30%; }
+
+
+
+.loginBtn{
+   width:170px;
+   height:50px;
+   line-height:50px;
+   text-align:center;
+   font-family: Noto Sans KR;
+   font-style: normal;
+   font-weight: normal;
+   font-size: 20px;
+   color: #000000;
+   display: inline-block;
+   float: left;
+}
+.joinBtn{
+   width:170px;
+   display: inline-block;
+   float: left;
+   height:50px;
+   line-height:50px;
+   text-align:center;
+   font-family: Noto Sans KR;
+   font-style: normal;
+   font-weight: 600;
+   font-size: 20px;
+   letter-spacing: 0.2px;
+   color: #FFFFFF;
+   background: #DD0351;
+   box-shadow: 0px 8px 16px rgba(0, 126, 255, 0.16);
+   border-radius: 8px;
+   display: inline-block;
+   float: left;
+}
+
+
+/* 투명 배경, 핑크색 테두리 버튼 */
+.contactBtn{
+   width:170px;
+   height:50px;
+   border: 1px solid #DD0351;
+   box-sizing: border-box;
+   border-radius: 8px;   
+   font-family: Noto Sans KR;
+   font-style: normal;
+   font-weight: 600;
+   font-size: 20px;
+   line-height: 45px;
+   align-items: center;
+   text-align: center;
+   letter-spacing: 0.2px;
+   color: #DD0351;
+   display: inline-block;
+   float: left;
+   margin-left: 30px;
+}
+
+
+
+#mainPage-section1{
+    width: 100%;
+    height: 600px;
+    background: #FCF8F9;
+    display: inline-block;
+}
+
+.section-wrapper1{
+   margin-left: auto;
+   margin-right: auto;
+   width: 90%;   
+   height: 100%;
+}
+.section-wrapper21{
+   height: 670px;
+   display: block;
+   
+}
+.section-wrapper22{
+   margin-left: auto;
+   margin-right: auto;
+   height: 100%;
+   width: 100%;
+}
+
+#section1-article1, #section1-article2{
+    margin-left: auto;
+    margin-right: auto;
+    float: left;
+    height: 600px;
+}
+
+/* 최상단 배너 글자 박스 */
+#section1-article1{
+   padding-top: 100px;
+   box-sizing: border-box;   
+   width: 55%;
+   display: inline-block;
+}
+
+#section1-article1-title1{
+    font-family: Noto Sans KR;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 70px;
+    line-height: 101px;
+    color: #000000;
+}
+
+#section1-article1-title2{
+    font-family: Noto Sans KR;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 30px;
+    line-height: 50px;
+    color: #000000;
+    margin-top: 20px;
+}
+
+#section1-article1-btn{
+   margin-top: 35px;
+   
+}
+
+/* 애자일 이미지 박스 */
+#section1-article2{
+   width:35%;
+   padding-top: 40px;
+   box-sizing: border-box;
+}
+/* 애자일 이미지 크기 */
+#img_mainAgile{
+   width: 450px;
+}
+
+
+/* ----------------------------------------- */
+
+
+
+
+
+#mainPage-section2{
+    width: 100%;
+    height: 800px;
+    background: white;
+    display: inline-block;
+}
+
+#mainPageCkickMe{
+    margin-top: 40px;
+    text-align: center;
+    height: 100px;
+    font-family: Noto Sans;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 70px;
+    letter-spacing: 0.1px;
+    color: #000000;
+}
+
+#mainRedBox{
+    width: 100%;
+    height: 127px;
+    background: #2B2B49;
+    padding-left: 50px;
+    padding-top:35px;
+    box-sizing: border-box;
+    float: left;
+}
+
+
+
+#mainRedBox2{
+    width: 100%;
+    height: 300px;
+    background: #2B2B49;
+    padding-left: 50px;
+    padding-top:35px;
+    box-sizing: border-box;
+    float: left;
+}
+#mainRedBoxText{
+   font-family: Noto Sans KR;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 40px;
+    line-height: 47px;
+    color: #FFFFFF;
+    float: left;
+    width: 500px;
+    height: 100%;
+}
+.footer-client{
+   text-align: center;
+}
+/* 기능 click 가능한 부분 */
+#clickMeImg{
+   margin-left: 20%;
+}
+
+
+#gif{
+   margin-top: -2%;
+   width: 70%;
+   float: right;
+   margin-right: 3%;
+}
+
+/* ------------------------------------   */
+
+footer{
+    margin: 0;
+    width: 100%;
+    background: #2B2B49;
+    color: white;
+    display: inline-block;
+    height: 150px;
+    box-sizing:border-box;
+}
+
+#footer-left{
+    float: left;
+    width: 80%;
+}
+#footer-right{
+    float: left;
+    width: 20%;
+    text-align:left;
+    padding: 20px;
+    box-sizing: border-box;
+
+}
+.ft{
+   margin-left: auto;
+   margin-right: auto;
+   width:70%;
+   height:100%;
+}
+
+
+
+/* article 기본 font css */
+.title1{
+   font-family: Noto Sans KR;
+   font-style: normal;
+   font-weight: bold;
+   font-size: 35px;
+   line-height: 85px;
+   color: #DD0351;
+   
+}
+.title2{
+   font-family: Noto Sans KR;
+   font-style: normal;
+   font-weight: bold;
+   font-size: 35px;
+   line-height: 60px;
+   color: #000000;
+}
+.img_timeline, #img_board,#img_feedbackForm{
+   margin-left: 5%;
+}
+ #img_standupMeeting{
+ margin-left: 19%;
+ }
+
+.aaa, .ccc, .eee, .ggg{
+   margin-left: 5%;
+}
+.bbb, .fff, .ddd{
+   float: right;
+   margin-right: 5%;
+   
+}
+.bbb, .ddd{
+   margin-top:-10%;
+}
+#img_standupMeeting{
+   margin-right: -80px;
+}
+
+.ggg{
+   margin-bottom: 40px;
+}
+
+#mainPage-section5{
+    padding: 50px;
+    box-sizing: border-box;
+    width: 100%;
+    height: 250px;
+    background: #1212A6;
+    font-family: Noto Sans KR;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 45px;
+    text-align: center;
+    letter-spacing: 0.1px;
+    color: #FFFFFF;
+}

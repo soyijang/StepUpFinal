@@ -210,9 +210,22 @@
    
    <delete id="deleteSurvey" parameterType="com.stepup.agile.projectFeedback.model.vo.SurveyList">
       DELETE FROM SURVEY_LIST WHERE SURVEY_CODE = #{surveyCode}
-   
    </delete>
 
+	<select id="selectSurveyCode" parameterType="int">
+		SELECT S.SURVEY_CODE
+		  FROM SURVEY_LIST S
+		     , USER_INFO I
+		     , USER_TEAM_LIST T
+		     , USER_PROJECT_LIST P
+		     , SPRINT_LIST SP
+		 WHERE I.USER_CODE = T.USER_CODE
+		   AND T.USER_TEAM_CODE = P.USER_TEAM_CODE
+		   AND P.USER_PROJECT_CODE = SP.USER_PROJECT_CODE
+		   AND SP.SPRINT_CODE = S.SPRINT_CODE
+		   AND S.SURVEY_NAME LIKE #{surveyName}
+		   AND I.USER_CODE = #{userCode}
+	</select>
 
 </mapper>
 

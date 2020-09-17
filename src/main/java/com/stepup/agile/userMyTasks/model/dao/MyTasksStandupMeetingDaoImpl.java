@@ -28,6 +28,11 @@ public class MyTasksStandupMeetingDaoImpl implements MyTasksStandupMeetingDao{
 	public List<MyTask> selectMytaskShareList(SqlSessionTemplate sqlSession, int projectCode) {
 		return sqlSession.selectList("MyTask.selectMytaskShareList", projectCode);
 	}
+
+	@Override
+	public int insertRss(SqlSessionTemplate sqlSession, RssHistory rssHistory) {
+		return sqlSession.insert("Rss.insertRss", rssHistory);
+	}
 	
 	
 	

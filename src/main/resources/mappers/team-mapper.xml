@@ -41,20 +41,27 @@
 	      FROM TEAM T
 			  ,USER_TEAM_LIST UT
 			  ,USER_INFO UI
+              ,USER_PROJECT_LIST UPL
+              ,PROJECT_LIST PL
 		 WHERE UT.TEAM_CODE = T.TEAM_CODE
-		   AND UT.USER_CODE=UI.USER_CODE
-		 <!--   AND T.TEAM_CODE = #{teamCode} -->
+		   AND UT.USER_CODE = UI.USER_CODE
+           AND UT.USER_TEAM_CODE = UPL.USER_TEAM_CODE
+           AND UPL.PROJECT_CODE = PL.PROJECT_CODE
 		   GROUP BY TEAM_NAME, T.TEAM_CODE
 	</select>  
 	
 	<!-- 소속된 Team User List -->
 	<select id="selectUserList" resultMap="memberResultSet" parameterType="Team">
-		SELECT UI.USER_NAME, UI.USER_CODE
+		 SELECT UI.USER_NAME, UI.USER_CODE
 		FROM TEAM T
 		    ,USER_TEAM_LIST UT
 		    ,USER_INFO UI
+            ,USER_PROJECT_LIST UPL
+            ,PROJECT_LIST PL
 		WHERE UT.TEAM_CODE = T.TEAM_CODE
 		AND UT.USER_CODE=UI.USER_CODE
+        AND UPL.USER_TEAM_CODE = UT.USER_TEAM_CODE
+        AND UPL.PROJECT_CODE = PL.PROJECT_CODE
 		GROUP BY UI.USER_CODE,UI.USER_NAME
 		<!-- AND T.TEAM_CODE = #{teamCode} -->
 			
@@ -86,7 +93,11 @@
 			)
 	</insert>
 	
-	
+	<insert id="insertTeamJoin" parameterType="Team">
+		INSERT INTO USER_TEAM_LIST 
+		VALUES(TO_CHAR(SYSDATE + 9/24, 'YYYY-MM-DD'),DEFAULT,SEQ_USER.NEXTVAL
+		,SEQ_TEAM.NEXTVAL,SEQ_USER_TEAM.NEXTVAL,TO_CHAR(SYSDATE + 9/24, 'hh24:mi:ss'))
+	</insert>
 	
  
   </mapper>

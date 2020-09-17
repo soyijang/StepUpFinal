@@ -432,10 +432,10 @@ mark {
                     <div id="btn">
                         <button id="question">질문&nbsp;&nbsp;<mark></mark></button>&nbsp;
                         <button id="answer">응답&nbsp;&nbsp;
-		<c:if test="${ fn:length(surveyList) ne 0 }">
+						<c:if test="${ fn:length(surveyList) ne 0 }">
                         <mark><c:out value="${ fn:length(surveyList) }"/></mark>
                          </c:if>
-		</button>
+						</button>
                     </div>
                     <hr><br>
 
@@ -447,10 +447,11 @@ mark {
                             <img src="resources/icon/common/icon_survey.png">
                         </div>
                         <div id="surveyList" style="display: inline-block;">
-                              <p><c:out value="${ surveyList[i].surveyName }"/>
+                              <p id="surveyName"><c:out value="${ surveyList[i].surveyName }"/>
                               <p style="display: inline-block;"><c:out value="${ surveyList[i].surveyCreateDate }"/></p>
                             <button class="surveyUpdate" style="display: inline-block; border: 0px; background: none;">
                             
+                            <!-- dropdown 시작 -->
                            <div class="surveydropdown">
                     <div class="select">
                         <img src="resources/icon/common/icon_more verticalicon.png" style="width: 20px;">                    
@@ -458,10 +459,12 @@ mark {
                     </div>
                     <ul class="surveydropdown-menu">
                      <!--  <li id="update"><a href="">이름바꾸기</a></li> -->
-                      <li id="update"><a href="">수정하기</a></li>
-                      <li id="delete"><a href="delete.sv">삭제하기</a></li>
+                      <li id="update"><a href="update.sv">수정하기</a></li>
+                      <li id="delete">삭제하기</li>
                     </ul>
                   </div>
+                  
+                  		<!-- dropdown 종료 -->
                         </button>    
                         </div>
                     </div>
@@ -577,6 +580,39 @@ mark {
 			}
 		});
 	});
+	
+	$(document).on('click', '#delete', function(e){
+ 		var surveyCode = e.target;
+ 		console.log(surveyCode);
+ 		var p1 = surveyCode.parentElement;
+ 		console.log(p1);
+ 		var p2 = p1.parentElement;
+ 		console.log(p2);
+ 		var p3 = p2.parentElement;
+ 		console.log(p3);
+ 		var p4 = p3.parentElement;
+ 		console.log(p4);
+ 		var sCode = p4.childNodes[1];
+ 		console.log(sCode);
+ 		var sName = sCode.innerHTML;
+ 		console.log(sName);
+ 		sName = String(sName.trim());
+ 		console.log(sName);
+ 		
+ 		$.ajax({
+			url:"delete.sv",
+			type:"post",
+			data:{"surveyName" : sName},
+			dataType : "json",
+			success: function(data){
+				location.href="survey.sv";
+				
+			},error:function(data){
+				
+			}
+			});
+	});
+	
 	
 </script>
 </body>

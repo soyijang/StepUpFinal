@@ -101,6 +101,10 @@
    width: 57px !important;
 }
 
+c{
+   color: red;
+}
+
 /* 캘린더 내부 상단 요일 및 날짜 출력 부분 */
 #calender-box-table-tr-1, #calender-box-table-tr-2{
    height: 35px;
@@ -159,7 +163,29 @@
    box-sizing: border-box;
 }
 
-
+/* 툴팁 ----------------------------------------- */
+.tooltip {
+  cursor: pointer;
+  position: inherit;
+}
+.tooltip .tooltiptext {
+  display: none;
+  background: rgba(221, 3, 81, 0.65) !important;
+  color: #fff;
+  width: auto;
+  border-radius: 5px;
+  padding: 5px;
+  padding-left: 13px;
+  padding-right: 13px;
+  font-size: 14px;
+  position: absolute;
+  z-index: 9;
+  box-sizing:border-box;
+}
+.tooltip:hover .tooltiptext {
+  display: inline;
+}
+/* 툴팁 끝----------------------------------------- */
 
 /* ----------------------------------------------------------- */
 

@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.stepup.agile.projectFeedback.model.vo.SurveyJoinList;
 import com.stepup.agile.userInfo.model.dao.TeamDao;
 import com.stepup.agile.userInfo.model.vo.Member;
 import com.stepup.agile.userInfo.model.vo.Team;
@@ -47,4 +48,10 @@ public class TeamServiceImpl implements TeamService{
 		
 		return nRes;
 	}
+
+	@Override
+	public int insertTeamJoin(Member str) {
+		return td.insertTeamJoin(sqlSession, str);
+	}
+
 }

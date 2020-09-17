@@ -402,6 +402,10 @@ public class TaskServiceImpl implements TaskService {
 		return td.insertSprintHistorySprintType(sqlSession, sprintHistory);
 	}
 
-
+   //하위 테스트 스프린트 업데이트
+   @Override
+   public int updateSubList(Map<String, Object> map) {
+      return td.updateSubList(sqlSession, map);
+   }
 
 }

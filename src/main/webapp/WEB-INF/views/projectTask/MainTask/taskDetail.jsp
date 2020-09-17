@@ -233,7 +233,7 @@ input[type="checkbox"] {
                  <input type="text" placeholder="할당해제 됨" id="master" name="worker" class="worker"> -->
                  <div class="taskdropdown">
                     <div class="select">
-                          <span id="user-list" onclick="selectTeam()"><div class="detailprofile" id="dProfile"></div>할당해제 됨</span>
+                          <span id="user-list" onclick="selectTeam()"><!-- <div class="detailprofile" id="dProfile"></div> -->할당해제 됨</span>
                       <i class="fa fa-chevron-left"></i>
                     </div>
                     <ul id="teamlist2" class="taskdropdown-menu" >
@@ -253,7 +253,7 @@ input[type="checkbox"] {
                  <input type="text" placeholder="할당해제 됨" id="bogo" class="worker"> -->
                  <div class="taskdropdown">
                     <div class="select">
-                          <span id="user-list" onclick="teamSelect()"><div class="detailprofile" id="dProfile"></div>할당해제 됨</span>
+                          <span id="user-list" onclick="teamSelect()"><!-- <div class="detailprofile" id="dProfile"> --></div>할당해제 됨</span>
                       <i class="fa fa-chevron-left"></i>
                     </div>
                     <ul id="teamlist" class="taskdropdown-menu">
@@ -296,7 +296,7 @@ input[type="checkbox"] {
                 <td class="rTitle">시간추적</td>
              </tr>
              <tr>
-                 <td><img src = "/agile/resources/icon/common/icon_clock.png"></td>
+                 <td><img src = "/agile/resources/icon/common/icon_clock.png"><input id="trackTime" value="" style="width:30px; margin-left:10px;">일 걸립니다.</td>
              <!--    <td><a href = "javascript:void(0)" 
                 onclick = "document.getElementById('light').style.display='block';document.getElementById('fade').style.display='block'">여기</a></td>  -->
                 <input type="hidden" name="taskCategoryCode9" id="taskCategoryCode9" value="B">
@@ -328,9 +328,6 @@ input[type="checkbox"] {
              </tr>
              <tr>
                 <td>생성됨<div id="makeDate" value=""></div><div id="makeTime" value=""></div></td>
-             </tr>
-             <tr>
-                <td>2초전 업데이트</td>
              </tr>
            </table>
         </div>
@@ -367,19 +364,20 @@ input[type="checkbox"] {
                <!--  <div class="result"><img src = "/agile/resources/icon/common/icon_clock.png" id="clockImg"></div> -->
                 <!-- <div><label id="graph">그래프</label></div> -->
                <!--  <div class="timeSet"><input type="text"></div><div class="timeSet"><input type="text"></div> -->
-
                
             </div>
             <div id="medium">
             	<div>
-                	<div id="startDate" value="">시작한날짜 : </div>
+                	시작 일자 : <input id="startDate" value="">
             	</div> 
                 <div id="during">
-                    <div id="expect-left" class="leftTime" value="">예상 종료 시간 : </div>
+                                      예상 종료 시간 : 
                 </div>
+                	<input id="expect-left" class="leftTime" value="">
                  <div id="last" style="height:30px;">
-                 	<div id="leftTime" class="leftTime" value="" style="margin:0;">남은시간 : </div>
+                 	남은시간 : 
                  </div>
+                 	<input id="leftTime" class="leftTime" value="">
                     <!-- <div><label id="expect-left-modal" class="takenTime"></label><label id="left-modal" class="takenTime"></label></div> -->
             </div>
        <div id="Btns" style="height:30px;">        
@@ -388,7 +386,6 @@ input[type="checkbox"] {
      		<a href = "javascript:void(0)" onclick = "document.getElementById('light').style.display='none';document.getElementById('fade').style.display='none'">닫기</a></button></div>
         <div id="fade" class="black_overlay"></div>
         </div>
-
      </div>   
      
    <!-- 로딩중 -->
@@ -513,7 +510,7 @@ input[type="checkbox"] {
    $('.taskdropdown-menu li').click(function() {
          var input = '<strong>' + $(this).parents('.taskdropdown').find('input').val() + '</strong>', msg = '<span class="msg">Hidden input value: ';
          $('.msg').html(msg + input + '</span>');
-         var input = $(this).parents('.taskdropdown').find('input').val()
+        /*  var input = $(this).parents('.taskdropdown').find('input').val() */
    });
    
    
@@ -539,7 +536,7 @@ input[type="checkbox"] {
    $('.taskdropdown2-menu li').click(function() {
          var input = '<strong>' + $(this).parents('.taskdropdown2').find('input').val() + '</strong>', msg = '<span class="msg">Hidden input value: ';
          $('.msg').html(msg + input + '</span>');
-         var input = $(this).parents('.taskdropdown2').find('input').val()
+        /*  var input = $(this).parents('.taskdropdown2').find('input').val() */
    });
    
    //탭메뉴
@@ -566,9 +563,7 @@ input[type="checkbox"] {
       });
    });
    
-
     /*//예상시간 정규표현식
-
     function parse (str) {
                      // validate year as 4 digits, month as 01-12, and day as 01-31 
                      if ((str = str.match (/^(\d{4})(0[1-9]|1[0-2])(0[1-9]|[12]\d|3[01])$/))) {
@@ -581,11 +576,9 @@ input[type="checkbox"] {
                         alert("20200918의 패턴으로 작성해주세요")
                      }
                      return str;
-
               }*/
     
     
-
    //input type text에서 엔터치면 실행되는 함수
    function enterkey() {
       if(window.event.keyCode == 13){
@@ -594,11 +587,9 @@ input[type="checkbox"] {
    }
    
     //날짜 변경
-
 /*     $(function(){
        $('#expectText').datepicker({ dateFormat: 'YYYY- mm-dd' });   
     }); */
-
 /*   var expectText = document.frmWork.txtHpDate.value;
    var dateSplit = inputDate.split("-");
    
@@ -633,22 +624,18 @@ input[type="checkbox"] {
            toggleActionStart(toggleFG, 'TO_RIGHT');
        }
    }); */
-
    
    $('#bugMode').click(function(){
       $('#taskicon').attr('src', '/agile/resources/icon/common/icon_fillround.png');
    });
    
-
    function autologin(img) {
         if(img.checked) {
             img.checked = false;
             img.src="/agile/resources/icon/common/icon_bookmarkicon.png"
-            img.on("click", checkBookmark);
         } else {
             img.checked = true;
             img.src="/agile/resources/icon/common/bookmark.png"
-            img.on("click", cancelBookmark);
         }
    }
    
@@ -817,11 +804,16 @@ input[type="checkbox"] {
              
              /* var $replySelect = $("#replySelect tbody"); */subTaskBox
              /* var $taskSelect = $("#taskmodalTable > tbody > tr"); */
-             var taskSelect = $("#subTaskBox tr");
+             var taskSelect = $(".taskmodalTable tr:eq(5)");  
+             var taskSelect2 = $("#subTaskBox").parent();
+             var taskSelect3 = $(".taskmodalTable tr:eq(6)");
+			 var taskSelect4 = $(".taskmodalTable tr:eq(7)");
+			
              /* $replySelect.html(''); */
              
+        /*     	 taskSelect3.remove();
+                 var result; */
              for(var i = 0; i<data.history.length; i++) {
-
                  taskHistCode = data.history[i].taskHistCode;
                  taskHistValue = data.history[i].taskHistValue;
                 
@@ -831,17 +823,21 @@ input[type="checkbox"] {
                 var $img = $("<td><div id='taskicon'></div></td>").css("width","40px");
                 var $teskNumTd = $("<td id='subTaskLink';>").text('Task'+data.history[i].taskHistCode);
                 var $titleTd = $("<td>").text(data.history[i].taskHistValue).css("width", "200px");
+                var $tr2 = $("</tr>");
                 /* var $statusTd =  진행미진행 추가하기 */
                 
                 $tr.append($img);
                 $tr.append($teskNumTd);
                 $tr.append($titleTd);
+                $tr2.append($tr);
+                
+               /*  var newRow = document.createElement('tr'); */
+                
+                taskSelect3.append($tr);
                 
                 /* taskSelect.eq(6).append($tr); */
-
                /* taskSelect.append($img).append($testNumTd).append($titleTd);*/
-               taskSelect.append($tr);
-
+               /* var result = taskSelect.append($tr); */
                 
                 $('#subTaskLink').click(function(){
                    $('#taskDetailModal').css('display','none');
@@ -849,7 +845,16 @@ input[type="checkbox"] {
                    $(subtaskDetailModal).css('display','block');
                 });
                 
-             } 
+             }
+             
+          /*   var result2 = $(".")
+               //result = taskSelect.append($tr);
+             result.append('<tr id="subTaskText" style="display:none;">'
+            + '<td><input tyep="text" name="subTaskTitle" id="subTaskTitle" placeholder="무엇을해야합니까?" value="" style="margin:0 auto;"></td><td>'
+            + '<button id="subTaskMake"class="subTaskBtn" style="margin:0 auto;" onclick="insertSubTask()">만들기</button>'               
+            + '<button id="subTaskCan" class="subTaskBtn" style="margin:0 auto;">취소</button></td>'
+            + '<input type="hidden" name="subTaskCode" id="subTaskCode" value="">' 
+            + '<input type="hidden" name="taskCategoryCode" id="taskCategoryCode" value="J"></tr>'); */
            },
           error:function(){
              console.log("에러!");
@@ -1243,7 +1248,9 @@ input[type="checkbox"] {
           },
           success: function(data){
              console.log("성공!");
-             $('#pointText').val(list);
+             console.log(data);
+             $('#pointText').val(data.taskHistory.taskHistValue);
+             
           },
           error:function(){
              console.log("에러!");
@@ -1261,11 +1268,7 @@ input[type="checkbox"] {
    //9.최초예상 선택
     function insertExpect(){
 
-<<<<<<< HEAD
-       var expectText = $('#expectText').datepicker({ dateFormat: 'YYYY- mm-dd' }).val();
-=======
        var expectText = $('#expectText').val();
->>>>>>> origin/feature/15/taskdetail
        var taskCode = $('#taskCode').val();
        var taskCategoryCode = $('#taskCategoryCode8').val();
        console.log(taskCode);
@@ -1302,25 +1305,31 @@ input[type="checkbox"] {
        
        return false;
     }   
-<<<<<<< HEAD
-   //10.시간추적 선택
-=======
    //10.남은시간 계산
-   $(function(){
+   $(document).on('click', '#work', function(){
 	   var start = $('#startDate').val();
 	   var expectEnd = $('#expect-left').val();
 		   
 /*	   var leftTime = $('#leftTime').val(expectEnd - start);*/
-		
+		console.log(start);
+		console.log(expectEnd);
 		var dateS = new Date(start);
-		var dateE = new Date(expectEnd);			
-		var hm = (dateE.getTime() - dateS.getTime())/24/60/60/1000;
+		console.log(dateS);
+		var dateE = new Date(expectEnd);
+		console.log(dateE);
+		var hm = Math.floor((dateE.getTime() - dateS.getTime())/(1000 * 60 * 60 * 24));
 		
-		$('#leftTime').val(hm);
+		$('#leftTime').html('남은 일수 : ' + Number(hm));
+		$('#leftTime').append('남은 일수 : ' + Number(hm));
+		$('#trackTime').val(Number(hm));
+		
+		console.log(Number(hm));
+		
+		
+		/* $('#leftTime').val(hm); */
 /*		document.getElementById("#leftTime").value = hm;*/
    });
    
->>>>>>> origin/feature/15/taskdetail
          
    //11.우선순위 선택
    function taskProperty1(){
@@ -1457,13 +1466,8 @@ input[type="checkbox"] {
           success: function(data){
              console.log("성공!");
              console.log(data.taskHistory.taskHistUpdateDate);
-<<<<<<< HEAD
-             $('#startDate').append(data.taskHistory.taskHistUpdateDate).append(data.taskHistory.taskHistUpdateTime);
-            
-=======
              $('#startDate').append(data.taskHistory.taskHistUpdateDate);
              $('#startDate').val(data.taskHistory.taskHistUpdateDate);
->>>>>>> origin/feature/15/taskdetail
              var str = $('#expect-left').text();
               
              

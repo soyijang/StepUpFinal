@@ -76,6 +76,12 @@
 		<result property="createTime" column="PROJECT_CREATE_TIME"/>
 	</resultMap>
 	
+<!-- 유저 프로젝트조회용 -->
+	<resultMap type="com.stepup.agile.userMyTasks.model.vo.UserProject" id="userProjectResultSet">
+		<id property="userProjectCode" column="USER_PROJECT_CODE"/>
+		<result property="projectName" column="PROJECT_NAME"/>
+	</resultMap>
+	
 
 	<select id="selectTaskList" resultMap="myTaskResultSet" parameterType="MyTask">
 		SELECT *
@@ -142,15 +148,38 @@
 		#{mytasksShareType, jdbcType=VARCHAR},TO_CHAR(SYSDATE + 9/24, 'YYYY-MM-DD'), TO_CHAR(SYSDATE + 9/24, 'hh24:mi:ss'), #{myTasksCode, jdbcType=NUMERIC})
 	</insert>	
 	
-	<!-- miso -->
-	<select id="selectMytaskShareList" resultMap="myTaskResultSet" parameterType="int">
-		SELECT *
-		  FROM USER_PROJECT_LIST UPL, MYTASKS_LIST ML, MYTASKS_SHARE_LIST MSL
-		 WHERE UPL.USER_PROJECT_CODE = ML.USER_PROJECT_CODE
-		   AND ML.MYTASKS_CODE = MSL.MYTASKS_CODE
-		   AND UPL.PROJECT_CODE = #{projectCode}
-		   ORDER BY MSL.MYTASKS_SHARE_DATE DESC
+	<!-- 공유할 프로젝트유저 코드로 변경 -->
+	<update id="updateMyTaskShareNum" parameterType="MyTask">
+		UPDATE MYTASKS_LIST
+		SET USER_PROJECT_CODE = #{userProjectCode, jdbcType=NUMERIC}
+		WHERE MYTASKS_CODE = #{myTasksCode, jdbcType=NUMERIC}
+	</update>
+	
+	<!-- 공유할 프로젝트들 보여주기 -->
+	<select id="selectUserProjectCode" resultMap="userProjectResultSet">
+		  SELECT P.USER_PROJECT_CODE, L.PROJECT_NAME
+		  FROM USER_PROJECT_LIST P 
+		          , PROJECT_LIST L
+				   , USER_TEAM_LIST T
+				   , USER_INFO I
+		   WHERE L.PROJECT_CODE = P.PROJECT_CODE 
+		   AND P.USER_TEAM_CODE = T.USER_TEAM_CODE
+		   AND I.USER_CODE = T.USER_CODE
+		   AND I.USER_EMAIL = #{userEmail, jdbcType=VARCHAR}
 	</select>
+	
+	<!-- miso -->
+   <select id="selectMytaskShareList" resultMap="myTaskResultSet" parameterType="int">
+      SELECT *
+        FROM USER_PROJECT_LIST UPL, MYTASKS_LIST ML, MYTASKS_SHARE_LIST MSL,USER_TEAM_LIST UTL, USER_INFO UI
+       WHERE UPL.USER_PROJECT_CODE = ML.USER_PROJECT_CODE
+         AND ML.MYTASKS_CODE = MSL.MYTASKS_CODE
+           AND UPL.USER_TEAM_CODE = UTL.USER_TEAM_CODE
+           AND UTL.USER_CODE = UI.USER_CODE
+         AND UPL.PROJECT_CODE = #{projectCode}
+         ORDER BY MSL.MYTASKS_SHARE_DATE DESC
+   </select>
+	
 	
 </mapper>
 

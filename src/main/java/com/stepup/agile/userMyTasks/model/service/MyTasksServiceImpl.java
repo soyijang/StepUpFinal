@@ -1,16 +1,17 @@
 package com.stepup.agile.userMyTasks.model.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.stereotype.Service;
 
 import com.stepup.agile.userInfo.model.vo.Member;
 import com.stepup.agile.userMyTasks.model.dao.MyTasksDao;
 import com.stepup.agile.userMyTasks.model.vo.MyTask;
 import com.stepup.agile.userMyTasks.model.vo.MyTaskShare;
+import com.stepup.agile.userMyTasks.model.vo.UserProject;
 
 @Service
 public class MyTasksServiceImpl implements MyTasksService{
@@ -56,6 +57,17 @@ public class MyTasksServiceImpl implements MyTasksService{
 	public int insertShareMyTask(MyTaskShare mytask) {
 		return mtd.insertShareMyTask(sqlSession, mytask);
 	}
+
+	@Override
+	public List<UserProject> selectUserProjectCode(Member m) {
+		return mtd.selectUserProjectCode(sqlSession, m);
+	}
+
+	@Override
+	public int updateMyTaskShareNum(Member m, int myTasksCode, int userProjectCode) {
+		return mtd.updateMyTaskShareNum(sqlSession, m, myTasksCode, userProjectCode);
+	}
+
 
 }
 

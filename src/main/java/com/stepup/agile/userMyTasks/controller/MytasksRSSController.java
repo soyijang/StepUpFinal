@@ -19,7 +19,7 @@ import com.stepup.agile.userMyTasks.model.vo.rss.Feed;
 import com.stepup.agile.userMyTasks.model.vo.rss.FeedMessage;
 import com.stepup.agile.userMyTasks.model.vo.rss.RSSFeedParser;
 
-@SessionAttributes("loginUser")
+@SessionAttributes({"loginUser","projectCodeNew"})
 @Controller
 public class MytasksRSSController {
 	
@@ -53,15 +53,22 @@ public class MytasksRSSController {
 	
 	//구독정보수정
 	@RequestMapping("updateRss.mt")
-	public String updateRss(Model model, RssHistory rssHistory) {
+	public String updateRss(Model model, RssHistory rssHistory, @ModelAttribute("projectCodeNew") int rssProjectCode) {
 		
 		int result = 0;
-		result = sms.updateRss(rssHistory);
+		if(rssHistory.getRssProjectCode() == 0) {
+			//구독정보 없으므로 추가하기
+			rssHistory.setRssProjectCode(rssProjectCode);
+			result = sms.insertRss(rssHistory);
+		}else {
+			//이미 구독정보 있으므로 수정하기
+			result = sms.updateRss(rssHistory);
+		}
 		
 		if(result>0) {
 			return "redirect:showStandUpMeeting.mt";
 		}else {
-			model.addAttribute("msg", "rss 수정을 실패하였습니다!");
+			model.addAttribute("msg", "rss 수정/추가를 실패하였습니다!");
 			return "common/errorPage";
 		}
 		
