@@ -59,5 +59,17 @@
 		WHERE RSS_PROJECT_CODE = #{rssProjectCode, jdbcType=NUMERIC}
 	</update>
 	
+	<insert id="insertRss" parameterType="Rss">
+		INSERT INTO RSS_HISTORY
+		VALUES(SEQ_RSS.NEXTVAL
+		, TO_CHAR(SYSDATE + 9/24, 'YYYY-MM-DD')
+		, TO_CHAR(SYSDATE + 9/24, 'hh24:mi:ss')
+		, #{rssModifyNickname, jdbcType=VARCHAR}
+		, #{rssModifyKeyword, jdbcType=VARCHAR}
+		, #{rssModifyUrl, jdbcType=VARCHAR}
+		, #{rssModifySite, jdbcType=VARCHAR}
+		, #{rssProjectCode, jdbcType=VARCHAR})
+	</insert>
+	
 
 </mapper>

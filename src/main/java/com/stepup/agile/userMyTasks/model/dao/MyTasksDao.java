@@ -1,13 +1,14 @@
 package com.stepup.agile.userMyTasks.model.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
-import org.springframework.stereotype.Repository;
 
 import com.stepup.agile.userInfo.model.vo.Member;
 import com.stepup.agile.userMyTasks.model.vo.MyTask;
 import com.stepup.agile.userMyTasks.model.vo.MyTaskShare;
+import com.stepup.agile.userMyTasks.model.vo.UserProject;
 
 
 public interface MyTasksDao {
@@ -26,5 +27,9 @@ public interface MyTasksDao {
 	public List<MyTask> selectShareMyTasks(SqlSessionTemplate sqlSession, Member m);
 
 	public int insertShareMyTask(SqlSessionTemplate sqlSession, MyTaskShare mytask);
+
+	public List<UserProject> selectUserProjectCode(SqlSessionTemplate sqlSession, Member m);
+
+	public int updateMyTaskShareNum(SqlSessionTemplate sqlSession, Member m, int myTasksCode, int userProjectCode);
 
 }

@@ -35,6 +35,12 @@ public class MyTasksStandupMeetingServiceImpl implements MyTasksStandupMeetingSe
 	public List<MyTask> selectMytaskShareList(int projectCode) {
 		return smd.selectMytaskShareList(sqlSession, projectCode);
 	}
+
+	//Rss추가하기
+	@Override
+	public int insertRss(RssHistory rssHistory) {
+		return smd.insertRss(sqlSession, rssHistory);
+	}
 	
 	
 }

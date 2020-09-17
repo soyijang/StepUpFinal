@@ -301,7 +301,7 @@
 		<div id="shareMyTask" class="modal">
 			<div class="modal-content mytaskSharecontent">
 				<p align="left" class="modaltitle">📣 내 업무 공유하기</p>
-				<p style="text-align: center;">※ 업무 공유 후에는 공유를 철회 할  수 없습니다.</p>
+				<p style="text-align: center;">※ 업무 공유 후에는 공유를 철회 할  수 없습니다.<br>시작일과 종료일 설정을 </p>
 				<table align="center" class="MyTaskShareModalTable">
 					<tbody>
 						<tr>
@@ -315,6 +315,18 @@
 							 	<option value="01">진행 한 일</option>
 							 	<option value="02">진행 할 일</option>
 							 	<option value="03">미달성 한 일</option>
+							 </select>
+							</td>
+						</tr>
+						<tr>
+							<td><b>공유 할 프로젝트 : </b></td>
+							<td>
+							 <select class="updateInput" name="userProjectCode">
+							<c:if test="${not empty userProjectSelect}">
+								<c:forEach var="i" begin="0" end="${fn:length(userProjectSelect)-1}">
+								 	<option value="${userProjectSelect.get(i).userProjectCode}">${userProjectSelect.get(i).projectName}</option>
+								 </c:forEach>
+							 </c:if>
 							 </select>
 							</td>
 						</tr>
@@ -525,19 +537,7 @@
 					$tdSche.children().remove();
 					$('#todayDay').html(today.getFullYear()+'년 '+ (today.getMonth()+1) +'월 '+today.getDate()+'일');
 					$('#todayDate').html(day);
-					
-/* 					//클릭한날짜 오른쪽 todolist에 넣어주기
-					$tdDay.on("click", function(){  
-						var dayarr = (this.id).split('_');
-						if(dayarr[2]<10){
-							dayarr[2]='0'+dayarr[2];
-						}
-						
-						$('#todayDay').html(dayarr[0]+'년 '+dayarr[1]+'월 '+dayarr[2]+'일');
-						$('#todayDay2').val(dayarr[0]+'-'+dayarr[1]+'-'+dayarr[2]);
-						
-					}); */
-					
+
 					//날짜 꺼내기
 					for(var i=0; i<data.myTaskCalendar.length; i++){
 						
@@ -737,13 +737,25 @@
 								var shareType = data.sharedTaskList[i].myTaskShare.mytasksShareType;
 								switch(shareType){
 								case '01' :  
-									shareDoneTable += ('<tr><td class="shareTableTd">'+ data.sharedTaskList[i].myTaskscontents +'</td></tr>');
+									shareDoneTable += ('<tr><td class="shareTableTd tooltip">'+ data.sharedTaskList[i].myTaskscontents 
+											 +'<span class="tooltiptext">이 일정이 공유된 프로젝트는 <br><b>[' + data.sharedTaskList[i].project.projectName + '] </b>입니다.<br>' 
+					                         + "■ 일정 시작일 : " + data.sharedTaskList[i].myTasksstartDate + "<br>"		                       
+					                         + "■ 일정 종료일 : " + data.sharedTaskList[i].myTasksendDate 
+					                         + '</span></td></tr>');
 									console.log('한일');  break;
 								case '02' : 
-									shareToDoTable += ('<tr><td class="shareTableTd">'+ data.sharedTaskList[i].myTaskscontents +'</td></tr>');
+									shareToDoTable += ('<tr><td class="shareTableTd tooltip">'+ data.sharedTaskList[i].myTaskscontents 
+											 +'<span class="tooltiptext">이 일정이 공유된 프로젝트는 <br><b>[' + data.sharedTaskList[i].project.projectName + '] </b>입니다.<br>' 
+					                         + "■ 일정 시작일 : " + data.sharedTaskList[i].myTasksstartDate + "<br>"
+					                         + "■ 일정 종료일 : " + data.sharedTaskList[i].myTasksendDate 
+					                         + '</span></td></tr>');
 									console.log('할일'); break;
 								case '03' : 
-									shareNotTable += ('<tr><td class="shareTableTd">'+ data.sharedTaskList[i].myTaskscontents +'</td></tr>');
+									shareNotTable += ('<tr><td class="shareTableTd tooltip">'+ data.sharedTaskList[i].myTaskscontents 
+											 +'<span class="tooltiptext">이 일정이 공유된 프로젝트는 <br><b>[' + data.sharedTaskList[i].project.projectName + '] </b>입니다.<br>' 
+					                         + "■ 일정 시작일 : " + data.sharedTaskList[i].myTasksstartDate + "<br>"
+					                         + "■ 일정 종료일 : " + data.sharedTaskList[i].myTasksendDate 
+					                         + '</span></td></tr>');
 									console.log('못한일'); break;
 								}
 							}
