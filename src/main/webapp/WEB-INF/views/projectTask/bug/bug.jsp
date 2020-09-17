@@ -257,9 +257,11 @@
 		var realBugCode = bugCodeId3[1];
 		console.log("아이디4 : " + realBugCode);
 		realBugCode = realBugCode.trim();
-		
+			
 		var b = $("#bug-ti-list").text();
 		var realBugName = b;
+		
+		
 		
 		$.ajax({
 			url:"selectBugCont.tk",

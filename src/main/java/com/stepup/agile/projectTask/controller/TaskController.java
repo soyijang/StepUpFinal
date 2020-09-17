@@ -591,9 +591,14 @@ public class TaskController {
 		   
 		   System.out.println(bglist);
 		   
+		   if(bglist.size() != 0) {
+		   
 		   model.addAttribute("bgList", bglist);
-		  
 		   return "projectTask/bug/bug";
+		   
+		   } else {
+			   return "projectTask/bug/bugError";
+		   }
 		   
 	   }
 	   
