@@ -78,7 +78,7 @@
                            <td><b>URL</b></td>
                            <td><b>RSS사이트명</b></td>
                         </tr>
-                        <c:if test="${not empty sprintList}">
+                        <c:if test="${not empty rssList}">
                         <c:forEach var="i" begin="0" end="${fn:length(rssList)-1}">
                             <tr class="rsslistout">
                               <td><input type="text" class="updateInput" id="rssModifyNickname" name="rssModifyNickname" value="${rssList.get(0).rssModifyNickname}" autocomplete="off"></td>
@@ -90,13 +90,13 @@
                         </c:forEach>
                         </c:if>
                         
-                        <c:if test="${empty sprintList}">
+                        <c:if test="${empty rssList}">
                             <tr class="rsslistout">
-                              <td><input type="text" class="updateInput" id="rssModifyNickname" name="rssModifyNickname" value="" autocomplete="off"></td>
+                              <td><input type="text" class="updateInput" id="rssModifyNickname" name="rssModifyNickname" value=""></td>
                               <td><input type="text" class="updateInput" id="rssModifyKeyword" name="rssModifyKeyword" value="" ></td>
                               <td><input type="text" class="updateInput" id="rssurlget" name="rssModifyUrl" value="" ></td>
                               <td><input type="text" class="updateInput" id="rssModifySite" name="rssModifySite" value="" ></td>
-                              <td><input type="hidden" name="rssProjectCode" value="" ></td>
+                              <td><input type="hidden" name="rssProjectCode" value="0" ></td>
                            </tr> 
                         </c:if>
                         
@@ -105,9 +105,9 @@
                      <button class="rectangle6" type="submit">저장</button>
                      <div class="rssSelectClose" id="rectangle7">취소</div>
                   </div>
-                  <input type="hidden" name="userProjectCode" value=""> 
                </div>
             </div>
+	        <input type="hidden" name="userProjectCode" value="${sessionScope.userProjectCodeNew}">
          </form>
          <!-- ----------------------------소이js-------------------------- -->
          <script type="text/javascript">
