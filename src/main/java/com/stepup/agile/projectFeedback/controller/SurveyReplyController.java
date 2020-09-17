@@ -112,8 +112,7 @@ public class SurveyReplyController {
 			//메일발송
 			String recipient = str.getSurveyJoinEmail();
 			String subject = str.getSurveyJoinName() + "님! 스탭업 스프린트 설문을 진행해주세요!";
-			String body = username+"님으로 부터 메일을 받았습니다." 
-					+ "http://localhost:8002/agile/surveyReply.sv?email=" + str.getSurveyJoinEmail()
+			String body = "http://localhost:8002/agile/surveyReply.sv?email=" + str.getSurveyJoinEmail()
 					+"&surveyCode=" + str.getSurveyCode(); 
 	
 			Properties props = System.getProperties(); 
@@ -143,7 +142,7 @@ public class SurveyReplyController {
 			mimeMessage.setRecipient(Message.RecipientType.TO, new InternetAddress(recipient));
 			mimeMessage.setSubject(subject); //제목셋팅 
 			mimeMessage.setText(body); //내용셋팅 
-			Transport.send(mimeMessage);
+			Transport.send(mimeMessage);	
 		}
 		
 		mv.addObject("size", size);

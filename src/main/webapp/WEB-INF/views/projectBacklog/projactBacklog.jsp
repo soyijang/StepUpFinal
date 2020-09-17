@@ -119,6 +119,7 @@
 			 
 				<jsp:include page="../projectTask/MainTask/taskDetail.jsp"/>
 				
+				<c:if test="${not empty sprintList}">
 				<div class="taskButtonArea">
 					<button class='taskapply' id='rectangle5' style='width: 100px;'>Task 추가</button>
 					<button id='rectangle5' class='updatebtn' style='width: 100px;'>스프린트 편집</button> 
@@ -146,14 +147,13 @@
 						
 						<!-- 테스크리스트 주입장소 -->
 						<tbody id="addTaskList">
-							<c:if test="${empty sprintList}">
-								<tr style="font-size: small;"><td colspan="8"><br><br><c:out value="${ sessionScope.projectName }"/> 프로젝트에 <br>진행중인 스프린트가 없습니다!</td></tr>
-								<img src="/agile/resources/images/indiv/main/mainpage/img_timeline2.jpg" style="width:500px; height:350px; margin-left:365px; margin-top:150px;">
-							</c:if>
 						</tbody>
 					</table>
 				</div>
-				
+				</c:if>
+				<c:if test="${empty sprintList}">
+					<img src="/agile/resources/images/indiv/main/mainpage/img_timeline3.jpg" style="width:500px; height:350px; margin-left:130px; margin-top:100px;">
+				</c:if>
 			</div>
 		</div>
 	</div>
