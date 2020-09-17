@@ -1,66 +1,121 @@
+
+ body{
+    font-family: 'Noto Sans KR';
+ }
 /* 하단 contentBox 영역 */
 #contentBox{
-	height: 88%;
-	width: 100%;
-	border-radius: 10px;
+   height: 88%;
+   width: 100%;
+   border-radius: 10px;
 }
 /* 콘텐트 박스 헤더*/
 #content-box-header, #content-box-header-table, #content-box-header-table tr{
-	width: 100%;
-	height: 8%;
-	padding-top: 0;
-	box-sizing: border-box;
+   width: 100%;
+   height: 8%;
+   padding-top: 0;
+   box-sizing: border-box;
 }
 /* 캘린더 영역 박스 */
 #calender-box{
-	width: 100%;
-	height: 91%;
-	background: #F9F9F9;
-	border-radius: 0 0 5px 5px;
-	padding-left: 17px;
-	padding-right: 17px;
-	box-sizing: border-box;
+   width: 100%;
+   height: 91%;
+   background: #F9F9F9;
+   border-radius: 0 0 5px 5px;
+   padding-left: 17px;
+   padding-right: 17px;
+   box-sizing: border-box;
 }
 /* 캘린더 내부 테이블 */
-#calender-box-table, #calender-notInProgress-table, #calender-complete-table, #calender-incomplete-table{
-	width: 100%;
-	box-sizing: border-box;
-	/* 테이블에 선 표시하려고 collapse 설정 */
-	border-collapse: collapse;
+#calender-box-table, #i, #calender-complete-table, #calender-incomplete-table{
+   width: 100%;
+   box-sizing: border-box;
+   /* 테이블에 선 표시하려고 collapse 설정 */
+   border-collapse: collapse;
+}
+/* 각 진행상태별 wrapper */
+#i, #p{
+   height: 230px;
+   width: 100%;
+}
+#c{
+   height: 100px;
+   width: 100%;   
+}
+/* 각 진행상태 빨간색 title */
+#iName, #pName{
+   height: 230px;
+   width: 44px;
+   font-family: Roboto;
+   font-style: normal;
+   font-weight: normal;
+   font-size: 12px;
+   line-height: 230px;
+   color: #DD0351;
+   text-align: center;
+   display: inline-block;
+   float: left;
+}
+#cName{
+   height: 120px;
+   width: 44px;
+   font-family: Roboto;
+   font-style: normal;
+   font-weight: normal;
+   font-size: 12px;
+   line-height: 100px;
+   color: #DD0351;
+   text-align: center;
+   display: inline-block;
+   float: left;
 }
 
-#calender-notInProgress-table, #calender-complete-table{
-	height: 230px;
-	width: 100%;
+/* 요일별, 진행상태별 div */
+.i0,.i1,.i2,.i3,.i4,.i5,.i6,
+.p0,.p1,.p2,.p3,.p4,.p5,.p6{
+   width: 158px;
+   height: 230px;
+   float: left;
+   box-sizing: border-box;
+   padding: 13px;
 }
-#calender-incomplete-table{
-	height: 100px;
-	width: 100%;	
+.c0,.c1,.c2,.c3,.c4,.c5,.c6{
+   width: 158px;
+   height: 120px;
+   float: left;
+   box-sizing: border-box;
+   padding: 5px;
+   padding: 13px;
+}
+.one{
+   width: 132px;
+   height: 20px;
+   line-height: 20px;
+   font-size: 15px;
+   box-sizing: border-box;
+   overflow: hidden;
+   text-overflow: ellipsis;
+   white-space: nowrap;
+}
+
+.category{
+   width: 57px !important;
 }
 
 /* 캘린더 내부 상단 요일 및 날짜 출력 부분 */
 #calender-box-table-tr-1, #calender-box-table-tr-2{
-	height: 35px;
-	width: 100%;
+   height: 35px;
+   width: 100%;
 }
 
 /* 캘린더 내부 상단 요일 및 날짜 출력 부분 하단 라인 */
 #calender-box-table-tr-2,
-#calender-notInProgress-table tr:nth-last-child(1),
+#i tr:nth-last-child(1),
 #calender-complete-table tr:nth-last-child(1){
-	border-bottom: 2px solid #E6E6E6;
+   border-bottom: 2px solid #E6E6E6;
 }
 
-#calender-box-table tr:nth-child(1) td:nth-child(1),
-#calender-box-table tr:nth-child(2) td:nth-child(1),
-#calender-notInProgress-table tr:nth-child(1) td:nth-child(1),
-#calender-notInProgress-table tr:nth-child(2) td:nth-child(1),
-#calender-complete-table tr:nth-child(1) td:nth-child(1),
-#calender-complete-table tr:nth-child(2) td:nth-child(1),
-#calender-incomplete-table tr:nth-child(1) td:nth-child(1),
-#calender-incomplete-table tr:nth-child(2) td:nth-child(1){
-	width: 55px;
-}
+
+
 #calender-box-table tr:nth-child(1) td:nth-child(2) .date,
 #calender-box-table tr:nth-child(1) td:nth-child(3) .date,
 #calender-box-table tr:nth-child(1) td:nth-child(4) .date,
@@ -68,18 +123,18 @@
 #calender-box-table tr:nth-child(1) td:nth-child(6) .date,
 #calender-box-table tr:nth-child(1) td:nth-child(7) .date,
 #calender-box-table tr:nth-child(1) td:nth-child(8) .date{
-	width: 148px;
-	font-family: Noto Sans KR;
-	font-style: normal;
-	font-weight: normal;
-	font-size: 15px;
-	line-height: 15px;
-	text-align: center;
-	letter-spacing: 0.1px;
-	color: #6D6D6D;
-	margin: 0;
-	padding: 0;
-	box-sizing: border-box;
+   width: 158px !important;
+   font-family: Noto Sans KR;
+   font-style: normal;
+   font-weight: normal;
+   font-size: 15px;
+   line-height: 15px;
+   text-align: center;
+   letter-spacing: 0.1px;
+   color: #6D6D6D;
+   margin: 0;
+   padding: 0;
+   box-sizing: border-box;
 }
 
 #calender-box-table tr:nth-child(2) td:nth-child(2) .day,
@@ -89,76 +144,31 @@
 #calender-box-table tr:nth-child(2) td:nth-child(6) .day,
 #calender-box-table tr:nth-child(2) td:nth-child(7) .day,
 #calender-box-table tr:nth-child(2) td:nth-child(8) .day{
-	width: 148px;
-	height:18px;
-	font-family: Noto Sans KR;
-	font-style: normal;
-	font-weight: bold;
-	font-size: 20px;
-	line-height: 17px;
-	text-align: center;
-	letter-spacing: 0.1px;
-	color: #6D6D6D;	
-	margin: 0;
-	padding: 0;
-	box-sizing: border-box;
-}
-
-#calender-notInProgress-table td:nth-child(2) .day,
-#calender-notInProgress-table td:nth-child(3) .day,
-#calender-notInProgress-table td:nth-child(4) .day,
-#calender-notInProgress-table td:nth-child(5) .day,
-#calender-notInProgress-table td:nth-child(6) .day,
-#calender-notInProgress-table td:nth-child(7) .day,
-#calender-notInProgress-table td:nth-child(8) .day,
-#calender-complete-table td:nth-child(2) .day,
-#calender-complete-table td:nth-child(3) .day,
-#calender-complete-table td:nth-child(4) .day,
-#calender-complete-table td:nth-child(5) .day,
-#calender-complete-table td:nth-child(6) .day,
-#calender-complete-table td:nth-child(7) .day,
-#calender-complete-table td:nth-child(8) .day,
-#calender-incomplete-table td:nth-child(2) .day,
-#calender-incomplete-table td:nth-child(3) .day,
-#calender-incomplete-table td:nth-child(4) .day,
-#calender-incomplete-table td:nth-child(5) .day,
-#calender-incomplete-table td:nth-child(6) .day,
-#calender-incomplete-table td:nth-child(7) .day,
-#calender-incomplete-table td:nth-child(8) .day{
-	width: 148px;
-	height:18px;
-	font-family: Noto Sans KR;
-	letter-spacing: 0.1px;
-	margin-left: 7px;
-	padding:0;
-	box-sizing: border-box;
-	font-family: Roboto;
-	font-style: normal;
-	font-weight: normal;
-	font-size: 14px;
-	line-height: 14px;
-	color: #000000;
-	float: left;
-	
+   width: 158px !important;
+   height:18px;
+   font-family: Noto Sans KR;
+   font-style: normal;
+   font-weight: bold;
+   font-size: 20px;
+   line-height: 17px;
+   text-align: center;
+   letter-spacing: 0.1px;
+   color: #6D6D6D;   
+   margin: 0;
+   padding: 0;
+   box-sizing: border-box;
 }
 
 
-/* 우측 미완료, 완료, 진행중인 일 title*/
-.spaces{
-	font-family: Roboto;
-	font-style: normal;
-	font-weight: normal;
-	font-size: 12px;
-	line-height: 14px;
-	color: #DD0351;
-	text-align: center;
-}
+
+/* ----------------------------------------------------------- */
+
 /* rss 관련 아이콘 */
 #icon_rss_feed{
-	width: 33px;
+   width: 33px;
 }
 #icon_settings{
-	width: 33px;
+   width: 33px;
 }
 /* 검색상자 */
 #search {
@@ -172,46 +182,183 @@
      background-position: 95% center;
 }
 .input{
-	height: 100%;
-	font-size:15px;
-	width: 145px;
-	padding: 0;
-	margin: 0;
-	margin-left:5px;
-	box-sizing: border-box;
+   height: 100%;
+   font-size:15px;
+   width: 145px;
+   padding: 0;
+   margin: 0;
+   margin-left:5px;
+   box-sizing: border-box;
 }
 /* 돋보기 아이콘 */
 #icon_searchicon{
-	width: 23px;
-	vertical-align: middle;		
+   width: 23px;
+   vertical-align: middle;      
 }
 #today-box-wrapper{
-	width: 380px;	
-	display: inline-block;
+   margin-left: 80px;
+   width: 330px;   
+   display: inline-block;
 }
 /* 오늘자 날짜 상자 */
 #today-box{
-	font-family: Noto Sans KR;
-	font-style: normal;
-	font-weight: normal;
-	font-size: 29px;
-	line-height: 29px;
-	letter-spacing: 0.1px;
-	color: #000000;
-	float: left;
+   font-family: Noto Sans KR;
+   font-style: normal;
+   font-weight: normal;
+   font-size: 29px;
+   line-height: 29px;
+   letter-spacing: 0.1px;
+   color: #000000;
+   float: left;
 }
 /* 왼쪽으로 가기 버튼 */
 #icon_double_left_chevron{
-	width: 30px;
-	float: left;
-	margin-top: 3px;
+   width: 30px;
+   float: left;
+   margin-top: 3px;
 }
 /* 오른쪽으로 가기 버튼 */
 #icon_double-right_chevron{
-	width: 30px;
-	float: left;
-	margin-top: 3px;
+   width: 30px;
+   float: left;
+   margin-top: 3px;
 }
 .today-box-td{
-	width: 380px;
+   width: 380px;
 }
+
+
+/* rss이미지 */
+#rssBtn> img{
+   line-height: 16px;
+   vertical-align:middle;
+}
+
+#rssBtn{
+   width: 165px;
+   background-color: #DD0351;
+   font-weight: bold;
+   color: white;
+   border-radius: 5px;
+   text-align: center;
+   cursor: pointer;
+   margin-right: 10px;
+}
+
+.rsslistout > td > input {
+   text-align: center;
+   width: 100%;
+}
+
+     .wrap-loading{ /*화면 전체를 어둡게*/
+          position: fixed;
+          left:0;
+          right:0;
+          top:0;
+          bottom:0;
+          background: rgba(0,0,0,0.2); /*not in ie */
+          filter: progid:DXImageTransform.Microsoft.Gradient(startColorstr='#20000000', endColorstr='#20000000');    /* ie */
+      }
+      
+      .wrap-loading div{ /*로딩 이미지*/
+          position: fixed;
+          top:50%;
+          left:50%;
+          margin-left: -21px;
+          margin-top: -21px;
+      }
+      
+      .wrap-loading div > img {
+         width: 20%;
+         height: 20%;
+      }
+
+      
+      .display-none{ /*감추기*/
+          display:none;
+       }
+       
+   /* rss컨텐츠박스들 */   
+      
+      #rssbox{
+         height: 100%;
+         overflow: scroll;
+      }
+      
+    .rssCountentImg{
+       width: 100px;
+       height: 150px;
+    }
+    
+    
+   .rssContent > *{
+      word-break:break-all;
+   }
+   
+   .rssContent{
+         width: 40%;
+         height: 170px;
+         margin: 30px;
+         display: inline-block;
+         font-size: small;
+      overflow: hidden;
+   }
+   
+   .rssimg{
+       width: 30%;
+       height : 90%;
+   }    
+   
+   .rssauthor{
+      width: 30px;
+   }
+       
+   .rsstitle{
+      max-width : 55%;
+      width: 55%;
+       height : 20%;
+       overflow: inherit;
+      font-size: medium;
+      font-weight: bold;
+      word-break:break-all;
+      overflow: hidden;
+      text-overflow: ellipsis;
+          white-space: nowrap;
+   }
+   .rssdescription{
+       height : 70%;
+      width: 70%;
+      word-break:break-all;
+         overflow: hidden;
+   }
+   
+   .rsspubdate{
+       height : 10%;
+   }
+
+        .updateInput{
+          float:left;
+          border-radius : 5px;
+          height: 35px;
+          background-color: lightgray;
+          color: black;
+          font-weight: normal;
+          margin-right: 50px;
+          
+          
+       }
+       
+        .updateInput:focus {
+          transition: all ease 0.3s 0s;
+          background-color: #DD0351;
+          color: white;
+          font-weight: normal;
+       }
+
+
+
+
+
+
+
+

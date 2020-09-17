@@ -69,6 +69,12 @@
  	vertical-align: middle;
  	line-height: 30px;
  }
+ .deleteTaskClose {
+ 	text-align: center;
+ 	display: inline-block;
+ 	vertical-align: middle;
+ 	line-height: 30px;
+ }
  .updateStartClose {
  	text-align: center;
  	display: inline-block;
@@ -106,6 +112,31 @@
  	line-height: 30px;
  }
  
+ .surveyAddBtn {
+ 	text-align: center;
+ 	display: inline-block;
+ 	vertical-align: middle;
+ 	line-height: 30px;
+ }
+ .surveyClose {
+ 	text-align: center;
+ 	display: inline-block;
+ 	vertical-align: middle;
+ 	line-height: 30px;
+ }
+ .rssSelectClose {
+ 	text-align: center;
+ 	display: inline-block;
+ 	vertical-align: middle;
+ 	line-height: 30px;
+ }
+ .rssSelectAdd {
+ 	text-align: center;
+ 	display: inline-block;
+ 	vertical-align: middle;
+ 	line-height: 30px;
+ }
+ 
  button{
     outline: 0;
  }
@@ -113,4 +144,38 @@
  .SprintUpdateModalTable{
  	width: 90%;
  }
+ 
+ 
+.modal-content-big {
+    background-color: #fefefe;
+    margin: 10% auto; /* 15% from the top and centered */
+    padding: 10px;
+    border: 1px solid #c4c4c4;
+    width: 55%; /* Could be more or less, depending on screen size */
+    z-index:1;
+    border-radius: 10px;
+    box-shadow: 0 0 4px #cccccc;
+  }
+  
+          .surveyInput1, .surveyInput2{
+          float:left;
+          border-radius : 5px;
+          height: 35px;
+          background-color: lightgray;
+          color: black;
+          font-weight: normal;
+          
+       }
+       
+       .surveyInput1{
+       		width: 240px;
+       }
+       
+        .surveyInput1:focus, .surveyInput2:focus {
+          transition: all ease 0.3s 0s;
+          background-color: #DD0351;
+          color: white;
+          font-weight: normal;
+       }
+  
  

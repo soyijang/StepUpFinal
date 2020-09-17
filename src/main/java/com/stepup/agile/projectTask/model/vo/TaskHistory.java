@@ -15,6 +15,7 @@ public class TaskHistory implements java.io.Serializable{
 	private int userCode;
 	private String taskHistValue;
 	private String taskCategoryCode;
+	private String projectName;
 	
 	private Member member;
 	private UserTeamList userTeamList;
@@ -27,8 +28,8 @@ public class TaskHistory implements java.io.Serializable{
 	public TaskHistory() {}
 
 	public TaskHistory(String taskHistUpdateDate, String taskHistUpdateTime, int taskCode, int taskHistCode,
-			int masterCode, int userCode, String taskHistValue, String taskCategoryCode, Member member,
-			UserTeamList userTeamList, UserProjectList userProjectList, TaskList taskList, Sprint sprint,
+			int masterCode, int userCode, String taskHistValue, String taskCategoryCode, String projectName,
+			Member member, UserTeamList userTeamList, UserProjectList userProjectList, TaskList taskList, Sprint sprint,
 			TaskCategory taskCategory, SprintHistory sprintHistory) {
 		super();
 		this.taskHistUpdateDate = taskHistUpdateDate;
@@ -39,6 +40,7 @@ public class TaskHistory implements java.io.Serializable{
 		this.userCode = userCode;
 		this.taskHistValue = taskHistValue;
 		this.taskCategoryCode = taskCategoryCode;
+		this.projectName = projectName;
 		this.member = member;
 		this.userTeamList = userTeamList;
 		this.userProjectList = userProjectList;
@@ -47,7 +49,6 @@ public class TaskHistory implements java.io.Serializable{
 		this.taskCategory = taskCategory;
 		this.sprintHistory = sprintHistory;
 	}
-
 
 	public String getTaskHistUpdateDate() {
 		return taskHistUpdateDate;
@@ -113,46 +114,45 @@ public class TaskHistory implements java.io.Serializable{
 		this.taskCategoryCode = taskCategoryCode;
 	}
 
-	
+	public String getProjectName() {
+		return projectName;
+	}
+
+	public void setProjectName(String projectName) {
+		this.projectName = projectName;
+	}
+
 	public Member getMember() {
 		return member;
 	}
-
 
 	public void setMember(Member member) {
 		this.member = member;
 	}
 
-
 	public UserTeamList getUserTeamList() {
 		return userTeamList;
 	}
-
 
 	public void setUserTeamList(UserTeamList userTeamList) {
 		this.userTeamList = userTeamList;
 	}
 
-
 	public UserProjectList getUserProjectList() {
 		return userProjectList;
 	}
-
 
 	public void setUserProjectList(UserProjectList userProjectList) {
 		this.userProjectList = userProjectList;
 	}
 
-
 	public TaskList getTaskList() {
 		return taskList;
 	}
 
-
 	public void setTaskList(TaskList taskList) {
 		this.taskList = taskList;
 	}
-
 
 	public Sprint getSprint() {
 		return sprint;
@@ -183,9 +183,11 @@ public class TaskHistory implements java.io.Serializable{
 		return "TaskHistory [taskHistUpdateDate=" + taskHistUpdateDate + ", taskHistUpdateTime=" + taskHistUpdateTime
 				+ ", taskCode=" + taskCode + ", taskHistCode=" + taskHistCode + ", masterCode=" + masterCode
 				+ ", userCode=" + userCode + ", taskHistValue=" + taskHistValue + ", taskCategoryCode="
-				+ taskCategoryCode + ", member=" + member + ", userTeamList=" + userTeamList + ", userProjectList="
-				+ userProjectList + ", taskList=" + taskList + ", sprint=" + sprint + ", taskCategory=" + taskCategory
-				+ ", sprintHistory=" + sprintHistory + "]";
+				+ taskCategoryCode + ", projectName=" + projectName + ", member=" + member + ", userTeamList="
+				+ userTeamList + ", userProjectList=" + userProjectList + ", taskList=" + taskList + ", sprint="
+				+ sprint + ", taskCategory=" + taskCategory + ", sprintHistory=" + sprintHistory + "]";
 	}
-
+	
+	
+	
 }
