@@ -30,7 +30,7 @@
                 <!-- 상단 프로젝트 제목 및 메뉴 이름 영역 -->
                 <div id="contentTitle">
                     <div id="projectTitle2"></div>
-                    <div id="menuTitle">로드맵</div>
+                    <div id="menuTitle">Roadmap</div>
                     <div id="share">
 	                    	
 						    <!-- Trigger/Open The Modal -->
@@ -116,7 +116,7 @@
 				console.log(name);
 				
 				var div = "";
-				div= name  + " 님의 타임라인";
+				div= name  + "님의 전체 프로젝트 타임라인";
 				$("#projectTitle2").append(div);
 				
 				var values;

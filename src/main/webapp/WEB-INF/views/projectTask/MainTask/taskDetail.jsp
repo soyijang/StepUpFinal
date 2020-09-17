@@ -367,6 +367,7 @@ input[type="checkbox"] {
                <!--  <div class="result"><img src = "/agile/resources/icon/common/icon_clock.png" id="clockImg"></div> -->
                 <!-- <div><label id="graph">그래프</label></div> -->
                <!--  <div class="timeSet"><input type="text"></div><div class="timeSet"><input type="text"></div> -->
+
                
             </div>
             <div id="medium">
@@ -387,6 +388,7 @@ input[type="checkbox"] {
      		<a href = "javascript:void(0)" onclick = "document.getElementById('light').style.display='none';document.getElementById('fade').style.display='none'">닫기</a></button></div>
         <div id="fade" class="black_overlay"></div>
         </div>
+
      </div>   
      
    <!-- 로딩중 -->
@@ -564,7 +566,9 @@ input[type="checkbox"] {
       });
    });
    
+
     /*//예상시간 정규표현식
+
     function parse (str) {
                      // validate year as 4 digits, month as 01-12, and day as 01-31 
                      if ((str = str.match (/^(\d{4})(0[1-9]|1[0-2])(0[1-9]|[12]\d|3[01])$/))) {
@@ -577,9 +581,11 @@ input[type="checkbox"] {
                         alert("20200918의 패턴으로 작성해주세요")
                      }
                      return str;
+
               }*/
     
     
+
    //input type text에서 엔터치면 실행되는 함수
    function enterkey() {
       if(window.event.keyCode == 13){
@@ -588,9 +594,11 @@ input[type="checkbox"] {
    }
    
     //날짜 변경
+
 /*     $(function(){
        $('#expectText').datepicker({ dateFormat: 'YYYY- mm-dd' });   
     }); */
+
 /*   var expectText = document.frmWork.txtHpDate.value;
    var dateSplit = inputDate.split("-");
    
@@ -625,11 +633,13 @@ input[type="checkbox"] {
            toggleActionStart(toggleFG, 'TO_RIGHT');
        }
    }); */
+
    
    $('#bugMode').click(function(){
       $('#taskicon').attr('src', '/agile/resources/icon/common/icon_fillround.png');
    });
    
+
    function autologin(img) {
         if(img.checked) {
             img.checked = false;
@@ -828,8 +838,10 @@ input[type="checkbox"] {
                 $tr.append($titleTd);
                 
                 /* taskSelect.eq(6).append($tr); */
+
                /* taskSelect.append($img).append($testNumTd).append($titleTd);*/
                taskSelect.append($tr);
+
                 
                 $('#subTaskLink').click(function(){
                    $('#taskDetailModal').css('display','none');
@@ -1249,7 +1261,11 @@ input[type="checkbox"] {
    //9.최초예상 선택
     function insertExpect(){
 
+<<<<<<< HEAD
+       var expectText = $('#expectText').datepicker({ dateFormat: 'YYYY- mm-dd' }).val();
+=======
        var expectText = $('#expectText').val();
+>>>>>>> origin/feature/15/taskdetail
        var taskCode = $('#taskCode').val();
        var taskCategoryCode = $('#taskCategoryCode8').val();
        console.log(taskCode);
@@ -1286,6 +1302,9 @@ input[type="checkbox"] {
        
        return false;
     }   
+<<<<<<< HEAD
+   //10.시간추적 선택
+=======
    //10.남은시간 계산
    $(function(){
 	   var start = $('#startDate').val();
@@ -1301,6 +1320,7 @@ input[type="checkbox"] {
 /*		document.getElementById("#leftTime").value = hm;*/
    });
    
+>>>>>>> origin/feature/15/taskdetail
          
    //11.우선순위 선택
    function taskProperty1(){
@@ -1437,8 +1457,13 @@ input[type="checkbox"] {
           success: function(data){
              console.log("성공!");
              console.log(data.taskHistory.taskHistUpdateDate);
+<<<<<<< HEAD
+             $('#startDate').append(data.taskHistory.taskHistUpdateDate).append(data.taskHistory.taskHistUpdateTime);
+            
+=======
              $('#startDate').append(data.taskHistory.taskHistUpdateDate);
              $('#startDate').val(data.taskHistory.taskHistUpdateDate);
+>>>>>>> origin/feature/15/taskdetail
              var str = $('#expect-left').text();
               
              

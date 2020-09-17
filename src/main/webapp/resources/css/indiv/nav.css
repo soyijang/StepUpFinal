@@ -1,3 +1,9 @@
+a{
+	text-decoration: none;
+	color:black;
+	cursor: pointer;
+}
+
 	.navContent{
     		height : 60px;
     		vertical-align: middle; 
@@ -70,6 +76,14 @@
 		
 		}
     	
+    	.navIcon > div> p {
+    		vertical-align : middle;
+    		text-decoration: none;
+    		font-weight:normal;
+    		color:white;
+    		font-family: Montserrat;
+			padding-top: -2px;
+    	}
     	.navIcon > a {
     		vertical-align : middle;
     		text-decoration: none;
@@ -78,12 +92,22 @@
     		font-family: Montserrat;
     	}
     	
+    	.navIcon > div> p:hover {
+    		color: #DD0351;
+    		font-weight: bold;
+    		transition: all ease 0.5s 0s;
+    		cursor: pointer;
+    	}
     	.navIcon > a:hover {
     		color: #DD0351;
     		font-weight: bold;
     		transition: all ease 0.5s 0s;
-    	}
+    	}	
     	
+    	.navIcon > div> p > img {
+    		vertical-align : middle;
+    		margin: 5px;
+    	}
     	.navIcon > a > img {
     		vertical-align : middle;
     		margin: 5px;
@@ -127,6 +151,10 @@
     		width: 25px;
     		margin-left: 15px;
     	}
+    	
+    	.menu{
+    		cursor: pointer;
+    	}
     
     	#menubarList > tbody :hover{
     		transition: all ease 0.5s 0s;
@@ -142,6 +170,7 @@
     		outline: 0;
     		background: transparent;
     		cursor: pointer;
+    		z-index: 1234;
 		}
 		
 		#menubarWithBtn{
@@ -151,23 +180,22 @@
 			position: relative;
 		}
 		
-		
-		
-		
-		
-		
 	  .dropdown-project {
         position: relative;
         display: inline-block;
       }
+      
       .dropdown-project-content {
         display: none;
         position: absolute;
         background-color: #ffffff;
         box-shadow: 0px 3px 16px 0px rgba(0,0,0,0.2);
         z-index: 1;
+        margin-top : -5px;
         border-bottom-right-radius: 10px;
         border-bottom-left-radius: 10px;
+        width: 150px;
+	    margin-left: -40px;
       }
       
       .dropdown-project-content a {
