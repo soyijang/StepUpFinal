@@ -46,6 +46,11 @@ public class ProjectDaoImpl implements ProjectDao{
 		return sqlSession.selectOne("Project.selectProjectAlert", m);
 	}
 	
+	@Override
+	public int selectSprintAlert(SqlSessionTemplate sqlSession, Member m) {
+		return sqlSession.selectOne("Project.selectSprintAlert", m);
+	}
+	
 	///////////////////////////////////////////////////////////////////////////////////
 	//프로젝트 메인페이지로 포워딩 (해당 멤버의 project list 조회 후 view 이동) 
 	@Override
@@ -106,6 +111,8 @@ public class ProjectDaoImpl implements ProjectDao{
 		return sqlSession.selectOne("Project.checkBelongTo", map);
 
 	}
+
+	
 	
 
 

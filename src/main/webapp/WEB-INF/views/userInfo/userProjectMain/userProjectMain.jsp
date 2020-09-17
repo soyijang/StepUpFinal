@@ -58,8 +58,8 @@
 	                            	<td style=" width:30px;">${ i.taskCnt }</td>
 	                            </tr>
 	                            <tr>
-	                            	<td colspan="3" style="">Status</td>
-	                            	<c:if test="${ 0 ne i.taskCnt }">
+	                            	<td colspan="3">Status</td>
+	                            	<c:if test="${ 0 ne pjList2[status.index].taskCnt}">
 	                            	<td style="text-align:right; width:30px;"><img src="/agile/resources/images/indiv/main/userInfo/userProjectMain/img_status_ing2.png" width="70px;" height="20px;"></td>
 	                            	</c:if>
 	                            	<c:if test="${ 0 eq i.taskCnt and 0 eq pjList2[status.index].taskCnt }">
@@ -81,15 +81,17 @@
 	                         <div id="alm-cont">
 	                         	<table class="alm-tb" style="cellpadding:30px; width:100%;">
 	                         		<tr>
-	                         			<th colspan="2" style="font-weight:100; text-align: left;">프로젝트💾</th>
+	                         			<th colspan="2" style="font-weight:100; text-align: left; height:60px;">프로젝트💾</th>
 	                         		</tr>
-	                         		
-	                         		<c:forEach var="j" begin="0" end="${ alertList-5 }">
 	                         		<tr>
-	                         			<td style="border-bottom:1px solid #E8E8E8; font-weight:300; width:20%; text-align: center;"></td>
-	                         			<td style="border-bottom:1px solid #E8E8E8; font-weight:300;">프로젝트가 업데이트 되었습니다.🔔</td>
+	                         			<td colspan="2" style="border-bottom:1px solid #E8E8E8; font-weight:300; text-align: center;">최근 프로젝트가 ${ alertList }번 업데이트 되었습니다.🔔</td>
 	                         		</tr>
-	                         		</c:forEach>
+	                         		<tr>
+	                         			<th colspan="2" style="font-weight:100; text-align: left; height:60px;">스프린트🎿</th>
+	                         		</tr>
+	                         		<tr>
+	                         			<td colspan="2" style="border-bottom:1px solid #E8E8E8; font-weight:300; text-align: center;">최근 스프린트가 ${ alertList2 }번 업데이트 되었습니다.🔔</td>
+	                         		</tr>
 	                         	</table>
 	                         </div>
 	                     </div>
