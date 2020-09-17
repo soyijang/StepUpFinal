@@ -64,6 +64,7 @@
 	width: 100%;
 	height:50%;
 	margin-right: 4px;
+	background-color: white;
 }
 #alm-cont-area{
 	margin-right: 10px;
@@ -72,6 +73,7 @@
 	border-radius: 8px;
 	width: 100%;
 	height:50%;
+	background-color: white;
 }
 #task-cont-area{
 	margin-right: 10px;
@@ -79,6 +81,7 @@
 	border-radius: 8px;
 	width: 100%;
 	height:50%;
+	background-color: white;
 }
 #cht-cont-area{
 	margin-top: 10px;
@@ -86,6 +89,7 @@
 	border-radius: 8px;
 	width: 100%;
 	height:50%;
+	background-color: white;
 }
 #pro-cont-title{
 	border-bottom: 1px solid #E8E8E8;
@@ -99,6 +103,8 @@
 	height:97%;
 	border: 1px solid #E8E8E8;
 	border-radius: 8px;
+	background-color: white;
+	box-shadow: 11px 17px 9px -7px rgba(179, 179, 179, 0.25);
 }
 #project{
 	text-align: left;
@@ -167,6 +173,7 @@
 	height:70%;
 	box-shadow: 11px 17px 9px -7px rgba(179, 179, 179, 0.25);
 	font-weight: 400;
+	background-color: white;
 }
 #task-ing{
 	border-radius: 5px;
@@ -177,6 +184,7 @@
 	height:70%;
 	box-shadow: 11px 17px 9px -7px rgba(179, 179, 179, 0.25);
 	font-weight: 400;
+	background-color: white;
 }
 #com-task{
 	border-radius: 5px;
@@ -187,6 +195,7 @@
 	height:70%;
 	box-shadow: 11px 17px 9px -7px rgba(179, 179, 179, 0.25);
 	font-weight: 400;
+	background-color: white;
 }
 #tot-task{
 	border-radius: 5px;
@@ -197,6 +206,7 @@
 	height:70%;
 	font-weight: 400;
 	box-shadow: 11px 17px 9px -7px rgba(179, 179, 179, 0.25);
+	background-color: white;
 }
 .status{
 	margin-left: 20px;
@@ -252,7 +262,7 @@ span.center{
    left:20px;
 }
 #to-ch{
-	margin-left: 55px;
+	margin-left: 45px;
 	margin-bottom: 15px;
 	font-size: 30px;
 }
@@ -334,12 +344,26 @@ span.center{
     color: #B7BBDE;
 }
 .cal-schedule{
-	border-radius: 10px;
-	width:200px;
-	font-size: 15px;
-	background-color: #FFF2F2;
+	
 }
 #chartdiv {
   width: 100%;
   height: 400px;
 }
+ol.circle {
+   list-style: none;
+   counter-reset: item;
+   border-radius: 7px;
+   width:200px;
+   font-size: 15px;
+   background-color: #FFF2F2;
+ }
+
+ol.circle > li{
+   counter-increment: item;
+   margin-bottom: 5px;
+ }
+
+ol.circle > li:before {
+    
+ }

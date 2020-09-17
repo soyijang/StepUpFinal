@@ -7,229 +7,285 @@
 @font-face {font-family: 'Noto Sans KR';font-style: normal;font-weight: 700;src: url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Bold.woff2) format('woff2'),url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Bold.woff) format('woff'),url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Bold.otf) format('opentype');}
 @font-face {font-family: 'Noto Sans KR';font-style: normal;font-weight: 900;src: url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Black.woff2) format('woff2'),url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Black.woff) format('woff'),url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Black.otf) format('opentype');}
 body{
-	font-family: Noto Sans KR;
+   font-family: Noto Sans KR;
 }
 
 /* a태그 css 없애기 */
 a{ 
-	text-decoration:none;
+   text-decoration:none;
 }
 /* 상단 프로젝트 클릭시 프로젝트 메인화면으로 이동 글자 css */
 #projectTitle2 a{
-	color: #6D6D6D;
+   color: #6D6D6D;
 }
 #contentBox{
-	width: 100%;
-	margin-left: auto;
-	margin-right: auto;
-	height: 90%;
-	box-sizing: border-box;
-	padding:0;
-	margin: 0;
+   width: 100%;
+   margin-left: auto;
+   margin-right: auto;
+   height: 90%;
+   box-sizing: border-box;
+   padding:0;
+   margin: 0;
 }
 /* 상단 sprint 정보 출력 부분 ------------------------------------- */
 #contentBox1{
-	width: 100%;
-	height: 12%;
-	background: yellow;
-	padding:0;
-	margin: 0;
-	box-sizing: border-box;
+   width: 100%;
+   height: 12%;
+   padding:0;
+   margin: 0;
+   box-sizing: border-box;
 }
 /* contentBox1 안쪽 title, subtitle, table 비율 분할 */
 /* 스프린트명 입력 */
 #contentBox1-title{
-	height:40%;
-	width: 100%;
-	font-family: Noto Sans KR;
-	font-style: normal;
-	font-weight: 300;
-	font-size: 25px;
-	letter-spacing: 0.1px;
-	box-sizing: border-box;
-	color: #000000;
+   height:40%;
+   width: 100%;
+   font-family: Noto Sans KR;
+   font-style: normal;
+   font-weight: 300;
+   font-size: 17px;
+   letter-spacing: 0.1px;
+   box-sizing: border-box;
+/*    color: #000000; */
+   color: #6D6D6D;
+   font-weight: bold;
 }
 /* 스프린트 상세 설명 입력 */
 #contentBox1-subtitle{
-	height:25%;
-	width: 100%;
-	font-family: Noto Sans KR;
-	font-style: normal;
-	font-weight: 300;
-	font-size: 13px;
-	letter-spacing: 0.1px;
-	color: #6D6D6D;
-	box-sizing: border-box;
+   height:25%;
+   width: 100%;
+   font-family: Noto Sans KR;
+   font-style: normal;
+   font-weight: 300;
+   font-size: 13px;
+   letter-spacing: 0.1px;
+   color: #6D6D6D;
+   box-sizing: border-box;
+   margin-top:-10px;
+   margin-bottom: 10px;
 }
 /* contentBox1-table 내부 css */
 #contentBox1-table{
-	height:25%;
-	padding:0;
-	margin: 0;
-	box-sizing: border-box;
+   height:25%;
+   padding:0;
+   margin: 0;
+   box-sizing: border-box;
 }
 #contentBox1-table, #contentBox1-table tr{
-	width: 100%;
+   width: 100%;
 }
 #contentBox1-table td, #contentBox1-table tr{
-	padding:0;
-	margin: 0;
-	box-sizing: border-box;
-	height: 100%;
+   padding:0;
+   margin: 0;
+   box-sizing: border-box;
+   height: 100%;
 }
 /* 상단 버튼 들어있는 table td 설정 */
-#contentBox1-table td:nth-child(1){width: 25%}
+#contentBox1-table td:nth-child(1){width: 30%}
 #contentBox1-table td:nth-child(2){width: 10%}
 #contentBox1-table td:nth-child(3){width: 10%}
-#contentBox1-table td:nth-child(4){width: 25%}
+#contentBox1-table td:nth-child(4){width: 20%}
 #contentBox1-table td:nth-child(5){width: 10%}
 #contentBox1-table td:nth-child(6){width: 20%}
+
+/* 그룹화 기준 */
+#group-standard{
+   margin-left: 20%;
+}
+
 
 
 /* searchBox */
 #searchBox{
-	width: 170px;
-	height: 100%;	
-	background: #FBFBFB;
-	border: 2px solid #F4F4F4;
-	box-sizing: border-box;
-	border-radius: 8px;
-	display: inline-block;	
+   width: 170px;
+   height: 33px;   
+   background: #FBFBFB;
+   border: 2px solid #F4F4F4;
+   box-sizing: border-box;
+   border-radius: 8px;
+   display: inline-block;   
+   padding-top:1px;
+   box-sizing:border-box;
+   padding-bottom:1px;
+
 }
 #searchBox input{
-	height: 100%;	
-	font-size: 13px;
-	width: 80%;
-	vertical-align:middle;
-	box-sizing: border-box;
-	border-radius: 8px;
-	margin: 0;
-	padding: 0;
-	float: left;
-	background: none;
+   height: 31px;   
+/*    font-size: 13px; */
+   width: 100px;
+   box-sizing: border-box;
+   border-radius: 8px;
+   margin: 0;
+   padding: 0;
+   float:left;
+   line-height:31px;
+   background: none;
+   margin-left: 10px;
 }
 /* 검색 박스 돋보기 아이콘 */
 #icon-searchicon{
-	width: 12%;
-	float: left;
-	vertical-align:middle;
-	box-sizing: border-box;
-	margin-top: 3%;
+   width: 19px;
+   height: 19px;
+   float: right;
+   margin-top:6px;
+   box-sizing: border-box;
+   margin-right: 3px;
 }
 /* 
 
 /* 스프린트 완료 아이콘 */
 #sprint-finish {
-    width: 80%;
-    height: 100%;
-    background: #DD0351;
+/*  width: 100%;
+    height: 100%; */
+    width:132px;
+    height:32px;
+/*  background: #DD0351; 핑크*/
+/* 네이비 버튼  */
+    background: #FAFAFA;
     border-radius: 10px;
-    border: 0;
-    font-size: 12px;
-    color: white;
+    border: 0; 
+    font-size: 14px;
+    color: #6D6D6D;
+    line-height:30px;
+    box-sizing:border-box;
     text-align: center;
     cursor: pointer;
+    display: inline-block;
+    float: right;
+    margin-top:-30px;
+    margin-right: 93px;
+}
+#sprint-finish:hover{
+     background: #2B2B49;
+     color: white;   
 }
 
 /* board list 부분 css ------------------------------------ */
 #contentBox2{
-	width: 100%;
-	height: 86%;
-	box-sizing: border-box;
-	margin: 0;
-	padding: 0;
-	display: inline-block;
-	padding-top:10px;
+   width: 100%;
+   height: 86%;
+   box-sizing: border-box;
+   margin: 0;
+   padding: 0;
+   display: inline-block;
+   padding-top:10px;
 }
 #contentBox2-title{
-	width: 99%;
-	/* contentBox2 내부 비율 boardTitle 12% : board 88% */
-	height: 7%;
-	background: red;
-	display: inline-block;
-	margin:0;
-	padding: 0;
-	box-sizing: border-box;
+   width: 99%;
+   /* contentBox2 내부 비율 boardTitle 12% : board 88% */
+   height: 7%;
+   display: inline-block;
+   margin:0;
+   padding: 0;
+   box-sizing: border-box;
 }
 
 #incomplete-title, #proceeding-title{
-	margin-left:3%;
-	margin-right:3%;
-	width: 22%;
-	font-family: Noto Sans KR;
-	font-style: normal;
-	font-weight: bold;
-	font-size: 14px;
-	line-height: 34px;
-	align-items: center;
-	color: #000000;
-	background: #FAFAFA;
-	border-radius: 5px;
-	height: 100%;
-	float: left;
-	box-sizing: border-box;
-	padding-left: 30px;
+   margin-left:3%;
+   margin-right:3%;
+   width: 21.85%;
+   font-family: Noto Sans KR;
+   font-style: normal;
+   font-weight: bold;
+   font-size: 14px;
+   line-height: 34px;
+   align-items: center;
+   color: #000000;
+   background: #FAFAFA;
+   border-radius: 5px 5px 0 0;
+   height: 100%;
+   float: left;
+   box-sizing: border-box;
+   padding-left: 30px;
+   padding-top: 0.5%;
 }
 #complete-title{
-	margin-left:3%;
-	margin-right:3%;
-	width: 22%;
-	font-family: Noto Sans KR;
-	font-style: normal;
-	font-weight: bold;
-	font-size: 14px;
-	line-height: 34px;
-	align-items: center;
-	color: #000000;
-	background: #FAFAFA;
-	border-radius: 5px;
-	height: 100%;
-	float: left;
-	box-sizing: border-box;
-	padding-left: 30px;	
-	
+   margin-left:3%;
+   margin-right:3%;
+   width: 21.89%;
+   font-family: Noto Sans KR;
+   font-style: normal;
+   font-weight: bold;
+   font-size: 14px;
+   line-height: 34px;
+   align-items: center;
+   color: #000000;
+    background: #FAFAFA; 
+   border-radius: 5px 5px 0 0;
+   height: 100%;
+   float: left;
+   box-sizing: border-box;
+   padding-left: 30px;   
+   padding-top: 0.5%;
 }
 
 #contentBox2-board{
-	width: 99%;
-	height: 92%;
-	margin:0;
-	padding:0;
-	box-sizing:border-box;
-	background: purple;	
-	display: inline-block;
-	/* 흰 상자 늘어나서 꽉차면 스크롤바 생기게함 */
-	overflow-y:scroll;
+   width: 99%;
+   height: 92%;
+   margin:0;
+   padding:0;
+   box-sizing:border-box;
+/*    display: inline-block; */
+   /* 흰 상자 늘어나서 꽉차면 스크롤바 생기게함 */
+   overflow-y:scroll;
     overflow-x:hidden;
 }
 /* board 박스 table들 css   */
 /* 수정한 css ************************************************************/
 
-/* flag 설정 */
+/* 레이블 css 설정 */
+.label-css{
+/* 레이블을 span 속성으로 만들어 레이블 글자만큼 회색 배경 색칠 */
+   background-color: #EDEDED;
+    color: rgb(37, 56, 88);
+    border-radius: 3px;
+    cursor: default;
+    height: 23px;
+    line-height: 23px;
+    margin: 4px;
+    padding: 0px;
+/*     height:100%; */
+/*     display: flex; */
+/* block 속성 가지고 있어야지 글자수 많은 경우 ... 이런식으로 글자 생략 가능해서 display 속성  inline-block 줌*/
+    display: inline-block; 
+/* 글자가 일정 크기 넘어가면 오른쪽이 생략됨 */
+     overflow: hidden;
+     text-overflow: ellipsis; 
+     direction: ltr;
+    white-space: nowrap;
+}
+
+
+/* 플래그 설정 */
 .flag-true{
-	/* opacity 는 전체가 흐려지는데, background rgba 에 투명도 주면 글자는 선명하게 적용됨 */
-	background: rgba(221, 3, 81, 0.4);
-}	
+   /* opacity 는 전체가 흐려지는데, background rgba 에 투명도 주면 글자는 선명하게 적용됨 */
+   background: rgba(221, 3, 81, 0.2) !important;
+/* 좀더 진하게  */
+/*    background: rgba(221, 3, 81, 0.4) !important; */
+}   
+
+
 /* 미진행, 진행중, 완료 board */
 #i-board, #p-board, #c-board{
-	min-height: 97%;
-	background: #FAFAFA;
-	border-radius: 5px;
-	float: left;
-	padding:0.5%;
-	box-sizing: border-box;
-	margin-left:3%;
-	margin-right:3%;
-	width: 22%;
-	align-items: center;
+   min-height: 97%;
+   background: #FAFAFA;
+    border-radius: 0 0 5px 5px; 
+   float: left;
+   padding:0.5%;
+   box-sizing: border-box;
+   margin-left:3%;
+   margin-right:3%;
+   width: 22%;
+   align-items: center;
 }
 /* 흰색 mini 데이터 박스들 */
-.i-mini-box, .p-mini-box, .c-mini-box{
-	background: #FFFFFF;
-	box-shadow: 1.5px 1.5px 2px rgba(142, 142, 142, 0.25);
-	border-radius: 5px;
-	width: 100%;
-	box-sizing: border-box;
+/* .i-mini-box, .p-mini-box, .c-mini-box{ */
+.mini-box{
+   background: #FFFFFF;
+   box-shadow: 4px 3px 4px rgba(142, 142, 142, 0.35);
+   border-radius: 5px;
+   width: 100%;
+   box-sizing: border-box;
     display: flex;
     flex-direction: column;
     padding: 12px;
@@ -238,13 +294,13 @@ a{
 }
 
 .i-div1, .p-div1, .c-div1,   .i-div2, .p-div2, .c-div2{
-	display: flex;
+   display: flex;
     flex-direction: row;
     width: 100%;
     margin-bottom: 6px;
 }
 .i-div3, .p-div3, .c-div3{
-	display: flex;
+   display: flex;
     flex-direction: row;
     -webkit-box-align: center;
     align-items: center;
@@ -254,8 +310,8 @@ a{
     min-height: 28px;
 }
 /* task 이름 */
-.i-div1-span1, .p-div1-span1, .c-div1-span1{
-	/* 단어 기준으로 줄바꿈 처리 */
+.i-div1-div1, .p-div1-div1, .c-div1-div1{
+   /* 단어 기준으로 줄바꿈 처리 */
     word-break: break-word;
     overflow-wrap: break-word;
     width: 96%;
@@ -263,48 +319,49 @@ a{
 
 /* 드롭 다운 메뉴 */
 .i-div1-drop1, .p-div1-drop1, .c-div1-drop1{
-	width: 0.8em;
-	float: right;
-	padding:0;
-	margin:0;
-	box-sizing: border-box;
+   width: 0.8em;
+   float: right;
+   padding:0;
+   margin:0;
+   box-sizing: border-box;
     font-weight: normal;
     height: 0.8em;
 }
 
+
 .i-div3-div-type, .p-div3-div-type, .c-div3-div-type{
-	width: 17px;
-	height:17px;
-	background: #63BA3C;
-	border-radius: 3px;
-	height: 100%;
-	box-sizing: border-box;
-	font-weight: bold;
-	color: white;
-	text-align: center;
-	font-size:12px;
-	display: inline-block;
-	margin-right: 4px;	
+   width: 17px;
+   height:17px;
+   background: #63BA3C;
+   border-radius: 3px;
+   height: 100%;
+   box-sizing: border-box;
+   font-weight: bold;
+   color: white;
+   text-align: center;
+   font-size:12px;
+   display: inline-block;
+   margin-right: 4px;   
 }
 /* task 고유 코드번호  */
-.i-div3-span-tcode, .p-div3-span-tcode, .c-div3-span-tcode{
-	width: 40% !important;
-	font-family: Noto Sans KR;
-	font-style: normal;
-	font-weight: bold;
-	font-size: 15px;
-	letter-spacing: 0.1px;
-	color: #6D6D6D;
-	/* 글자 overflow 안되게 하기 */
- 	height:100%;
- 	overflow: hidden;
-  	text-overflow: ellipsis;
-  	/* 글자가 일정 크기 넘어가면 오른쪽이 생략됨 */
-  	direction: ltr;
+.i-div3-div-tcode, .p-div3-div-tcode, .c-div3-div-tcode{
+   width: 70% !important;
+   font-family: Noto Sans KR;
+   font-style: normal;
+   font-weight: bold;
+   font-size: 15px;
+   letter-spacing: 0.1px;
+   color: #6D6D6D;
+   /* 글자 overflow 안되게 하기 */
+    height:100%;
+     overflow: hidden;
+     text-overflow: ellipsis; 
+     /* 글자가 일정 크기 넘어가면 오른쪽이 생략됨 */
+     direction: ltr;
     white-space: nowrap;
 }
 .i-div3-inner-left, .p-div3-inner-left, .c-div3-inner-left{
-	min-width: 0px;
+   min-width: 0px;
     box-sizing: border-box;
     display: flex;
     flex-direction: row;
@@ -315,7 +372,7 @@ a{
 }
 
 .i-div3-inner-right, .p-div3-inner-right, .c-div3-inner-right{
-	box-sizing: border-box;
+   box-sizing: border-box;
     display: flex;
     flex-direction: row;
     -webkit-box-align: center;
@@ -325,77 +382,269 @@ a{
 }
 /* 하위 테스크 진행 상태 */
 .i-div3-span-per, .p-div3-span-per, .c-div3-span-per{
-	width: 34% !important;
-	font-family: Noto Sans KR;
-	font-style: normal;
-	font-weight: bold;
-	font-size: 14px;
-	align-items: center;
-	letter-spacing: 0.1px;
-	color: #A3A3A3;	 
-	display: inline-block;
+   width: 34% !important;
+   font-family: Noto Sans KR;
+   font-style: normal;
+   font-weight: bold;
+   font-size: 14px;
+   align-items: center;
+   letter-spacing: 0.1px;
+   color: #A3A3A3;    
+   display: inline-block;
 }
 
 .i-div3-span-arrow, .p-div3-span-arrow, .c-div3-span-arrow{
-	width: 33% !important;
-	display: inline-block;	
-	
+   width: 33% !important;
+   display: inline-block;   
+   
 }
 /* 중요도 아이콘 important */
 /* 매우 중요 high */
 .icon_arrow_upward_red{
-	width: 20px;
+   width: 20px;
     height: 20px;
     vertical-align: text-bottom;
 }
 /* 매우 중요 medium */
 .icon_arrow_upward_orange{
-	width: 20px;
+   width: 20px;
     height: 20px;
     vertical-align: text-bottom;
 }
 /* low */
 .icon_arrow_downward_green{
-	width: 20px;
+   width: 20px;
     height: 20px;
     vertical-align: text-bottom;
 }
 .icon_arrow_downward{
-	width: 20px;
+   width: 20px;
     height: 20px;
     vertical-align: text-bottom;
 }
 
 /* 담당자 프로필 사진 */
 .i-div3-span-person, .p-div3-span-person, .c-div3-span-person{
-	background-color: red;
+   color: white;
+   border: 2px solid #2B2B49;
     border-radius: 100%;
     display: flex;
     height: 24px;
-	width: 24px;
+   width: 24px;
 }
 
-/***********************************************************************/
+.taskPerson{
+   color: white;
+    background-color: #2B2B49; 
+    border-radius: 100%;
+    height: 24px;
+   width: 24px;
+   line-height:24px;
+   font-size: 10px;
+   text-align: center;
+}
+/**상위 테스크 끝********************************************************************/
 
-/* 얇은 스크롤바 ***************************************************************/
+/**하위 테스크 시작********************************************************************/
+/* 상위 테스크 타이틀 및 하위테스크 상자 감사는 div */
+.outerBox{
+   display: inline-block;
+   width: 100%;
+   margin-top:5px;
+   margin-bottom:5px;
+}
+/* 안쪽 회색 상자 높이 동일하게 주기 위하여 wrapper로 감싼다. */
+.wrapper{
+   width: 100%;
+   /* flex 주면 하위 요소 높이 css 맞출 수 있다. */
+   display: flex;
+}
+/* 상위 테스크 타이틀보여줄 상자 */
+.sTitle{
+   margin-left:3%;
+   margin-right:3%;
+   width: 78.1%;
+   font-family: Noto Sans KR;
+   font-style: normal;
+   font-size: 14px;
+   line-height: 34px;
+   align-items: center;
+   color: #000000;
+   background: #FAFAFA;
+   border-radius: 5px;
+    height: 38px; 
+   box-sizing: border-box;
+   padding-left: 30px;
+   display: inline-block;
+   float: left;
+   margin-bottom: 2px;
+   padding-top: 3px;
+   padding-bottom: 3px;
+}
+.sTitle:hover{
+   background: rgba(43, 43, 73, 0.5) !important;
+   cursor: pointer;
+}
+.sTitle:active{
+   background: rgba(43, 43, 73, 1) !important;
+   cursor: pointer;
+}
+/* s아이콘 상자 */
+.micon{
+   float:left;
+   width: 17px;
+   height:17px;
+   line-height:17px;
+   background: #63BA3C;
+   border-radius: 3px;
+   box-sizing: border-box;
+   font-weight: bold;
+   color: white;
+   text-align: center;
+   font-size:12px;
+   display: inline-block;
+   margin-right: 4px;
+   margin-top: 10px;
+}
+
+.sicon{
+   float:left;
+   width: 17px;
+   height:17px;
+   background: #52B1E9;
+   border-radius: 3px;
+   box-sizing: border-box;
+   font-weight: bold;
+   color: white;
+   text-align: center;
+   font-size:12px;
+   line-height:17px;
+   display: inline-block;
+   margin-right: 4px;
+   
+}
+.stcode{
+   float:left;
+/*    width: 20% !important; */
+   font-family: Noto Sans KR;
+   font-style: normal;
+   font-weight: bold;
+   font-size: 15px;
+   letter-spacing: 0.1px;
+   color: #6D6D6D;
+   /* 글자 overflow 안되게 하기 */
+     /* 글자가 일정 크기 넘어가면 오른쪽이 생략됨 */
+    margin-right: 14px;
+    line-height: 34px;
+}
+.nameBox{
+   font-size: 16px;
+   margin-right: 7px;
+   line-height: 34px;
+}
+/* 테스크 진행상태 아이콘 */
+.taskProceedingStatus{
+   
+}
+/* 미진행, 진행중, 완료 board */
+ .dropzone{ 
+/*     height:auto;
+   background: #FAFAFA;
+    border-radius: 5px; 
+   float: left;
+   padding:0.5%;
+   box-sizing: border-box;
+   margin-left:3%;
+   margin-right:3%;
+   width: 22%;
+   display: inline-block;
+   align-items: center; */
+   
+   min-height: 75px;
+   background: #FAFAFA;
+    border-radius: 0 0 5px 5px; 
+   float: left;
+   padding:0.5%;
+   box-sizing: border-box;
+   margin-left:3%;
+   margin-right:3%;
+   width: 22%;
+   align-items: center;
+}
+/* 진행상태 상자 css */
+.sGray{
+   background-color: rgb(223, 225, 230);
+    border-radius: 3px;
+    box-sizing: border-box;
+    color: rgb(66, 82, 110);
+    font-size: 11px;
+    font-weight: 700;
+    max-width: 100%;
+    text-transform: uppercase;
+    vertical-align: baseline;
+    margin-top:-8px;
+}
+.sNavy{
+   background-color: #2B2B49;
+    border-radius: 3px;
+    box-sizing: border-box;
+    color: white;
+    font-size: 11px;
+    font-weight: 700;
+    max-width: 100%;
+    text-transform: uppercase;
+    vertical-align: baseline;
+    margin-top:-8px;   
+}
+.sPink{
+    background-color: #dd0351; 
+    border-radius: 3px;
+    box-sizing: border-box;
+    color: white;
+    font-size: 11px;
+    font-weight: 700;
+    max-width: 100%;
+    text-transform: uppercase;
+    vertical-align: baseline;
+    margin-top:-8px;
+}
+/**하위 테스크 끝********************************************************************/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* 얇은 스크롤바 ---------------------------------------------------------------------------------*/
 /* 흰 상자 늘어나서 꽉차면 스크롤바 생기게함 */
 #contentBox2-board::-webkit-scrollbar{
-	width: 5px;
-	padding-top: 10px;
+   width: 5px;
+   padding-top: 10px;
 }
 #contentBox2-board::-webkit-scrollbar-thumb{
-	background-color: #D9D9D9;
-	border-radius: 3px;
+   background-color: #D9D9D9;
+   border-radius: 3px;
 }
-/***********************************************************************/
-	
-/*상세 설정 드롭 다운 css -------------------------------------------- */
+/* 얇은 스크롤바 끝------------------------------------------------------------------------*/
+   
+/*상세 설정 드롭 다운 css ----------------------------------------------------------------------- */
  @charset "UTF-8";
  .dropdown {
     display: inline-block;
 /*  background-color: #ffffff; */
     background-color: #dd0351;
-    box-shadow: 0 0 2px #cccccc;
     transition: all .5s ease;
     position: relative;
     font-size: 14px;
@@ -447,13 +696,15 @@ a{
       margin-top: 1px;
       box-shadow: 0 1px 2px#FEF5F8;
       border-radius: 10px;
-      overflow: hidden;
+       overflow: hidden; 
       display: none;
-      max-height: 144px;
+      /* 메뉴 드롭 상자의 최대 높이 */
+      max-height: 300px;
       overflow-y: auto;
       z-index: 9;
       /* select 박스 위치 옆으로 옮기기 */
       margin-left: -1200%;
+      box-sizing: border-box;
   }
   .dropdown .dropdown-menu li {
       padding: 5px;
@@ -474,43 +725,44 @@ a{
   .dropdown .dropdown-menu li:active {
       background-color: #FEF5F8;
   }
- /* 드롭 다운 css 원본-------------------------------------------- */
+ /* 상세 설정 드롭 다운 css----------------------------------------------------------------------- */
  
- 
- 
- 
- /* 설정 상자 드롭 다운 CSS----------------------------------------- */
- /* 상위 드롭다운 상자 */
- <!--드롭다운 -->
-.dropdown2 {
-    width: 40px;
+ /* 하위 그룹 상세 설정 드롭 다운 css ----------------------------------------------------------------------- */
+ .dropdown2 {
+    width: 10px;
+    height: 10px; 
+   float: right;
+   padding:0;
+   margin:0;
+   box-sizing: border-box;
+    font-weight: normal;
     display: inline-block;
-    background-color: #ffffff;
-    box-shadow: 0 0 2px #cccccc;
+/*  background-color: #ffffff; */
+    background-color: #dd0351;
     transition: all .5s ease;
     position: relative;
     font-size: 14px;
     color: #474747;
-    height: 100%;
     text-align: center;
-    margin-right: 30px;
-    margin-left: 30px;
-    border-radius: 10px;
+/*     border-radius: 10px; */
+    border-radius: 221.5px; 
     border: 1px solid #dd0351;
+    float: right;
+
   }
-  .dropdown2 .select2 {
+  .dropdown2 .select {
       cursor: pointer;
       display: block;
       padding: 5px;
-      width:40px;
+      box-sizing: border-box;
   }
-  .dropdown2 .select2 > i {
+  .dropdown2 .select > i {
       font-size: 13px;
       color: #888;
       cursor: pointer;
       transition: all .3s ease-in-out;
       float: right;
-      line-height: 20px;
+      line-height: 20px
   }
   .dropdown2:hover {
       box-shadow: 0 0 4px #FEF5F8;
@@ -527,16 +779,109 @@ a{
       border-radius: 2px 2px 0 0;
       background-color: #f8f8f8;
   }
-  .dropdown2.active .select2 > i {
+  .dropdown2.active .select > i {
       transform: rotate(-90deg)
   }
-  .dropdown2 .dropdown-menu2 {
+  .dropdown2 .dropdown2-menu {
       position: absolute;
       background-color: #fff;
-      width: 50px;
-      float: right;
+      width: 100%;
+      left: 0;
       margin-top: 1px;
       box-shadow: 0 1px 2px#FEF5F8;
+      border-radius: 10px;
+       overflow: hidden; 
+      display: none;
+      /* 메뉴 드롭 상자의 최대 높이 */
+      max-height: 300px;
+      overflow-y: auto;
+      z-index: 9;
+      /* select 박스 위치 옆으로 옮기기 */
+      margin-left: -1200%;
+      box-sizing: border-box;
+  }
+  .dropdown2 .dropdown2-menu li {
+      padding: 5px;
+      transition: all .2s ease-in-out;
+      cursor: pointer
+  } 
+  .dropdown2 .dropdown2-menu {
+      padding: 0;
+      list-style: none;
+      width: 1300%;
+      /* 스크롤 안생기게 하기 */
+      overflow: hidden;
+  }
+  .dropdown2 .dropdown2-menu li:hover {
+      color: #dd0351;
+      background-color: #FEF5F8;
+  }
+  .dropdown2 .dropdown2-menu li:active {
+      background-color: #FEF5F8;
+  }
+ /*하위 그룹  상세 설정 드롭 다운 css----------------------------------------------------------------------- */
+ 
+ 
+ 
+ 
+ 
+ /* 그룹화 필터 드롭 다운 CSS-------------------------------------------------------------------- */
+.dropdown1 {
+    width: 130px;
+    height:30px;
+    line-height:30px;
+    display: inline-block;
+    background-color: #ffffff;
+    box-shadow: 0 0 2px #cccccc;
+    transition: all .5s ease;
+    position: relative;
+    font-size: 14px;
+    color: #474747;
+    text-align: center;
+    float:left;
+    border-radius: 10px;
+    border: 1px solid #dd0351;
+  }
+  .dropdown1 .select {
+      cursor: pointer;
+      display: block;
+      width: 130px;
+      box-sizing: border-box;
+  }
+   .dropdown1 .select > i {
+      font-size: 13px;
+      color: #888;
+      cursor: pointer;
+      transition: all .3s ease-in-out;
+      float: right;
+      line-height: 20px;
+  } 
+  .dropdown1:hover {
+      box-shadow: 0 0 4px #FEF5F8;
+      text-decoration-color: #dd0351;
+      background-color: #FEF5F8;
+      border-color: #FEF5F8;
+  }
+  .dropdown1:active {
+      background-color: #FEF5F8;
+  }
+  .dropdown1.active:hover,
+  .dropdown1.active {
+      box-shadow: 0 0 4px #FEF5F8;
+      border-radius: 2px 2px 0 0;
+      background-color: #f8f8f8;
+  }
+  .dropdown1.active .select > i {
+      transform: rotate(-90deg)
+  }
+   .dropdown1 .dropdown1-menu { 
+      position: absolute;
+      background-color: #fff;
+      width: 100%;
+      float: right;
+      margin-right:50px;
+      margin-top: 2px;
+      box-shadow: 0 1px 2px #FEF5F8;
       border-radius: 10px;
       overflow: hidden;
       display: none;
@@ -544,23 +889,319 @@ a{
       overflow-y: auto;
       z-index: 9
   }
-  .dropdown2 .dropdown-menu2 li {
+  .dropdown1 .dropdown1-menu li {
       padding: 5px;
       transition: all .2s ease-in-out;
       cursor: pointer
   } 
-  .dropdown2 .dropdown-menu2 {
+  .dropdown1 .dropdown1-menu {
       padding: 0;
       list-style: none
   }
-  .dropdown2 .dropdown-menu2 li:hover {
+  .dropdown1 .dropdown1-menu li:hover {
       color: #dd0351;
       background-color: #FEF5F8;
   }
-  .dropdown2 .dropdown-menu2 li:active {
+  .dropdown1 .dropdown1-menu li:active {
       background-color: #FEF5F8;
   }
-  .dropdown2-area{
-  	 width:40px;
+/*   .dropdown1-area{
+      width:40px;
+  } */
+ /* 설정 상자 드롭 다운 CSS 끝---------------------------------------------------------------------------- */
+ 
+ 
+ 
+ /* 레이블 추가 모달 시작----------------------------------------------------------------------- */   
+ .modalTable3{
+   width: 100%;
+   margin: 10% 6%;
+   box-sizing: border-box;
+}
+.modalTable3 tr, .modalTable3 tbody, .modalTable3 td{
+   width: 100%;
+   box-sizing: border-box;
+}
+.modal3 {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 2; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    box-sizing: border-box;
   }
- /* 설정 상자 드롭 다운 CSS 끝--------------------------------------- */
+.modalTable3 .btn-box{
+   margin-left: 100px;
+   width: 100%;
+} 
+  /* Modal Content/Box */
+.modal-content3 {
+    background-color: #fefefe;
+/*     margin: 15% auto; 15% from the top and centered */
+    margin-left:auto;
+    margin-right:auto;
+    margin-top: 300px; 
+    padding: 10px;
+    border: 1px solid #c4c4c4;
+    /* 모달창 크기 */
+/*     width: 45%;
+    height: 45%; */
+    height: 320px;
+    width: 500px;
+    z-index:1;
+    border-radius: 10px;
+    box-shadow: 0 0 4px #cccccc;
+    box-sizing: border-box;
+  }
+/* 저장, 닫기 버튼  */
+.modal3-ok, .modal3-close{
+   /* 모달 버튼 css */
+   margin-top: 13px;
+   margin-left: 10px;
+   margin-right: 10px;
+   /* 여기서 부터 공통 css */
+   font-size: 8px;
+   text-align: center;
+   float: left; 
+}
+/* 회색 상자 */
+/* .modalTable3 tr:nth-child(2) input{
+     width: 100%;
+     height: 28px;
+     border: 1px solid #D5D5D5;
+     border-radius: 5px;
+     background-image: url('searchicon.png');
+     background-size: 18px 18px;
+     background-repeat: no-repeat;
+     background-position: 95% center;
+     padding: 0;
+     box-sizing: border-box;
+}  */
+
+.modaltitle3{
+   margin-left: 40px;
+}
+
+
+/* 버튼 css */
+.rectangle6 {
+    background:#DD0351;
+    height: 30px;
+    width: 80px;
+    border-radius: 10px;
+    border: 0;
+    font-size: 9px;
+    color: white;
+    text-align: center;
+    cursor: pointer;     
+}
+.rectangle7 {
+    background:white;
+    height: 30px;
+    width: 80px;
+    border-radius: 10px;
+    border: 1px solid #DD0351;
+    font-size: 9px;
+    color:#DD0351;
+    text-align: center;     
+    cursor: pointer;     
+}
+
+/* 필수 입력 표시 빨간색 별 */
+.red-star{
+   color: red;
+   font-size: 13px;
+   display: inline;
+   margin-left: 5px;
+}
+
+.red-center{
+   color: red;
+   font-size: 13px;
+   margin-top: 250px;
+   text-align: center;
+}
+
+#searchLabel{
+   width: 400px;
+   border-radius : 10px;
+   height: 50px;
+   background-color: lightgray;
+   color: white;
+   font-weight: normal;
+   padding-left: 30px;
+   box-sizing: border-box;
+}
+#searchLabelList{
+   width: 400px;
+}   
+#searchLabelList option{
+   width: 400px;
+   height: 50px;
+}
+#searchLabel:focus {
+   transition: all ease 1s 0s;
+   background-color: #DD0351;
+   font-weight: normal;
+}
+ /* 레이블 추가 모달 끝----------------------------------------------------------------------- */   
+ 
+ 
+ 
+ /* 상위 항목 변경 모달 시작----------------------------------------------------------------------- */   
+ .modalTable2{
+   width: 100%;
+   margin: 10% 6%;
+   box-sizing: border-box;
+}
+.modalTable2 tr, .modalTable2 tbody, .modalTable2 td{
+   width: 100%;
+   box-sizing: border-box;
+}
+.modal2 {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 2; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    box-sizing: border-box;
+  }
+.modalTable2 .btn-box{
+   margin-left: 100px;
+   width: 100%;
+} 
+  /* Modal Content/Box */
+.modal-content2 {
+    background-color: #fefefe;
+/*     margin: 15% auto; 15% from the top and centered */
+    margin-left:auto;
+    margin-right:auto;
+    margin-top: 200px; 
+    padding: 10px;
+    border: 1px solid #c4c4c4;
+    /* 모달창 크기 */
+/*     width: 45%;
+    height: 45%; */
+    height: 320px;
+    width: 500px;
+    z-index:1;
+    border-radius: 10px;
+    box-shadow: 0 0 4px #cccccc;
+    box-sizing: border-box;
+  }
+/* 저장, 닫기 버튼  */
+.modal2-ok, .modal2-close{
+   /* 모달 버튼 css */
+   margin-top: 13px;
+   margin-left: 10px;
+   margin-right: 10px;
+   /* 여기서 부터 공통 css */
+   font-size: 8px;
+   text-align: center;
+   float: left; 
+}
+
+.modaltitle2{
+   margin-left: 40px;
+}
+
+
+/* 버튼 css */
+.rectangle6 {
+    background:#DD0351;
+    height: 30px;
+    width: 80px;
+    border-radius: 10px;
+    border: 0;
+    font-size: 9px;
+    color: white;
+    text-align: center;
+    cursor: pointer;     
+}
+.rectangle7 {
+    background:white;
+    height: 30px;
+    width: 80px;
+    border-radius: 10px;
+    border: 1px solid #DD0351;
+    font-size: 9px;
+    color:#DD0351;
+    text-align: center;     
+    cursor: pointer;     
+}
+
+/* 필수 입력 표시 빨간색 별 */
+.red-star{
+   color: red;
+   font-size: 13px;
+   display: inline;
+   margin-left: 5px;
+}
+
+#searchSprint{
+   width: 400px;
+   border-radius : 10px;
+   height: 50px;
+   background-color: lightgray;
+   color: white;
+   font-weight: normal;
+   padding-left: 30px;
+   box-sizing: border-box;
+}
+#searchSprintList{
+   width: 400px;
+}   
+#searchSprintList option{
+   width: 400px;
+   height: 50px;
+}
+#searchSprint:focus {
+   transition: all ease 1s 0s;
+   background-color: #DD0351;
+   font-weight: normal;
+}
+ /* 상위 항목 변경 모달 끝----------------------------------------------------------------------- */   
+ 
+ 
+ 
+ /* 로딩 이미지 ---------------------------------------------------------------------- */    
+.wrap-loading{ /*화면 전체를 어둡게*/
+   position: fixed;
+   left:0;
+   right:0;
+   top:0;
+   bottom:0;
+   background: rgba(0,0,0,0.2); /*not in ie */
+   filter: progid:DXImageTransform.Microsoft.Gradient(startColorstr='#20000000', endColorstr='#20000000');    /* ie */
+}
+
+.wrap-loading div{ /*로딩 이미지*/
+    position: fixed;
+    top:50%;
+    left:50%;
+    margin-left: -21px;
+    margin-top: -21px;
+}
+
+.wrap-loading div > img {
+   width: 20%;
+   height: 20%;
+}
+
+.display-none{ /*감추기*/
+   display:none;
+}
+/* 로딩 이미지 ---------------------------------------------------------------------- */        
+      
+      
+  

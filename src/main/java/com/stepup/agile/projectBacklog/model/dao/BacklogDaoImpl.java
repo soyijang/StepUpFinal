@@ -16,8 +16,11 @@ import com.stepup.agile.userInfo.model.vo.Member;
 public class BacklogDaoImpl implements BacklogDao {
 
 	@Override
-	public List<Sprint> selectSprint(SqlSessionTemplate sqlSession, Member m) {
-		return sqlSession.selectList("Sprint.selectSprint", m.getUserEmail());
+	public List<Sprint> selectSprint(SqlSessionTemplate sqlSession, Member m, int projectCode) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("projectCode", projectCode);
+		map.put("userEmail", m.getUserEmail());
+		return sqlSession.selectList("Sprint.selectSprint", map);
 	}
 
 	@Override

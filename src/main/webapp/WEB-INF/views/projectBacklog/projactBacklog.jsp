@@ -15,7 +15,7 @@
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/indiv/sprintBacklog/dropdown.css">
 
 </head>
-<body onload="tbodyClick(${sprintList.get(0).sprintCode},'${ sprintList.get(0).sprintName }')">
+<body >
 	<c:set var="contextPath"
 		value="${ pageContext.servletContext.contextPath }"
 		scope="application" />
@@ -24,8 +24,12 @@
 	<div id="content">
 		<!-- 상단 프로젝트 제목 및 메뉴 이름 영역 -->
 		<div id="contentTitle">
-			<div id="projectTitle2">프로젝트백로그 /<b id="projectName">
-				<c:out value="${ sprintList.get(0).project.projectName }" /></b>
+			<div id="projectTitle2"><a href="showProjectMain.pj">🚀내 프로젝트 </a> /
+			<c:if test="${not empty sprintList}">
+			<input type="hidden" id="clickName" value="${sprintList.get(0).sprintName }">
+			<input type="hidden" id="clickSprintCode" value="${sprintList.get(0).sprintCode}">
+			<c id="projectName"><c:out value="${ sprintList.get(0).project.projectName }" /></c>
+			</c:if>
 			</div>
 			<div id="menuTitle">ProjectBacklog</div>
 		</div>
@@ -54,6 +58,7 @@
 				<!-- 진행중인 목록 -->
 				<div id="sprintList" class="sprintListIng">
 					<table id="sprintListIngTable">
+						<c:if test="${not empty sprintList}">
 						<c:forEach var="i" begin="0" end="${fn:length(sprintList)-1}">
 							<tbody class="sprinttbody" id="tbody${sprintList.get(i).sprintCode}"
 								onclick="tbodyClick(${sprintList.get(i).sprintCode},'${ sprintList.get(i).sprintName }')">
@@ -71,12 +76,14 @@
 								</c:if>
 							</tbody>
 						</c:forEach>
+						</c:if>
 					</table>
 				</div>
 				
 				<!-- 종료된 목록 -->
 				<div id="sprintList" class="sprintListFin" style="display: none;">
 					<table id="sprintListFinTable">
+						<c:if test="${not empty sprintList}">
 						<c:forEach var="i" begin="0" end="${fn:length(sprintList)-1}">
 							<tbody class="sprinttbody" id="tbody${sprintList.get(i).sprintCode}"
 								onclick="tbodyClick(${sprintList.get(i).sprintCode},'${ sprintList.get(i).sprintName }')">
@@ -94,6 +101,7 @@
 								</c:if>
 							</tbody>
 						</c:forEach>
+						</c:if>
 					</table>
 				</div>
 				<button class="SprintButtonArea" id="sprintapply">새 스프린트 생성</button>
@@ -146,10 +154,12 @@
 				<p align="left" class="modaltitle">🎁 새 스프린트 생성</p>
 				<table align="center" class="modalTable">
 					<tbody>
+						<c:if test="${not empty sprintList}">
 						<tr>
 							<td><b>[<c:out value="${ sprintList.get(0).project.projectName }" />]
 							</b>(프로젝트)에 새로운 스프린트를 추가하시겠습니까?</td>
 						</tr>
+						</c:if>
 						<tr>
 							<td>※초기 스프린트명은 스프린트 코드로 자동지정됩니다.</td>
 						</tr>
@@ -159,8 +169,6 @@
 					<button class="rectangle6" type="submit">저장</button>
 					<div class="sprintclose" id="rectangle7">취소</div>
 				</div>
-				<input style="display: none" name="userProjectCode"
-					value="${ sprintList.get(0).userProjectList.userProjectCode }">
 			</div>
 		</div>
 	</form>
@@ -201,8 +209,11 @@
 					<button class="rectangle6" type="submit">저장</button>
 					<div class="sprintupdateclose" id="rectangle7">취소</div>
 				</div>
+				
+				<c:if test="${not empty sprintList}">
 				<input style="display: none" name="userProjectCode"
 					value="${ sprintList.get(0).userProjectList.userProjectCode }">
+					</c:if>
 			</div>
 		</div>
 	</form>
@@ -233,7 +244,9 @@
 				<input type="hidden" class="updateInput updateSprintStart" name="sprintHistUpdateTime" value="" >
 				<input type="hidden" class="updateInput updateSprintExpect" name="sprintExpectPeriod" value="" >
 				<input type="hidden" class="updateInput updateSprintIntro" name="sprintIntro" value="" >
+				<c:if test="${not empty sprintList}">
 				<input type="hidden" name="userProjectCode" value="${ sprintList.get(0).userProjectList.userProjectCode }">
+				</c:if>
 			</div>
 		</div>
 	</form>
@@ -263,7 +276,9 @@
 				<input type="hidden" class="updateInput updateSprintStart" name="sprintHistUpdateTime" value="" >
 				<input type="hidden" class="updateInput updateSprintExpect" name="sprintExpectPeriod" value="" >
 				<input type="hidden" class="updateInput updateSprintIntro" name="sprintIntro" value="" >
+				<c:if test="${not empty sprintList}">
 				<input type="hidden" name="userProjectCode" value="${ sprintList.get(0).userProjectList.userProjectCode }">
+				</c:if>
 			</div>
 		</div>
 	</form>
@@ -290,13 +305,50 @@
 		</div>
 	</form>
 	
+	
+	<!--  Task 삭제 모달창 -->
+	<form action="insertTaskHistoryTaskDelete2.tk" method="post">
+		<div id="deleteTaskModal" class="modal">
+			<div class="modal-content">
+				<p align="left" class="modaltitle">🎃 Task 삭제</p>
+				<table align="center" class="modalTable">
+					<tbody>
+						<tr>
+							<td><span id="deleteTask" name="deleteTask"></span></td>
+						</tr>
+					</tbody>
+				</table>
+				<div class="modalButtonArea">
+					<button class="rectangle6" type="submit">저장</button>
+					<div class="deleteTaskClose" id="rectangle7">취소</div>
+				</div>
+				<!-- 데이터넘기기용영역 -->
+				<input type="hidden" id="deleteTaskCode" name="taskCode" value="">
+			</div>
+		</div>
+	</form>
+	
+	
+	
 	<div class="wrap-loading display-none">
    		<div><img src="/agile/resources/icon/common/icon_loading.gif"/></div>
 	</div>   
 	
 
-<script type="text/javascript">	
+<script type="text/javascript">
 	
+	var temp = $('#clickName').val();
+	var temp2 =  $('#clickSprintCode').val();
+	console.log("temp들어갓니? " + temp );
+	console.log("temp2들어갓니? " + temp2 );
+	
+	window.onload = function () {
+		
+		if(temp!=null && temp2 !=null){
+			tbodyClick(temp2,temp);
+		}
+	}
+
 	function tbodyClick(i, name) {
 		
 		/* 선택된 스프린트 코드 및 정보 알려주고 ajax에 넘겨주기 */
@@ -415,7 +467,7 @@
 									//같은 taskCode끼리 묶어서
 									for(var i = 0; i<taskCode.length; i++){
 										//꺼내서 행 구분하는 작업
-											var taskName = '미지정';
+											var taskName = '이름없는 테스크';
 											var realTime = '미지정';
 											var expectTime = '미지정';
 											var point = '미지정';
@@ -424,6 +476,7 @@
 											var deleteyn = 'N';
 											var statusButton = 'taskStatus3';
 											var userCode ;
+											var taskUser = '미지정';
 								
 										for(var j = 0; j<data.sprintTaskList.length; j++){
 											//taskCode같으면 한 행으로 나오게!
@@ -450,16 +503,18 @@
 												case 'D' : point = data.sprintTaskList[j].taskHistValue; break;
 												case 'F' : deleteyn = data.sprintTaskList[j].taskHistValue; break;
 												case 'G' : bug = data.sprintTaskList[j].taskHistValue; break;
+												case 'L' : taskUser =  data.sprintTaskList[j].taskHistValue; break;
 												} 
 											}
 										}
 										
+										
 										var givetaskName = '"' + taskName +'"';
 										addPostPart2.prepend(
 										"<tr><td class='taskCode'>"+ taskCode[i]+ "</td><td class='taskName'>" + taskName + "</td><td class='realTime'>" + realTime + "</td><td class='expectTime'>" + expectTime + "</td><td class='storyPoint'>" + 
-											point + "</td><td><span class='" +  statusButton + "'>" +  taskStatus + "</td><td class='person'>" + userCode 
-											+ "</td><td class='more2'><div class='dropdown'><div class='select'><span id='more'>...</span><i class='fa fa-chevron-left'></i>"+
-					                    "</div><ul class='dropdown-menu'><li id='taskFinish' onclick='taskFinish(" + taskCode[i] + "," + givetaskName + ");'>종료</li><li id='taskUpdate'>수정</li><li id='taskDelete'>삭제</li></ul></div></td></tr>"
+											point + "</td><td><span class='" +  statusButton + "'>" +  taskStatus + "</td><td class='person'><div class='participant'>" + taskUser 
+											+ "</div></td><td class='more2'><div class='dropdown'><div class='select'><span id='more'>...</span><i class='fa fa-chevron-left'></i>"+
+					                    "</div><ul class='dropdown-menu'><li id='taskFinish' onclick='taskFinish(" + taskCode[i] + "," + givetaskName + ");'>종료</li><li id='taskUpdate'>수정</li><li id='taskDelete' onclick='taskDelete("+taskCode[i] +"," + givetaskName +");'>삭제</li></ul></div></td></tr>"
 					                    
 										);
 									}
@@ -537,6 +592,25 @@
 	span5.onclick = function() {
 	    $(finishTaskModal).css('display','none');
 	}
+	
+	
+	/* 테스크삭제 */
+	var deleteTaskModal = document.getElementById("deleteTaskModal");
+    var span6 = document.getElementsByClassName("deleteTaskClose")[0];
+    
+	function taskDelete(taskCode, taskName) {
+		var taskCode = taskCode;
+		var taskName = taskName;
+		
+		$('#deleteTaskCode').val(taskCode);
+		$('#deleteTask').html('<b>' + taskName + '</b> Task를 종료 하시겠습니까?');
+		$(deleteTaskModal).css('display','block');
+	}
+	span6.onclick = function() {
+	    $(deleteTaskModal).css('display','none');
+	}
+	
+	
 	
 </script>
 

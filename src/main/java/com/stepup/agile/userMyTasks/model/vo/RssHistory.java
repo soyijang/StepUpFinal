@@ -1,99 +1,126 @@
 package com.stepup.agile.userMyTasks.model.vo;
 
+import com.stepup.agile.userInfo.model.vo.UserProjectList;
+import com.stepup.agile.userInfo.model.vo.UserTeamList;
 
 public class RssHistory implements java.io.Serializable {
-
-	private int rssHistoryCode;
+	
+	private int rssCode;
 	private String rssModifyDate;
 	private String rssModifyTime;
-	private String rssModifyType;
 	private String rssModifyNickname;
-	private int rssCode;
 	private String rssModifyKeyword;
 	private String rssModifyUrl;
 	private String rssModifySite;
+	private int rssProjectCode;
+	
+	private UserProjectList userProjectList;
+	private UserTeamList userTeamList;
 	
 	public RssHistory() {}
-	
-	public RssHistory(int rssHistoryCode, String rssModifyDate, String rssModifyTime, String rssModifyType,
-			String rssModifyNickname, int rssCode, String rssModifyKeyword, String rssModifyUrl, String rssModifySite) {
+
+	public RssHistory(int rssCode, String rssModifyDate, String rssModifyTime, String rssModifyNickname,
+			String rssModifyKeyword, String rssModifyUrl, String rssModifySite, int rssProjectCode,
+			UserProjectList userProjectList, UserTeamList userTeamList) {
 		super();
-		this.rssHistoryCode = rssHistoryCode;
+		this.rssCode = rssCode;
 		this.rssModifyDate = rssModifyDate;
 		this.rssModifyTime = rssModifyTime;
-		this.rssModifyType = rssModifyType;
 		this.rssModifyNickname = rssModifyNickname;
-		this.rssCode = rssCode;
 		this.rssModifyKeyword = rssModifyKeyword;
 		this.rssModifyUrl = rssModifyUrl;
 		this.rssModifySite = rssModifySite;
+		this.rssProjectCode = rssProjectCode;
+		this.userProjectList = userProjectList;
+		this.userTeamList = userTeamList;
 	}
-	
-	public int getRssHistoryCode() {
-		return rssHistoryCode;
-	}
-	public void setRssHistoryCode(int rssHistoryCode) {
-		this.rssHistoryCode = rssHistoryCode;
-	}
-	public String getRssModifyDate() {
-		return rssModifyDate;
-	}
-	public void setRssModifyDate(String rssModifyDate) {
-		this.rssModifyDate = rssModifyDate;
-	}
-	public String getRssModifyTime() {
-		return rssModifyTime;
-	}
-	public void setRssModifyTime(String rssModifyTime) {
-		this.rssModifyTime = rssModifyTime;
-	}
-	public String getRssModifyType() {
-		return rssModifyType;
-	}
-	public void setRssModifyType(String rssModifyType) {
-		this.rssModifyType = rssModifyType;
-	}
-	public String getRssModifyNickname() {
-		return rssModifyNickname;
-	}
-	public void setRssModifyNickname(String rssModifyNickname) {
-		this.rssModifyNickname = rssModifyNickname;
-	}
+
 	public int getRssCode() {
 		return rssCode;
 	}
+
 	public void setRssCode(int rssCode) {
 		this.rssCode = rssCode;
 	}
+
+	public String getRssModifyDate() {
+		return rssModifyDate;
+	}
+
+	public void setRssModifyDate(String rssModifyDate) {
+		this.rssModifyDate = rssModifyDate;
+	}
+
+	public String getRssModifyTime() {
+		return rssModifyTime;
+	}
+
+	public void setRssModifyTime(String rssModifyTime) {
+		this.rssModifyTime = rssModifyTime;
+	}
+
+	public String getRssModifyNickname() {
+		return rssModifyNickname;
+	}
+
+	public void setRssModifyNickname(String rssModifyNickname) {
+		this.rssModifyNickname = rssModifyNickname;
+	}
+
 	public String getRssModifyKeyword() {
 		return rssModifyKeyword;
 	}
+
 	public void setRssModifyKeyword(String rssModifyKeyword) {
 		this.rssModifyKeyword = rssModifyKeyword;
 	}
+
 	public String getRssModifyUrl() {
 		return rssModifyUrl;
 	}
+
 	public void setRssModifyUrl(String rssModifyUrl) {
 		this.rssModifyUrl = rssModifyUrl;
 	}
+
 	public String getRssModifySite() {
 		return rssModifySite;
 	}
+
 	public void setRssModifySite(String rssModifySite) {
 		this.rssModifySite = rssModifySite;
 	}
-	
-	@Override
-	public String toString() {
-		return "RssHistory [rssHistoryCode=" + rssHistoryCode + ", rssModifyDate=" + rssModifyDate + ", rssModifyTime="
-				+ rssModifyTime + ", rssModifyType=" + rssModifyType + ", rssModifyNickname=" + rssModifyNickname
-				+ ", rssCode=" + rssCode + ", rssModifyKeyword=" + rssModifyKeyword + ", rssModifyUrl=" + rssModifyUrl
-				+ ", rssModifySite=" + rssModifySite + "]";
+
+	public int getRssProjectCode() {
+		return rssProjectCode;
 	}
 
-	
-	
-	
+	public void setRssProjectCode(int rssProjectCode) {
+		this.rssProjectCode = rssProjectCode;
+	}
+
+	public UserProjectList getUserProjectList() {
+		return userProjectList;
+	}
+
+	public void setUserProjectList(UserProjectList userProjectList) {
+		this.userProjectList = userProjectList;
+	}
+
+	public UserTeamList getUserTeamList() {
+		return userTeamList;
+	}
+
+	public void setUserTeamList(UserTeamList userTeamList) {
+		this.userTeamList = userTeamList;
+	}
+
+	@Override
+	public String toString() {
+		return "RssHistory [rssCode=" + rssCode + ", rssModifyDate=" + rssModifyDate + ", rssModifyTime="
+				+ rssModifyTime + ", rssModifyNickname=" + rssModifyNickname + ", rssModifyKeyword=" + rssModifyKeyword
+				+ ", rssModifyUrl=" + rssModifyUrl + ", rssModifySite=" + rssModifySite + ", rssProjectCode="
+				+ rssProjectCode + ", userProjectList=" + userProjectList + ", userTeamList=" + userTeamList + "]";
+	}
 	
 }
