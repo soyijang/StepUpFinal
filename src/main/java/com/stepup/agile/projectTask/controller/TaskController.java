@@ -1200,23 +1200,33 @@ public class TaskController {
 		   mv.setViewName("jsonView");
 		   return mv;
 	   }	   
-	   
-	   //테스크의 상위항목 변경 (현재 진행중인 스프린트에서 미진행 스프린트로 변경)
-	   @RequestMapping("updateTaskSprintCodeForm.tk")
-		   public String updateTaskSprintCode(Model model, @ModelAttribute("loginUser") Member m, int modal2SprintCode, int modal2TaskCode) {
-		   System.out.println(modal2SprintCode + ", " + modal2TaskCode);
-		   Map<String, Object> map = new HashMap<String, Object>();
-		   map.put("sprintCode", modal2SprintCode);
-		   map.put("taskCode", modal2TaskCode);
-		   int result = ts.updateTaskSprintCode(map);
-			if(result > 0) {
-				return "redirect:showTaskBoardMain.tk?projectCode=" + temp;	
-			}else {
-				model.addAttribute("msg", "상위항목 변경 실패!");
-				return "common/errorPage";
-			}
-	   }
-	   
+
+	      //테스크의 상위항목 변경 (현재 진행중인 스프린트에서 미진행 스프린트로 변경)
+	      @RequestMapping("updateTaskSprintCodeForm.tk")
+	         public String updateTaskSprintCode(Model model, @ModelAttribute("loginUser") Member m, int modal2SprintCode, int modal2TaskCode) {
+	         System.out.println("상위 스프린트 업데이트 : " + modal2SprintCode + ", " + modal2TaskCode);
+	         Map<String, Object> map = new HashMap<String, Object>();
+	         map.put("sprintCode", modal2SprintCode);
+	         map.put("taskCode", modal2TaskCode);
+	         map.put("headTaskCode", modal2TaskCode);
+	         int result = ts.updateTaskSprintCode(map);
+	         if(result > 0) {
+	            //하위 테스크들도 조회해서 변경
+	            int result2 = ts.updateSubList(map);
+	            if(result2 > 0) {
+	               System.out.println("하위 항목도 스프린트 코드 업데이트 성공");
+	               return "redirect:showTaskBoardMain.tk";   
+	            }else {
+	               model.addAttribute("msg", "하위 항목 스프린트 코드 변경 실패!");
+	               return "common/errorPage";
+	            }
+	         }else {
+	            model.addAttribute("msg", "상위항목 변경 실패!");
+	            return "common/errorPage";
+	         }
+	      }
+
+
 	   //스프린트 종료 : 최근 진행중인 1개를 종료한다.
 	   @RequestMapping("showSprintFinish.tk")
 		   public String insertSprintHistorySprintType(Model model, @ModelAttribute("loginUser") Member m, String code) {
