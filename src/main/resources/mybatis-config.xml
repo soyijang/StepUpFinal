@@ -15,7 +15,6 @@
 	    <typeAlias type="com.stepup.agile.projectTask.model.vo.ReplyList" alias="Reply"/>
         <typeAlias type="com.stepup.agile.projectTask.model.vo.ReplyHistory" alias="ReplyHistory"/>
         <typeAlias type="com.stepup.agile.projectTask.model.vo.TaskHistory" alias="TaskHistory"/>
-        <typeAlias type="com.stepup.agile.projectTask.model.vo.TaskList" alias="TaskList"/>
         <typeAlias type="com.stepup.agile.userInfo.model.vo.Team" alias="Team"/>
         <typeAlias type="com.stepup.agile.userInfo.model.vo.UserTeamList" alias="userTeamList"/>
         <typeAlias type="com.stepup.agile.userInfo.model.vo.UserProjectList" alias="userProjectList"/>
