@@ -19,11 +19,11 @@
 </head>
 <body>
  <%@ include file="../../common/menubar.jsp" %>
-    <div id="content" class="click-area">
+    <div id="content" class="click-area" style="width:83vw;">
         <!-- 상단 프로젝트 제목 및 메뉴 이름 영역 -->
         <div id="contentTitle">
             <div id="projectTitle2"><a href="showProjectMain.pj">🚀내 프로젝트 </a> / ${bgList.get(i).projectName}</div>
-            <div id="menuTitle">이슈 게시판</div>
+            <div id="menuTitle">Issues</div>
         </div>
         <div id="contentBox">
 			<div id="bug-list-area">
@@ -359,7 +359,7 @@
 				$("#bug-status").html(div4);	
 				 
 				var div = "";
-				div += '<div id="epicicon" style="margin-left:30px; margin-top:25px; display:inline-block;"></div> SPRINT-' + sprintCode + ' /' + '<div id="bugicon" style="margin-left: 10px; margin-top:25px;">&nbsp;&nbsp;</div> BUG - ' + realBugCode;
+				div += '<div id="epicicon" style="margin-left:30px; margin-top:25px; display:inline-block;"></div> SPRINT - ' + sprintCode + ' /' + '<div id="bugicon" style="margin-left: 10px; margin-top:25px;">&nbsp;&nbsp;</div> BUG - ' + realBugCode;
 				$("#bg-num").html(div);
 				
 				
