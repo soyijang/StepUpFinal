@@ -17,7 +17,7 @@
 					<img id="stepup-logo" src="${pageContext.request.contextPath}/resources/images/logo/logo_trans.png">            	
             	</div>
             </div>
-            <div id="header-middle"><div class="loginBtn">Login</div></div>
+            <div id="header-middle"><div class="loginBtn"><a href="loginfirst.me">Login</a></div></div>
             <div id="header-right"><div class="joinBtn">Get Started</div></div>
         </div>
     </header>

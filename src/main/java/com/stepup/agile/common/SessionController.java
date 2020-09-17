@@ -19,10 +19,13 @@ public class SessionController {
 
 	
 	@RequestMapping(value="sessionSave.st",method=RequestMethod.POST)
-	public String selectSprint(Model model, HttpSession session, @ModelAttribute("loginUser") Member m, int projectCode, int userProjectCode) {
-		 
+	public String selectSprint(Model model, HttpSession session, 
+			@ModelAttribute("loginUser") Member m, int projectCode, int userProjectCode
+			, String projectName) {
+		 System.out.println(projectName);
 		session.setAttribute("userProjectCodeNew",userProjectCode);
 		session.setAttribute("projectCodeNew",projectCode); 
+		session.setAttribute("projectName",projectName); 
 		
 		return "redirect:showSprintMain.st";
 		

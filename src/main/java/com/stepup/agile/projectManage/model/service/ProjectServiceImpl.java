@@ -54,6 +54,11 @@ public class ProjectServiceImpl implements ProjectService{
 		return pd.selectAlert(sqlSession, m);
 	}
 	
+	@Override
+	public int selectSprintAlert(Member m) {
+		return pd.selectSprintAlert(sqlSession, m);
+	}
+	
 	//miso's///////////////////////////////////////////////////////////////////////////////
 
    //프로젝트 메인페이지로 포워딩 (해당 멤버의 project list 조회 후 view 이동) 

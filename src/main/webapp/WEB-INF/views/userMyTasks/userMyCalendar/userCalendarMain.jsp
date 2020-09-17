@@ -17,8 +17,8 @@
 
 </head>
 <body>
-    <%@ include file="../../common/menubar.jsp" %>
-    <div id="content">
+    <%@ include file="../../common/nav.jsp" %>
+    <div id="content-nav-only">
         <!-- 상단 프로젝트 제목 및 메뉴 이름 영역 -->
         <div id="contentTitle">
             <div id="projectTitle2"><b id="projectName">
@@ -70,7 +70,6 @@
 		
 		//닫기누르면 창 닫으면서 안에 추가되어있던것들 리셋
 	    $(document).on('click', '.surveyClose', function(){
-	    	cnt = 1;
 	    	$('#sendSurvey').css('display','none');
 	    	$('#surveyPersonAdd').children().remove();
 	    	$('#surveyPersonAdd').append('<tr>'
@@ -82,6 +81,7 @@
 		//추가하기
 	    $(document).on('click', '.surveyAddBtn', function(){
 	    	cnt++;
+	    	console.log('cnt : ' + cnt);
 	    	$('#surveyPersonAdd').append('<tr>'
 				+'<td><input type="text" class="surveyInput2" value="" id="userName' + cnt + '" autocomplete="off"></td>'
 				+'<td><input type="text" class="surveyInput1" value="" id="userEmail' + cnt + '" autocomplete="off"></td>'
@@ -116,7 +116,7 @@
 				dataType: 'json',
 				data : JSON.stringify(totData2),
 				success : function(data) {  
-					alert('총' + cnt + '명에게 설문지 전송을 성공적으로 완료하였습니다!');
+					alert('총 ' + data.size + '명에게 설문지 전송을 성공적으로 완료하였습니다!');
 				},
 				error : function () {
 					console.log('설문대상자 추가실패!');

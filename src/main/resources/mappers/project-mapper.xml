@@ -359,6 +359,32 @@
                    WHERE RK = 1)
    </select>
 
+   <select id="selectSprintAlert" resultType="int">
+   		SELECT COUNT(*)
+        FROM ALERT_LIST
+       WHERE ALERT_HISTORY_CODE IN (SELECT SPRINT_HIST_CODE
+                 FROM (SELECT S.SPRINT_CODE, SH.SPRINT_NAME, SH.SPRINT_HIST_CODE, RANK() OVER (PARTITION BY S.SPRINT_CODE ORDER BY SH.SPRINT_HIST_UPDATE_DATE DESC, SH.SPRINT_HIST_UPDATE_TIME DESC) RK
+                        FROM USER_INFO I,
+                             USER_TEAM_LIST T,
+                             USER_PROJECT_LIST P,
+                             PROJECT_LIST J,
+                             PROJECT_HISTORY H,
+                             SPRINT_LIST S,
+                             SPRINT_HISTORY SH
+                       WHERE I.USER_CODE  = T.USER_CODE
+                         AND T.USER_TEAM_YN = 'Y' 
+                         AND T.USER_TEAM_CODE = P.USER_TEAM_CODE
+                         AND P.PROJECT_CODE = J.PROJECT_CODE
+                         AND J.PROJECT_CODE = H.PROJECT_CODE
+                         AND S.USER_PROJECT_CODE = P.USER_PROJECT_CODE
+                         AND S.SPRINT_CODE = SH.SPRINT_CODE
+                         AND SH.SPRINT_STATUS = 'N'
+                         AND I.USER_EMAIL = #{userEmail}
+                       )
+                   WHERE RK = 1)
+   </select>
+
+
       <!-- miso1 -->
    <!-- Project Insert -->
    <insert id="insertProject2" parameterType="Project">
