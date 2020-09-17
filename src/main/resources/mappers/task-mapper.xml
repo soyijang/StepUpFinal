@@ -913,7 +913,7 @@ WHERE I.USER_CODE = T.USER_CODE
                             FROM TASK_LIST TL , TASK_HISTORY TH, TASK_CATEGORY TC 
                             WHERE TL.TASK_CODE = TH.TASK_CODE 
                             AND TH.TASK_CATEGORY_CODE = TC.TASK_CATEGORY_CODE
-                            AND (TH.TASK_CATEGORY_CODE = 'G' OR TH.TASK_CATEGORY_CODE = 'F'))
+                            AND TH.TASK_CATEGORY_CODE = 'F')
 		ORDER BY TL.TASK_CODE, CASE WHEN TH.TASK_CATEGORY_CODE IN ('I') THEN 0 ELSE 1 END, TH.TASK_CATEGORY_CODE
 	</select>
 	
@@ -971,11 +971,17 @@ WHERE I.USER_CODE = T.USER_CODE
 		WHERE TASK_CODE = #{taskCode}
 	</update>
 	
-	<!-- 테스크의 상위 스프린트 변경  -->
-	<update id="updateTaskSprintCode" parameterType="hashMap">
+	<!-- 하위 테스크 스트린트 업데이트  -->
+	<update id="updateSubList" parameterType="hashMap">
 		UPDATE TASK_LIST SET SPRINT_CODE = #{sprintCode, jdbcType=INTEGER}
-		WHERE TASK_CODE = #{taskCode, jdbcType=INTEGER}
+		WHERE HEAD_TASK_CODE = #{headTaskCode, jdbcType=INTEGER}
 	</update>
+	
+   <!-- 테스크의 상위 스프린트 변경  -->
+   <update id="updateTaskSprintCode" parameterType="hashMap">
+      UPDATE TASK_LIST SET SPRINT_CODE = #{sprintCode, jdbcType=INTEGER}
+      WHERE TASK_CODE = #{taskCode, jdbcType=INTEGER}
+   </update>
 		
 	<!-- 사용자 팀코드 조회 -->
 	 <select id="selectUserTeamCode" resultMap="UserTeamListResultSet" parameterType="Member">

@@ -1,6 +1,9 @@
 package com.stepup.agile.projectFeedback.model.service;
 
 import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,12 +26,21 @@ public class SurveyServiceImpl implements SurveyService{
 	public List<SurveyList> selectSurvey(Member m) {
 		return sd.selectSurvey(sqlSession, m);
 	}
+	@Override
+	public int updateSurvey(SurveyList surveyList) {
+		
+		return sd.updateSurvey(sqlSession, surveyList);
+	}
 
 	@Override
 	public int deleteSurvey(int surveyCode) {
 		return sd.deleteSurvey(sqlSession, surveyCode);
 	}
 
+	@Override
+	public int selectSurveyCode(Map<String, Object> map) {
+		return sd.selectSurveyCode(sqlSession, map);
+	}
 
 
 
