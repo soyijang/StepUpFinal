@@ -111,6 +111,7 @@
 			dataType: "json",
 			success: function(data){
 				
+				
 				//계정이름
 				var name = data.userName;
 				console.log(name);
@@ -119,6 +120,7 @@
 				div= name  + "님의 전체 프로젝트 타임라인";
 				$("#projectTitle2").append(div);
 				
+				if(data.ProjectList.length != 0){
 				var values;
 				if(data.ProjectList.length != 0){
 					values = data.ProjectList;
@@ -179,6 +181,7 @@
 					}
 					
 					$("#epic-title-cont").append(div);
+					
 				}); 
 				console.log(startDate);
 				console.log(endDate);
@@ -252,8 +255,20 @@
 						var MINUTE = 'minute';
 						var SECOND = 'second';
 						var MILLISECOND = 'millisecond';
-				}	  
+				}
 				
+			}
+				//프로젝트 없을 때
+			else{
+				$("#epic-wrap").remove();
+				$("#epic-area").remove();
+				var div2 = "";
+				div2 = '<img src="/agile/resources/images/indiv/main/mainpage/img_timeline2.jpg" style="width:500px; height:350px; margin-left:365px; margin-top:150px;"><br>'
+						+ '<h1 style="text-align:center; font-weight: 100;">아직 기록이 없습니다.</h1>';
+				$("#contentBox2").append(div2);
+				
+				
+			}
 			},
 			error:function(){
 				console.log("실패");
@@ -351,7 +366,7 @@
 
 			obShareUrl.blur(); // 선택된 것을 다시 선택안된것으로 바꿈니다.
 
-			alert("URL이 클립보드에 복사되었습니다"); 
+			alert("URL이 클립보드에 복사되었습니다📌"); 
 
 		}	
 	

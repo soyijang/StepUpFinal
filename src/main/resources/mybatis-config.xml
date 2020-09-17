@@ -19,9 +19,17 @@
         <typeAlias type="com.stepup.agile.userInfo.model.vo.UserTeamList" alias="userTeamList"/>
         <typeAlias type="com.stepup.agile.userInfo.model.vo.UserProjectList" alias="userProjectList"/>
         <typeAlias type="com.stepup.agile.userInfo.model.vo.Attachment" alias="attachment"/>
+        <typeAlias type="com.stepup.agile.projectTask.model.vo.Bookmark" alias="bookMark"/>
+        <typeAlias type="com.stepup.agile.projectFeedback.model.vo.SurveyList" alias="Survey"/>
+        <typeAlias type="com.stepup.agile.projectFeedback.model.vo.SurveyList" alias="SurveyList"/>
+        <typeAlias type="com.stepup.agile.projectFeedback.model.vo.SurveyQuesList" alias="SurveyQuesList"/>
+        <typeAlias type="com.stepup.agile.projectFeedback.model.vo.SurveyChoiceList" alias="SurveyChoiceList"/>
+        <typeAlias type="com.stepup.agile.projectTask.model.vo.TaskList" alias="TaskList"/>
+        <typeAlias type="com.stepup.agile.userMyTasks.model.vo.RssHistory" alias="Rss"/>
 	</typeAliases>
 	
  	<mappers>
+ 		<mapper resource="mappers/survey-mapper.xml"/>
  		<mapper resource="mappers/member-mapper.xml"/>
 		<mapper resource="mappers/sprint-mapper.xml"/>
 		<mapper resource="mappers/mytask-mapper.xml"/>
@@ -29,6 +37,9 @@
 		<mapper resource="mappers/task-mapper.xml"/>
 		<mapper resource="mappers/team-mapper.xml"/>
 		<mapper resource="mappers/reply-mapper.xml"/>
+		<mapper resource="mappers/bookmark-mapper.xml"/>
+		<mapper resource="mappers/survey-mapper.xml"/>
+		<mapper resource="mappers/rss-mapper.xml"/>
  	</mappers>
 	
 	
