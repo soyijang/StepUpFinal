@@ -301,7 +301,7 @@
 		<div id="shareMyTask" class="modal">
 			<div class="modal-content mytaskSharecontent">
 				<p align="left" class="modaltitle">📣 내 업무 공유하기</p>
-				<p style="text-align: center;">※ 업무 공유 후에는 공유를 철회 할  수 없습니다.<br>시작일과 종료일 설정을 </p>
+				<p style="text-align: center;">※ 업무 공유 후에는 공유를 철회 할  수 없습니다.<br>시작일과 종료일을 확인해주세요! </p>
 				<table align="center" class="MyTaskShareModalTable">
 					<tbody>
 						<tr>

@@ -16,7 +16,7 @@ public interface NewSurveyService {
 
 	int insertNewSurvey(Map<String, Object> map);
 
-	List<Sprint> selectEndSprint(Member m);
+	List<Sprint> selectEndSprint(Map<String, Object> map2);
 
 	List<SprintHistory> selectSprintName(Map<String, Object> map2);
 

@@ -27,7 +27,7 @@ import com.stepup.agile.projectFeedback.model.vo.SurveyQuesList;
 import com.stepup.agile.projectFeedback.newsurvey.model.service.NewSurveyService;
 import com.stepup.agile.userInfo.model.vo.Member;
 
-@SessionAttributes("loginUser")
+@SessionAttributes({"loginUser", "projectCodeNew"})
 @Controller
 public class NewSurveyController {
 	@Autowired
@@ -37,9 +37,15 @@ public class NewSurveyController {
 	private NewSurveyService ns;
 	
 	@RequestMapping("selectEndSprint.sv")
-	public String selectEndSprint(Model model, @ModelAttribute("loginUser") Member m) {
+	public String selectEndSprint(Model model, @ModelAttribute("loginUser") Member m
+			, @ModelAttribute("projectCodeNew") int projectCode) {
 		List<Sprint> endSprintList = new ArrayList<Sprint>();
-		endSprintList = ns.selectEndSprint(m);
+		
+		Map<String, Object> map2= new HashMap<String, Object>();
+		map2.put("userEmail", m.getUserEmail());
+		map2.put("projectCode", projectCode);
+		
+		endSprintList = ns.selectEndSprint(map2);
 		
 		  List<SurveyList> surveyList = null;
 	      
@@ -115,7 +121,9 @@ public class NewSurveyController {
 		for(SurveyQuesList str : QuesList.getSurveyNewVOLists()) {
 			result[temp] = ns.insertNewQues(str);
 			if(str.getSurveyQuesType().equals("01")) {
-	         map.put(Integer.toString(temp+3), str.getSurveyQuesCode());
+				map.put(Integer.toString(temp+3), str.getSurveyQuesCode());
+			}else if(str.getSurveyQuesType().equals("02")){
+				map.put(Integer.toString(temp+3), str.getSurveyQuesCode());
 			}
 	         temp++;
 	         System.out.println(str);
@@ -148,6 +156,7 @@ public class NewSurveyController {
 		for(SurveyChoiceList str : ChoiceList.getSurveyChoiceVOLists()) {
 			result = ns.insertNewChoice(str);
 	        System.out.println("리스트 : " + str);
+	        
 	        map = new HashMap<String, Object>();
 	        map.put("surveyCode", str.getSurveyCode());
 	        if((cnt > 1) && (str.getSurveyQuesCode() != temp)) {

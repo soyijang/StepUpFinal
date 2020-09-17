@@ -221,9 +221,9 @@ mark {
 </head>
 <body>
 	<c:set var="contextPath" value="${ pageContext.servletContext.contextPath }" scope="application"/>
-	 <%@ include file="../common/menubar.jsp" %>
+	 <%@ include file="../common/nav.jsp" %>
 
-			<div id="content">
+			<div id="content-nav-only">
 				<!-- 상단 프로젝트 제목 및 메뉴 이름 영역 -->
 				<div id="contentTitle">
 					<div id="projectTitle2">Team / IT WORKS!</div>
@@ -418,7 +418,7 @@ mark {
 					
 				</div>
 			</div>
-			
+		
 			<script>
 				function insertTeam() {
 					var newTeam = $("#teamName").val();
@@ -442,7 +442,7 @@ mark {
 						});
 					});
 				}
-			</script>
+			</script> 
 			
 			<script>
 			// Get the modal

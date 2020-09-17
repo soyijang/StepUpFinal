@@ -382,6 +382,7 @@
 		    AND I.USER_EMAIL = #{userEmail}
             AND H.SPRINT_STATUS = 'N'
             AND H.SPRINT_TYPE = 03
+            AND J.PROJECT_CODE = #{projectCode}
 		  GROUP BY H.SPRINT_CODE , J.PROJECT_NAME, P.USER_PROJECT_CODE
           ORDER BY H.SPRINT_CODE
 	</select>

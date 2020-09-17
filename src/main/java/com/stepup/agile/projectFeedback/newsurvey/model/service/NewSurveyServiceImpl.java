@@ -32,8 +32,8 @@ public class NewSurveyServiceImpl implements NewSurveyService{
 	}
 
 	@Override
-	public List<Sprint> selectEndSprint(Member m) {
-		return nd.selectEndSprint(sqlSession, m);
+	public List<Sprint> selectEndSprint(Map<String, Object> map2) {
+		return nd.selectEndSprint(sqlSession, map2);
 	}
 
 	@Override

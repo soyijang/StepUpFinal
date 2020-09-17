@@ -68,16 +68,15 @@ public class TeamController {
 	//Team 생성
 	@RequestMapping(value="insertTeam.tm")
 	@ResponseBody
-	public ResponseEntity insertTeam(Model model, Team t, @RequestParam Map<String, Object> paramMap) throws Exception {
-		ResponseEntity entity = null; 
+	public String insertTeam(Model model, Team t, @RequestParam Map<String, Object> paramMap) throws Exception {
 		System.out.println("controller insert Team : "+t);
 		int result = ts.insertTeam(paramMap);
 		
 		if(result > 0) {
-			return new ResponseEntity(result, HttpStatus.OK);
+			return "redirect:addTeam.tm";
 		} else {
 			model.addAttribute("msg","Team 생성 실패하였습니다.");
-			return new ResponseEntity(result, HttpStatus.BAD_REQUEST);
+			return "common/error";
 		}
 		
 	}

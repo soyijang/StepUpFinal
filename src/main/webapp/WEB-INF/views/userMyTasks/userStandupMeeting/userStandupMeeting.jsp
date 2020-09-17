@@ -53,8 +53,8 @@
                         <img id="icon_double-right_chevron" src="/agile/resources/icon/common/icon_double _right_chevron.png">
                      </div>
                   </td>
-                  <td id="rssBtn" onclick="closeRss();">열려라달력스!</td>
-                  <td id="rssBtn" onclick="openRss();"><img id="icon_rss_feed" src="/agile/resources/icon/common/icon_rss_feed.png">팀 rss 구독하기</td>
+                  <td id="rssBtn" onclick="closeRss();">프로젝트 팀원일정</td>
+                  <td id="rssBtn" onclick="openRss();"><img id="icon_rss_feed" src="/agile/resources/icon/common/icon_rss_feed.png">프로젝트 rss구독</td>
                   <td width="30px;"></td>
                </tr>
             </table>

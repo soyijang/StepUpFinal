@@ -363,8 +363,8 @@ mark {
             <div id="content">  
                 <!-- 상단 프로젝트 제목 및 메뉴 이름 영역 -->
                 <div id="contentTitle">
-                    <div id="projectTitle2">Form / </div>
-                    <div id="menuTitle">피드백</div>
+         			<div id="projectTitle2"><a href="showProjectMain.pj">🚀내 프로젝트 </a> / ${sessionScope.projectName}</div>
+                    <div id="menuTitle">Feedback</div>
                 </div>
                 <div id="contentBox">
                     <div id="projectSurvey">
@@ -392,13 +392,13 @@ mark {
 					        		<td>
 					        		<div class="dropdown" style="width:290px;">
 							        <div class="select">
-							              <span id="sprint-name">스프린트</span>
+							              <span id="sprint-name">선택</span>
 							          <i class="fa fa-chevron-left"></i>
 							        </div>
 							        <ul class="dropdown-menu">
-							          <li id="all">스프린트</li>
+							          <li id="all">선택</li>
 							          <c:forEach var="i" items="${ endSprintList }">
-							          <li id="sprint-category"> ${ i.sprintName }</li>
+							          	<li id="sprint-category"> ${ i.sprintName }</li>
 							          </c:forEach>
 							        </ul>
 						      </div></td>
@@ -502,7 +502,7 @@ mark {
 	var modal = document.getElementById("myModal");
 	
 	// Get the button that opens the modal
-	var btn = document.getElementById("apply");
+	var btn = document.getElementById("surveyInsert");
 	
 	// Get the <span> element that closes the modal
 	var span = document.getElementsByClassName("close")[0];

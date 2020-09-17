@@ -315,8 +315,8 @@ textarea {
             <div id="content">  
                 <!-- 상단 프로젝트 제목 및 메뉴 이름 영역 -->
                 <div id="contentTitle">
-                    <div id="projectTitle2">Form / IT WORKS!</div>
-                    <div id="menuTitle">피드백</div>
+         			<div id="projectTitle2"><a href="showProjectMain.pj">🚀내 프로젝트 </a> / ${sessionScope.projectName}</div>
+                    <div id="menuTitle">Feedback</div>
                 </div>
                 <div id="contentBox2">
                 <div id="form-area">
@@ -419,25 +419,26 @@ textarea {
 		}
 		
 		//카운팅용	
-		var cnt = 1;
+		var cnt9 = 1;
 		
 		//닫기누르면 창 닫으면서 안에 추가되어있던것들 리셋
 	    $(document).on('click', '.surveyClose', function(){
+	    	cnt9 = 1;
 	    	$('#sendSurvey').css('display','none');
 	    	$('#surveyPersonAdd').children().remove();
 	    	$('#surveyPersonAdd').append('<tr>'
-					+'<td><input type="text" class="surveyInput2" value="" id="userName' + cnt + '" autocomplete="off"></td>'
-					+'<td><input type="text" class="surveyInput1" value="" id="userEmail' + cnt + '" autocomplete="off"></td>'
+					+'<td><input type="text" class="surveyInput2" value="" id="userName' + cnt9 + '" autocomplete="off"></td>'
+					+'<td><input type="text" class="surveyInput1" value="" id="userEmail' + cnt9 + '" autocomplete="off"></td>'
 					+'</tr>');
 	    });	
 		
 		//추가하기
 	    $(document).on('click', '.surveyAddBtn', function(){
-	    	cnt++;
-	    	console.log('cnt : ' + cnt);
+	    	cnt9++;
+	    	console.log('cnt9 : ' + cnt9);
 	    	$('#surveyPersonAdd').append('<tr>'
-				+'<td><input type="text" class="surveyInput2" value="" id="userName' + cnt + '" autocomplete="off"></td>'
-				+'<td><input type="text" class="surveyInput1" value="" id="userEmail' + cnt + '" autocomplete="off"></td>'
+				+'<td><input type="text" class="surveyInput2" value="" id="userName' + cnt9 + '" autocomplete="off"></td>'
+				+'<td><input type="text" class="surveyInput1" value="" id="userEmail' + cnt9 + '" autocomplete="off"></td>'
 				+'</tr>');
 	    });	
 		
@@ -449,7 +450,7 @@ textarea {
 			var dataList2 = new Array();
 			
 			//사람별로 data라는 객체에 값을 넣고 각 data객체들을 dataList에 push해줌
-			for(var i=1; i<cnt+1; i++){
+			for(var i=1; i<cnt9+1; i++){
 				var data = new Object();
 				data["surveyJoinEmail"] = $('#userEmail' + i).val();
 				data["surveyJoinReply"] = 'N';
@@ -729,7 +730,7 @@ textarea {
 			dataType : "json",
 			success: function(data){
 				console.log(data.result);
-				
+				alert('저장에 성공하였습니다!');
 				var choiceNumber;
 				choiceNumber = data.result;
 				console.log("chNumber: " + choiceNumber);

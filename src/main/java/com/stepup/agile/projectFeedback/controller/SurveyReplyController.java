@@ -69,9 +69,11 @@ public class SurveyReplyController {
 	@RequestMapping(value="surveyReplyNext.sv",method=RequestMethod.POST)
 	public ModelAndView selectSurveyQues(ModelAndView mv, int surveyCode) {
 		//질문 및 문항 같이 조회
+		System.out.println("두번째 페이지 코드: " + surveyCode);
 		List<SurveyChoiceList> surveyChoiceList;
 		surveyChoiceList = rs.selectSurveyQues(surveyCode);
 		
+		System.out.println("두번째 페이지 결과: " + surveyChoiceList);
 		mv.addObject("surveyChoiceList", surveyChoiceList);
 		mv.setViewName("jsonView");
 		

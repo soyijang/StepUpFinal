@@ -24,8 +24,8 @@ public class NewSurveyDaoImpl implements NewSurveyDao{
 	}
 
 	@Override
-	public List<Sprint> selectEndSprint(SqlSessionTemplate sqlSession, Member m) {
-		return sqlSession.selectList("Sprint.selectEndSprint", m);
+	public List<Sprint> selectEndSprint(SqlSessionTemplate sqlSession, Map<String, Object> map) {
+		return sqlSession.selectList("Sprint.selectEndSprint", map);
 	}
 
 	@Override

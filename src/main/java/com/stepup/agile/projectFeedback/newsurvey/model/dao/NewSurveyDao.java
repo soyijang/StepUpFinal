@@ -18,7 +18,7 @@ public interface NewSurveyDao {
 
 	int insertNewSurvey(SqlSessionTemplate sqlSession, Map<String, Object> map);
 
-	List<Sprint> selectEndSprint(SqlSessionTemplate sqlSession, Member m);
+	List<Sprint> selectEndSprint(SqlSessionTemplate sqlSession, Map<String, Object> map2);
 
 	List<SprintHistory> selectSprintName(SqlSessionTemplate sqlSession, Map<String, Object> map2);
 
