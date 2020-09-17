@@ -6,6 +6,7 @@ import java.util.Map;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.stepup.agile.projectFeedback.model.vo.SurveyJoinList;
 import com.stepup.agile.userInfo.model.vo.Member;
 import com.stepup.agile.userInfo.model.vo.Team;
 
@@ -41,4 +42,12 @@ public class TeamDaoImpl implements TeamDao{
 		
 		return sqlSession.insert("Team.insertTeamList", t);
 	}
+
+	@Override
+	public int insertTeamJoin(SqlSessionTemplate sqlSession, Member str) {
+		
+		return sqlSession.insert("Team.insertTeamJoin", str);
+	}
+
+	
 }

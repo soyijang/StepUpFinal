@@ -15,6 +15,7 @@
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/common/modal.css">
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/common/font.css">
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/indiv/userInfo/team/addTeamModal.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/indiv/sprintBacklog/button.css">
 <style>
 
 /* section 안쪽 오른쪽*/
@@ -173,32 +174,47 @@ mark {
     border-radius: 10px;
     box-shadow: 0 0 4px #cccccc;
   }
-  #addPerson {
-            width: 450px;
-            height: 500px;
-        }
-        #addPerson p {
-            padding-left: 10px;   
-            padding-right: 10px;
-            margin: 0;
-            text-align: left;
-        }
-        #emailInsert {
-            text-align: center;
-            margin-top: 8%;
-        }
-        #emailInsert input {
-            width: 400px;
-            height: 30px;
-            text-align: left;
-            border: 1px solid #c4c4c4;
+#addPerson {
+    width: 450px;
+    height: 500px;
+}
+#addPerson p {
+    padding-left: 10px;   
+    padding-right: 10px;
+    margin: 0;
+    text-align: left;
+}
+#emailInsert {
+    text-align: center;
+    margin-top: 8%;
+}
+#emailInsert input {
+    width: 400px;
+    height: 30px;
+    text-align: left;
+    border: 1px solid #c4c4c4;
+}
+.surveyAddBtn {
+    color: skyblue;
+    margin-left: 20px;
+    margin-top: 20px;
+}
+#sendSurvey {
+	text-align: left;
+	padding: 10px;
+}
+#surveyPersonAdd input {
+	border: 1px solid #c4c4c4;
+	height: 35px;
+	width: 220px;
+}
+.modalButtonArea {
+	text-align: right;
+}
+#rectangle7 {
+	text-align: center;
+}
 
-        }
-        #addInvite {
-            color: skyblue;
-            margin-left: 20px;
-            margin-top: 20px;
-        }
 
 
 </style>
@@ -216,7 +232,7 @@ mark {
 				<div id="contentBox">
 					<!--팀원 추가 버튼영역-->
 					<div id="rectangle">
-						<button type="button" value="hidden" onclick="send()" class="searchBtn2" id="rectangle2">팀원 추가</button>
+						<button type="button" value="hidden" onclick="surveySend()" class="searchBtn2" id="rectangle2">팀원 추가</button>
 						&nbsp;&nbsp;
 						<button type="button" value="hidden" onclick="insertTeam()" class="searchBtn" id="apply">팀 시작</button>
 						&nbsp;&nbsp;
@@ -263,7 +279,7 @@ mark {
 						        </div>
 					        </table>
 					        <button class="submit">시작</button>
-					        <button class="close">취소</button>
+					        <button class="close1">취소</button>
 					      </div>
 					    
 					    </div>
@@ -273,7 +289,8 @@ mark {
 					    
 					    <!-- 팀원추가 modal 시작-->
 					     <!-- The Modal -->
-					    <div id="myModal2" class="modal2">
+					   <form action="mailSender.tm" method="post">
+					    <%-- <div id="sendEmail" class="modal2">
 					      <!-- Modal content -->
 					      <div class="modal-content2">
 		
@@ -293,19 +310,74 @@ mark {
 								</c:forEach>
 							</select>
 			                <pre>귀하의 팀을 선택해 주세요.</pre>
-			                <div id="emailInsert"><input type="text" placeholder="이메일 주소 추가"></div>
-						        <div id="addInvite" style="text-align: left; font-size: 12px;">
+			                <div id="emailInsert">
+			              <!--   <input type="text" placeholder="이메일 주소 추가" id="sendEmail" name="sendEmail" value=""> -->
+			              <table align="center" class="MyTaskDeleteModalTable">
+							<thead align="center">
+								<tr align="center">
+									<td><!-- <b>이메일</b> --></td>
+								</tr>
+							</thead>	
+							<tbody id="surveyPersonAdd">
+								<tr>
+									<td><input type="text" class="surveyInput1" value="" id="userEmail1" autocomplete="off"></td>
+								</tr>	
+							</tbody>
+						</table>
+			                </div>
+						        <div class="surveyAddBtn" id="addInvite" style="text-align: left; font-size: 12px;">
 						            + 초대추가
 						        </div>
 						       
 			                </div>
 			                <div id="btn">
-			                    <button class="submit">메일 보내기</button> 
-			                    <button class="close">취소</button> 
+			                    <button class="submit" onclick="sendEmail()">메일 보내기</button> 
+			                    <button class="TeamClose">취소</button> 
 			                </div>
 			            </div> 
 					      </div>
-					    </div>
+					    </div> --%>
+					    
+					    <div id="sendSurvey" class="modal2">
+			<div class="modal-content mytaskDeletecontent">
+				<p align="left" class="modaltitle">📬 팀원 초대</p>
+				<p class="modalcontent" style="font-size: 12px;">※ 귀하의 팀을 선택해 주세요.</p>
+				   <select id="addUserTeam" name="addUserTeam">
+						        <option value="none">=== 귀하의 팀 ===</option>
+						        <c:forEach var="teamList" items="${ teamList }">
+								<option value="${ teamList.teamName }">${ teamList.teamName }</option>
+								</c:forEach>
+							</select>&nbsp;&nbsp;
+							<select id="addUserName" name="addUserName">
+						        <option value="none">=== 함께한 작업자 ===</option>
+						        <c:forEach var="teamUserName" items="${ teamUserName }">
+								<option value="${ teamUserName.userName }">${ teamUserName.userName }</option>
+								</c:forEach>
+							</select><br><br>
+				<table align="center" class="MyTaskDeleteModalTable">
+					<thead align="center">
+						<tr align="center">
+							<td><b>이름</b></td>
+							<td><b>이메일</b></td>
+						</tr>
+					</thead>	
+					<tbody id="surveyPersonAdd">
+						<tr>
+							<td><input type="text" class="surveyInput2" value="" id="userName1" autocomplete="off"></td>
+							<td><input type="text" class="surveyInput1" value="" id="userEmail1" autocomplete="off"></td>
+						</tr>	
+					</tbody>
+				</table>
+					<div class="surveyAddBtn"> + 초대추가</div>
+				<div class="modalButtonArea">
+					<div class="surveyClose" id="rectangle7" style="display: inline-block; border: 0;">취소</div>
+					<button class="rectangle6" onclick="startAdd()" type="button">메일 보내기</button>
+				</div>
+				<input type="hidden" id="surveyCode" class="" value="2"> 
+			</div>
+		</div>
+					    
+					    </form>
 					    <!-- 팀원추가 modal 종료-->
 					    
 					   
@@ -361,10 +433,10 @@ mark {
 							},
 							success: function(data) {
 								window.location.reload(); 
-								  /* $("#team").text(data.team.teamName);  */
+								  $("#team").text(data.team.teamName); 
 							},
 							error: function(data) {
-								 /* alert('실패!')  */          
+								  alert('실패!');          
 								console.log("실패!");
 							}
 						});
@@ -375,14 +447,14 @@ mark {
 			<script>
 			// Get the modal
 			    var modal = document.getElementById("myModal");
-			    var modal2 = document.getElementById("myModal2");
+			    var modal2 = document.getElementById("sendSurvey");
 				    
 			// Get the button that opens the modal
 			    var btn = document.getElementById("apply");
 			    var btn2 = document.getElementById("rectangle2");
 			    
 			// Get the <span> element that closes the modal
-			    var span = document.getElementsByClassName("close")[0];
+			    var span = document.getElementsByClassName("close1")[0];
 			    var span2 = document.getElementsByClassName("close")[0];
 			    
 			// When the user clicks on the button, open the modal
@@ -397,7 +469,7 @@ mark {
 			    
 			// When the user clicks on <span> (x), close the modal
 			    span.onclick = function() {
-			        $(modal).css('display','none');
+			        $(modal).css('display','none'); 
 			    }
 			    span2.onclick = function() {
 			        $(modal2).css('display','none');
@@ -416,6 +488,82 @@ mark {
 			    };
 		
 			</script>
+			
+			<script type="text/javascript">
+		
+		//보내기모달열기
+	    function surveySend() {
+	    	$('#sendSurvey').fadeIn(300); 
+	    	$('#sendSurvey').css('display','block');
+		}
+		
+		//카운팅용	
+		var cnt = 1;
+		
+		//닫기누르면 창 닫으면서 안에 추가되어있던것들 리셋
+	    $(document).on('click', '.surveyClose', function(){
+	    	cnt = 1;
+	    	$('#sendSurvey').css('display','none');
+	    	$('#surveyPersonAdd').children().remove();
+	    	$('#surveyPersonAdd').append('<tr>'
+					+'<td><input type="text" class="surveyInput2" value="" id="userName' + cnt + '" autocomplete="off"></td>'
+					+'<td><input type="text" class="surveyInput1" value="" id="userEmail' + cnt + '" autocomplete="off"></td>'
+					+'</tr>');
+	    });	
+		
+		//추가하기
+	    $(document).on('click', '.surveyAddBtn', function(){
+	    	cnt++;
+	    	$('#surveyPersonAdd').append('<tr>'
+				+'<td><input type="text" class="surveyInput2" value="" id="userName' + cnt + '" autocomplete="off"></td>'
+				+'<td><input type="text" class="surveyInput1" value="" id="userEmail' + cnt + '" autocomplete="off"></td>'
+				+'</tr>');
+	    });	
+		
+		function startAdd() {
+			
+			//입력된 내용가져오기
+			//totData는 객체로 선언, dataList는 Array로 선언
+			var totData2 = new Object();
+			var dataList2 = new Array();
+			
+			//사람별로 data라는 객체에 값을 넣고 각 data객체들을 dataList에 push해줌
+			for(var i=1; i<cnt+1; i++){
+				var data = new Object();
+				data["surveyJoinEmail"] = $('#userEmail' + i).val();
+				data["surveyJoinReply"] = 'N';
+				data["surveyCode"] = $('#surveyCode').val();
+				data["surveyJoinName"] = $('#userName' + i).val();
+				dataList2.push(data);
+			}
+			
+			//dataList를 voList객체로 다시한번 넣어줌. (totData는 객체로 선언, dataList는 Array로 선언)
+			totData2["surveyJoinVOList"] = dataList2;
+			console.log(totData2);
+			//메일발송하기
+		     $.ajax({
+		    	type : 'post',
+				url: "mailSender.sv",
+				contentType:'application/json',
+				dataType: 'json',
+				data : JSON.stringify(totData2),
+				success : function(data) {  
+					alert('총' + cnt + '명에게 초대 메일을 발송하였습니다!');
+				},
+				error : function () {
+					console.log('메일 보내기 실패!');
+				},
+				beforeSend : function(){
+			        $('.wrap-loading').removeClass('display-none');
+					document.getElementsByClassName("surveyClose")[0].click();
+				},
+				complete : function(){
+				    $('.wrap-loading').addClass('display-none');
+				}
+	  	    }); 
+			
+		}
+	</script>
 			
 </body>
 

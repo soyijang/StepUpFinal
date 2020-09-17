@@ -1,6 +1,8 @@
 package com.stepup.agile.projectFeedback.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Logger;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,7 +16,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.stepup.agile.projectBacklog.model.vo.SprintHistory;
 import com.stepup.agile.projectFeedback.model.service.SurveyService;
 import com.stepup.agile.projectFeedback.model.vo.SurveyList;
 import com.stepup.agile.userInfo.model.vo.Member;
@@ -36,7 +40,7 @@ public class FeedbackController {
 		List<SurveyList> surveyList = null;
 		
 		try {
-			surveyList = ss.selectSurvey(sl);
+			surveyList = ss.selectSurvey(m);
 			model.addAttribute("surveyList",surveyList);
 		} catch(Exception e) { 
 			
@@ -48,33 +52,35 @@ public class FeedbackController {
 		return "projectFeedback/survey";
 	}
 	
-	/*
-	 * @RequestMapping(value = "delete.sv", method = RequestMethod.GET) public
-	 * String deleteSurvey(@RequestParam(value="surveyCode") int surveyCode) throws
-	 * Exception{
-	 * 
-	 * ss.deleteSurvey(surveyCode);
-	 * 
-	 * return "refirect:projectFeedback/survey.jsp";
-	 * 
-	 * }
-	 */
-	
-	@RequestMapping("delete.sv")
-	public ModelAndView deleteSurvey(ModelAndView mv, @ModelAttribute("loginUser") Member m, int surveyCode) {
+	@RequestMapping(value = "delete.sv", method = RequestMethod.POST)
+	public ModelAndView deleteSurvey(Model model, ModelAndView mv, String surveyName,
+										@ModelAttribute("loginUser") Member m) throws Exception {
+		int surveyCode = 0;
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("surveyName", surveyName);
+		map.put("userCode", m.getUserCode());
+		surveyCode = ss.selectSurveyCode(map);
+		int result = 0;
+		result = ss.deleteSurvey(surveyCode);
 		
-			int result = ss.deleteSurvey(surveyCode);
-			
-			mv.addObject("result",result);
-			mv.setViewName("jsonview");
-			
-			if(result>0) {
-				mv.setViewName("jsonview");
-				return mv;
-			} else {
-				return mv;
-			}
-		
+		mv.setViewName("jsonView");		
+		return mv;
+
 	}
+
+	@RequestMapping(value = "update.sv", method = RequestMethod.GET)
+	public String updateSurvey(SurveyList surveyList, Model model) {
+		
+		int result = ss.updateSurvey(surveyList);
+		
+		if(result>0) {
+			return "redirect:update.sv";
+		}else {
+			model.addAttribute("msg", "실패하였습니다!");
+			return "common/errorPage";
+		}
+	
+	}
+	
 
 }

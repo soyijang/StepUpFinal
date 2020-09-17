@@ -1,5 +1,9 @@
 package com.stepup.agile.userInfo.model.vo;
 
+import java.util.List;
+
+import com.stepup.agile.projectFeedback.model.vo.SurveyJoinList;
+
 public class UserTeamList implements java.io.Serializable {
 	private String userTeamDate;
 	private String userTeamYn;
@@ -97,4 +101,8 @@ public class UserTeamList implements java.io.Serializable {
 				+ ", userProjectList=" + userProjectList + ", userTeamList=" + userTeamList + "]";
 	}
 
+	
+	
+
+	
 }
