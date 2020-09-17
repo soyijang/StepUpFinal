@@ -16,7 +16,7 @@
    <div id="content">
        <!-- 상단 프로젝트 제목 및 메뉴 이름 영역 -->
        <div id="contentTitle">
-           <div id="projectTitle2"><a href="showProjectMain.pj">🚀내 프로젝트 </a>/ <e>이름땡땡땡!!</e></div>
+           <div id="projectTitle2"><a href="showProjectMain.pj">🚀내 프로젝트 </a>/ <e>${sessionScope.projectName}</e></div>
            <div id="menuTitle">Task Board</div>
        </div>
 

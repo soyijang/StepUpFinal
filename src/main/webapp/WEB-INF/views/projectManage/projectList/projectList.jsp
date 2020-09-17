@@ -41,16 +41,6 @@
                         <!-- 프로젝트 리스트 -->
                         <c:forEach var="item" items="${selectedProjectHistoryList}" begin="0" end="3" step="1" varStatus="status">
                            
-  <%--                          <c:if test="${not empty userProjectList}">
-                              <c:forEach var="k" begin="0" end="${fn:length(userProjectList)-1}">
-                                 <c:if test="${userProjectList.get(k).project.projectCode == selectedProjectHistoryList.get(i).project.projectCode}">
-                                    <c:set var="userProjectCodeSave" value="${userProjectList.get(k).userProjectCode}" />
-                                 </c:if>
-                              </c:forEach>                              
-                           </c:if>   
-                      --%>
-                           
-                           
                            <td>
                               <div class="contentBox1-content-table-tr-td" id="project-top-list-code${item.project.projectCode}"
                               onclick="projectClick(${item.project.projectCode},${sessionScope.userProjectCodeNew},'${item.project.projectName}')">
@@ -62,7 +52,7 @@
                                        참여인원<div class="pink-btn">${item.project.projectParticipantCnt}</div>
                                     </div>
                                     <div class="project-progress-rate">
-                                       진행률 <div class="pink-btn">${item.project.projectProceedingRate}%</div>
+	                                       진행률 <div class="pink-btn">${item.project.projectProceedingRate}%</div>
                                     </div>
                                  </div>
                               </div>
@@ -79,15 +69,6 @@
                      <c:if test="${not empty selectedProjectHistoryList}">
                         <c:if test="${fn:length(selectedProjectHistoryList) < 3}">
                         <c:forEach var="item" items="${selectedProjectHistoryList}" begin="0" end="${fn:length(selectedProjectHistoryList)}" step="1" varStatus="status">
-                     <%--    
-                           <c:if test="${not empty userProjectList}">
-                              <c:forEach var="k" begin="0" end="${fn:length(userProjectList)-1}">
-                                 <c:if test="${userProjectList.get(k).project.projectCode == selectedProjectHistoryList.get(i).project.projectCode}">
-                                    <c:set var="userProjectCodeSave" value="${userProjectList.get(k).userProjectCode}" />
-                                 </c:if>
-                              </c:forEach>                              
-                           </c:if>    --%>
-                        
                         
                            <td>
                               <div class="contentBox1-content-table-tr-td" id="project-top-list-code${item.project.projectCode}"
@@ -108,8 +89,6 @@
                         </c:forEach>   
                         </c:if>               
                      </c:if>
-                     
-                     
                      
                      <!-- 프로젝트 추가 -->
                      <td>

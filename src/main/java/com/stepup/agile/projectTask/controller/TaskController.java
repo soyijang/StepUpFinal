@@ -578,7 +578,6 @@ public class TaskController {
 	}
 	
 	
-
 	//BugTask
 	@RequestMapping("selectBugTask.tk")
 	   public String selectBugTask(Model model, @ModelAttribute("loginUser") Member m,

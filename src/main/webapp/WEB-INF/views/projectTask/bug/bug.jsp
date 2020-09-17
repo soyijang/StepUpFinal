@@ -22,7 +22,7 @@
     <div id="content" class="click-area" style="width:83vw;">
         <!-- 상단 프로젝트 제목 및 메뉴 이름 영역 -->
         <div id="contentTitle">
-            <div id="projectTitle2"><a href="showProjectMain.pj">🚀내 프로젝트 </a> / ${bgList.get(i).projectName}</div>
+            <div id="projectTitle2"><a href="showProjectMain.pj">🚀내 프로젝트 </a> / ${sessionScope.projectName}</div>
             <div id="menuTitle">Issues</div>
         </div>
         <div id="contentBox">
@@ -141,6 +141,10 @@
 						</div>
 						</div>
 					</div>
+					
+					
+					
+					
 				</div>
 			</div>
 		</div>
@@ -249,6 +253,7 @@
 		var a = $("#bug-code-list1").text();
 		console.log(a);
 		var bugCodeId3 = a.split("-");
+		
 		var realBugCode = bugCodeId3[1];
 		console.log("아이디4 : " + realBugCode);
 		realBugCode = realBugCode.trim();
@@ -262,6 +267,9 @@
 			data:{"tCode" : realBugCode},
 			dataType : "json",
 			success: function(data){
+				
+				if(data.bgContList.length != 0){
+
 				values = data.bgContList;
 				var sCode = [];
 				console.log(data.bgContList);
@@ -383,7 +391,11 @@
 			} else {
 				$("div#re-show-area").remove();
 			}
-      	      
+				}else{
+					var temp = '<img src="/agile/resources/images/indiv/main/mainpage/img_timeline3.jpg" style="width:500px; height:350px; margin-left:130px; margin-top:100px;">';
+					 $("#bg-detail").html(temp);
+					
+				}
 			}, error: function(data){
 			},
 			 beforeSend : function(){
