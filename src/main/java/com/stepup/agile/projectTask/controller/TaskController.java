@@ -459,9 +459,10 @@ public class TaskController {
 
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("userCode", m.getUserCode());
-		map.put("sprintCode", sprintCode);/*
-											 * map.put("taskCode", taskCode);
-											 */
+		map.put("sprintCode", sprintCode);
+		/*
+		 * map.put("taskCode", taskCode);
+		 */
 
 		System.out.println(map.get("userCode"));
 		System.out.println(map.get("sprintCode"));

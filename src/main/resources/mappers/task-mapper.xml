@@ -481,7 +481,7 @@
 	         SELECT SEQ_TASK.NEXTVAL FROM DUAL
 	      </selectKey>
 		INSERT INTO TASK_LIST
-		VALUES(SEQ_TASK.NEXTVAL, TO_CHAR(SYSDATE + 9/24, 'YYYY-MM-DD'),'상위', #{sprintCode}, TO_CHAR(SYSDATE + 9/24, 'hh24:mi:ss'), NULL, #{userCode, jdbcType=VARCHAR}, NULL)
+		VALUES(#{taskCode}, TO_CHAR(SYSDATE + 9/24, 'YYYY-MM-DD'),'상위', #{sprintCode}, TO_CHAR(SYSDATE + 9/24, 'hh24:mi:ss'), NULL, #{userCode, jdbcType=VARCHAR}, NULL)
 	</insert>
 	<!-- 13-1.복제 이벤트 -->
 	<insert id="insertCloneTask2" parameterType="com.stepup.agile.projectTask.model.vo.TaskHistory">
