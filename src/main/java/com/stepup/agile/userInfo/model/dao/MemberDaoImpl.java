@@ -23,204 +23,204 @@ import com.stepup.agile.userInfo.model.vo.UserTeamList;
 @Repository
 public class MemberDaoImpl implements MemberDao {
 
-	@Override
-	public Member loginCheck(SqlSessionTemplate sqlSession, Member m) throws LoginFailedException {
+   @Override
+   public Member loginCheck(SqlSessionTemplate sqlSession, Member m) throws LoginFailedException {
 
-		Member loginUser = sqlSession.selectOne("Member.loginCheck", m);
+      Member loginUser = sqlSession.selectOne("Member.loginCheck", m);
 
-		System.out.println("dao loginUser : " + loginUser);
+      System.out.println("dao loginUser : " + loginUser);
 
-		if (loginUser == null) {
-			throw new LoginFailedException("로그인 실패!");
-		}
-		System.out.println("loginCheck : " + loginUser);
-		return loginUser;
-	}
+      if (loginUser == null) {
+         throw new LoginFailedException("로그인 실패!");
+      }
+      System.out.println("loginCheck : " + loginUser);
+      return loginUser;
+   }
 
-	@Override
-	public String selectEncPassword(SqlSessionTemplate sqlSession, Member m) {
+   @Override
+   public String selectEncPassword(SqlSessionTemplate sqlSession, Member m) {
 
-		return sqlSession.selectOne("Member.selectPwd", m.getUserEmail());
-	}
+      return sqlSession.selectOne("Member.selectPwd", m.getUserEmail());
+   }
 
-	@Override
-	public int insertMember(SqlSessionTemplate sqlSession, Member m) {
+   @Override
+   public int insertMember(SqlSessionTemplate sqlSession, Member m) {
 
-		return sqlSession.insert("Member.insertMember", m);
-	}
+      return sqlSession.insert("Member.insertMember", m);
+   }
 
-	@Override
-	public Member selectMember(SqlSessionTemplate sqlSession, Member m) {
+   @Override
+   public Member selectMember(SqlSessionTemplate sqlSession, Member m) {
 
-		return sqlSession.selectOne("Member.selectLoginUser", m);
-	}
+      return sqlSession.selectOne("Member.selectLoginUser", m);
+   }
 
-	@Override
-	public String selectUserProject(SqlSessionTemplate sqlSession, Member m) {
+   @Override
+   public String selectUserProject(SqlSessionTemplate sqlSession, Member m) {
 
-		return sqlSession.selectOne("Member.selectUserProject");
-	}
+      return sqlSession.selectOne("Member.selectUserProject");
+   }
 
-	// myInfo 팀원 리스트조회
-	@Override
-	public List<Member> selectTeamList(SqlSessionTemplate sqlSession, UserTeamList ul) {
+   // myInfo 팀원 리스트조회
+   @Override
+   public List<Member> selectTeamList(SqlSessionTemplate sqlSession, UserTeamList ul) {
 
-		return sqlSession.selectList("Member.myTeamMemberList", ul);
-	}
+      return sqlSession.selectList("Member.myTeamMemberList", ul);
+   }
 
-	// 프로젝트 리스트 조회
-	@Override
-	public List<UserProjectList> userProjectList(SqlSessionTemplate sqlSession, int userCode) {
+   // 프로젝트 리스트 조회
+   @Override
+   public List<UserProjectList> userProjectList(SqlSessionTemplate sqlSession, int userCode) {
 
-		return sqlSession.selectList("Member.myProjectList", userCode);
-	}
+      return sqlSession.selectList("Member.myProjectList", userCode);
+   }
 
-	// MyInfo 북마크조회
-	@Override
-	public List<TaskHistory> selectBookmark(SqlSessionTemplate sqlSession, HashMap<String, Object> map) {
+   // MyInfo 북마크조회
+   @Override
+   public List<TaskHistory> selectBookmark(SqlSessionTemplate sqlSession, HashMap<String, Object> map) {
 
-		return sqlSession.selectList("Member.selectBookmark", map);
-	}
+      return sqlSession.selectList("Member.selectBookmark", map);
+   }
 
-	// 썸네일조회
-	@Override
-	public Attachment selectThumb(SqlSessionTemplate sqlSession, int userCode) {
+   // 썸네일조회
+   @Override
+   public Attachment selectThumb(SqlSessionTemplate sqlSession, int userCode) {
 
-		return sqlSession.selectOne("Member.selectThumb", userCode);
-	}
+      return sqlSession.selectOne("Member.selectThumb", userCode);
+   }
 
-	// 배경조회
-	@Override
-	public Attachment selectAttachment(SqlSessionTemplate sqlSession, int userCode) {
+   // 배경조회
+   @Override
+   public Attachment selectAttachment(SqlSessionTemplate sqlSession, int userCode) {
 
-		return sqlSession.selectOne("Member.selectBack", userCode);
-	}
+      return sqlSession.selectOne("Member.selectBack", userCode);
+   }
 
-	// 직업등록
-	@Override
-	public int insertJob(SqlSessionTemplate sqlSession, HashMap<String, Object> map) {
+   // 직업등록
+   @Override
+   public int insertJob(SqlSessionTemplate sqlSession, HashMap<String, Object> map) {
 
-		return sqlSession.update("Member.insertJob", map);
-	}
+      return sqlSession.update("Member.insertJob", map);
+   }
 
-	@Override
-	public Member selectJob(SqlSessionTemplate sqlSession, int userCode) {
+   @Override
+   public Member selectJob(SqlSessionTemplate sqlSession, int userCode) {
 
-		return sqlSession.selectOne("Member.selectJob", userCode);
-	}
+      return sqlSession.selectOne("Member.selectJob", userCode);
+   }
 
-	// 부서등록
-	@Override
-	public int insertDept(SqlSessionTemplate sqlSession, HashMap<String, Object> map) {
+   // 부서등록
+   @Override
+   public int insertDept(SqlSessionTemplate sqlSession, HashMap<String, Object> map) {
 
-		return sqlSession.update("Member.insertDept", map);
-	}
+      return sqlSession.update("Member.insertDept", map);
+   }
 
-	@Override
-	public Member selectDept(SqlSessionTemplate sqlSession, int userCode) {
+   @Override
+   public Member selectDept(SqlSessionTemplate sqlSession, int userCode) {
 
-		return sqlSession.selectOne("Member.selectDept", userCode);
-	}
+      return sqlSession.selectOne("Member.selectDept", userCode);
+   }
 
-	// 회사등록
-	@Override
-	public int insertCom(SqlSessionTemplate sqlSession, HashMap<String, Object> map) {
+   // 회사등록
+   @Override
+   public int insertCom(SqlSessionTemplate sqlSession, HashMap<String, Object> map) {
 
-		return sqlSession.update("Member.insertCom", map);
-	}
+      return sqlSession.update("Member.insertCom", map);
+   }
 
-	@Override
-	public Member selectCom(SqlSessionTemplate sqlSession, int userCode) {
+   @Override
+   public Member selectCom(SqlSessionTemplate sqlSession, int userCode) {
 
-		return sqlSession.selectOne("Member.selectCom", userCode);
-	}
+      return sqlSession.selectOne("Member.selectCom", userCode);
+   }
 
-	// 썸네일 등록
-	@Override
-	public int insertThumbnail(SqlSessionTemplate sqlSession, Attachment attachment) {
+   // 썸네일 등록
+   @Override
+   public int insertThumbnail(SqlSessionTemplate sqlSession, Attachment attachment) {
 
-		sqlSession.insert("Member.insertThumbnail", attachment);
+      sqlSession.insert("Member.insertThumbnail", attachment);
 
-		int attachCode = attachment.getAttachCode();
-		System.out.println("썸네일" + attachCode);
-		return attachCode;
-	}
+      int attachCode = attachment.getAttachCode();
+      System.out.println("썸네일" + attachCode);
+      return attachCode;
+   }
 
-	// 비밀번호 변경
-	@Override
-	public int updatePwd(SqlSessionTemplate sqlSession, HashMap<String, Object> map) {
+   // 비밀번호 변경
+   @Override
+   public int updatePwd(SqlSessionTemplate sqlSession, HashMap<String, Object> map) {
 
-		return sqlSession.update("Member.updatePwd", map);
-	}
+      return sqlSession.update("Member.updatePwd", map);
+   }
 
-	@Override
-	public Member selectNewLogin(SqlSessionTemplate sqlSession, int userCode) {
+   @Override
+   public Member selectNewLogin(SqlSessionTemplate sqlSession, int userCode) {
 
-		return sqlSession.selectOne("Member.selectNewLogin", userCode);
-	}
+      return sqlSession.selectOne("Member.selectNewLogin", userCode);
+   }
 
-	// 회원탈퇴
-	@Override
-	public int getout(SqlSessionTemplate sqlSession, Member m) {
+   // 회원탈퇴
+   @Override
+   public int getout(SqlSessionTemplate sqlSession, Member m) {
 
-		return sqlSession.delete("Member.getout", m);
-	}
+      return sqlSession.update("Member.getout", m);
+   }
 
-	// 배경 등록
-	@Override
-	public int insertBackImg(SqlSessionTemplate sqlSession, Attachment attachment) {
+   // 배경 등록
+   @Override
+   public int insertBackImg(SqlSessionTemplate sqlSession, Attachment attachment) {
 
-		sqlSession.insert("Member.insertBackImg", attachment);
+      sqlSession.insert("Member.insertBackImg", attachment);
 
-		int attachCode = attachment.getAttachCode();
-		System.out.println(attachCode);
-		return attachCode;
-	}
-	// 배경 조회
-	/*
-	 * @Override public Attachment selectBackImg(SqlSessionTemplate sqlSession, int
-	 * attachCode) {
-	 * 
-	 * return sqlSession.selectOne("Member.selectBackImg", attachCode); }
-	 */
+      int attachCode = attachment.getAttachCode();
+      System.out.println(attachCode);
+      return attachCode;
+   }
+   // 배경 조회
+   /*
+    * @Override public Attachment selectBackImg(SqlSessionTemplate sqlSession, int
+    * attachCode) {
+    * 
+    * return sqlSession.selectOne("Member.selectBackImg", attachCode); }
+    */
 
-	@Override
-	public int verifyMember(SqlSessionTemplate sqlSession, Member member) {
+   @Override
+   public int verifyMember(SqlSessionTemplate sqlSession, Member member) {
 
-		return sqlSession.update("Member.verifyMember", member);
-	}
+      return sqlSession.update("Member.verifyMember", member);
+   }
 
-	// 인증 후 로그인
-	@Override
-	public Member loginverify(SqlSessionTemplate sqlSession, String userEmail) {
+   // 인증 후 로그인
+   @Override
+   public Member loginverify(SqlSessionTemplate sqlSession, String userEmail) {
 
-		return sqlSession.selectOne("Member.loginVerify", userEmail);
-	}
+      return sqlSession.selectOne("Member.loginVerify", userEmail);
+   }
 
-	// 임시비번 필요한 유저
-	@Override
-	public Member userInfo(SqlSessionTemplate sqlSession, String email) {
+   // 임시비번 필요한 유저
+   @Override
+   public Member userInfo(SqlSessionTemplate sqlSession, String email) {
 
-		return sqlSession.selectOne("Member.userInfo", email);
-	}
-	// 임시비번 수정
-	/*
-	 * @Override public int updatetempPwd(SqlSessionTemplate sqlSession, Member me)
-	 * {
-	 * 
-	 * 
-	 * HashMap<String, Object> map = new HashMap<String, Object>();
-	 * map.put("userEmail", userEmail); map.put("userPwd", key);
-	 * System.out.println(map);
-	 * 
-	 * System.out.println(me); return sqlSession.selectOne("Member.revisePwd", me);
-	 * }
-	 */
+      return sqlSession.selectOne("Member.userInfo", email);
+   }
+   // 임시비번 수정
+   /*
+    * @Override public int updatetempPwd(SqlSessionTemplate sqlSession, Member me)
+    * {
+    * 
+    * 
+    * HashMap<String, Object> map = new HashMap<String, Object>();
+    * map.put("userEmail", userEmail); map.put("userPwd", key);
+    * System.out.println(map);
+    * 
+    * System.out.println(me); return sqlSession.selectOne("Member.revisePwd", me);
+    * }
+    */
 
-	@Override
-	public int tempPwd(SqlSessionTemplate sqlSession, Member member) {
+   @Override
+   public int tempPwd(SqlSessionTemplate sqlSession, Member member) {
 
-		return sqlSession.update("Member.tempPwd", member);
-	}
+      return sqlSession.update("Member.tempPwd", member);
+   }
 
 }

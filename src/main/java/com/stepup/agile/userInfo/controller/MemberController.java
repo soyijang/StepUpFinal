@@ -129,17 +129,17 @@ public class MemberController {
       List<TaskHistory> TaskHistory = ms.selectBookmark(map);
       model.addAttribute("TaskHistory", TaskHistory);      
       System.out.println("히스토리 모델"+model);
-		/*
-		 * Attachment attach = ms.selectThumnail(m.getUserCode());
-		 * 
-		 * Attachment backGround = ms.selectAttachment(m.getUserCode());
-		 * 
-		 * HashMap<String, Object> map2 = new HashMap<String, Object>();
-		 * map2.put("attach", attach); map2.put("backGround", backGround);
-		 * 
-		 * model.addAttribute("map2", map2);
-		 */
-		/* System.out.println("모델"+model); */
+      /*
+       * Attachment attach = ms.selectThumnail(m.getUserCode());
+       * 
+       * Attachment backGround = ms.selectAttachment(m.getUserCode());
+       * 
+       * HashMap<String, Object> map2 = new HashMap<String, Object>();
+       * map2.put("attach", attach); map2.put("backGround", backGround);
+       * 
+       * model.addAttribute("map2", map2);
+       */
+      /* System.out.println("모델"+model); */
 
       return "userInfo/myPage/myInfo";
    }
@@ -298,7 +298,7 @@ public class MemberController {
 
       int result = ms.getout(m);
 
-      return "redirect:userInfo/loginOut/login";
+      return "main/main";
    }
    //배경화면 변경
    @RequestMapping("makebackImage.me")
@@ -428,7 +428,7 @@ public class MemberController {
       System.out.println(loginUser);
       model.addAttribute("loginUser", loginUser);
 
-      return "redirect:showProjectMain.pj";
+      return "redirect:loginSecond.me";
    }
 
    @RequestMapping("login.me")

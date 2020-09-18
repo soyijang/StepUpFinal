@@ -148,7 +148,7 @@
 						
 						<!----------------- 설문임시버튼 ---------------->
 						<!-- <form action="surveyReply.sv" method="post"> -->
-						<button type="button" onclick="surveySend();">설문응답발송</button>
+<!-- 						<button type="button" onclick="surveySend();">설문응답발송</button> -->
 						<!-- <input type="hidden" value="2" name="surveyCode"> -->
 						<!-- ----------------------------------- -->
 						

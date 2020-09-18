@@ -1,6 +1,8 @@
 package com.stepup.agile.projectFeedback.controller;
 
-import java.util.HashMap; 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
@@ -16,7 +18,6 @@ import javax.mail.internet.MimeMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -29,7 +30,6 @@ import com.stepup.agile.projectFeedback.model.vo.SurveyChoiceList;
 import com.stepup.agile.projectFeedback.model.vo.SurveyJoinList;
 import com.stepup.agile.projectFeedback.model.vo.SurveyList;
 import com.stepup.agile.projectFeedback.model.vo.SurveyReplyList;
-import com.stepup.agile.userInfo.model.vo.Member;
 
 @SessionAttributes("loginUser")
 @Controller
@@ -107,6 +107,15 @@ public class SurveyReplyController {
 		int port=465; 
 		System.out.println("joinList:" + joinList.getSurveyJoinVOList());
 		for(SurveyJoinList str : joinList.getSurveyJoinVOList()) {
+			
+			InetAddress local;
+			String ip="";
+			try { local = InetAddress.getLocalHost(); 
+				 ip = local.getHostAddress(); 
+				System.out.println("local ip : "+ip);
+			} catch (UnknownHostException e1) { 
+				e1.printStackTrace(); 
+			}
 
 			size++;
 			int result = rs.insertSurveyJoin(str);
@@ -114,7 +123,7 @@ public class SurveyReplyController {
 			//메일발송
 			String recipient = str.getSurveyJoinEmail();
 			String subject = str.getSurveyJoinName() + "님! 스탭업 스프린트 설문을 진행해주세요!";
-			String body = "http://localhost:8002/agile/surveyReply.sv?email=" + str.getSurveyJoinEmail()
+			String body = "http://"+ ip +":8001/agile/surveyReply.sv?email=" + str.getSurveyJoinEmail()
 					+"&surveyCode=" + str.getSurveyCode(); 
 	
 			Properties props = System.getProperties(); 

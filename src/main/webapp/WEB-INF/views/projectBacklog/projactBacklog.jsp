@@ -482,8 +482,8 @@
 											pointAverage += Number(data.sprintTaskList[i].taskHistValue);
 										}
 									}
-									pointAverage = (pointAverage/data.sprintTaskList.length) ;
-									$('.pointAverage').html(Math.ceil(pointAverage)+'pts');
+									/* pointAverage = (pointAverage/data.sprintTaskList.length) ; */
+									$('.pointAverage').html('총' + pointAverage+'pts');
 									
 									//같은 taskCode끼리 묶어서
 									for(var i = 0; i<taskCode.length; i++){
