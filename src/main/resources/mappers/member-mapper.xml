@@ -328,11 +328,11 @@
    <select id="myProjectList" resultMap="myProjectListResultSet" parameterType="Member">
    SELECT P.PROJECT_NAME
      FROM PROJECT_LIST P JOIN USER_PROJECT_LIST L ON(L.PROJECT_CODE = P.PROJECT_CODE)
-     JOIN USER_TEAM_LIST T ON(T.TEAM_CODE = L.USER_TEAM_CODE)
+     JOIN USER_TEAM_LIST T ON(T.USER_TEAM_CODE = L.USER_TEAM_CODE)
       JOIN USER_INFO U ON(U.USER_CODE= T.USER_CODE)
       JOIN TEAM M ON (M.TEAM_CODE = T.TEAM_CODE)
       LEFT JOIN ATTACH_FILE A ON(A.USER_CODE = U.USER_CODE)
-     WHERE U.USER_CODE = 6 AND L.USER_PROJECT_STATUS = 'Y' AND T.USER_TEAM_YN = 'Y' AND M.TEAM_CODE = 2  
+     WHERE U.USER_CODE = 106 AND L.USER_PROJECT_STATUS = 'Y' AND T.USER_TEAM_YN = 'Y' AND M.TEAM_CODE = 105
    </select>
    <!-- 북마크조회 -->
    <select id="selectBookmark" resultMap="selectBookmarkResultSet" parameterType="member">

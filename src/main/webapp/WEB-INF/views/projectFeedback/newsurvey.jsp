@@ -446,8 +446,8 @@ textarea {
 			
 			//입력된 내용가져오기
 			//totData는 객체로 선언, dataList는 Array로 선언
-			var totData2 = new Object();
-			var dataList2 = new Array();
+			var totData3 = new Object();
+			var dataList3 = new Array();
 			
 			//사람별로 data라는 객체에 값을 넣고 각 data객체들을 dataList에 push해줌
 			for(var i=1; i<cnt9+1; i++){
@@ -456,19 +456,19 @@ textarea {
 				data["surveyJoinReply"] = 'N';
 				data["surveyCode"] = $('#surveyCode2').val();
 				data["surveyJoinName"] = $('#userName' + i).val();
-				dataList2.push(data);
+				dataList3.push(data);
 			}
 			
 			//dataList를 voList객체로 다시한번 넣어줌. (totData는 객체로 선언, dataList는 Array로 선언)
-			totData2["surveyJoinVOList"] = dataList2;
-			console.log(totData2);
+			totData3["surveyJoinVOList"] = dataList3;
+			console.log(totData3);
 			//메일발송하기
 		     $.ajax({
 		    	type : 'post',
 				url: "mailSender.sv",
 				contentType:'application/json',
 				dataType: 'json',
-				data : JSON.stringify(totData2),
+				data : JSON.stringify(totData3),
 				success : function(data) {  
 					alert('총 ' + data.size + '명에게 설문지 전송을 성공적으로 완료하였습니다!');
 				},
